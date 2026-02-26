@@ -1,0 +1,9 @@
+# Fix Timetable Import Display Issue
+
+- [x] Investigate root cause of empty timetable after import
+- [/] Write implementation plan
+- [ ] Add `total_slots` count to backend `/week` endpoint
+- [ ] Update frontend to differentiate empty states (no imports vs no classes this week)
+- [ ] Add recess/non-teaching week banner
+- [ ] After import, auto-navigate to nearest teaching week
+- [ ] Verify in browser

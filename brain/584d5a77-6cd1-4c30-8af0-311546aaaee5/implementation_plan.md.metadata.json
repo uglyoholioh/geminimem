@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to fix the timetable import display issue. The root cause is that today (Feb 26, 2026) falls during NUS Recess Week, so slot_occurs_on_date correctly filters all classes out. But the frontend uses the same empty state for 'no imports at all' and 'no classes this week', making it look like the import failed.",
+  "updatedAt":  "2026-02-26T05:36:26.801352Z"
+}

@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary":  "Walkthrough documenting the root cause of the timetable import display issue (Recess Week filtering) and the changes made to fix it in both backend and frontend.",
+  "updatedAt":  "2026-02-26T05:39:31.932407Z"
+}
