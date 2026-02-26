@@ -24,12 +24,16 @@ Currently, the Craft integration conceptually targets the "Daily Note" but doesn
 - Update the UI in Step 4 under Craft to match the settings page, allowing users to configure this during setup.
 - Include these new keys in the `settingsData` object sent to `/settings/bulk`.
 
+### 5. `backend/routers/setup.py`
+- Update `validate-craft` to handle `target_type` and `target_id`.
+- Instead of just checking `/folders`, attempt to push a "Test Connection" block to the selected target to verify write access.
+- Update `CraftWorkspaceValidationRequest` to include `target_type` and `target_id`.
+
 ## Verification Plan
 
 ### Automated Tests
 - Since this relies on an external API (Craft), we'll do manual verification through the browser.
 
 ### Manual Verification
-- We can manually create a mock user and brief in the database or trigger `/api/v1/briefs/generate` (if such endpoint exists) to observe if the correct arguments are constructed and passed to `httpx.AsyncClient().post`.
-- Check that the frontend Setting UI successfully saves the new settings (`craft_target_type` and `craft_target_document_id`) by refreshing the page and checking the network payload.
-- Verify the Onboarding flow sends the new payload properly.
+- Test the "Test Connection" button in both Setup and Settings pages.
+- Verify that a block "✅ CraftCanvas: Connection successful!" appears in the selected Craft target (Daily Note or Specific Doc).

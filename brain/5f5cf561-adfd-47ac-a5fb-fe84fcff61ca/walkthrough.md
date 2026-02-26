@@ -7,10 +7,11 @@ I have updated the Craft integration to allow users to choose between syncing th
 ### 1. Backend Service Updates
 - **[craft_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/craft_sync.py)**: Modified `push_brief_to_craft` to accept `target_type` and `target_id`. It now dynamically constructs the block position based on these settings.
 - **[brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)**: Implemented the logic to fetch Craft settings from the database and trigger the push after brief generation.
+- **[setup.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/setup.py)**: Updated `validate-craft` to perform a write test by pushing a success block.
 
-### 2. Frontend Configuration UI
-- **[settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)**: Added a new section in the Craft tab to select the target type and input a Document ID.
-- **[setup/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/setup/page.tsx)**: Updated the onboarding flow for Power Users to include these same configuration options.
+### 2. Frontend Configuration & Verification UI
+- **[settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)**: Added a new section in the Craft tab to select the target type and input a Document ID, along with a "Test Connection" button.
+- **[setup/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/setup/page.tsx)**: Updated the onboarding flow for Power Users to include these same configuration and testing options.
 
 ## Verification Result
 
