@@ -1,0 +1,70 @@
+# Fix Courses Page Refresh Glitch & Console Errors
+
+The courses page (`/courses`) exhibits a "refresh-like" glitch where UI elements reset periodically, accompanied by CORS errors in the console for `/assignments`, `/materials`, and `/announcements` API calls.
+
+## Root Cause Analysis
+
+Three issues combine to cause this:
+
+1. **Backend middleware ordering**: `RequestIDMiddleware` is added *after* `CORSMiddleware`, making it the outermost middleware in Starlette's stack. If `RequestIDMiddleware` crashes, CORS headers are never added to the response.
+2. **`RequestIDMiddleware` thread-safety**: It uses `logging.setLogRecordFactory()` (global state) inside an async handler, which is unsafe for concurrent requests and can crash intermittently.
+3. **Frontend fetcher sets `Content-Type: application/json` on all requests**: This forces CORS preflight (`OPTIONS`) on every GET request. Simple requests without custom headers would bypass preflight entirely.
+
+The combination means: concurrent SWR requests hit the backend → middleware race condition sometimes crashes → CORS headers missing from response → browser blocks the fetch → SWR retries → UI flickers.
+
+## Proposed Changes
+
+### Backend Middleware
+
+#### [MODIFY] [main.py](file:///Users/oli/Desktop/LMSManager/backend/app/main.py)
+
+Swap middleware order so `CORSMiddleware` is the outermost (added last):
+
+```diff
+-# Configure CORS
+-app.add_middleware(
+-    CORSMiddleware, ...
+-)
+-# Request ID middleware for tracing
+-app.add_middleware(RequestIDMiddleware)
++# Request ID middleware for tracing (added first = innermost)
++app.add_middleware(RequestIDMiddleware)
++# Configure CORS (added last = outermost, always applies headers)
++app.add_middleware(
++    CORSMiddleware, ...
++)
+```
+
+---
+
+#### [MODIFY] [logging.py](file:///Users/oli/Desktop/LMSManager/backend/app/middleware/logging.py)
+
+Replace the unsafe global `setLogRecordFactory()` with a simple `request.state` approach that doesn't mutate global state:
+
+```diff
+-logging.setLogRecordFactory(record_factory)
++# Just store request_id in request.state (already done above)
++# No global state mutation needed
+```
+
+---
+
+### Frontend Fetcher
+
+#### [MODIFY] [index.ts](file:///Users/oli/Desktop/LMSManager/frontend/lib/hooks/index.ts)
+
+Remove `Content-Type: application/json` from the fetcher's GET requests. This header is only needed for requests with a JSON body (POST/PUT), not for GET requests. Removing it converts the request into a "simple" CORS request that doesn't require preflight:
+
+```diff
+-const headers: HeadersInit = {
+-  "Content-Type": "application/json",
+-};
++const headers: HeadersInit = {};
+```
+
+## Verification Plan
+
+### Browser Testing
+1. Navigate to `http://localhost:3000/courses` while logged in
+2. Wait 15+ seconds observing the page
+3. Verify: no CORS errors in the console, no UI flickering, all stats (Tasks, Files, News) populated correctly

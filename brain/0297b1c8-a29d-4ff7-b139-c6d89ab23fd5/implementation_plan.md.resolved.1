@@ -1,0 +1,69 @@
+# Dashboard Refinements & To-Do Feature
+
+## What is "Clear Horizon"?
+The text "Clear Horizon" appears in the [UpNext](file:///Users/oli/Desktop/LMSManager/frontend/components/planner/up-next.tsx#33-134) component ([up-next.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/planner/up-next.tsx)) when there are no upcoming classes or scheduled time blocks for today. It's essentially an empty state message meaning "nothing scheduled ahead."
+
+---
+
+## Proposed Changes
+
+### 1. Dashboard Layout Refinements
+
+#### Font Size Increases
+- Stats labels: `text-sm` → `text-base`
+- Assignment titles: `text-lg` → `text-xl`
+- Announcement titles: `text-lg` → `text-xl`
+- Date/time labels: `text-xs` → `text-sm`
+
+#### Section Reorganization
+1. **Greeting Card** - Keep at top
+2. **Daily Brief** - Expand to prominent position (full width or 8 cols)
+3. **Stats Bar** - Compact horizontal bar (smaller, inline)
+4. **Upcoming Events** - New section showing next 3 classes/events
+5. **Today's Timetable** - Compact timeline view
+6. **Assignments & Announcements** - Side by side below
+
+#### Remove/Replace
+- Remove "Clear Horizon" empty state → Replace with "No upcoming events"
+- Remove extra placeholder sections
+
+---
+
+### 2. New To-Do Feature Design
+
+#### Student Pain Points Solved
+- Quick capture without leaving current context
+- No complex project management overhead
+- Automatic linking to assignments when relevant
+- Minimal clicks to add/complete tasks
+
+#### Core Features
+1. **Quick Add** - Keyboard shortcut (Ctrl+K) or floating action button
+2. **Smart Categories** - Auto-categorize by course or personal
+3. **Due Date Intelligence** - Suggest based on assignment deadlines
+4. **Inline Completion** - Single click to mark done
+5. **Dashboard Widget** - Show top 3-5 tasks
+
+#### Implementation
+- **Backend**: New `todos` table with `user_id`, `title`, `due_date`, `completed`, `category`, `assignment_id` (optional link)
+- **Frontend**: 
+  - New `/todos` page with full list management
+  - Dashboard widget showing pending tasks
+  - Quick-add modal accessible anywhere
+
+---
+
+## Files to Modify/Create
+
+### Dashboard Refinements
+- [MODIFY] [frontend/app/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/page.tsx) - Reorganize layout
+- [MODIFY] [frontend/components/dashboard/today-schedule.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/today-schedule.tsx) - Compact timetable
+- [MODIFY] [frontend/components/planner/up-next.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/planner/up-next.tsx) - Fix empty state
+
+### To-Do Feature
+- [NEW] `backend/app/models/todo.py` - Todo model
+- [NEW] `backend/app/routes/todos.py` - CRUD endpoints
+- [NEW] `frontend/app/todos/page.tsx` - Full todos page
+- [NEW] `frontend/components/todos/todo-widget.tsx` - Dashboard widget
+- [NEW] `frontend/components/todos/quick-add.tsx` - Quick add modal
+- [MODIFY] [frontend/lib/hooks.ts](file:///Users/oli/Desktop/LMSManager/frontend/lib/hooks.ts) - Add useTodos hook

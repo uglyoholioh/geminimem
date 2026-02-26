@@ -1,0 +1,41 @@
+# Walkthrough — Phase 2 Backend Fixes
+
+## What was done
+
+### Code Audit
+Read all 11 documentation files and all existing backend/frontend code. Identified 15 structural issues prioritised P0–P2. Full findings in [implementation_plan.md](file:///Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/implementation_plan.md).
+
+### Changes Made
+
+| # | File | Change |
+|---|---|---|
+| 1 | [requirements.txt](file:///Users/oli/Desktop/CraftCanvas/backend/requirements.txt) | Added `python-dateutil>=2.8.2` |
+| 2 | [ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py) | Complete rewrite — proper timezone handling, RRULE serialization, SUMMARY regex, end_date extraction |
+| 3 | [timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py) | RRULE-based occurrence checking via `python-dateutil`, FullCalendar-compatible response fields |
+| 4 | [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py) | Use `settings.database_url` from config instead of hardcoded path |
+| 5 | [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) | All API routes now require `X-API-Key` auth |
+
+### Key bugs fixed
+
+- **[str(rrule)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#58-91) → `rrule.to_ical().decode("utf-8")`** — old code stored garbage like `vRecur({...})` instead of `FREQ=WEEKLY;UNTIL=...`
+- **Naive datetime handling** — [get_sg_datetime()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py#26-49) now explicitly handles timezone-less datetimes by assuming SGT
+- **[end_date](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py#93-108) computed** — extracted from RRULE `UNTIL` parameter at import time, enabling proper semester boundary filtering
+- **RRULE expansion** — [slot_occurs_on_date()](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py#21-72) uses `dateutil.rrule` to verify a slot actually occurs on a given date
+- **"Sectional Teaching" parsing** — regex now captures multi-word lesson types correctly
+
+## Verification
+
+- ✅ All modified files import without errors
+- ✅ [parse_summary](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py#51-80) regex passes all NUSMods SUMMARY formats:
+  - `CS2103T Lecture [1]` → [(CS2103T, Lecture, 1)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#16-57)
+  - `CS2103T Sectional Teaching [SEC1]` → [(CS2103T, Sectional Teaching, SEC1)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#16-57)
+  - `GEA1000 Lecture [1]` → [(GEA1000, Lecture, 1)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#16-57)
+- ✅ `python-dateutil` already installed in venv
+
+## Next steps
+
+1. **Test with real ICS file** — import a NUSMods `.ics` export and verify with the curl commands in the implementation plan's Phase 3 Readiness Check section
+2. **Start Phase 4 (Dashboard)** — frontend restructure per [DESIGN_SYSTEM.md](file:///Users/oli/Desktop/CraftCanvas/DESIGN_SYSTEM.md)
+
+> [!NOTE]
+> Phase 3 (Task Management) backend is already built. Verify it works with the curl commands in the plan before building UI.

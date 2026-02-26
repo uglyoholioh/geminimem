@@ -1,0 +1,15 @@
+# Timetable & NUSMods API Integration
+
+## Phase 1: API Client & Week Array Logic (Current)
+- [x] Create `backend/services/nusmods.py` to fetch from `api.nusmods.com`
+- [x] Add `weeks` array column to `TimetableSlot` model
+- [x] Update `/import` endpoint to fetch NUSMods data and extract accurate `weeks` array
+- [x] Modify `slot_occurs_on_date` to use the explicit `weeks` array + academic week mapping
+
+## Phase 2: Share Link Import
+- [x] Add `POST /api/v1/timetable/import-url` endpoint to parse NUSMods Share URLs
+- [x] Add UI input in `frontend/app/timetable/page.tsx` for Share URLs
+
+## Phase 3: Exams & Rich Data
+- [x] Add rich data fields (`credits`, `description`, `exam_date`, `workload`) to `Course` model
+- [x] Update `frontend/app/courses/[id]/page.tsx` to display rich data

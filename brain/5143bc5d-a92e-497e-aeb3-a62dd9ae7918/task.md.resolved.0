@@ -1,0 +1,6 @@
+# Task Checklist
+
+- [ ] Investigate ICS import logic in [backend/app/routes/timetable.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/timetable.py)
+- [ ] Determine how `user_id` is being handled (or missed)
+- [ ] Implement fix to ensure `user_id` is correctly associated with imported class schedules
+- [ ] Verify the fix

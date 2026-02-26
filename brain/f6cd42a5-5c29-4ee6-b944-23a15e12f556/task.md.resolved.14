@@ -1,0 +1,79 @@
+# Academic Life OS — Opus Planning Session
+
+## Deliverables
+
+- [x] Read all documentation files
+- [x] Read all existing backend and frontend code
+- [x] Code audit + structural issues list
+- [x] Phase 2 Fix Plan (ICS parser, timetable router, frontend)
+- [x] Revised BUILD_PLAN.md
+- [x] Phase 3 readiness check
+- [x] Frontend architecture review
+
+## Implementation
+
+- [x] Fix [requirements.txt](file:///Users/oli/Desktop/CraftCanvas/backend/requirements.txt) — add python-dateutil
+- [x] Fix [backend/services/ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py) — timezone, RRULE, summary parsing
+- [x] Fix [backend/routers/timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py) — RRULE expansion, FullCalendar format
+- [x] Fix [backend/database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py) — use config for DB URL
+- [x] Fix [backend/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) — wire API key auth globally
+
+## Frontend Implementation
+
+- [x] [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css) — CSS variables, fonts, design tokens
+- [x] [tailwind.config.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/tailwind.config.ts) — extend colours/fonts from variables
+- [x] [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx) — root layout with sidebar, theme provider, fonts
+- [x] Sidebar component
+- [x] Theme toggle (light/dark)
+- [x] API proxy route
+- [x] Dashboard page (3-column)
+- [x] Tasks page
+- [x] Timetable page
+
+## Phase 5 — Daily Brief + Scheduled Jobs
+
+- [x] AI service routing (local/external LLM)
+- [x] Brief generator service
+- [x] Brief router (today, history, regenerate)
+- [x] APScheduler (daily brief + canvas sync)
+- [x] Brief card in dashboard
+- [x] Verification
+
+## Task System Upgrade
+
+- [x] Fix SGT timestamps in Task model + router
+- [x] Rebuild tasks page with sidebar views
+- [x] Build task detail slide-out panel
+- [x] Manual input for module code, date, priority, tags, notes
+- [x] Assignment → task auto-creation toggle
+
+## Auth & Settings System
+
+- [x] Backend: User model + bcrypt hashing
+- [x] Backend: Auth router (register/login/logout/me)
+- [x] Backend: Session-based dependency + update main.py
+- [x] Backend: Bulk settings endpoint
+- [x] Frontend: AuthProvider context
+- [x] Frontend: Login page (glassmorphic)
+- [x] Frontend: Settings page rebuild (tabbed, save button)
+- [x] Frontend: Sidebar user avatar + logout
+- [x] Verification
+
+## Assignments, History & Module Detail Pages
+
+- [/] Assignments page (sidebar filters + list + detail panel)
+- [ ] Brief History page (timeline + content viewer)
+- [ ] Module Detail page (tabbed hub)
+- [ ] Backend: Fix assignments router (JSON body), enhance courses router
+- [ ] Verification
+
+## Phase 7: Multi-User Architecture Upgrade
+
+- [x] Backend: Add `user_id` to all models + composite unique constraints
+- [x] Backend: Add [api_key](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#12-26) to User model
+- [x] Backend: Refactor `verify_auth` to return [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-44)
+- [x] Backend: Update all routers to scope queries by `user_id`
+- [x] Backend: Refactor Auth router (allow multi-registration)
+- [x] Backend: Update background jobs to loop over users
+- [ ] DB: Wipe `data/db.sqlite` and restart
+- [ ] Verification (Data Isolation Test)

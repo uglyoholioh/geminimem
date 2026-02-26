@@ -1,0 +1,133 @@
+# Phase 12: Activity & Meeting Finder
+
+We are building a when2meet-style meeting and activity availability finder, inspired by the LMSManager project. This tool will allow users to create shareable meeting pages where participants (even unauthenticated ones) can paint their availability on a grid, and the application will compute and overlay the heatmaps.
+
+## User Review Required
+
+> [!WARNING]
+> Since participants can be anyone with the link, we will need to create public-facing GET and POST endpoints that bypass the standard JWT/Cookie auth dependency and rely purely on the embedded `share_token`. Are you happy to proceed with this shareable model?
+
+## Proposed Changes
+
+### Database Models
+
+#### [NEW] [backend/models/meeting.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/meeting.py)
+Create the core schema for meetings and participants:
+```python
+class Meeting(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id") # The creator
+    title: str
+    share_token: str = Field(unique=True, index=True) # e.g. a secure random uuid string
+    date_range_start: date
+    date_range_end: date
+    time_range_start: int # e.g. 9 for 09:00
+    time_range_end: int # e.g. 17 for 17:00
+
+class MeetingParticipant(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    meeting_id: int = Field(foreign_key="meetings.id")
+    name: str # The participant's display name
+    availability: str # JSON stringified array of slots [{"dayOfWeek": 1, "startHour": 9, "endHour": 17, "isAvailable": true}]
+```
+
+### Backend API
+
+#### [NEW] [backend/routers/meetings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/meetings.py)
+Create the routing layer:
+- `POST /api/v1/meetings/`: Require auth, create a new Meeting for the user.
+- `GET /api/v1/meetings/`: Require auth, list user's meetings.
+- `GET /api/v1/meetings/shared/{token}`: Public access, fetch meeting details and all participants by token.
+- `POST /api/v1/meetings/shared/{token}/participants`: Public access, create or update a participant's availability.
+
+### Frontend Application
+
+#### [NEW] [frontend/app/meetings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/meetings/page.tsx)
+An authenticated hub page replicating the aesthetic of `/tasks` and `/assignments`, where the user can view the meetings they've created and generate new meeting links via a modal.
+
+#### [NEW] [frontend/app/meetings/[token]/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/meetings/%5Btoken%5D/page.tsx)
+A public-facing route completely bypassing the `<AuthProvider>` lock.
+- Will display the Meeting Title.
+- **Login Panel**: Ask the user for their name (or detect if they are logged in and prefill).
+- **Availability Grid**: A complex interactive heatmap. Users click and drag over hour blocks to toggle their personal availability.
+- **Group Overlay**: The grid acts as a composite heatmap showing fractional availability across all participants (e.g., 3/4 available renders as light green, 4/4 renders as dark green).
+
+#### [NEW] [frontend/components/meetings/AvailabilityGrid.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/meetings/AvailabilityGrid.tsx)
+A highly interactive React component utilizing pointer events to support drag-to-paint across an X (Days) / Y (Hours) CSS grid.
+
+## Verification Plan
+
+### Automated/Subagent Verification
+- Database schema migration applies successfully without dropping unrelated tables.
+- Browser subagent creates a Meeting as an authenticated user.
+- Subagent navigates privately to the `/[token]` route.
+- Subagent inputs a mock name and submits availability payload.
+- Verify heatmap renders correctly with the newly posted availability JSON.
+
+---
+
+# Phase 13: Advanced Meeting Features
+
+We will align the Activity Finder with LMS Manager's advanced features, including the ability for the owner to edit settings, lock availability, and participants to propose/vote on meeting times.
+
+## User Review Required
+
+> [!WARNING]
+> We will add `Decision Mode` (Voting vs Selection) and `isLocked`. We'll also allow users to propose final meeting times. Because the public participants are anonymous (only tracked by display name locally), anyone can add proposals. Are you okay with that simple trust model?
+
+## Proposed Changes
+
+### Database Models
+#### [MODIFY] [backend/models/meeting.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/meeting.py)
+Add settings to the [Meeting](file:///Users/oli/Desktop/CraftCanvas/backend/models/meeting.py#16-34) model:
+- `is_locked`: bool = False
+- `decision_mode`: str = "selection" (or "voting")
+
+#### [NEW] [MeetingProposal](file:///Users/oli/Desktop/LMSManager/frontend/lib/meeting-finder-types.ts#24-36) and `MeetingVote` (in [backend/models/meeting.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/meeting.py))
+```python
+class MeetingProposal(SQLModel, table=True):
+    __tablename__ = "meeting_proposals"
+    id: Optional[int] = Field(default=None, primary_key=True)
+    meeting_id: int = Field(foreign_key="meetings.id", index=True)
+    participant_id: int = Field(foreign_key="meeting_participants.id")
+    day_of_week: int
+    start_hour: int
+    duration: int
+    note: Optional[str] = None
+    created_at: datetime = Field(default_factory=_now_sg)
+
+class MeetingVote(SQLModel, table=True):
+    __tablename__ = "meeting_votes"
+    id: Optional[int] = Field(default=None, primary_key=True)
+    proposal_id: int = Field(foreign_key="meeting_proposals.id", index=True)
+    participant_id: int = Field(foreign_key="meeting_participants.id")
+```
+
+### Backend API
+#### [MODIFY] [backend/routers/meetings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/meetings.py)
+- Modify `GET /api/v1/meetings/shared/{token}` to return a flag `is_owner: true` if the requesting user's session matches the meeting's `user_id`. Also return all `proposals` and `votes`.
+- `PUT /api/v1/meetings/{meeting_id}`: Owner-only endpoint to update settings (title, dates, times, is_locked, decision_mode).
+- `POST /api/v1/meetings/{meeting_id}/proposals`: Public endpoint (participant submits a proposal).
+- `DELETE /api/v1/meetings/{meeting_id}/proposals/{proposal_id}`: Delete a proposal (author or owner).
+- `POST /api/v1/meetings/{meeting_id}/proposals/{proposal_id}/vote`: Public endpoint to toggle vote on a proposal.
+
+### Frontend Application
+#### [MODIFY] [frontend/lib/meeting-finder-types.ts](file:///Users/oli/Desktop/LMSManager/frontend/lib/meeting-finder-types.ts)
+Include [MeetingProposal](file:///Users/oli/Desktop/LMSManager/frontend/lib/meeting-finder-types.ts#24-36), [MeetingSettings](file:///Users/oli/Desktop/LMSManager/frontend/lib/meeting-finder-types.ts#38-49), and Vote interfaces matching the backend updates.
+
+#### [MODIFY] [frontend/app/meetings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/meetings/page.tsx)
+Make the meeting cards clickable, wrapping them in an `<a href="/meetings/[token]">` tag, so owners can click directly into the meeting environment to manage it.
+
+#### [MODIFY] [frontend/app/meetings/[token]/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/meetings/%5Btoken%5D/page.tsx)
+- **Owner Controls**: If `is_owner` is true, render a "Settings" button. This triggers a Settings Modal to modify [Meeting](file:///Users/oli/Desktop/CraftCanvas/backend/models/meeting.py#16-34) fields (lock, toggle voting).
+- **Read-Only Mode**: If `is_locked` is true, the [AvailabilityGrid](file:///Users/oli/Desktop/CraftCanvas/frontend/components/meetings/AvailabilityGrid.tsx#43-220) becomes read-only and ignores user clicks.
+- **Proposals Sidebar**: Render the list of proposals. If `decision_mode == "voting"`, allow participants to click to vote on a proposal. 
+
+## Verification Plan
+
+### Automated Tests
+- Create a meeting as test user a.
+- Visit `/[token]` and see that "Settings" is available (since `is_owner` is true).
+- Use Settings to lock the meeting.
+- Create a mock participant and try to submit availability, verifying it is rejected or the UI is read-only.
+- Add a meeting proposal and cast a vote.

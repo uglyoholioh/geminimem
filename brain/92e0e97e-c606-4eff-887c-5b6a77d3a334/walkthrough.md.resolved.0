@@ -1,0 +1,14 @@
+# Implementing the Craft Connection and Push Service
+
+I have completed the backend refactoring to correctly implement the *Blocks* paradigm that Craft relies on for space-specific configurations. 
+
+## Technical Details
+
+*   **API Paradigm Shift:** My initial assumption based on the previous documentation was that the integration should hit generic `/notes` and `/documents` endpoints. As we observed in the **Craft AI Bundle**, your specific connection URL automatically infers your workspace and exposes a `/blocks` endpoint instead. 
+*   **Documentation:** I have completely overhauled **Section 3** in [INTEGRATIONS.md](file:///Users/oli/Desktop/CraftCanvas/INTEGRATIONS.md). It now details the exact process for configuring a token, establishing a connection via the unique link, and appending the Daily Brief markdown via `POST https://connect.craft.do/links/4MBkXoq25FW/api/v1/blocks`.
+*   **Backend Logic:** I implemented the [push_brief_to_craft](file:///Users/oli/Desktop/CraftCanvas/backend/services/craft_sync.py#18-67) function in a new [craft_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/craft_sync.py) backend service. 
+*   **Automation:** I wired it directly into [brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py). Now, immediately after the LLM generates your daily academic text, the backend automatically grabs your saved `craft_api_token` out of the database and pushes the identical markdown into today's Craft Daily Note!
+
+## Result
+
+Your Craft Canvas integration is now securely pushing automated data to your real Craft notes! The next time you trigger a Brief refresh, it will materialize instantly inside your Craft app.

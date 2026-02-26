@@ -1,0 +1,88 @@
+# Tasks Page Revamp — Manual Entry, Filtering, Multiple Views & Timetable Integration
+
+Revamp the tasks page to be manual-entry by default, removing the NLP parsing path. Add an inline creation textbox at the top of the task list with easy tagging, full filtering, and multiple aesthetic views. Link tasks to the timetable with a user toggle.
+
+## Proposed Changes
+
+### Backend — Task Router Simplification
+
+#### [MODIFY] [tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py)
+- Remove `raw_text` field from [TaskCreate](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#24-40) and all NLP parsing logic (`parse_task_nl`, `match_module_to_course`)
+- Remove `from services.task_parser import ...` import
+- Add `course_code` field to [TaskCreate](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#24-40)/[TaskUpdate](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#42-56) (currently uses `course_id` but the model stores `course_code`)
+- Fix task creation to directly map `course_code` instead of going through `course_id` → lookup
+
+---
+
+#### [MODIFY] [task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py)
+- Remove duplicate `course_code` field (lines 26 and 42 both define it)
+- Remove `course_id`-based fields since the model uses `course_code` for linking
+
+---
+
+### Frontend — Tasks Page Rewrite
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx)
+Full rewrite of the 952-line page. Key changes:
+
+**Inline Task Creation** (replaces the modal):
+- Persistent textbox at top of the task list area — type title, press Enter to add
+- Below the textbox: quick-tag row with clickable pills for module, priority, due date, and custom tags
+- Module picker shows user's enrolled courses as coloured pills
+- Priority selector as 4 small dots/buttons (low/medium/high/urgent)
+- Due date via a small inline date picker
+- Tags via a comma-separated text chip input
+
+**Sidebar Filters** (replaces minimal view switcher):
+- Keep the existing view categories: Inbox, Today, Upcoming, By Module, Completed
+- Add filter section below: checkboxes/pills for priority filtering, module filtering, date range
+- Active filters displayed as dismissible chips
+
+**Views** (in main content area toggle):
+- **List** — existing flat/grouped list (keep & polish)
+- **Kanban** — keep existing [KanbanBoard](file:///Users/oli/Desktop/CraftCanvas/frontend/components/tasks/KanbanBoard.tsx#98-224) component
+- **Calendar** — keep existing [CalendarView](file:///Users/oli/Desktop/CraftCanvas/frontend/components/tasks/CalendarView.tsx#6-80) component  
+- **Timeline** — new view: tasks grouped by date with a vertical timeline aesthetic
+
+**Detail Panel** — keep the existing right-panel editor with all fields
+
+---
+
+#### [MODIFY] [KanbanBoard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/tasks/KanbanBoard.tsx)
+- Minor cleanup — no major changes needed, component already works well
+
+---
+
+### Timetable Integration
+
+#### [MODIFY] [timetable page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+- Add a "Show Tasks" toggle button in the timetable header (alongside view toggle and import button)
+- When enabled, fetch tasks with due dates falling in the current week
+- Render task deadlines as small markers/blocks on the timetable grid (distinct from class slots)
+- Style: urgency-coloured accent strip with task title, positioned at the appropriate time or as all-day markers for tasks without a `due_time`
+
+---
+
+## Verification Plan
+
+### Browser Testing
+
+No existing test suite found. Verification will be done via browser testing:
+
+1. **Start the dev servers**:
+   ```bash
+   cd /Users/oli/Desktop/CraftCanvas/backend && source .venv/bin/activate && python main.py
+   cd /Users/oli/Desktop/CraftCanvas/frontend && npm run dev
+   ```
+
+2. **Task creation flow**: Navigate to `/tasks`, type a task title in the inline textbox, set a module tag, priority, and due date, then press Enter. Verify the task appears in the list.
+
+3. **Filtering**: Use sidebar filters to filter by priority and module. Verify list updates correctly.
+
+4. **Task update**: Click a task to open the detail panel, change priority and due date, verify changes persist after refresh.
+
+5. **View switching**: Toggle between List, Kanban, Calendar, and Timeline views. Verify all show the correct tasks.
+
+6. **Task deletion**: Delete a task from the detail panel, verify it's removed.
+
+7. **Timetable toggle**: Navigate to `/timetable`, toggle "Show Tasks" on, verify tasks with due dates appear on the grid.

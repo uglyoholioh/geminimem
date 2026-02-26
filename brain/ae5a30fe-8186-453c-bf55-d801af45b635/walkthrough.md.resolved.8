@@ -1,0 +1,28 @@
+# Emergency Fix: Core Functionality & GLM API Restored
+
+I have restored the core backend functionality and fixed the GLM API 404 errors.
+
+## Changes Made
+
+### 1. GLM API 404 Fix
+- **Corrected Endpoints**: Replaced the incorrect `v1` endpoints with the correct `/api/paas/v4/chat/completions` path in both [ai_assistant.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/ai_assistant.py) and [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py).
+- **Verified Connectivity**: Confirmed via the settings page that the system no longer returns a 404 error. It now correctly communicates with the Zhipu AI servers.
+
+### 2. Backend Restoration
+- **Fixed NameErrors**: Restored missing `router` definition, utility functions, and imports in [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py).
+- **Improved Stability**: Added 20s timeouts and fail-safe logic for AI generation.
+
+## Verification Results
+
+### GLM API Fix Verification
+![GLM API Fix Verification](/Users/oli/.gemini/antigravity/brain/ae5a30fe-8186-453c-bf55-d801af45b635/verify_glm_fix_1770133212046.webp)
+
+> [!TIP]
+> Testing with an invalid key now correctly returns a "401: Unauthorized" error instead of a "404: Not Found" page, confirming the URL is correct.
+
+> [!NOTE]
+> The AI task generation may still occasionally return "No tasks" if the external GLM API is experiencing high latency, but this no longer crashes or hangs the application.
+
+### Backend Health
+- `/health`: `{"status": "healthy"}`
+- `/brief?include_ai=false`: Valid data returned in < 1s.

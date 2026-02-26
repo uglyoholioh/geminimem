@@ -1,0 +1,94 @@
+# Dashboard Refinements & To-Do Feature
+
+## What Was Done
+
+### 1. New To-Do Task Tracking Feature
+A complete task management system was created with minimal-friction design for students:
+
+**Backend:**
+- [todo.py](file:///Users/oli/Desktop/LMSManager/backend/app/models/todo.py) - Todo model with priority, categories, due dates, and optional assignment linking
+- [todos.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/todos.py) - Full CRUD API with toggle endpoint for quick completion
+
+**Frontend:**
+- [todo-widget.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/todos/todo-widget.tsx) - Dashboard widget with quick-add and single-click completion
+- [todos page](file:///Users/oli/Desktop/LMSManager/frontend/app/todos/page.tsx) - Full task management page with filtering, stats, and modal creation
+
+**Features:**
+- Quick-add with inline form
+- Priority levels (High/Medium/Low) with color coding
+- Optional due dates and categories
+- Single-click toggle completion (optimistic updates)
+- Dashboard shows top 5 pending tasks
+
+---
+
+### 2. Dashboard Layout Redesign
+
+**Key Changes:**
+1. **Daily Brief** - Now prominent, full-width at top
+2. **Compact Stats** - Smaller overview panel (Courses, Due Soon, Announcements, Urgent)
+3. **Upcoming Events** - New section showing next classes/events for today
+4. **Today's Schedule** - Compact timetable view
+5. **Tasks Widget** - New section showing pending todos
+6. **Removed "Clear Horizon"** - Replaced with "No upcoming events"
+
+**Layout Flow:**
+```
+┌─────────────────────────────────────────┐
+│           Greeting Card                  │
+├─────────────────────────────────────────┤
+│           Daily Brief (Full Width)       │
+├──────────────┬──────────────┬───────────┤
+│   Overview   │   Upcoming   │  Today's  │
+│   Stats      │   Events     │  Schedule │
+├──────────────┼──────────────┼───────────┤
+│    Tasks     │  Assignments │Announce-  │
+│   Widget     │              │  ments    │
+├─────────────────────────────────────────┤
+│           Action Buttons                 │
+└─────────────────────────────────────────┘
+```
+
+---
+
+### 3. Font Size Improvements
+- Increased all text sizes from `text-[9px]`/`text-[10px]` to `text-sm`/`text-base`
+- Headers now use `text-xl` instead of `text-lg`
+- Empty state messages use `text-base`
+
+---
+
+## Files Modified/Created
+
+| File | Change |
+|------|--------|
+| [backend/app/models/todo.py](file:///Users/oli/Desktop/LMSManager/backend/app/models/todo.py) | NEW - Todo model |
+| [backend/app/routes/todos.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/todos.py) | NEW - Todo API routes |
+| [backend/app/models/__init__.py](file:///Users/oli/Desktop/LMSManager/backend/app/models/__init__.py) | Added Todo export |
+| [backend/app/models/user.py](file:///Users/oli/Desktop/LMSManager/backend/app/models/user.py) | Added todos relationship |
+| [backend/app/main.py](file:///Users/oli/Desktop/LMSManager/backend/app/main.py) | Registered todos router |
+| [frontend/types/canvas.ts](file:///Users/oli/Desktop/LMSManager/frontend/types/canvas.ts) | Added Todo types |
+| [frontend/lib/api.ts](file:///Users/oli/Desktop/LMSManager/frontend/lib/api.ts) | Added todosAPI client |
+| [frontend/lib/hooks.ts](file:///Users/oli/Desktop/LMSManager/frontend/lib/hooks.ts) | Added useTodos hook, fixed lint errors |
+| [frontend/components/todos/todo-widget.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/todos/todo-widget.tsx) | NEW - Dashboard widget |
+| [frontend/app/todos/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/todos/page.tsx) | NEW - Full todos page |
+| [frontend/app/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/page.tsx) | New dashboard layout |
+| [frontend/components/planner/up-next.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/planner/up-next.tsx) | Removed "Clear Horizon" |
+
+---
+
+## How to Use
+
+### Creating a Task
+1. Click the **+** button in the Tasks widget on the dashboard, OR
+2. Go to `/todos` and click **New Task**
+3. Enter title, optionally set priority and due date
+4. Click **Create Task**
+
+### Completing a Task
+- Click the circle icon next to any task to toggle completion
+- Tasks completed are immediately updated (optimistic UI)
+
+### Viewing All Tasks
+- Click **All Tasks** in the bottom action bar, OR
+- Navigate to `/todos` directly

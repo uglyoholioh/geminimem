@@ -1,0 +1,39 @@
+# Timetable Redesign — Walkthrough
+
+## Changes Made
+
+### Backend ([timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py))
+- Added [get_academic_week_info()](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py#210-282) helper with hardcoded NUS semester start dates (Sem 2 AY25/26 = 13 Jan 2026)
+- New `GET /academic-week` endpoint returns current week label, semester, and academic year
+- `GET /week` response now includes [academic_week](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py#284-303) object alongside slots
+
+### Frontend ([page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx))
+Full rewrite from CSS grid → **table-based layout** matching LMS Manager style:
+- `rowSpan` for multi-hour blocks
+- Desaturated HSL backgrounds with coloured left border accent
+- Class type shortform badges (`LEC`, `TUT`, `LAB`, `REC`)
+- Academic week header with semester/AY info
+- Module legend panel at bottom
+
+## Result
+
+### Horizontal View (Default - Days on Y-axis)
+![Horizontal Timetable View with full width mode](/Users/oli/.gemini/antigravity/brain/765272f1-cfe4-4de3-8482-1296357be480/timetable_horizontal_view_1772008814656.png)
+
+### Vertical View (Days on X-axis)
+![Vertical Timetable View](/Users/oli/.gemini/antigravity/brain/765272f1-cfe4-4de3-8482-1296357be480/timetable_vertical_view_1772008823605.png)
+
+### Video Walkthrough
+<video controls src="/Users/oli/.gemini/antigravity/brain/765272f1-cfe4-4de3-8482-1296357be480/timetable_horizontal_1772008808315.webp"></video>
+
+## Verified
+- ✅ Horizontal view is default (Days on Y, Times on X)
+- ✅ Seamless view toggling via header icons
+- ✅ Removed max-width restriction for a full-screen grid
+- ✅ Correct spanning calculation for horizontal (`colSpan`) vs vertical (`rowSpan`)
+- ✅ Academic week auto-detected as **Week 6** for Feb 25, 2026 (Sem 2 AY2025-2026)
+- ✅ Grid renders with all imported modules (BT1101, CS2030, GEX1015, MA1522, GESS1025)
+- ✅ Week navigation (prev/today/next) works correctly
+- ✅ Module legend displays at bottom
+- ✅ Today's column highlighted
+- ✅ Light/dark mode compatible via CSS variables

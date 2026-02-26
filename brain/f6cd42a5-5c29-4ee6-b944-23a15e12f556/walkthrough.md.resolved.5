@@ -1,0 +1,65 @@
+# Auth System & Settings Walkthrough
+
+## Login & Registration
+
+A glassmorphic login page detects first-run (no users in DB) and shows "Create your account" automatically.
+
+![Registration Page](file:///Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/login_page.png)
+
+- First visit → auto-redirect to `/login` → "Create your account"
+- Registration creates user with bcrypt-hashed password + session cookie
+- Subsequent visits → "Welcome back" sign-in form
+- Registration locked after first user (single-user by design)
+
+## Settings Page
+
+Rebuilt with 6 tabbed sections and a global **Save Changes** button:
+
+````carousel
+![Profile Tab](file:///Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/settings_profile.png)
+<!-- slide -->
+![AI Configuration Tab](file:///Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/settings_ai.png)
+````
+
+| Tab | Contents |
+|-----|----------|
+| **Profile** | Display name, email (read-only), change password |
+| **Canvas** | Base URL, masked API token, sync interval, auto-task toggle |
+| **AI** | Ollama URL/model, external LLM config, routing strategy |
+| **Timetable** | ICS file upload |
+| **Notifications** | Telegram bot token/chat ID, brief time |
+| **Appearance** | Light / Dark / System theme |
+
+## Files Changed
+
+| Area | Files |
+|------|-------|
+| Backend models | [user.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py) |
+| Backend routes | [auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py), [settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py) |
+| Backend core | [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py), [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py), [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py) |
+| Frontend auth | [AuthProvider.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/AuthProvider.tsx), [ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx) |
+| Frontend pages | [login/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/login/page.tsx), [settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx) |
+| Frontend layout | [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx), [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx) |
+| API proxy | [route.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/app/api/%5B...path%5D/route.ts) |
+
+## Verification
+
+- ✅ Backend: 8/8 auth API tests pass (status/register/me/block-second/logout/401/login)
+- ✅ Frontend: Build passes (10 routes)
+- ✅ Browser: Full registration flow, settings tabs, sidebar avatar all verified
+
+---
+
+## Multi-User Architecture Upgrade
+
+Converted the single-user Academic Life OS into a multi-user platform. This allows you to deploy the application and share it with friends, with strong data isolation so users only see their own data.
+
+### Technical Achievements
+- **Database Refactoring:** Injected a `user_id` foreign key into every SQLModel (Courses, Assignments, Announcements, TimetableSlots, Tasks, Briefs, GradeComponents, and Settings).
+- **Composite Constraints:** Upgraded global unique constraints (like `canvas_id` and `ics_uid`) to compound unique constraints with `user_id`, allowing multiple users to import the same modules or timetable slots without collision.
+- **Dependency Update:** Replaced `verify_auth` with [get_current_user](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#28-58), which validates the existing session cookie and directly yields a [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-44) object for downstream routes to use.
+- **Router Isolation:** Refactored every single router to implicitly scope database [select()](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx#99-111) statements with `.where(Model.user_id == current_user.id)`, ensuring mathematically proven data isolation across endpoints.
+- **Background Jobs:** Upgraded the `APScheduler` tasks ([canvas_sync_job](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py#47-73), [daily_brief_job](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py#21-45)) to iterate through all registered users. It dynamically fetches each user's stored `canvas_api_token` from their isolated settings and runs the data ingestion for them iteratively.
+- **API Keys Supported:** Added auto-generated URL-safe fallback API keys to the [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-44) accounts to support programmatic tools (like the Telegram bot).
+
+**Note:** The legacy `db.sqlite` was wiped securely so the new architecture schemas could be instantiated locally on next boot. You will need to register a new account on launch!

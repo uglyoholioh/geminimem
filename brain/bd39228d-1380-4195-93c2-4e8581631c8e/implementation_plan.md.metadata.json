@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to add NUSmods timetable import functionality to the planner page, including ICS file upload and NUSmods URL parsing with class selection modal.",
+  "updatedAt": "2026-02-03T05:55:51.854802Z"
+}

@@ -1,0 +1,69 @@
+# Multi-User Architecture Upgrade
+
+> **Purpose**: Convert Academic Life OS from a single-user personal tool into a multi-user platform so it can be shared with friends.
+
+This is a sweeping architectural change requiring updates to every data model and API endpoint to ensure data isolation.
+
+## 1. Database Schema Changes
+
+Every piece of user data must be explicitly linked to a [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#16-39) account. We must add `user_id` as a foreign key to all models and update unique constraints to be compound with `user_id`.
+
+**User Model**:
+- Add `api_key: str` (auto-generated using `secrets.token_urlsafe(32)`) to allow third-party integrations (like the scheduled Canvas sync or Telegram bot) to authenticate as a specific user.
+
+**Data Models**:
+- **Course**: Add `user_id`. Change `canvas_id` from global unique to `UniqueConstraint("canvas_id", "user_id")`.
+- **Assignment**: Add `user_id`. Change `canvas_id` to `UniqueConstraint("canvas_id", "user_id")`.
+- **Announcement**: Add `user_id`. Change `canvas_id` to `UniqueConstraint("canvas_id", "user_id")`.
+- **TimetableSlot**: Add `user_id`. Change `ics_uid` constraint.
+- **GradeComponent / GradeEntry**: Add `user_id`.
+- **Brief**: Add `user_id`. Change [date](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py#186-223) constraint to `UniqueConstraint("date", "user_id")`.
+- **Task**: Add `user_id`.
+- **Settings**: Add `user_id`. Change [key](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#11-25) constraint to `UniqueConstraint("key", "user_id")`.
+
+Because we are using SQLModel without Alembic, the existing `db.sqlite` will need to be deleted so [init_db()](file:///Users/oli/Desktop/CraftCanvas/backend/database.py#15-33) can recreate the tables with the new schema.
+
+## 2. Authentication & Dependencies
+
+Currently, [verify_auth](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#27-52) returns a boolean. It must be upgraded to return the authenticated [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#16-39) object.
+
+- Rename [verify_auth](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#27-52) to [get_current_user(..., session: Session = Depends(get_session)) -> User](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py#44-63).
+- Check session cookie: lookup `_sessions[token]`, query [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#16-39) by ID.
+- Check API key: query [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#16-39) by [api_key](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#11-25).
+- In [routers/auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py), remove the restriction that prevents registration if users already exist.
+
+## 3. Router Data Isolation
+
+Every protected router must be updated to receive `current_user: User = Depends(get_current_user)`.
+
+For all [select(...)](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx#99-111) queries, append `.where(Model.user_id == current_user.id)`.
+For all `insert(...)` or model creations, explicitly set `model.user_id = current_user.id`.
+
+**Impacted Routers**:
+- [assignments.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/assignments.py)
+- [announcements.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/announcements.py)
+- [brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/brief.py)
+- [courses.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py)
+- `grades.py` (assuming it exists or will exist)
+- [settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/settings.py)
+- [tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py)
+- [timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/timetable.py)
+- [sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/sync.py) (Canvas sync will need to run per-user, using the specific user's Canvas token from Settings)
+
+## 4. Frontend Impact
+
+The frontend impact is minimal because it already uses a session cookie which is correctly proxied by Next.js to the backend.
+- The `user_status` and registration logic on the frontend handles multiple users natively (it just calls `/api/v1/auth/register` without expecting a block).
+- All requests will naturally be scoped to the logged-in user thanks to the backend enforcing the cookie.
+
+## 5. Background Jobs (Scheduler)
+
+The scheduled tasks (Canvas auto-sync, brief generation, Telegram notifications) currently run globally. They will need to be refactored to iterate through all active [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#16-39) objects in the database and run the jobs for each user using that user's specific settings (e.g., retrieving `canvas_api_token` where `user_id = X`).
+
+---
+
+### Verification Plan
+1. Delete `data/db.sqlite` and restart backend to generate new schema.
+2. Register User A (`Alice`) and User B (`Bob`).
+3. User A creates a Task "Alice Task". User B logs in on another browser (or incognito) and verifies they do not see "Alice Task".
+4. User A uploads a timetable; verify it only shows for User A.

@@ -1,0 +1,1074 @@
+# Fix: Courses Page Refresh Glitch & CORS Errors
+
+## Problem
+The [/courses](file:///Users/oli/Desktop/LMSManager/frontend/app/courses) page showed a "refresh-like" glitch with console CORS errors on `/assignments`, `/materials`, and `/announcements`. Stats showed 0 for Tasks, Files, and News.
+
+## Root Causes Found
+
+### Primary: Cache serialization mismatches → 500 errors → no CORS headers
+
+The **real** root cause: the cache serialization in route handlers produced dicts with wrong/missing field names, causing FastAPI response validation to fail with **500 Internal Server Error**. Starlette's default 500 handler runs *outside* the CORS middleware, so the browser sees a response without `Access-Control-Allow-Origin` and reports a CORS error — hiding the actual 500.
+
+| File | Issue |
+|------|-------|
+| [materials.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/materials.py) | Cache used `filename` instead of `file_name`; missing `module_name`, `description`, `download_url` |
+| [announcements.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/announcements.py) | Cache missing `author_name` field |
+
+### Secondary: Middleware & fetcher improvements
+
+| File | Issue |
+|------|-------|
+| [main.py](file:///Users/oli/Desktop/LMSManager/backend/app/main.py) | [RequestIDMiddleware](file:///Users/oli/Desktop/LMSManager/backend/app/middleware/logging.py#10-29) was outermost, could mask CORS headers on crash |
+| [logging.py](file:///Users/oli/Desktop/LMSManager/backend/app/middleware/logging.py) | Used global `setLogRecordFactory()` — unsafe for concurrent async requests |
+| [index.ts](file:///Users/oli/Desktop/LMSManager/frontend/lib/hooks/index.ts) | `Content-Type: application/json` on GET requests forced unnecessary CORS preflight |
+
+## Changes Made
+
+```diff:materials.py
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session
+from typing import List, Optional
+import logging
+
+from app.database import get_db
+from app.models import Material
+from app.models.user import User
+from app.dependencies.auth import get_current_active_user
+from app.schemas.canvas import MaterialResponse
+from app.services.cache_service import get_cache
+
+logger = logging.getLogger(__name__)
+router = APIRouter(prefix="/materials", tags=["materials"])
+
+cache = get_cache()
+
+
+@router.get("", response_model=List[MaterialResponse])
+async def list_materials(
+    course_id: Optional[int] = Query(None, description="Filter by course ID"),
+    material_type: Optional[str] = Query(None, description="Filter by material type (File, ExternalUrl, etc.)"),
+    module_id: Optional[int] = Query(None, description="Filter by module ID"),
+    limit: int = Query(100, description="Maximum number of results"),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    """
+    List materials for the authenticated user with optional filters.
+    """
+    # Build cache key based on filters
+    filters = {
+        "course_id": course_id,
+        "material_type": material_type,
+        "module_id": module_id,
+        "limit": limit,
+    }
+
+    # Try cache first (only when no module_id filter as it's less common)
+    if not module_id:
+        cached_materials = cache.get_user_materials(current_user.id, filters)
+        if cached_materials is not None:
+            logger.debug(f"Found {len(cached_materials)} materials in cache for user {current_user.id}")
+            return cached_materials
+
+    query = db.query(Material).filter(Material.user_id == current_user.id)
+
+    # Apply filters
+    if course_id:
+        query = query.filter(Material.course_id == course_id)
+
+    if material_type:
+        query = query.filter(Material.material_type == material_type)
+
+    if module_id:
+        query = query.filter(Material.module_id == module_id)
+
+    materials = query.order_by(Material.display_name).limit(limit).all()
+
+    # Cache the results if not filtered by module_id
+    if not module_id:
+        materials_data = [
+            {
+                "id": m.id,
+                "canvas_id": m.canvas_id,
+                "course_id": m.course_id,
+                "module_id": m.module_id,
+                "display_name": m.display_name,
+                "material_type": m.material_type,
+                "url": m.url,
+                "filename": m.file_name,
+                "file_size": m.file_size,
+                "content_type": m.content_type,
+            }
+            for m in materials
+        ]
+        cache.set_user_materials(current_user.id, materials_data, filters)
+
+    return materials
+
+
+@router.get("/files", response_model=List[MaterialResponse])
+async def list_files(
+    course_id: Optional[int] = Query(None, description="Filter by course ID"),
+    limit: int = Query(100, description="Maximum number of results"),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    """
+    List file materials only for the authenticated user.
+    """
+    query = db.query(Material).filter(
+        Material.material_type == "File",
+        Material.user_id == current_user.id
+    )
+
+    if course_id:
+        query = query.filter(Material.course_id == course_id)
+
+    materials = query.order_by(Material.display_name).limit(limit).all()
+    return materials
+
+
+@router.get("/{material_id}", response_model=MaterialResponse)
+async def get_material(material_id: int, db: Session = Depends(get_db)):
+    """
+    Get material by local ID.
+    """
+    material = db.query(Material).filter(Material.id == material_id).first()
+
+    if not material:
+        raise HTTPException(status_code=404, detail="Material not found")
+
+    return material
+===
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session
+from typing import List, Optional
+import logging
+
+from app.database import get_db
+from app.models import Material
+from app.models.user import User
+from app.dependencies.auth import get_current_active_user
+from app.schemas.canvas import MaterialResponse
+from app.services.cache_service import get_cache
+
+logger = logging.getLogger(__name__)
+router = APIRouter(prefix="/materials", tags=["materials"])
+
+cache = get_cache()
+
+
+@router.get("", response_model=List[MaterialResponse])
+async def list_materials(
+    course_id: Optional[int] = Query(None, description="Filter by course ID"),
+    material_type: Optional[str] = Query(None, description="Filter by material type (File, ExternalUrl, etc.)"),
+    module_id: Optional[int] = Query(None, description="Filter by module ID"),
+    limit: int = Query(100, description="Maximum number of results"),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    """
+    List materials for the authenticated user with optional filters.
+    """
+    # Build cache key based on filters
+    filters = {
+        "course_id": course_id,
+        "material_type": material_type,
+        "module_id": module_id,
+        "limit": limit,
+    }
+
+    # Try cache first (only when no module_id filter as it's less common)
+    if not module_id:
+        cached_materials = cache.get_user_materials(current_user.id, filters)
+        if cached_materials is not None:
+            logger.debug(f"Found {len(cached_materials)} materials in cache for user {current_user.id}")
+            return cached_materials
+
+    query = db.query(Material).filter(Material.user_id == current_user.id)
+
+    # Apply filters
+    if course_id:
+        query = query.filter(Material.course_id == course_id)
+
+    if material_type:
+        query = query.filter(Material.material_type == material_type)
+
+    if module_id:
+        query = query.filter(Material.module_id == module_id)
+
+    materials = query.order_by(Material.display_name).limit(limit).all()
+
+    # Cache the results if not filtered by module_id
+    if not module_id:
+        materials_data = [
+            {
+                "id": m.id,
+                "canvas_id": m.canvas_id,
+                "course_id": m.course_id,
+                "module_id": m.module_id,
+                "module_name": m.module_name,
+                "display_name": m.display_name,
+                "description": m.description,
+                "material_type": m.material_type,
+                "url": m.url,
+                "download_url": m.download_url,
+                "file_name": m.file_name,
+                "file_size": m.file_size,
+                "content_type": m.content_type,
+            }
+            for m in materials
+        ]
+        cache.set_user_materials(current_user.id, materials_data, filters)
+
+    return materials
+
+
+@router.get("/files", response_model=List[MaterialResponse])
+async def list_files(
+    course_id: Optional[int] = Query(None, description="Filter by course ID"),
+    limit: int = Query(100, description="Maximum number of results"),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    """
+    List file materials only for the authenticated user.
+    """
+    query = db.query(Material).filter(
+        Material.material_type == "File",
+        Material.user_id == current_user.id
+    )
+
+    if course_id:
+        query = query.filter(Material.course_id == course_id)
+
+    materials = query.order_by(Material.display_name).limit(limit).all()
+    return materials
+
+
+@router.get("/{material_id}", response_model=MaterialResponse)
+async def get_material(material_id: int, db: Session = Depends(get_db)):
+    """
+    Get material by local ID.
+    """
+    material = db.query(Material).filter(Material.id == material_id).first()
+
+    if not material:
+        raise HTTPException(status_code=404, detail="Material not found")
+
+    return material
+```
+
+```diff:announcements.py
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session
+from typing import List, Optional
+from datetime import datetime, timedelta
+import logging
+
+from app.database import get_db
+from app.models import Announcement
+from app.models.user import User
+from app.dependencies.auth import get_current_active_user
+from app.schemas.canvas import AnnouncementResponse
+from app.services.cache_service import get_cache
+
+logger = logging.getLogger(__name__)
+router = APIRouter(prefix="/announcements", tags=["announcements"])
+
+cache = get_cache()
+
+
+@router.get("", response_model=List[AnnouncementResponse])
+async def list_announcements(
+    course_id: Optional[int] = Query(None, description="Filter by course ID"),
+    unread_only: bool = Query(False, description="Only return unread announcements"),
+    days: Optional[int] = Query(None, description="Filter to last N days"),
+    limit: int = Query(50, description="Maximum number of results"),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    """
+    List announcements for the authenticated user with optional filters.
+    """
+    # Build cache key based on filters
+    filters = {
+        "course_id": course_id,
+        "unread_only": unread_only,
+        "days": days,
+        "limit": limit,
+    }
+
+    # Only use cache for read announcements (not for unread_only since it changes frequently)
+    # and not for time-sensitive queries (days filter)
+    if not unread_only and not days:
+        cached_announcements = cache.get_user_announcements(current_user.id, filters)
+        if cached_announcements is not None:
+            logger.debug(f"Found {len(cached_announcements)} announcements in cache for user {current_user.id}")
+            return cached_announcements
+
+    query = db.query(Announcement).filter(Announcement.user_id == current_user.id)
+
+    # Apply filters
+    if course_id:
+        query = query.filter(Announcement.course_id == course_id)
+
+    if unread_only:
+        query = query.filter(Announcement.is_read == False)  # noqa: E712
+
+    if days:
+        cutoff_date = datetime.utcnow() - timedelta(days=days)
+        query = query.filter(Announcement.posted_at >= cutoff_date)
+
+    announcements = query.order_by(Announcement.posted_at.desc()).limit(limit).all()
+
+    # Cache the results if not filtered by unread/days
+    if not unread_only and not days:
+        announcements_data = [
+            {
+                "id": a.id,
+                "canvas_id": a.canvas_id,
+                "course_id": a.course_id,
+                "title": a.title,
+                "message": a.message,
+                "posted_at": a.posted_at.isoformat() if a.posted_at else None,
+                "is_read": a.is_read,
+                "url": a.url,
+            }
+            for a in announcements
+        ]
+        cache.set_user_announcements(current_user.id, announcements_data, filters)
+
+    return announcements
+
+
+@router.get("/recent", response_model=List[AnnouncementResponse])
+async def get_recent_announcements(
+    days: int = Query(7, description="Number of days to look back"),
+    limit: int = Query(10, description="Maximum number of results"),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Get recent announcements from the last N days for the authenticated user.
+    """
+    cutoff_date = datetime.utcnow() - timedelta(days=days)
+    announcements = db.query(Announcement).filter(
+        Announcement.user_id == current_user.id,
+        Announcement.posted_at >= cutoff_date
+    ).order_by(Announcement.posted_at.desc()).limit(limit).all()
+
+    return announcements
+
+
+@router.get("/{announcement_id}", response_model=AnnouncementResponse)
+async def get_announcement(announcement_id: int, db: Session = Depends(get_db)):
+    """
+    Get announcement by Canvas ID.
+    """
+    announcement = db.query(Announcement).filter(Announcement.canvas_id == announcement_id).first()
+
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+
+    return announcement
+
+
+@router.patch("/{announcement_id}/read")
+async def mark_announcement_read(announcement_id: int, db: Session = Depends(get_db)):
+    """
+    Mark announcement as read.
+    """
+    announcement = db.query(Announcement).filter(Announcement.canvas_id == announcement_id).first()
+
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+
+    announcement.is_read = True
+    db.commit()
+
+    # Invalidate cache for this user's announcements
+    cache.invalidate_user_data(announcement.user_id)
+
+    return {"success": True, "message": "Announcement marked as read"}
+===
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session
+from typing import List, Optional
+from datetime import datetime, timedelta
+import logging
+
+from app.database import get_db
+from app.models import Announcement
+from app.models.user import User
+from app.dependencies.auth import get_current_active_user
+from app.schemas.canvas import AnnouncementResponse
+from app.services.cache_service import get_cache
+
+logger = logging.getLogger(__name__)
+router = APIRouter(prefix="/announcements", tags=["announcements"])
+
+cache = get_cache()
+
+
+@router.get("", response_model=List[AnnouncementResponse])
+async def list_announcements(
+    course_id: Optional[int] = Query(None, description="Filter by course ID"),
+    unread_only: bool = Query(False, description="Only return unread announcements"),
+    days: Optional[int] = Query(None, description="Filter to last N days"),
+    limit: int = Query(50, description="Maximum number of results"),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    """
+    List announcements for the authenticated user with optional filters.
+    """
+    # Build cache key based on filters
+    filters = {
+        "course_id": course_id,
+        "unread_only": unread_only,
+        "days": days,
+        "limit": limit,
+    }
+
+    # Only use cache for read announcements (not for unread_only since it changes frequently)
+    # and not for time-sensitive queries (days filter)
+    if not unread_only and not days:
+        cached_announcements = cache.get_user_announcements(current_user.id, filters)
+        if cached_announcements is not None:
+            logger.debug(f"Found {len(cached_announcements)} announcements in cache for user {current_user.id}")
+            return cached_announcements
+
+    query = db.query(Announcement).filter(Announcement.user_id == current_user.id)
+
+    # Apply filters
+    if course_id:
+        query = query.filter(Announcement.course_id == course_id)
+
+    if unread_only:
+        query = query.filter(Announcement.is_read == False)  # noqa: E712
+
+    if days:
+        cutoff_date = datetime.utcnow() - timedelta(days=days)
+        query = query.filter(Announcement.posted_at >= cutoff_date)
+
+    announcements = query.order_by(Announcement.posted_at.desc()).limit(limit).all()
+
+    # Cache the results if not filtered by unread/days
+    if not unread_only and not days:
+        announcements_data = [
+            {
+                "id": a.id,
+                "canvas_id": a.canvas_id,
+                "course_id": a.course_id,
+                "title": a.title,
+                "message": a.message,
+                "author_name": a.author_name,
+                "posted_at": a.posted_at.isoformat() if a.posted_at else None,
+                "is_read": a.is_read,
+                "url": a.url,
+            }
+            for a in announcements
+        ]
+        cache.set_user_announcements(current_user.id, announcements_data, filters)
+
+    return announcements
+
+
+@router.get("/recent", response_model=List[AnnouncementResponse])
+async def get_recent_announcements(
+    days: int = Query(7, description="Number of days to look back"),
+    limit: int = Query(10, description="Maximum number of results"),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Get recent announcements from the last N days for the authenticated user.
+    """
+    cutoff_date = datetime.utcnow() - timedelta(days=days)
+    announcements = db.query(Announcement).filter(
+        Announcement.user_id == current_user.id,
+        Announcement.posted_at >= cutoff_date
+    ).order_by(Announcement.posted_at.desc()).limit(limit).all()
+
+    return announcements
+
+
+@router.get("/{announcement_id}", response_model=AnnouncementResponse)
+async def get_announcement(announcement_id: int, db: Session = Depends(get_db)):
+    """
+    Get announcement by Canvas ID.
+    """
+    announcement = db.query(Announcement).filter(Announcement.canvas_id == announcement_id).first()
+
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+
+    return announcement
+
+
+@router.patch("/{announcement_id}/read")
+async def mark_announcement_read(announcement_id: int, db: Session = Depends(get_db)):
+    """
+    Mark announcement as read.
+    """
+    announcement = db.query(Announcement).filter(Announcement.canvas_id == announcement_id).first()
+
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+
+    announcement.is_read = True
+    db.commit()
+
+    # Invalidate cache for this user's announcements
+    cache.invalidate_user_data(announcement.user_id)
+
+    return {"success": True, "message": "Announcement marked as read"}
+```
+
+```diff:main.py
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import RequestValidationError
+from contextlib import asynccontextmanager
+import logging
+
+from app.config import get_settings
+from app.database import init_db
+from app.middleware.logging import RequestIDMiddleware
+
+logger = logging.getLogger(__name__)
+from app.routes import auth, courses, assignments, announcements, materials, schedule, ai_assistant, brief, timetable, timeblocks, todos, debug, nusmods, user_categories, assignment_sync_rules, timeline
+from app.routes import authentication as auth_routes  # New email/password auth
+from app.routes import meeting_finder  # New meeting finder API
+
+settings = get_settings()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Lifespan events for startup and shutdown."""
+    # Startup: Initialize database
+    init_db()
+    yield
+    # Shutdown: Cleanup if needed
+
+
+# Create FastAPI app
+app = FastAPI(
+    title=settings.APP_NAME,
+    description="Canvas LMS Integration API",
+    version="1.0.0",
+    lifespan=lifespan,
+)
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3001",
+        "http://localhost:19006",
+    ],  # Next.js dev server
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Request ID middleware for tracing
+app.add_middleware(RequestIDMiddleware)
+
+# Log validation errors for debugging
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    from fastapi.responses import JSONResponse
+    body = await request.body()
+    logger.warning(f"VALIDATION ERROR: {exc.errors()}")
+    logger.debug(f"REQUEST BODY: {body}")
+    return JSONResponse(
+        status_code=422,
+        content={"detail": exc.errors(), "body": body.decode() if body else None}
+    )
+
+# Include routers
+app.include_router(auth.router)  # Canvas integration (existing)
+app.include_router(auth_routes.router)  # Email/password authentication (new)
+app.include_router(courses.router)
+app.include_router(assignments.router)
+app.include_router(announcements.router)
+app.include_router(materials.router)
+app.include_router(schedule.router)
+app.include_router(timetable.router)
+app.include_router(timeblocks.router)
+app.include_router(ai_assistant.router)
+app.include_router(brief.router)
+app.include_router(meeting_finder.router)  # Meeting finder (new)
+app.include_router(todos.router)  # Todo task tracking
+app.include_router(nusmods.router)  # NUSMODS integration
+app.include_router(user_categories.router)  # User categories for hierarchical todos
+app.include_router(assignment_sync_rules.router)  # Assignment sync rules
+app.include_router(timeline.router)  # Course timeline API
+app.include_router(debug.router, prefix="/api")  # Debug endpoints (dev only)
+
+
+@app.get("/")
+async def root():
+    """Root endpoint."""
+    return {
+        "message": "LMS Manager API",
+        "version": "1.0.0",
+        "docs": "/docs",
+    }
+
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint."""
+    return {"status": "healthy"}
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(
+        "app.main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+    )
+===
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import RequestValidationError
+from contextlib import asynccontextmanager
+import logging
+
+from app.config import get_settings
+from app.database import init_db
+from app.middleware.logging import RequestIDMiddleware
+
+logger = logging.getLogger(__name__)
+from app.routes import auth, courses, assignments, announcements, materials, schedule, ai_assistant, brief, timetable, timeblocks, todos, debug, nusmods, user_categories, assignment_sync_rules, timeline
+from app.routes import authentication as auth_routes  # New email/password auth
+from app.routes import meeting_finder  # New meeting finder API
+
+settings = get_settings()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Lifespan events for startup and shutdown."""
+    # Startup: Initialize database
+    init_db()
+    yield
+    # Shutdown: Cleanup if needed
+
+
+# Create FastAPI app
+app = FastAPI(
+    title=settings.APP_NAME,
+    description="Canvas LMS Integration API",
+    version="1.0.0",
+    lifespan=lifespan,
+)
+
+# Request ID middleware for tracing (added first = innermost)
+app.add_middleware(RequestIDMiddleware)
+
+# Configure CORS (added last = outermost, always applies headers even if inner middleware fails)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3001",
+        "http://localhost:19006",
+    ],  # Next.js dev server
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Log validation errors for debugging
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    from fastapi.responses import JSONResponse
+    body = await request.body()
+    logger.warning(f"VALIDATION ERROR: {exc.errors()}")
+    logger.debug(f"REQUEST BODY: {body}")
+    return JSONResponse(
+        status_code=422,
+        content={"detail": exc.errors(), "body": body.decode() if body else None}
+    )
+
+# Include routers
+app.include_router(auth.router)  # Canvas integration (existing)
+app.include_router(auth_routes.router)  # Email/password authentication (new)
+app.include_router(courses.router)
+app.include_router(assignments.router)
+app.include_router(announcements.router)
+app.include_router(materials.router)
+app.include_router(schedule.router)
+app.include_router(timetable.router)
+app.include_router(timeblocks.router)
+app.include_router(ai_assistant.router)
+app.include_router(brief.router)
+app.include_router(meeting_finder.router)  # Meeting finder (new)
+app.include_router(todos.router)  # Todo task tracking
+app.include_router(nusmods.router)  # NUSMODS integration
+app.include_router(user_categories.router)  # User categories for hierarchical todos
+app.include_router(assignment_sync_rules.router)  # Assignment sync rules
+app.include_router(timeline.router)  # Course timeline API
+app.include_router(debug.router, prefix="/api")  # Debug endpoints (dev only)
+
+
+@app.get("/")
+async def root():
+    """Root endpoint."""
+    return {
+        "message": "LMS Manager API",
+        "version": "1.0.0",
+        "docs": "/docs",
+    }
+
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint."""
+    return {"status": "healthy"}
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(
+        "app.main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+    )
+```
+
+```diff:logging.py
+"""Logging middleware for request tracing."""
+import uuid
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.requests import Request
+
+
+class RequestIDMiddleware(BaseHTTPMiddleware):
+    """Injects a unique request ID into each request for tracing.
+
+    The request ID is stored in request.state.request_id and picked up
+    by the RequestIDFilter in our logging configuration.
+    """
+
+    async def dispatch(self, request: Request, call_next):
+        # Generate short request ID (first 8 chars of UUID)
+        request_id = str(uuid.uuid4())[:8]
+        request.state.request_id = request_id
+
+        # Set request_id in logging context for this request
+        from app.core.logging import logger
+        old_factory = logging.getLogRecordFactory()
+
+        def record_factory(*args, **kwargs):
+            record = old_factory(*args, **kwargs)
+            # Only add request_id if not already set (RequestIDFilter will use it)
+            if not hasattr(record, "request_id"):
+                record.request_id = request_id
+            return record
+
+        logging.setLogRecordFactory(record_factory)
+
+        try:
+            response = await call_next(request)
+            return response
+        finally:
+            # Restore original factory
+            logging.setLogRecordFactory(old_factory)
+
+
+# Import at module level for use in factory
+import logging
+===
+"""Logging middleware for request tracing."""
+import uuid
+import logging
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.requests import Request
+
+logger = logging.getLogger(__name__)
+
+
+class RequestIDMiddleware(BaseHTTPMiddleware):
+    """Injects a unique request ID into each request for tracing.
+
+    The request ID is stored in request.state.request_id and can be
+    accessed by route handlers and other middleware via request.state.
+    """
+
+    async def dispatch(self, request: Request, call_next):
+        # Generate short request ID (first 8 chars of UUID)
+        request_id = str(uuid.uuid4())[:8]
+        request.state.request_id = request_id
+
+        # NOTE: We intentionally do NOT use logging.setLogRecordFactory() here
+        # because it mutates global state and is unsafe for concurrent async
+        # requests. The request_id is available via request.state for any
+        # handler that needs it.
+
+        response = await call_next(request)
+        return response
+```
+
+```diff:index.ts
+/**
+ * Shared fetcher and SWR configuration
+ * Internal module for all hooks
+ */
+
+import useSWR, { SWRConfiguration } from "swr";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const FETCH_TIMEOUT = 15000; // 15 second timeout
+
+const fetcher = async (url: string) => {
+  // Prevent fetch during SSR
+  if (typeof window === "undefined") {
+    return new Promise(() => {}); // Never resolve during SSR
+  }
+
+  const fullUrl = url.startsWith("http") ? url : `${API_URL}${url}`;
+  const token = localStorage.getItem("access_token");
+
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  try {
+    // Create an abort controller for timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
+
+    const res = await fetch(fullUrl, {
+      headers,
+      cache: 'no-store',
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (res.status === 401) {
+      if (typeof window !== "undefined") {
+        if (!window.location.pathname.includes("/login")) {
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("refresh_token");
+          localStorage.removeItem("user");
+          window.location.href = "/login";
+        }
+      }
+      throw new Error("Session expired");
+    }
+
+    if (!res.ok) {
+      const error = await res.json().catch(() => ({ message: "Unknown error" }));
+      throw new Error(error.message || error.detail || "API request failed");
+    }
+    return res.json();
+  } catch (error) {
+    // Handle AbortError (timeout)
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error("Request timed out. Please try again.");
+    }
+
+    // Handle TypeError (network errors including Failed to fetch)
+    // Don't log to console - it triggers Next.js error overlay in dev
+    if (error instanceof TypeError) {
+      // SWR will retry based on shouldRetryOnError configuration
+      throw new Error("Network error - please check your connection");
+    }
+
+    // Re-throw other errors
+    throw error;
+  }
+};
+
+export const swrConfig: SWRConfiguration = {
+  revalidateOnFocus: false,
+  revalidateOnMount: true, // Always fetch on mount in browser (fetcher has SSR guard)
+  revalidateOnReconnect: true, // Enable revalidate on reconnect
+  dedupingInterval: 5000,
+  onError: (error, key) => {
+    // Only log in development for debugging
+    if (process.env.NODE_ENV === 'development') {
+      console.debug('[SWR] Error:', key, error?.message || error);
+    }
+  },
+  shouldRetryOnError: (error) => {
+    // Retry on network errors but not on auth errors or 4xx status codes
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const shouldRetry =
+      errorMessage.includes("Unable to connect") ||
+      errorMessage.includes("timed out") ||
+      errorMessage.includes("fetch failed") ||
+      errorMessage.includes("Network") ||
+      errorMessage.includes("check your connection");
+
+    return shouldRetry;
+  },
+  errorRetryCount: 2, // Retry twice
+  errorRetryInterval: 2000, // Wait 2 seconds between retries
+  loadingTimeout: 30000,
+  keepPreviousData: true, // Keep previous data while fetching new data
+};
+
+export { fetcher };
+
+// Custom hooks
+export * from "./courses";
+export * from "./todos";
+export * from "./timetable";
+export * from "./academic";
+export * from "./meeting";
+export * from "./userCategories";
+export * from "./assignmentSync";
+
+// Custom hooks
+export * from "../hooks/useTodoSync";
+===
+/**
+ * Shared fetcher and SWR configuration
+ * Internal module for all hooks
+ */
+
+import useSWR, { SWRConfiguration } from "swr";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const FETCH_TIMEOUT = 15000; // 15 second timeout
+
+const fetcher = async (url: string) => {
+  // Prevent fetch during SSR
+  if (typeof window === "undefined") {
+    return new Promise(() => {}); // Never resolve during SSR
+  }
+
+  const fullUrl = url.startsWith("http") ? url : `${API_URL}${url}`;
+  const token = localStorage.getItem("access_token");
+
+  const headers: HeadersInit = {};
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  try {
+    // Create an abort controller for timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
+
+    const res = await fetch(fullUrl, {
+      headers,
+      cache: 'no-store',
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (res.status === 401) {
+      if (typeof window !== "undefined") {
+        if (!window.location.pathname.includes("/login")) {
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("refresh_token");
+          localStorage.removeItem("user");
+          window.location.href = "/login";
+        }
+      }
+      throw new Error("Session expired");
+    }
+
+    if (!res.ok) {
+      const error = await res.json().catch(() => ({ message: "Unknown error" }));
+      throw new Error(error.message || error.detail || "API request failed");
+    }
+    return res.json();
+  } catch (error) {
+    // Handle AbortError (timeout)
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error("Request timed out. Please try again.");
+    }
+
+    // Handle TypeError (network errors including Failed to fetch)
+    // Don't log to console - it triggers Next.js error overlay in dev
+    if (error instanceof TypeError) {
+      // SWR will retry based on shouldRetryOnError configuration
+      throw new Error("Network error - please check your connection");
+    }
+
+    // Re-throw other errors
+    throw error;
+  }
+};
+
+export const swrConfig: SWRConfiguration = {
+  revalidateOnFocus: false,
+  revalidateOnMount: true, // Always fetch on mount in browser (fetcher has SSR guard)
+  revalidateOnReconnect: true, // Enable revalidate on reconnect
+  dedupingInterval: 5000,
+  onError: (error, key) => {
+    // Only log in development for debugging
+    if (process.env.NODE_ENV === 'development') {
+      console.debug('[SWR] Error:', key, error?.message || error);
+    }
+  },
+  shouldRetryOnError: (error) => {
+    // Retry on network errors but not on auth errors or 4xx status codes
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const shouldRetry =
+      errorMessage.includes("Unable to connect") ||
+      errorMessage.includes("timed out") ||
+      errorMessage.includes("fetch failed") ||
+      errorMessage.includes("Network") ||
+      errorMessage.includes("check your connection");
+
+    return shouldRetry;
+  },
+  errorRetryCount: 2, // Retry twice
+  errorRetryInterval: 2000, // Wait 2 seconds between retries
+  loadingTimeout: 30000,
+  keepPreviousData: true, // Keep previous data while fetching new data
+};
+
+export { fetcher };
+
+// Custom hooks
+export * from "./courses";
+export * from "./todos";
+export * from "./timetable";
+export * from "./academic";
+export * from "./meeting";
+export * from "./userCategories";
+export * from "./assignmentSync";
+
+// Custom hooks
+export * from "../hooks/useTodoSync";
+```
+
+## Verification
+
+````carousel
+![Before — all stats at 0, CORS errors in console](/Users/oli/.gemini/antigravity/brain/c825c9b8-902b-4774-8f59-a81660e81bf2/courses_page_verification_1771420276507.png)
+<!-- slide -->
+![After — 8 courses, 10 pending, 9 materials, proper per-course counts](/Users/oli/.gemini/antigravity/brain/c825c9b8-902b-4774-8f59-a81660e81bf2/final_verification_1771420858949.png)
+````
+
+- **Backend curl tests**: All endpoints return 200 with CORS headers ✅
+- **Browser verification**: Stats show real data (8 courses, 10 pending, 9 materials) ✅
+- **No flickering**: Page remains stable ✅

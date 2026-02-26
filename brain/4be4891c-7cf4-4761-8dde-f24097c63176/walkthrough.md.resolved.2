@@ -1,0 +1,62 @@
+# Visual Consistency & Logout Button - Walkthrough
+
+## Changes Made
+
+### 1. Logout Button Added to Navigation
+**File**: [Navigation.tsx](file:///Users/oli/Desktop/LMSManager/frontend/lib/components/Navigation.tsx)
+
+- Added **Logout button** in the navigation bar (right side, next to theme toggle)
+- Button shows only when user is authenticated
+- **Red hover effect** (`#dc2626`) for visual consistency with planner's accent color
+- Navigation bar **hides on login/register pages**
+
+### 2. Settings Page Restyled & Fixed
+**File**: [settings/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx)
+
+- **Bug Fix**: Resolved the `setSaveResult is not defined` error by correcting the state setter to `setCanvasSaveResult`.
+- **Layout Expansion**: Increased the page width from `max-w-4xl` (1120px) to `max-w-[95%]`. This ensures the application makes full use of larger screens, matching the planner's layout.
+- Added newspaper-style header matching planner:
+  - Red **"CONFIGURATION"** label (uppercase, monospace)
+  - Large serif **"Settings"** title
+  - Border separator below header
+- Theme-aware background (`#fdfcf8` light / `neutral-900` dark)
+
+### 3. Canvas API & Name Saving Fixed
+**Files**: [AuthContext.tsx](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx), [settings/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx)
+
+- Added [refreshUser()](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#170-196) function to AuthContext that fetches updated user data from `/auth/me`
+- Settings page now calls [refreshUser()](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#170-196) after Canvas token and display name saves
+- Dashboard now correctly loads after saving Canvas credentials (was redirecting back to settings)
+
+---
+
+## Visual Verification
+
+The browser testing confirmed visual consistency:
+
+| Page | Background | Header Style | Logout Visible |
+|------|-----------|--------------|----------------|
+| Login | Cream ✅ | Serif + mono ✅ | N/A (auth page) |
+| Register | Cream ✅ | Serif + mono ✅ | N/A (auth page) |
+| Settings | Cream ✅ | Red label + serif ✅ | ✅ |
+| Planner | Cream ✅ | Red label + serif ✅ | ✅ |
+
+### Registration Page
+![Registration page showing newspaper-style design](/Users/oli/.gemini/antigravity/brain/4be4891c-7cf4-4761-8dde-f24097c63176/.system_generated/click_feedback/click_feedback_1770021000686.png)
+
+### Browser Recording
+![Full verification flow including navigation and settings fix](/Users/oli/.gemini/antigravity/brain/4be4891c-7cf4-4761-8dde-f24097c63176/settings_fix_verification_v2_1770021799309.webp)
+
+---
+
+## Design System Summary
+
+The app now uses a consistent **newspaper-style** theme:
+
+| Element | Style |
+|---------|-------|
+| Background | `#fdfcf8` (cream) / `neutral-900` (dark) |
+| Headers | Playfair Display serif, black/white |
+| Labels | JetBrains Mono, uppercase, red (`#dc2626`) |
+| Buttons | Border-based, uppercase tracking |
+| Accents | Red (`#dc2626`) for interactive elements |

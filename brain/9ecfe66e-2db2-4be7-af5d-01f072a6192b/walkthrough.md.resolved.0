@@ -1,0 +1,24 @@
+# Testing Setup Walkthrough
+
+I have successfully established test frameworks for the whole web app, covering the Backend, Frontend Units, and End-to-End (E2E) UI flows.
+
+## Backend (Pytest)
+- Installed and configured `pytest`, `pytest-asyncio`, and `httpx`.
+- Created a configuration file at [pytest.ini](file:///Users/oli/Desktop/CraftCanvas/backend/pytest.ini) to easily execute `pytest`.
+- Scaffolded backend test environment, including [conftest.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/conftest.py) providing `TestClient` and `Session` fixtures.
+- Ran a test for `/health` in [test_health.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_routers/test_health.py) which **passed successfully**.
+
+## Frontend Unit Tests (Vitest & React Testing Library)
+- Since the Next.js app did not have testing dependencies, I installed `vitest`, `@vitejs/plugin-react` and standard `@testing-library/react`. 
+- Configured JsDom environment in [vitest.config.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/vitest.config.ts) and [vitest.setup.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/vitest.setup.ts).
+- Added an initial unit test setup checking basic React DOM capabilities in [example.test.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/__tests__/example.test.tsx).
+- Added a `"test": "vitest"` script to [package.json](file:///Users/oli/Desktop/CraftCanvas/frontend/package.json) for easy local test execution CLI `npm run test` which **passed successfully**.
+
+## End-to-End (Playwright)
+- Initialized `@playwright/test` and installed its browser binaries using `npx playwright install --with-deps`.
+- Configured local environment testing in [playwright.config.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/playwright.config.ts). The configuration automatically routes to `http://localhost:3000` assuming the server is running.
+- Implemented a test to verify application launch without crashing in [example.spec.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/e2e/example.spec.ts).
+- Tested via `npx playwright test` which **passed successfully**.
+
+## Outstanding
+The frameworks are now wired up and cleanly separated for robust further development blockings. When writing actual features, tests can now be placed in their respective `e2e` or `__tests__` folders, and executing them is seamless via `pytest` for Python and `npm run test` or `npx playwright test` for frontend layers.

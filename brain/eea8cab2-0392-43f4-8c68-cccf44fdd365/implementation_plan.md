@@ -1,0 +1,38 @@
+# Assignments UX and Logic Improvements
+
+The user requested several user experience and logic improvements to the Minimalist Assignments list to make it function more like a high-end application.
+
+## Proposed Changes
+
+### 1. Hover-to-preview Detail Panel
+- **Frontend (`page.tsx`)**:
+  - Introduce a `hovered` state to track the assignment currently under the cursor.
+  - While hovering an assignment row, the right-side detail panel will temporarily display its information.
+  - Moving the cursor away clears the preview.
+  - Clicking an assignment "pins" it (as it works currently), keeping the detail panel permanently open and fetching its full description.
+
+### 2. Logical Sorting & Grouping
+We will redesign the grouping logic to present what the user cares about most:
+- **Action Needed**: Assignments that are Overdue OR Due within 48 hours. (Sorted: Earliest due first, then highest points).
+- **Upcoming**: Assignments due within the next 14 days. (Sorted: Earliest due first).
+- **Backlog**: Assignments with no due date, or due further than 14 days out. (Sorted: Highest points first).
+- **Completed**: Submitted or Graded assignments.
+
+### 3. Hiding Inactive Modules
+- **Backend (`routers/assignments.py`)**:
+  - Update the `list_assignments` endpoint to omit any assignments belonging to courses where `is_active` is false.
+  - This ensures hidden modules disappear completely from the list and from the module filter chips.
+
+### 4. Simplified Filtering
+- **Frontend (`page.tsx`)**:
+  - Remove the "Min Points" input from the advanced filtering menu as requested.
+
+## User Review Required
+> [!IMPORTANT]
+> Please review the logical sorting categories above (Action Needed, Upcoming, Backlog). Let me know if these timeframes and priorities align with how you want to see your work!
+
+## Verification Plan
+1. Update `routers/assignments.py` to filter by active courses.
+2. Update `page.tsx` states (`hovered` vs `selected`).
+3. Refactor the `groupedAssignments` useMemo hook for the new logical sorting.
+4. Test hover preview, clicking to pin, and check that hidden courses are gone.

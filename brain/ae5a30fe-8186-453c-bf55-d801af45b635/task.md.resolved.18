@@ -1,0 +1,12 @@
+# AI Task Generation Debugging
+
+## Investigating "No Tasks" Error
+- [/] Add detailed logging to [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py) (Prompt, Raw Response, Status)
+- [ ] Check if user has a valid GLM API key in DB
+- [ ] Test AI generation with a dedicated debug script
+- [ ] Adjust parsing logic if GLM output format has changed
+
+## Previous Fixes (Verified)
+- [x] Fix Backend NameErrors
+- [x] Fix GLM API 404 Endpoint URL
+- [x] Implement 20s timeout and fallbacks

@@ -1,0 +1,78 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (245,25)<button class='json-schema-2020-12-accordion' />
+	[1] (235,25)<div  />
+		[2] (235,25)<div >Body_import_timetable_api_v1_timetable_import_post />
+	[3] (419,26)<span  />
+[4] (458,28)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[5] (133,117)<button class='json-schema-2020-12-accordion' />
+	[6] (123,117)<div  />
+		[7] (123,117)<div >BulkSettingsUpdate />
+	[8] (195,118)<span  />
+[9] (234,120)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[10] (152,203)<button class='json-schema-2020-12-accordion' />
+	[11] (141,203)<div  />
+		[12] (141,202)<div >CanvasValidationRequest />
+	[13] (232,203)<span  />
+[14] (271,205)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[15] (112,288)<button class='json-schema-2020-12-accordion' />
+	[16] (102,288)<div  />
+		[17] (102,287)<div >ChatMessage />
+	[18] (154,288)<span  />
+[19] (193,290)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[20] (110,373)<button class='json-schema-2020-12-accordion' />
+	[21] (100,373)<div  />
+		[22] (100,373)<div >ChatRequest />
+	[23] (150,374)<span  />
+[24] (189,376)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[25] (135,458)<button class='json-schema-2020-12-accordion' />
+	[26] (125,458)<div  />
+		[27] (125,458)<div >HTTPValidationError />
+	[28] (199,459)<span  />
+[29] (238,461)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[30] (141,543)<button class='json-schema-2020-12-accordion' />
+	[31] (131,543)<div  />
+		[32] (131,543)<div >LLMValidationRequest />
+	[33] (212,544)<span  />
+[34] (251,546)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[35] (114,629)<button class='json-schema-2020-12-accordion' />
+	[36] (104,629)<div  />
+		[37] (104,628)<div >LoginRequest />
+	[38] (156,629)<span  />
+[39] (195,631)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[40] (123,714)<button class='json-schema-2020-12-accordion' />
+	[41] (112,714)<div  />
+		[42] (112,713)<div >RegisterRequest />
+	[43] (174,714)<span  />
+[44] (213,717)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[45] (115,799)<button class='json-schema-2020-12-accordion' />
+	[46] (104,799)<div  />
+		[47] (104,799)<div >SettingUpdate />
+	[48] (158,800)<span  />
+[49] (197,802)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[50] (105,884)<button class='json-schema-2020-12-accordion' />
+	[51] (95,884)<div  />
+		[52] (95,884)<div >TaskCreate />
+	[53] (138,885)<span  />
+[54] (177,887)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[55] (107,969)<button class='json-schema-2020-12-accordion' />
+	[56] (96,969)<div  />
+		[57] (96,969)<div >TaskUpdate />
+	[58] (142,970)<span  />
+[59] (181,972)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+
+</current_dom>

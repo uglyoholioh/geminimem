@@ -1,0 +1,24 @@
+# Enhanced AI Chat — Full Context & Actionable Suggestions
+
+## Backend — Expanded System Prompt
+- [ ] Rewrite [brief_chat](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py#106-194) in [routers/brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py) to query all Canvas data directly
+- [ ] Inject module PDF excerpts from `ModuleFile.extracted_text`
+- [ ] Add `:::action` structured output instructions to the system prompt
+- [ ] Increase Ollama `num_ctx` to 8192 in [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+
+## Frontend — Dashboard Layout Redesign
+- [ ] Change grid from 3-col to 2-col (60/40 split) in [app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- [ ] Make Daily Brief chat fill viewport height as hero panel
+- [ ] Stack Schedule, Tasks, Assignments, Announcements, Stats on right side
+- [ ] Clean up duplicate [ChatMessage](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai.py#16-19) interface
+
+## Frontend — Action Cards
+- [ ] Create `lib/parseActions.ts` utility to split AI responses into text + action blocks
+- [ ] Create `components/chat/ActionCard.tsx` component
+- [ ] Integrate action card rendering into the chat message display
+- [ ] Wire "Add Task" button to `POST /api/v1/tasks`
+
+## Verification
+- [ ] Test expanded context by chatting about module materials
+- [ ] Test actionable suggestions rendering and task creation
+- [ ] Browser test: dashboard layout validation

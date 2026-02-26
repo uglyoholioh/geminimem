@@ -1,0 +1,78 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+OS
+[0] (23,131)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/' title='Dashboard' />
+[1] (23,193)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[2] (23,256)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[3] (23,319)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[4] (23,381)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/ai' title='AI Chat' />
+[5] (23,444)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[6] (23,886)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+Good afternoon
+Tuesday, February 24
+Today's Schedule
+[7] (318,212)<a class='text-accent text-xs hover:text-accent-hover transition-colors' href='/timetable'>View all → />
+MA1522
+16:00
+–
+18:00
+Lecture
+LT16
+Announcements
+5
+new
+GES1035/GESS1025
+Yesterday
+Course Webinar Recording
+BT1101
+Yesterday
+Welcome to BT1101 – Part II of the Course
+BT1101
+Feb 22
+Coaching Session Sign Up Recess Week
+BT1101
+Feb 20
+Lecture Recording, Online Quizzes, Datacamp
+BT1101
+Feb 20
+Tutorial 1 grades and feedback
+Tasks
+[8] (628,212)<a class='text-accent text-xs hover:text-accent-hover transition-colors' href='/tasks'>View all → />
+finish tutorial
+CS2030
+Thu
+Test assignment
+MA1522
+Sat
+mascot
+mascot by friday
+finish CS2030 tutorial by Friday urgent
+Upcoming Assignments
+pelogin account
+CS2030
+Roll Call Attendance
+GES1035/GESS1025
+Roll Call Attendance
+GEX1015/GET1029
+Declaration of Conformance
+THE1001/RC1000A
+Fundamentals of Academic Life
+THE1002/SE1000
+AI Assistant
+[9] (931,212)<a class='text-accent text-xs hover:text-accent-hover transition-colors' href='/ai'>Open chat → />
+Ask me anything about your courses, schedule, or assignments.
+[10] (813,381)<input class='flex-1 rounded-lg border border-border bg-base px-3 py-2 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none' placeholder='Ask a question...' />
+[11] (945,381)<button class='rounded-lg bg-accent px-3 py-2 text-white text-sm hover:bg-accent-hover transition-colors' />
+This Week
+5
+Open Tasks
+1
+Classes Today
+5
+Due Soon
+5
+Unread
+
+</current_dom>

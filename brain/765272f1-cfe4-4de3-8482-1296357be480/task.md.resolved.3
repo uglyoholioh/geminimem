@@ -1,0 +1,24 @@
+# Timetable Redesign — LMS Manager Style + Auto Academic Week
+
+## Backend
+- [x] Add `/api/v1/timetable/academic-week` endpoint that auto-detects NUS academic week
+- [x] Add [academic_week](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py#298-317) to `/week` response
+- [x] Filter `/week` response to only return slots active in the requested week
+
+## Frontend
+- [x] Rewrite [frontend/app/timetable/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/timetable/page.tsx) to match LMS Manager grid style
+  - [x] Table-based layout with `rowSpan` for multi-hour classes
+  - [x] Low-saturation module colour backgrounds (like LMS Manager)
+  - [x] Class type shortforms (LEC, TUT, LAB, REC)
+  - [x] Academic week header with auto-detection
+  - [x] Week navigation (prev / today / next)
+  - [x] Module legend at bottom
+  - [x] Import ICS button retained
+  - [x] Respect CraftCanvas design system (light/dark mode, CSS variables)
+
+## Verification
+- [x] Integrate EXDATE exclusion into [slot_occurs_on_date](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py#23-87) to omit classes during Recess Week/Public Holidays
+- [x] Add parsed `exdates` into the SQLite DB and API creation
+- [x] Fix week navigation bug in frontend where local timezone was converting `2026-02-16` to `2026-02-15` in API query, causing backend to snap to the wrong week.
+- [x] Verify Week 6 displays correctly with module blocks
+- [x] Verify Recess Week appears empty

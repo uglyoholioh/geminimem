@@ -1,0 +1,22 @@
+# Fix GLM API for Coding Plan
+
+The "Insufficient balance" error was caused by using the standard `paas/v4` endpoint on a "lite coding plan". Verification shows that the `api.coding` endpoint works correctly.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [ai_assistant.py](file:///Users/oli/Desktop/LMSManager/backend/app/services/ai_assistant.py)
+- Add `https://api.z.ai/api/coding/paas/v4/chat/completions` to `base_urls`.
+- Prioritize the coding endpoint as it is more likely to work for users on agentic plans.
+
+#### [MODIFY] [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py)
+- Switch `api_url` to `https://api.z.ai/api/coding/paas/v4/chat/completions`.
+
+## Verification Plan
+
+### Automated Tests
+- Run the `test_flow` script again to confirm 200 OK and task generation.
+
+### Manual Verification
+- Confirm with the user that the "Generate Tasks" button now works without error.

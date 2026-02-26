@@ -1,0 +1,21 @@
+# Focus Tab Implementation
+
+- [ ] Planning
+  - [ ] Research frontend navigation and layout
+  - [ ] Design Focus page UI
+  - [ ] Plan backend model updates (add accrued time to Tasks)
+  - [ ] Write implementation plan and get user approval
+- [x] Backend Execution
+  - [x] Update [Task](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py#14-50) SQLModel with `actual_minutes` or `accrued_seconds`
+  - [x] Add API endpoint to log focus time for a task (included in standard PUT /tasks/{id})
+  - [x] Run fastAPI migrations / update DB schema
+- [x] Frontend Execution
+  - [x] Add "Focus" link to sidebar/navigation
+  - [x] Create [app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
+  - [x] Build Pomodoro Timer component (Work/Short Break/Long Break states, play/pause, reset)
+  - [x] Build Task Selector (choose a task from inbox/in_progress to focus on)
+  - [x] Integrate timer with backend to log time spent on the selected task
+- [ ] Verification
+  - [ ] Test Pomodoro timer works correctly
+  - [ ] Test time logged correctly updates the task
+  - [ ] Write walkthrough.md

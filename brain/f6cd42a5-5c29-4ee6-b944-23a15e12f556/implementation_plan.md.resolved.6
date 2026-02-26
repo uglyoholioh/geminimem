@@ -1,0 +1,41 @@
+# Phase 9: Local-Only AI Migration
+
+The user has indicated that the server will be hosted on a capable machine (desktop with a 4070 Super), so we will scrap all reliance on external cloud APIs (like OpenAI, Kimi, GLM). All LLM inference will run locally via Ollama. 
+
+This plan details the removal of cloud-centric UI elements, environment variable routing, and external API key logic.
+
+## Proposed Changes
+
+### Frontend Simplification
+
+We need to remove the "Local vs Cloud" toggle completely, forcing `always_local`.
+
+#### [MODIFY] [frontend/app/setup/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/setup/page.tsx)
+- **Step 2 (AI Engine)**: 
+  - Remove the Cloud Engine / Local Serve toggle.
+  - Hardcode the view to only ask for the Ollama Base URL (default: `http://localhost:11434`) and Model Name (default: `llama3.2`).
+  - Strip `extBase`, `extKey`, and `extModel` states.
+
+#### [MODIFY] [frontend/app/settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)
+- **AI Configuration Tab**: 
+  - Remove the `llm_routing` dropdown.
+  - Remove the Cloud LLM API Key, Base URL, and Model inputs.
+  - Leave only the Ollama configuration fields.
+
+### Backend Simplification
+
+#### [MODIFY] [backend/routers/setup.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/setup.py)
+- Modify [validate_llm](file:///Users/oli/Desktop/CraftCanvas/backend/routers/setup.py#93-182): Currently, it validates an external OpenAI-compatible string mapping.
+- Update it to take `ollama_base_url` and `ollama_model`, and ping the local Ollama `/api/tags` or test chat completion to verify the model is pulled and ready.
+
+#### [MODIFY] [backend/services/ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+- Strip the [_call_external](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#110-144) method and all routing logic (`if routing_pref == 'external_only'`).
+- The entire [chat](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai.py#26-42) and [stream_chat](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#145-182) methods should simply resolve the user's `ollama_base_url` and `ollama_default_model` from the database and fire the request directly to Ollama.
+- This removes the need to parse provider error messages (429s, etc) for third parties.
+
+## Verification Plan
+
+### Manual Verification
+1. Load `/setup`, verify only "Local Serve" configuration exists. Validate a local Ollama model (`llama3.2`).
+2. Navigate to Dashboard -> Settings -> AI and confirm no cloud API key forms exist.
+3. Test a natural language task creation to ensure [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) correctly routes the request to the local GPU without failing over.

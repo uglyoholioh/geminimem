@@ -1,0 +1,23 @@
+# Fix GLM API 404 Error
+
+The user is encountering a 404 error when saving/testing their GLM API key. Investigation shows that the `api.z.ai` endpoint requires a `/api/paas/v4` path segment which was missing in our current implementation.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [ai_assistant.py](file:///Users/oli/Desktop/LMSManager/backend/app/services/ai_assistant.py)
+- Update `base_urls` to use `https://api.z.ai/api/paas/v4/chat/completions`.
+- Ensure standard Zhipu AI endpoint is also correct.
+
+#### [MODIFY] [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py)
+- Update the direct `httpx` call to use `https://api.z.ai/api/paas/v4/chat/completions`.
+
+## Verification Plan
+
+### Automated Tests
+- Run a debug script to ping the new endpoints.
+- Trigger the `/ai-assistant/test-ai` endpoint via a script.
+
+### Manual Verification
+- Ask the user to try saving the API key again in the settings page.

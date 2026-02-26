@@ -1,0 +1,44 @@
+# Focus Tab & Pomodoro Implementation
+
+This plan outlines adding a new "Focus" tab with a Pomodoro timer and integrating it with existing tasks.
+
+## Proposed Changes
+
+### Backend Updates
+
+#### [MODIFY] [models/task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py)
+- Add `time_spent_minutes: int = Field(default=0)` to track how much time has been focused on a task.
+- Generate and run SQLModel/Alembic migration to update the DB, or if using a simple sqlite creation script, update it. (Wait, let me verify how db is updated - usually via FastAPI startup `SQLModel.metadata.create_all` which doesn't alter columns in SQLite easily, we might need a migration or just alter table manually).
+
+#### [MODIFY] [routers/tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py)
+- Expose `time_spent_minutes` in the Task read/write schemas so the frontend can retrieve and update it (e.g., via `PUT /tasks/{id}`).
+
+### Frontend Updates
+
+#### [MODIFY] [components/layout/Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx)
+- Add a new navigation item for Focus (e.g. `Timer` icon from `lucide-react`, href `/focus`).
+
+#### [NEW] `app/focus/page.tsx`
+- Create the Focus page.
+- Layout:
+  - Top: large Pomodoro timer display (25:00 / 05:00 / 15:00).
+  - Controls: Play, Pause, Reset, Skip.
+  - Timer Modes: Focus (25m), Short Break (5m), Long Break (15m).
+  - Task Selector: Dropdown or list showing `inbox` & `in_progress` tasks.
+- Logic:
+  - Track time elapsed. When a Focus session is paused or completes, send a `PUT` request to update the selected task's `time_spent_minutes`.
+
+## Verification Plan
+
+### Automated Tests
+- Run backend locally (`fastapi dev` or `python -m uvicorn ...`)
+- Run frontend locally (`npm run dev`) 
+(Wait, it's already running. I will check the frontend browser page).
+
+### Manual Verification
+1. Open the web app.
+2. Click the new "Focus" tab in the sidebar.
+3. Select an active task.
+4. Start the timer, let it run briefly (or advance it), and pause.
+5. Verify the task's accrued time gets updated in the backend.
+6. Verify the UI updates correctly and looks visually premium, matching the dashboard's aesthetics.

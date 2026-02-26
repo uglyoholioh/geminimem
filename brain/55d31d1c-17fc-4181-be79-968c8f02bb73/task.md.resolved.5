@@ -1,0 +1,34 @@
+# Tasks Page Revamp
+
+## Backend Changes
+- [x] Simplify [routers/tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py) — remove NLP `raw_text` / `parse_task_nl` path from [create_task](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#155-239)
+- [x] Update [TaskCreate](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#23-38) model: add `course_code` field, remove `raw_text`
+- [x] Fix duplicate `course_code` field in [models/task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py)
+- [x] Add `show_tasks_on_timetable` user setting (backend model + settings router)
+
+## Frontend — Tasks Page Rewrite
+- [x] Replace modal-based creation with inline textbox at top of task list
+- [x] Build inline quick-tag row (module, priority, due date, tags) below textbox
+- [x] Add Due Time input with today defaults (HH:00) and "+1d, +1w, +30m, +1h" adjusters
+- [x] Increase general UI sizing in TaskRow and InlineTaskCreator (text-base)
+- [x] Rework sidebar filters: status, priority, module, date range
+- [x] Keep existing views: List, Kanban, Calendar
+- [x] Add "Timeline" view (grouped chronologically)
+- [x] Ensure detail panel inline editing still works
+- [x] Add bulk filter bar in header area
+
+## Frontend — Timetable Integration
+- [x] Add "Show Tasks" toggle on timetable page header
+- [x] Fetch tasks with due dates and render on timetable grid
+- [x] Store toggle preference via settings API
+
+## Verification
+- [x] Browser test: create, tag, filter, update, delete tasks
+- [x] Browser test: timetable tasks toggle
+
+## Daily Brief Chat Integration
+- [/] Remove [app/ai/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/ai/page.tsx) directory
+- [/] Remove `AI Chat` from [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx) navigation
+- [/] Remove `Quick AI` section from [app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) dashboard
+- [/] Refactor `Daily Brief` in [app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) to include a scrolling chat interface and message input
+- [/] Connect new chat interface to the existing `POST /api/v1/brief/chat` endpoint

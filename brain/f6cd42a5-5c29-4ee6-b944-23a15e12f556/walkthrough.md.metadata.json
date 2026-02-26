@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary":  "Walkthrough of the user authentication system and settings page rebuild. Covers backend (User model, auth routes, dual auth dependency), frontend (AuthProvider, login page, sidebar avatar, tabbed settings), with browser-verified screenshots.",
+  "updatedAt":  "2026-02-24T10:34:57.759537Z",
+  "version":  "4"
+}

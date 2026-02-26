@@ -1,0 +1,452 @@
+# Navigation & Dashboard Optimization Walkthrough
+
+## Changes Made
+
+### Navigation Bar Simplification
+
+**Before:** Dashboard, Tasks, Assignments, Announcements, Materials, Schedule, Timetable, Planner, Settings
+
+**After:** Dashboard, Tasks, Materials, Planner + Settings icon
+
+- Removed: Schedule, Timetable (merged with Planner), Assignments, Announcements
+- Moved Settings to icon near logout button
+- Assignments and Announcements accessible via dashboard links
+
+```diff:Navigation.tsx
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import {
+  LayoutDashboard,
+  BookOpen,
+  FileText,
+  Megaphone,
+  FolderOpen,
+  Calendar,
+  Clock,
+  CalendarClock,
+  Settings,
+  GraduationCap,
+  LogOut,
+} from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "@/lib/providers/theme-provider";
+import { useAuth } from "@/lib/contexts/AuthContext";
+
+const navItems = [
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/assignments", label: "Assignments", icon: FileText },
+  { href: "/announcements", label: "Announcements", icon: Megaphone },
+  { href: "/materials", label: "Materials", icon: FolderOpen },
+  { href: "/schedule", label: "Schedule", icon: Calendar },
+  { href: "/timetable", label: "Timetable", icon: Clock },
+  { href: "/planner", label: "Planner", icon: CalendarClock },
+  { href: "/settings", label: "Settings", icon: Settings },
+];
+
+export function Navigation() {
+  const pathname = usePathname();
+  const { actualTheme } = useTheme();
+  const { user, logout } = useAuth();
+
+  // Don't show nav on login/register pages
+  const isAuthPage = pathname === "/login" || pathname === "/register";
+  if (isAuthPage) return null;
+
+  return (
+    <nav
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 'var(--z-sticky)',
+        width: '100%',
+        borderBottom: '1px solid var(--color-border-light)',
+        background: actualTheme === 'dark'
+          ? 'rgba(26, 24, 22, 0.95)'
+          : 'rgba(250, 247, 242, 0.95)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: 'var(--space-md) var(--page-padding)',
+        }}
+      >
+        {/* Logo */}
+        <Link
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+            textDecoration: 'none',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              height: '40px',
+              width: '40px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--color-accent-primary)',
+              color: 'var(--color-text-inverted)',
+            }}
+          >
+            <GraduationCap style={{ width: '20px', height: '20px' }} />
+          </div>
+          <span
+            style={{
+              fontSize: '1.25rem',
+              fontWeight: 'var(--font-weight-semibold)',
+              color: 'var(--color-text-primary)',
+            }}
+          >
+            LMS Manager
+          </span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-xs)',
+          }}
+          className="hidden md:flex"
+        >
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 'var(--space-xs)',
+                  padding: 'var(--space-xs) var(--space-md)',
+                  borderRadius: 'var(--radius-md)',
+                  fontSize: 'var(--font-size-small)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  textDecoration: 'none',
+                  transition: 'all var(--transition-normal)',
+                  background: isActive
+                    ? 'var(--color-accent-primary)'
+                    : 'transparent',
+                  color: isActive
+                    ? 'var(--color-text-inverted)'
+                    : 'var(--color-text-secondary)',
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'var(--color-bg-subtle)';
+                    e.currentTarget.style.color = 'var(--color-text-primary)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = 'var(--color-text-secondary)';
+                  }
+                }}
+              >
+                <Icon style={{ width: '16px', height: '16px' }} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right side: Theme Toggle & Logout */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+        >
+          <ThemeToggle />
+
+          {/* Logout Button - only show when logged in */}
+          {user && (
+            <button
+              onClick={() => logout()}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--space-xs)',
+                padding: 'var(--space-xs) var(--space-md)',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 'var(--font-size-small)',
+                fontWeight: 'var(--font-weight-medium)',
+                border: '1px solid var(--color-border-light)',
+                background: 'transparent',
+                color: 'var(--color-text-secondary)',
+                cursor: 'pointer',
+                transition: 'all var(--transition-normal)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#dc2626';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.borderColor = '#dc2626';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--color-text-secondary)';
+                e.currentTarget.style.borderColor = 'var(--color-border-light)';
+              }}
+            >
+              <LogOut style={{ width: '16px', height: '16px' }} />
+              <span className="hidden sm:inline">Logout</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+===
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import {
+  LayoutDashboard,
+  FolderOpen,
+  CalendarClock,
+  Settings,
+  GraduationCap,
+  LogOut,
+  CheckSquare,
+} from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "@/lib/providers/theme-provider";
+import { useAuth } from "@/lib/contexts/AuthContext";
+
+// Simplified navigation - removed Schedule, Timetable (combined into Planner), Assignments, Announcements
+const navItems = [
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/todos", label: "Tasks", icon: CheckSquare },
+  { href: "/materials", label: "Materials", icon: FolderOpen },
+  { href: "/planner", label: "Planner", icon: CalendarClock },
+];
+
+export function Navigation() {
+  const pathname = usePathname();
+  const { actualTheme } = useTheme();
+  const { user, logout } = useAuth();
+
+  // Don't show nav on login/register pages
+  const isAuthPage = pathname === "/login" || pathname === "/register";
+  if (isAuthPage) return null;
+
+  return (
+    <nav
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 'var(--z-sticky)',
+        width: '100%',
+        borderBottom: '1px solid var(--color-border-light)',
+        background: actualTheme === 'dark'
+          ? 'rgba(26, 24, 22, 0.95)'
+          : 'rgba(250, 247, 242, 0.95)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: 'var(--space-md) var(--page-padding)',
+        }}
+      >
+        {/* Logo */}
+        <Link
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+            textDecoration: 'none',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              height: '40px',
+              width: '40px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--color-accent-primary)',
+              color: 'var(--color-text-inverted)',
+            }}
+          >
+            <GraduationCap style={{ width: '20px', height: '20px' }} />
+          </div>
+          <span
+            style={{
+              fontSize: '1.25rem',
+              fontWeight: 'var(--font-weight-semibold)',
+              color: 'var(--color-text-primary)',
+            }}
+          >
+            LMS Manager
+          </span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+          className="hidden md:flex"
+        >
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "relative flex items-center gap-2 px-4 py-2 rounded-lg text-base font-bold uppercase tracking-wide transition-all duration-200",
+                  isActive
+                    ? "bg-black dark:bg-white text-white dark:text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)]"
+                    : "text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10"
+                )}
+                style={{
+                  textDecoration: 'none',
+                  borderBottom: isActive ? '3px solid var(--color-accent-primary)' : '3px solid transparent',
+                }}
+              >
+                <Icon style={{ width: '18px', height: '18px' }} />
+                <span>{item.label}</span>
+                {isActive && (
+                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-red-600 rounded-full" />
+                )}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right side: Settings Icon, Theme Toggle & Logout */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+        >
+          {/* Settings Icon */}
+          <Link
+            href="/settings"
+            className={cn(
+              "p-2 rounded-lg transition-all duration-200",
+              pathname === "/settings"
+                ? "bg-black dark:bg-white text-white dark:text-black"
+                : "text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10"
+            )}
+            title="Settings"
+          >
+            <Settings style={{ width: '20px', height: '20px' }} />
+          </Link>
+
+          <ThemeToggle />
+
+          {/* Logout Button - only show when logged in */}
+          {user && (
+            <button
+              onClick={() => logout()}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--space-xs)',
+                padding: 'var(--space-xs) var(--space-md)',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 'var(--font-size-small)',
+                fontWeight: 'var(--font-weight-medium)',
+                border: '1px solid var(--color-border-light)',
+                background: 'transparent',
+                color: 'var(--color-text-secondary)',
+                cursor: 'pointer',
+                transition: 'all var(--transition-normal)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#dc2626';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.borderColor = '#dc2626';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--color-text-secondary)';
+                e.currentTarget.style.borderColor = 'var(--color-border-light)';
+              }}
+            >
+              <LogOut style={{ width: '16px', height: '16px' }} />
+              <span className="hidden sm:inline">Logout</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+```
+
+---
+
+### Dashboard Compaction
+
+The dashboard was redesigned to fit entirely on screen without scrolling:
+
+| Change | Before | After |
+|--------|--------|-------|
+| Layout | Multiple rows requiring scroll | 3-column single-view |
+| Padding | Edge-to-edge (px-4) | Comfortable margins (px-8 to px-24) |
+| Daily Brief | Full-width row | Left column with constrained height |
+| Stats | 2x2 grid with labels | Compact horizontal bar |
+| Spacing | 5-unit gaps | 3-unit gaps |
+
+---
+
+## Verification
+
+Dashboard at 1920x1080 - fits on screen without scrolling:
+
+![Compact Dashboard Layout](file:///Users/oli/.gemini/antigravity/brain/0297b1c8-a29d-4ff7-b139-c6d89ab23fd5/compact_dashboard.png)
+
+**Confirmed:**
+- ✅ All content visible without scrolling
+- ✅ Navigation shows only 4 items + Settings icon
+- ✅ 3-column layout: Daily Brief | Tasks | Stats/Assignments/Announcements
+- ✅ Good side padding
+- ✅ Font sizes preserved
+
+---
+
+## Files Modified
+
+| File | Changes |
+|------|---------|
+| [Navigation.tsx](file:///Users/oli/Desktop/LMSManager/frontend/lib/components/Navigation.tsx) | Removed Schedule/Timetable/Assignments/Announcements, added Settings icon |
+| [page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/page.tsx) | Compact 3-column layout, reduced spacing, side padding |
+| [todo-widget.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/todos/todo-widget.tsx) | Made headless, more compact |
+| [daily-brief.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx) | Reduced padding, constrained height |

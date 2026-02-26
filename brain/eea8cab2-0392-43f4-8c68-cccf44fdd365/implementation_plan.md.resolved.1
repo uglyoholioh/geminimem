@@ -1,0 +1,30 @@
+# Assignments Layout & Collapsible Sections
+
+The user requested different ways to view assignments (List, Grid, Timeline) and the ability to collapse sections.
+
+## Proposed Changes
+
+### Frontend
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx)
+- **State Additions**:
+  - `layoutLayout` (`'list' | 'grid' | 'timeline'`): To track the current visual layout mode. Default to `'timeline'`.
+  - `collapsedGroups` (`Set<string>`): To track which urgency groups (e.g., 'Overdue', 'Due Today') are currently collapsed.
+- **Header Updates**:
+  - Add a "View Toggle" segmented control (using icons like `LayoutList`, `LayoutGrid`, `GitCommit` from lucide-react) to switch between the three layouts.
+- **Section Headers**:
+  - Update the urgency group headers (e.g., `<h3>{groupName}</h3>`) to be clickable buttons that toggle the `collapsedGroups` set.
+  - Add a chevron icon (`ChevronDown` / `ChevronUp`) to indicate the collapsed state.
+- **Layout Implementations**:
+  - **Timeline Mode (`timeline`)**: Keep the existing vertical timeline with dots and connector lines.
+  - **Grid Mode (`grid`)**: Restore the card-based grid layout (`grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4`).
+  - **List Mode (`list`)**: Implement a new, highly dense row layout. This will be a flat list where metadata (module code, title, status, points, due date) is aligned horizontally to maximize vertical space.
+
+## Verification Plan
+
+### Manual Verification
+1. I will implement the changes and the frontend dev server will hot-reload.
+2. The user will be asked to navigate to [/assignments](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments) on their local instance (`localhost:3000/assignments`).
+3. User to verify:
+   - Does the view toggle correctly switch between List, Grid, and Timeline modes?
+   - Can sections be collapsed and expanded by clicking their headers?
+   - Does the new List layout provide a dense, scannable view?

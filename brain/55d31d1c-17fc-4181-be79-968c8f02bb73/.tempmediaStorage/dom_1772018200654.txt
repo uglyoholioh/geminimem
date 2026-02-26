@@ -1,0 +1,40 @@
+OS
+[0] (23,131)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/' title='Dashboard' />
+[1] (23,193)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[2] (23,256)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (23,319)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (23,381)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[5] (23,444)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (23,506)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (23,569)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[8] (23,632)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[9] (23,829)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[10] (23,892)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+TB
+Good evening
+Wednesday, February 25
+Daily Brief & Chat
+[11] (565,195)<button class='text-accent text-xs hover:text-accent-hover transition-colors disabled:opacity-50 flex items-center gap-1'>Generate />
+No brief yet today
+Click Generate to create one, or just ask me anything
+Ask about your schedule, tasks, assignments, or module materials
+[12] (184,535)<button class='px-3 py-1.5 text-xs rounded-lg border border-border text-secondary hover:bg-surface-hover transition-colors'>What should I focus on today? />
+[13] (361,535)<button class='px-3 py-1.5 text-xs rounded-lg border border-border text-secondary hover:bg-surface-hover transition-colors'>Suggest tasks for my deadlines />
+[14] (515,535)<button class='px-3 py-1.5 text-xs rounded-lg border border-border text-secondary hover:bg-surface-hover transition-colors'>Summarise my week />
+[15] (318,886)<input class='flex-1 rounded-lg border border-border bg-base px-3 py-2 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none disabled:opacity-50' placeholder='Ask about your schedule, tasks, module materials...' />
+[16] (802,546)<div class='lg:col-span-2 space-y-4 overflow-y-auto min-h-0' scrollable='true' />
+	Today's Schedule
+	[17] (936,195)<a class='text-accent text-xs hover:text-accent-hover transition-colors' href='/timetable'>View all → />
+	No classes today
+	Tasks
+	[18] (936,368)<a class='text-accent text-xs hover:text-accent-hover transition-colors' href='/tasks'>View all → />
+	No open tasks
+	Announcements
+	All caught up
+	Upcoming Assignments
+	No upcoming assignments
+	This Week
+	0
+	Open Tasks
+	0
+	Classes Today

@@ -1,0 +1,32 @@
+
+# Tasks
+
+- [ ] Fix GLM API Key Persistence in Settings
+    - [x] Debug [AuthContext](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#25-34) to ensure `has_glm_key` is correctly updated in [user](file:///Users/oli/Desktop/LMSManager/backend/app/dependencies/auth.py#52-110) state during [refreshUser](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#179-205).
+    - [x] Debug [SettingsPage](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx#18-917) initialization to ensure it correctly syncs local state with `user.has_glm_key`.
+    - [x] Verify fix by reloading settings page.
+- [x] Improve AI Daily Brief Formatting
+    - [x] Backend: Update prompt in [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py) to request Markdown formatting (headers, bullets).
+    - [x] Frontend: Update [DailyBrief](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx#9-276) component to render Markdown.
+    - [x] Frontend: Improve [DailyBrief](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx#9-276) UI design (more space, better readability).
+- [x] Show Redacted API Key in Settings
+    - [x] Backend: Update [User](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#6-24) schema and `auth/me` endpoint to return `glm_key_preview` (masked key).
+    - [x] Frontend: Update [AuthContext](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#25-34) type to include `glm_key_preview`.
+    - [x] Frontend: Update [SettingsPage](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx#18-917) to display the redacted key in the input field when saved.
+- [x] Debug Daily Brief Regression
+- [x] verify Redacted Key Display
+    - [x] Ensure [SettingsPage](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx#18-917) updates `glmApiKey` state immediately after save/refresh.
+    - [x] Verify `glm_key_preview` is correctly populated in [AuthContext](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#25-34).
+- [x] Debug Persistent AI Generation Failure
+    - [x] Check backend logs for `/brief` endpoint errors.
+    - [x] Verify if `glm-4.5-flash` is timing out or returning 400/500 code.
+    - [x] Implement robust error handling if the model is overloaded or fails.
+- [x] Debug API Key Save Failure ("API key test failed")
+    - [x] Inspect `SettingsPage.tsx` for the error message source.
+    - [x] Check `handleSaveGlmKey` or `handleTestAI` logic.
+    - [x] Backend: Check `/ai-assistant/test-ai` endpoint (logs & code).
+    - [x] Fix the test logic or timeout issue.
+- [x] Fix Regression: Redacted Key & AI Generation
+    - [x] Backend: Increase [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py) timeout to 120s (fixed httpx.ReadTimeout).
+    - [x] Backend: Ensure `/auth/me` and `/auth/profile` return `glm_key_preview`.
+    - [x] Frontend: Update [SettingsPage](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx#18-917) to use returned preview immediately.

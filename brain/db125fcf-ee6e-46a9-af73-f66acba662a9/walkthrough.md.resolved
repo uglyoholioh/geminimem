@@ -1,0 +1,15 @@
+# Walkthrough: Timetable Attendance Toggle
+
+The CraftCanvas Timetable and Dashboard have been updated to allow users to toggle whether they are attending specific classes.
+
+## Features Implemented
+- **Database Backend**: Added the `is_attended` boolean field with a default of 1 (true) to `timetable_slots` in SQLite.
+- **Backend API Routes**: The backend API allows reading this value from `/today` and `/week` and updating it via `PATCH /timetable/slots/{slot_id}`.
+- **Import Preservation**: Updaing the timetable via the `/import` or `/import-url` endpoints now perfectly preserves earlier choices for attendance by mapping the module code, lesson type, and lesson ID.
+- **Dashboard UI**: You can now click on the Eye icon to quickly mark a class as unattended on the dashboard homepage today schedule. Unattended classes are grayed out.
+- **Timetable UI**: You can additionally click the Eye icon on any individual class block to toggle attendance in both the horizontal and vertical views inside `/timetable`.
+
+## Verification Used
+- **Backend Tests**: Verified [backend/tests/test_routers/test_timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_routers/test_timetable.py) continues to pass, validating the new serialization format.
+- **Frontend Build Validation**: The `npm run build` command succeeded in building the frontend with the new UI typing additions.
+- **Playwright end-to-end tests**: (Running) Verifying there are no regressions on the standard user UI paths.

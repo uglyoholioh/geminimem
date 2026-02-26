@@ -1,0 +1,68 @@
+# App Review — Gap Analysis & Improvement Proposals
+
+## Summary
+
+Audited all 11 feature areas in [FEATURES.md](file:///Users/oli/Desktop/CraftCanvas/FEATURES.md) against the current implementation. Most core functionality is built and working. Several minor issues were **fixed directly** during this review, and a few **major improvements** are proposed below for your approval.
+
+---
+
+## What's Working ✅
+
+| Area | Status | Notes |
+|---|---|---|
+| **Dashboard** | ✅ Complete | 3-column grid, brief card, schedule, tasks, assignments, announcements, AI stub, stats |
+| **Tasks** | ✅ Complete | CRUD, NL quick-add, filter by status, toggle complete, delete, priority/module badges |
+| **Timetable** | ✅ Complete | Weekly grid, ICS import, colour-coded blocks, week navigation |
+| **Daily Brief** | ✅ Complete | AI generation, structured data + prose, generate/refresh on dashboard |
+| **Scheduler** | ✅ Complete | APScheduler with daily brief + canvas sync cron jobs |
+| **AI Service** | ✅ Complete | Routing (auto/local/external), fallback, streaming support |
+| **Backend API** | ✅ Complete | All routers: courses, assignments, announcements, tasks, timetable, brief, AI, sync |
+| **API Proxy** | ✅ Complete | Next.js catch-all route with API key injection |
+| **Design System** | ✅ Complete | Light/dark modes, botanical theme, CSS variables, design tokens |
+| **Theme Toggle** | ✅ Complete | Persists to localStorage, respects prefers-color-scheme |
+
+## Fixes Applied During Review 🔧
+
+| Issue | Fix |
+|---|---|
+| API proxy timeout was 5s — AI calls timeout | Increased to 120s |
+| Dashboard greeting always "Good afternoon" | Now time-aware (morning/afternoon/evening) |
+| No Courses page (`/courses`) | Built card grid with module stats |
+| No AI Chat page (`/ai`) | Built full chat interface with message history |
+| No Settings page (`/settings`) | Built with appearance, Canvas, timetable, AI config |
+| No Grades page (`/grades`) | Built with NUS grade scale, component tracking, localStorage |
+| No AI chat backend router | Added `POST /api/v1/ai/chat` |
+| API proxy hardcodes `Content-Type: application/json` | Blocks file uploads through proxy (see proposals) |
+
+## Remaining Gaps & Proposed Improvements
+
+### 🟡 Minor — Will fix if approved
+
+1. **API proxy doesn't handle file uploads** — The proxy hardcodes `Content-Type: application/json`, so `FormData` uploads (ICS import) through the proxy will fail. The timetable page currently works because it may bypass the proxy. Should fix the proxy to forward the original content-type for multipart requests.
+
+2. **Announcements: no mark-as-read on dashboard** — FEATURES.md specifies a "mark as read" button on dashboard announcement items. Currently we display them but don't offer a dismiss action.
+
+3. **Dashboard schedule: no active-class highlighting** — FEATURES.md §1.2 says "currently-active slot is highlighted" and "upcoming slot within 1 hour shows a countdown." Our schedule card doesn't do this.
+
+4. **Tasks page: missing sidebar views** — FEATURES.md §2.1 specifies Inbox, Today, Upcoming, By Module, Completed sidebar views. We have filter pills but not the full left sidebar. This is a deliberate UX simplification — the filter pills work well. Keep as-is?
+
+### 🟠 Medium — Proposing for your decision
+
+5. **Assignments page (`/assignments`)** — There is no dedicated Assignments page in the frontend. Assignments show on the dashboard but there's no full list/detail view. FEATURES.md §3 specifies tabs (All/Upcoming/Past/Submitted), grouped by course, with a detail panel. **Should I build this?**
+
+6. **Brief history page (`/brief`)** — FEATURES.md §6.1 specifies a brief history page showing all past briefs chronologically. The backend endpoint exists (`GET /brief/history`) but no frontend page. **Should I build this?**
+
+7. **Module detail page (`/courses/[id]`)** — FEATURES.md §5.2 specifies a detail page per course with tabs (Overview, Assignments, Announcements, Files, AI, Notes, Grades). This is a significant page. **Should I build this?**
+
+### 🔴 Major — Phase 6+ (not yet due)
+
+8. **Telegram Bot** (Phase 6) — Not yet built. All commands defined in FEATURES.md §10.
+9. **Craft integration** (Phase 7+) — Daily notes, module pages, task inbox note push.
+10. **RAG pipeline** — ChromaDB embedding and retrieval for AI context enrichment.
+11. **Settings persistence** — Settings page currently doesn't save to backend DB. The [Settings](file:///Users/oli/Desktop/CraftCanvas/backend/config.py#13-60) model exists but no router for it.
+
+---
+
+## Recommendation
+
+I'd suggest I fix items **1–3** (proxy, mark-as-read, active-class highlighting) immediately since they're small. For items **5–7**, let me know which you'd like me to build — they're each roughly 15-30 minutes of work. Items 8–11 are future phases.

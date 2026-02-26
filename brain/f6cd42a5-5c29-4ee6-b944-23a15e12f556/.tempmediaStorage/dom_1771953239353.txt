@@ -1,0 +1,44 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+OS
+[0] (23,131)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[1] (23,193)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/tasks' title='Tasks' />
+[2] (23,256)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (23,319)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (23,381)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[5] (23,444)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/ai' title='AI Chat' />
+[6] (23,506)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[7] (23,569)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (23,886)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+Tasks
+[9] (197,43)<button class='h-7 w-7 flex items-center justify-center rounded-lg bg-accent text-white hover:bg-accent-hover transition-colors' title='New task (N)' />
+[10] (135,111)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors bg-accent-subtle text-accent font-medium'>Inbox
+0 />
+	Inbox
+	0
+[11] (135,165)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Today
+0 />
+	Today
+	0
+[12] (135,219)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Upcoming />
+	Upcoming
+[13] (135,273)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>By Module />
+	By Module
+[14] (135,327)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Completed
+0 />
+	Completed
+	0
+0
+open
+0
+completed
+Press N to add
+Inbox
+[15] (839,51)<button class='px-3 py-1.5 text-xs rounded-md transition-colors bg-surface shadow text-primary font-medium border border-border/50'>List />
+[16] (887,51)<button class='px-3 py-1.5 text-xs rounded-md transition-colors text-muted hover:text-secondary'>Kanban />
+[17] (947,51)<button class='px-3 py-1.5 text-xs rounded-md transition-colors text-muted hover:text-secondary'>Calendar />
+Loading...
+
+</current_dom>

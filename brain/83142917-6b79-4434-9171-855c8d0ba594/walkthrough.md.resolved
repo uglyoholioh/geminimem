@@ -1,0 +1,32 @@
+# Walkthrough - Daily Brief Optimizations
+
+I have resolved the issue where the Daily Brief was perceived as "not working" by improving error visibility, reliability, and fixing an underlying dependency bug.
+
+## Changes Made
+
+### Backend
+- **[brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)**: Improved AI response parsing to handle non-JSON outputs more gracefully. Ensures safe fallbacks so the UI always has content to display.
+- **[craft_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/craft_sync.py)**: Fixed a `NameError` caused by missing `typing` imports, which was causing silent failures in background jobs.
+
+### Frontend
+- **[page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)**: 
+    - Added explicit error state handling for the daily brief fetch.
+    - Updated the UI to display helpful error messages when a brief fails to load or generate.
+    - Improved console logging for easier debugging of future AI-related issues.
+
+## Verification Results
+
+### Automated Tests
+- Successfully ran [test_brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/test_brief.py). All tests passed.
+```text
+test_brief.py::test PASSED                                               [100%]
+======================== 1 passed, 1 warning in 16.26s =========================
+```
+
+### Manual Verification
+- Verified that the `actual_minutes` column exists in the database.
+- Verified that today's brief is correctly stored and retrievable via the API.
+- The improved frontend logic now correctly catches and reports errors if the AI service (Ollama) is unavailable or fails.
+
+![Screenshot of Dashboard with Brief Placeholder](/Users/oli/Desktop/CraftCanvas/backend/1_dashboard_brief.png)
+*(Note: I could not capture a fresh screenshot due to OS limitations, but the updated code includes explicit error labels like "Could not load today's brief".)*

@@ -1,0 +1,58 @@
+# Phase 8: User Onboarding Flow
+
+Implement a mandatory onboarding process for newly registered users to capture essential setup details (like Canvas API integration) before they access the main application.
+
+## User Review Required
+
+> [!WARNING]
+> This requires adding a new `is_onboarded` column to the [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-44) model. Since we just wiped and recreated the database, I will add the column and wipe/recreate the local `db.sqlite` one more time before you populate it with real data. Is this acceptable?
+
+## Proposed Changes
+
+### Database & Backend Models
+
+- Add `is_onboarded: bool` flag to the [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-44) SQLModel.
+
+#### [MODIFY] [user.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py)
+
+---
+
+### Backend API Endpoints
+
+- Update the `/api/v1/auth/me` endpoint to return the `is_onboarded` status.
+- Add a new endpoint to complete onboarding (`PUT /api/v1/auth/onboard`) which flips `is_onboarded` to `True`.
+
+#### [MODIFY] [auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)
+
+---
+
+### Frontend Auth Provider & Routing
+
+- Update the [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-44) interface to include `is_onboarded`.
+- Modify the global `useEffect` redirect logic:
+  - If a user is logged in but `!is_onboarded` and they are not on `/setup`, forcefully redirect them to `/setup`.
+  - If a user is logged in, `is_onboarded`, and tries to visit `/login` or `/setup`, redirect them to the dashboard `/`.
+
+#### [MODIFY] [AuthProvider.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/AuthProvider.tsx)
+
+---
+
+### Frontend Setup UI
+
+- Create a new onboarding wizard interface with a premium glassmorphic/bento aesthetic.
+- Allow the user to input their Canvas API token and Base URL, saving these to settings.
+- Finally, call the backend to mark onboarding as complete, and redirect to the dashboard.
+
+#### [NEW] [setup/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/setup/page.tsx)
+
+## Verification Plan
+
+### Automated Tests
+- N/A
+
+### Manual Verification
+- Register a fresh account.
+- Verify automatic redirect to `/setup` instead of `/`.
+- Attempt to navigate to `/` before completion, verify it blocks access and forces `/setup`.
+- Complete the setup flow with a Canvas token.
+- Verify automatic redirect to `/` upon completion, and verify Canvas sync works.

@@ -1,0 +1,25 @@
+# Tasks Page Revamp
+
+## Backend Changes
+- [ ] Simplify [routers/tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py) — remove NLP `raw_text` / `parse_task_nl` path from [create_task](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#175-305)
+- [ ] Update [TaskCreate](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#24-40) model: add `course_code` field, remove `raw_text`
+- [ ] Fix duplicate `course_code` field in [models/task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py)
+- [ ] Add `show_tasks_on_timetable` user setting (backend model + settings router)
+
+## Frontend — Tasks Page Rewrite
+- [ ] Replace modal-based creation with inline textbox at top of task list
+- [ ] Build inline quick-tag row (module, priority, due date, tags) below textbox
+- [ ] Rework sidebar filters: status, priority, module, date range
+- [ ] Keep existing views: List, Kanban, Calendar
+- [ ] Add "Timeline" view (grouped chronologically)
+- [ ] Ensure detail panel inline editing still works
+- [ ] Add bulk filter bar in header area
+
+## Frontend — Timetable Integration
+- [ ] Add "Show Tasks" toggle on timetable page header
+- [ ] Fetch tasks with due dates and render on timetable grid
+- [ ] Store toggle preference via settings API
+
+## Verification
+- [ ] Browser test: create, tag, filter, update, delete tasks
+- [ ] Browser test: timetable tasks toggle

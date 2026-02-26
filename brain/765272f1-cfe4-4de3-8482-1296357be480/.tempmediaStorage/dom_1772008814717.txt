@@ -1,0 +1,155 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+OS
+[0] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[1] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[2] (14,187)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (14,233)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/timetable' title='Timetable' />
+[4] (14,278)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[5] (14,324)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,370)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,415)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/ai' title='AI Chat' />
+[8] (14,461)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[9] (14,507)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[10] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[11] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+TU
+Week 6
+•
+Sem 2 · AY2025-2026
+•
+Feb 23
+—
+Mar 1
+[12] (802,44)<button class='w-10 h-full flex items-center justify-center transition-colors bg-primary/10 text-primary' title='Horizontal View (Days on Y, Time on X)' />
+[13] (823,44)<button class='w-10 h-full flex items-center justify-center transition-colors text-muted hover:bg-surface-hover' title='Vertical View (Time on Y, Days on X)' />
+[14] (852,44)<button class='h-9 w-9 flex items-center justify-center border border-border bg-surface hover:bg-surface-hover transition-colors rounded-sm' />
+[15] (885,44)<button class='px-4 h-9 border border-border bg-surface text-xs font-mono font-medium uppercase tracking-widest text-primary hover:bg-surface-hover transition-colors rounded-sm'>Today />
+[16] (919,44)<button class='h-9 w-9 flex items-center justify-center border border-border bg-surface hover:bg-surface-hover transition-colors rounded-sm' />
+[17] (964,44)<label class='cursor-pointer hidden sm:block' />
+	[18] (964,44)<span >Import />
+[19] (515,404)<div class='overflow-x-auto' scrollable='true' />
+	Day
+	08:00
+	09:00
+	10:00
+	11:00
+	12:00
+	13:00
+	14:00
+	15:00
+	16:00
+	17:00
+	18:00
+	19:00
+	20:00
+	21:00
+	Mon
+	Feb 23
+	BT1101
+	LAB
+	Introduction to Business Analytics
+Laboratory Group 02
+	10:00
+	–
+	12:00
+	COM4-02-03
+	CS2030
+	LEC
+	Programming Methodology II
+Lecture Group 1
+	12:00
+	–
+	14:00
+	LT19
+	GEX1015
+	TUT
+	14:00
+	–
+	15:00
+	Tue
+	Feb 24
+	MA1522
+	LEC
+	Linear Algebra for Computing
+Lecture Group 2
+	16:00
+	–
+	18:00
+	LT16
+	Wed
+	Feb 25
+	CS2030
+	REC
+	13:00
+	–
+	14:00
+	Thu
+	Feb 26
+	GESS1025
+	TUT
+	Singapore: Imagining the Next 50 Years
+Tutorial Group D30
+	10:00
+	–
+	12:00
+	UTSRC-SR5
+	BT1101
+	LEC
+	Introduction to Business Analytics
+Lecture Group 1
+	16:00
+	–
+	18:00
+	I3-LT38
+	Fri
+	Feb 27
+	CS2030
+	LAB
+	Programming Methodology II
+Laboratory Group 10D
+	10:00
+	–
+	12:00
+	COM1-0120
+	BT1101
+	TUT
+	12:00
+	–
+	13:00
+	GEX1015
+	LEC
+	Life, the Universe, and Everything
+Lecture Group 1
+	14:00
+	–
+	16:00
+	LT11
+	MA1522
+	LEC
+	Linear Algebra for Computing
+Lecture Group 2
+	16:00
+	–
+	18:00
+	LT16
+Modules
+BT1101
+Introduction to Business Analytics
+Laboratory Group 02
+CS2030
+Programming Methodology II
+Lecture Group 1
+GESS1025
+Singapore: Imagining the Next 50 Years
+Tutorial Group D30
+GEX1015
+Life, the Universe, and Everything
+Tutorial Group W3
+MA1522
+Linear Algebra for Computing
+Lecture Group 2
+
+</current_dom>

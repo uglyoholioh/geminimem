@@ -1,0 +1,22 @@
+# Redesigning Today's Schedule
+
+Currently, the "Today's Schedule" section is a simple list of cards with a colored pill on the left. We will redesign it into a sleek, vertical **timeline view**, taking inspiration from premium iOS and web scheduling apps. 
+
+## Proposed Changes
+
+### `frontend/app/page.tsx`
+- **Timeline Structure**: We'll introduce a vertical line connecting the schedule items, creating a clear progression of the day.
+- **Dynamic Visuals**: 
+  - **Past Classes**: Will be slightly faded (`opacity-60`) and use hollow/grayed-out dots on the timeline to indicate they're done.
+  - **Active/Current Class**: Will physically "pop" out with a ring, a subtle glowing/pinging dot, a highlighted background (`bg-accent/5`), and an inline **progress bar** showing exactly how much of the class has elapsed.
+  - **Future Classes**: Will be presented in distinct, elevated cards with their respective module colors representing their timeline dots.
+- **Card Enhancements**: Move the `lesson_type` (e.g., "Lecture", "Tutorial") and `venue` into more scannable positions alongside the `module_code` and times.
+- **Urgency Indicator**: Upcoming classes (within 60m) will have their start time highlighted.
+
+## Verification Plan
+
+### Automated/Local Build
+- We will verify the build using `npm run build` or checking the hot module reloading from the development server.
+
+### Visual Verification
+- We will take a screenshot of the Next.js frontend at `http://localhost:3000/` and ensure the timeline visually aligns and matches the bento-box premium aesthetic of the application.

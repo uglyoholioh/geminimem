@@ -1,0 +1,15 @@
+# Timetable & NUSMods API Integration
+
+## Phase 1: API Client & Week Array Logic (Current)
+- [ ] Create `backend/services/nusmods.py` to fetch from `api.nusmods.com`
+- [ ] Add `weeks` array column to [TimetableSlot](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx#19-32) model
+- [ ] Update `/import` endpoint to fetch NUSMods data and extract accurate `weeks` array
+- [ ] Modify [slot_occurs_on_date](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py#23-87) to use the explicit `weeks` array + academic week mapping
+
+## Phase 2: Share Link Import
+- [ ] Add `GET /import-url` endpoint to parse NUSMods Share URLs
+- [ ] Add UI input in [frontend/app/timetable/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/timetable/page.tsx) for Share URLs
+
+## Phase 3: Exams & Rich Data
+- [ ] Add `credits`, `description`, `exam_date` to `Course` model
+- [ ] Update [frontend/app/courses/[id]/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/%5Bid%5D/page.tsx) to display rich data

@@ -1,0 +1,37 @@
+
+# Fixes Overview: API Key, Settings & Daily Brief
+
+## Summary
+Resolved issues with GLM API key persistence, ensuring it's correctly saved and displayed (redacted) in Settings. Fixed the "API key test failed" error by updating authentication logic. Enhanced the AI Daily Brief with Markdown formatting and improved UI.
+
+## Changes
+
+### 1. Settings & API Key Persistence
+- **Fixed Persistence**: Updated [SettingsPage](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx#18-917) to correctly read `has_glm_key` from the user profile.
+- **Redacted Key Sync**: Fixed a regression where the redacted key wasn't showing immediately after save. Now, the backend returns the `glm_key_preview` (e.g., `sk-ab...xy123`) instantly upon save, and the frontend updates the UI without needing a refresh.
+- **Save Fix**: Resolved "API key test failed" error by updating authentication logic.
+
+### 2. AI Daily Brief Improvements
+- **Timeout Fix**: The "AI summary not available" error was caused by the model taking longer than 60s to generate. Increased the backend timeout to **120 seconds** to ensure reliable generation even during peak times.
+- **Markdown Formatting**: Updated the AI prompt to generate formatted text (Bold headers, bullet points).
+- **Rich UI**: Implemented a Markdown renderer in [DailyBrief](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx#9-276).
+
+## Verification
+
+### Settings Page
+1. Go to **Settings**.
+2. Enter your GLM API Key and click **Save**.
+3. **Verify**: The input field should clear and then show your redacted key (e.g., `efdb6...lsQT`). The "Test Connection" check should pass.
+4. Refresh the page. The key availability should persist.
+
+### Dashboard (Daily Brief)
+1. Go to **Dashboard**.
+2. Click **Generate AI Brief** (if not auto-generated).
+3. **Verify**: You should see a formatted message starting with **Good evening, Oliver!** (or generic greeting), with clear bullet points for your tasks.
+
+## Code Changes
+- [backend/app/routes/authentication.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/authentication.py): Added `glm_key_preview` and [redact_api_key](file:///Users/oli/Desktop/LMSManager/backend/app/routes/authentication.py#53-58).
+- [backend/app/routes/ai_assistant.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/ai_assistant.py): Updated `/test-ai` to use JWT auth.
+- [backend/app/routes/brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py): Updated prompts and logging.
+- [frontend/app/settings/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx): Updated save logic and key display.
+- [frontend/components/dashboard/daily-brief.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx): Added Markdown rendering.

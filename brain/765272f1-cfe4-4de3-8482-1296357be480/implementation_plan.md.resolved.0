@@ -1,0 +1,72 @@
+# Timetable Redesign — LMS Manager Style + Auto Academic Week
+
+Redesign the CraftCanvas timetable page to match the LMS Manager newspaper-style grid layout, and add automatic NUS academic week detection.
+
+## Proposed Changes
+
+### Backend — Academic Week Detection
+
+#### [MODIFY] [timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py)
+
+Add a new `GET /academic-week` endpoint that:
+- Auto-detects the current NUS academic week using known semester start dates:
+  - **AY2025/26 Sem 2**: Monday 13 Jan 2026 (Week 1)
+  - **AY2025/26 Sem 1**: Monday 11 Aug 2025
+- Formula: `week = (days_since_semester_start // 7) + 1`
+- Returns: `{ semester: "2", academic_year: "2025-2026", week: 7, semester_start: "2026-01-13", label: "Week 7" }`
+- Also handles recess week (Week 7 becomes "Recess Week"), reading week (Week 15), and exam weeks
+
+Modify the existing `GET /week` endpoint to include `academic_week` in its response.
+
+---
+
+### Frontend — Timetable Grid Rewrite
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+
+Full rewrite to match LMS Manager's style, adapted to CraftCanvas's design system:
+
+**Header section:**
+- Centred title: "Academic Week {N}" in serif font
+- Date range display (e.g. "Feb 23 — Mar 1")
+- Week navigation arrows + "Today" button
+- Import ICS button
+
+**Grid (table-based):**
+- `<table>` with time column + 5 day columns (Mon–Fri) — matches NUSMods reference screenshot
+- Time slots from 08:00 to 20:00
+- `rowSpan` for multi-hour classes (instead of absolute positioning)
+- Each class cell shows: module code (bold mono), class type shortform badge (LEC/TUT/LAB), time, venue
+- Low-saturation background colours derived from module `course_colour` (using HSL desaturation like LMS Manager)
+- Current day column highlighted
+
+**Legend:**
+- Module colour swatches with module codes at bottom of grid
+- Class type icons/labels reference
+
+**Auto academic week:**
+- Fetch `/timetable/academic-week` on mount
+- Display "Academic Week {N}" or "Recess Week" in header
+- Week number updates when navigating weeks
+
+**Design system compliance:**
+- Uses CraftCanvas CSS variables (`--bg-base`, `--bg-surface`, `--border`, etc.)
+- Uses CraftCanvas fonts (Instrument Serif for heading, DM Mono for data)
+- Light/dark mode support via existing CSS variable system
+- No arbitrary Tailwind colours
+
+---
+
+## Verification Plan
+
+### Browser Testing
+1. Start the backend: `cd /Users/oli/Desktop/CraftCanvas/backend && python main.py`
+2. Start the frontend: `cd /Users/oli/Desktop/CraftCanvas/frontend && npm run dev`
+3. Open `http://localhost:3000/timetable` in the browser
+4. Verify:
+   - Grid renders with proper table layout
+   - Academic week header shows correct week (should be ~Week 7 for Feb 25, 2026)
+   - Module blocks display with coloured backgrounds, code, type, venue
+   - Week navigation works (prev/next/today)
+   - Import ICS still works
+   - Light and dark mode both look correct

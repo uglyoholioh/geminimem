@@ -1,0 +1,22 @@
+# Timetable Redesign — LMS Manager Style + Auto Academic Week
+
+## Backend
+- [x] Add `/api/v1/timetable/academic-week` endpoint that auto-detects NUS academic week
+- [x] Add [academic_week](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py#284-303) to `/week` response
+- [x] Filter `/week` response to only return slots active in the requested week
+
+## Frontend
+- [x] Rewrite [frontend/app/timetable/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/timetable/page.tsx) to match LMS Manager grid style
+  - [x] Table-based layout with `rowSpan` for multi-hour classes
+  - [x] Low-saturation module colour backgrounds (like LMS Manager)
+  - [x] Class type shortforms (LEC, TUT, LAB, REC)
+  - [x] Academic week header with auto-detection
+  - [x] Week navigation (prev / today / next)
+  - [x] Module legend at bottom
+  - [x] Import ICS button retained
+  - [x] Respect CraftCanvas design system (light/dark mode, CSS variables)
+
+## Verification
+- [ ] Start backend & frontend, open timetable page in browser
+- [ ] Verify academic week number is correct for current date (Week 7 of Sem 2 AY25/26)
+- [ ] Verify grid displays correctly with module blocks

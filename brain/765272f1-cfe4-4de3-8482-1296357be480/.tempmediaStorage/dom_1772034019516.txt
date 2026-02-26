@@ -1,0 +1,143 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (500,56)<div  />
+	[1] (486,56)<button class='opblock-summary-control' />
+		[2] (63,56)<span >PUT />
+		[3] (520,56)<div  />
+			[4] (285,56)<span  />
+				[5] (285,56)<a class='nostyle' href='#/announcements/mark_announcement_read_api_v1_announcements__announcement_id__read_put' />
+					[6] (285,56)<span >/api
+/v1
+/announcements
+/{announcement_id}
+/read />
+			[7] (538,56)<div >Mark Announcement Read />
+	[8] (958,56)<button aria-label='put ​/api​/v1​/announcements​/{announcement_id}​/read' class='opblock-control-arrow' />
+[9] (500,142)<h3  />
+	[10] (77,141)<a class='nostyle' href='#/timetable' />
+		[11] (77,141)<span >timetable />
+	[12] (946,141)<button class='expand-operation' title='Collapse operation' />
+[13] (500,214)<div  />
+	[14] (486,214)<button class='opblock-summary-control' />
+		[15] (63,214)<span >POST />
+		[16] (520,214)<div  />
+			[17] (203,214)<span  />
+				[18] (203,214)<a class='nostyle' href='#/timetable/import_timetable_api_v1_timetable_import_post' />
+					[19] (203,214)<span >/api
+/v1
+/timetable
+/import />
+			[20] (351,214)<div >Import Timetable />
+	[21] (958,214)<button aria-label='post ​/api​/v1​/timetable​/import' class='opblock-control-arrow' />
+[22] (500,292)<div  />
+	[23] (486,292)<button class='opblock-summary-control' />
+		[24] (63,292)<span >GET />
+		[25] (520,292)<div  />
+			[26] (199,292)<span  />
+				[27] (199,292)<a class='nostyle' href='#/timetable/get_timetable_today_api_v1_timetable_today_get' />
+					[28] (199,292)<span >/api
+/v1
+/timetable
+/today />
+			[29] (352,292)<div >Get Timetable Today />
+	[30] (958,292)<button aria-label='get ​/api​/v1​/timetable​/today' class='opblock-control-arrow' />
+[31] (500,370)<div  />
+	[32] (486,370)<button class='opblock-summary-control' />
+		[33] (63,370)<span >GET />
+		[34] (520,370)<div  />
+			[35] (232,370)<span  />
+				[36] (232,370)<a class='nostyle' href='#/timetable/get_academic_week_api_v1_timetable_academic_week_get' />
+					[37] (232,370)<span >/api
+/v1
+/timetable
+/academic-week />
+			[38] (416,370)<div >Get Academic Week />
+	[39] (958,370)<button aria-label='get ​/api​/v1​/timetable​/academic-week' class='opblock-control-arrow' />
+[40] (500,448)<div  />
+	[41] (486,448)<button class='opblock-summary-control' />
+		[42] (63,448)<span >GET />
+		[43] (520,448)<div  />
+			[44] (195,448)<span  />
+				[45] (195,448)<a class='nostyle' href='#/timetable/get_timetable_week_api_v1_timetable_week_get' />
+					[46] (195,448)<span >/api
+/v1
+/timetable
+/week />
+			[47] (343,448)<div >Get Timetable Week />
+	[48] (958,448)<button aria-label='get ​/api​/v1​/timetable​/week' class='opblock-control-arrow' />
+[49] (500,534)<h3  />
+	[50] (58,533)<a class='nostyle' href='#/tasks' />
+		[51] (58,533)<span >tasks />
+	[52] (946,533)<button class='expand-operation' title='Collapse operation' />
+[53] (500,606)<div  />
+	[54] (486,606)<button class='opblock-summary-control' />
+		[55] (63,606)<span >GET />
+		[56] (520,606)<div  />
+			[57] (158,606)<span  />
+				[58] (158,606)<a class='nostyle' href='#/tasks/list_tasks_api_v1_tasks_get' />
+					[59] (158,606)<span >/api
+/v1
+/tasks />
+			[60] (244,606)<div >List Tasks />
+	[61] (958,606)<button aria-label='get ​/api​/v1​/tasks' class='opblock-control-arrow' />
+[62] (500,684)<div  />
+	[63] (486,684)<button class='opblock-summary-control' />
+		[64] (63,684)<span >POST />
+		[65] (520,684)<div  />
+			[66] (158,684)<span  />
+				[67] (158,684)<a class='nostyle' href='#/tasks/create_task_api_v1_tasks_post' />
+					[68] (158,684)<span >/api
+/v1
+/tasks />
+			[69] (249,684)<div >Create Task />
+	[70] (958,684)<button aria-label='post ​/api​/v1​/tasks' class='opblock-control-arrow' />
+[71] (500,762)<div  />
+	[72] (486,762)<button class='opblock-summary-control' />
+		[73] (63,762)<span >GET />
+		[74] (520,762)<div  />
+			[75] (199,762)<span  />
+				[76] (199,762)<a class='nostyle' href='#/tasks/get_task_api_v1_tasks__task_id__get' />
+					[77] (199,762)<span >/api
+/v1
+/tasks
+/{task_id} />
+			[78] (323,762)<div >Get Task />
+	[79] (958,762)<button aria-label='get ​/api​/v1​/tasks​/{task_id}' class='opblock-control-arrow' />
+[80] (500,840)<div  />
+	[81] (486,840)<button class='opblock-summary-control' />
+		[82] (63,840)<span >PUT />
+		[83] (520,840)<div  />
+			[84] (199,840)<span  />
+				[85] (199,840)<a class='nostyle' href='#/tasks/update_task_api_v1_tasks__task_id__put' />
+					[86] (199,840)<span >/api
+/v1
+/tasks
+/{task_id} />
+			[87] (332,840)<div >Update Task />
+	[88] (958,840)<button aria-label='put ​/api​/v1​/tasks​/{task_id}' class='opblock-control-arrow' />
+[89] (500,919)<div  />
+	[90] (486,919)<button class='opblock-summary-control' />
+		[91] (63,919)<span >DELETE />
+		[92] (520,919)<div  />
+			[93] (199,919)<span  />
+				[94] (199,919)<a class='nostyle' href='#/tasks/delete_task_api_v1_tasks__task_id__delete' />
+					[95] (199,919)<span >/api
+/v1
+/tasks
+/{task_id} />
+			[96] (330,919)<div >Delete Task />
+	[97] (958,919)<button aria-label='delete ​/api​/v1​/tasks​/{task_id}' class='opblock-control-arrow' />
+[98] (63,997)<span >PUT />
+[99] (236,997)<span  />
+	[100] (236,997)<a class='nostyle' href='#/tasks/complete_task_api_v1_tasks__task_id__complete_put' />
+		[101] (236,997)<span >/api
+/v1
+/tasks
+/{task_id}
+/complete />
+Complete Task
+[102] (958,997)<button aria-label='put ​/api​/v1​/tasks​/{task_id}​/complete' class='opblock-control-arrow' />
+
+</current_dom>

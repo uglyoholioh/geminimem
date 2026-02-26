@@ -1,0 +1,40 @@
+# Dashboard & Tasks Feature - Task List
+
+## Completed Tasks
+
+### Dashboard Refinements
+- [x] Increase font sizes in Daily Brief component
+- [x] Increase font sizes in Greeting Card (clock, date, chronology)
+- [x] Update Navigation with larger fonts, bold styling, and Tasks link
+- [x] Reorganize dashboard layout with stacked Tasks + Action buttons 
+- [x] Remove horizontal bottom action bar (moved to Tasks column)
+- [x] Replace "Clear Horizon" with "No upcoming events"
+- [x] Show more items in Assignments and Announcements (5 instead of 4)
+
+### To-Do Feature Implementation
+- [x] Create backend Todo model with all required fields
+- [x] Add Todo relationship to User model  
+- [x] Create Todo CRUD API routes (create, read, update, delete, toggle)
+- [x] Register todos router in main.py
+- [x] Create todos database table
+- [x] Define Todo, TodoCreate, TodoUpdate types in frontend
+- [x] Add todosAPI client in lib/api.ts
+- [x] Create useTodos hook with optimistic updates
+- [x] Create TodoWidget component for dashboard
+- [x] Create full TodosPage with rich features:
+  - [x] Quick-add bar (press Enter to add)
+  - [x] Priority filtering
+  - [x] Category filtering
+  - [x] Show completed toggle
+  - [x] Assignment linking (select from upcoming assignments)
+  - [x] Advanced options (description, category, assignment link)
+  - [x] Stats bar (High Priority, Due Today, Pending, Completed)
+  - [x] Overdue date highlighting
+  - [x] Links to Planner and Assignments pages
+- [x] Add Tasks to navigation bar
+- [x] Enhance TodoWidget with priority labels, categories, CTA
+
+## Remaining Tasks
+- [ ] Test the complete flow on the live app
+- [ ] Verify all API endpoints work correctly
+- [ ] Check responsiveness on different screen sizes

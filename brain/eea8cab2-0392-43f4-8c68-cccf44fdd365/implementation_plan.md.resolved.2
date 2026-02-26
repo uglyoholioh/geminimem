@@ -1,0 +1,33 @@
+# Interactive Urgency Kanban Implementation
+
+The user has selected the "Interactive Urgency Kanban" design direction. This requires a significant redesign of the assignments page to feature a column-based workflow board with premium aesthetics.
+
+## Proposed Changes
+
+### Frontend
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx)
+- **Layout & Structure**:
+  - Replace the current list/grid/timeline views with a Kanban board layout.
+  - The Kanban board will have 4 columns based on `user_status`: `Not Started`, `In Progress`, `Submitted`, and `Graded`.
+  - The board should scroll horizontally if needed, with columns having a fixed minimum width.
+  - Remove the left "Views" sidebar (All, Upcoming, Overdue, etc.) as the Kanban board naturally encompasses all tasks. We rely entirely on the top filter bar for scoping.
+- **Card Design**:
+  - Cards will feature a glassmorphic look (translucent background, delicate borders).
+  - Use high-quality typography.
+  - Show Module Code, Assignment Title, Time Remaining (or Date), and Points.
+  - **Urgency Glow**: Implement conditional styling (e.g., `box-shadow`) based on due date proximity:
+    - Red glow for `< 24h` or Overdue.
+    - Amber/Orange glow for `< 3 days`.
+    - Subtle or no glow for others.
+  - Progress/Points bar style at the bottom of the card.
+- **Interactive State**:
+  - While full drag-and-drop is ideal for Kanban, to ensure immediate reliability without adding complex new libraries like `dnd-kit` right now, we will add interactive, sleek arrow buttons inside the cards (or a highly visible dropdown toggle that looks integrated) to move assignments between columns instantly.
+- **Filter Bar Integration**:
+  - Keep the existing robust filtering (search, module chips toggle, hide submitted toggle, advanced).
+
+## Verification Plan
+1. Apply the changes to [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx).
+2. Ensure the UI renders the 4 status columns correctly side-by-side.
+3. Verify that assignments show up in the correct column based on their status.
+4. Verify the urgency glow appears correctly for tight deadlines.
+5. Check responsiveness on smaller screens.

@@ -1,0 +1,43 @@
+# Phase 14: Craft API Integration & Onboarding Modification
+
+## Goal Description
+The objective of this phase is to modify the onboarding experience and integrate the Craft API for syncing documents. The Local AI Engine configuration will be completely removed from the user-facing setup wizard and settings page, as AI processing will be handled silently server-side. In its place, the setup wizard will collect and validate a Craft API Key. Additionally, the SQLite database has been wiped to ensure a clean slate for testing.
+
+## Proposed Changes
+
+### Backend Modfications
+- **[backend/routers/setup.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/setup.py)**
+  - **[DELETE]** [validate_llm](file:///Users/oli/Desktop/CraftCanvas/backend/routers/setup.py#81-128) endpoint.
+  - **[NEW]** `validate_craft` endpoint to validate the Craft token by making a dummy `GET /folders` request to the provided Craft Space API URL (`https://connect.craft.do/links/4MBkXoq25FW/api/v1`).
+- **[backend/routers/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py)**
+  - Ensure `craft_api_key` can be saved and retrieved. Filter out deprecated AI environment fields if present.
+- **[backend/services/ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)**
+  - **[MODIFY]** Remove logic that queries the [Settings](file:///Users/oli/Desktop/CraftCanvas/backend/config.py#13-54) table for `ollama_base_url` and `ollama_default_model`. Hardcode the defaults (`http://localhost:11434` and `llama3.2:latest`) directly in the service since the 4070 Super server will handle it natively.
+
+### Frontend Setup Wizard
+- **[frontend/app/setup/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/setup/page.tsx)**
+  - **[MODIFY]** Remove Step 2 (AI Engine Config) from the setup wizard entirely.
+  - **[NEW]** Insert a new Step 2: "Craft Workspace Sync". Present an input field for the user to provide their Craft API Bearer Token. Provide a button to "Test Connection" hitting the new `/validate-craft` endpoint.
+  - **[MODIFY]** Update the final `onSubmit` handler to save `craft_api_key` to the backend and omit AI fields.
+
+### Frontend Settings Page
+- **[frontend/app/settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)**
+  - **[MODIFY]** Delete the Local AI Engine visual card.
+  - **[NEW]** Add a "Craft Workspace" card allowing users to update their API Bearer token in the future.
+
+### Verification of Onboarding Flow
+- Double-check the main app layout logic to guarantee that users are only pushed to `/setup` if `is_onboarded` is false (i.e., immediately post-registration, but never on subsequent logins).
+
+## Verification Plan
+
+### Automated Tests
+- N/A
+
+### Manual Verification
+1. Create a fresh account on the frontend.
+2. Confirm the setup wizard appears immediately after registration.
+3. Validate that the AI Engine step is gone, and the Craft Sync step is present.
+4. Test the Craft integration with a valid API key (using the `connect.craft.do` endpoint) to ensure the validation check passes.
+5. Provide a valid Telegram token in Step 3 and complete the setup.
+6. Log out and log back in to ensure the setup wizard is NOT shown again on subsequent logins.
+7. Verify the Settings dashboard accurately reflects the Craft configuration and omits AI fields.

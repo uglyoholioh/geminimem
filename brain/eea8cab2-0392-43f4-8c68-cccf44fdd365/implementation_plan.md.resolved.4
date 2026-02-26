@@ -1,0 +1,27 @@
+# Bento Box Dashboard Implementation
+
+Based on an evaluation of the user experience and the overall premium aesthetic of the application, we are proceeding with the **Bento Box Dashboard** paradigm for the assignments page.
+
+## Proposed Changes
+
+### Frontend
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx)
+- **Layout & Structure**:
+  - Remove the Kanban columns layout.
+  - Implement a CSS Grid / Masonry-style "Bento Box" layout.
+  - Separate assignments into intuitive sections: "Needs Attention" (Overdue, Due Soon, Not Started) and "Completed/Graded".
+- **Dynamic Tile Sizing**:
+  - High priority tasks (Overdue or Due within 3 days, high points) will span multiple columns or rows to draw immediate attention.
+  - Lower priority or completed tasks will be smaller, standard 1x1 or 1x2 tiles.
+- **Aesthetics**:
+  - Use smooth, rounded corners (`rounded-3xl` or `rounded-2xl`).
+  - Subtle gradients and colored glows for urgent items.
+  - Glassmorphic translucent backgrounds (`bg-surface/50 backdrop-blur-md`).
+- **Interactive State**:
+  - Clicking a tile still opens the detail panel.
+  - Retain the top header with module chips and advanced filters, as they still apply to filtering the bento board.
+
+## Verification Plan
+1. Implement the Bento grid in [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/notes/page.tsx).
+2. Verify that urgent assignments are sized distinctly from completed ones.
+3. Ensure the grid is responsive across screen sizes.

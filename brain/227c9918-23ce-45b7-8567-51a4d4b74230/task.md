@@ -1,0 +1,6 @@
+# Today's Schedule Dashboard Improvement
+
+- [x] Investigate current 'Today's Schedule' implementation in `frontend/app/page.tsx`
+- [x] Design visual improvements for the section
+- [x] Implement the new design
+- [x] Verify changes locally

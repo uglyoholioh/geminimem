@@ -1,0 +1,29 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+OS
+[0] (23,131)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[1] (23,193)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks'>Tasks />
+	Tasks
+[2] (23,256)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (23,319)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (23,381)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[5] (23,444)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/ai' title='AI Chat' />
+[6] (23,506)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[7] (23,569)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (23,829)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[9] (23,892)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Extensions (Optional)
+Send your Daily Briefs directly to Telegram.
+API error 502: {"detail":"Failed to connect to Telegram API: Client error '404 Not Found' for url 'https://api.telegram.org/bottempPassword123/sendMessage'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"}
+[10] (524,512)<label class='text-xs font-semibold text-secondary uppercase tracking-wider block mb-2'>Telegram Bot Token />
+[11] (524,568)<input class='w-full rounded-xl border border-border bg-base/50 px-4 py-3 text-sm focus:border-accent focus:ring-1 focus:ring-accent outline-none' placeholder='123456:ABC-DEF' />
+[12] (524,634)<label class='text-xs font-semibold text-secondary uppercase tracking-wider block mb-2'>Your Chat ID />
+[13] (524,690)<input class='w-full rounded-xl border border-border bg-base/50 px-4 py-3 text-sm font-mono focus:border-accent focus:ring-1 focus:ring-accent outline-none' placeholder='12345678' />
+Required if you want the 6:00 AM push notification.
+[14] (524,838)<label class='text-xs font-semibold text-secondary uppercase tracking-wider block mb-2'>Craft API Key (Notes Sync) />
+[15] (524,893)<input class='w-full rounded-xl border border-border bg-base/50 px-4 py-3 text-sm focus:border-accent focus:ring-1 focus:ring-accent outline-none' />
+
+</current_dom>

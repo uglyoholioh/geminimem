@@ -1,0 +1,32 @@
+# Craft Integration Update
+
+The previous assumptions about the Craft API were slightly incorrect. Craft generates a **connection-specific base URL** for the API, rather than a single global endpoint. For example, the user's specific AcademicOS connection URL is:
+`https://connect.craft.do/links/4MBkXoq25FW/api/v1`
+
+Additionally, the exact API endpoints and methods differ from the initial plan.
+
+## Proposed Changes
+
+### Configuration
+1. Store the base URL `https://connect.craft.do/links/4MBkXoq25FW/api/v1` locally or globally in our backend configuration ([config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py) and environment vars).
+2. Continue accepting the optional API key (Bearer token).
+
+### Endpoints
+The integration should rely on the `blocks` endpoint per [ReferenceFiles/document_instructions_to_agent.md](file:///Users/oli/Desktop/CraftCanvas/ReferenceFiles/document_instructions_to_agent.md).
+
+*   **Daily Notes:** Send a `POST /blocks` request with `position: { "date": "today", "position": "end" }` to automatically append the markdown of the Brief to the bottom of the Daily Note.
+*   **Module Pages:** First fetch the Root Document ID using `GET /documents`, or by retaining a `craft_doc_map` table, and then use `POST /blocks` on that document with `position: { "pageId": "<doc-id>", "position": "end" }`.
+
+---
+
+### Backend
+#### [MODIFY] [INTEGRATIONS.md](file:///Users/oli/Desktop/CraftCanvas/INTEGRATIONS.md)
+*   Replace section **3. Craft API Integration** with the correct HTTP requests, focusing on `POST /blocks` over `POST /notes` or `POST /documents`.
+*   Explain the URL-specific connection pattern and optional token security.
+
+#### [MODIFY] [models/brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/brief.py) or [routers/setup.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/setup.py) depending on integration location
+*   Update the logic for pushing the daily brief to utilize the `POST /blocks` endpoint to `connect.craft.do/links/4MBkXoq25FW/api/v1`.
+
+## Verification Plan
+1. **Automated Tests:** While we cannot directly query production Craft, we can run unittest to ensure we format the `POST /blocks` request with the correct headers and `json={ "markdown": "...", "position": {"date": "today"} }`.
+2. **Manual Verification:** Have the user trigger a sync from the dashboard and physically check their Craft workspace if the data propagates correctly to the bottom of their Daily Note.

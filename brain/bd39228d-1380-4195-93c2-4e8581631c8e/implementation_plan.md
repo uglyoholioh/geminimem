@@ -1,0 +1,42 @@
+# Add NUSmods Timetable Import to Planner Page
+
+## Background
+
+The planner page displays a weekly timetable view with class schedules and time blocks, but lacks the ability to import timetables directly. Users currently have to navigate to the separate `/timetable` page to import their NUSmods schedule, then return to the planner.
+
+The timetable page already has working import functionality for:
+- ICS file upload
+- NUSmods URL parsing
+- Image analysis (via AI)
+
+## Proposed Changes
+
+### Frontend - Planner Page
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/planner/page.tsx)
+
+Add the timetable import functionality directly to the planner page:
+
+1. **Add import state and handlers** - Import panel visibility, file selection, NUSmods URL input
+2. **Add Import Timetable button** to the controls section (next to "Add Time Block")
+3. **Add Import Panel** - Collapsible panel with tabs for:
+   - ICS file upload (primary method for NUSmods export)
+   - NUSmods URL parsing (direct URL import)
+4. **Integrate `ClassSelectionModal`** - Allow selecting which classes to import
+5. **Trigger `mutateTimetable`** after successful import to refresh the view
+
+The implementation will be adapted from the existing timetable page implementation to maintain consistency.
+
+## Verification Plan
+
+### Manual Verification
+1. Navigate to the planner page
+2. Click the new "Import Timetable" button
+3. Test ICS file import:
+   - Export an ICS file from NUSmods
+   - Upload and verify classes appear on the timetable
+4. Test NUSmods URL import:
+   - Copy share URL from NUSmods
+   - Paste and verify class selection modal appears
+   - Select classes and import
+   - Verify classes appear on the timetable

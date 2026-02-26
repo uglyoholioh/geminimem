@@ -1,0 +1,31 @@
+# Announcements Feature Enhancement
+
+The goal is to allow users to view the content of announcements from the dashboard and from the announcements page itself, while still retaining the ability to mark them as read.
+
+## Proposed Changes
+
+### Dashboard ([app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx))
+- [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+  - Extract the announcement display into a component or update the existing render block.
+  - Implement a Modal (using standard Tailwind/React portal or a simple absolute positioned overlay, since we use `lucide-react` icons and standard HTML dialog elements / custom fixed divs) to show the `message_html` of an announcement when clicked.
+  - When the user clicks the announcement, it will simultaneously mark it as read (if not already read) and open the modal to display the text.
+  - Keep the quick "mark as read" `X` button for fast dismissing.
+  - Update the "View all →" link next to "Announcements" to point to `/announcements`.
+
+### Course Announcements Page (`app/courses/[id]/page.tsx`)
+- [MODIFY] [[id]/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/[id]/page.tsx)
+  - The Course details page currently has an [announcements](file:///Users/oli/Desktop/CraftCanvas/backend/routers/announcements.py#16-64) tab which expands the announcement within the list (`expandedAnnouncement`).
+  - Currently it only expands when clicked. We should also update the `is_read` status automatically when the announcement is expanded to view its details.
+  - Add a dedicated "mark as read" button inside the expanded view if desired, but auto-marking when opening the announcement seems more aligned with the user request: "click into the announcements tab and mark it as read from the dashboard, also from the announcements page itself. and when i click on the announcement itll show me the announcement."
+
+### New Dedicated Announcements Page (`app/announcements/page.tsx`)
+- [NEW] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/announcements/page.tsx)
+  - Create a new dedicated page to view all announcements (read and unread) grouped by course or sorted chronologically.
+  - Implement expanding functionality similar to the course page, where clicking expands the `message_html` and automatically marks the notification as read.
+  - Provide a "Mark all as read" button at the top if convenient.
+
+Let's proceed by modifying [app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) to handle the modal logic, and `app/courses/[id]/page.tsx` to auto-read upon click/expansion.
+
+## Verification Plan
+1. **Manual Verification**: Run the frontend using `npm run dev` and navigate to the dashboard. Click an announcement to verify the modal opens with the `message_html` and the notification disappears from the "unread" counter (because it's marked as read).
+2. **Manual Verification**: Navigate to a course page, click the `Announcements` tab, click an unread announcement to expand it, and verify that it is automatically marked as read in the backend and UI.

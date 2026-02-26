@@ -1,0 +1,11 @@
+
+# Tasks
+
+- [ ] Fix GLM API Key Persistence in Settings
+    - [ ] Debug [AuthContext](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#24-33) to ensure `has_glm_key` is correctly updated in [user](file:///Users/oli/Desktop/LMSManager/backend/app/dependencies/auth.py#52-110) state during [refreshUser](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#178-204).
+    - [ ] Debug [SettingsPage](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx#18-893) initialization to ensure it correctly syncs local state with `user.has_glm_key`.
+    - [ ] Verify fix by reloading settings page.
+- [ ] Improve AI Daily Brief Formatting
+    - [ ] Backend: Update prompt in [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py) to request Markdown formatting (headers, bullets).
+    - [ ] Frontend: Update [DailyBrief](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx#9-239) component to render Markdown.
+    - [ ] Frontend: Improve [DailyBrief](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx#9-239) UI design (more space, better readability).

@@ -1,0 +1,42 @@
+# Refactor Daily Brief to AI Suggested Tasks
+
+## Goal Description
+Replace the freeform text "Intelligence Suggestion" in the Daily Brief with a structured list of **AI Suggested Tasks**. These tasks can be individually reviewed and added to the user's Todo list with a single click.
+
+## User Review Required
+> [!NOTE]
+> The AI prompt will be strictly enforced to return JSON. This might require tuning for `glm-4.5-flash` to ensure valid JSON output.
+
+## Proposed Changes
+
+### Backend
+#### [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py)
+- Modify [generate_ai_summary](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py#93-221):
+    - Change prompt to request a JSON array of tasks (Title, Priority, Category, Rationale).
+    - Parse JSON response.
+- Update [DailyBriefResponse](file:///Users/oli/Desktop/LMSManager/backend/app/schemas/canvas.py#192-204) schema to include `suggested_tasks` (List[TaskSuggestion]) instead of [ai_summary](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py#93-221) string.
+- Update [BriefSummary](file:///Users/oli/Desktop/LMSManager/backend/app/schemas/canvas.py#180-190) schema to reflect this change.
+
+### Frontend
+#### [daily-brief.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx)
+- Remove "Intelligence Suggestion" text block.
+- Add "AI Suggested Tasks" section.
+- Render each suggestion as a card with an **Add to Tasks** button.
+- Implement `handleAddSuggestion` that calls `POST /todos` endpoint.
+
+#### [TodoList.tsx] (or relevant component)
+- Ensure the tasks list refreshes when a suggestion is added (via SWR mutation or global context event).
+
+## Verification Plan
+
+### Manual Verification
+1. **Generate Brief**:
+    - Click "Generate AI Suggested Tasks".
+    - Verify backend returns valid JSON.
+    - Verify UI displays task cards (Title, Priority, Badge).
+2. **Add Task**:
+    - Click "Add" on a suggestion.
+    - Verify success toast.
+    - Check "Tasks" section to confirm the new todo item appears.
+3. **Optimized Prompt**:
+    - Ensure prompt context is still efficient (top 5 assignments only) to maintain the <6s latency fix.

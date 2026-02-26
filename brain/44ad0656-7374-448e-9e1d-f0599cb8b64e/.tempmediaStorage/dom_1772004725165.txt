@@ -1,0 +1,177 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+OS
+[0] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[1] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[2] (14,187)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (14,233)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (14,278)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[5] (14,324)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/courses' title='Courses' />
+[6] (14,370)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes'>Notes />
+	Notes
+[7] (14,415)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/ai' title='AI Chat' />
+[8] (14,461)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[9] (14,507)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[10] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[11] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Courses
+Your enrolled modules and course materials
+8
+Active Modules
+52
+Total Assignments
+36
+Unread Announcements
+[12] (480,240)<input class='w-full pl-9 pr-4 py-2.5 rounded-xl border border-border bg-surface text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none transition-colors' placeholder='Search by module code or name...' />
+[13] (770,240)<button class='flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-surface text-xs font-medium text-secondary hover:bg-surface-hover transition-colors shrink-0'>Active only />
+[14] (320,393)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/1' />
+	[15] (320,373)<div  />
+		[16] (229,373)<div  />
+		[17] (322,373)<div  />
+			[18] (322,322)<div  />
+				[19] (257,322)<span >BT1101 />
+			[20] (322,363)<h3 >BT1101 Introduction to Business Analytics [2520] />
+			[21] (322,397)<span >[2520] 2025/2026 Semester 2 />
+			[22] (322,429)<div  />
+				[23] (250,429)<div  />
+					[24] (255,429)<span >23 />
+				[25] (284,429)<div  />
+					[26] (289,429)<span >18
+new />
+	[27] (320,478)<div  />
+		[28] (251,478)<span >Tasks />
+		[29] (297,478)<span >Notes />
+		[30] (343,478)<span >Canvas />
+		[31] (390,478)<span  />
+[32] (515,393)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/2' />
+	[33] (515,373)<div  />
+		[34] (424,373)<div  />
+		[35] (516,373)<div  />
+			[36] (516,322)<div  />
+				[37] (451,322)<span >CS2030 />
+			[38] (516,353)<h3 >CS2030 Programming Methodology II [2520] />
+			[39] (516,377)<span >[2520] 2025/2026 Semester 2 />
+			[40] (516,409)<div  />
+				[41] (443,409)<div  />
+					[42] (448,409)<span >1 />
+				[43] (473,409)<div  />
+					[44] (478,409)<span >5
+new />
+	[45] (515,478)<div  />
+		[46] (445,478)<span >Tasks />
+		[47] (491,478)<span >Notes />
+		[48] (538,478)<span >Canvas />
+		[49] (584,478)<span  />
+[50] (709,393)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/3' />
+	[51] (709,373)<div  />
+		[52] (618,373)<div  />
+		[53] (711,373)<div  />
+			[54] (711,322)<div  />
+				[55] (663,322)<span >GES1035/GESS1025 />
+			[56] (711,363)<h3 >GES1035/GESS1025 Singapore: Imagining the Next 50 Years [2520] />
+			[57] (711,397)<span >[2520] 2025/2026 Semester 2 />
+			[58] (711,429)<div  />
+				[59] (637,429)<div  />
+					[60] (642,429)<span >7 />
+				[61] (667,429)<div  />
+					[62] (672,429)<span >5
+new />
+	[63] (709,478)<div  />
+		[64] (639,478)<span >Tasks />
+		[65] (686,478)<span >Notes />
+		[66] (732,478)<span >Canvas />
+		[67] (779,478)<span  />
+[68] (320,620)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/4' />
+	[69] (320,601)<div  />
+		[70] (229,601)<div  />
+		[71] (322,601)<div  />
+			[72] (322,549)<div  />
+				[73] (272,549)<span >GEX1015/GET1029 />
+			[74] (322,590)<h3 >GEX1015/GET1029 Life, the Universe, and Everything [2520] />
+			[75] (322,624)<span >[2520] 2025/2026 Semester 2 />
+			[76] (322,657)<div  />
+				[77] (248,657)<div  />
+					[78] (253,657)<span >1 />
+				[79] (278,657)<div  />
+					[80] (283,657)<span >5
+new />
+	[81] (320,705)<div  />
+		[82] (251,706)<span >Tasks />
+		[83] (297,706)<span >Notes />
+		[84] (343,706)<span >Canvas />
+		[85] (390,706)<span  />
+[86] (515,620)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/5' />
+	[87] (515,601)<div  />
+		[88] (424,601)<div  />
+		[89] (516,601)<div  />
+			[90] (516,549)<div  />
+				[91] (451,549)<span >MA1522 />
+			[92] (516,580)<h3 >MA1522 Linear Algebra for Computing [2520] />
+			[93] (516,604)<span >[2520] 2025/2026 Semester 2 />
+			[94] (516,637)<div  />
+				[95] (445,637)<div  />
+					[96] (450,637)<span >13 />
+				[97] (476,637)<div  />
+					[98] (482,637)<span >2
+new />
+	[99] (515,705)<div  />
+		[100] (445,706)<span >Tasks />
+		[101] (491,706)<span >Notes />
+		[102] (538,706)<span >Canvas />
+		[103] (584,706)<span  />
+[104] (709,620)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/6' />
+	[105] (709,601)<div  />
+		[106] (618,601)<div  />
+		[107] (711,601)<div  />
+			[108] (711,549)<div  />
+				[109] (661,549)<span >THE1001/RC1000A />
+			[110] (711,590)<h3 >THE1001/RC1000A A Culture of Respect and Consent (Student) />
+			[111] (711,624)<span >Non-Academic />
+			[112] (711,657)<div  />
+				[113] (637,657)<div  />
+					[114] (642,657)<span >1 />
+	[115] (709,705)<div  />
+		[116] (639,706)<span >Tasks />
+		[117] (686,706)<span >Notes />
+		[118] (732,706)<span >Canvas />
+		[119] (779,706)<span  />
+[120] (320,837)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/7' />
+	[121] (320,818)<div  />
+		[122] (229,818)<div  />
+		[123] (322,818)<div  />
+			[124] (322,776)<div  />
+				[125] (270,776)<span >THE1002/SE1000 />
+			[126] (322,808)<h3 >THE1002/SE1000 Student Essentials />
+			[127] (322,832)<span >Non-Academic />
+			[128] (322,864)<div  />
+				[129] (248,864)<div  />
+					[130] (253,864)<span >2 />
+	[131] (320,913)<div  />
+		[132] (251,913)<span >Tasks />
+		[133] (297,913)<span >Notes />
+		[134] (343,913)<span >Canvas />
+		[135] (390,913)<span  />
+[136] (515,837)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/8' />
+	[137] (515,818)<div  />
+		[138] (424,818)<div  />
+		[139] (516,818)<div  />
+			[140] (516,776)<div  />
+				[141] (446,776)<span >TPC />
+			[142] (516,808)<h3 >Travel Preparedness Course />
+			[143] (516,832)<span >Non-Academic />
+			[144] (516,864)<div  />
+				[145] (443,864)<div  />
+					[146] (448,864)<span >4 />
+				[147] (473,864)<div  />
+					[148] (478,864)<span >1
+new />
+	[149] (515,913)<div  />
+		[150] (445,913)<span >Tasks />
+		[151] (491,913)<span >Notes />
+		[152] (538,913)<span >Canvas />
+		[153] (584,913)<span  />
+
+</current_dom>

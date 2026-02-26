@@ -1,0 +1,146 @@
+# Assignments, History & Module Detail Pages
+
+Three new feature pages to complete the core Academic Life OS experience.
+
+---
+
+## 1. Assignments Page
+
+> **Purpose**: A dedicated view for all Canvas assignments — filterable, sortable, with a slide-out detail panel (same pattern as Tasks).
+
+### Backend Changes
+
+No new endpoints needed — existing `/api/v1/assignments` already supports:
+- `course_id`, [status](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py#82-87), `due_before`, `due_after` filters
+- `GET /{id}` for full detail
+- `PUT /{id}` for updating `user_status`, `personal_notes`, `estimated_hours`, `actual_hours`
+
+#### [MODIFY] [assignments.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/assignments.py)
+- Fix [update_assignment](file:///Users/oli/Desktop/CraftCanvas/backend/routers/assignments.py#117-166) to accept JSON body (currently uses query params — inconsistent with tasks router)
+- Add `course_colour` to list/detail responses for chip colouring
+
+### Frontend
+
+#### [NEW] [assignments/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx)
+
+**Layout**: Sidebar + main list + detail panel (mirrors Tasks page pattern)
+
+**Sidebar filters**:
+| View | Description |
+|------|-------------|
+| All | Every assignment |
+| Upcoming | Due date in the future, not yet submitted |
+| Overdue | Past due, not submitted |
+| Submitted | `is_submitted == true` |
+| By Module | Grouped by course code |
+
+**Main list**: Each row shows:
+- Course colour chip + code
+- Assignment title
+- Due date (relative, e.g. "in 3 days" / "2 days ago")
+- Points possible
+- Status badge (not_started / in_progress / submitted / graded)
+
+**Detail panel** (slide-out on row click):
+- Title, course, due date, points
+- Description (rendered HTML from Canvas)
+- User fields: status dropdown, personal notes (textarea), estimated/actual hours
+- "Open in Canvas" link
+- Save on change (optimistic)
+
+**Sorting**: Default by due date ascending, with overdue items highlighted in urgency colour.
+
+---
+
+## 2. History Page (Daily Briefs)
+
+> **Purpose**: Browse past daily briefs — see what was generated each day, with a timeline navigator.
+
+### Backend Changes
+
+No new endpoints needed — existing `/api/v1/brief/history?limit=30` returns all data.
+
+### Frontend
+
+#### [NEW] [history/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/history/page.tsx)
+
+**Layout**: Left timeline + right content viewer
+
+**Left panel** — Date list:
+- Vertical list of dates with briefs, most recent first
+- Each entry shows: date, day-of-week, brief model used
+- Active date highlighted with accent
+- Grouped by month (e.g. "February 2026")
+
+**Right panel** — Brief content:
+- **Today's Schedule**: List of classes with times/venues
+- **Due Soon**: Assignments due within 7 days
+- **Open Tasks**: Tasks from inbox
+- **Announcements**: Unread announcements
+- **Weekly Focus**: AI-generated prose block
+- Each section uses the same card styling as the dashboard
+
+**Empty state**: "No briefs generated yet. Briefs are generated daily at your configured time."
+
+#### [MODIFY] [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx)
+- Add `History` nav item (clock icon, between AI Chat and Grades)
+
+---
+
+## 3. Module Detail Page
+
+> **Purpose**: A tabbed hub for each module — assignments, announcements, grades, and timetable in one place.
+
+### Backend Changes
+
+#### [MODIFY] [courses.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py)
+- Enhance `GET /courses/{id}` to return **all** assignments (not just upcoming 10), **all** announcements, grade components, and timetable slots
+- Add `assignment_stats` (counts by status) and `grade_summary` (overall weighted %) to response
+
+### Frontend
+
+#### [NEW] [courses/[id]/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/[id]/page.tsx)
+
+**Header**: Course colour bar + code + name + term + "Open in Canvas" link
+
+**Tabs**:
+
+| Tab | Content |
+|-----|---------|
+| **Overview** | Quick stats: assignment count, completion %, upcoming deadlines, grade estimate, next class |
+| **Assignments** | Full assignment list for this module (reuse list components from Assignments page), filterable by status |
+| **Announcements** | Chronological list with read/unread state, click to expand HTML content, mark-as-read button |
+| **Grades** | Grade components table: name, weight, score, max — editable inline. Shows overall weighted percentage at top |
+| **Schedule** | Weekly timetable slots for this module only: day, time, venue, lesson type |
+
+#### [MODIFY] [courses/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx)
+- Make course cards clickable → navigate to `/courses/{id}`
+
+---
+
+## Design System Alignment
+
+All three pages follow existing patterns:
+- `font-serif text-3xl` for page headers
+- `rounded-xl border border-border bg-surface p-5` for cards
+- `font-mono text-xs` for metadata chips
+- Accent-coloured active states
+- Course colour chips using the `colour` field from the Course model
+- Status badges: accent for submitted/completed, urgency for overdue, muted for not_started
+
+---
+
+## Verification Plan
+
+### Build
+- `npx next build` passes with all new routes
+
+### Browser Tests
+1. **Assignments**: Load page → verify filters → click assignment → detail panel → update status → confirm save
+2. **History**: Load page → verify timeline → click past date → content renders
+3. **Module Detail**: Click course card → navigates to detail → verify all tabs → edit grade → save
+
+### API Tests
+- `GET /assignments?status=not_started` returns filtered list
+- `PUT /assignments/{id}` with JSON body updates correctly
+- `GET /courses/{id}` returns full data with stats

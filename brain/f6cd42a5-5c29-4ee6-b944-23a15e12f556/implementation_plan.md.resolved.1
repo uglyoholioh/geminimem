@@ -1,0 +1,102 @@
+# User Authentication & Settings System
+
+Add user identities with a login system and rebuild the settings page to be comprehensive — including API key management, profile editing, and all app configuration in one place.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Auth approach**: Since this is a single-user academic tool (not multi-tenant SaaS), I'm implementing a **simple session-based login** rather than OAuth/JWT. The user registers once, logs in with email+password, and gets a session cookie. This keeps complexity low while still providing identity and protection.
+
+> [!WARNING]
+> **Breaking change**: The current static `X-API-Key` auth will be replaced by session-based auth. The API proxy route will forward the session cookie instead of the API key header. Existing `.env` `API_SECRET_KEY` will still be used as the backend secret for signing sessions.
+
+---
+
+## Proposed Changes
+
+### Backend — Auth Model & Routes
+
+#### [NEW] [user.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py)
+- `User` SQLModel: [id](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx#25-76), `email`, `display_name`, `password_hash`, `created_at`
+- Password hashing via `bcrypt` (already installed)
+
+#### [NEW] [auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)
+- `POST /api/v1/auth/register` — create user (only if no users exist yet, i.e. first-run setup)
+- `POST /api/v1/auth/login` — validate credentials, set `session_token` cookie
+- `POST /api/v1/auth/logout` — clear cookie
+- `GET /api/v1/auth/me` — return current user profile
+- `PUT /api/v1/auth/me` — update display name / password
+
+#### [MODIFY] [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py)
+- Add `get_current_user` dependency that reads the session cookie
+- Keep [verify_api_key](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#7-18) as fallback for programmatic access (Telegram bot, scheduler)
+
+#### [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+- Register auth router (unprotected)
+- Add session middleware
+
+#### [MODIFY] [settings.py (router)](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py)
+- Add bulk `PUT /api/v1/settings/bulk` endpoint for saving all settings at once
+- Add `GET /api/v1/settings` to return all settings (for the frontend to load)
+
+---
+
+### Frontend — Login Flow
+
+#### [NEW] [login/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/login/page.tsx)
+- Full-screen login page with email + password fields
+- First-run detection: if no users exist, show "Create Account" instead
+- Premium glassmorphic card design, animated transitions
+
+#### [MODIFY] [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx)
+- Wrap children in an `AuthProvider` context
+- Redirect to `/login` if not authenticated
+- Pass user info to sidebar
+
+#### [NEW] [AuthProvider.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/AuthProvider.tsx)
+- React context: `user`, `isLoading`, `login()`, `logout()`, `register()`
+- Checks `/api/v1/auth/me` on mount
+
+#### [MODIFY] [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx)
+- Add user avatar / initials at bottom of sidebar
+- Click opens popover: display name, logout button
+
+#### [MODIFY] [api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts)
+- Switch from `X-API-Key` header to cookie-based auth (`credentials: 'include'`)
+- Add 401 handling → redirect to `/login`
+
+---
+
+### Frontend — Settings Page Rebuild
+
+#### [MODIFY] [settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)
+
+Full rewrite with tabbed sections and a **global Save button**:
+
+| Tab | Contents |
+|-----|----------|
+| **Profile** | Display name, email (read-only), change password |
+| **Canvas** | Base URL, API token, sync interval, sync now button, auto-task toggle |
+| **AI** | Ollama URL/model, external LLM URL/key/model, routing strategy |
+| **Timetable** | ICS upload, NUSMods URL import |
+| **Notifications** | Telegram bot token/chat ID, daily brief time |
+| **Appearance** | Light/dark/system theme toggle |
+
+All settings load from backend on mount, save in bulk via `PUT /api/v1/settings/bulk`. API tokens shown as masked password fields with reveal toggle.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- `POST /auth/register` → creates user, returns 201
+- `POST /auth/login` → returns session cookie
+- `GET /auth/me` → returns user profile with valid cookie
+- `GET /auth/me` → returns 401 without cookie
+- `PUT /settings/bulk` → persists all settings
+- Frontend build passes
+
+### Browser Verification
+- First-run → register screen → creates account → redirects to dashboard
+- Logout → login screen → correct credentials → dashboard
+- Settings page → all tabs → save → reload → values persist

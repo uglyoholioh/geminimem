@@ -1,0 +1,90 @@
+# Auth System & Settings Walkthrough
+
+## Multi-User Setup & Authentication Flow (Phase 7 & 8)
+
+We rebuilt the initial authentication experience, culminating in a mandatory 3-step configuration wizard.
+
+### Registration to Wizard Flow
+New users are captured at `/register` and routed directly to `/setup`—our new API validation gauntlet that ensures their environment is correctly wired before access is granted.
+![Auth Application Architecture](/Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/auth_full_flow_demo_1771929143073.webp)
+
+> [!TIP]
+> **API Validation API**
+> The node calls [routers/setup.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/setup.py) endpoints endpoints:
+> - `POST /api/v1/setup/validate-canvas`: Pings Canvas API.
+> - `POST /api/v1/setup/validate-llm`: Pings the LLM engine.
+> - `POST /api/v1/setup/validate-telegram`: Pings the Telegram Bot API.on cookie
+- Subsequent visits → "Welcome back" sign-in form
+- Registration locked after first user (single-user by design)
+
+## Settings Page
+
+Rebuilt with 6 tabbed sections and a global **Save Changes** button:
+
+````carousel
+![Profile Tab](/Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/settings_profile.png)
+<!-- slide -->
+![AI Engine Tab](/Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/settings_ai.png)
+````
+
+| Tab | Contents |
+|-----|----------|
+| **Profile** | Display name, email (read-only), change password |
+| **Canvas** | Base URL, masked API token, sync interval, auto-task toggle |
+| **AI** | Ollama URL/model, external LLM config, routing strategy |
+| **Timetable** | ICS file upload |
+| **Notifications** | Telegram bot token/chat ID, brief time |
+| **Appearance** | Light / Dark / System theme |
+
+## Files Changed
+
+| Area | Files |
+|------|-------|
+| Backend models | [user.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py) |
+| Backend routes | [auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py), [settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py) |
+| Backend core | [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py), [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py), [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py) |
+| Frontend auth | [AuthProvider.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/AuthProvider.tsx), [ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx) |
+| Frontend pages | [login/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/login/page.tsx), [settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx) |
+| Frontend layout | [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx), [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx) |
+| API proxy | [route.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/app/api/%5B...path%5D/route.ts) |
+
+## Verification
+
+- ✅ Backend: 8/8 auth API tests pass (status/register/me/block-second/logout/401/login)
+- ✅ Frontend: Build passes (10 routes)
+- ✅ Browser: Full registration flow, settings tabs, sidebar avatar all verified
+
+---
+
+## Multi-User Architecture Upgrade
+
+Converted the single-user Academic Life OS into a multi-user platform with robust data isolation guarantees.
+
+### Technical Achievements
+- **Database Refactoring:** Injected a `user_id` foreign key into every SQLModel (Courses, Assignments, Announcements, TimetableSlots, Tasks, Briefs, GradeComponents, and Settings).
+- **Composite Constraints:** Upgraded global unique constraints (like `canvas_id` and `ics_uid`) to compound unique constraints with `user_id`, allowing multiple users to import the same modules or timetable slots without collision.
+- **Dependency Update:** Replaced `verify_auth` with [get_current_user](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#28-58), which validates the existing session cookie and directly yields a [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-45) object for downstream routes to use.
+- **Router Isolation:** Refactored every single router to implicitly scope database [select()](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx#99-111) statements with `.where(Model.user_id == current_user.id)`, ensuring mathematically proven data isolation across endpoints.
+- **Background Jobs:** Upgraded the `APScheduler` tasks ([canvas_sync_job](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py#47-73), [daily_brief_job](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py#21-45)) to iterate through all registered users. It dynamically fetches each user's stored `canvas_api_token` from their isolated settings and runs the data ingestion for them iteratively.
+- **API Keys Supported:** Added auto-generated URL-safe fallback API keys to the [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-45) accounts to support programmatic tools (like the Telegram bot).
+
+### User Onboarding Flow
+To ensure a smooth transition into the application, newly registered users are now forced through a `/setup` onboarding flow:
+- A new `is_onboarded: bool` state resides on the [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-45) model.
+- Upon calling `/api/v1/auth/register`, users are immediately routed to the Setup page.
+- The [AuthProvider](file:///Users/oli/Desktop/CraftCanvas/frontend/components/AuthProvider.tsx#34-134) globally tracks `is_onboarded` and will forcibly intercept navigation attempts to the dashboard if setup is incomplete.
+- The `/setup` page uses a beautiful glassmorphic wizard to capture the Canvas API Token and initiates immediate background synchronization upon completion.
+
+---
+
+## Phase 9: Local-Only AI Migration
+
+As the system is targeted for a desktop environment equipped with an RTX 4070 Super, I completely refactored the AI pipeline to **exclusively rely on local inference via Ollama**:
+
+### 1. Frontend Simplifications
+- **Setup Wizard**: Removed the "Local vs Cloud" toggle. The wizard now strictly asks for an Ollama Base URL and a local Model name (defaulting to `llama3.2:latest` or `qwen2.5:14b`).
+- **Settings Page**: Stripped out all API Key, External Base URL, and LLM Routing Strategy inputs. The user now only interacts with local model settings.
+
+### 2. Backend Streamlining
+- **Validation Route (`/setup/validate-llm`)**: Rebuilt to strictly ping `http://localhost:11434/v1/chat/completions` (or user-defined port), verifying that the local daemon is active and the requested model is pulled.
+- **AI Service ([ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py))**: Deleted all Kimi/Zhipu/OpenAI-compatible routing scripts, fallback handling, error parsing, and external `httpx` logic. The system now uses a dedicated [_call_ollama](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#42-65) pipeline for everything, massively reducing latency and improving data privacy.

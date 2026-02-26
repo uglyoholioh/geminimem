@@ -1,0 +1,18 @@
+# LMS Manager Feature Tasks
+
+## Completed
+- [x] Fixed `setSaveResult` bug in settings page
+- [x] Expanded settings page layout to full width (95%)
+- [x] Verified functionality and layout via browser testing
+- [x] Added logout button to Navigation (red hover effect)
+- [x] Navigation hides on login/register pages
+- [x] Settings page: newspaper-style header with serif fonts
+- [x] Settings page: theme-aware background (cream/dark)
+- [x] Fixed Canvas API saving: added `refreshUser` to AuthContext
+- [x] Fixed Display Name saving: user object now updates after save
+- [x] Dashboard now loads correctly after Canvas token save
+- [x] Fixed sync URL: `/sync` → `/auth/sync` in greeting-card.tsx
+- [x] Fixed sync request body: added domain + api_token credentials
+- [x] Fixed scheduler.py: added `user_id` to Course, Assignment, Announcement, Material constructors
+- [x] Fixed scheduler.py: added user_id filter to course queries for multi-user isolation
+- [x] Verified sync: 8 courses, 40 assignments, 14 announcements, 247 materials synced

@@ -1,0 +1,19 @@
+# Fix Canvas API Data- [/] Fix database relationships for multi-user safety
+    - [x] Update Assignment model course_id to use local PK
+    - [x] Update Announcement model course_id to use local PK
+    - [x] Update Material model course_id to use local PK
+    - [ ] Update scheduler sync logic to use course.id
+    - [ ] Create and run migration script for relationships
+- [ ] Refine enlarged dashboard UI
+    - [/] Distinguish loading/error states for stats
+    - [ ] Revert mock data once verified
+
+## Implementation
+- [x] Fix `/assignments/upcoming` - Add user_id filter and auth dependency
+- [x] Fix `/schedule` - Add user_id filter and auth dependency to all views
+- [x] Fix `/schedule/deadlines` - Add user_id filter and auth dependency
+- [x] Clean up dead code in `/announcements/recent`
+
+## Verification
+- [x] Test endpoints return user-specific data
+- [x] Verify dashboard loads data correctly

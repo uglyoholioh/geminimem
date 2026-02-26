@@ -1,0 +1,79 @@
+# Course Features Expansion — Walkthrough
+
+## Summary
+
+Expanded the courses tab with 5 new capabilities across 12 modified/new files.
+
+---
+
+## 1. Auto-Assign Unique Module Colours
+
+Added a 10-colour palette to [course.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/course.py) and a [next_module_colour()](file:///Users/oli/Desktop/CraftCanvas/backend/models/course.py#23-35) helper that picks the next unused colour per user. Updated [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py) to auto-assign colours when syncing new courses.
+
+Each module now gets a distinct colour — visible as the left stripe on cards and as the module code chip background:
+
+![Courses page with unique colour stripes and 4-action footers](/Users/oli/.gemini/antigravity/brain/44ad0656-7374-448e-9e1d-f0599cb8b64e/courses_page_verification_1772004704407.png)
+
+---
+
+## 2. Course Card Quick Actions
+
+Updated [courses/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx) card footer from 2 buttons to 4:
+
+| Button | Action |
+|--------|--------|
+| **Tasks** | → `/tasks?module=CODE` (filtered view) |
+| **Notes** | → `/notes?module=CODE` (filtered view) |
+| **Canvas** | Opens Canvas LMS in new tab |
+| **→** | Navigates to course detail page |
+
+---
+
+## 3. Notes System (Full-Stack)
+
+### Backend
+- [note.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/note.py) — [Note](file:///Users/oli/Desktop/CraftCanvas/frontend/app/notes/page.tsx#13-25) SQLModel with optional `course_id`/`course_code`, markdown content, pinned flag
+- [notes.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/notes.py) — Full CRUD + course enrichment (name, colour)
+- Registered in [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) and [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py)
+
+### Frontend
+- [notes/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/notes/page.tsx) — Split-pane layout with search, module filter, pinned sections, and markdown editor
+- Added [Notes](file:///Users/oli/Desktop/CraftCanvas/frontend/app/notes/page.tsx#55-377) nav item to [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx)
+
+![Notes page with split-pane layout](/Users/oli/.gemini/antigravity/brain/44ad0656-7374-448e-9e1d-f0599cb8b64e/notes_page_verification_1772004746545.png)
+
+---
+
+## 4. Tasks Page Module Filter
+
+Updated [tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx):
+- Reads `?module=CODE` URL param → auto-switches to "By Module" view and filters
+- Shows a dismissible "Filtered by CODE" accent banner
+- Clears filter and URL on dismiss
+
+---
+
+## 5. Module Brief / AI Tab
+
+Added a "Module Brief" tab to [courses/\[id\]/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/%5Bid%5D/page.tsx):
+- **Summary cards** — module code, assignment count, grade percentage
+- **Embedded AI chat** — pre-seeded with module context (assignments, grades, schedule) via system prompt
+- **Suggestion chips** — "Summarise this module", "What's due next?", "Help me plan my study time", "What are my grades so far?"
+
+![Module Brief tab with AI assistant](/Users/oli/.gemini/antigravity/brain/44ad0656-7374-448e-9e1d-f0599cb8b64e/module_brief_verification_1772004840832.png)
+
+---
+
+## Verification
+
+| Check | Result |
+|-------|--------|
+| `npx tsc --noEmit` | ✅ Clean |
+| Backend imports | ✅ OK |
+| Backend health | ✅ `{"status":"healthy"}` |
+| Frontend health | ✅ HTTP 200 |
+| Browser — courses page | ✅ Colour stripes + 4-action footer |
+| Browser — notes page | ✅ Split-pane layout |
+| Browser — module brief tab | ✅ Visible in course detail |
+
+![Browser verification recording](/Users/oli/.gemini/antigravity/brain/44ad0656-7374-448e-9e1d-f0599cb8b64e/courses_verification_1772004443165.webp)

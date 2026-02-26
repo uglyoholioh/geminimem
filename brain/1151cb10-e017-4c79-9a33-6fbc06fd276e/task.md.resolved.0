@@ -1,0 +1,12 @@
+# Debugging Daily Brief Feature
+
+- [ ] Investigate backend brief generation
+  - [ ] Check [backend/routers/brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py)
+  - [ ] Check [backend/services/brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)
+  - [ ] Identify generation triggers (cron, API call, etc.)
+- [ ] Investigate frontend integration
+  - [ ] Check [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) or related components calling the brief API
+- [ ] Diagram/understand the data flow for daily brief
+- [ ] Identify the failure point (API key missing, LLM error, routing error, etc.)
+- [ ] Fix the issue
+- [ ] Test daily brief generation

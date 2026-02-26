@@ -1,0 +1,79 @@
+# Courses Tab Redesign — LMS Manager Style
+
+Redesign the courses listing and detail pages with richer card-based UI, colour-coded modules, and polished design matching the LMS Manager / Activity Finder style. The timetable already uses `course_colour` so we'll ensure consistency.
+
+## Proposed Changes
+
+### Courses Listing
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx)
+
+**Header section:**
+- Add a summary bar: total modules, upcoming deadlines count, overall assignment progress ring
+- Add a search/filter input to filter modules by code or name
+- Toggle to show archived/inactive courses
+
+**Card redesign (inspired by Activity Finder cards):**
+- Thick left colour stripe (4px) using module `colour` instead of thin top bar
+- Card body: module code badge in a chip using module colour background, full course name, term label
+- Mid-section: assignment count, unread announcements, next deadline
+- Bottom footer row (border-t) with two quick-action buttons: "Open in Canvas" and a "View Details" arrow — matching the Activity Finder card footer pattern
+- Hover: `hover:border-{colour}/50`, title colour transition, subtle shadow lift
+- Progress bar for assignment completion inside each card
+
+**Empty state:**
+- More prominent illustration area with call-to-action to set up Canvas sync
+
+---
+
+### Course Detail Page
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/%5Bid%5D/page.tsx)
+
+**Header:**
+- Use module colour as gradient background band (not just a 1.5px line) — a 48px tall gradient from `colour → transparent`
+- Module code chip with coloured background badge
+
+**Stat cards:**
+- Use module colour as accent on each stat card (left stripe or subtle bg tint)
+- Add a circular progress ring for the completion percentage card
+
+**Assignments tab:**
+- Group by status with collapsible sections
+- Better visual status indicators with coloured dots/tags
+
+**Schedule tab:**
+- Colour the schedule rows with module colour accent
+
+---
+
+### Timetable Colour Consistency
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+
+- The timetable already uses `slot.course_colour` for block fills — no changes needed unless the backend colour values change. The colours will be consistent because they come from the same `course.colour` field.
+
+---
+
+### Backend — No Changes Needed
+
+The backend already returns `colour`, `canvas_url`, `assignment_count`, `unread_announcement_count`, `last_synced_at`, and all the data we need. No backend modifications required.
+
+## Verification Plan
+
+### Manual Verification
+1. Start the dev server (`npm run dev` in `frontend/`)
+2. Navigate to [/courses](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses) — verify:
+   - Cards display with left colour stripe matching module colour
+   - Search input filters modules by code/name
+   - Summary stats bar shows correctly
+   - Hover effects work (border colour change, title accent, shadow)
+   - Footer buttons (Canvas link, arrow) are visible and functional
+   - Progress bar shows inside each card
+3. Click a course card → navigate to `/courses/[id]` — verify:
+   - Header has gradient colour band
+   - Stat cards show module colour accents
+   - All tabs (Overview, Assignments, Announcements, Grades, Schedule) function correctly
+   - Schedule rows use module colour
+4. Navigate to `/timetable` — verify timetable blocks still use correct module colours
+5. Toggle dark mode — all colours should look correct in both themes

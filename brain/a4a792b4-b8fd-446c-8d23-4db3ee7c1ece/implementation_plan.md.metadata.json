@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Implementation plan for revamping the onboarding flow: adds user type selection (Standard/Power), makes Canvas mandatory, adds module verification with checkboxes after sync, and conditionally shows Craft/Telegram for power users. Covers backend model changes, new API endpoints, frontend setup page rewrite, and courses page adjustments.",
+  "updatedAt":  "2026-02-25T14:41:58.365471Z"
+}

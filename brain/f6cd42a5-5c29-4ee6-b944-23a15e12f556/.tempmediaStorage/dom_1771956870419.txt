@@ -1,0 +1,42 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (500,39)<div  />
+	[1] (486,38)<button class='opblock-summary-control' />
+		[2] (63,38)<span >GET />
+		[3] (520,38)<div  />
+			[4] (134,38)<span  />
+				[5] (134,38)<a class='nostyle' href='#/default/health_health_get' />
+					[6] (134,38)<span >/health />
+			[7] (187,38)<div >Health />
+	[8] (958,38)<button aria-label='get ​/health' class='opblock-control-arrow' />
+Health check endpoint.
+[9] (91,214)<div  />
+	[10] (74,214)<h4  />
+		[11] (74,214)<span >Parameters />
+[12] (918,214)<button class='btn try-out__btn cancel'>Cancel />
+No parameters
+[13] (500,376)<button class='btn execute opblock-control__btn'>Execute />
+Responses
+Code
+Description
+Links
+200
+Successful Response
+Media type
+[14] (210,694)<select aria-label='Media Type' class='content-type' />
+Controls
+Accept
+header.
+[15] (153,775)<li class='tabitem active' role='presentation' />
+	[16] (148,775)<button class='tablinks' id='hCYpaq8=' role='tab'>Example Value />
+[17] (220,775)<li class='tabitem' role='presentation' />
+	[18] (213,775)<button class='tablinks' id='dv/5E80=' role='tab'>Schema />
+"string"
+No links
+[19] (54,997)<a class='nostyle' href='#/auth' />
+	[20] (54,997)<span >auth />
+[21] (946,997)<button class='expand-operation' title='Collapse operation' />
+
+</current_dom>

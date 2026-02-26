@@ -1,0 +1,91 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (500,60)<div  />
+	[1] (486,60)<button class='opblock-summary-control' />
+		[2] (63,60)<span >PUT />
+		[3] (520,60)<div  />
+			[4] (191,60)<span  />
+				[5] (191,60)<a class='nostyle' href='#/settings/bulk_upsert_settings_api_v1_settings_bulk_put' />
+					[6] (191,60)<span >/api
+/v1
+/settings
+/bulk />
+			[7] (335,60)<div >Bulk Upsert Settings />
+	[8] (958,60)<button aria-label='put ​/api​/v1​/settings​/bulk' class='opblock-control-arrow' />
+[9] (500,146)<h3  />
+	[10] (59,146)<a class='nostyle' href='#/setup' />
+		[11] (59,146)<span >setup />
+	[12] (946,146)<button class='expand-operation' title='Collapse operation' />
+[13] (500,218)<div  />
+	[14] (486,218)<button class='opblock-summary-control' />
+		[15] (63,218)<span >POST />
+		[16] (520,218)<div  />
+			[17] (223,218)<span  />
+				[18] (223,218)<a class='nostyle' href='#/setup/validate_canvas_api_v1_setup_validate_canvas_post' />
+					[19] (223,218)<span >/api
+/v1
+/setup
+/validate-canvas />
+			[20] (390,218)<div >Validate Canvas />
+	[21] (958,218)<button aria-label='post ​/api​/v1​/setup​/validate-canvas' class='opblock-control-arrow' />
+[22] (500,296)<div  />
+	[23] (486,296)<button class='opblock-summary-control' />
+		[24] (63,296)<span >POST />
+		[25] (520,296)<div  />
+			[26] (211,296)<span  />
+				[27] (211,296)<a class='nostyle' href='#/setup/validate_llm_api_v1_setup_validate_llm_post' />
+					[28] (211,296)<span >/api
+/v1
+/setup
+/validate-llm />
+			[29] (356,296)<div >Validate Llm />
+	[30] (958,296)<button aria-label='post ​/api​/v1​/setup​/validate-llm' class='opblock-control-arrow' />
+[31] (500,374)<div  />
+	[32] (486,374)<button class='opblock-summary-control' />
+		[33] (63,374)<span >POST />
+		[34] (520,374)<div  />
+			[35] (232,374)<span  />
+				[36] (232,374)<a class='nostyle' href='#/setup/validate_telegram_api_v1_setup_validate_telegram_post' />
+					[37] (232,374)<span >/api
+/v1
+/setup
+/validate-telegram />
+			[38] (410,374)<div >Validate Telegram />
+	[39] (958,374)<button aria-label='post ​/api​/v1​/setup​/validate-telegram' class='opblock-control-arrow' />
+[40] (500,501)<h4  />
+	[41] (496,497)<button class='models-control' />
+		[42] (487,497)<span >Schemas />
+[43] (245,594)<button class='json-schema-2020-12-accordion' />
+	[44] (235,594)<div  />
+		[45] (235,594)<div >Body_import_timetable_api_v1_timetable_import_post />
+	[46] (419,595)<span  />
+[47] (458,597)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[48] (133,686)<button class='json-schema-2020-12-accordion' />
+	[49] (123,686)<div  />
+		[50] (123,686)<div >BulkSettingsUpdate />
+	[51] (195,687)<span  />
+[52] (234,689)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[53] (152,772)<button class='json-schema-2020-12-accordion' />
+	[54] (141,772)<div  />
+		[55] (141,771)<div >CanvasValidationRequest />
+	[56] (232,772)<span  />
+[57] (271,774)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[58] (112,857)<button class='json-schema-2020-12-accordion' />
+	[59] (102,857)<div  />
+		[60] (102,856)<div >ChatMessage />
+	[61] (154,857)<span  />
+[62] (193,859)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+[63] (110,942)<button class='json-schema-2020-12-accordion' />
+	[64] (100,942)<div  />
+		[65] (100,942)<div >ChatRequest />
+	[66] (150,943)<span  />
+[67] (189,945)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+
+</current_dom>

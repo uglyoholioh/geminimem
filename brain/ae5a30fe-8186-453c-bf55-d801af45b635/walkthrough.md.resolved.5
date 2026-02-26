@@ -1,0 +1,46 @@
+
+# Fixes Overview: API Key, Settings & Daily Brief
+
+## Summary
+Resolved issues with GLM API key persistence, ensuring it's correctly saved and displayed (redacted) in Settings. Fixed the "API key test failed" error by updating authentication logic. Enhanced the AI Daily Brief with Markdown formatting and improved UI.
+
+## Changes
+
+### 1. Settings & API Key Persistence
+- **Fixed Persistence**: Updated [SettingsPage](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx#18-917) to correctly read and sync input state from the user profile.
+- **Redacted Key Sync**: Backend now immediately returns the `glm_key_preview` (e.g., `sk-ab...xy123`) upon save, and frontend logic was hardened to ensure this preview populates the input field.
+
+### 2. AI Daily Brief Improvements
+- **Empty Response Fix**: The "AI summary not available" error was caused by the model `glm-4.5-flash`'s "reasoning" output consuming the default 1000 token limit, leaving no space for the actual message.
+    - **Fix**: Kept **`glm-4.5-flash`** (required model) but increased `max_tokens` to **4096**.
+- **Timeout Fix**: Backend HTTP client timeout increased to **180 seconds**.
+- **Optimization**: "Test Connection" now skips loading all assignments, making it instant. "Daily Brief" uses a concise prompt and reduced context to ensure speed.
+- **Rich UI**: Implemented a Markdown renderer in [DailyBrief](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx#9-295).
+
+### AI Suggested Tasks Integration
+- **Backend Refactor**: Modified [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py) and [canvas.py](file:///Users/oli/Desktop/LMSManager/backend/app/schemas/canvas.py) to replace freeform AI text with structured [TaskSuggestion](file:///Users/oli/Desktop/LMSManager/backend/app/schemas/canvas.py#180-186) objects.
+- **JSON Prompting**: Updated the AI prompt to request a specific JSON schema, including title, priority, category, and rationale.
+- **Frontend UI Upgrade**: Refactored [daily-brief.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx) to render these suggestions as interactive cards.
+- **Todo Integration**: Implemented "Add to Tasks" functionality that directly creates a new Todo item from an AI suggestion, refreshing the global task list upon success.
+- **Section Cleanup**: Removed the legacy "Intelligence Suggestion" text section to streamline the dashboard.
+- **API Optimization**: Used direct `api.z.ai/v1` endpoints and reduced context size to mitigate external AI latency.
+
+## Verification
+
+### Settings Page
+1. Go to **Settings**.
+2. Enter your GLM API Key and click **Save**.
+3. **Verify**: The input field should clear and then show your redacted key (e.g., `efdb6...lsQT`). The "Test Connection" check should pass.
+4. Refresh the page. The key availability should persist.
+
+### Dashboard (Daily Brief)
+1. Go to **Dashboard**.
+2. Click **Generate AI Brief** (if not auto-generated).
+3. **Verify**: You should see a formatted message starting with **Good evening, Oliver!** (or generic greeting), with clear bullet points for your tasks.
+
+## Code Changes
+- [backend/app/routes/authentication.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/authentication.py): Added `glm_key_preview` and [redact_api_key](file:///Users/oli/Desktop/LMSManager/backend/app/routes/authentication.py#53-58).
+- [backend/app/routes/ai_assistant.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/ai_assistant.py): Updated `/test-ai` to use JWT auth.
+- [backend/app/routes/brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py): Updated prompts and logging.
+- [frontend/app/settings/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx): Updated save logic and key display.
+- [frontend/components/dashboard/daily-brief.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx): Added Markdown rendering.

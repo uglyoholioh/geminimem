@@ -1,0 +1,92 @@
+OS
+[0] (23,131)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/' title='Dashboard' />
+[1] (23,193)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[2] (23,256)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (23,319)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (23,381)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[5] (23,444)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (23,506)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (23,569)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[8] (23,632)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[9] (23,829)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[10] (23,892)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+TB
+Good evening
+Wednesday, February 25
+0
+tasks
+0
+classes
+8
+due
+36
+unread
+Daily Brief & Chat
+[11] (442,147)<button class='text-muted text-xs hover:text-secondary transition-colors' title='Collapse brief' />
+[12] (479,147)<button class='text-accent text-xs hover:text-accent-hover transition-colors disabled:opacity-50 flex items-center gap-1'>Refresh />
+[13] (290,359)<div class='flex-1 overflow-y-auto px-4 py-2 space-y-3 min-h-0' scrollable='true'>📋 Overview
+You have no classes today, providing an opportunity to catch up on coursework and assignments.
+
+🎯 Today's Focus
+Review the new announcements for GEX1015/GET1029, GES1035/GESS1025, BT1101, and plan accordingly.
+
+⚠️ Heads Up
+The midterm exam for GEX1015/GET1029 is upcoming; review course materials to ensure readiness.
+
+📌 Weekly Focus
+Focus on staying organized and managing your time effectively, as the semester progresses with increasing demands. />
+	📋 Overview
+You have no classes today, providing an opportunity to catch up on coursework and assignments.
+
+🎯 Today's Focus
+Review the new announcements for GEX1015/GET1029, GES1035/GESS1025, BT1101, and plan accordingly.
+
+⚠️ Heads Up
+The midterm exam for GEX1015/GET1029 is upcoming; review course materials to ensure readiness.
+
+📌 Weekly Focus
+Focus on staying organized and managing your time effectively, as the semester progresses with increasing demands.
+	Ask about your schedule, tasks, assignments, or module materials
+	What should I focus on today?
+	Suggest tasks for my deadlines
+	Summarise my week
+[14] (270,593)<input class='flex-1 rounded-lg border border-border bg-base px-3 py-2 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none disabled:opacity-50' placeholder='Ask about your schedule, tasks, module materials...' />
+Today's Schedule
+[15] (947,147)<a class='text-accent text-xs hover:text-accent-hover transition-colors' href='/timetable'>View all → />
+No classes scheduled today
+Tasks
+[16] (947,281)<a class='text-accent text-xs hover:text-accent-hover transition-colors' href='/tasks'>View all → />
+No open tasks
+Announcements
+36
+new
+[17] (758,539)<div class='flex-1 overflow-y-auto px-4 pb-3' scrollable='true' />
+	GEX1015/GET1029
+	Yesterday
+	Midterm exam
+	[18] (962,464)<button class='opacity-0 group-hover:opacity-100 text-muted hover:text-secondary transition-all mt-1 shrink-0' title='Mark as read' />
+	GES1035/GESS1025
+	Feb 23
+	Course Webinar Recording
+	[19] (962,547)<button class='opacity-0 group-hover:opacity-100 text-muted hover:text-secondary transition-all mt-1 shrink-0' title='Mark as read' />
+	BT1101
+	Feb 23
+	Welcome to BT1101 – Part II of the Course
+	[20] (962,629)<button class='opacity-0 group-hover:opacity-100 text-muted hover:text-secondary transition-all mt-1 shrink-0' title='Mark as read' />
+	+
+	33
+	more announcements
+Upcoming Assignments
+[21] (480,686)<a class='text-accent text-xs hover:text-accent-hover transition-colors' href='/assignments'>View all → />
+[22] (290,808)<div class='flex-1 overflow-y-auto px-4 pb-3' scrollable='true' />
+	pelogin account
+	CS2030
+	Roll Call Attendance
+	GES1035/GESS1025
+	Roll Call Attendance
+	GEX1015/GET1029
+	Declaration of Conformance
+	THE1001/RC1000A
+	+
+	4
+	more assignments

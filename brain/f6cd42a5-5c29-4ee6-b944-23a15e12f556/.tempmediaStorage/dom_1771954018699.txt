@@ -1,0 +1,56 @@
+OS
+[0] (23,131)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[1] (23,193)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/tasks' title='Tasks' />
+[2] (23,256)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (23,319)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (23,381)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[5] (23,444)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/ai' title='AI Chat' />
+[6] (23,506)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[7] (23,569)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (23,829)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[9] (23,892)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Tasks
+[10] (197,43)<button class='h-7 w-7 flex items-center justify-center rounded-lg bg-accent text-white hover:bg-accent-hover transition-colors' title='New task (N)' />
+[11] (135,111)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors bg-accent-subtle text-accent font-medium'>Inbox
+1 />
+	Inbox
+	1
+[12] (135,165)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Today
+0 />
+	Today
+	0
+[13] (135,219)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Upcoming />
+	Upcoming
+[14] (135,273)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>By Module />
+	By Module
+[15] (135,327)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Completed
+0 />
+	Completed
+	0
+1
+open
+0
+completed
+Press N to add
+Inbox
+· 1
+[16] (837,51)<button class='px-3 py-1.5 text-xs rounded-md transition-colors text-muted hover:text-secondary'>List />
+[17] (886,51)<button class='px-3 py-1.5 text-xs rounded-md transition-colors bg-surface shadow text-primary font-medium border border-border/50'>Kanban />
+[18] (947,51)<button class='px-3 py-1.5 text-xs rounded-md transition-colors text-muted hover:text-secondary'>Calendar />
+[19] (612,552)<div class='flex gap-4 h-full overflow-x-auto pb-4 pt-4 px-2' scrollable='true' />
+	Inbox
+	1
+	[20] (376,275)<div class='p-3.5 bg-surface border rounded-xl cursor-grab active:cursor-grabbing shadow-sm relative group transition-colors border-border hover:border-accent/50' role='button' />
+		[21] (376,256)<div  />
+			[22] (311,256)<p >Main Task today />
+		[23] (376,294)<div  />
+			[24] (282,294)<span >1
+/
+2 />
+	In Progress
+	0
+	Drop tasks here
+	Completed
+	Drop tasks here
+Draggable item 1 was dropped over droppable area 1

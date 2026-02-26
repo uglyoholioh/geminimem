@@ -1,0 +1,132 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (500,62)<div  />
+	[1] (486,62)<button class='opblock-summary-control' />
+		[2] (63,62)<span >GET />
+		[3] (520,62)<div  />
+			[4] (248,62)<span  />
+				[5] (248,62)<a class='nostyle' href='#/assignments/get_assignment_api_v1_assignments__assignment_id__get' />
+					[6] (248,62)<span >/api
+/v1
+/assignments
+/{assignment_id} />
+			[7] (438,62)<div >Get Assignment />
+	[8] (958,62)<button aria-label='get ​/api​/v1​/assignments​/{assignment_id}' class='opblock-control-arrow' />
+[9] (500,140)<div  />
+	[10] (486,140)<button class='opblock-summary-control' />
+		[11] (63,140)<span >PUT />
+		[12] (520,140)<div  />
+			[13] (248,140)<span  />
+				[14] (248,140)<a class='nostyle' href='#/assignments/update_assignment_api_v1_assignments__assignment_id__put' />
+					[15] (248,140)<span >/api
+/v1
+/assignments
+/{assignment_id} />
+			[16] (447,140)<div >Update Assignment />
+	[17] (958,140)<button aria-label='put ​/api​/v1​/assignments​/{assignment_id}' class='opblock-control-arrow' />
+[18] (500,226)<h3  />
+	[19] (71,225)<a class='nostyle' href='#/courses' />
+		[20] (71,225)<span >courses />
+	[21] (946,225)<button class='expand-operation' title='Collapse operation' />
+[22] (500,297)<div  />
+	[23] (486,297)<button class='opblock-summary-control' />
+		[24] (63,297)<span >GET />
+		[25] (520,297)<div  />
+			[26] (166,297)<span  />
+				[27] (166,297)<a class='nostyle' href='#/courses/list_courses_api_v1_courses_get' />
+					[28] (166,297)<span >/api
+/v1
+/courses />
+			[29] (267,297)<div >List Courses />
+	[30] (958,297)<button aria-label='get ​/api​/v1​/courses' class='opblock-control-arrow' />
+[31] (500,375)<div  />
+	[32] (486,375)<button class='opblock-summary-control' />
+		[33] (63,375)<span >GET />
+		[34] (520,375)<div  />
+			[35] (215,375)<span  />
+				[36] (215,375)<a class='nostyle' href='#/courses/get_course_api_v1_courses__course_id__get' />
+					[37] (215,375)<span >/api
+/v1
+/courses
+/{course_id} />
+			[38] (362,375)<div >Get Course />
+	[39] (958,375)<button aria-label='get ​/api​/v1​/courses​/{course_id}' class='opblock-control-arrow' />
+[40] (500,454)<div  />
+	[41] (486,454)<button class='opblock-summary-control' />
+		[42] (63,454)<span >PATCH />
+		[43] (520,454)<div  />
+			[44] (215,454)<span  />
+				[45] (215,454)<a class='nostyle' href='#/courses/bulk_update_active_api_v1_courses_bulk_active_patch' />
+					[46] (215,454)<span >/api
+/v1
+/courses
+/bulk-active />
+			[47] (380,454)<div >Bulk Update Active />
+	[48] (958,454)<button aria-label='patch ​/api​/v1​/courses​/bulk-active' class='opblock-control-arrow' />
+[49] (500,532)<div  />
+	[50] (486,532)<button class='opblock-summary-control' />
+		[51] (63,532)<span >PATCH />
+		[52] (520,532)<div  />
+			[53] (244,532)<span  />
+				[54] (244,532)<a class='nostyle' href='#/courses/toggle_course_active_api_v1_courses__course_id__active_patch' />
+					[55] (244,532)<span >/api
+/v1
+/courses
+/{course_id}
+/active />
+			[56] (443,532)<div >Toggle Course Active />
+	[57] (958,532)<button aria-label='patch ​/api​/v1​/courses​/{course_id}​/active' class='opblock-control-arrow' />
+[58] (500,618)<h3  />
+	[59] (110,617)<a class='nostyle' href='#/announcements' />
+		[60] (110,617)<span >announcements />
+	[61] (946,617)<button class='expand-operation' title='Collapse operation' />
+[62] (500,689)<div  />
+	[63] (486,689)<button class='opblock-summary-control' />
+		[64] (63,689)<span >GET />
+		[65] (520,689)<div  />
+			[66] (191,689)<span  />
+				[67] (191,689)<a class='nostyle' href='#/announcements/list_announcements_api_v1_announcements_get' />
+					[68] (191,689)<span >/api
+/v1
+/announcements />
+			[69] (335,689)<div >List Announcements />
+	[70] (958,689)<button aria-label='get ​/api​/v1​/announcements' class='opblock-control-arrow' />
+[71] (500,768)<div  />
+	[72] (486,768)<button class='opblock-summary-control' />
+		[73] (63,768)<span >PUT />
+		[74] (520,768)<div  />
+			[75] (285,768)<span  />
+				[76] (285,768)<a class='nostyle' href='#/announcements/mark_announcement_read_api_v1_announcements__announcement_id__read_put' />
+					[77] (285,768)<span >/api
+/v1
+/announcements
+/{announcement_id}
+/read />
+			[78] (538,768)<div >Mark Announcement Read />
+	[79] (958,768)<button aria-label='put ​/api​/v1​/announcements​/{announcement_id}​/read' class='opblock-control-arrow' />
+[80] (500,853)<h3  />
+	[81] (77,853)<a class='nostyle' href='#/timetable' />
+		[82] (77,853)<span >timetable />
+	[83] (946,853)<button class='expand-operation' title='Collapse operation' />
+[84] (500,925)<div  />
+	[85] (486,925)<button class='opblock-summary-control' />
+		[86] (63,925)<span >POST />
+		[87] (520,925)<div  />
+			[88] (203,925)<span  />
+				[89] (203,925)<a class='nostyle' href='#/timetable/import_timetable_api_v1_timetable_import_post' />
+					[90] (203,925)<span >/api
+/v1
+/timetable
+/import />
+			[91] (351,925)<div >Import Timetable />
+	[92] (958,925)<button aria-label='post ​/api​/v1​/timetable​/import' class='opblock-control-arrow' />
+GET
+/api
+/v1
+/timetable
+/today
+Get Timetable Today
+
+</current_dom>

@@ -1,0 +1,14 @@
+# AI Task Generation Debugging
+
+## Coding Plan Endpoint Fix
+- [x] Identify coding-specific endpoint necessity
+- [/] Update [ai_assistant.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/ai_assistant.py) and [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py) with coding endpoint
+- [ ] Verify fix with `test_flow` script
+- [ ] Manual verification via dashboard
+
+## Previous Fixes
+- [x] Fix Backend NameErrors
+- [x] Fix GLM API 404 Endpoint URL
+- [x] Implement 20s timeout and fallbacks
+- [x] Updated models to glm-4.5/4.6/4.7
+- [x] Fix missing user_id filters in backend queries

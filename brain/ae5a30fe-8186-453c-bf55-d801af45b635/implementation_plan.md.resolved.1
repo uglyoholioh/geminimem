@@ -1,0 +1,42 @@
+
+# Settings & Brief Refinement Plan
+
+## Goal Description
+Display the redacted GLM API key in settings instead of just a generic indicator, and debug/fix the regression in the Daily Brief functionality.
+
+## User Review Required
+> [!IMPORTANT]
+> The `/auth/me` endpoint will be modified to return `glm_key_preview`.
+> The frontend [User](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#6-23) interface will be updated to include `glm_key_preview`.
+
+## Proposed Changes
+
+### Backend
+#### [authentication.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/authentication.py)
+- Create helper `redact_api_key(key: str) -> str`: Return first 5 and last 5 chars with ellipsis (e.g. `sk-ab...xy123`).
+- Update `/auth/me` (login/token refresh) response to include `glm_key_preview`.
+- Update `/auth/profile` response to include `glm_key_preview` if key was updated.
+
+### Frontend
+#### [AuthContext.tsx](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx)
+- Update [User](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#6-23) interface to include `glm_key_preview?: string`.
+
+#### [Settings Page](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx)
+- Update `useEffect` to set `apiKey` (state) to `user.glm_key_preview` if present and `apiKey` is empty.
+- When `hasGlmKey` is true, show the preview in the input placeholder or value if not editing.
+
+### Debugging Daily Brief
+- Check backend logs for `400 Bad Request` or other errors.
+- If prompt is too complex for `glm-4.5-flash` with current strict JSON/Markdown requirements, simplify prompt structure or ensure model handles it.
+
+## Verification Plan
+
+### Manual Verification
+1. **Redacted Key**:
+    - Go to Settings.
+    - Persisted key should show as `sk-.....123`.
+    - Set new key -> should update preview immediately.
+    - Refresh -> should persist preview.
+2. **Daily Brief**:
+    - Generate brief.
+    - Confirm valid Markdown output is rendered.

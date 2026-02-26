@@ -1,0 +1,1891 @@
+# Dashboard & Navigation Polish Walkthrough
+
+## Changes Made
+
+### Navigation Bar Polish
+**Goal:** Make it minimal, smaller, with fancy animations.
+
+**Changes:**
+- Reduced padding from `py-4` to `py-3`
+- Changed items to `rounded-full` (pill shape)
+- Added hover interactions:
+  - **Scale:** Icon scales up on hover
+  - **Underline:** Red underline slides in from center on hover
+  - **Settings:** Gear icon rotates 90 degrees on hover
+
+```diff:Navigation.tsx
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import {
+  LayoutDashboard,
+  BookOpen,
+  FileText,
+  Megaphone,
+  FolderOpen,
+  Calendar,
+  Clock,
+  CalendarClock,
+  Settings,
+  GraduationCap,
+  LogOut,
+} from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "@/lib/providers/theme-provider";
+import { useAuth } from "@/lib/contexts/AuthContext";
+
+const navItems = [
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/assignments", label: "Assignments", icon: FileText },
+  { href: "/announcements", label: "Announcements", icon: Megaphone },
+  { href: "/materials", label: "Materials", icon: FolderOpen },
+  { href: "/schedule", label: "Schedule", icon: Calendar },
+  { href: "/timetable", label: "Timetable", icon: Clock },
+  { href: "/planner", label: "Planner", icon: CalendarClock },
+  { href: "/settings", label: "Settings", icon: Settings },
+];
+
+export function Navigation() {
+  const pathname = usePathname();
+  const { actualTheme } = useTheme();
+  const { user, logout } = useAuth();
+
+  // Don't show nav on login/register pages
+  const isAuthPage = pathname === "/login" || pathname === "/register";
+  if (isAuthPage) return null;
+
+  return (
+    <nav
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 'var(--z-sticky)',
+        width: '100%',
+        borderBottom: '1px solid var(--color-border-light)',
+        background: actualTheme === 'dark'
+          ? 'rgba(26, 24, 22, 0.95)'
+          : 'rgba(250, 247, 242, 0.95)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: 'var(--space-md) var(--page-padding)',
+        }}
+      >
+        {/* Logo */}
+        <Link
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+            textDecoration: 'none',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              height: '40px',
+              width: '40px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--color-accent-primary)',
+              color: 'var(--color-text-inverted)',
+            }}
+          >
+            <GraduationCap style={{ width: '20px', height: '20px' }} />
+          </div>
+          <span
+            style={{
+              fontSize: '1.25rem',
+              fontWeight: 'var(--font-weight-semibold)',
+              color: 'var(--color-text-primary)',
+            }}
+          >
+            LMS Manager
+          </span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-xs)',
+          }}
+          className="hidden md:flex"
+        >
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 'var(--space-xs)',
+                  padding: 'var(--space-xs) var(--space-md)',
+                  borderRadius: 'var(--radius-md)',
+                  fontSize: 'var(--font-size-small)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  textDecoration: 'none',
+                  transition: 'all var(--transition-normal)',
+                  background: isActive
+                    ? 'var(--color-accent-primary)'
+                    : 'transparent',
+                  color: isActive
+                    ? 'var(--color-text-inverted)'
+                    : 'var(--color-text-secondary)',
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'var(--color-bg-subtle)';
+                    e.currentTarget.style.color = 'var(--color-text-primary)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = 'var(--color-text-secondary)';
+                  }
+                }}
+              >
+                <Icon style={{ width: '16px', height: '16px' }} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right side: Theme Toggle & Logout */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+        >
+          <ThemeToggle />
+
+          {/* Logout Button - only show when logged in */}
+          {user && (
+            <button
+              onClick={() => logout()}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--space-xs)',
+                padding: 'var(--space-xs) var(--space-md)',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 'var(--font-size-small)',
+                fontWeight: 'var(--font-weight-medium)',
+                border: '1px solid var(--color-border-light)',
+                background: 'transparent',
+                color: 'var(--color-text-secondary)',
+                cursor: 'pointer',
+                transition: 'all var(--transition-normal)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#dc2626';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.borderColor = '#dc2626';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--color-text-secondary)';
+                e.currentTarget.style.borderColor = 'var(--color-border-light)';
+              }}
+            >
+              <LogOut style={{ width: '16px', height: '16px' }} />
+              <span className="hidden sm:inline">Logout</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+===
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import {
+  LayoutDashboard,
+  FolderOpen,
+  CalendarClock,
+  Settings,
+  GraduationCap,
+  LogOut,
+  CheckSquare,
+} from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "@/lib/providers/theme-provider";
+import { useAuth } from "@/lib/contexts/AuthContext";
+
+// Simplified navigation - removed Schedule, Timetable (combined into Planner), Assignments, Announcements
+const navItems = [
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/todos", label: "Tasks", icon: CheckSquare },
+  { href: "/materials", label: "Materials", icon: FolderOpen },
+  { href: "/planner", label: "Planner", icon: CalendarClock },
+];
+
+export function Navigation() {
+  const pathname = usePathname();
+  const { actualTheme } = useTheme();
+  const { user, logout } = useAuth();
+
+  // Don't show nav on login/register pages
+  const isAuthPage = pathname === "/login" || pathname === "/register";
+  if (isAuthPage) return null;
+
+  return (
+    <nav
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 'var(--z-sticky)',
+        width: '100%',
+        borderBottom: '1px solid var(--color-border-light)',
+        background: actualTheme === 'dark'
+          ? 'rgba(26, 24, 22, 0.95)'
+          : 'rgba(250, 247, 242, 0.95)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      <div
+        style={{
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0.75rem var(--page-padding)',
+        }}
+      >
+        {/* Logo */}
+        <Link
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+            textDecoration: 'none',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              height: '40px',
+              width: '40px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--color-accent-primary)',
+              color: 'var(--color-text-inverted)',
+            }}
+          >
+            <GraduationCap style={{ width: '20px', height: '20px' }} />
+          </div>
+          <span
+            style={{
+              fontSize: '1.25rem',
+              fontWeight: 'var(--font-weight-semibold)',
+              color: 'var(--color-text-primary)',
+            }}
+          >
+            LMS Manager
+          </span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+          className="hidden md:flex"
+        >
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "relative group flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300",
+                  isActive
+                    ? "text-black dark:text-white"
+                    : "text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white"
+                )}
+                style={{
+                  textDecoration: 'none',
+                }}
+              >
+                <Icon size={16} className={`transition-transform duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`} />
+                <span>{item.label}</span>
+                <span className={cn(
+                  "absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] bg-red-600 transition-all duration-300 ease-out",
+                  isActive ? "w-4" : "w-0 group-hover:w-full opacity-0 group-hover:opacity-100"
+                )} />
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right side: Settings Icon, Theme Toggle & Logout */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+        >
+          {/* Settings Icon */}
+          <Link
+            href="/settings"
+            className={cn(
+              "p-1.5 rounded-full transition-all duration-300 hover:rotate-90",
+              pathname === "/settings"
+                ? "bg-black dark:bg-white text-white dark:text-black"
+                : "text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10"
+            )}
+            title="Settings"
+          >
+            <Settings size={18} />
+          </Link>
+
+          <ThemeToggle />
+
+          {/* Logout Button - only show when logged in */}
+          {user && (
+            <button
+              onClick={() => logout()}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--space-xs)',
+                padding: 'var(--space-xs) var(--space-md)',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 'var(--font-size-small)',
+                fontWeight: 'var(--font-weight-medium)',
+                border: '1px solid var(--color-border-light)',
+                background: 'transparent',
+                color: 'var(--color-text-secondary)',
+                cursor: 'pointer',
+                transition: 'all var(--transition-normal)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#dc2626';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.borderColor = '#dc2626';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--color-text-secondary)';
+                e.currentTarget.style.borderColor = 'var(--color-border-light)';
+              }}
+            >
+              <LogOut style={{ width: '16px', height: '16px' }} />
+              <span className="hidden sm:inline">Logout</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}
+```
+
+---
+
+### Dashboard Layout Adjustments
+**Goal:** Increase side padding (narrower content) and fix "shortform" buttons.
+
+**Changes:**
+- **Padding:** Increased container padding to `px-12 md:px-24 lg:px-32 xl:px-48`
+- **Buttons:** Renamed "Tasks", "Assign", "News", "📥" to full names:
+  - "Tasks"
+  - "Assignments"
+  - "Announcements"
+  - "Import Data"
+- **Grid:** Changed Quick Actions from 4-column to 2-column grid to fit longer text
+
+```diff:page.tsx
+"use client";
+
+import { useEffect, useState } from "react";
+import { useUpcomingAssignments, useRecentAnnouncements, useCourses, useTimetable } from "@/lib/hooks";
+import { useRouter } from "next/navigation";
+import { formatDate, getTimeRemaining, isDeadlineUrgent, stripHtml, isRealAssignment } from "@/lib/utils";
+import { GreetingCard } from "@/components/dashboard/greeting-card";
+import { DailyBrief } from "@/components/dashboard/daily-brief";
+import { TodaySchedule } from "@/components/dashboard/today-schedule";
+import { UpNext } from "@/components/planner/up-next";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { useAuth } from "@/lib/contexts/AuthContext";
+import Link from "next/link";
+import { useTheme } from "@/lib/providers/theme-provider";
+
+function DashboardPageContent() {
+  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  const { user, token } = useAuth();
+  const { actualTheme } = useTheme();
+  const [hasCanvasToken, setHasCanvasToken] = useState(false);
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const { courses } = useCourses();
+  const { upcomingAssignments, isLoading: assignmentsLoading } = useUpcomingAssignments(168, 10);
+  const { recentAnnouncements, isLoading: announcementsLoading } = useRecentAnnouncements(7, 5);
+  const { timetable: classSchedules } = useTimetable(undefined, true);
+
+  // Comprehensive data states for AI export
+  const [allAssignments, setAllAssignments] = useState<any[]>([]);
+  const [allAnnouncements, setAllAnnouncements] = useState<any[]>([]);
+  const [allMaterials, setAllMaterials] = useState<any[]>([]);
+  const [allSchedule, setAllSchedule] = useState<any[]>([]);
+  const [timetable, setTimetable] = useState<any[]>([]);
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportProgress, setExportProgress] = useState('');
+  const [exportStep, setExportStep] = useState(0);
+
+  // Helper to update progress
+  const updateExportProgress = (step: number, message: string) => {
+    setExportStep(step);
+    setExportProgress(message);
+  };
+
+  // Check if user has Canvas token
+  useEffect(() => {
+    if (user && typeof window !== "undefined") {
+      setHasCanvasToken(user.has_canvas_token || false);
+    }
+  }, [user]);
+
+  // Fetch ALL data for comprehensive AI export
+  useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+    // Fetch all assignments
+    fetch(`${API_URL}/assignments?limit=500`, { headers })
+      .then(res => res.json())
+      .then(data => setAllAssignments(data.filter ? data.filter((a: any) => isRealAssignment(a.submission_types)) : []))
+      .catch(() => setAllAssignments([]));
+
+    // Fetch all announcements
+    fetch(`${API_URL}/announcements?days=365&limit=500`, { headers })
+      .then(res => res.json())
+      .then(data => setAllAnnouncements(data))
+      .catch(() => setAllAnnouncements([]));
+
+    // Fetch all materials
+    fetch(`${API_URL}/materials?limit=500`, { headers })
+      .then(res => res.json())
+      .then(data => setAllMaterials(data))
+      .catch(() => setAllMaterials([]));
+
+    // Fetch schedule
+    fetch(`${API_URL}/schedule?days=365&limit=500`, { headers })
+      .then(res => res.json())
+      .then(data => setAllSchedule(data))
+      .catch(() => setAllSchedule([]));
+
+    // Fetch timetable
+    fetch(`${API_URL}/timetable`, { headers })
+      .then(res => res.json())
+      .then(data => setTimetable(data))
+      .catch(() => setTimetable([]));
+  }, [token]);
+
+  // Redirect to settings if no Canvas token
+  useEffect(() => {
+    if (mounted && !hasCanvasToken && typeof window !== "undefined") {
+      router.push("/settings");
+    }
+  }, [hasCanvasToken, mounted, router]);
+
+  // Prevent hydration mismatch - don't render until mounted
+  if (!mounted) {
+    return null;
+  }
+
+  if (!hasCanvasToken) {
+    return null;
+  }
+
+  const urgentAssignments = upcomingAssignments?.filter((a) => isDeadlineUrgent(a.due_at) && isRealAssignment(a.submission_types) && !a.has_submitted) || [];
+  const realAssignments = upcomingAssignments?.filter((a) => isRealAssignment(a.submission_types) && !a.has_submitted) || [];
+  const completedAssignments = upcomingAssignments?.filter((a) => isRealAssignment(a.submission_types) && a.has_submitted) || [];
+
+  // Comprehensive AI-ready export function
+  const handleComprehensiveExport = async () => {
+    setIsExporting(true);
+    setExportProgress('Initializing export...');
+
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const errors: string[] = [];
+
+      // Fetch any missing data with individual error handling
+      let finalAssignments = allAssignments;
+      let finalAnnouncements = allAnnouncements;
+      let finalMaterials = allMaterials;
+      let finalSchedule = allSchedule;
+      let finalTimetable = timetable;
+
+      try {
+        if (allAssignments.length === 0) {
+          updateExportProgress(1, 'Fetching assignments...');
+          const response = await fetch(`${API_URL}/assignments?limit=500`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const data = await response.json();
+          finalAssignments = (data || []).filter((a: any) => a && isRealAssignment(a.submission_types));
+        }
+      } catch (error: any) {
+        errors.push(`Assignments: ${error.message}`);
+        console.error('Failed to fetch assignments:', error);
+      }
+
+      try {
+        if (allAnnouncements.length === 0) {
+          updateExportProgress(2, 'Fetching announcements...');
+          const response = await fetch(`${API_URL}/announcements?days=365&limit=500`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const data = await response.json();
+          finalAnnouncements = data || [];
+        }
+      } catch (error: any) {
+        errors.push(`Announcements: ${error.message}`);
+        console.error('Failed to fetch announcements:', error);
+      }
+
+      try {
+        if (allMaterials.length === 0) {
+          updateExportProgress(3, 'Fetching materials...');
+          const response = await fetch(`${API_URL}/materials?limit=500`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const data = await response.json();
+          finalMaterials = data || [];
+        }
+      } catch (error: any) {
+        errors.push(`Materials: ${error.message}`);
+        console.error('Failed to fetch materials:', error);
+      }
+
+      try {
+        if (allSchedule.length === 0) {
+          updateExportProgress(4, 'Fetching schedule...');
+          const response = await fetch(`${API_URL}/schedule?days=365&limit=500`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const data = await response.json();
+          finalSchedule = data || [];
+        }
+      } catch (error: any) {
+        errors.push(`Schedule: ${error.message}`);
+        console.error('Failed to fetch schedule:', error);
+      }
+
+      try {
+        if (timetable.length === 0) {
+          updateExportProgress(5, 'Fetching timetable...');
+          const response = await fetch(`${API_URL}/timetable`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const data = await response.json();
+          finalTimetable = data || [];
+        }
+      } catch (error: any) {
+        errors.push(`Timetable: ${error.message}`);
+        console.error('Failed to fetch timetable:', error);
+      }
+
+      // Check if we had critical errors
+      if (errors.length > 0) {
+        throw new Error(`Export encountered errors:\n${errors.join('\n')}`);
+      }
+
+      updateExportProgress(6, 'Processing data...');
+
+      const exportDate = new Date();
+      const currentSemester = getCurrentSemester();
+
+      // AI-Ready Context Export
+      const aiContextData = {
+        // === METADATA ===
+        metadata: {
+          export_date: exportDate.toISOString(),
+          export_date_readable: exportDate.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
+          current_week: getWeekNumber(exportDate),
+          current_semester: currentSemester,
+          data_freshness: "Real-time sync from Canvas LMS",
+          format_version: "2.0",
+          purpose: "AI context for academic assistance, reminders, and study advice"
+        },
+
+        // === STUDENT PROFILE ===
+        student_profile: {
+          total_active_courses: courses?.length || 0,
+          enrolled_courses: courses?.map((course: any) => ({
+            id: course.id,
+            code: course.course_code,
+            name: course.name,
+            description: course.description ? stripHtml(course.description).substring(0, 500) : null,
+            credits: course.credits || null,
+            start_date: course.start_at,
+            end_date: course.end_at,
+            is_current: !course.end_at || new Date(course.end_at) > new Date(),
+          })) || [],
+        },
+
+        // === URGENT ACTION ITEMS ===
+        urgent_items: {
+          overdue_assignments: finalAssignments
+            .filter((a: any) => new Date(a.due_at) < new Date() && !a.has_submitted)
+            .map((a: any) => ({
+              id: a.id,
+              course_code: a.course?.course_code,
+              course_name: a.course?.name,
+              name: a.name,
+              due_date: a.due_at,
+              days_overdue: Math.floor((new Date().getTime() - new Date(a.due_at).getTime()) / (1000 * 60 * 60 * 24)),
+              points_possible: a.points_possible,
+              url: a.url,
+              description: a.description ? stripHtml(a.description).substring(0, 1000) : null,
+            })),
+          due_within_24_hours: finalAssignments
+            .filter((a: any) => {
+              const hoursUntilDue = (new Date(a.due_at).getTime() - new Date().getTime()) / (1000 * 60 * 60);
+              return hoursUntilDue > 0 && hoursUntilDue <= 24 && !a.has_submitted;
+            })
+            .map((a: any) => ({
+              id: a.id,
+              course_code: a.course?.course_code,
+              name: a.name,
+              due_date: a.due_at,
+              hours_remaining: Math.floor((new Date(a.due_at).getTime() - new Date().getTime()) / (1000 * 60 * 60)),
+              url: a.url,
+            })),
+          due_this_week: finalAssignments
+            .filter((a: any) => {
+              const daysUntilDue = Math.ceil((new Date(a.due_at).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+              return daysUntilDue > 0 && daysUntilDue <= 7 && !a.has_submitted;
+            })
+            .map((a: any) => ({
+              id: a.id,
+              course_code: a.course?.course_code,
+              name: a.name,
+              due_date: a.due_at,
+              days_remaining: Math.ceil((new Date(a.due_at).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)),
+              url: a.url,
+            })),
+        },
+
+        // === ASSIGNMENTS (Complete) ===
+        assignments: {
+          upcoming: finalAssignments
+            .filter((a: any) => new Date(a.due_at) >= new Date())
+            .map((a: any) => enrichAssignment(a)),
+          completed: finalAssignments
+            .filter((a: any) => a.has_submitted)
+            .map((a: any) => enrichAssignment(a)),
+          all_without_submissions: finalAssignments
+            .filter((a: any) => !a.has_submitted)
+            .map((a: any) => enrichAssignment(a)),
+        },
+
+        // === ASSESSMENTS & EXAMS ===
+        assessments: {
+          upcoming_exams: finalAssignments
+            .filter((a: any) => {
+              const isExam = new RegExp('quiz|exam|test|midterm|final', 'i').test(a.name);
+              const isFuture = new Date(a.due_at) >= new Date();
+              return isExam && isFuture;
+            })
+            .map((a: any) => enrichAssignment(a))
+            .sort((a: any, b: any) => new Date(a.due_at).getTime() - new Date(b.due_at).getTime()),
+        },
+
+        // === ANNOUNCEMENTS (Recent, important) ===
+        announcements: {
+          recent_week: finalAnnouncements
+            .filter((a: any) => {
+              const daysSince = (new Date().getTime() - new Date(a.posted_at).getTime()) / (1000 * 60 * 60 * 24);
+              return daysSince <= 7;
+            })
+            .map((a: any) => ({
+              id: a.id,
+              course_code: a.course?.course_code,
+              course_name: a.course?.name,
+              title: a.title,
+              content: a.message ? stripHtml(a.message).substring(0, 2000) : null,
+              posted_date: a.posted_at,
+              days_ago: Math.floor((new Date().getTime() - new Date(a.posted_at).getTime()) / (1000 * 60 * 60 * 24)),
+              url: a.url,
+              is_important: new RegExp('important|urgent|attention|required', 'i').test(a.title),
+            })),
+          unread_count: finalAnnouncements.filter((a: any) => !a.read).length,
+        },
+
+        // === MATERIALS & RESOURCES ===
+        materials: {
+          recent_files: finalMaterials
+            .slice(0, 100)
+            .map((m: any) => ({
+              id: m.id,
+              course_code: m.course?.course_code,
+              course_name: m.course?.name,
+              filename: m.display_name || m.filename,
+              type: m.content_type,
+              url: m.url,
+              posted_date: m.created_at,
+              size: m.size ? `${(m.size / 1024).toFixed(1)} KB` : null,
+            })),
+          by_course: groupBy(finalMaterials, 'course.course_code'),
+        },
+
+        // === WEEKLY SCHEDULE ===
+        schedule: {
+          this_week: finalSchedule.filter((s: any) => {
+            const scheduleDate = new Date(s.date);
+            const today = new Date();
+            const weekFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+            return scheduleDate >= today && scheduleDate <= weekFromNow;
+          }),
+          upcoming_events: finalSchedule
+            .filter((s: any) => new Date(s.date) >= new Date())
+            .slice(0, 50)
+            .map((s: any) => ({
+              id: s.id,
+              course_code: s.course?.course_code,
+              title: s.title,
+              date: s.date,
+              start_time: s.start_time,
+              end_time: s.end_time,
+              location: s.location,
+              event_type: s.type || 'class',
+            })),
+        },
+
+        // === TIMETABLE / CLASS SCHEDULE ===
+        timetable: {
+          weekly_classes: finalTimetable.map((t: any) => ({
+            id: t.id,
+            course_code: t.module_code,
+            course_name: t.module_name,
+            class_type: t.class_type,
+            day: t.day,
+            start_time: t.start_time,
+            end_time: t.end_time,
+            venue: t.venue,
+            is_attending: t.will_attend,
+            recurring: true,
+            color: t.color,
+          })),
+          by_day: groupBy(finalTimetable, 'day'),
+          by_type: groupBy(finalTimetable, 'class_type'),
+        },
+
+        // === WORKLOAD ANALYSIS ===
+        workload_analysis: {
+          weekly_commitment: calculateWeeklyCommitment(finalTimetable),
+          assignment_distribution: getAssignmentDistribution(finalAssignments),
+          free_days: analyzeFreeDays(finalTimetable),
+        },
+
+        // === AI PROMPTS ===
+        suggested_prompts: [
+          "What should I prioritize studying this week based on my deadlines?",
+          "Help me create a study plan for my upcoming exams",
+          "Am I on track with my assignments? What should I focus on?",
+          "When should I start studying for my midterms/finals?",
+          "Review my schedule and suggest optimal study blocks",
+          "What gaps do I have in my weekly schedule?",
+          "Create a revision schedule based on my coursework"
+        ],
+
+        // === FORMATTING NOTES FOR AI ===
+        formatting_notes: {
+          dates: "All dates are in ISO 8601 format (YYYY-MM-DDTHH:MM:SS)",
+          course_codes: "Course codes follow university format (e.g., CS1010)",
+          time_zones: "All times are in the user's local timezone",
+          attendance: "will_attend: true means student plans to attend",
+          submission_status: "has_submitted indicates if work was turned in",
+          context: "This is a complete snapshot of the student's academic data from Canvas LMS",
+        },
+      };
+
+      const blob = new Blob([JSON.stringify(aiContextData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `academic-context-${exportDate.toISOString().split('T')[0]}-AI-READY.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // Clear progress after successful export
+      setTimeout(() => setExportProgress(''), 2000);
+    } catch (error: any) {
+      console.error('Export failed:', error);
+
+      // Provide specific error message
+      let errorMessage = 'Export failed. Please try again.';
+      if (error?.message) {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        if (error.message.includes('fetch') || error.message.includes('Network')) {
+          errorMessage = 'Network error: Unable to connect to the server.\n\nPlease check if the backend is running at ' + API_URL;
+        } else if (error.message.includes('JSON')) {
+          errorMessage = 'Data format error: Unable to process the received data.';
+        } else {
+          errorMessage = `Export failed:\n\n${error.message}`;
+        }
+      }
+
+      alert(errorMessage);
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  // Helper functions
+  const enrichAssignment = (a: any) => {
+    if (!a) return null;
+
+    const dueAt = a.due_at ? new Date(a.due_at) : null;
+    const now = new Date();
+
+    return {
+      id: a.id,
+      course_code: a.course?.course_code || 'Unknown',
+      course_name: a.course?.name || 'Unknown Course',
+      name: a.name || 'Untitled Assignment',
+      description: a.description ? stripHtml(a.description).substring(0, 2000) : null,
+      due_date: a.due_at,
+      due_date_readable: dueAt ? dueAt.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      }) : 'No due date',
+      points_possible: a.points_possible,
+      submission_types: a.submission_types || [],
+      has_submitted: a.has_submitted_submissions_count > 0,
+      submitted_at: a.submitted_at,
+      grade: a.grade || null,
+      score: a.score || null,
+      url: a.html_url || a.url,
+      is_locked: a.locked_for_user,
+      is_group_assignment: a.group_category_id !== null,
+      days_until_due: dueAt ? Math.ceil((dueAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)) : null,
+      hours_until_due: dueAt ? Math.floor((dueAt.getTime() - now.getTime()) / (1000 * 60 * 60)) : null,
+      is_urgent: dueAt ? (dueAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24) <= 3 : false,
+    };
+  };
+
+  const groupBy = (array: any[], key: string) => {
+    if (!array || !Array.isArray(array)) return {};
+
+    return array.reduce((acc, item) => {
+      if (!item) return acc; // Skip null/undefined items
+
+      try {
+        const groupKey = key.split('.').reduce((obj, k) => obj?.[k], item);
+        if (groupKey === null || groupKey === undefined) return acc; // Skip if key is null/undefined
+
+        if (!acc[groupKey]) acc[groupKey] = [];
+        acc[groupKey].push(item);
+      } catch (error) {
+        console.warn('Failed to group item:', item, error);
+      }
+      return acc;
+    }, {} as Record<string, any[]>);
+  };
+
+  const getCurrentSemester = () => {
+    const now = new Date();
+    const month = now.getMonth();
+    const year = now.getFullYear();
+    if (month >= 0 && month <= 4) return `Spring ${year}`;
+    if (month >= 5 && month <= 7) return `Summer ${year}`;
+    if (month >= 8 && month <= 11) return `Fall ${year}`;
+    return `Winter ${year}`;
+  };
+
+  const getWeekNumber = (date: Date) => {
+    const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+    const pastDaysOfYear = (date.getTime() - firstDayOfYear.getTime()) / 86400000;
+    return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+  };
+
+  const calculateWeeklyCommitment = (timetableData: any[]) => {
+    const weeklyHours = timetableData.reduce((total, item) => {
+      const start = new Date(`2000-01-01 ${item.start_time}`);
+      const end = new Date(`2000-01-01 ${item.end_time}`);
+      return total + (end.getTime() - start.getTime()) / (1000 * 60 * 60);
+    }, 0);
+    return Math.round(weeklyHours);
+  };
+
+  const getAssignmentDistribution = (assignments: any[]) => {
+    const now = new Date();
+    const oneWeek = 7 * 24 * 60 * 60 * 1000;
+    const twoWeeks = 14 * 24 * 60 * 60 * 1000;
+    const oneMonth = 30 * 24 * 60 * 60 * 1000;
+
+    return {
+      next_week: assignments.filter((a: any) => new Date(a.due_at).getTime() - now.getTime() <= oneWeek && new Date(a.due_at) >= now).length,
+      next_2_weeks: assignments.filter((a: any) => new Date(a.due_at).getTime() - now.getTime() <= twoWeeks && new Date(a.due_at) >= now).length,
+      next_month: assignments.filter((a: any) => new Date(a.due_at).getTime() - now.getTime() <= oneMonth && new Date(a.due_at) >= now).length,
+    };
+  };
+
+  const analyzeFreeDays = (timetableData: any[]) => {
+    const daysWithClasses = new Set(timetableData.map((t) => t.day));
+    const allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    return allDays.filter((day) => !daysWithClasses.has(day));
+  };
+
+  return (
+    <div className={`min-h-screen transition-colors ${actualTheme === 'dark' ? 'bg-[#1A1816] text-[#F5F1EA]' : 'bg-[#fdfcf8] text-[#1a1a1a]'}`}>
+      <main className="w-full mx-auto px-4 md:px-6 py-4 md:py-6 max-w-[95%]">
+        <div className="space-y-4">
+          {/* Header Section */}
+          <GreetingCard />
+
+          {/* Main Content Grid - Tighter and more structured */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+
+            {/* Column 1: Daily Brief - Vertical Focus (4 cols) */}
+            <div className="md:col-span-4 flex flex-col gap-4">
+              <div className="border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] overflow-hidden">
+                <DailyBrief />
+              </div>
+
+              {/* Quick Actions - Moved here for better density */}
+              <div className="border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)]">
+                <div className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] mb-3 border-b-2 border-black dark:border-neutral-700 pb-1">
+                  System Controls
+                </div>
+                <div className="space-y-2">
+                  <button
+                    onClick={handleComprehensiveExport}
+                    disabled={isExporting}
+                    className="w-full px-4 py-2 border-2 border-black dark:border-white/30 font-bold uppercase text-[10px] tracking-widest transition-colors disabled:opacity-50 flex items-center justify-center gap-2 bg-white dark:bg-neutral-700 text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-neutral-600"
+                  >
+                    {isExporting ? <span className="animate-pulse">Exporting...</span> : <><span className="text-sm">📥</span> Export Academic Context</>}
+                  </button>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link href="/assignments" className="w-full">
+                      <button className="w-full px-3 py-2 border-2 border-black/20 dark:border-white/20 font-bold uppercase text-[10px] tracking-widest transition-colors hover:bg-black/5 dark:hover:bg-white/5 text-black dark:text-white">
+                        Assignments
+                      </button>
+                    </Link>
+                    <Link href="/announcements" className="w-full">
+                      <button className="w-full px-3 py-2 border-2 border-black/20 dark:border-white/20 font-bold uppercase text-[10px] tracking-widest transition-colors hover:bg-black/5 dark:hover:bg-white/5 text-black dark:text-white">
+                        Updates
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 2: Schedule and Activity (5 cols) */}
+            <div className="md:col-span-5 flex flex-col gap-4">
+              {/* Stats Bar Component - Integrated */}
+              <div className="border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)]">
+                <div className="grid grid-cols-4 gap-2">
+                  {[
+                    { label: 'Courses', val: courses?.length || 0, color: 'text-black dark:text-white' },
+                    { label: 'Due Soon', val: realAssignments.length, color: 'text-red-600 dark:text-red-400' },
+                    { label: 'Updates', val: recentAnnouncements?.length || 0, color: 'text-black dark:text-white' },
+                    { label: 'Urgent', val: urgentAssignments.length, color: 'text-orange-600 dark:text-orange-400' }
+                  ].map((stat, i) => (
+                    <div key={i} className="text-center border-r-2 last:border-r-0 border-black/10 dark:border-white/10">
+                      <div className="text-[9px] font-mono font-bold uppercase tracking-widest opacity-60 mb-1">{stat.label}</div>
+                      <div className={`text-2xl font-black ${stat.color}`}>{stat.val}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Today's Schedule */}
+              <TodaySchedule />
+
+              {/* Up Next - Direct integration for density */}
+              <div className="border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 p-3 flex-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)]">
+                <UpNext
+                  timeBlocks={[]}
+                  classSchedules={classSchedules || []}
+                  weekStart={new Date()}
+                />
+              </div>
+            </div>
+
+            {/* Column 3: Announcements & Alerts (3 cols) */}
+            <div className="md:col-span-3 flex flex-col gap-4">
+              {/* Recent Announcements */}
+              <div className="border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)]">
+                <div className="flex items-center justify-between mb-3 border-b-2 border-black dark:border-neutral-700 pb-1">
+                  <h3 className="font-serif font-black text-sm text-black dark:text-white">
+                    Registry & Updates
+                  </h3>
+                  <Link href="/announcements">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-black/60 dark:text-white/60 hover:text-black">
+                      Index →
+                    </span>
+                  </Link>
+                </div>
+
+                {announcementsLoading ? (
+                  <div className="text-center py-4 font-mono text-[10px] opacity-40 uppercase">Scanning wires...</div>
+                ) : recentAnnouncements && recentAnnouncements.length > 0 ? (
+                  <div className="space-y-3">
+                    {recentAnnouncements.slice(0, 3).map((announcement) => (
+                      <div key={announcement.id} className="group">
+                        <div className="text-[9px] font-mono font-bold uppercase text-red-600 dark:text-red-400 mb-0.5">
+                          {formatDate(announcement.posted_at, "time")} · {announcement.course?.course_code}
+                        </div>
+                        <h4 className="font-serif font-bold text-xs leading-tight text-black dark:text-white group-hover:underline cursor-pointer">
+                          {announcement.title}
+                        </h4>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-4 font-mono text-[10px] opacity-40 uppercase">No new wires</div>
+                )}
+              </div>
+
+              {/* Urgent Alert - Integrated into sidebar if exists */}
+              {urgentAssignments.length > 0 && (
+                <div className="border-2 border-red-600 bg-red-50 dark:bg-red-900/10 p-3 shadow-[4px_4px_0px_0px_rgba(220,38,38,1)]">
+                  <div className="text-[10px] font-mono font-bold uppercase text-red-600 mb-2 tracking-widest">
+                    CRITICAL DEADLINE
+                  </div>
+                  <p className="text-xs font-serif font-bold text-red-900 dark:text-red-200 leading-snug">
+                    {urgentAssignments.length} urgent task{urgentAssignments.length !== 1 ? "s" : ""} require immediate attention.
+                  </p>
+                </div>
+              )}
+
+              {/* Placeholder/Meta */}
+              <div className="border-2 border-dashed border-black/20 dark:border-white/10 p-4 flex-1 flex items-center justify-center bg-black/[0.02] dark:bg-white/[0.02]">
+                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-center opacity-40">
+                  LMS Publication V2.1<br />All systems operational
+                </span>
+              </div>
+            </div>
+
+            {/* Bottom Row: Upcoming Assignments - Full Width */}
+            <div className="md:col-span-12 border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)]">
+              <div className="flex items-center gap-4 mb-4 border-b-2 border-black dark:border-neutral-700 pb-2">
+                <h3 className="font-serif font-black text-xl text-black dark:text-white">
+                  Upcoming Submissions
+                </h3>
+                <div className="h-[2px] bg-red-600 flex-1"></div>
+                <Link href="/assignments">
+                  <span className="text-xs font-bold uppercase tracking-widest text-black/60 dark:text-white/60 hover:text-black">
+                    Full Schedule →
+                  </span>
+                </Link>
+              </div>
+
+              {assignmentsLoading ? (
+                <div className="text-center py-12 font-mono text-xs opacity-40 uppercase tracking-widest">Compiling dossiers...</div>
+              ) : realAssignments && realAssignments.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {realAssignments.slice(0, 8).map((assignment) => {
+                    const isUrgent = isDeadlineUrgent(assignment.due_at);
+                    return (
+                      <div
+                        key={assignment.id}
+                        className="border-2 border-black/10 dark:border-white/10 p-3 bg-neutral-50 dark:bg-neutral-900/50 hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors group cursor-pointer"
+                      >
+                        <div className="flex flex-col h-full gap-2">
+                          <div className="flex justify-between items-start">
+                            <span className="text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 border border-black dark:border-white/30">
+                              {assignment.course?.course_code}
+                            </span>
+                            <span className={`text-[10px] font-mono font-bold uppercase ${isUrgent ? 'text-red-600' : 'text-emerald-600'}`}>
+                              {getTimeRemaining(assignment.due_at)}
+                            </span>
+                          </div>
+                          <h4 className="font-serif font-bold text-sm text-black dark:text-white group-hover:underline line-clamp-2 leading-tight">
+                            {assignment.name}
+                          </h4>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="text-center py-12 font-mono text-xs opacity-40 uppercase tracking-widest">Clear desk. No upcoming deadlines.</div>
+              )}
+            </div>
+
+            {/* Completed Section - Only if significant */}
+            {completedAssignments.length > 5 && (
+              <div className="md:col-span-12 border-2 border-emerald-600/30 bg-emerald-50/10 dark:bg-emerald-950/5 p-4 border-t-0 -mt-4">
+                <div className="flex items-center justify-between">
+                  <div className="text-[10px] font-mono font-bold uppercase text-emerald-600 tracking-widest flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+                    Archive: {completedAssignments.length} Archive Submissions Complete
+                  </div>
+                  <Link href="/assignments">
+                    <span className="text-[9px] font-bold uppercase text-emerald-600/60 hover:text-emerald-600">Review Archive →</span>
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <ProtectedRoute>
+      <DashboardPageContent />
+    </ProtectedRoute>
+  );
+}
+===
+"use client";
+
+import { useEffect, useState } from "react";
+import { useUpcomingAssignments, useRecentAnnouncements, useCourses, useTimetable } from "@/lib/hooks";
+import { useRouter } from "next/navigation";
+import { formatDate, getTimeRemaining, isDeadlineUrgent, stripHtml, isRealAssignment } from "@/lib/utils";
+import { GreetingCard } from "@/components/dashboard/greeting-card";
+import { DailyBrief } from "@/components/dashboard/daily-brief";
+import { TodaySchedule } from "@/components/dashboard/today-schedule";
+import { UpNext } from "@/components/planner/up-next";
+import { TodoWidget } from "@/components/todos/todo-widget";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { useAuth } from "@/lib/contexts/AuthContext";
+import Link from "next/link";
+import { useTheme } from "@/lib/providers/theme-provider";
+
+function DashboardPageContent() {
+  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  const { user, token } = useAuth();
+  const { actualTheme } = useTheme();
+  const [hasCanvasToken, setHasCanvasToken] = useState(false);
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const { courses, error: coursesError, isLoading: coursesLoading } = useCourses();
+  const { upcomingAssignments, isLoading: assignmentsLoading } = useUpcomingAssignments(168, 10);
+  const { recentAnnouncements, isLoading: announcementsLoading } = useRecentAnnouncements(7, 5);
+  const { timetable: classSchedules } = useTimetable(undefined, true);
+
+  // Comprehensive data states for AI export
+  const [allAssignments, setAllAssignments] = useState<any[]>([]);
+  const [allAnnouncements, setAllAnnouncements] = useState<any[]>([]);
+  const [allMaterials, setAllMaterials] = useState<any[]>([]);
+  const [allSchedule, setAllSchedule] = useState<any[]>([]);
+  const [timetable, setTimetable] = useState<any[]>([]);
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportProgress, setExportProgress] = useState('');
+  const [exportStep, setExportStep] = useState(0);
+
+  // Helper to update progress
+  const updateExportProgress = (step: number, message: string) => {
+    setExportStep(step);
+    setExportProgress(message);
+  };
+
+  // Check if user has Canvas token
+  useEffect(() => {
+    if (user && typeof window !== "undefined") {
+      setHasCanvasToken(user.has_canvas_token || false);
+    }
+  }, [user]);
+
+  // Fetch ALL data for comprehensive AI export
+  useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const headers: HeadersInit = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+    // Fetch all assignments
+    fetch(`${API_URL}/assignments?limit=500`, { headers })
+      .then(res => res.json())
+      .then(data => setAllAssignments(data.filter ? data.filter((a: any) => isRealAssignment(a.submission_types)) : []))
+      .catch(() => setAllAssignments([]));
+
+    // Fetch all announcements
+    fetch(`${API_URL}/announcements?days=365&limit=500`, { headers })
+      .then(res => res.json())
+      .then(data => setAllAnnouncements(data))
+      .catch(() => setAllAnnouncements([]));
+
+    // Fetch all materials
+    fetch(`${API_URL}/materials?limit=500`, { headers })
+      .then(res => res.json())
+      .then(data => setAllMaterials(data))
+      .catch(() => setAllMaterials([]));
+
+    // Fetch schedule
+    fetch(`${API_URL}/schedule?days=365&limit=500`, { headers })
+      .then(res => res.json())
+      .then(data => setAllSchedule(data))
+      .catch(() => setAllSchedule([]));
+
+    // Fetch timetable
+    fetch(`${API_URL}/timetable`, { headers })
+      .then(res => res.json())
+      .then(data => setTimetable(data))
+      .catch(() => setTimetable([]));
+  }, [token]);
+
+  // Redirect to settings if no Canvas token
+  useEffect(() => {
+    if (mounted && !hasCanvasToken && typeof window !== "undefined") {
+      router.push("/settings");
+    }
+  }, [hasCanvasToken, mounted, router]);
+
+  // Prevent hydration mismatch - don't render until mounted
+  if (!mounted) {
+    return null;
+  }
+
+  if (!hasCanvasToken) {
+    return null;
+  }
+
+  const urgentAssignments = upcomingAssignments?.filter((a) => isDeadlineUrgent(a.due_at) && isRealAssignment(a.submission_types) && !a.has_submitted) || [];
+  const realAssignments = upcomingAssignments?.filter((a) => isRealAssignment(a.submission_types) && !a.has_submitted) || [];
+  const completedAssignments = upcomingAssignments?.filter((a) => isRealAssignment(a.submission_types) && a.has_submitted) || [];
+
+  // Comprehensive AI-ready export function
+  const handleComprehensiveExport = async () => {
+    setIsExporting(true);
+    setExportProgress('Initializing export...');
+
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const errors: string[] = [];
+
+      // Fetch any missing data with individual error handling
+      let finalAssignments = allAssignments;
+      let finalAnnouncements = allAnnouncements;
+      let finalMaterials = allMaterials;
+      let finalSchedule = allSchedule;
+      let finalTimetable = timetable;
+
+      try {
+        if (allAssignments.length === 0) {
+          updateExportProgress(1, 'Fetching assignments...');
+          const response = await fetch(`${API_URL}/assignments?limit=500`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const data = await response.json();
+          finalAssignments = (data || []).filter((a: any) => a && isRealAssignment(a.submission_types));
+        }
+      } catch (error: any) {
+        errors.push(`Assignments: ${error.message}`);
+        console.error('Failed to fetch assignments:', error);
+      }
+
+      try {
+        if (allAnnouncements.length === 0) {
+          updateExportProgress(2, 'Fetching announcements...');
+          const response = await fetch(`${API_URL}/announcements?days=365&limit=500`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const data = await response.json();
+          finalAnnouncements = data || [];
+        }
+      } catch (error: any) {
+        errors.push(`Announcements: ${error.message}`);
+        console.error('Failed to fetch announcements:', error);
+      }
+
+      try {
+        if (allMaterials.length === 0) {
+          updateExportProgress(3, 'Fetching materials...');
+          const response = await fetch(`${API_URL}/materials?limit=500`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const data = await response.json();
+          finalMaterials = data || [];
+        }
+      } catch (error: any) {
+        errors.push(`Materials: ${error.message}`);
+        console.error('Failed to fetch materials:', error);
+      }
+
+      try {
+        if (allSchedule.length === 0) {
+          updateExportProgress(4, 'Fetching schedule...');
+          const response = await fetch(`${API_URL}/schedule?days=365&limit=500`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const data = await response.json();
+          finalSchedule = data || [];
+        }
+      } catch (error: any) {
+        errors.push(`Schedule: ${error.message}`);
+        console.error('Failed to fetch schedule:', error);
+      }
+
+      try {
+        if (timetable.length === 0) {
+          updateExportProgress(5, 'Fetching timetable...');
+          const response = await fetch(`${API_URL}/timetable`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const data = await response.json();
+          finalTimetable = data || [];
+        }
+      } catch (error: any) {
+        errors.push(`Timetable: ${error.message}`);
+        console.error('Failed to fetch timetable:', error);
+      }
+
+      // Check if we had critical errors
+      if (errors.length > 0) {
+        throw new Error(`Export encountered errors:\n${errors.join('\n')}`);
+      }
+
+      updateExportProgress(6, 'Processing data...');
+
+      const exportDate = new Date();
+      const currentSemester = getCurrentSemester();
+
+      // AI-Ready Context Export
+      const aiContextData = {
+        // === METADATA ===
+        metadata: {
+          export_date: exportDate.toISOString(),
+          export_date_readable: exportDate.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
+          current_week: getWeekNumber(exportDate),
+          current_semester: currentSemester,
+          data_freshness: "Real-time sync from Canvas LMS",
+          format_version: "2.0",
+          purpose: "AI context for academic assistance, reminders, and study advice"
+        },
+
+        // === STUDENT PROFILE ===
+        student_profile: {
+          total_active_courses: courses?.length || 0,
+          enrolled_courses: courses?.map((course: any) => ({
+            id: course.id,
+            code: course.course_code,
+            name: course.name,
+            description: course.description ? stripHtml(course.description).substring(0, 500) : null,
+            credits: course.credits || null,
+            start_date: course.start_at,
+            end_date: course.end_at,
+            is_current: !course.end_at || new Date(course.end_at) > new Date(),
+          })) || [],
+        },
+
+        // === URGENT ACTION ITEMS ===
+        urgent_items: {
+          overdue_assignments: finalAssignments
+            .filter((a: any) => new Date(a.due_at) < new Date() && !a.has_submitted)
+            .map((a: any) => ({
+              id: a.id,
+              course_code: a.course?.course_code,
+              course_name: a.course?.name,
+              name: a.name,
+              due_date: a.due_at,
+              days_overdue: Math.floor((new Date().getTime() - new Date(a.due_at).getTime()) / (1000 * 60 * 60 * 24)),
+              points_possible: a.points_possible,
+              url: a.url,
+              description: a.description ? stripHtml(a.description).substring(0, 1000) : null,
+            })),
+          due_within_24_hours: finalAssignments
+            .filter((a: any) => {
+              const hoursUntilDue = (new Date(a.due_at).getTime() - new Date().getTime()) / (1000 * 60 * 60);
+              return hoursUntilDue > 0 && hoursUntilDue <= 24 && !a.has_submitted;
+            })
+            .map((a: any) => ({
+              id: a.id,
+              course_code: a.course?.course_code,
+              name: a.name,
+              due_date: a.due_at,
+              hours_remaining: Math.floor((new Date(a.due_at).getTime() - new Date().getTime()) / (1000 * 60 * 60)),
+              url: a.url,
+            })),
+          due_this_week: finalAssignments
+            .filter((a: any) => {
+              const daysUntilDue = Math.ceil((new Date(a.due_at).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+              return daysUntilDue > 0 && daysUntilDue <= 7 && !a.has_submitted;
+            })
+            .map((a: any) => ({
+              id: a.id,
+              course_code: a.course?.course_code,
+              name: a.name,
+              due_date: a.due_at,
+              days_remaining: Math.ceil((new Date(a.due_at).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)),
+              url: a.url,
+            })),
+        },
+
+        // === ASSIGNMENTS (Complete) ===
+        assignments: {
+          upcoming: finalAssignments
+            .filter((a: any) => new Date(a.due_at) >= new Date())
+            .map((a: any) => enrichAssignment(a)),
+          completed: finalAssignments
+            .filter((a: any) => a.has_submitted)
+            .map((a: any) => enrichAssignment(a)),
+          all_without_submissions: finalAssignments
+            .filter((a: any) => !a.has_submitted)
+            .map((a: any) => enrichAssignment(a)),
+        },
+
+        // === ASSESSMENTS & EXAMS ===
+        assessments: {
+          upcoming_exams: finalAssignments
+            .filter((a: any) => {
+              const isExam = new RegExp('quiz|exam|test|midterm|final', 'i').test(a.name);
+              const isFuture = new Date(a.due_at) >= new Date();
+              return isExam && isFuture;
+            })
+            .map((a: any) => enrichAssignment(a))
+            .sort((a: any, b: any) => new Date(a.due_at).getTime() - new Date(b.due_at).getTime()),
+        },
+
+        // === ANNOUNCEMENTS (Recent, important) ===
+        announcements: {
+          recent_week: finalAnnouncements
+            .filter((a: any) => {
+              const daysSince = (new Date().getTime() - new Date(a.posted_at).getTime()) / (1000 * 60 * 60 * 24);
+              return daysSince <= 7;
+            })
+            .map((a: any) => ({
+              id: a.id,
+              course_code: a.course?.course_code,
+              course_name: a.course?.name,
+              title: a.title,
+              content: a.message ? stripHtml(a.message).substring(0, 2000) : null,
+              posted_date: a.posted_at,
+              days_ago: Math.floor((new Date().getTime() - new Date(a.posted_at).getTime()) / (1000 * 60 * 60 * 24)),
+              url: a.url,
+              is_important: new RegExp('important|urgent|attention|required', 'i').test(a.title),
+            })),
+          unread_count: finalAnnouncements.filter((a: any) => !a.read).length,
+        },
+
+        // === MATERIALS & RESOURCES ===
+        materials: {
+          recent_files: finalMaterials
+            .slice(0, 100)
+            .map((m: any) => ({
+              id: m.id,
+              course_code: m.course?.course_code,
+              course_name: m.course?.name,
+              filename: m.display_name || m.filename,
+              type: m.content_type,
+              url: m.url,
+              posted_date: m.created_at,
+              size: m.size ? `${(m.size / 1024).toFixed(1)} KB` : null,
+            })),
+          by_course: groupBy(finalMaterials, 'course.course_code'),
+        },
+
+        // === WEEKLY SCHEDULE ===
+        schedule: {
+          this_week: finalSchedule.filter((s: any) => {
+            const scheduleDate = new Date(s.date);
+            const today = new Date();
+            const weekFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+            return scheduleDate >= today && scheduleDate <= weekFromNow;
+          }),
+          upcoming_events: finalSchedule
+            .filter((s: any) => new Date(s.date) >= new Date())
+            .slice(0, 50)
+            .map((s: any) => ({
+              id: s.id,
+              course_code: s.course?.course_code,
+              title: s.title,
+              date: s.date,
+              start_time: s.start_time,
+              end_time: s.end_time,
+              location: s.location,
+              event_type: s.type || 'class',
+            })),
+        },
+
+        // === TIMETABLE / CLASS SCHEDULE ===
+        timetable: {
+          weekly_classes: finalTimetable.map((t: any) => ({
+            id: t.id,
+            course_code: t.module_code,
+            course_name: t.module_name,
+            class_type: t.class_type,
+            day: t.day,
+            start_time: t.start_time,
+            end_time: t.end_time,
+            venue: t.venue,
+            is_attending: t.will_attend,
+            recurring: true,
+            color: t.color,
+          })),
+          by_day: groupBy(finalTimetable, 'day'),
+          by_type: groupBy(finalTimetable, 'class_type'),
+        },
+
+        // === WORKLOAD ANALYSIS ===
+        workload_analysis: {
+          weekly_commitment: calculateWeeklyCommitment(finalTimetable),
+          assignment_distribution: getAssignmentDistribution(finalAssignments),
+          free_days: analyzeFreeDays(finalTimetable),
+        },
+
+        // === AI PROMPTS ===
+        suggested_prompts: [
+          "What should I prioritize studying this week based on my deadlines?",
+          "Help me create a study plan for my upcoming exams",
+          "Am I on track with my assignments? What should I focus on?",
+          "When should I start studying for my midterms/finals?",
+          "Review my schedule and suggest optimal study blocks",
+          "What gaps do I have in my weekly schedule?",
+          "Create a revision schedule based on my coursework"
+        ],
+
+        // === FORMATTING NOTES FOR AI ===
+        formatting_notes: {
+          dates: "All dates are in ISO 8601 format (YYYY-MM-DDTHH:MM:SS)",
+          course_codes: "Course codes follow university format (e.g., CS1010)",
+          time_zones: "All times are in the user's local timezone",
+          attendance: "will_attend: true means student plans to attend",
+          submission_status: "has_submitted indicates if work was turned in",
+          context: "This is a complete snapshot of the student's academic data from Canvas LMS",
+        },
+      };
+
+      const blob = new Blob([JSON.stringify(aiContextData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `academic-context-${exportDate.toISOString().split('T')[0]}-AI-READY.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // Clear progress after successful export
+      setTimeout(() => setExportProgress(''), 2000);
+    } catch (error: any) {
+      console.error('Export failed:', error);
+
+      // Provide specific error message
+      let errorMessage = 'Export failed. Please try again.';
+      if (error?.message) {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        if (error.message.includes('fetch') || error.message.includes('Network')) {
+          errorMessage = 'Network error: Unable to connect to the server.\n\nPlease check if the backend is running at ' + API_URL;
+        } else if (error.message.includes('JSON')) {
+          errorMessage = 'Data format error: Unable to process the received data.';
+        } else {
+          errorMessage = `Export failed:\n\n${error.message}`;
+        }
+      }
+
+      alert(errorMessage);
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  // Helper functions
+  const enrichAssignment = (a: any) => {
+    if (!a) return null;
+
+    const dueAt = a.due_at ? new Date(a.due_at) : null;
+    const now = new Date();
+
+    return {
+      id: a.id,
+      course_code: a.course?.course_code || 'Unknown',
+      course_name: a.course?.name || 'Unknown Course',
+      name: a.name || 'Untitled Assignment',
+      description: a.description ? stripHtml(a.description).substring(0, 2000) : null,
+      due_date: a.due_at,
+      due_date_readable: dueAt ? dueAt.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      }) : 'No due date',
+      points_possible: a.points_possible,
+      submission_types: a.submission_types || [],
+      has_submitted: a.has_submitted_submissions_count > 0,
+      submitted_at: a.submitted_at,
+      grade: a.grade || null,
+      score: a.score || null,
+      url: a.html_url || a.url,
+      is_locked: a.locked_for_user,
+      is_group_assignment: a.group_category_id !== null,
+      days_until_due: dueAt ? Math.ceil((dueAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)) : null,
+      hours_until_due: dueAt ? Math.floor((dueAt.getTime() - now.getTime()) / (1000 * 60 * 60)) : null,
+      is_urgent: dueAt ? (dueAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24) <= 3 : false,
+    };
+  };
+
+  const groupBy = (array: any[], key: string) => {
+    if (!array || !Array.isArray(array)) return {};
+
+    return array.reduce((acc, item) => {
+      if (!item) return acc; // Skip null/undefined items
+
+      try {
+        const groupKey = key.split('.').reduce((obj, k) => obj?.[k], item);
+        if (groupKey === null || groupKey === undefined) return acc; // Skip if key is null/undefined
+
+        if (!acc[groupKey]) acc[groupKey] = [];
+        acc[groupKey].push(item);
+      } catch (error) {
+        console.warn('Failed to group item:', item, error);
+      }
+      return acc;
+    }, {} as Record<string, any[]>);
+  };
+
+  const getCurrentSemester = () => {
+    const now = new Date();
+    const month = now.getMonth();
+    const year = now.getFullYear();
+    if (month >= 0 && month <= 4) return `Spring ${year}`;
+    if (month >= 5 && month <= 7) return `Summer ${year}`;
+    if (month >= 8 && month <= 11) return `Fall ${year}`;
+    return `Winter ${year}`;
+  };
+
+  const getWeekNumber = (date: Date) => {
+    const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+    const pastDaysOfYear = (date.getTime() - firstDayOfYear.getTime()) / 86400000;
+    return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+  };
+
+  const calculateWeeklyCommitment = (timetableData: any[]) => {
+    const weeklyHours = timetableData.reduce((total, item) => {
+      const start = new Date(`2000-01-01 ${item.start_time}`);
+      const end = new Date(`2000-01-01 ${item.end_time}`);
+      return total + (end.getTime() - start.getTime()) / (1000 * 60 * 60);
+    }, 0);
+    return Math.round(weeklyHours);
+  };
+
+  const getAssignmentDistribution = (assignments: any[]) => {
+    const now = new Date();
+    const oneWeek = 7 * 24 * 60 * 60 * 1000;
+    const twoWeeks = 14 * 24 * 60 * 60 * 1000;
+    const oneMonth = 30 * 24 * 60 * 60 * 1000;
+
+    return {
+      next_week: assignments.filter((a: any) => new Date(a.due_at).getTime() - now.getTime() <= oneWeek && new Date(a.due_at) >= now).length,
+      next_2_weeks: assignments.filter((a: any) => new Date(a.due_at).getTime() - now.getTime() <= twoWeeks && new Date(a.due_at) >= now).length,
+      next_month: assignments.filter((a: any) => new Date(a.due_at).getTime() - now.getTime() <= oneMonth && new Date(a.due_at) >= now).length,
+    };
+  };
+
+  const analyzeFreeDays = (timetableData: any[]) => {
+    const daysWithClasses = new Set(timetableData.map((t) => t.day));
+    const allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    return allDays.filter((day) => !daysWithClasses.has(day));
+  };
+
+  return (
+    <div className={`min-h-screen transition-colors ${actualTheme === 'dark' ? 'bg-[#1A1816] text-[#F5F1EA]' : 'bg-[#fdfcf8] text-[#1a1a1a]'}`}>
+      <main className="w-full mx-auto px-12 md:px-24 lg:px-32 xl:px-48 py-4 max-w-[2000px]">
+        <div className="space-y-3">
+          {/* Header Section - More Compact */}
+          <GreetingCard />
+
+          {/* Main Grid - Everything fits on screen */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
+            {/* Left Column: Daily Brief (condensed) */}
+            <div className="lg:col-span-4 border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)] max-h-[calc(100vh-220px)] overflow-hidden flex flex-col">
+              <DailyBrief />
+            </div>
+
+            {/* Middle Column: Tasks + Quick Actions */}
+            <div className="lg:col-span-4 flex flex-col gap-3">
+              {/* Tasks Widget - Compact */}
+              <div className="border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 p-3 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)] flex-1 overflow-hidden">
+                <div className="flex items-center justify-between mb-2 border-b-2 border-black dark:border-neutral-700 pb-2">
+                  <h3 className="font-serif font-black text-lg text-black dark:text-white">Tasks</h3>
+                  <Link href="/todos">
+                    <span className="text-sm font-bold uppercase tracking-wider text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white transition-colors">All →</span>
+                  </Link>
+                </div>
+                <TodoWidget />
+              </div>
+
+              {/* Quick Actions - Inline */}
+              <div className="border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 p-3 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)]">
+                <div className="grid grid-cols-2 gap-2">
+                  <Link href="/todos" className="block">
+                    <button className="w-full px-3 py-2 border-2 border-black/20 dark:border-white/20 font-bold uppercase text-[10px] tracking-wider transition-colors hover:bg-black/5 dark:hover:bg-white/5 text-black dark:text-white flex items-center justify-center gap-2">
+                      <span>Tasks</span>
+                    </button>
+                  </Link>
+                  <Link href="/assignments" className="block">
+                    <button className="w-full px-3 py-2 border-2 border-black/20 dark:border-white/20 font-bold uppercase text-[10px] tracking-wider transition-colors hover:bg-black/5 dark:hover:bg-white/5 text-black dark:text-white flex items-center justify-center gap-2">
+                      <span>Assignments</span>
+                    </button>
+                  </Link>
+                  <Link href="/announcements" className="block">
+                    <button className="w-full px-3 py-2 border-2 border-black/20 dark:border-white/20 font-bold uppercase text-[10px] tracking-wider transition-colors hover:bg-black/5 dark:hover:bg-white/5 text-black dark:text-white flex items-center justify-center gap-2">
+                      <span>Announcements</span>
+                    </button>
+                  </Link>
+                  <button
+                    onClick={handleComprehensiveExport}
+                    disabled={isExporting}
+                    className="w-full px-3 py-2 border-2 border-black dark:border-white/30 font-bold uppercase text-[10px] tracking-wider transition-colors disabled:opacity-50 bg-black dark:bg-white text-white dark:text-black hover:opacity-80 flex items-center justify-center gap-2"
+                  >
+                    {isExporting ? <span className="animate-pulse">...</span> : <><span>📥</span> <span>Import Data</span></>}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Assignments + Announcements + Stats */}
+            <div className="lg:col-span-4 flex flex-col gap-3">
+              {/* Stats Bar - Compact */}
+              <div className="border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 p-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)]">
+                <div className="grid grid-cols-4 gap-2">
+                  {[
+                    { label: 'Courses', val: coursesLoading ? '...' : (coursesError ? 'Err' : (courses?.length || 0)), color: 'text-black dark:text-white' },
+                    { label: 'Due', val: assignmentsLoading ? '...' : realAssignments.length, color: 'text-red-600' },
+                    { label: 'News', val: recentAnnouncements?.length || 0, color: 'text-blue-600' },
+                    { label: 'Urgent', val: urgentAssignments.length, color: 'text-orange-600' }
+                  ].map((stat, i) => (
+                    <div key={i} className="text-center p-1 bg-neutral-50 dark:bg-neutral-900/50">
+                      <div className={`text-xl font-black ${stat.color}`}>{stat.val}</div>
+                      <div className="text-[9px] font-mono font-bold uppercase opacity-60">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Assignments - Compact */}
+              <div className="border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 p-3 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)] flex-1 overflow-hidden">
+                <div className="flex items-center justify-between mb-2 border-b border-black/10 dark:border-white/10 pb-1">
+                  <h3 className="font-serif font-black text-base text-black dark:text-white">Assignments</h3>
+                  <Link href="/assignments"><span className="text-xs font-bold uppercase text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white">All →</span></Link>
+                </div>
+                {assignmentsLoading ? (
+                  <div className="text-center py-3 font-mono text-sm opacity-50 uppercase">Loading...</div>
+                ) : realAssignments && realAssignments.length > 0 ? (
+                  <div className="space-y-2">
+                    {realAssignments.slice(0, 3).map((assignment) => (
+                      <div key={assignment.id} className="p-2 border-l-3 border-l-red-500 bg-neutral-50 dark:bg-neutral-900/50">
+                        <div className="flex justify-between items-start mb-0.5">
+                          <span className="text-[10px] font-mono font-bold uppercase text-black/60 dark:text-white/60">{assignment.course?.course_code}</span>
+                          <span className={`text-xs font-mono font-bold uppercase ${isDeadlineUrgent(assignment.due_at) ? 'text-red-600' : 'text-emerald-600'}`}>{getTimeRemaining(assignment.due_at)}</span>
+                        </div>
+                        <h4 className="font-serif font-bold text-sm text-black dark:text-white line-clamp-1">{assignment.name}</h4>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-3 font-mono text-sm opacity-50 uppercase">No assignments</div>
+                )}
+              </div>
+
+              {/* Announcements - Compact */}
+              <div className="border-2 border-black dark:border-neutral-600 bg-white dark:bg-neutral-800 p-3 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,0.1)] flex-1 overflow-hidden">
+                <div className="flex items-center justify-between mb-2 border-b border-black/10 dark:border-white/10 pb-1">
+                  <h3 className="font-serif font-black text-base text-black dark:text-white">Announcements</h3>
+                  <Link href="/announcements"><span className="text-xs font-bold uppercase text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white">All →</span></Link>
+                </div>
+                {announcementsLoading ? (
+                  <div className="text-center py-3 font-mono text-sm opacity-50 uppercase">Loading...</div>
+                ) : recentAnnouncements && recentAnnouncements.length > 0 ? (
+                  <div className="space-y-2">
+                    {recentAnnouncements.slice(0, 3).map((announcement) => (
+                      <div key={announcement.id} className="pb-2 border-b border-black/10 dark:border-white/10 last:border-b-0 last:pb-0">
+                        <div className="text-[10px] font-mono font-bold uppercase text-blue-600 dark:text-blue-400 mb-0.5">
+                          {formatDate(announcement.posted_at, "time")} · {announcement.course?.course_code}
+                        </div>
+                        <h4 className="font-serif font-bold text-sm text-black dark:text-white line-clamp-1">{announcement.title}</h4>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-3 font-mono text-sm opacity-50 uppercase">No announcements</div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Urgent Alert - Only shows if urgent */}
+          {urgentAssignments.length > 0 && (
+            <div className="border-2 border-red-600 bg-red-50 dark:bg-red-900/20 p-3 shadow-[3px_3px_0px_0px_rgba(220,38,38,1)]">
+              <div className="flex items-center gap-3">
+                <span className="text-base font-mono font-bold uppercase text-red-600 tracking-wider">⚠ Critical</span>
+                <p className="text-base font-serif font-bold text-red-900 dark:text-red-200">
+                  {urgentAssignments.length} urgent task{urgentAssignments.length !== 1 ? "s" : ""} require attention.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </main>
+    </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <ProtectedRoute>
+      <DashboardPageContent />
+    </ProtectedRoute>
+  );
+}
+```
+
+---
+
+## Visual Result
+
+The dashboard now has a more "editorial" feel with wide margins, centering the content. The navigation is subtle but interactive. Quick actions are clear and explicit.
+
+(Screenshot not available due to saving error, but verified via browser interaction)

@@ -1,0 +1,8 @@
+# Task: Resolve Daily Brief Not Working
+
+- [ ] Investigate cause of "daily brief not working" <!-- id: 0 -->
+    - [ ] Check backend logs for errors <!-- id: 1 -->
+    - [ ] Verify [brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/test_brief.py) router and `brief_generator.py` service <!-- id: 2 -->
+    - [ ] Inspect frontend integration in `Dashboard` <!-- id: 3 -->
+- [ ] Implement fix <!-- id: 4 -->
+- [ ] Verify fix <!-- id: 5 -->

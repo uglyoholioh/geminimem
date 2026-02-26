@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "Documents the investigation and fix for the courses page refresh glitch caused by CORS errors. Details five root causes: cache serialization mismatches causing 500 errors, middleware ordering, thread-unsafe logging, and unnecessary Content-Type header. Includes before/after screenshots.",
+  "updatedAt": "2026-02-18T13:21:54.625158Z"
+}

@@ -1,0 +1,40 @@
+
+# Data Display and Multi-User Sync Fix
+
+I've successfully resolved the `UNIQUE constraint failed` errors and fixed the issue where the dashboard was intermittently showing 0 courses despite having data.
+
+## 🛠️ Changes Made
+
+### 1. Database Integrity & Multi-User Support
+- **Composite Unique Constraints**: Updated [Course](file:///Users/oli/Desktop/LMSManager/backend/app/models/course.py#7-34), [Assignment](file:///Users/oli/Desktop/LMSManager/backend/app/models/assignment.py#7-42), [Announcement](file:///Users/oli/Desktop/LMSManager/frontend/types/canvas.ts#43-55), and [Material](file:///Users/oli/Desktop/LMSManager/frontend/types/canvas.ts#56-72) models to use [(user_id, canvas_id)](file:///Users/oli/Desktop/LMSManager/frontend/lib/utils.ts#4-7) as a unique key. This allows different users to sync the same Canvas resources without database conflicts.
+- **Fixed Relationships**: Changed all internal foreign keys to point to the database's primary key ([id](file:///Users/oli/Desktop/LMSManager/backend/app/schemas/canvas.py#17-27)) instead of the Canvas ID. This eliminates data confusion and "multiple rows returned" warnings when multiple users have the same course.
+- **Data Migration**: Migrated **602 existing records** to use the new relationship structure.
+
+### 2. Synchronization Logic
+- **Scheduler Update**: Updated [scheduler.py](file:///Users/oli/Desktop/LMSManager/backend/app/services/scheduler.py) to correctly filter by `user_id` and use internal primary keys when linking assignments, announcements, and materials to courses.
+
+### 3. Dashboard UI Improvements
+- **Enlarged Stats**: Increased stat numbers from `text-2xl` to `text-4xl` for dramatic visibility.
+- **Loading & Error States**: Added "..." (loading) and "Err" (error) indicators to the dashboard stats bar to prevent confusion when data is fetching.
+- **Increased Spacing**: Added more padding and larger section headers throughout the dashboard.
+
+## 🧪 Verification Results
+
+### Backend Verification
+- **Test Query**: Verified that the backend correctly identifies 8 active courses for your user (ID: 3).
+- **Log Confirmation**: Observed data being successfully returned to the frontend.
+```
+DEBUG: list_courses called for user 3 (active_only=True)
+DEBUG: Found 8 courses for user 3
+INFO: ... "GET /courses?active_only=true HTTP/1.1" 200 OK
+```
+
+### Database Migration
+- Assignments: 80 rows updated
+- Announcements: 27 rows updated
+- Materials: 495 rows updated
+
+## 🚀 How to Verify
+1. **Refresh the Dashboard**: The new larger UI should appear immediately.
+2. **Check Stats**: The "Courses" count should now correctly show **8**.
+3. **Trigger Sync**: You can click the "Refresh Data" button in settings; it should now complete without any `UNIQUE constraint` errors.

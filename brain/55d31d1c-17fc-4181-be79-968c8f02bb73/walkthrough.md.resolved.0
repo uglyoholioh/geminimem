@@ -1,0 +1,33 @@
+# Tasks Page Revamp & Timetable Integration
+
+The Tasks feature has been completely rebuilt to focus on manual, structured entry while retaining the beautiful terminal aesthetic. We've also successfully bridged tasks with the Timetable view.
+
+````carousel
+![The new Tasks page with inline creation, search, and priority filters](file:///Users/oli/.gemini/antigravity/brain/55d31d1c-17fc-4181-be79-968c8f02bb73/.system_generated/click_feedback/click_feedback_1772013449620.png)
+<!-- slide -->
+![Tasks overlaid on the Timetable with the "Tasks" toggle enabled](file:///Users/oli/.gemini/antigravity/brain/55d31d1c-17fc-4181-be79-968c8f02bb73/.system_generated/click_feedback/click_feedback_1772013866214.png)
+````
+
+## What Changed?
+
+### 1. Backend Simplification
+The task creation pipeline has been cleaned up significantly. The natural language processing (NLP) logic has been removed from the create route, and the task models have been streamlined. The [models/task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py) and [routers/tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py) now directly link tasks to modules using `course_code`, improving data integrity and resolving duplication issues.
+
+### 2. Frontend: New Tasks Page
+The [app/tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx) was fully rewritten from the ground up:
+*   **Inline Creator**: Gone is the modal! You can now add tasks instantly via an inline textbox at the top of the list, complete with quick-tag pills for module, priority, due date, and tags.
+*   **Powerful Filtering**: A new search bar and dynamic priority filter pills (Low, Med, High, !!!) have been added to the header. Active filters appear as dismissible chips.
+*   **Multiple Views**: We retained the List, Kanban Board, and Calendar views, and introduced a brand new **Timeline** view for the "Upcoming" tasks, which groups items chronologically.
+*   **Sidebar Refinements**: The "By Module" view now displays clickable module colour pills in the sidebar for quick filtering.
+
+### 3. Timetable Integration
+Tasks have been brought into the timetable:
+*   **Toggle Switch**: A new "Tasks" button with a checkbox icon sits in the timetable header controls. Clicking it overlays task deadlines directly onto the grid.
+*   **Visual Markers**: Deadlines appear as small strips directly in the timetable views (under the day labels horizontally, or pinned to the bottom vertically). High-priority tasks flash the urgency colour, while normal tasks use the module's accent colour.
+*   **Persistent Preference**: The "Show Tasks" toggle state is saved to your account settings via the backend [settings](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py#25-33) API, meaning your preference persists across sessions and devices.
+
+> [!TIP]
+> Try using the comma-separated `tags` input in the new inline creator to quickly attach multiple labels to a task before hitting Enter!
+
+---
+*All changes have been successfully verified via browser automation testing.*

@@ -1,0 +1,33 @@
+# Assignments Page Refactor
+
+The assignments page has been significantly enhanced to improve space utilization, provide better scannability, and add powerful filtering & search capabilities. You no longer have to stare at one gigantic list of assignments!
+
+## Changes Made
+
+### 1. Header Toolbar
+- Added a responsive **Search Bar** to instantly filter assignments by their title or module code.
+- Added a **Status Dropdown** filter (All Statuses, Not Started, In Progress, Submitted, Graded) right inside the header, next to the search bar.
+
+### 2. Layout & Density Improvements
+- Reduced the vertical padding and gap in the list items (now using `px-3 py-2`).
+- Re-organized the assignment metadata (course code, points, due date, status) into a single horizontal row on desktop to drastically reduce the vertical height of each card.
+- The UI now feels much more compact, allowing you to see significantly more assignments at a glance.
+
+### 3. Smart Grouping by Urgency
+- Instead of one endless list, the default "All" and "Upcoming" views now intelligently group your assignments by urgency:
+  - **Overdue**
+  - **Due Next 7 Days**
+  - **Due Later**
+  - **No Due Date**
+- This provides immediate context on what needs your attention right now versus what can wait.
+
+## Verification
+
+Please open [http://localhost:3000/assignments](http://localhost:3000/assignments) in your browser:
+
+1. Look at the new denser layout for the assignment cards.
+2. Verify the new search bar works: try searching for an assignment title or module code.
+3. Test the status dropdown to ensure the list filters correctly.
+4. Check that assignments in the default view are grouped properly by urgency headers (`OVERDUE`, `DUE NEXT 7 DAYS`, etc.).
+
+Let me know if you would like any further style adjustments!

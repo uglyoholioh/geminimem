@@ -1,0 +1,91 @@
+1
+/
+1
+Next.js 16.1.6
+Turbopack
+Build Error
+[0] (826,210)<button aria-label='Copy Error Info' class='copy-error-button nextjs-data-copy-button nextjs-data-copy-button--initial' title='Copy Error Info' />
+[1] (884,210)<button class='nodejs-inspector-button' title='Attach Node.js inspector' />
+Parsing ecmascript source code failed
+./app/assignments/page.tsx (486:29)
+[2] (875,337)<button aria-label='Open in editor' />
+	[3] (875,336)<span  />
+Parsing
+ecmascript
+source
+code
+failed
+484
+|
+)
+485
+|
+}
+>
+486
+|
+<
+/
+header
+>
+|
+^
+487
+|
+488
+|
+{
+/*
+──
+Kanban
+Board
+Content
+──
+*/
+}
+489
+|
+<
+div
+className
+=
+"flex-1
+overflow-x-auto
+overflow-y-hidden
+p-6"
+>
+Expression
+expected
+Import
+traces:
+Client
+Component
+Browser:
+./app/assignments/page.tsx
+[Client
+Component
+Browser]
+./app/assignments/page.tsx
+[Server
+Component]
+Client
+Component
+SSR:
+./app/assignments/page.tsx
+[Client
+Component
+SSR]
+./app/assignments/page.tsx
+[Server
+Component]
+1
+2
+[4] (58,946)<div  />
+	[5] (58,946)<div  />
+		[6] (58,946)<div  />
+			[7] (32,946)<button aria-label='Open Next.js Dev Tools' id='next-logo' />
+			[8] (72,946)<div  />
+				[9] (72,946)<button aria-label='Open issues overlay' />
+					[10] (58,946)<div  />
+						[11] (58,946)<div >1 />
+					[12] (76,946)<div >Issue />

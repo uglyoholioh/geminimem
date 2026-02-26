@@ -1,0 +1,54 @@
+# Walkthrough — Phases 2–5 Implementation
+
+## Phase 2 — Backend Fixes
+
+| File | Fix |
+|---|---|
+| [requirements.txt](file:///Users/oli/Desktop/CraftCanvas/backend/requirements.txt) | Added `python-dateutil` |
+| [ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py) | Timezone, RRULE serialization, SUMMARY regex, end_date |
+| [timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py) | RRULE expansion, FullCalendar fields |
+| [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py) | Config-based DB URL + sync session helper |
+| [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) | API key auth on all routes |
+
+## Phases 3–4 — Frontend Design System
+
+Built botanical earth-tone design system with light + dark modes:
+
+| File | Purpose |
+|---|---|
+| [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css) | Design tokens, CSS variables, Tailwind v4 @theme |
+| [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx) | 56px icon navigation |
+| [ThemeToggle.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/ThemeToggle.tsx) | Light/dark toggle |
+| [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx) | Root layout with sidebar |
+| [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) | Dashboard (3-column) with brief card |
+| [tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx) | Tasks page |
+| [timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx) | Timetable grid calendar |
+| [api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts) | Centralized API client |
+
+````carousel
+![Dashboard — Light Mode](/Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/dashboard_full_light_1771917084751.png)
+<!-- slide -->
+![Dashboard — Dark Mode](/Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/dashboard_full_dark_1771917090540.png)
+````
+
+## Phase 5 — Daily Brief + Scheduled Jobs
+
+| File | Purpose |
+|---|---|
+| [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) | LLM routing: auto/local/external with fallback |
+| [brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py) | Gathers DB data → AI prompt → parses response → saves brief |
+| [brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py) | `/today`, `/history`, `/regenerate` endpoints |
+| [scheduler.py](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py) | APScheduler: daily brief at 06:00 SGT + Canvas sync every 15min |
+
+**Key design decisions:**
+- AI routing: `auto` mode uses external LLM for brief generation (complex), local for everything else
+- Brief generator falls back to a basic data-only summary if AI is unavailable
+- Scheduler uses `AsyncIOScheduler` (not thread-based) started in FastAPI lifespan
+- Dashboard brief card has generate/refresh button with loading spinner
+
+## Verification
+
+- ✅ All backend imports pass (main, brief router, brief generator, scheduler)
+- ✅ Frontend `next build` succeeds with 0 errors
+- ✅ Light/dark modes render correctly
+- ✅ Dashboard shows brief card with generate button

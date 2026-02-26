@@ -1,0 +1,29 @@
+# Minimalist Assignments Layout Implementation
+
+The user requested to roll back the Bento Grid and Kanban layouts in favor of an aesthetic that closely matches the rest of the web app (like the Tasks and Timetable pages): highly minimal, clean, and elegant.
+
+## Proposed Changes
+
+### Frontend
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx)
+- **Layout & Structure**:
+  - Remove all Bento Box CSS grid configurations and large colored tiles.
+  - Implement a clean, structured vertical list (or simple table) similar to the [TaskRow](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#312-391) component in [tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx).
+  - Group assignments simply by date (e.g., "Overdue", "Today", "Upcoming", "Submitted").
+- **Aesthetics**:
+  - Extremely minimal styling. Generous padding, subtle borders (`border-border`), and hover states (`hover:bg-surface-hover`).
+  - No massive glows or drop shadows.
+  - Module codes shown as small, muted pill badges.
+  - Due dates and points displayed cleanly on the right side of the row.
+- **Interactive State**:
+  - Clicking a row will open the right-side detail panel as it currently does.
+  - Checkboxes or simple status toggles inline, rather than drag-and-drop or arrows.
+
+## User Review Required
+> [!IMPORTANT]
+> A new Stitch concept has been generated to verify this aesthetic direction. Please check the Stitch project link and approve this minimalist approach before we execute.
+
+## Verification Plan
+1. Rip out the Bento layout code in [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/notes/page.tsx).
+2. Implement the clean `AssignmentRow` style.
+3. Ensure filters and the detail panel continue to work seamlessly.

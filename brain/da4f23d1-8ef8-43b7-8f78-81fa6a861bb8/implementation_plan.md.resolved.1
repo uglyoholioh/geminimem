@@ -1,0 +1,39 @@
+# Focus Tab Customization Plan
+
+This plan details adding visual customisation to the Focus tab, specifically allowing users to select preset backgrounds/visuals or upload their own image.
+
+## Proposed Changes
+
+### Backend Updates
+
+#### [MODIFY] [models/user.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py) or new [models/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/settings.py) (or similar)
+- Check existing user settings to see if there is a place for `focus_background`. The `Settings` model [models/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/settings.py) is the best place to store the user's focus background preference since it's user-specific. We will add a string field `focus_background` to the `Settings` model.
+- However, for image uploads, we need an endpoint to save an image file and serve it or convert it to base64. 
+
+**Alternative approach (No direct DB column needed if using local storage / Base64 for a quick MVP, but backend storage is better for cross-device):**
+- Let's create an upload endpoint `/api/v1/settings/focus-background` that accepts a file, saves it to a static directory (e.g. `data/uploads/`), and updates the user's `Settings.focus_background` field with the URL/path.
+
+#### [MODIFY] `routers/settings.py`
+- Expose the new `focus_background` field in `SettingsUpdate` and `SettingsResponse`.
+- Add a new `POST /settings/focus-background` endpoint to accept a `UploadFile`. Save the file to `data/uploads/` and return the relative path.
+
+### Frontend Updates
+
+#### [MODIFY] [app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
+- **State**: Fetch the user's `focus_background` setting on load.
+- **UI**: Add a `Customise` button opening a modal or side panel.
+- **Customisation Options**:
+  1. Default (the current dynamic blurred colors).
+  2. Presets (e.g., Lofi cafe image, Space, Nature).
+  3. Upload custom image.
+- **Background Application**: Change the `div` with the blur effect to render the selected image as a full-screen `object-cover` background if a visual is selected, or keep the color blur if "Default" is selected.
+
+#### [MODIFY] `components/SettingsProvider.tsx` (if it exists) or just fetch in the page
+- Ensure the settings fetch includes the new background field.
+
+## Verification Plan
+1. Start backend and frontend.
+2. Go to Focus tab.
+3. Click "Customise".
+4. Select a preset image -> verify the background changes.
+5. Upload a file -> verify it saves to the backend, updates the user's setting, and displays the new background.

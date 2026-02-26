@@ -1,0 +1,39 @@
+# Improve Daily Brief Error Visibility and Reliability
+
+The user reported that the Daily Brief is "not working". Investigation shows:
+- The database contains a generated brief for today.
+- Ollama is running and accessible.
+- The backend logs show some intermittent 401/404 errors during setup/sync but no catastrophic failure for the brief itself.
+- Front-end fetching logic appears correct.
+
+To address "not working", I will:
+1. Add better front-end error state for when a brief is empty or failed.
+2. Ensure the "Generate" button gives better feedback.
+3. Fix a potential bug in [brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py) where JSON parsing errors might lead to a confusing UI.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)
+- Improve error handling when AI response is not valid JSON.
+- Ensure `prose_text` is never `None` if `ai_response` exists.
+
+### Frontend
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- Add more explicit error handling in the brief fetching `useEffect`.
+- Improve the "No brief generated yet" empty state to show if an error occurred.
+
+## Verification Plan
+
+### Automated Tests
+- Run `pytest backend/test_brief.py` to ensure core logic remains stable.
+```bash
+cd backend && pytest test_brief.py
+```
+
+### Manual Verification
+1. Open the dashboard and check the Daily Brief section.
+2. Click "Refresh" (Regenerate) and verify that the loading state appears and the brief updates.
+3. If no brief is visible, check the console for logs I've added.

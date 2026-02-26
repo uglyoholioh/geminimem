@@ -1,0 +1,46 @@
+# Add Attendance Toggle to Timetable
+
+This plan outlines the changes required to allow users to toggle their attendance for classes on the timetable, and grays out the ones they don't attend.
+
+## Proposed Changes
+
+### Backend SQLModel and Database
+To store whether the user attends a specific class:
+#### [MODIFY] backend/models/timetable.py
+- Add `is_attended: bool = Field(default=True)` to the [TimetableSlot](file:///Users/oli/Desktop/CraftCanvas/backend/models/timetable.py#8-39) model.
+
+#### [NEW] Database Migration Script
+- Create a temporary one-off script (or run a sqlite3 command) to alter the existing [backend/data/db.sqlite](file:///Users/oli/Desktop/CraftCanvas/backend/data/db.sqlite) table `timetable_slots` to add the `is_attended` boolean column with a default of 1.
+
+---
+### Backend Routes
+#### [MODIFY] backend/routers/timetable.py
+- Update the `GET /today` and `GET /week` endpoints to return `is_attended: slot.is_attended` in the slot summaries.
+- Update `POST /import` and `POST /import-url` to preserve the `is_attended` boolean for existing slots when the user re-imports their timetable. They shouldn't lose their toggles when updating their timetable.
+- Add a new endpoint `PATCH /slots/{id}/attendance` with a query parameter `is_attended` to toggle the value in the DB.
+
+---
+### Frontend UI
+#### [MODIFY] frontend/app/timetable/page.tsx
+- Add `is_attended: boolean` to the [TimetableSlot](file:///Users/oli/Desktop/CraftCanvas/backend/models/timetable.py#8-39) interface.
+- Add a toggle handler function `handleToggleAttendance(slotId: number, currentStatus: boolean)` that calls the new backend `PATCH` endpoint.
+- In both the Vertical and Horizontal timetable views, render a small toggle button (e.g. an "Eye" / "EyeOff" icon) in the top right corner of each slot.
+- Apply `opacity-50 grayscale` to the slot block if `is_attended` is false, to visibly gray it out.
+
+#### [MODIFY] frontend/app/page.tsx
+- Update the Dashboard's Today Schedule list to check the `is_attended` value.
+- Render the same toggle button on each class item in the dashboard list.
+- Apply `opacity-50 grayscale[0.5]` or a similar visual treatment for classes marked as not attended.
+
+## Verification Plan
+### Automated Tests
+- Run backend unit tests: `pytest backend/tests/test_routers/test_timetable.py` 
+  - Update [test_timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_routers/test_timetable.py) if there are any broken assertions due to the new field.
+
+### Manual Verification
+- Run the local dev servers.
+- Open the dashboard at `http://localhost:3000/`.
+- Verify the class blocks have an eye icon.
+- Click the eye icon to toggle it to "unattended" and ensure the block grays out.
+- Navigate to the Full Timetable page (`/timetable`) and verify the toggles exist and correspond to the same state.
+- (Optional) Import a timetable again to verify the toggle state is successfully preserved.

@@ -1,0 +1,37 @@
+# Assignments Page Redesign v6 (Minimalist)
+
+We have simplified the Assignments page to match the elegant, clean aesthetics of the Tasks and Timetable pages. The heavy boards and grids are gone, replaced by a calm, structured list.
+
+## Key Features
+
+### 1. Minimalist List View
+- Assignments are now displayed in a highly readable vertical list ([AssignmentRow](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx#286-342)).
+- Generous padding, subtle borders, and precise typography keep the interface uncluttered.
+- Module codes are displayed as small, muted pill badges on the left.
+- Points and relative due dates align neatly on the right.
+
+### 2. Time-Based Grouping
+- Assignments are automatically categorized into logical, time-based sections:
+  - **Overdue** (pulsing red highlight for urgency)
+  - **Next 7 Days** 
+  - **Later**
+  - **Completed** (can be toggled in the filters)
+
+### 3. Integrated Filtering
+- Seamlessly works with the existing **Module Chips**.
+- The **Advanced Filters** panel lets you trim down the list by specific criteria (e.g., minimum points).
+
+### 4. Interactive State
+- Clicking anywhere on a row instantly opens the right-side detail panel.
+- A single click on the inline circle/check icon toggles the assignment rapidly between 'in progress' and 'submitted'.
+
+## Verification
+
+Please open [http://localhost:3000/assignments](http://localhost:3000/assignments) in your browser:
+
+1. Observe the structured **Minimalist List** layout.
+2. Note the logical time-based groupings (Overdue, Next 7 Days).
+3. Try clicking the inline status circle on the far right of an assignment row to toggle it instantly.
+4. Click on any row to open the detailed editing panel.
+
+This layout maximizes readability and removes visual noise, letting you focus entirely on your work.

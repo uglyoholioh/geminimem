@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to fix the courses page refresh glitch by: (1) swapping backend middleware ordering so CORSMiddleware is outermost, (2) fixing thread-safety issue in RequestIDMiddleware's use of global logging.setLogRecordFactory(), and (3) removing unnecessary Content-Type: application/json header from frontend GET requests to avoid CORS preflight.",
+  "updatedAt": "2026-02-18T13:05:11.436808Z"
+}

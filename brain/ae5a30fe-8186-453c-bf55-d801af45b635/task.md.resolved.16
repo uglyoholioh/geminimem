@@ -1,0 +1,17 @@
+# Emergency Debugging & GLM Fix
+
+## GLM API 404 Fix
+- [/] Update GLM endpoints in [ai_assistant.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/ai_assistant.py) and [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py)
+- [ ] Verify fix with `test-ai` endpoint
+
+## Core Functionality Restoration
+- [x] Fix Backend NameErrors
+    - [x] Restore `router` definition in [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py)
+    - [x] Restore missing utility functions
+    - [x] Fix missing imports
+- [x] Verify Data Retrieval
+    - [x] Confirm assignments/announcements load on Dashboard
+- [x] Resolve AI Task Generation Issues
+    - [x] Implement 20s timeout
+    - [x] Add fallback for failures
+    - [x] Switch to stable `glm-4-flash`

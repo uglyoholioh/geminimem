@@ -1,0 +1,67 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (500,150)<div  />
+	"loc"
+	: [
+	"string"
+	,
+	0
+	],
+	"msg"
+	:
+	"string"
+	,
+	"type"
+	:
+	"string"
+	,
+	"input"
+	:
+	"string"
+	,
+	"ctx"
+	: {}
+	}
+	]
+	}
+	[1] (500,244)<div  />
+		[2] (492,244)<button class='opblock-summary-control' />
+			[3] (154,244)<span >POST />
+			[4] (513,244)<div  />
+				[5] (215,244)<span  />
+					[6] (215,244)<a class='nostyle' href='#/tasks/create_task_api_v1_tasks__post' />
+						[7] (215,244)<span >/api
+/v1
+/tasks
+/ />
+				[8] (274,244)<div >Create Task />
+		[9] (858,244)<button aria-label='post ​/api​/v1​/tasks​/' class='opblock-control-arrow' />
+	Create a new task.
+	If raw_text is provided, it will be parsed with AI to extract:
+	title, due_date, module_code (matched to course_id), priority
+	Otherwise, uses provided structured fields.
+	[10] (171,464)<div  />
+		[11] (161,464)<h4  />
+			[12] (161,464)<span >Parameters />
+	[13] (834,464)<button class='btn try-out__btn cancel'>Cancel />
+	Name
+	Description
+	x-api-key
+	*
+	string
+	(
+	header
+	)
+	[14] (281,585)<input placeholder='x-api-key' />
+	Request body
+	[15] (799,695)<label id='post_api_v1_tasks__requests_select' />
+		[16] (799,695)<select aria-label='Request content type' class='content-type' id='post_api_v1_tasks__requests_select' />
+	[17] (159,757)<li class='tabitem active' role='presentation' />
+		[18] (156,757)<button class='tablinks' id='V5uVs5A=' role='tab'>Edit Value />
+	[19] (193,757)<li class='tabitem' role='presentation' />
+		[20] (189,757)<button class='tablinks inactive' id='lYDv6Tc=' role='tab'>Schema />
+	[21] (500,928)<textarea class='body-param__text' />
+
+</current_dom>

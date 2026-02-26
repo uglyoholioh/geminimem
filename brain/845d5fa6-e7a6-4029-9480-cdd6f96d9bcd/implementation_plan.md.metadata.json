@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to redesign the dashboard from a 60/40 two-column scrollable layout to a fixed-size 2-column CSS grid that fits the full viewport. Moves stats into the header, caps all list sections, and eliminates wasted space.",
+  "updatedAt":  "2026-02-25T11:22:22.144815Z"
+}

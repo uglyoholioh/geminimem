@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Implementation plan for adding GLM model switching and API key preview to settings.\n- Backend: Add `glm_model` to `User` model, update schemas and profile routes.\n- AI Logic: Update `brief.py` to use the user-selected model.\n- Frontend: Update `SettingsPage.tsx` with a model dropdown and API key preview.",
+  "updatedAt": "2026-02-03T16:57:44.140654Z",
+  "version": "5"
+}

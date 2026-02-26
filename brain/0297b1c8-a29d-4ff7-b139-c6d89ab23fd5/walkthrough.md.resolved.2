@@ -1,0 +1,1124 @@
+# Dashboard Refinement & To-Do Feature Walkthrough
+
+## Overview
+This walkthrough documents the comprehensive dashboard redesign and new task management system implementation.
+
+---
+
+## Part 1: Dashboard UI Improvements
+
+### Font Size Improvements
+
+All key components now have larger, more legible fonts:
+
+#### Daily Brief Component
+- Header: `text-xl` (was `text-base`)
+- Loading text: `text-sm` (was `text-[10px]`)
+- AI summary quote: `text-lg` (was `text-sm`)
+- Section headers: `text-sm` (was `text-[9px]`)
+- Item titles: `text-base` (was `text-xs`)
+- Icons increased to appropriate sizes
+
+```diff:daily-brief.tsx
+"use client";
+
+import { useDailyBrief } from "@/lib/hooks";
+import { getTimeRemaining } from "@/lib/utils";
+import Link from "next/link";
+import { RefreshCw, ScrollText, ExternalLink } from "lucide-react";
+
+export function DailyBrief() {
+  const { brief, error, isLoading, mutate } = useDailyBrief();
+
+  if (isLoading) {
+    return (
+      <div className="p-4 flex flex-col items-center justify-center min-h-[200px] border-b-2 border-black/10 dark:border-white/10">
+        <RefreshCw className="animate-spin text-black/20 dark:text-white/20 mb-2" size={24} />
+        <span className="font-mono text-[10px] uppercase tracking-widest opacity-40 text-black dark:text-white">Compiling Brief...</span>
+      </div>
+    );
+  }
+
+  if (error || !brief) {
+    return (
+      <div className="p-4 border-b-2 border-black/10 dark:border-white/10 italic text-black/40 dark:text-white/40 text-xs text-center">
+        Brief unavailable for this edition.
+      </div>
+    );
+  }
+
+  const allWeekAssignments = [...brief.urgent_deadlines, ...brief.upcoming_assignments];
+
+  return (
+    <div className="flex flex-col">
+      {/* Editorial Header Partition */}
+      <div className="p-3 border-b-2 border-black dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/50 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <ScrollText size={14} className="text-red-600" />
+          <h2 className="font-serif font-black text-base uppercase text-black dark:text-white tracking-tight">
+            The Daily Brief
+          </h2>
+        </div>
+        <div className="font-mono text-[9px] font-bold uppercase tracking-widest text-black/40 dark:text-white/40">
+          EDITION {brief.date.replace(/-/g, '.')}
+        </div>
+      </div>
+
+      {/* Main Content Area - Scrollable but compact */}
+      <div className="max-h-[500px] overflow-y-auto overflow-x-hidden custom-scrollbar">
+        <div className="p-3 space-y-4">
+
+          {/* AI Strategy Layer */}
+          {brief.summary.ai_summary && (
+            <div className="border-l-4 border-black dark:border-white pl-3 py-1 mb-4">
+              <p className="font-serif italic text-sm text-black/80 dark:text-white/80 leading-relaxed">
+                "{brief.summary.ai_summary}"
+              </p>
+            </div>
+          )}
+
+          {/* Critical Items (Urgent) */}
+          {brief.urgent_deadlines.length > 0 && (
+            <section className="space-y-2">
+              <div className="flex items-center gap-2 border-b border-black/10 dark:border-white/10 pb-1">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-red-600">Urgent Dispatch</span>
+                <div className="flex-1 h-[1px] bg-red-600/10"></div>
+              </div>
+              <div className="space-y-1.5">
+                {brief.urgent_deadlines.slice(0, 3).map((item) => (
+                  <div key={item.id} className="flex items-start justify-between gap-3 group">
+                    <div className="min-w-0">
+                      <h4 className="font-serif font-bold text-xs text-black dark:text-white group-hover:underline leading-tight">
+                        {item.title}
+                      </h4>
+                      <div className="text-[9px] font-mono text-black/40 dark:text-white/40 uppercase mt-0.5">
+                        {item.course_name}
+                      </div>
+                    </div>
+                    <span className="text-[9px] font-mono font-bold text-red-600 whitespace-nowrap pt-0.5">
+                      {item.due_at ? getTimeRemaining(item.due_at) : "TBD"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Recommendations / Suggestion */}
+          {brief.recommendations.length > 0 && (
+            <section className="bg-black/[0.03] dark:bg-white/[0.03] p-2 border border-black/10 dark:border-white/10">
+              <span className="font-mono text-[9px] font-bold uppercase tracking-widest opacity-60 mb-2 block">Intelligence Suggestion</span>
+              <ul className="space-y-1">
+                {brief.recommendations.slice(0, 2).map((rec, i) => (
+                  <li key={i} className="text-xs font-serif text-black/70 dark:text-white/70 flex gap-2 leading-tight">
+                    <span className="text-red-600">•</span>
+                    <span>{rec.replace(/^(Plan|Strategy|Quick win):\s*/, '')}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Time Blocks Integration */}
+          {brief.time_blocks && brief.time_blocks.length > 0 && (
+            <section className="space-y-2">
+              <div className="flex items-center gap-2 border-b border-black/10 dark:border-white/10 pb-1">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-black/60 dark:text-white/60">Journal Entry</span>
+                <div className="flex-1 h-[1px] bg-black/10"></div>
+              </div>
+              <div className="space-y-1">
+                {brief.time_blocks.slice(0, 3).map((block) => (
+                  <div key={block.id} className={`flex items-center justify-between p-1.5 border border-black/5 dark:border-white/5 ${block.is_completed ? 'opacity-40 grayscale' : ''}`}>
+                    <div className="flex items-center gap-2">
+                      <div className={`w-1 h-3 ${block.is_completed ? 'bg-black/20' : 'bg-black dark:bg-white'}`}></div>
+                      <span className="font-serif font-bold text-[11px] text-black dark:text-white truncate max-w-[120px]">
+                        {block.title}
+                      </span>
+                    </div>
+                    <span className="font-mono text-[9px] opacity-60">
+                      {new Date(block.start_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </div>
+
+      {/* View Full Index - The Cutoff Indicator */}
+      <div className="p-2 border-t-2 border-black dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 flex justify-center">
+        <Link href="/planner" className="flex items-center gap-1 group">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-black/60 dark:text-white/60 group-hover:text-black dark:group-hover:text-white">
+            Access Full Daily Log
+          </span>
+          <ExternalLink size={10} className="text-black/40 group-hover:text-black" />
+        </Link>
+      </div>
+    </div>
+  );
+}
+===
+"use client";
+
+import { useDailyBrief } from "@/lib/hooks";
+import { getTimeRemaining } from "@/lib/utils";
+import Link from "next/link";
+import { RefreshCw, ScrollText, ExternalLink } from "lucide-react";
+
+export function DailyBrief() {
+  const { brief, error, isLoading, mutate } = useDailyBrief();
+
+  if (isLoading) {
+    return (
+      <div className="p-6 flex flex-col items-center justify-center min-h-[200px] border-b-2 border-black/10 dark:border-white/10">
+        <RefreshCw className="animate-spin text-black/20 dark:text-white/20 mb-2" size={28} />
+        <span className="font-mono text-sm uppercase tracking-widest opacity-40 text-black dark:text-white">Compiling Brief...</span>
+      </div>
+    );
+  }
+
+  if (error || !brief) {
+    return (
+      <div className="p-6 border-b-2 border-black/10 dark:border-white/10 italic text-black/40 dark:text-white/40 text-base text-center">
+        Brief unavailable for this edition.
+      </div>
+    );
+  }
+
+  const allWeekAssignments = [...brief.urgent_deadlines, ...brief.upcoming_assignments];
+
+  return (
+    <div className="flex flex-col">
+      {/* Editorial Header Partition */}
+      <div className="p-4 border-b-2 border-black dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/50 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <ScrollText size={20} className="text-red-600" />
+          <h2 className="font-serif font-black text-xl uppercase text-black dark:text-white tracking-tight">
+            The Daily Brief
+          </h2>
+        </div>
+        <div className="font-mono text-sm font-bold uppercase tracking-widest text-black/40 dark:text-white/40">
+          EDITION {brief.date.replace(/-/g, '.')}
+        </div>
+      </div>
+
+      {/* Main Content Area - Scrollable but compact */}
+      <div className="max-h-[500px] overflow-y-auto overflow-x-hidden custom-scrollbar">
+        <div className="p-5 space-y-5">
+
+          {/* AI Strategy Layer */}
+          {brief.summary.ai_summary && (
+            <div className="border-l-4 border-black dark:border-white pl-4 py-2 mb-5">
+              <p className="font-serif italic text-lg text-black/80 dark:text-white/80 leading-relaxed">
+                "{brief.summary.ai_summary}"
+              </p>
+            </div>
+          )}
+
+          {/* Critical Items (Urgent) */}
+          {brief.urgent_deadlines.length > 0 && (
+            <section className="space-y-3">
+              <div className="flex items-center gap-2 border-b border-black/10 dark:border-white/10 pb-2">
+                <span className="font-mono text-sm font-bold uppercase tracking-widest text-red-600">Urgent Dispatch</span>
+                <div className="flex-1 h-[1px] bg-red-600/10"></div>
+              </div>
+              <div className="space-y-3">
+                {brief.urgent_deadlines.slice(0, 3).map((item) => (
+                  <div key={item.id} className="flex items-start justify-between gap-4 group">
+                    <div className="min-w-0">
+                      <h4 className="font-serif font-bold text-base text-black dark:text-white group-hover:underline leading-tight">
+                        {item.title}
+                      </h4>
+                      <div className="text-sm font-mono text-black/40 dark:text-white/40 uppercase mt-1">
+                        {item.course_name}
+                      </div>
+                    </div>
+                    <span className="text-sm font-mono font-bold text-red-600 whitespace-nowrap pt-0.5">
+                      {item.due_at ? getTimeRemaining(item.due_at) : "TBD"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Recommendations / Suggestion */}
+          {brief.recommendations.length > 0 && (
+            <section className="bg-black/[0.03] dark:bg-white/[0.03] p-4 border border-black/10 dark:border-white/10">
+              <span className="font-mono text-sm font-bold uppercase tracking-widest opacity-60 mb-3 block">Intelligence Suggestion</span>
+              <ul className="space-y-2">
+                {brief.recommendations.slice(0, 2).map((rec, i) => (
+                  <li key={i} className="text-base font-serif text-black/70 dark:text-white/70 flex gap-3 leading-relaxed">
+                    <span className="text-red-600">•</span>
+                    <span>{rec.replace(/^(Plan|Strategy|Quick win):\s*/, '')}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Time Blocks Integration */}
+          {brief.time_blocks && brief.time_blocks.length > 0 && (
+            <section className="space-y-3">
+              <div className="flex items-center gap-2 border-b border-black/10 dark:border-white/10 pb-2">
+                <span className="font-mono text-sm font-bold uppercase tracking-widest text-black/60 dark:text-white/60">Journal Entry</span>
+                <div className="flex-1 h-[1px] bg-black/10"></div>
+              </div>
+              <div className="space-y-2">
+                {brief.time_blocks.slice(0, 3).map((block) => (
+                  <div key={block.id} className={`flex items-center justify-between p-3 border border-black/5 dark:border-white/5 ${block.is_completed ? 'opacity-40 grayscale' : ''}`}>
+                    <div className="flex items-center gap-3">
+                      <div className={`w-1.5 h-4 ${block.is_completed ? 'bg-black/20' : 'bg-black dark:bg-white'}`}></div>
+                      <span className="font-serif font-bold text-base text-black dark:text-white truncate max-w-[180px]">
+                        {block.title}
+                      </span>
+                    </div>
+                    <span className="font-mono text-sm opacity-60">
+                      {new Date(block.start_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </div>
+
+      {/* View Full Index - The Cutoff Indicator */}
+      <div className="p-3 border-t-2 border-black dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 flex justify-center">
+        <Link href="/planner" className="flex items-center gap-2 group">
+          <span className="text-sm font-mono font-bold uppercase tracking-widest text-black/60 dark:text-white/60 group-hover:text-black dark:group-hover:text-white">
+            Access Full Daily Log
+          </span>
+          <ExternalLink size={14} className="text-black/40 group-hover:text-black" />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+```
+
+#### Greeting Card Component
+- Clock: `text-4xl` (was `text-2xl`) - Now very prominent
+- Day of week: `text-2xl` (was `text-lg`)
+- Full date: `text-base` (was `text-sm`)
+- Sync button text: `text-sm` (was `text-[9px]`)
+
+```diff:greeting-card.tsx
+"use client";
+
+import { useEffect, useState } from "react";
+import { useUpcomingAssignments } from "@/lib/hooks";
+import { isRealAssignment, isDeadlineUrgent, getStoredCredentials } from "@/lib/utils";
+import { RefreshCw, Clock, CalendarDays, AlertCircle } from "lucide-react";
+import { useAuth } from "@/lib/contexts/AuthContext";
+
+export function GreetingCard() {
+  const [greeting, setGreeting] = useState("");
+  const [currentTime, setCurrentTime] = useState("");
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncStatus, setSyncStatus] = useState<{ success: boolean; message: string } | null>(null);
+  const { user, token } = useAuth();
+  const { upcomingAssignments, mutate } = useUpcomingAssignments(168, 10);
+
+  useEffect(() => {
+    const updateGreeting = () => {
+      const hour = new Date().getHours();
+      if (hour < 12) setGreeting("Good morning");
+      else if (hour < 17) setGreeting("Good afternoon");
+      else setGreeting("Good evening");
+    };
+
+    const updateTime = () => {
+      setCurrentTime(
+        new Date().toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+        })
+      );
+    };
+
+    updateGreeting();
+    updateTime();
+
+    const timeInterval = setInterval(updateTime, 10000); // Only update every 10s is enough for HH:MM
+    return () => clearInterval(timeInterval);
+  }, []);
+
+  const urgentAssignments = upcomingAssignments?.filter(
+    (a) => isDeadlineUrgent(a.due_at) && isRealAssignment(a.submission_types)
+  ) || [];
+
+  const handleSync = async () => {
+    if (!token) return;
+    setIsSyncing(true);
+    setSyncStatus(null);
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const storedCredentials = getStoredCredentials();
+      if (!storedCredentials?.domain || !storedCredentials?.apiToken) {
+        throw new Error('Canvas credentials not found. Check Settings.');
+      }
+      const response = await fetch(`${API_URL}/auth/sync`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          domain: storedCredentials.domain,
+          api_token: storedCredentials.apiToken,
+        }),
+      });
+      if (!response.ok) throw new Error('Sync failed');
+      const data = await response.json();
+      if (mutate) mutate();
+      setSyncStatus({ success: true, message: data.message || "Synced" });
+      setTimeout(() => setSyncStatus(null), 3000);
+    } catch (error) {
+      setSyncStatus({ success: false, message: error instanceof Error ? error.message : "Sync failed" });
+      setTimeout(() => setSyncStatus(null), 5000);
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  return (
+    <div className="border-b-4 border-black dark:border-neutral-500 pb-4 mb-2">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+
+        {/* Left: Headline and Status */}
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="bg-red-600 h-[3px] w-8"></span>
+            <span className="text-red-600 font-mono text-[10px] font-black uppercase tracking-[0.3em]">
+              THE DAILY SCHOLAR
+            </span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-serif font-black text-black dark:text-white leading-[0.9] tracking-tighter">
+            {greeting}{user?.display_name ? `, ${user.display_name.split(' ')[0]}` : ''}.
+          </h1>
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            {urgentAssignments.length > 0 && (
+              <div className="flex items-center gap-1.5 px-2 py-0.5 border-2 border-red-600 text-red-600 font-mono text-[9px] font-black uppercase tracking-widest bg-red-50 dark:bg-red-900/10">
+                <AlertCircle size={10} className="animate-pulse" />
+                {urgentAssignments.length} URGENT ACTION ITEMS
+              </div>
+            )}
+            <div className="text-[10px] font-mono text-black/40 dark:text-white/40 uppercase tracking-widest font-bold">
+              Volume II · No. 42 · {urgentAssignments.length === 0 ? 'Quiet Day' : 'Active Semester'}
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Date and Time Section */}
+        <div className="flex items-start md:items-end gap-6 md:text-right border-l-2 md:border-l-0 md:border-r-0 border-black/10 dark:border-white/10 pl-4 md:pl-0">
+          <div className="flex flex-col">
+            <div className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] opacity-60 mb-1 flex items-center md:justify-end gap-1">
+              <CalendarDays size={10} />
+              Chronology
+            </div>
+            <div className="font-serif font-bold text-lg text-black dark:text-white leading-none">
+              {new Date().toLocaleDateString('en-US', { weekday: 'long' })}
+            </div>
+            <div className="font-serif text-sm text-black/60 dark:text-white/60">
+              {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </div>
+          </div>
+
+          <div className="flex flex-col min-w-[80px]">
+            <div className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] opacity-60 mb-1 flex items-center md:justify-end gap-1">
+              <Clock size={10} />
+              Current
+            </div>
+            <div className="font-mono font-black text-2xl text-black dark:text-white leading-none tracking-tighter">
+              {currentTime}
+            </div>
+            <button
+              onClick={handleSync}
+              disabled={isSyncing}
+              className="mt-1 text-[9px] font-mono font-bold uppercase tracking-widest hover:text-red-600 transition-colors flex items-center md:justify-end gap-1 group"
+            >
+              <RefreshCw size={8} className={`${isSyncing ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'}`} />
+              {isSyncing ? 'Syncing...' : syncStatus?.message || 'Refresh Data'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+===
+"use client";
+
+import { useEffect, useState } from "react";
+import { useUpcomingAssignments } from "@/lib/hooks";
+import { isRealAssignment, isDeadlineUrgent, getStoredCredentials } from "@/lib/utils";
+import { RefreshCw, Clock, CalendarDays, AlertCircle } from "lucide-react";
+import { useAuth } from "@/lib/contexts/AuthContext";
+
+export function GreetingCard() {
+  const [greeting, setGreeting] = useState("");
+  const [currentTime, setCurrentTime] = useState("");
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncStatus, setSyncStatus] = useState<{ success: boolean; message: string } | null>(null);
+  const { user, token } = useAuth();
+  const { upcomingAssignments, mutate } = useUpcomingAssignments(168, 10);
+
+  useEffect(() => {
+    const updateGreeting = () => {
+      const hour = new Date().getHours();
+      if (hour < 12) setGreeting("Good morning");
+      else if (hour < 17) setGreeting("Good afternoon");
+      else setGreeting("Good evening");
+    };
+
+    const updateTime = () => {
+      setCurrentTime(
+        new Date().toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+        })
+      );
+    };
+
+    updateGreeting();
+    updateTime();
+
+    const timeInterval = setInterval(updateTime, 10000); // Only update every 10s is enough for HH:MM
+    return () => clearInterval(timeInterval);
+  }, []);
+
+  const urgentAssignments = upcomingAssignments?.filter(
+    (a) => isDeadlineUrgent(a.due_at) && isRealAssignment(a.submission_types)
+  ) || [];
+
+  const handleSync = async () => {
+    if (!token) return;
+    setIsSyncing(true);
+    setSyncStatus(null);
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const storedCredentials = getStoredCredentials();
+      if (!storedCredentials?.domain || !storedCredentials?.apiToken) {
+        throw new Error('Canvas credentials not found. Check Settings.');
+      }
+      const response = await fetch(`${API_URL}/auth/sync`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          domain: storedCredentials.domain,
+          api_token: storedCredentials.apiToken,
+        }),
+      });
+      if (!response.ok) throw new Error('Sync failed');
+      const data = await response.json();
+      if (mutate) mutate();
+      setSyncStatus({ success: true, message: data.message || "Synced" });
+      setTimeout(() => setSyncStatus(null), 3000);
+    } catch (error) {
+      setSyncStatus({ success: false, message: error instanceof Error ? error.message : "Sync failed" });
+      setTimeout(() => setSyncStatus(null), 5000);
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  return (
+    <div className="border-b-4 border-black dark:border-neutral-500 pb-4 mb-2">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+
+        {/* Left: Headline and Status */}
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="bg-red-600 h-[3px] w-8"></span>
+            <span className="text-red-600 font-mono text-[10px] font-black uppercase tracking-[0.3em]">
+              THE DAILY SCHOLAR
+            </span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-serif font-black text-black dark:text-white leading-[0.9] tracking-tighter">
+            {greeting}{user?.display_name ? `, ${user.display_name.split(' ')[0]}` : ''}.
+          </h1>
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            {urgentAssignments.length > 0 && (
+              <div className="flex items-center gap-1.5 px-2 py-0.5 border-2 border-red-600 text-red-600 font-mono text-[9px] font-black uppercase tracking-widest bg-red-50 dark:bg-red-900/10">
+                <AlertCircle size={10} className="animate-pulse" />
+                {urgentAssignments.length} URGENT ACTION ITEMS
+              </div>
+            )}
+            <div className="text-[10px] font-mono text-black/40 dark:text-white/40 uppercase tracking-widest font-bold">
+              Volume II · No. 42 · {urgentAssignments.length === 0 ? 'Quiet Day' : 'Active Semester'}
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Date and Time Section */}
+        <div className="flex items-start md:items-end gap-8 md:text-right border-l-2 md:border-l-0 md:border-r-0 border-black/10 dark:border-white/10 pl-4 md:pl-0">
+          <div className="flex flex-col">
+            <div className="text-sm font-mono font-bold uppercase tracking-[0.2em] opacity-60 mb-1 flex items-center md:justify-end gap-1.5">
+              <CalendarDays size={14} />
+              Chronology
+            </div>
+            <div className="font-serif font-bold text-2xl text-black dark:text-white leading-none">
+              {new Date().toLocaleDateString('en-US', { weekday: 'long' })}
+            </div>
+            <div className="font-serif text-base text-black/60 dark:text-white/60">
+              {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </div>
+          </div>
+
+          <div className="flex flex-col min-w-[100px]">
+            <div className="text-sm font-mono font-bold uppercase tracking-[0.2em] opacity-60 mb-1 flex items-center md:justify-end gap-1.5">
+              <Clock size={14} />
+              Current
+            </div>
+            <div className="font-mono font-black text-4xl text-black dark:text-white leading-none tracking-tighter">
+              {currentTime}
+            </div>
+            <button
+              onClick={handleSync}
+              disabled={isSyncing}
+              className="mt-2 text-sm font-mono font-bold uppercase tracking-widest hover:text-red-600 transition-colors flex items-center md:justify-end gap-1.5 group"
+            >
+              <RefreshCw size={12} className={`${isSyncing ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'}`} />
+              {isSyncing ? 'Syncing...' : syncStatus?.message || 'Refresh Data'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+#### Navigation Bar
+- Nav links: `text-base font-bold` (was `text-sm`)
+- Uppercase styling with improved hover animations
+- Added "Tasks" link to navigation
+
+```diff:Navigation.tsx
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import {
+  LayoutDashboard,
+  BookOpen,
+  FileText,
+  Megaphone,
+  FolderOpen,
+  Calendar,
+  Clock,
+  CalendarClock,
+  Settings,
+  GraduationCap,
+  LogOut,
+} from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "@/lib/providers/theme-provider";
+import { useAuth } from "@/lib/contexts/AuthContext";
+
+const navItems = [
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/assignments", label: "Assignments", icon: FileText },
+  { href: "/announcements", label: "Announcements", icon: Megaphone },
+  { href: "/materials", label: "Materials", icon: FolderOpen },
+  { href: "/schedule", label: "Schedule", icon: Calendar },
+  { href: "/timetable", label: "Timetable", icon: Clock },
+  { href: "/planner", label: "Planner", icon: CalendarClock },
+  { href: "/settings", label: "Settings", icon: Settings },
+];
+
+export function Navigation() {
+  const pathname = usePathname();
+  const { actualTheme } = useTheme();
+  const { user, logout } = useAuth();
+
+  // Don't show nav on login/register pages
+  const isAuthPage = pathname === "/login" || pathname === "/register";
+  if (isAuthPage) return null;
+
+  return (
+    <nav
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 'var(--z-sticky)',
+        width: '100%',
+        borderBottom: '1px solid var(--color-border-light)',
+        background: actualTheme === 'dark'
+          ? 'rgba(26, 24, 22, 0.95)'
+          : 'rgba(250, 247, 242, 0.95)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: 'var(--space-md) var(--page-padding)',
+        }}
+      >
+        {/* Logo */}
+        <Link
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+            textDecoration: 'none',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              height: '40px',
+              width: '40px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--color-accent-primary)',
+              color: 'var(--color-text-inverted)',
+            }}
+          >
+            <GraduationCap style={{ width: '20px', height: '20px' }} />
+          </div>
+          <span
+            style={{
+              fontSize: '1.25rem',
+              fontWeight: 'var(--font-weight-semibold)',
+              color: 'var(--color-text-primary)',
+            }}
+          >
+            LMS Manager
+          </span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-xs)',
+          }}
+          className="hidden md:flex"
+        >
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 'var(--space-xs)',
+                  padding: 'var(--space-xs) var(--space-md)',
+                  borderRadius: 'var(--radius-md)',
+                  fontSize: 'var(--font-size-small)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  textDecoration: 'none',
+                  transition: 'all var(--transition-normal)',
+                  background: isActive
+                    ? 'var(--color-accent-primary)'
+                    : 'transparent',
+                  color: isActive
+                    ? 'var(--color-text-inverted)'
+                    : 'var(--color-text-secondary)',
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'var(--color-bg-subtle)';
+                    e.currentTarget.style.color = 'var(--color-text-primary)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = 'var(--color-text-secondary)';
+                  }
+                }}
+              >
+                <Icon style={{ width: '16px', height: '16px' }} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right side: Theme Toggle & Logout */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+        >
+          <ThemeToggle />
+
+          {/* Logout Button - only show when logged in */}
+          {user && (
+            <button
+              onClick={() => logout()}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--space-xs)',
+                padding: 'var(--space-xs) var(--space-md)',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 'var(--font-size-small)',
+                fontWeight: 'var(--font-weight-medium)',
+                border: '1px solid var(--color-border-light)',
+                background: 'transparent',
+                color: 'var(--color-text-secondary)',
+                cursor: 'pointer',
+                transition: 'all var(--transition-normal)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#dc2626';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.borderColor = '#dc2626';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--color-text-secondary)';
+                e.currentTarget.style.borderColor = 'var(--color-border-light)';
+              }}
+            >
+              <LogOut style={{ width: '16px', height: '16px' }} />
+              <span className="hidden sm:inline">Logout</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+===
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import {
+  LayoutDashboard,
+  BookOpen,
+  FileText,
+  Megaphone,
+  FolderOpen,
+  Calendar,
+  Clock,
+  CalendarClock,
+  Settings,
+  GraduationCap,
+  LogOut,
+  CheckSquare,
+} from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "@/lib/providers/theme-provider";
+import { useAuth } from "@/lib/contexts/AuthContext";
+
+const navItems = [
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/todos", label: "Tasks", icon: CheckSquare },
+  { href: "/assignments", label: "Assignments", icon: FileText },
+  { href: "/announcements", label: "Announcements", icon: Megaphone },
+  { href: "/materials", label: "Materials", icon: FolderOpen },
+  { href: "/schedule", label: "Schedule", icon: Calendar },
+  { href: "/timetable", label: "Timetable", icon: Clock },
+  { href: "/planner", label: "Planner", icon: CalendarClock },
+  { href: "/settings", label: "Settings", icon: Settings },
+];
+
+export function Navigation() {
+  const pathname = usePathname();
+  const { actualTheme } = useTheme();
+  const { user, logout } = useAuth();
+
+  // Don't show nav on login/register pages
+  const isAuthPage = pathname === "/login" || pathname === "/register";
+  if (isAuthPage) return null;
+
+  return (
+    <nav
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 'var(--z-sticky)',
+        width: '100%',
+        borderBottom: '1px solid var(--color-border-light)',
+        background: actualTheme === 'dark'
+          ? 'rgba(26, 24, 22, 0.95)'
+          : 'rgba(250, 247, 242, 0.95)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: 'var(--space-md) var(--page-padding)',
+        }}
+      >
+        {/* Logo */}
+        <Link
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+            textDecoration: 'none',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              height: '40px',
+              width: '40px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--color-accent-primary)',
+              color: 'var(--color-text-inverted)',
+            }}
+          >
+            <GraduationCap style={{ width: '20px', height: '20px' }} />
+          </div>
+          <span
+            style={{
+              fontSize: '1.25rem',
+              fontWeight: 'var(--font-weight-semibold)',
+              color: 'var(--color-text-primary)',
+            }}
+          >
+            LMS Manager
+          </span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+          className="hidden md:flex"
+        >
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "relative flex items-center gap-2 px-4 py-2 rounded-lg text-base font-bold uppercase tracking-wide transition-all duration-200",
+                  isActive
+                    ? "bg-black dark:bg-white text-white dark:text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.3)]"
+                    : "text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10"
+                )}
+                style={{
+                  textDecoration: 'none',
+                  borderBottom: isActive ? '3px solid var(--color-accent-primary)' : '3px solid transparent',
+                }}
+              >
+                <Icon style={{ width: '18px', height: '18px' }} />
+                <span>{item.label}</span>
+                {isActive && (
+                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-red-600 rounded-full" />
+                )}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right side: Theme Toggle & Logout */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+        >
+          <ThemeToggle />
+
+          {/* Logout Button - only show when logged in */}
+          {user && (
+            <button
+              onClick={() => logout()}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--space-xs)',
+                padding: 'var(--space-xs) var(--space-md)',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 'var(--font-size-small)',
+                fontWeight: 'var(--font-weight-medium)',
+                border: '1px solid var(--color-border-light)',
+                background: 'transparent',
+                color: 'var(--color-text-secondary)',
+                cursor: 'pointer',
+                transition: 'all var(--transition-normal)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#dc2626';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.borderColor = '#dc2626';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--color-text-secondary)';
+                e.currentTarget.style.borderColor = 'var(--color-border-light)';
+              }}
+            >
+              <LogOut style={{ width: '16px', height: '16px' }} />
+              <span className="hidden sm:inline">Logout</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+```
+
+---
+
+### Layout Reorganization
+
+The dashboard layout has been optimized to eliminate gaps and improve content flow:
+
+1. **Tasks column (stacked with Quick Actions)**: Todo widget followed by Export/Navigation buttons
+2. **Assignments column**: Shows 5 items instead of 4
+3. **Announcements column**: Shows 5 items instead of 4
+4. **Removed**: Separate bottom action bar (consolidated into Tasks column)
+
+---
+
+## Part 2: To-Do Feature Implementation
+
+### Backend Implementation
+
+#### Database Model
+Created [Todo](file:///Users/oli/Desktop/LMSManager/backend/app/models/todo.py#7-45) model in [todo.py](file:///Users/oli/Desktop/LMSManager/backend/app/models/todo.py):
+- `user_id`: Foreign key to User
+- `title`, `description`: Task content
+- `category`: Custom grouping (e.g., "CS101", "Personal")
+- `priority`: 1 (High), 2 (Medium), 3 (Low)
+- `due_date`: Optional deadline
+- `is_completed`, `completed_at`: Completion tracking
+- `assignment_id`: Optional Canvas assignment link
+
+#### API Routes
+Created CRUD endpoints in [todos.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/todos.py):
+- `GET /todos` - List todos with filtering
+- `POST /todos` - Create new todo
+- `PUT /todos/{id}` - Update todo
+- `DELETE /todos/{id}` - Delete todo
+- `POST /todos/{id}/toggle` - Quick toggle completion
+
+---
+
+### Frontend Implementation
+
+#### Types & API Client
+- Added [Todo](file:///Users/oli/Desktop/LMSManager/backend/app/models/todo.py#7-45), [TodoCreate](file:///Users/oli/Desktop/LMSManager/backend/app/routes/todos.py#18-25), [TodoUpdate](file:///Users/oli/Desktop/LMSManager/backend/app/routes/todos.py#27-34) types in [canvas.ts](file:///Users/oli/Desktop/LMSManager/frontend/types/canvas.ts)
+- Added `todosAPI` client in [api.ts](file:///Users/oli/Desktop/LMSManager/frontend/lib/api.ts)
+
+#### Custom Hook
+[useTodos](file:///Users/oli/Desktop/LMSManager/frontend/lib/hooks.ts#783-873) hook in [hooks.ts](file:///Users/oli/Desktop/LMSManager/frontend/lib/hooks.ts):
+- Fetches todos with SWR
+- Supports `showCompleted` and `filterCategory` parameters
+- Optimistic UI updates for all operations
+- [toggleTodo](file:///Users/oli/Desktop/LMSManager/frontend/lib/hooks.ts#840-861), [createTodo](file:///Users/oli/Desktop/LMSManager/frontend/lib/hooks.ts#797-812), [deleteTodo](file:///Users/oli/Desktop/LMSManager/frontend/lib/hooks.ts#828-839), [updateTodo](file:///Users/oli/Desktop/LMSManager/frontend/lib/hooks.ts#813-827) mutations
+
+#### Dashboard Widget
+[TodoWidget](file:///Users/oli/Desktop/LMSManager/frontend/components/todos/todo-widget.tsx):
+- Quick-add form with inline submission
+- Shows up to 6 pending tasks
+- Priority indicators with color-coded borders
+- Category badges
+- "View all" link when more tasks exist
+
+#### Full Tasks Page
+[TodosPage](file:///Users/oli/Desktop/LMSManager/frontend/app/todos/page.tsx):
+- **Quick-Add Bar**: Type and press Enter to add immediately
+- **Stats Bar**: High Priority, Due Today, Pending, Completed counts
+- **Filters**: Priority buttons, category dropdown, show completed toggle
+- **Advanced Modal**: Full form with description, category, due date, assignment linking
+- **Task List**: Shows all tasks with priority indicators, categories, due dates
+- **Quick Links**: Navigate to Planner and Assignments pages
+
+---
+
+## Part 3: Verification
+
+### Test Results
+
+All functionality verified working:
+
+````carousel
+![Todo page with task created](file:///Users/oli/.gemini/antigravity/brain/0297b1c8-a29d-4ff7-b139-c6d89ab23fd5/todo_created_1770057220784.png)
+<!-- slide -->
+![Todo marked as completed](file:///Users/oli/.gemini/antigravity/brain/0297b1c8-a29d-4ff7-b139-c6d89ab23fd5/todo_completed_1770057233137.png)
+<!-- slide -->
+![Dashboard with todo widget](file:///Users/oli/.gemini/antigravity/brain/0297b1c8-a29d-4ff7-b139-c6d89ab23fd5/dashboard_todo_widget_1770057270939.png)
+<!-- slide -->
+![Dashboard layout with quick actions](file:///Users/oli/.gemini/antigravity/brain/0297b1c8-a29d-4ff7-b139-c6d89ab23fd5/dashboard_js_scrolled_1770057304591.png)
+````
+
+### Verified Features
+- ✅ Quick-add tasks (Enter key submission)
+- ✅ Task creation via modal with advanced options
+- ✅ Toggle task completion
+- ✅ Filter by priority and category
+- ✅ Show/hide completed tasks
+- ✅ Assignment linking dropdown
+- ✅ Dashboard widget displays pending tasks
+- ✅ Navigation link to Tasks page
+- ✅ Larger fonts throughout dashboard
+- ✅ Reorganized layout without gaps
+
+### Demo Recording
+
+![Full demo of todo functionality](file:///Users/oli/.gemini/antigravity/brain/0297b1c8-a29d-4ff7-b139-c6d89ab23fd5/todos_test_final_1770057199529.webp)
+
+---
+
+## Files Changed
+
+### Backend
+| File | Change |
+|------|--------|
+| [todo.py](file:///Users/oli/Desktop/LMSManager/backend/app/models/todo.py) | New Todo model |
+| [__init__.py](file:///Users/oli/Desktop/LMSManager/backend/app/models/__init__.py) | Export Todo |
+| [user.py](file:///Users/oli/Desktop/LMSManager/backend/app/models/user.py) | Add todos relationship |
+| [todos.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/todos.py) | New CRUD routes |
+| [main.py](file:///Users/oli/Desktop/LMSManager/backend/app/main.py) | Register router |
+
+### Frontend
+| File | Change |
+|------|--------|
+| [canvas.ts](file:///Users/oli/Desktop/LMSManager/frontend/types/canvas.ts) | Todo types |
+| [api.ts](file:///Users/oli/Desktop/LMSManager/frontend/lib/api.ts) | todosAPI client |
+| [hooks.ts](file:///Users/oli/Desktop/LMSManager/frontend/lib/hooks.ts) | useTodos hook |
+| [todo-widget.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/todos/todo-widget.tsx) | New widget |
+| [page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/todos/page.tsx) | New full page |
+| [page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/page.tsx) | Dashboard layout |
+| [daily-brief.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx) | Larger fonts |
+| [greeting-card.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/greeting-card.tsx) | Larger fonts |
+| [Navigation.tsx](file:///Users/oli/Desktop/LMSManager/frontend/lib/components/Navigation.tsx) | Larger fonts, Tasks link |
+| [up-next.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/planner/up-next.tsx) | "No upcoming events" message |

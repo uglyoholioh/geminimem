@@ -1,0 +1,36 @@
+# Focus Tab — Full Feature Walkthrough
+
+## What Was Built
+
+### 1. Pomodoro Timer ([app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx))
+A full Pomodoro timer with Focus (25m), Short Break (5m), and Long Break (15m) modes. Time is tracked against the selected task's `actual_minutes` field in the backend.
+
+### 2. Background Customisation
+A "Customise" button in the Focus header opens a modal with:
+- **Preset backgrounds** from Unsplash (mountains, space, abstract)
+- **Upload your own** image via the backend upload endpoint
+- **Dynamic Colors** default mode with mode-dependent blur
+
+### 3. Floating Timer Widget
+When a timer session is active and the user navigates away from Focus, a floating widget appears in the bottom-right corner:
+- Shows live countdown + mode label
+- **Pause/Play** button directly on the widget
+- **Click the widget** to navigate back to `/focus`
+- Disappears automatically when no session is active
+
+## Architecture
+
+| Component | Purpose |
+|---|---|
+| [FocusTimerProvider.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/FocusTimerProvider.tsx) | Global React context holding timer state |
+| [FloatingTimer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/FloatingTimer.tsx) | Bottom-right floating widget |
+| [ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx) | Wraps both components around all pages |
+| [app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx) | Full Focus page consuming the context |
+
+## Screenshots
+
+![Focus page with timer running](/Users/oli/.gemini/antigravity/brain/da4f23d1-8ef8-43b7-8f78-81fa6a861bb8/focus_timer_running.png)
+
+![Floating widget on Tasks page](/Users/oli/.gemini/antigravity/brain/da4f23d1-8ef8-43b7-8f78-81fa6a861bb8/floating_widget_tasks.png)
+
+![Floating timer test recording](/Users/oli/.gemini/antigravity/brain/da4f23d1-8ef8-43b7-8f78-81fa6a861bb8/floating_timer_test_1772028365373.webp)

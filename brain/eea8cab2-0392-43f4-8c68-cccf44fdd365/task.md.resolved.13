@@ -1,0 +1,10 @@
+# Assignments UX and Logic Improvements
+
+- [x] Draft proposed logic and organization system
+- [x] Approve UX and Logic Improvements
+- [x] Update [routers/assignments.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/assignments.py) to filter assignments by active courses
+- [x] Implement `hovered` state and preview logic in [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/notes/page.tsx)
+- [x] Implement 48-hour logic and grouping system
+- [x] Remove points filter
+- [ ] Verify build and UI
+- [ ] Notify user

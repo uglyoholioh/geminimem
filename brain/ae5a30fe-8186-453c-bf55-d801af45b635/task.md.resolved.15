@@ -1,0 +1,18 @@
+# Emergency Debugging Session
+
+## Core Functionality Restoration
+- [x] Fix Backend NameErrors
+    - [x] Restore `router` definition in [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py)
+    - [x] Restore missing utility functions ([make_timezone_aware](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py#27-34), [is_real_assignment](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py#36-41), [categorize_assignment](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py#43-58))
+    - [x] Fix missing imports ([get_current_user_optional](file:///Users/oli/Desktop/LMSManager/backend/app/dependencies/auth.py#145-190), [TimeBlockResponse](file:///Users/oli/Desktop/LMSManager/backend/app/schemas/timeblocks.py#44-52), [json](file:///Users/oli/Desktop/LMSManager/frontend/package.json))
+- [x] Verify Data Retrieval
+    - [x] Confirm assignments/announcements are loading on Dashboard
+    - [x] Confirm `/brief` endpoint is responsive
+- [x] Resolve AI Task Generation Issues
+    - [x] Implement strict 20s timeout to prevent hangs
+    - [x] Add silent fallback for AI failures
+    - [x] Switch to stable `glm-4-flash` model
+    - [x] Increase AI context window to Top 5 items
+- [x] Final Verification
+    - [x] Perform automated dashboard check via browser
+    - [x] Verify no console errors on load

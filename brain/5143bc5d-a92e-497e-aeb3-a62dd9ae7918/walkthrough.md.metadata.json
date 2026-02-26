@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "Walkthrough of the fix for the ICS import `sqlite3.IntegrityError` and implementation of per-user timetable isolation.",
+  "updatedAt": "2026-02-02T09:13:40.722641Z"
+}

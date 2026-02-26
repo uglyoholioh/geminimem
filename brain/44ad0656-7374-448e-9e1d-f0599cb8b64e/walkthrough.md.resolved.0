@@ -1,0 +1,57 @@
+# Courses Tab Redesign — Walkthrough
+
+## Changes Made
+
+### 1. Courses Listing Page — [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx)
+
+Complete rewrite with LMS-Manager-inspired design:
+
+- **Summary stats bar** — 3 cards showing Active Modules, Total Assignments, Unread Announcements with icons
+- **Search & filter** — text search by module code/name + active/archived toggle
+- **Rich course cards** with:
+  - Left vertical colour stripe using each module's colour
+  - Module code chip (coloured badge)
+  - Course name with hover colour transition
+  - Stats row (assignment count, unread announcements)
+  - Footer action bar: "Canvas" external link + "View Details" — matching Activity Finder card style
+  - Hover effects: border colour tint, shadow lift, title accent
+- **Empty state** — prominent dashed border with icon and contextual message
+- **Archived section** — dimmed cards below a separator when toggle is on
+
+---
+
+### 2. Course Detail Page — [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/%5Bid%5D/page.tsx)
+
+Enhanced with per-module colour theming:
+
+- **Gradient header** — module colour fading into surface background (48px gradient band)
+- **Module icon** — 2-letter code in a coloured square
+- **Module code chip** — white text on coloured background
+- **Tabs** — active tab uses module colour for underline and text
+- **Stat cards** — left colour stripe using module colour, progress bar in module colour
+- **Assignment status** — icon-based status indicators (Circle, CircleDot, CircleCheck, Award)
+- **Announcements** — unread dot uses module colour, mark-read button uses module colour
+- **Grades** — percentage text in module colour, overall grade card with coloured tint
+- **Schedule** — left colour stripe on each class row, lesson type chip in module colour
+
+---
+
+### 3. Backend Fix — [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py)
+
+Added missing [get_current_user_optional](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#60-80) function (pre-existing issue preventing backend startup). Returns `None` instead of 401 for unauthenticated requests — needed by the meetings router shared endpoints.
+
+---
+
+### 4. Timetable — No Changes Needed
+
+Already uses `course_colour` from the same database field, so colours are automatically consistent.
+
+## Verification
+
+| Check | Result |
+|-------|--------|
+| TypeScript compilation (`tsc --noEmit`) | ✅ No errors |
+| Frontend dev server | ✅ Running |
+| Backend server | ✅ Running (after [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py) fix) |
+| Page structure (DOM inspection) | ✅ Stats bar, search, toggle, cards all render |
+| Empty state | ✅ Clean dashed-border design |

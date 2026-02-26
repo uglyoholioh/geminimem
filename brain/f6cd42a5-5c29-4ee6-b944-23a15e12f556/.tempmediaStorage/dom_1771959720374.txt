@@ -1,0 +1,131 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (500,462)<div  />
+	[1] (500,49)<div  />
+		[2] (486,49)<button class='opblock-summary-control' />
+			[3] (63,49)<span >PUT />
+			[4] (520,49)<div  />
+				[5] (236,49)<span  />
+					[6] (236,49)<a class='nostyle' href='#/tasks/complete_task_api_v1_tasks__task_id__complete_put' />
+						[7] (236,49)<span >/api
+/v1
+/tasks
+/{task_id}
+/complete />
+				[8] (411,49)<div >Complete Task />
+		[9] (958,49)<button aria-label='put ​/api​/v1​/tasks​/{task_id}​/complete' class='opblock-control-arrow' />
+	[10] (500,135)<h3  />
+		[11] (54,134)<a class='nostyle' href='#/brief' />
+			[12] (54,134)<span >brief />
+		[13] (946,134)<button class='expand-operation' title='Collapse operation' />
+	[14] (500,207)<div  />
+		[15] (486,207)<button class='opblock-summary-control' />
+			[16] (63,207)<span >GET />
+			[17] (520,207)<div  />
+				[18] (183,207)<span  />
+					[19] (183,207)<a class='nostyle' href='#/brief/get_brief_today_api_v1_brief_today_get' />
+						[20] (183,207)<span >/api
+/v1
+/brief
+/today />
+				[21] (307,207)<div >Get Brief Today />
+		[22] (958,207)<button aria-label='get ​/api​/v1​/brief​/today' class='opblock-control-arrow' />
+	[23] (500,285)<div  />
+		[24] (486,285)<button class='opblock-summary-control' />
+			[25] (63,285)<span >GET />
+			[26] (520,285)<div  />
+				[27] (191,285)<span  />
+					[28] (191,285)<a class='nostyle' href='#/brief/get_brief_history_api_v1_brief_history_get' />
+						[29] (191,285)<span >/api
+/v1
+/brief
+/history />
+				[30] (325,285)<div >Get Brief History />
+		[31] (958,285)<button aria-label='get ​/api​/v1​/brief​/history' class='opblock-control-arrow' />
+	[32] (500,363)<div  />
+		[33] (486,363)<button class='opblock-summary-control' />
+			[34] (63,363)<span >POST />
+			[35] (520,363)<div  />
+				[36] (203,363)<span  />
+					[37] (203,363)<a class='nostyle' href='#/brief/regenerate_brief_api_v1_brief_regenerate_post' />
+						[38] (203,363)<span >/api
+/v1
+/brief
+/regenerate />
+				[39] (351,363)<div >Regenerate Brief />
+		[40] (958,363)<button aria-label='post ​/api​/v1​/brief​/regenerate' class='opblock-control-arrow' />
+	[41] (500,449)<h3  />
+		[42] (41,448)<a class='nostyle' href='#/ai' />
+			[43] (41,448)<span >ai />
+		[44] (946,448)<button class='expand-operation' title='Collapse operation' />
+	[45] (500,521)<div  />
+		[46] (486,521)<button class='opblock-summary-control' />
+			[47] (63,521)<span >POST />
+			[48] (520,521)<div  />
+				[49] (166,521)<span  />
+					[50] (166,521)<a class='nostyle' href='#/ai/chat_api_v1_ai_chat_post' />
+						[51] (166,521)<span >/api
+/v1
+/ai
+/chat />
+				[52] (248,521)<div >Chat />
+		[53] (958,521)<button aria-label='post ​/api​/v1​/ai​/chat' class='opblock-control-arrow' />
+	[54] (500,606)<h3  />
+		[55] (71,606)<a class='nostyle' href='#/settings' />
+			[56] (71,606)<span >settings />
+		[57] (946,606)<button class='expand-operation' title='Collapse operation' />
+	[58] (500,678)<div  />
+		[59] (472,678)<button class='opblock-summary-control' />
+			[60] (63,678)<span >GET />
+			[61] (506,678)<div  />
+				[62] (170,678)<span  />
+					[63] (170,678)<a class='nostyle' href='#/settings/get_all_settings_api_v1_settings_get' />
+						[64] (170,678)<span >/api
+/v1
+/settings />
+				[65] (282,678)<div >Get All Settings />
+		[66] (930,678)<div  />
+		[67] (958,678)<button aria-label='get ​/api​/v1​/settings' class='opblock-control-arrow' />
+	[68] (500,756)<div  />
+		[69] (486,756)<button class='opblock-summary-control' />
+			[70] (63,756)<span >GET />
+			[71] (520,756)<div  />
+				[72] (195,756)<span  />
+					[73] (195,756)<a class='nostyle' href='#/settings/get_setting_api_v1_settings__key__get' />
+						[74] (195,756)<span >/api
+/v1
+/settings
+/{key} />
+				[75] (321,756)<div >Get Setting />
+		[76] (958,756)<button aria-label='get ​/api​/v1​/settings​/{key}' class='opblock-control-arrow' />
+	[77] (500,834)<div  />
+		[78] (486,834)<button class='opblock-summary-control' />
+			[79] (63,834)<span >PUT />
+			[80] (520,834)<div  />
+				[81] (195,834)<span  />
+					[82] (195,834)<a class='nostyle' href='#/settings/upsert_setting_api_v1_settings__key__put' />
+						[83] (195,834)<span >/api
+/v1
+/settings
+/{key} />
+				[84] (328,834)<div >Upsert Setting />
+		[85] (958,834)<button aria-label='put ​/api​/v1​/settings​/{key}' class='opblock-control-arrow' />
+	[86] (500,913)<div  />
+		[87] (486,913)<button class='opblock-summary-control' />
+			[88] (63,913)<span >PUT />
+			[89] (520,913)<div  />
+				[90] (191,913)<span  />
+					[91] (191,913)<a class='nostyle' href='#/settings/bulk_upsert_settings_api_v1_settings_bulk_put' />
+						[92] (191,913)<span >/api
+/v1
+/settings
+/bulk />
+				[93] (335,913)<div >Bulk Upsert Settings />
+		[94] (958,913)<button aria-label='put ​/api​/v1​/settings​/bulk' class='opblock-control-arrow' />
+	[95] (59,998)<a class='nostyle' href='#/setup' />
+		[96] (59,998)<span >setup />
+	[97] (946,998)<button class='expand-operation' title='Collapse operation' />
+
+</current_dom>

@@ -1,0 +1,70 @@
+# CraftCanvas Comprehensive Test Plan
+
+The goal is to implement a robust testing strategy across both the backend and frontend of CraftCanvas. Currently, the project lacks standard testing frameworks. The strategy covers Unit, Integration, and End-to-End (E2E) testing.
+
+## User Review Required
+
+> [!IMPORTANT]
+> Since no testing frameworks are currently installed, this plan proposes standard industry choices: `pytest` for the Python backend, `Vitest` for Next.js unit/component tests, and `Playwright` for E2E tests. Please approve these choices or let me know if you prefer alternatives (e.g., Jest instead of Vitest, Cypress instead of Playwright).
+
+## Proposed Changes
+
+### Backend Testing Strategy
+**Technologies**: `pytest`, `pytest-asyncio`, `httpx` (for FastAPI `TestClient`)
+
+#### [NEW] backend/pytest.ini
+Configuration file for `pytest` to support async tests and specify test paths.
+
+#### [NEW] backend/tests/conftest.py
+Will contain essential fixtures:
+  - Database fixture (using an in-memory SQLite database or a separate `test.db` to avoid touching production data).
+  - FastAPI `TestClient` and `AsyncClient` fixtures.
+
+#### [NEW] backend/tests/test_routers/
+Tests for FastAPI endpoints. For example:
+- `test_tasks.py`: Test task creation, fetching, updating, and filtering.
+- [test_brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/test_brief.py): Verify the `/api/v1/brief` endpoint structure and logic.
+
+#### [NEW] backend/tests/test_services/
+Unit tests for business logic, avoiding external side effects where possible.
+- `test_ics_parser.py`: Verify parsing of NUSMods ICS files.
+- `test_canvas_sync.py`: Mock Canvas API responses to test synchronization logic.
+
+---
+
+### Frontend Testing Strategy (Unit/Component)
+**Technologies**: `vitest`, `@testing-library/react`, `@testing-library/jest-dom`
+
+#### [NEW] frontend/vitest.config.ts
+Configuration for Vitest to work with Next.js App Router and React.
+
+#### [NEW] frontend/components/__tests__/
+Component-level unit tests focusing on robust rendering and state.
+- `dashboard.test.tsx`: Test that dashboard components render fetched data correctly.
+- `tasks.test.tsx`: Test task interaction logic (marking as done).
+
+---
+
+### End-to-End (E2E) Testing Strategy
+**Technologies**: `@playwright/test`
+
+#### [NEW] frontend/playwright.config.ts
+Configuration for Playwright to run tests against the local development server (or a staged server).
+
+#### [NEW] frontend/e2e/
+High-level user journeys.
+- `onboarding.spec.ts`: Test the initial onboarding flow.
+- `create_task.spec.ts`: Test logging in, navigating to the dashboard, creating a task, and ensuring it appears.
+- `navigation.spec.ts`: Ensure routing between Sidebar tabs works cleanly.
+
+## Verification Plan
+
+### Automated Tests
+Once the structural files are in place, we will run the test runners to verify they execute correctly, even with basic dummy tests.
+- Backend: `cd backend && pytest`
+- Frontend Unit: `cd frontend && npx vitest run`
+- Frontend E2E: `cd frontend && npx playwright test`
+
+### Manual Verification
+- We will write 1-2 actual tests for each layer (Backend route, Frontend component, E2E flow) to demonstrate they work realistically.
+- User review of exactly which test flows provide the most value immediately.

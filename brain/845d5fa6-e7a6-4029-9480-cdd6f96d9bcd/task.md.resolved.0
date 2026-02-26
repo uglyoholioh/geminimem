@@ -1,0 +1,12 @@
+# Dashboard Layout Redesign
+
+- [/] Rewrite [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) with new grid layout
+  - [ ] Inline stats into header as badge pills
+  - [ ] Create 2-column CSS grid with fixed row heights
+  - [ ] Brief + Chat: left column spanning 2 rows
+  - [ ] Schedule + Tasks: right column, top and bottom
+  - [ ] Announcements + Assignments: bottom row
+  - [ ] Cap all list sections with max items
+  - [ ] Compact empty states
+  - [ ] Remove standalone Stats card
+- [ ] Verify in browser — no scroll, fixed sizes, all features working

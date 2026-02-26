@@ -1,0 +1,66 @@
+# Phase 8: User Onboarding Flow
+
+Implement a mandatory onboarding process for newly registered users to capture essential setup details (like Canvas API integration) before they access the main application.
+
+## User Review Required
+
+> [!WARNING]
+> This requires adding a new `is_onboarded` column to the [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-45) model. Since we just wiped and recreated the database, I will add the column and wipe/recreate the local `db.sqlite` one more time before you populate it with real data. Is this acceptable?
+
+## Proposed Changes
+
+### Backend Validation API Endpoints
+
+Create a new router `routers/setup.py` (or add to an existing one) to handle configuration validation before saving them to settings. This ensures the user cannot proceed with broken API keys.
+
+- `POST /api/v1/setup/validate-canvas`: Takes a Canvas token and base URL, makes a simple `GET /api/v1/users/self` request to Canvas to verify it returns 200 OK.
+- `POST /api/v1/setup/validate-llm`: Takes an OpenAI-compatible Base URL, API Key, and Model name. Makes a tiny test chat completion request to verify the key works.
+- `POST /api/v1/setup/validate-telegram`: Takes a Bot Token and Chat ID, and uses the Telegram API to send a silent test message to verify connectivity.
+
+#### [NEW] [setup.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/setup.py)
+
+---
+
+### Backend Config & Services Refactoring
+
+Remove reliance on [.env](file:///Users/oli/Desktop/CraftCanvas/.env) variables for these properties throughout the backend services ([config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py) still loads them as defaults, but services must pull from [Settings](file:///Users/oli/Desktop/CraftCanvas/backend/config.py#13-60)).
+
+- [services/ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py): Already dynamically checks [settings](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py#25-33) table, but we will ensure it properly fails over or raises clear errors.
+- [jobs/scheduler.py](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py) & `services/telegram_bot.py`: Update to fetch the Telegram Token and Chat ID from the user's [Settings](file:///Users/oli/Desktop/CraftCanvas/backend/config.py#13-60) rows iteratively during background jobs.
+
+#### [MODIFY] [scheduler.py](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py)
+#### [MODIFY] [craft_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/craft_sync.py)
+
+---
+
+### Frontend Setup UI (Multi-Step Wizard)
+
+Upgrade the existing `/setup` page into a complete multi-step wizard.
+
+**Step 1: Canvas LMS Integration**
+- Input: Base URL and API Token.
+- Action: Call `/validate-canvas`. If error, show red alert. If success, proceed.
+
+**Step 2: AI Configuration**
+- Input: Radio toggle between "Local Server (Ollama)" and "Cloud API (Kimi/GLM)". If Cloud, ask for API Key, Base URL, and Model Name.
+- Action: Call `/validate-llm`. If error, show red alert.
+
+**Step 3: Extensions (Optional)**
+- Input: Telegram Bot Token & Chat ID, Craft API Key.
+- Action: Validate Telegram natively via API.
+- Submission: On final submit, save everything to `/settings/bulk`, call `/auth/onboard`, force Canvas Sync, and redirect to Dashboard.
+
+#### [MODIFY] [setup/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/setup/page.tsx)
+
+## Verification Plan
+
+### Automated Tests
+- N/A
+
+### Manual Verification
+- Re-register a fresh account.
+- Complete the 3-step setup wizard.
+- Input an intentionally invalid Canvas token; ensure the validation catches it with a red error.
+- Input a valid Canvas token and proceed.
+- Input a valid LLM config and test completion.
+- Complete onboarding and verify the dashboard loads correctly.

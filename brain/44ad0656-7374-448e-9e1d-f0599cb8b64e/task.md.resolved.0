@@ -1,0 +1,22 @@
+# Courses Tab Redesign
+
+## Tasks
+
+- [/] Plan courses tab redesign
+  - [x] Explore existing courses page, detail page, timetable, dashboard
+  - [x] Study meetings page card style (reference for user)
+  - [x] Examine backend API and course model
+  - [/] Write implementation plan
+- [ ] Redesign courses listing page ([app/courses/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx))
+  - [ ] Enhanced card layout with colour-coded left stripe and module-colour backgrounds
+  - [ ] Statistics section (total modules, upcoming deadlines, overall progress)
+  - [ ] Search/filter functionality
+  - [ ] Active/archived toggle
+- [ ] Redesign course detail page (`app/courses/[id]/page.tsx`)
+  - [ ] Use module colour throughout the header and tabs
+  - [ ] Better stat cards with module colour accents
+  - [ ] Assignment timeline visualization
+  - [ ] Improved schedule section using module colour
+- [ ] Colour-code modules in timetable ([app/timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx))
+  - [ ] Already uses `course_colour` — ensure consistent with course cards
+- [ ] Verify changes in browser

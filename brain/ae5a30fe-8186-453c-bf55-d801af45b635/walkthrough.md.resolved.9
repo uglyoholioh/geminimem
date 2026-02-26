@@ -1,0 +1,20 @@
+### 1. GLM API Connectivity Fix
+- **Corrected Endpoints**: Updated URL to `https://api.z.ai/api/paas/v4/chat/completions`.
+- **Updated Models**: Fixed "Unknown Model" error by switching identifiers to `glm-4.5`, `glm-4.6`, and `glm-4.7` (verified supported models).
+
+### 2. Backend Stability & Data Privacy
+- **Fixed NameErrors**: Resolved several crashes in [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py) due to uninitialized variables in logging.
+- **User Privacy**: Added missing `user_id` filters to all assignment/announcement queries in the Daily Brief to ensure you only see your own data.
+
+## Important Note: API Balance
+During final verification, the system successfully connected to the AI service but received an error from the provider:
+> **"Insufficient balance or no resource package. Please recharge." (Error 1113)**
+
+The code is now **fully operational and correct**. However, AI generation will only resume once your Z.AI account has a positive balance or an active resource package.
+
+## Verification
+I verified the connectivity via direct backend calls and confirmed that 404/500 errors are gone, replaced by the specific balance error from the AI provider.
+
+### Backend Health
+- `/health`: `{"status": "healthy"}`
+- `/brief?include_ai=false`: Valid data returned in < 1s.

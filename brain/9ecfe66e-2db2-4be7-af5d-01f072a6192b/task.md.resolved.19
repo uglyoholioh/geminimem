@@ -1,0 +1,38 @@
+# Test Planning for CraftCanvas
+
+- [x] Research app architecture and requirements
+- [x] Investigate existing test setups (Frontend/Backend)
+- [x] Draft comprehensive test plan (Unit, Integration, E2E)
+  - [x] Backend test strategy (pytest)
+  - [x] Frontend test strategy (Jest/React Testing Library, Playwright/Cypress for E2E)
+- [x] Get user approval on the implementation plan
+- [ ] Backend Test Setup
+  - [x] Add dependencies (pytest, pytest-asyncio, httpx)
+  - [x] Create pytest.ini and conftest.py
+  - [x] Write initial route and service tests
+- [x] Frontend Unit Test Setup
+  - [x] Add dependencies (vitest, testing-library)
+  - [x] Configure vitest
+  - [x] Write initial component tests
+- [x] E2E Test Setup
+  - [x] Add Playwright dependency
+  - [x] Configure playwright
+  - [x] Write initial E2E flows
+- [x] Planning Comprehensive Suite
+  - [x] Audit backend routers and services
+  - [x] Audit frontend components and state
+  - [x] Update implementation plan
+- [/] Backend Comprehensive Testing
+  - [x] Test Database Models & Schemas
+  - [x] Test Core Services (Brief Generator, Canvas Sync)
+  - [x] Test API Routers (Auth, Tasks, Courses, Timetable)
+  - [x] Test Jobs & Schedulers
+- [x] Frontend Comprehensive Testing
+  - [x] Test UI Components (shadcn/ui wraps & custom components)
+  - [x] Test Custom Hooks & Zustand Store
+  - [x] Test Utils (Date formatting, API client wrapper)
+- [/] E2E Comprehensive Testing
+  - [ ] User Onboarding Flow
+  - [ ] Dashboard Navigation & Daily Brief
+  - [ ] Task Management Flow (CRUD)
+  - [ ] Timetable & Course Views

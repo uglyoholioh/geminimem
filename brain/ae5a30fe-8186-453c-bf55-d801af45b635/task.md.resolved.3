@@ -1,0 +1,18 @@
+
+# Tasks
+
+- [ ] Fix GLM API Key Persistence in Settings
+    - [x] Debug [AuthContext](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#24-33) to ensure `has_glm_key` is correctly updated in [user](file:///Users/oli/Desktop/LMSManager/backend/app/dependencies/auth.py#52-110) state during [refreshUser](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#178-204).
+    - [x] Debug [SettingsPage](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx#18-896) initialization to ensure it correctly syncs local state with `user.has_glm_key`.
+    - [x] Verify fix by reloading settings page.
+- [x] Improve AI Daily Brief Formatting
+    - [x] Backend: Update prompt in [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py) to request Markdown formatting (headers, bullets).
+    - [x] Frontend: Update [DailyBrief](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx#9-276) component to render Markdown.
+    - [x] Frontend: Improve [DailyBrief](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx#9-276) UI design (more space, better readability).
+- [ ] Show Redacted API Key in Settings
+    - [ ] Backend: Update [User](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#6-23) schema and `auth/me` endpoint to return `glm_key_preview` (masked key).
+    - [ ] Frontend: Update [AuthContext](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#24-33) type to include `glm_key_preview`.
+    - [ ] Frontend: Update [SettingsPage](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx#18-896) to display the redacted key in the input field when saved.
+- [ ] Debug Daily Brief Regression
+    - [ ] Check backend logs for errors with new Markdown prompt.
+    - [ ] Fix prompt or handling logic if model is refusing/failing.

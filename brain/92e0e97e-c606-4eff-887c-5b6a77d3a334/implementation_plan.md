@@ -1,0 +1,50 @@
+# Craft Integration Update
+
+The previous assumptions about the Craft API were slightly incorrect. Craft generates a **connection-specific base URL** for the API, rather than a single global endpoint. For example, the user's specific AcademicOS connection URL is:
+`https://connect.craft.do/links/4MBkXoq25FW/api/v1`
+
+Additionally, the exact API endpoints and methods differ from the initial plan.
+
+## Proposed Changes
+
+### Configuration
+1. Store the connection URL (e.g., `https://connect.craft.do/links/.../api/v1`) as `craft_api_url` in the `Settings` table.
+2. Store the API key (Bearer token) as `craft_api_token`.
+
+### UI/UX Improvements
+1. **Onboarding Page:**
+    *   Add a new field for "Connection URL".
+    *   Add clear, step-by-step instructions:
+        1. Open Craft and select the Space or Folder you want to sync.
+        2. Go to **Share** > **Connect** (or API).
+        3. Copy the **Connection URL** and paste it here.
+        4. If you chose "Private" access, generate an **API Key** and paste it below.
+2. **Settings Page:**
+    *   Add the same URL field and instructions to the Craft tab.
+
+### Backend
+#### [MODIFY] [INTEGRATIONS.md](file:///Users/oli/Desktop/CraftCanvas/INTEGRATIONS.md)
+*   Clarify that both the URL and Token are needed for private connections.
+
+#### [MODIFY] [backend/routers/setup.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/setup.py)
+*   Update `CraftWorkspaceValidationRequest` to include `api_url`.
+*   Modify `validate_craft` to use the user-provided URL.
+
+#### [MODIFY] [backend/services/craft_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/craft_sync.py)
+*   Refactor `push_brief_to_craft` to accept an `api_url` parameter.
+
+#### [MODIFY] [backend/services/brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)
+*   Update to fetch `craft_api_url` from settings before pushing.
+
+### Frontend
+#### [MODIFY] [frontend/app/setup/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/setup/page.tsx)
+*   Add connection URL field and descriptive helper text.
+
+#### [MODIFY] [frontend/app/settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)
+*   Add connection URL field and descriptive helper text to the Craft tab.
+
+## Verification Plan
+1. **Manual Verification:** 
+    *   Go through the onboarding flow as a power user and check if the Craft instructions are clear.
+    *   Save a custom URL and token in settings and verify they persist.
+    *   Trigger a brief generation and check the backend logs to ensure it uses the provided URL.

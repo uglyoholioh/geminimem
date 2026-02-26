@@ -1,0 +1,31 @@
+# Focus Tab Implemented
+
+The Focus tab is now implemented with a fully-featured Pomodoro timer, integrated with your existing Tasks!
+
+## Changes Made
+
+### 1. New Backend `actual_minutes` Tracking
+The [Task](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#44-52) model in the backend was updated to include an `actual_minutes` column. When the Pomodoro timer runs, every accrued minute is pushed back to the backend to keep a true record of how much time you've spent on each task.
+
+### 2. New Sidebar Navigation
+A new [Focus](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx#23-295) clock icon has been added to the main navigation sidebar, right after `Notes`.
+
+### 3. Focus Page ([app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx))
+A brand new, aesthetically pleasing dashboard dedicated to deep work:
+- **Timer Modes**: Quickly swap between "Focus" (25m), "Short Break" (5m), and "Long Break" (15m).
+- **Responsive Timer UI**: A large, centered timer that looks great at standard scales, with fluid background blurring depending on the mode you are in.
+- **Task Selector**: Automatically reads your "Inbox" and "In Progress" tasks. Picking a task links the timer session to it.
+- **Auto-Syncing**: As you play the timer, after every accumulated 60 seconds of Focus, it sends a transparent background update to the API to keep your task's `actual_minutes` synced.
+
+## Verification Performed
+
+I ran an automated browser sub-agent to navigate to the new [Focus](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx#23-295) tab. 
+
+**Sub-agent observations:**
+- The Timer counts down correctly.
+- The UI handles the `Play` / `Pause` / `Reset` functionality.
+- Task selection updates the central dashboard area.
+- (A small backend routing issue caused a temporary 500 error, but that was caught and fixed after the recording).
+
+![Pomodoro Timer Verification](/Users/oli/.gemini/antigravity/brain/da4f23d1-8ef8-43b7-8f78-81fa6a861bb8/focus_timer_test_1772024220469.webp)
+*A recording of the headless browser testing the Pomodoro UI countdown & pause functionality.*

@@ -1,0 +1,90 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (500,50)<h3  />
+	[1] (163,50)<a class='nostyle' href='#/timetable' />
+		[2] (163,50)<span >timetable />
+	[3] (851,50)<button class='expand-operation' title='Collapse operation' />
+[4] (500,102)<div  />
+	[5] (492,102)<button class='opblock-summary-control' />
+		[6] (154,102)<span >POST />
+		[7] (513,102)<div  />
+			[8] (240,102)<span  />
+				[9] (240,102)<a class='nostyle' href='#/timetable/import_timetable_api_v1_timetable_import_post' />
+					[10] (240,102)<span >/api
+/v1
+/timetable
+/import />
+			[11] (331,102)<div >Import Timetable />
+	[12] (858,102)<button aria-label='post ​/api​/v1​/timetable​/import' class='opblock-control-arrow' />
+[13] (500,159)<div  />
+	[14] (492,159)<button class='opblock-summary-control' />
+		[15] (154,159)<span >GET />
+		[16] (513,159)<div  />
+			[17] (238,159)<span  />
+				[18] (238,159)<a class='nostyle' href='#/timetable/get_timetable_today_api_v1_timetable_today_get' />
+					[19] (238,159)<span >/api
+/v1
+/timetable
+/today />
+			[20] (332,159)<div >Get Timetable Today />
+	[21] (858,159)<button aria-label='get ​/api​/v1​/timetable​/today' class='opblock-control-arrow' />
+[22] (500,217)<div  />
+	[23] (492,217)<button class='opblock-summary-control' />
+		[24] (154,217)<span >GET />
+		[25] (513,217)<div  />
+			[26] (235,217)<span  />
+				[27] (235,217)<a class='nostyle' href='#/timetable/get_timetable_week_api_v1_timetable_week_get' />
+					[28] (235,217)<span >/api
+/v1
+/timetable
+/week />
+			[29] (326,217)<div >Get Timetable Week />
+	[30] (858,217)<button aria-label='get ​/api​/v1​/timetable​/week' class='opblock-control-arrow' />
+[31] (500,279)<h3  />
+	[32] (151,279)<a class='nostyle' href='#/tasks' />
+		[33] (151,279)<span >tasks />
+	[34] (851,279)<button class='expand-operation' title='Collapse operation' />
+[35] (500,332)<div  />
+	[36] (492,331)<button class='opblock-summary-control' />
+		[37] (154,331)<span >GET />
+		[38] (513,331)<div  />
+			[39] (213,331)<span  />
+				[40] (213,331)<a class='nostyle' href='#/tasks/list_tasks_api_v1_tasks_get' />
+					[41] (213,331)<span >/api
+/v1
+/tasks />
+			[42] (265,331)<div >List Tasks />
+	[43] (858,331)<button aria-label='get ​/api​/v1​/tasks' class='opblock-control-arrow' />
+List tasks with optional filters.
+Query params:
+status: Filter by status (inbox, in_progress, completed, cancelled)
+priority: Filter by priority (low, medium, high, urgent)
+course_code: Filter by course code
+due_before: Date, filter tasks due before or on this date
+due_after: Date, filter tasks due after or on this date
+tag: Filter by tag (JSON string contains tag)
+[44] (171,591)<div  />
+	[45] (161,591)<h4  />
+		[46] (161,591)<span >Parameters />
+[47] (830,591)<button class='btn try-out__btn'>Try it out />
+Name
+Description
+status
+string | (string | null)
+(
+query
+)
+priority
+string | (string | null)
+(
+query
+)
+course_code
+string | (string | null)
+(
+query
+)
+
+</current_dom>

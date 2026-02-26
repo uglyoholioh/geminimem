@@ -1,0 +1,130 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+Academic Life OS API
+0.1.0
+OAS
+3.1
+[0] (149,105)<a class='link' href='/openapi.json' />
+	[1] (149,105)<span >/openapi.json />
+Backend for Academic Life OS - personal academic management system
+[2] (500,229)<h3  />
+	[3] (156,228)<a class='nostyle' href='#/default' />
+		[4] (156,228)<span >default />
+	[5] (851,228)<button class='expand-operation' title='Collapse operation' />
+[6] (500,281)<div  />
+	[7] (492,281)<button class='opblock-summary-control' />
+		[8] (154,281)<span >GET />
+		[9] (513,281)<div  />
+			[10] (183,281)<span  />
+				[11] (183,281)<a class='nostyle' href='#/default/root__get' />
+					[12] (183,281)<span >/ />
+			[13] (198,281)<div >Root />
+	[14] (858,281)<button aria-label='get ​/' class='opblock-control-arrow' />
+[15] (500,338)<div  />
+	[16] (492,338)<button class='opblock-summary-control' />
+		[17] (154,338)<span >GET />
+		[18] (513,338)<div  />
+			[19] (198,338)<span  />
+				[20] (198,338)<a class='nostyle' href='#/default/health_health_get' />
+					[21] (198,338)<span >/health />
+			[22] (230,338)<div >Health />
+	[23] (858,338)<button aria-label='get ​/health' class='opblock-control-arrow' />
+[24] (500,401)<h3  />
+	[25] (150,400)<a class='nostyle' href='#/sync' />
+		[26] (150,400)<span >sync />
+	[27] (851,400)<button class='expand-operation' title='Collapse operation' />
+[28] (500,453)<div  />
+	[29] (492,453)<button class='opblock-summary-control' />
+		[30] (154,453)<span >POST />
+		[31] (513,453)<div  />
+			[32] (228,453)<span  />
+				[33] (228,453)<a class='nostyle' href='#/sync/trigger_canvas_sync_api_v1_sync_canvas_post' />
+					[34] (228,453)<span >/api
+/v1
+/sync
+/canvas />
+			[35] (312,453)<div >Trigger Canvas Sync />
+	[36] (858,453)<button aria-label='post ​/api​/v1​/sync​/canvas' class='opblock-control-arrow' />
+[37] (500,516)<h3  />
+	[38] (174,515)<a class='nostyle' href='#/assignments' />
+		[39] (174,515)<span >assignments />
+	[40] (851,515)<button class='expand-operation' title='Collapse operation' />
+[41] (500,568)<div  />
+	[42] (492,568)<button class='opblock-summary-control' />
+		[43] (154,568)<span >GET />
+		[44] (513,568)<div  />
+			[45] (230,568)<span  />
+				[46] (230,568)<a class='nostyle' href='#/assignments/list_assignments_api_v1_assignments__get' />
+					[47] (230,568)<span >/api
+/v1
+/assignments
+/ />
+			[48] (311,568)<div >List Assignments />
+	[49] (858,568)<button aria-label='get ​/api​/v1​/assignments​/' class='opblock-control-arrow' />
+[50] (500,625)<div  />
+	[51] (492,625)<button class='opblock-summary-control' />
+		[52] (154,625)<span >GET />
+		[53] (513,625)<div  />
+			[54] (268,625)<span  />
+				[55] (268,625)<a class='nostyle' href='#/assignments/get_assignment_api_v1_assignments__assignment_id__get' />
+					[56] (268,625)<span >/api
+/v1
+/assignments
+/{assignment_id} />
+			[57] (385,625)<div >Get Assignment />
+	[58] (858,625)<button aria-label='get ​/api​/v1​/assignments​/{assignment_id}' class='opblock-control-arrow' />
+[59] (500,682)<div  />
+	[60] (492,682)<button class='opblock-summary-control' />
+		[61] (154,682)<span >PUT />
+		[62] (513,682)<div  />
+			[63] (268,682)<span  />
+				[64] (268,682)<a class='nostyle' href='#/assignments/update_assignment_api_v1_assignments__assignment_id__put' />
+					[65] (268,682)<span >/api
+/v1
+/assignments
+/{assignment_id} />
+			[66] (390,682)<div >Update Assignment />
+	[67] (858,682)<button aria-label='put ​/api​/v1​/assignments​/{assignment_id}' class='opblock-control-arrow' />
+[68] (500,745)<h3  />
+	[69] (159,744)<a class='nostyle' href='#/courses' />
+		[70] (159,744)<span >courses />
+	[71] (851,744)<button class='expand-operation' title='Collapse operation' />
+[72] (500,797)<div  />
+	[73] (492,797)<button class='opblock-summary-control' />
+		[74] (154,797)<span >GET />
+		[75] (513,797)<div  />
+			[76] (218,797)<span  />
+				[77] (218,797)<a class='nostyle' href='#/courses/list_courses_api_v1_courses_get' />
+					[78] (218,797)<span >/api
+/v1
+/courses />
+			[79] (279,797)<div >List Courses />
+	[80] (858,797)<button aria-label='get ​/api​/v1​/courses' class='opblock-control-arrow' />
+[81] (500,854)<div  />
+	[82] (492,854)<button class='opblock-summary-control' />
+		[83] (154,854)<span >GET />
+		[84] (513,854)<div  />
+			[85] (248,854)<span  />
+				[86] (248,854)<a class='nostyle' href='#/courses/get_course_api_v1_courses__course_id__get' />
+					[87] (248,854)<span >/api
+/v1
+/courses
+/{course_id} />
+			[88] (338,854)<div >Get Course />
+	[89] (858,854)<button aria-label='get ​/api​/v1​/courses​/{course_id}' class='opblock-control-arrow' />
+[90] (500,917)<h3  />
+	[91] (183,916)<a class='nostyle' href='#/announcements' />
+		[92] (183,916)<span >announcements />
+	[93] (851,916)<button class='expand-operation' title='Collapse operation' />
+[94] (154,969)<span >GET />
+[95] (233,969)<span  />
+	[96] (233,969)<a class='nostyle' href='#/announcements/list_announcements_api_v1_announcements_get' />
+		[97] (233,969)<span >/api
+/v1
+/announcements />
+[98] (321,969)<div >List Announcements />
+[99] (858,969)<button aria-label='get ​/api​/v1​/announcements' class='opblock-control-arrow' />
+
+</current_dom>

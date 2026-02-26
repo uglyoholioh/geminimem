@@ -1,0 +1,13 @@
+# Dashboard Visual Alignment & Layout Optimization
+
+- [ ] Create Implementation Plan and get approval [/]
+- [ ] Refactor Dashboard Layout ([app/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/page.tsx)) [ ]
+    - [ ] Standardize grid and spacing [ ]
+    - [ ] Implement editorial theme blocks [ ]
+- [ ] Update Components [ ]
+    - [ ] `GreetingCard` alignment [ ]
+    - [ ] [DailyBrief](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx#7-736) compact mode + cutoff [ ]
+    - [ ] `TodaySchedule` alignment [ ]
+    - [ ] `UpNext` alignment [ ]
+- [ ] Verify changes across light and dark modes [ ]
+- [ ] Final Walkthrough [ ]

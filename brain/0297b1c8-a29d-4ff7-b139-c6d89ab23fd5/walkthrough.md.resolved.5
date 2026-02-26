@@ -1,0 +1,429 @@
+# Centered Navigation Walkthrough
+
+## Changes Made
+
+### Navigation Bar Layout
+**Goal:** Create a single horizontal line with centered navigation items, avoiding left-clustering.
+
+**Changes:**
+- **Container:** Restored `display: flex` and `justify-content: space-between` to the main nav container.
+- **Nav Items:** Wrapped the central navigation links in a `div` positioned with:
+  ```css
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  ```
+  This ensures they are perfectly centered regardless of the width of the logo or right-side controls.
+- **Z-Index:** Added `z-index: 10` to the logo to ensure it stays clickable if overlaps occur (though unlikely with this spacing).
+
+```diff:Navigation.tsx
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import {
+  LayoutDashboard,
+  BookOpen,
+  FileText,
+  Megaphone,
+  FolderOpen,
+  Calendar,
+  Clock,
+  CalendarClock,
+  Settings,
+  GraduationCap,
+  LogOut,
+} from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "@/lib/providers/theme-provider";
+import { useAuth } from "@/lib/contexts/AuthContext";
+
+const navItems = [
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/assignments", label: "Assignments", icon: FileText },
+  { href: "/announcements", label: "Announcements", icon: Megaphone },
+  { href: "/materials", label: "Materials", icon: FolderOpen },
+  { href: "/schedule", label: "Schedule", icon: Calendar },
+  { href: "/timetable", label: "Timetable", icon: Clock },
+  { href: "/planner", label: "Planner", icon: CalendarClock },
+  { href: "/settings", label: "Settings", icon: Settings },
+];
+
+export function Navigation() {
+  const pathname = usePathname();
+  const { actualTheme } = useTheme();
+  const { user, logout } = useAuth();
+
+  // Don't show nav on login/register pages
+  const isAuthPage = pathname === "/login" || pathname === "/register";
+  if (isAuthPage) return null;
+
+  return (
+    <nav
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 'var(--z-sticky)',
+        width: '100%',
+        borderBottom: '1px solid var(--color-border-light)',
+        background: actualTheme === 'dark'
+          ? 'rgba(26, 24, 22, 0.95)'
+          : 'rgba(250, 247, 242, 0.95)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: 'var(--space-md) var(--page-padding)',
+        }}
+      >
+        {/* Logo */}
+        <Link
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+            textDecoration: 'none',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              height: '40px',
+              width: '40px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--color-accent-primary)',
+              color: 'var(--color-text-inverted)',
+            }}
+          >
+            <GraduationCap style={{ width: '20px', height: '20px' }} />
+          </div>
+          <span
+            style={{
+              fontSize: '1.25rem',
+              fontWeight: 'var(--font-weight-semibold)',
+              color: 'var(--color-text-primary)',
+            }}
+          >
+            LMS Manager
+          </span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-xs)',
+          }}
+          className="hidden md:flex"
+        >
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 'var(--space-xs)',
+                  padding: 'var(--space-xs) var(--space-md)',
+                  borderRadius: 'var(--radius-md)',
+                  fontSize: 'var(--font-size-small)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  textDecoration: 'none',
+                  transition: 'all var(--transition-normal)',
+                  background: isActive
+                    ? 'var(--color-accent-primary)'
+                    : 'transparent',
+                  color: isActive
+                    ? 'var(--color-text-inverted)'
+                    : 'var(--color-text-secondary)',
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'var(--color-bg-subtle)';
+                    e.currentTarget.style.color = 'var(--color-text-primary)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = 'var(--color-text-secondary)';
+                  }
+                }}
+              >
+                <Icon style={{ width: '16px', height: '16px' }} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right side: Theme Toggle & Logout */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+        >
+          <ThemeToggle />
+
+          {/* Logout Button - only show when logged in */}
+          {user && (
+            <button
+              onClick={() => logout()}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--space-xs)',
+                padding: 'var(--space-xs) var(--space-md)',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 'var(--font-size-small)',
+                fontWeight: 'var(--font-weight-medium)',
+                border: '1px solid var(--color-border-light)',
+                background: 'transparent',
+                color: 'var(--color-text-secondary)',
+                cursor: 'pointer',
+                transition: 'all var(--transition-normal)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#dc2626';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.borderColor = '#dc2626';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--color-text-secondary)';
+                e.currentTarget.style.borderColor = 'var(--color-border-light)';
+              }}
+            >
+              <LogOut style={{ width: '16px', height: '16px' }} />
+              <span className="hidden sm:inline">Logout</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+===
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import {
+  LayoutDashboard,
+  FolderOpen,
+  CalendarClock,
+  Settings,
+  GraduationCap,
+  LogOut,
+  CheckSquare,
+} from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "@/lib/providers/theme-provider";
+import { useAuth } from "@/lib/contexts/AuthContext";
+
+// Simplified navigation - removed Schedule, Timetable (combined into Planner), Assignments, Announcements
+const navItems = [
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/todos", label: "Tasks", icon: CheckSquare },
+  { href: "/materials", label: "Materials", icon: FolderOpen },
+  { href: "/planner", label: "Planner", icon: CalendarClock },
+];
+
+export function Navigation() {
+  const pathname = usePathname();
+  const { actualTheme } = useTheme();
+  const { user, logout } = useAuth();
+
+  // Don't show nav on login/register pages
+  const isAuthPage = pathname === "/login" || pathname === "/register";
+  if (isAuthPage) return null;
+
+  return (
+    <nav
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 'var(--z-sticky)',
+        width: '100%',
+        borderBottom: '1px solid var(--color-border-light)',
+        background: actualTheme === 'dark'
+          ? 'rgba(26, 24, 22, 0.95)'
+          : 'rgba(250, 247, 242, 0.95)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      <div
+        style={{
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0.75rem var(--page-padding)',
+        }}
+      >
+        {/* Logo */}
+        <Link
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+            textDecoration: 'none',
+            zIndex: 10,
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              height: '40px',
+              width: '40px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--color-accent-primary)',
+              color: 'var(--color-text-inverted)',
+            }}
+          >
+            <GraduationCap style={{ width: '20px', height: '20px' }} />
+          </div>
+          <span
+            style={{
+              fontSize: '1.25rem',
+              fontWeight: 'var(--font-weight-semibold)',
+              color: 'var(--color-text-primary)',
+            }}
+          >
+            LMS Manager
+          </span>
+        </Link>
+
+        {/* Desktop Navigation - Centered */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+          className="hidden md:flex"
+        >
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "relative group flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300",
+                  isActive
+                    ? "text-black dark:text-white"
+                    : "text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white"
+                )}
+                style={{
+                  textDecoration: 'none',
+                }}
+              >
+                <Icon size={16} className={`transition-transform duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`} />
+                <span>{item.label}</span>
+                <span className={cn(
+                  "absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] bg-red-600 transition-all duration-300 ease-out",
+                  isActive ? "w-4" : "w-0 group-hover:w-full opacity-0 group-hover:opacity-100"
+                )} />
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right side: Settings Icon, Theme Toggle & Logout */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)',
+          }}
+        >
+          {/* Settings Icon */}
+          <Link
+            href="/settings"
+            className={cn(
+              "p-1.5 rounded-full transition-all duration-300 hover:rotate-90",
+              pathname === "/settings"
+                ? "bg-black dark:bg-white text-white dark:text-black"
+                : "text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10"
+            )}
+            title="Settings"
+          >
+            <Settings size={18} />
+          </Link>
+
+          <ThemeToggle />
+
+          {/* Logout Button - only show when logged in */}
+          {user && (
+            <button
+              onClick={() => logout()}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--space-xs)',
+                padding: 'var(--space-xs) var(--space-md)',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 'var(--font-size-small)',
+                fontWeight: 'var(--font-weight-medium)',
+                border: '1px solid var(--color-border-light)',
+                background: 'transparent',
+                color: 'var(--color-text-secondary)',
+                cursor: 'pointer',
+                transition: 'all var(--transition-normal)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#dc2626';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.borderColor = '#dc2626';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--color-text-secondary)';
+                e.currentTarget.style.borderColor = 'var(--color-border-light)';
+              }}
+            >
+              <LogOut style={{ width: '16px', height: '16px' }} />
+              <span className="hidden sm:inline">Logout</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}
+```
+
+## Visual Result
+
+The navigation bar now features:
+- **Left:** Logo & Title
+- **Center:** Navigation Links (Dashboard, Tasks, Materials, Planner)
+- **Right:** Settings, Theme Toggle, Logout
+
+![Centered Navigation](file:///Users/oli/.gemini/antigravity/brain/0297b1c8-a29d-4ff7-b139-c6d89ab23fd5/nav_bar_verification_1770096122992.png)

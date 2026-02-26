@@ -1,0 +1,33 @@
+# Enhanced AI Chat — Full Context, Module PDFs & Actionable Suggestions
+
+The Daily Brief chat has evolved from a brief-only assistant into a **full-context academic copilot** with interactive action cards.
+
+````carousel
+![New 2-column dashboard layout with AI chat as hero panel](/Users/oli/.gemini/antigravity/brain/55d31d1c-17fc-4181-be79-968c8f02bb73/final_dashboard_layout_1772018206789.png)
+<!-- slide -->
+![Recording of the dashboard in action](/Users/oli/.gemini/antigravity/brain/55d31d1c-17fc-4181-be79-968c8f02bb73/enhanced_ai_dashboard_1772018115230.webp)
+````
+
+## What Changed?
+
+### 1. Backend — Full Canvas Context
+[brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py) was completely rewritten. The AI system prompt now includes:
+- **All enrolled courses** with names and terms
+- **All pending assignments** with due dates and status
+- **All open tasks** with priorities and due dates
+- **All unread announcements**
+- **Grade components** and scores
+- **Today's timetable** slots
+- **Module PDF excerpts** — extracted text from uploaded course materials (capped at ~8k chars)
+- **Today's Daily Brief** prose
+
+### 2. Actionable Suggestions
+The AI is instructed to output `:::action` blocks when suggesting tasks. These are parsed by [parseActions.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/parseActions.ts) and rendered as interactive [ActionCard](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx) components directly in the chat. Users can click **"+ Add"** to create the task instantly via the existing tasks API.
+
+### 3. Dashboard Layout
+[page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) was redesigned from a 3-column grid to a **2-column 60/40 split**:
+- **Left (60%)**: Daily Brief & Chat — fills viewport height as the hero panel
+- **Right (40%)**: Schedule, Tasks, Announcements, Assignments, Quick Stats stacked vertically with independent scroll
+
+### 4. AI Service
+[ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py): `num_ctx` bumped from 4096 → 8192 to accommodate the expanded context. Also fixed a `use_model` variable name bug in [stream_chat](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#55-85).

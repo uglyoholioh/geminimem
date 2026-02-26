@@ -1,0 +1,71 @@
+GET
+/api
+/v1
+/settings
+/{key}
+Get Setting
+PUT
+/api
+/v1
+/settings
+/{key}
+Upsert Setting
+PUT
+/api
+/v1
+/settings
+/bulk
+Bulk Upsert Settings
+setup
+POST
+/api
+/v1
+/setup
+/validate-canvas
+Validate Canvas
+POST
+/api
+/v1
+/setup
+/validate-llm
+Validate Llm
+POST
+/api
+/v1
+/setup
+/validate-telegram
+Validate Telegram
+meetings
+POST
+/api
+/v1
+/meetings
+/
+Create Meeting
+GET
+/api
+/v1
+/meetings
+/
+List User Meetings
+DELETE
+/api
+/v1
+/meetings
+/{meeting_id}
+Delete Meeting
+GET
+/api
+/v1
+/meetings
+/shared
+/{token}
+Get Shared Meeting
+POST
+/api
+/v1
+/meetings
+/shared
+/{token}
+/participants
+Update Participant Availability

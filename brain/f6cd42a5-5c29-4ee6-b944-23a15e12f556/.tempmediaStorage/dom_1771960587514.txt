@@ -1,0 +1,194 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+OS
+[0] (23,131)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[1] (23,193)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[2] (23,256)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (23,319)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (23,381)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/meetings' title='Activity Finder' />
+[5] (23,444)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (23,506)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/ai' title='AI Chat' />
+[7] (23,569)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[8] (23,632)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[9] (23,829)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[10] (23,892)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+TU
+Team Offsite Sync
+2026-02-25
+to
+2026-02-28
+0
+Respondents
+Editing as
+Charlie
+Click grid blocks to toggle your free time.
+[11] (206,670)<button class='w-full bg-accent hover:opacity-90 text-white text-sm font-medium py-3 rounded-xl shadow-lg shadow-accent/20 transition-all'>Save Changes />
+[12] (206,744)<button class='w-full text-secondary hover:text-primary text-sm font-medium py-2 transition-colors'>Switch User />
+Participants
+No responses yet.
+09
+:00
+10
+:00
+11
+:00
+12
+:00
+13
+:00
+14
+:00
+15
+:00
+16
+:00
+Wed
+25
+[13] (466,591)<div  />
+	[14] (466,591)<span >1
+/
+1 />
+[15] (535,591)<div  />
+	[16] (535,591)<span >1
+/
+1 />
+[17] (604,591)<div  />
+	[18] (604,591)<span >1
+/
+1 />
+[19] (673,591)<div  />
+	[20] (673,591)<span >1
+/
+1 />
+[21] (742,591)<div  />
+	[22] (742,591)<span >1
+/
+1 />
+[23] (811,591)<div  />
+	[24] (811,591)<span >1
+/
+1 />
+[25] (880,591)<div  />
+	[26] (880,591)<span >1
+/
+1 />
+[27] (949,591)<div  />
+	[28] (949,591)<span >1
+/
+1 />
+Thu
+26
+[29] (466,679)<div  />
+	[30] (466,679)<span >1
+/
+1 />
+[31] (535,679)<div  />
+	[32] (535,679)<span >1
+/
+1 />
+[33] (604,679)<div  />
+	[34] (604,679)<span >1
+/
+1 />
+[35] (673,679)<div  />
+	[36] (673,679)<span >1
+/
+1 />
+[37] (742,679)<div  />
+	[38] (742,679)<span >1
+/
+1 />
+[39] (811,679)<div  />
+	[40] (811,679)<span >1
+/
+1 />
+[41] (880,679)<div  />
+	[42] (880,679)<span >1
+/
+1 />
+[43] (949,679)<div  />
+	[44] (949,679)<span >1
+/
+1 />
+Fri
+27
+[45] (466,767)<div  />
+	[46] (466,767)<span >1
+/
+1 />
+[47] (535,767)<div  />
+	[48] (535,767)<span >1
+/
+1 />
+[49] (604,767)<div  />
+	[50] (604,767)<span >1
+/
+1 />
+[51] (673,767)<div  />
+	[52] (673,767)<span >1
+/
+1 />
+[53] (742,767)<div  />
+	[54] (742,767)<span >1
+/
+1 />
+[55] (811,767)<div  />
+	[56] (811,767)<span >1
+/
+1 />
+[57] (880,767)<div  />
+	[58] (880,767)<span >1
+/
+1 />
+[59] (949,767)<div  />
+	[60] (949,767)<span >1
+/
+1 />
+Sat
+28
+[61] (466,856)<div  />
+	[62] (466,856)<span >1
+/
+1 />
+[63] (535,856)<div  />
+	[64] (535,856)<span >1
+/
+1 />
+[65] (604,856)<div  />
+	[66] (604,856)<span >1
+/
+1 />
+[67] (673,856)<div  />
+	[68] (673,856)<span >1
+/
+1 />
+[69] (742,856)<div  />
+	[70] (742,856)<span >1
+/
+1 />
+[71] (811,856)<div  />
+	[72] (811,856)<span >1
+/
+1 />
+[73] (880,856)<div  />
+	[74] (880,856)<span >1
+/
+1 />
+[75] (949,856)<div  />
+	[76] (949,856)<span >1
+/
+1 />
+Availability:
+None → Everyone
+Feb 25
+—
+Feb 28
+•
+9
+:00 -
+17
+:00
+
+</current_dom>

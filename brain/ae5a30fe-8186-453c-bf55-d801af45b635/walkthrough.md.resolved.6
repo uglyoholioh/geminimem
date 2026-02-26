@@ -1,0 +1,30 @@
+# Emergency Fix: Core Functionality Restored
+
+I have completed an emergency debugging session to restore the broken backend and dashboard functionality.
+
+## Changes Made
+
+### 1. Backend Restoration
+- **Fixed NameErrors**: Restored the missing `router` definition, utility functions, and imports in [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py) that were causing the backend to crash on startup.
+- **Improved Imports**: Corrected dependencies for authentication and schema validation.
+
+### 2. AI Resilience & Performance
+- **Timeout Protection**: Added a strict 20s timeout to AI generation to prevent the entire dashboard from hanging when the GLM API is slow.
+- **Fail-safe Logic**: Implemented silent fallbacks so that if AI generation fails, the rest of the dashboard still functions perfectly.
+- **Stable Model choice**: Switched to the more stable `glm-4-flash` model and increased the context window to Top 5 items for better suggestions.
+
+### 3. Dashboard Verification
+- Verified that assignments, announcements, and the daily brief are loading correctly.
+- Confirmed that the "Refresh Data" (Canvas sync) is operational.
+
+## Verification Results
+
+### Dashboard Screenshot
+![Dashboard Verification](/Users/oli/.gemini/antigravity/brain/ae5a30fe-8186-453c-bf55-d801af45b635/.system_generated/recordings/verify_fix_dashboard_1770130912803.webp)
+
+> [!NOTE]
+> The AI task generation may still occasionally return "No tasks" if the external GLM API is experiencing high latency, but this no longer crashes or hangs the application.
+
+### Backend Health
+- `/health`: `{"status": "healthy"}`
+- `/brief?include_ai=false`: Valid data returned in < 1s.

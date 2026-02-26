@@ -1,0 +1,73 @@
+# Fix Canvas API Data Loading for Dashboard
+
+The dashboard displays courses, assignments, and announcements, but data is not loading properly due to missing user authentication and filtering in several backend endpoints.
+
+## Root Cause
+
+Multiple API endpoints are missing the `user_id` filter, causing queries to return data for all users (or none if the DB is empty for the current user context). The affected endpoints don't use `get_current_active_user` dependency.
+
+## Proposed Changes
+
+### Backend Route Fixes
+
+---
+
+#### [MODIFY] [assignments.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/assignments.py)
+
+**Issue**: `/assignments/upcoming` endpoint (line 51-74) doesn't require authentication or filter by user_id
+
+**Fix**: Add `current_user: User = Depends(get_current_active_user)` parameter and filter `Assignment.user_id == current_user.id`
+
+```diff
+ @router.get("/upcoming", response_model=List[AssignmentResponse])
+ async def get_upcoming_assignments(
+     hours: int = Query(48, description="Hours ahead to look for deadlines"),
+     limit: int = Query(10, description="Maximum number of results"),
++    current_user: User = Depends(get_current_active_user),
+     db: Session = Depends(get_db),
+ ):
+```
+
+---
+
+#### [MODIFY] [schedule.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/schedule.py)
+
+**Issue**: Both `/schedule` and `/schedule/deadlines` endpoints don't require authentication or filter by user_id
+
+**Fix**: 
+1. Add `current_user: User = Depends(get_current_active_user)` to both endpoints
+2. Add `Assignment.user_id == current_user.id` filter to all queries
+3. Add required imports for `User` and `get_current_active_user`
+
+---
+
+#### [MODIFY] [announcements.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/announcements.py)
+
+**Issue**: Dead/unreachable code at lines 62-70 after the return statement in `/announcements/recent`
+
+**Fix**: Remove dead code block
+
+## Verification Plan
+
+### Manual Testing
+
+1. Start the backend server:
+   ```bash
+   cd /Users/oli/Desktop/LMSManager/backend
+   source venv/bin/activate
+   uvicorn app.main:app --reload
+   ```
+
+2. Start the frontend:
+   ```bash
+   cd /Users/oli/Desktop/LMSManager/frontend
+   npm run dev
+   ```
+
+3. Log into the app and verify:
+   - Dashboard shows your courses count
+   - Upcoming assignments are displayed (if any exist within 168 hours)
+   - Announcements section shows recent updates
+   - Stats bar shows correct numbers
+
+4. Check browser Network tab for failed API calls and verify no 401/500 errors

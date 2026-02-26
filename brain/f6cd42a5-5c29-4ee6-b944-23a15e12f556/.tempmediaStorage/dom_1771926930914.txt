@@ -1,0 +1,32 @@
+OS
+Tasks
+Inbox
+0
+Today
+0
+Upcoming
+By Module
+Completed
+0
+0
+open
+0
+completed
+Press N to add
+Inbox
+No tasks here
+[0] (500,500)<div  />
+	[1] (500,250)<div  />
+		[2] (434,108)<button class='flex-1 px-4 py-3 text-sm font-medium transition-colors text-muted hover:text-secondary'>✨ Quick Add />
+		[3] (566,108)<button class='flex-1 px-4 py-3 text-sm font-medium transition-colors text-accent border-b-2 border-accent'>📝 Manual Entry />
+		[4] (500,175)<input class='w-full rounded-lg border border-border bg-base px-3 py-2.5 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none' placeholder='Task title' />
+		[5] (437,218)<label class='text-[10px] font-mono uppercase text-muted mb-1 block'>Due Date />
+		[6] (437,251)<input class='w-full rounded-lg border border-border bg-base px-3 py-2.5 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none' />
+		[7] (563,218)<label class='text-[10px] font-mono uppercase text-muted mb-1 block'>Module />
+		[8] (563,251)<select class='w-full rounded-lg border border-border bg-base px-3 py-2.5 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none' />
+		[9] (500,293)<label class='text-[10px] font-mono uppercase text-muted mb-1 block'>Priority />
+		[10] (407,323)<button class='flex-1 py-2 rounded-lg text-xs font-medium transition-colors text-secondary border border-border hover:bg-surface-hover'>Low />
+		[11] (469,323)<button class='flex-1 py-2 rounded-lg text-xs font-medium transition-colors text-white'>Medium />
+		[12] (531,323)<button class='flex-1 py-2 rounded-lg text-xs font-medium transition-colors text-secondary border border-border hover:bg-surface-hover'>High />
+		[13] (593,323)<button class='flex-1 py-2 rounded-lg text-xs font-medium transition-colors text-secondary border border-border hover:bg-surface-hover'>Urgent />
+		Adding...

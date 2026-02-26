@@ -1,0 +1,83 @@
+OS
+[0] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/' title='Dashboard' />
+[1] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[2] (14,187)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (14,233)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (14,278)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[5] (14,324)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,370)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,415)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/ai' title='AI Chat' />
+[8] (14,461)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[9] (14,507)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[10] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[11] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+S
+Good evening
+Wednesday, February 25
+Daily Brief
+[12] (372,155)<button class='text-accent text-xs hover:text-accent-hover transition-colors disabled:opacity-50 flex items-center gap-1'>Generate />
+No brief yet today
+Click Generate to create one
+Today's Schedule
+[13] (375,327)<a class='text-accent text-xs hover:text-accent-hover transition-colors' href='/timetable'>View all → />
+No classes today
+Announcements
+36
+new
+GEX1015/GET1029
+Yesterday
+[14] (387,526)<button class='opacity-0 group-hover:opacity-100 text-muted hover:text-secondary transition-all' title='Mark as read' />
+Midterm exam
+GES1035/GESS1025
+Feb 23
+[15] (387,597)<button class='opacity-0 group-hover:opacity-100 text-muted hover:text-secondary transition-all' title='Mark as read' />
+Course Webinar Recording
+BT1101
+Feb 23
+[16] (387,667)<button class='opacity-0 group-hover:opacity-100 text-muted hover:text-secondary transition-all' title='Mark as read' />
+Welcome to BT1101 – Part II of the Course
+BT1101
+Feb 22
+[17] (387,738)<button class='opacity-0 group-hover:opacity-100 text-muted hover:text-secondary transition-all' title='Mark as read' />
+Coaching Session Sign Up Recess Week
+BT1101
+Feb 20
+[18] (387,808)<button class='opacity-0 group-hover:opacity-100 text-muted hover:text-secondary transition-all' title='Mark as read' />
+Lecture Recording, Online Quizzes, Datacamp
+BT1101
+Feb 20
+[19] (387,879)<button class='opacity-0 group-hover:opacity-100 text-muted hover:text-secondary transition-all' title='Mark as read' />
+Tutorial 1 grades and feedback
+BT1101
+Feb 19
+[20] (387,950)<button class='opacity-0 group-hover:opacity-100 text-muted hover:text-secondary transition-all' title='Mark as read' />
+Mid Course Survey
+Tasks
+[21] (592,155)<a class='text-accent text-xs hover:text-accent-hover transition-colors' href='/tasks'>View all → />
+Test task for timetable Verification
+Test task
+Upcoming Assignments
+pelogin account
+CS2030
+Roll Call Attendance
+GES1035/GESS1025
+Roll Call Attendance
+GEX1015/GET1029
+Declaration of Conformance
+THE1001/RC1000A
+Fundamentals of Academic Life
+THE1002/SE1000
+AI Assistant
+[22] (806,155)<a class='text-accent text-xs hover:text-accent-hover transition-colors' href='/ai'>Open chat → />
+Ask me anything about your courses, schedule, or assignments.
+[23] (719,278)<input class='flex-1 rounded-lg border border-border bg-base px-3 py-2 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none' placeholder='Ask a question...' />
+[24] (814,278)<button class='rounded-lg bg-accent px-3 py-2 text-white text-sm hover:bg-accent-hover transition-colors' />
+This Week
+2
+Open Tasks
+0
+Classes Today
+5
+Due Soon
+36
+Unread

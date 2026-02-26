@@ -1,0 +1,28 @@
+# Refactor Assignments Page & Density
+
+This plan aims to address the issue of the assignments list looking like "one long list" by introducing search, status filtering, grouped categorization, and a denser layout.
+
+## Proposed Changes
+
+### Frontend
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx)
+- **State Additions**:
+  - `searchQuery` (`string`): To filter assignments by title or course code.
+  - `statusFilter` (`string`): To filter assignments by their `user_status` (e.g., 'all', 'not_started', 'in_progress', 'submitted', 'graded').
+- **Layout & Density Improvements**:
+  - Update [renderList](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx#173-210) to use tighter padding (`px-3 py-2`), smaller gaps, and horizontal alignment for metadata to reduce vertical height per item.
+  - Change the "All" and "Upcoming" views to group assignments by urgency (e.g., "Overdue", "Due Next 7 Days", "Due Later", "No Due Date") instead of showing a flat list. This makes it instantly readable instead of overwhelming.
+- **Header Updates**:
+  - Add a sticky or top-level row to housing an elegant search input (`<input />` with a `Search` icon) and a status filter dropdown.
+  - Make sure the refined components adhere to the existing sleek design language (muted text, accent colors, rounded borders).
+
+## Verification Plan
+
+### Manual Verification
+1. I will implement the changes and the frontend dev server will hot-reload.
+2. The user will be asked to navigate to [/assignments](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments) on their local instance (`localhost:3000/assignments`).
+3. User to verify:
+   - Does the search bar correctly filter assignments by title and module code?
+   - Does the status dropdown correctly filter?
+   - Is the new layout denser and easier to scan?
+   - Are the list items properly grouped by date urgency in the default views?

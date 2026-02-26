@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Frontend design system specification for Academic Life OS with botanical/earth-tone theme. Defines colour palettes for both light and dark modes, typography using Inter/Instrument Serif/DM Mono, layout structure (sidebar + flexible columns), component patterns (cards, badges, tasks, timetable blocks, AI chat), CSS custom properties, Tailwind config, and frontend file structure. Includes embedded Stitch design mockups for dashboard (light/dark) and tasks page.",
+  "updatedAt":  "2026-02-24T07:06:09.364849Z"
+}

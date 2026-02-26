@@ -1,0 +1,43 @@
+# Comprehensive Backend Testing Implementation
+
+We have successfully implemented a comprehensive backend testing suite for the CraftCanvas application using `pytest` and `httpx`.
+
+## What Was Accomplished
+
+1. **Test Environment Setup**
+   * Configured [pytest.ini](file:///Users/oli/Desktop/CraftCanvas/backend/pytest.ini) with correct asynchronous markers and test discovery settings.
+   * Created a central [conftest.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/conftest.py) with an SQLite in-memory database override (`TEST_DATABASE_URL = "sqlite:///:memory:"`) to isolate test runs from the production environment.
+   * Defined an asynchronous [auth_client](file:///Users/oli/Desktop/CraftCanvas/backend/tests/conftest.py#59-80) fixture in [conftest.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/conftest.py) to seamlessly simulate authenticated API requests across all routing tests.
+
+2. **Core Database Models**
+   * Validated essential model behaviors (e.g., [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-46) password hashing, API key regeneration).
+   * Enforced unique database constraints for [Assignment](file:///Users/oli/Desktop/CraftCanvas/backend/models/assignment.py#8-48) and relationships across models.
+
+3. **Background Services**
+   * `Brief Generator`: Mocked out language model responses and verified data aggregation pipelines for the Daily Brief prompt builder.
+   * `Canvas Sync`: Validated the parsing, synchronization, and deduplication logic against mocked Canvas responses.
+
+4. **API Router Endpoints**
+   * `Auth Router`: Tested end-to-end registration processes, secure cookie placements, credential verification logic, and user profile updating.
+   * `Tasks Router`: Verified CRUD capabilities for user tasks, task completion toggling, and list filtering capabilities.
+   * `Courses Router`: Tested data retrieval, active toggle flags, and bulk updating mechanisms.
+   * `Timetable Router`: Verified SGT-adjusted time handling and payload structures for retrieving academic week statistics and timetable events.
+
+5. **Jobs & Schedulers**
+   * Safely simulated periodic tasks ([daily_brief_job](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py#21-45) and [canvas_sync_job](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py#47-73)) utilizing `unittest.mock` to trap database session requests.
+
+## Validation Results
+
+All tests have successfully traversed through isolated environments without impacting production data states. 
+
+```bash
+.venv/bin/pytest tests/ 
+```
+
+<br/>
+
+> **Result:** `30 passed, 27 warnings in 2.75s` (All critical backend behavior constraints passed our assertions).
+
+## Next Steps
+
+With the backend architecture now heavily fortified against regressions, we are prepared to move sequentially towards integrating complete Frontend testing ecosystems (Jest / RTL & Cypress).

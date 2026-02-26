@@ -1,0 +1,57 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+OS
+[0] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[1] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[2] (14,187)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[3] (14,233)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/courses' title='Courses' />
+[4] (14,278)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/ai' title='AI Chat' />
+[5] (14,324)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[6] (14,917)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+Courses
+8
+active modules
+BT1101
+BT1101 Introduction to Business Analytics [2520]
+[2520] 2025/2026 Semester 2
+23
+assignments
+CS2030
+CS2030 Programming Methodology II [2520]
+[2520] 2025/2026 Semester 2
+1
+assignments
+GES1035/GESS1025
+GES1035/GESS1025 Singapore: Imagining the Next 50 Years [2520]
+[2520] 2025/2026 Semester 2
+7
+assignments
+GEX1015/GET1029
+GEX1015/GET1029 Life, the Universe, and Everything [2520]
+[2520] 2025/2026 Semester 2
+1
+assignments
+MA1522
+MA1522 Linear Algebra for Computing [2520]
+[2520] 2025/2026 Semester 2
+13
+assignments
+THE1001/RC1000A
+THE1001/RC1000A A Culture of Respect and Consent (Student)
+Non-Academic
+1
+assignments
+THE1002/SE1000
+THE1002/SE1000 Student Essentials
+Non-Academic
+2
+assignments
+TPC
+Travel Preparedness Course
+Non-Academic
+4
+assignments
+
+</current_dom>

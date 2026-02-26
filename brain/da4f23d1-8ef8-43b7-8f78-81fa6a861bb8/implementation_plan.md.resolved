@@ -1,0 +1,37 @@
+# Focus Tab Customization Plan
+
+This plan details adding visual customisation to the Focus tab, specifically allowing users to select preset backgrounds/visuals or upload their own image.
+
+## Proposed Changes
+
+### Backend Updates
+
+#### [MODIFY] [models/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/settings.py) (None)
+- No schema changes needed! The [Settings](file:///Users/oli/Desktop/CraftCanvas/backend/models/settings.py#8-19) model is a generic key-value store. We will use the key `focus_background`.
+
+#### [MODIFY] [routers/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py)
+- Add a new `POST` endpoint `/focus-background` that accepts an `UploadFile`.
+- The endpoint will save the uploaded file to `data/uploads/` (creating the directory if it doesn't exist) with a unique filename (e.g. `uuid.uuid4()`).
+- It will then update or create the [Settings](file:///Users/oli/Desktop/CraftCanvas/backend/models/settings.py#8-19) row for the key `focus_background` with the URL path to the saved image (e.g. `/files/uploads/{filename}`).
+- Update [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) if necessary to statically serve the `data/uploads/` directory at a route like `/files/uploads`.
+
+### Frontend Updates
+
+#### [MODIFY] [app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
+- **State**: Fetch the user's `focus_background` setting on load.
+- **UI**: Add a `Customise` button opening a modal or side panel.
+- **Customisation Options**:
+  1. Default (the current dynamic blurred colors).
+  2. Presets (e.g., Lofi cafe image, Space, Nature).
+  3. Upload custom image.
+- **Background Application**: Change the `div` with the blur effect to render the selected image as a full-screen `object-cover` background if a visual is selected, or keep the color blur if "Default" is selected.
+
+#### [MODIFY] `components/SettingsProvider.tsx` (if it exists) or just fetch in the page
+- Ensure the settings fetch includes the new background field.
+
+## Verification Plan
+1. Start backend and frontend.
+2. Go to Focus tab.
+3. Click "Customise".
+4. Select a preset image -> verify the background changes.
+5. Upload a file -> verify it saves to the backend, updates the user's setting, and displays the new background.

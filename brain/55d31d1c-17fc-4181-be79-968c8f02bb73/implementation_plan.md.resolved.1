@@ -1,0 +1,30 @@
+# Daily Brief Chat Integration
+
+Integrate the AI student assistant directly into the Daily Brief module on the dashboard, making it a contextual chat experience and removing the redundant floating/standalone AI features.
+
+## Proposed Changes
+
+### Frontend Component Removals
+- **[DELETE]** [app/ai/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/ai/page.tsx)
+  - Remove the dedicated `/ai` page.
+- **[MODIFY]** [components/layout/Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx)
+  - Remove `AI Chat` from the left sidebar navigation items.
+
+### Dashboard Refactor
+- **[MODIFY]** [app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+  - **Remove:** The `Quick AI` assistant block from the right column.
+  - **Enhance:** Refactor the `Daily Brief` section (in the main column) to act as a contextual chat interface. 
+    - The top message will be the generated daily brief text.
+    - Below this, add a scrollable container for user messages and assistant responses.
+    - Add an input box at the bottom of the section to allow the user to ask questions or request modifications to the brief.
+    - Send chats to `api.post('/brief/chat')`, matching the [AIPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/ai/page.tsx#13-157) logic but with brief context.
+
+## Verification Plan
+
+### Automated Tests
+- Test API routes, specifically the `POST /api/v1/brief/chat` endpoint and `POST /api/v1/brief/regenerate` endpoint.
+
+### Manual Verification
+- Launch the development server and navigate to the dashboard.
+- Verify the AI link is gone from the Sidebar and the Quick AI block is gone.
+- Interact with the new Daily Brief chat component to verify contextual responses.

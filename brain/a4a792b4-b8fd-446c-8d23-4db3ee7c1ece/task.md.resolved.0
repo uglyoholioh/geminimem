@@ -1,0 +1,23 @@
+# Onboarding Revamp — User Categorisation + Module Verification
+
+## Backend
+- [ ] Add `user_type` field to User model (e.g. `"standard"` / `"technical"`)
+- [ ] Add `PATCH /courses/{id}` endpoint to toggle `is_active` on courses
+- [ ] Add `PATCH /courses/bulk-active` endpoint to bulk-update `is_active` for multiple courses
+- [ ] Add endpoint to return synced courses for verification during onboarding
+
+## Frontend — Setup Page
+- [ ] Add Step 0: User type selection (Standard vs Technical/Power User)
+- [ ] Make Canvas API step mandatory (remove "Skip" button)
+- [ ] After Canvas validation, trigger sync and show module verification step
+- [ ] Module verification step: list synced courses with checkboxes for active/inactive
+- [ ] Conditionally show Craft + Telegram steps only for "Technical" user type
+- [ ] Update step indicators for dynamic step count
+- [ ] Update final "Finish Setup" to save module active states
+
+## Frontend — Courses Page
+- [ ] Courses page already has active/archived toggle — ensure it works with module verification
+
+## Verification
+- [ ] Browser test: walk through the full onboarding flow
+- [ ] Verify courses page reflects active/inactive state

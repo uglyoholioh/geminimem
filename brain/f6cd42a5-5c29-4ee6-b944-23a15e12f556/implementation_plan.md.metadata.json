@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Implementation plan for Phase 14: Craft API Integration & Setup remodelling. This involves removing AI engine config from the frontend, replacing it with Craft API config in the setup wizard, and updating backend endpoints to validate Craft Bearer tokens.",
+  "updatedAt":  "2026-02-25T06:41:53.658065Z",
+  "version":  "10"
+}

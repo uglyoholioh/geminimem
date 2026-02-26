@@ -1,0 +1,861 @@
+# Opus Planning Session — Full Audit & Phase 2 Fix Plan
+
+## Overview
+
+This document is the output of the planning session requested in [OPUS_PLANNING_BRIEF.md](file:///Users/oli/Desktop/CraftCanvas/OPUS_PLANNING_BRIEF.md). It covers five deliverables:
+
+1. **Code Audit** — structural issues found in existing code
+2. **Phase 2 Fix Plan** — exact changes to fix ICS parsing, timetable queries, and frontend
+3. **Revised Build Sequence** — adjustments to [BUILD_PLAN.md](file:///Users/oli/Desktop/CraftCanvas/BUILD_PLAN.md)
+4. **Phase 3 Readiness Check** — verification commands
+5. **Frontend Architecture Review** — structural gaps in the frontend
+
+---
+
+## A. Code Audit — Structural Issues (Prioritised)
+
+### 🔴 P0 — Must fix before any further work
+
+#### 1. ICS Parser: [str(rrule)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#58-91) produces a dict, not an RRULE string
+
+In [ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py#L142), line 142:
+
+```python
+"recurrence_rule": str(rrule) if rrule else None,
+```
+
+The `icalendar` library returns `RRULE` as a `vRecur` object (a dict-like class). Calling [str()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#58-91) on it produces something like `"vRecur({'FREQ': ['WEEKLY'], 'UNTIL': [...]})"`  which is **not** a valid RRULE string. The correct way to reconstruct the RRULE string is:
+
+```python
+"recurrence_rule": rrule.to_ical().decode("utf-8") if rrule else None,
+```
+
+This produces the standard RFC 5545 string like `FREQ=WEEKLY;UNTIL=20250510T160000Z`.
+
+#### 2. ICS Parser: Timezone handling may silently produce UTC
+
+In [ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py#L102-L104), lines 102–104:
+
+```python
+if isinstance(dtstart, datetime):
+    dtstart_local = dtstart.astimezone(SINGAPORE_TZ)
+```
+
+This works **if** the `icalendar` library correctly parses the `TZID=Asia/Singapore` parameter. However, if it returns a naive datetime (no tzinfo), `astimezone()` will implicitly assume the system's local timezone, which may not be SGT. The code needs explicit handling for naive datetimes:
+
+```python
+if isinstance(dtstart, datetime):
+    if dtstart.tzinfo is None:
+        dtstart_local = SINGAPORE_TZ.localize(dtstart)
+    else:
+        dtstart_local = dtstart.astimezone(SINGAPORE_TZ)
+```
+
+#### 3. Timetable Router: No RRULE-based date validation
+
+Both `/today` and `/week` endpoints in [timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py) filter by `start_date` / `end_date` range, but `end_date` is **always `None`** (never computed). This means the date range filter does nothing — all slots for a matching day-of-week are returned regardless of whether the semester has ended.
+
+The fix: compute `end_date` from the RRULE's `UNTIL` parameter at import time, or use `python-dateutil` to check RRULE expansion at query time.
+
+#### 4. Missing dependency: `python-dateutil`
+
+[requirements.txt](file:///Users/oli/Desktop/CraftCanvas/backend/requirements.txt) does not include `python-dateutil`, which is needed for RRULE expansion. It must be added.
+
+#### 5. ICS Parser: [parse_summary](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py#16-52) regex doesn't match all NUSMods formats
+
+The current approach in [ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py#L36) uses a loose approach: string search for lesson type keywords and separate regex for brackets. The spec regex is:
+
+```regex
+^([A-Z]{2,3}\d{4}[A-Z]?)\s+(.+?)\s+\[(.+)\]$
+```
+
+The current code matches `[A-Z]{2,4}` for the code prefix, which is more permissive but fine. However, the lesson_type extraction via keyword search will miss "Sectional Teaching" (it only checks for "Sectional" and "Teaching" separately, catching whichever comes first). More critically, NUSMods SUMMARY formats like `CS2103T Sectional Teaching [SEC1]` should produce lesson_type = `"Sectional Teaching"`, not just `"Sectional"`.
+
+---
+
+### 🟡 P1 — Should fix before building more features
+
+#### 6. API Key middleware is defined but not wired
+
+[middleware.py](file:///Users/oli/Desktop/CraftCanvas/backend/middleware.py) defines [APIKeyMiddleware](file:///Users/oli/Desktop/CraftCanvas/backend/middleware.py#8-37), but [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) never adds it with `app.add_middleware(APIKeyMiddleware)`. Currently, only the `/sync/canvas` route is protected via the [verify_api_key](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#7-18) dependency. All other routes (timetable, assignments, courses, announcements, tasks) are **completely unprotected**.
+
+> [!WARNING]
+> If Cloudflare Tunnel is active, anyone who discovers the URL can read all your academic data and create/delete tasks without authentication.
+
+**Fix:** Either wire the middleware globally or add `dependencies=[Depends(verify_api_key)]` to every router.
+
+#### 7. Frontend violates the Design System completely
+
+The current frontend uses:
+- **Light mode** (`bg-stone-50`, white backgrounds) — spec requires dark-only
+- **System fonts** (Arial, Helvetica) — spec requires DM Mono / Instrument Serif / DM Sans
+- **No CSS variables** from [DESIGN_SYSTEM.md](file:///Users/oli/Desktop/CraftCanvas/DESIGN_SYSTEM.md) — globals.css has none of the spec's tokens
+- **Raw axios** — spec requires TanStack Query
+- **No shadcn/ui** components — entirely custom
+- **Hardcoded module colours** — spec defines a module colour system
+- **No sidebar navigation** — currently a flat page layout
+
+This is a complete rewrite, not a fix. It should happen in Phase 4 (Dashboard) when the full layout is built.
+
+#### 8. Frontend calls backend directly (CORS, no API key proxy)
+
+The timetable page calls `http://localhost:8000` directly from the client. Per the spec:
+- All backend calls should go through **Next.js API route proxies** (`/api/...`)
+- The API key should be set server-side in the proxy, never exposed to the client
+- This also fixes CORS issues (the previous conversation history shows CORS debugging)
+
+#### 9. [courses.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py) router has N+1 query issues
+
+In [courses.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py#L37-L46), the [list_courses](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py#15-63) endpoint runs 2 extra queries **per course** (assignment count + unread announcement count). With 8 courses, that's 16 extra queries. Use `func.count()` subqueries or `joinedload()`.
+
+#### 10. Course model missing `user_id` field
+
+Per conversation history, previous sessions hit `IntegrityError` on `user_id` constraints. The [DATA_SCHEMA.md](file:///Users/oli/Desktop/CraftCanvas/DATA_SCHEMA.md) doesn't define `user_id` (this is a personal single-user app), but if the migrations added it, the models are out of sync with the DB. **Check the actual DB schema** with `sqlite3 backend/data/db.sqlite ".schema courses"`.
+
+---
+
+### 🟢 P2 — Address in later phases
+
+#### 11. [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py) hardcodes DB path
+
+[database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py#L8) hardcodes `sqlite:///./data/db.sqlite` instead of using `settings.database_url` from config.
+
+#### 12. [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) lacks external LLM routing
+
+The AI service only calls Ollama — no routing logic or external LLM fallback is implemented yet. This is expected (Phase 5), but the `route()` method from the spec is missing entirely.
+
+#### 13. Canvas sync uses `datetime.utcnow()` (deprecated in Python 3.12+)
+
+Multiple files use `datetime.utcnow()`. Should use `datetime.now(timezone.utc)` for forward compatibility.
+
+#### 14. `jobs/` directory is empty
+
+APScheduler job definitions haven't been created. This is Phase 5 work but the empty directory is noted.
+
+#### 15. No [__init__.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/__init__.py) in `models/` or `routers/`
+
+Minor: the packages work without [__init__.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/__init__.py) in Python 3 but explicit init files are cleaner.
+
+---
+
+## B. Phase 2 Fix Plan — Exact Changes
+
+### B.1 Add `python-dateutil` to requirements
+
+#### [MODIFY] [requirements.txt](file:///Users/oli/Desktop/CraftCanvas/backend/requirements.txt)
+
+Add after `pytz`:
+```diff
+ pytz>=2023.3
++python-dateutil>=2.8.2
+```
+
+---
+
+### B.2 Fix [backend/services/ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py)
+
+#### [MODIFY] [ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py)
+
+**Complete corrected implementation:**
+
+```python
+"""ICS file parser for NUSMods timetable export.
+
+Parses iCalendar (.ics) files exported from NUSMods and converts
+to timetable slot records.
+"""
+
+import re
+import logging
+from icalendar import Calendar
+from datetime import datetime, date, time
+from typing import List, Optional, Tuple
+import pytz
+
+logger = logging.getLogger(__name__)
+
+# Singapore timezone
+SINGAPORE_TZ = pytz.timezone("Asia/Singapore")
+
+# NUSMods SUMMARY regex: "CS2103T Lecture [1]" or "CS2103T Sectional Teaching [SEC1]"
+SUMMARY_RE = re.compile(r"^([A-Z]{2,4}\d{4}[A-Z]{0,2})\s+(.+?)\s+\[(.+)\]$")
+
+# Fallback: module code without brackets
+SUMMARY_FALLBACK_RE = re.compile(r"^([A-Z]{2,4}\d{4}[A-Z]{0,2})\s+(.+)$")
+
+
+def get_sg_datetime(dt_prop) -> datetime:
+    """Safely extract a Singapore-localised datetime from an icalendar property.
+    
+    Handles three cases:
+    1. Timezone-aware datetime → convert to SGT
+    2. Naive datetime → assume SGT (NUSMods uses TZID=Asia/Singapore)
+    3. date object → convert to midnight SGT datetime
+    """
+    dt = dt_prop.dt if hasattr(dt_prop, 'dt') else dt_prop
+    
+    if isinstance(dt, datetime):
+        if dt.tzinfo is None:
+            # Naive datetime — NUSMods TZID should have been parsed, but
+            # if icalendar dropped it, assume Singapore
+            return SINGAPORE_TZ.localize(dt)
+        else:
+            # Has timezone info — convert to Singapore
+            return dt.astimezone(SINGAPORE_TZ)
+    elif isinstance(dt, date):
+        # date object, not datetime — shouldn't happen for NUSMods classes
+        return SINGAPORE_TZ.localize(datetime.combine(dt, time.min))
+    else:
+        raise ValueError(f"Unexpected DTSTART type: {type(dt)}")
+
+
+def parse_summary(summary: str) -> Tuple[str, str, str]:
+    """Parse NUSMods SUMMARY field into (module_code, lesson_type, lesson_id).
+
+    Format examples:
+    - "CS2103T Lecture [1]"
+    - "CS2103T Tutorial [T08]"
+    - "CS2103T Sectional Teaching [SEC1]"
+    - "GEA1000 Lecture [1]"
+    """
+    summary = summary.strip()
+    
+    # Try primary pattern: CODE Type [ID]
+    match = SUMMARY_RE.match(summary)
+    if match:
+        return match.group(1), match.group(2).strip(), match.group(3).strip()
+    
+    # Fallback: CODE Type (no bracket ID)
+    match = SUMMARY_FALLBACK_RE.match(summary)
+    if match:
+        return match.group(1), match.group(2).strip(), ""
+    
+    # Last resort: try to extract just the code
+    code_match = re.match(r"^([A-Z]{2,4}\d{4}[A-Z]{0,2})", summary)
+    if code_match:
+        remainder = summary[code_match.end():].strip()
+        return code_match.group(1), remainder, ""
+    
+    logger.warning(f"Could not parse SUMMARY: {summary!r}")
+    return "", summary, ""
+
+
+def extract_rrule_string(rrule) -> Optional[str]:
+    """Convert icalendar RRULE vRecur object to RFC 5545 string."""
+    if rrule is None:
+        return None
+    try:
+        return rrule.to_ical().decode("utf-8")
+    except Exception as e:
+        logger.warning(f"Failed to serialize RRULE: {e}")
+        return None
+
+
+def extract_end_date_from_rrule(rrule) -> Optional[date]:
+    """Extract UNTIL date from an RRULE, if present."""
+    if rrule is None:
+        return None
+    try:
+        until_list = rrule.get("UNTIL")
+        if until_list:
+            until_dt = until_list[0]
+            if isinstance(until_dt, datetime):
+                return until_dt.astimezone(SINGAPORE_TZ).date()
+            elif isinstance(until_dt, date):
+                return until_dt
+    except Exception as e:
+        logger.warning(f"Failed to extract UNTIL from RRULE: {e}")
+    return None
+
+
+def parse_ics(ics_content: bytes) -> List[dict]:
+    """Parse ICS bytes to list of timetable slot dictionaries.
+
+    Args:
+        ics_content: Raw ICS file content as bytes
+
+    Returns:
+        List of dicts representing timetable slots.
+    """
+    cal = Calendar.from_ical(ics_content)
+    slots = []
+
+    for component in cal.walk():
+        if component.name != "VEVENT":
+            continue
+
+        summary = str(component.get("SUMMARY", ""))
+        location = str(component.get("LOCATION", ""))
+        dtstart_prop = component.get("DTSTART")
+        dtend_prop = component.get("DTEND")
+        uid = str(component.get("UID", ""))
+        rrule = component.get("RRULE")
+
+        if dtstart_prop is None or dtend_prop is None:
+            logger.warning(f"Skipping event with missing DTSTART/DTEND: {summary}")
+            continue
+
+        # Skip non-recurring events (likely exams or one-off events)
+        if rrule is None:
+            continue
+
+        # Parse summary
+        module_code, lesson_type, lesson_id = parse_summary(summary)
+
+        if not module_code:
+            logger.warning(f"Skipping event with no module code: {summary!r}")
+            continue
+
+        # Convert to Singapore time
+        try:
+            dtstart_local = get_sg_datetime(dtstart_prop)
+            dtend_local = get_sg_datetime(dtend_prop)
+        except Exception as e:
+            logger.error(f"Failed to parse datetime for {summary}: {e}")
+            continue
+
+        # Extract RRULE as proper string
+        rrule_string = extract_rrule_string(rrule)
+        
+        # Extract end date from RRULE UNTIL
+        end_date = extract_end_date_from_rrule(rrule)
+
+        # Get module name from description if available
+        description = str(component.get("DESCRIPTION", ""))
+        module_name = ""
+        if description:
+            lines = description.split("\\n")
+            if lines:
+                module_name = lines[0].strip()
+
+        slot_data = {
+            "module_code": module_code,
+            "module_name": module_name,
+            "lesson_type": lesson_type,
+            "lesson_id": lesson_id,
+            "venue": location,
+            "day_of_week": dtstart_local.weekday(),  # 0=Monday
+            "start_time": dtstart_local.strftime("%H:%M"),
+            "end_time": dtend_local.strftime("%H:%M"),
+            "start_date": dtstart_local.date(),
+            "end_date": end_date,
+            "recurrence_rule": rrule_string,
+            "ics_uid": uid,
+        }
+
+        logger.info(
+            f"Parsed slot: {module_code} {lesson_type} [{lesson_id}] "
+            f"{dtstart_local.strftime('%a %H:%M')}-{dtend_local.strftime('%H:%M')} "
+            f"@ {location}"
+        )
+        slots.append(slot_data)
+
+    logger.info(f"Parsed {len(slots)} timetable slots from ICS file")
+    return slots
+```
+
+**Key changes from the current code:**
+1. `get_sg_datetime()` handles naive datetimes properly
+2. [parse_summary()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py#16-52) uses proper regex with full "Sectional Teaching" support
+3. `extract_rrule_string()` uses `.to_ical().decode()` instead of [str()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#58-91)
+4. `extract_end_date_from_rrule()` computes `end_date` from RRULE UNTIL
+5. Comprehensive logging for debugging
+
+---
+
+### B.3 Fix [backend/routers/timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py)
+
+#### [MODIFY] [timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py)
+
+**Key changes:**
+1. Use `python-dateutil`'s `rrulestr` for proper RRULE expansion in the `/today` endpoint
+2. Populate `end_date` during import from the RRULE's `UNTIL` value
+3. Return FullCalendar-compatible event format from `/week`
+
+```python
+"""Timetable router - NUSMods ICS file import and retrieval."""
+
+import logging
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, Query
+from sqlmodel import Session, select
+from typing import Optional
+from datetime import date, datetime, timedelta, time
+import pytz
+
+from database import get_session
+from models.timetable import TimetableSlot
+from models.course import Course
+from services.ics_parser import parse_ics
+
+logger = logging.getLogger(__name__)
+router = APIRouter()
+
+SG_TZ = pytz.timezone("Asia/Singapore")
+
+
+def slot_occurs_on_date(slot: TimetableSlot, target: date) -> bool:
+    """Check if a timetable slot has an occurrence on the target date.
+    
+    Uses dateutil.rrule to expand the recurrence rule and check.
+    """
+    # Basic day-of-week check first
+    if slot.day_of_week != target.weekday():
+        return False
+    
+    # Check start_date boundary
+    if slot.start_date and slot.start_date > target:
+        return False
+    
+    # Check end_date boundary
+    if slot.end_date and slot.end_date < target:
+        return False
+    
+    # If there's a recurrence rule, validate with dateutil
+    if slot.recurrence_rule and slot.start_date:
+        try:
+            from dateutil.rrule import rrulestr
+            
+            # Build the base datetime from the slot's start_date and start_time
+            base_time = datetime.strptime(slot.start_time, "%H:%M").time()
+            base_dt = SG_TZ.localize(datetime.combine(slot.start_date, base_time))
+            
+            # Prepend RRULE: prefix if not present (dateutil expects it)
+            rrule_str = slot.recurrence_rule
+            if not rrule_str.startswith("RRULE:"):
+                rrule_str = f"RRULE:{rrule_str}"
+            
+            rule = rrulestr(rrule_str, dtstart=base_dt)
+            
+            # Check if any occurrence falls on the target date
+            day_start = SG_TZ.localize(datetime.combine(target, time.min))
+            day_end = SG_TZ.localize(datetime.combine(target, time(23, 59, 59)))
+            
+            occurrences = list(rule.between(day_start, day_end, inc=True))
+            return len(occurrences) > 0
+            
+        except Exception as e:
+            logger.warning(f"RRULE expansion failed for slot {slot.id}: {e}")
+            # Fall back to day-of-week + date range check (already done above)
+            return True
+    
+    # No recurrence rule — single occurrence; check exact date
+    if slot.start_date:
+        return slot.start_date == target
+    
+    # No date info at all — assume it occurs (legacy data)
+    return True
+
+
+@router.post("/import")
+async def import_timetable(
+    file: UploadFile,
+    session: Session = Depends(get_session)
+) -> dict:
+    """Import timetable from NUSMods ICS file.
+
+    Accepts multipart form upload with .ics file.
+    Deletes all existing slots before importing (re-import behavior).
+    """
+    if not file.filename or not file.filename.endswith('.ics'):
+        raise HTTPException(
+            status_code=400,
+            detail="File must be a .ics file"
+        )
+
+    content = await file.read()
+    slots_data = parse_ics(content)
+
+    if not slots_data:
+        raise HTTPException(
+            status_code=400,
+            detail="No timetable slots found in the ICS file. "
+                   "Make sure it's a valid NUSMods export."
+        )
+
+    # Delete existing slots
+    existing = session.exec(select(TimetableSlot)).all()
+    for slot in existing:
+        session.delete(slot)
+
+    # Create new slots
+    imported_count = 0
+    modules_found = set()
+    
+    for slot_data in slots_data:
+        # Try to match to existing course by module code
+        course = session.exec(
+            select(Course).where(Course.code == slot_data["module_code"])
+        ).first()
+
+        # If no match, try partial match for combined codes
+        if not course:
+            module_code = slot_data["module_code"]
+            all_courses = session.exec(select(Course)).all()
+            for c in all_courses:
+                if module_code in c.code or c.code in module_code:
+                    course = c
+                    break
+
+        slot = TimetableSlot(
+            course_id=course.id if course else None,
+            module_code=slot_data["module_code"],
+            module_name=slot_data.get("module_name"),
+            lesson_type=slot_data.get("lesson_type"),
+            lesson_id=slot_data.get("lesson_id"),
+            venue=slot_data.get("venue"),
+            day_of_week=slot_data["day_of_week"],
+            start_time=slot_data["start_time"],
+            end_time=slot_data["end_time"],
+            start_date=slot_data.get("start_date"),
+            end_date=slot_data.get("end_date"),
+            recurrence_rule=slot_data.get("recurrence_rule"),
+            ics_uid=slot_data.get("ics_uid"),
+        )
+        session.add(slot)
+        imported_count += 1
+        modules_found.add(slot_data["module_code"])
+
+    session.commit()
+
+    return {
+        "imported": imported_count,
+        "modules": sorted(modules_found),
+        "message": f"Successfully imported {imported_count} timetable slots "
+                   f"for {len(modules_found)} modules"
+    }
+
+
+@router.get("/today")
+async def get_timetable_today(
+    session: Session = Depends(get_session)
+) -> dict:
+    """Get today's timetable slots.
+
+    Returns slots for the current day, correctly handling RRULE expansion.
+    Times are in SGT.
+    """
+    now_sg = datetime.now(SG_TZ)
+    today_dow = now_sg.weekday()
+    today_date = now_sg.date()
+
+    # Get all slots for this day of week
+    slots = session.exec(
+        select(TimetableSlot)
+        .where(TimetableSlot.day_of_week == today_dow)
+        .order_by(TimetableSlot.start_time)
+    ).all()
+
+    # Filter using RRULE expansion
+    today_slots = [s for s in slots if slot_occurs_on_date(s, today_date)]
+
+    # Enrich with course info
+    result = []
+    for slot in today_slots:
+        course = session.get(Course, slot.course_id) if slot.course_id else None
+        result.append({
+            "id": slot.id,
+            "course_id": slot.course_id,
+            "module_code": slot.module_code,
+            "module_name": slot.module_name,
+            "lesson_type": slot.lesson_type,
+            "lesson_id": slot.lesson_id,
+            "venue": slot.venue,
+            "day_of_week": slot.day_of_week,
+            "start_time": slot.start_time,
+            "end_time": slot.end_time,
+            "course_colour": course.colour if course else "#6366f1",
+            # FullCalendar-compatible fields
+            "start": f"{today_date.isoformat()}T{slot.start_time}:00",
+            "end": f"{today_date.isoformat()}T{slot.end_time}:00",
+            "title": f"{slot.module_code} {slot.lesson_type or 'Class'}",
+        })
+
+    return {
+        "date": today_date.isoformat(),
+        "day_of_week": today_dow,
+        "day_name": today_date.strftime("%A"),
+        "slots": result,
+    }
+
+
+@router.get("/week")
+async def get_timetable_week(
+    date: Optional[str] = Query(
+        None, description="Date in YYYY-MM-DD format (default: today)"
+    ),
+    session: Session = Depends(get_session),
+) -> dict:
+    """Get timetable slots for a week, with FullCalendar-compatible event format."""
+    # Parse target date or use today
+    if date:
+        try:
+            target_date = datetime.fromisoformat(date).date()
+        except ValueError:
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid date format. Use YYYY-MM-DD"
+            )
+    else:
+        target_date = datetime.now(SG_TZ).date()
+
+    # Find Monday and Sunday of that week
+    monday = target_date - timedelta(days=target_date.weekday())
+    sunday = monday + timedelta(days=6)
+
+    # Get all slots
+    all_slots = session.exec(select(TimetableSlot)).all()
+
+    # For each day of the week, check which slots occur
+    week_slots = []
+    current_day = monday
+    while current_day <= sunday:
+        for slot in all_slots:
+            if slot_occurs_on_date(slot, current_day):
+                course = (
+                    session.get(Course, slot.course_id) if slot.course_id else None
+                )
+                week_slots.append({
+                    "id": slot.id,
+                    "course_id": slot.course_id,
+                    "module_code": slot.module_code,
+                    "module_name": slot.module_name,
+                    "lesson_type": slot.lesson_type,
+                    "lesson_id": slot.lesson_id,
+                    "venue": slot.venue,
+                    "day_of_week": slot.day_of_week,
+                    "start_time": slot.start_time,
+                    "end_time": slot.end_time,
+                    "course_colour": course.colour if course else "#6366f1",
+                    # FullCalendar-compatible fields
+                    "start": f"{current_day.isoformat()}T{slot.start_time}:00",
+                    "end": f"{current_day.isoformat()}T{slot.end_time}:00",
+                    "title": f"{slot.module_code} {slot.lesson_type or 'Class'}",
+                    "color": course.colour if course else "#6366f1",
+                })
+        current_day += timedelta(days=1)
+
+    # Sort by date then time
+    week_slots.sort(key=lambda x: (x["start"]))
+
+    return {
+        "week_start": monday.isoformat(),
+        "week_end": sunday.isoformat(),
+        "slots": week_slots,
+    }
+```
+
+---
+
+### B.4 Fix [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py) to use config
+
+#### [MODIFY] [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py)
+
+```diff
+-engine = create_engine(
+-    "sqlite:///./data/db.sqlite",
+-    connect_args={"check_same_thread": False},
+-    echo=False
+-)
++from config import settings
++
++engine = create_engine(
++    settings.database_url,
++    connect_args={"check_same_thread": False},
++    echo=False
++)
+```
+
+---
+
+### B.5 Wire API key authentication
+
+#### [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+
+Add [verify_api_key](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#7-18) dependency to all routers (except sync which already has it):
+
+```diff
++from dependencies import verify_api_key
++from fastapi import Depends
++
+ # Register routers
+ app.include_router(sync_router, prefix="/api/v1/sync", tags=["sync"])
+-app.include_router(assignments_router, prefix="/api/v1/assignments", tags=["assignments"])
+-app.include_router(courses_router, prefix="/api/v1/courses", tags=["courses"])
+-app.include_router(announcements_router, prefix="/api/v1/announcements", tags=["announcements"])
+-app.include_router(timetable_router, prefix="/api/v1/timetable", tags=["timetable"])
+-app.include_router(tasks_router, prefix="/api/v1/tasks", tags=["tasks"])
++app.include_router(assignments_router, prefix="/api/v1/assignments", tags=["assignments"], dependencies=[Depends(verify_api_key)])
++app.include_router(courses_router, prefix="/api/v1/courses", tags=["courses"], dependencies=[Depends(verify_api_key)])
++app.include_router(announcements_router, prefix="/api/v1/announcements", tags=["announcements"], dependencies=[Depends(verify_api_key)])
++app.include_router(timetable_router, prefix="/api/v1/timetable", tags=["timetable"], dependencies=[Depends(verify_api_key)])
++app.include_router(tasks_router, prefix="/api/v1/tasks", tags=["tasks"], dependencies=[Depends(verify_api_key)])
+```
+
+---
+
+### B.6 Frontend Timetable Page — Diagnosis
+
+The frontend timetable page in [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx) has these issues:
+
+1. **Uses raw axios** — should use TanStack Query per spec
+2. **Calls backend directly** — should go through Next.js API proxy 
+3. **Light mode styling** — needs complete restyle per [DESIGN_SYSTEM.md](file:///Users/oli/Desktop/CraftCanvas/DESIGN_SYSTEM.md)
+4. **Custom grid calendar** — spec asks for FullCalendar React component
+5. **Hardcoded module colours** — should use course colours from backend
+
+> [!IMPORTANT]
+> The timetable page should be **deferred** to Phase 4 (Dashboard), where it gets rebuilt as part of the three-column layout with FullCalendar. For now, the backend fixes are the priority — the current frontend is adequate for testing/verification.
+
+If an immediate frontend fix is desired, the minimal change is adding a Next.js API route proxy at `/api/timetable/[...path].ts` that forwards requests to the backend.
+
+---
+
+## C. Revised Build Sequence
+
+The existing [BUILD_PLAN.md](file:///Users/oli/Desktop/CraftCanvas/BUILD_PLAN.md) is mostly sound. Recommended changes:
+
+### Phase 2 — Add these pre-requisites
+- [x] Install `python-dateutil`
+- [ ] Fix [ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py) (changes in B.2 above)
+- [ ] Fix [routers/timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py) (changes in B.3 above)
+- [ ] Wire API key auth globally (B.5)
+- [ ] Fix [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py) config (B.4)
+- [ ] ~~Fix frontend timetable~~ — defer to Phase 4; verify with curl only
+
+### Phase 3 — Add missing prerequisite
+> [!IMPORTANT]
+> Phase 3 (Task Management) is **already mostly implemented**. The [routers/tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py), [models/task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py), [services/task_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/task_parser.py), and [services/ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) are all built and appear functional. The NL parsing, module matching, and fallback behaviour all look correct. Verification should proceed before building anything new.
+
+### Phase 4 — Dashboard (where frontend rewrite belongs)
+This is the correct phase to:
+- Implement the design system from [DESIGN_SYSTEM.md](file:///Users/oli/Desktop/CraftCanvas/DESIGN_SYSTEM.md)
+- Build the sidebar navigation
+- Set up Next.js API route proxying
+- Switch from axios to TanStack Query
+- Add FullCalendar component
+- Build the three-column layout
+
+### Phase 5 — APScheduler warning
+> [!WARNING]
+> `APScheduler` 3.x (`>=3.10.4` in requirements) uses a **thread-based** scheduler by default. The `AsyncIOScheduler` must be explicitly used. More critically, APScheduler 4.x has breaking API changes. Pin the version to `<4.0` to avoid surprises.
+
+The Telegram bot + APScheduler + FastAPI all-in-one-process design **will work** because:
+- `python-telegram-bot` v20+ supports running within an existing event loop via `application.initialize()` + `application.start()` + `application.updater.start_polling()`
+- `APScheduler.AsyncIOScheduler` integrates with the FastAPI event loop
+- SQLite with `check_same_thread=False` handles concurrent reads from sync jobs
+
+### Phase 8 — ChromaDB vs sqlite-vec
+For this project scope (personal tool, single user, ~1000 chunks), ChromaDB is fine. `sqlite-vec` would be slightly simpler (no separate process, same DB file), but the existing design and imports are already set up for ChromaDB. **No change recommended.** 
+
+---
+
+## D. Phase 3 Readiness Check
+
+Phase 3 (Task Management) already has code. Before building UI, run these:
+
+### Backend verification
+
+```bash
+# 1. Start backend
+cd backend && source .venv/bin/activate
+uvicorn main:app --reload --port 8000
+
+# 2. Create a task (structured)
+curl -X POST http://localhost:8000/api/v1/tasks \
+  -H "X-API-Key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Test task", "priority": "high", "due_date": "2026-03-01"}'
+
+# 3. Create a task (natural language — requires Ollama running)
+curl -X POST http://localhost:8000/api/v1/tasks \
+  -H "X-API-Key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"raw_text": "finish CS2103T iP by this Friday"}'
+
+# 4. Create a task (NL fallback — Ollama unreachable)
+# (Stop Ollama first, or set OLLAMA_BASE_URL to an invalid host)
+curl -X POST http://localhost:8000/api/v1/tasks \
+  -H "X-API-Key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"raw_text": "buy groceries tomorrow"}'
+# Expect: task created with raw_text as title, priority medium
+
+# 5. List tasks
+curl http://localhost:8000/api/v1/tasks \
+  -H "X-API-Key: YOUR_KEY"
+
+# 6. Complete a task
+curl -X PUT http://localhost:8000/api/v1/tasks/1/complete \
+  -H "X-API-Key: YOUR_KEY"
+
+# 7. Delete a task
+curl -X DELETE http://localhost:8000/api/v1/tasks/1 \
+  -H "X-API-Key: YOUR_KEY"
+```
+
+### Post-Phase-2 timetable verification
+
+```bash
+# 1. Import ICS
+curl -X POST http://localhost:8000/api/v1/timetable/import \
+  -H "X-API-Key: YOUR_KEY" \
+  -F "file=@/path/to/nusmods_calendar.ics"
+
+# 2. Check stored data
+sqlite3 backend/data/db.sqlite \
+  "SELECT module_code, lesson_type, day_of_week, start_time, end_time, start_date, end_date, recurrence_rule FROM timetable_slots LIMIT 10;"
+# end_date should NOT be NULL
+# recurrence_rule should be like "FREQ=WEEKLY;UNTIL=..." not "vRecur({...})"
+# start_time should be SGT (e.g. 09:00 for a 9am class)
+
+# 3. Today's slots
+curl http://localhost:8000/api/v1/timetable/today \
+  -H "X-API-Key: YOUR_KEY"
+# On a weekday with classes: should return correct classes
+# On weekend or outside semester: should return empty slots array
+
+# 4. Week view
+curl http://localhost:8000/api/v1/timetable/week \
+  -H "X-API-Key: YOUR_KEY"
+# Should include start/end ISO datetime strings
+```
+
+---
+
+## E. Frontend Architecture Review
+
+### Current state
+
+The frontend is a minimal scaffold:
+- [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx) — basic HTML shell, no sidebar, no fonts
+- [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css) — default Tailwind, no design system tokens
+- [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) — placeholder hub with links
+- [timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx) — functional but completely off-spec styling
+- `tasks/page.tsx` — exists (not inspected in detail but present)
+- No `components/` beyond what exists in node_modules
+
+### What needs to happen in Phase 4
+
+1. **[globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css)** — Replace entirely with the spec from [DESIGN_SYSTEM.md](file:///Users/oli/Desktop/CraftCanvas/DESIGN_SYSTEM.md) (CSS variables, fonts, scrollbars, focus styles)
+2. **`tailwind.config.ts`** — Add the custom colour/font/size tokens from design system
+3. **[layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx)** — Add Google Fonts import, `dark` class on html, `bg-base` body
+4. **Sidebar component** — 56px fixed icon nav
+5. **Three-column layout** — as a layout component wrapping all pages
+6. **API proxy** — [frontend/app/api/[...path]/route.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/app/api/%5B...path%5D/route.ts) that forwards to `localhost:8000`, injecting the API key
+7. **TanStack Query provider** — wrap in layout
+8. **FullCalendar** — replace custom grid with FullCalendar React component (already installed in package.json)
+
+### Assessment
+
+The current frontend scaffolding **will not** support the spec cleanly — it needs a near-complete restructure of [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx), [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css), and the addition of the sidebar and column layout components. This is expected and should be done at the start of Phase 4, not piecemeal.
+
+The good news: FullCalendar packages are already installed (`@fullcalendar/core`, `@fullcalendar/react`, `@fullcalendar/daygrid`, `@fullcalendar/timegrid`, `@fullcalendar/interaction`).
+
+---
+
+## Summary of Recommended Execution Order
+
+1. **Now:** Fix [ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py), [routers/timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py), [requirements.txt](file:///Users/oli/Desktop/CraftCanvas/backend/requirements.txt), [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py), [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) (auth) — all backend changes in this plan
+2. **Verify:** Run the Phase 2 + Phase 3 verification commands above
+3. **Then:** Start Phase 4 (Dashboard) which involves the frontend restructure
+4. **Skip within Phase 3:** The task backend is already built — verify it, then build the tasks frontend page as part of Phase 4's full layout work

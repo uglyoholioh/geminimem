@@ -1,0 +1,69 @@
+# Visual Consistency and Logout Button
+
+## Goal
+Ensure the entire web app is visually consistent with the planner tab's newspaper-style design, and add a logout button to the navigation.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The planner uses a "newspaper-style" aesthetic with:
+> - Serif fonts (Playfair Display) for headings
+> - Monospace fonts (JetBrains Mono) for labels
+> - Red accent color (`#dc2626`)
+> - Border-based UI elements
+> - Dark/light theme support
+>
+> **Should I apply this exact style to ALL pages, or would you prefer a more subtle unification?**
+
+---
+
+## Proposed Changes
+
+### Navigation Component
+
+#### [MODIFY] [Navigation.tsx](file:///Users/oli/Desktop/LMSManager/frontend/lib/components/Navigation.tsx)
+
+- Add logout button next to theme toggle
+- Import `LogOut` icon from lucide-react
+- Import [useAuth](file:///Users/oli/Desktop/LMSManager/frontend/lib/contexts/AuthContext.tsx#176-183) hook to access [logout](file:///Users/oli/Desktop/LMSManager/backend/app/routes/authentication.py#236-262) function
+- Conditionally show logout button only when user is authenticated
+- Style consistently with existing navigation items
+
+---
+
+### Settings Page Visual Update
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx)
+
+- Add consistent page wrapper with theme-aware background
+- Update heading to use serif font (newspaper-style)
+- Update section labels to use monospace uppercase styling
+- Maintain existing Card components but enhance with border styling
+
+---
+
+### Login & Register Pages
+
+#### [MODIFY] [login/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/login/page.tsx)
+#### [MODIFY] [register/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/register/page.tsx)
+
+- Already use consistent theme (`bg-[#fdfcf8]`)
+- No major changes needed
+
+---
+
+## Verification Plan
+
+### Manual Verification (Visual)
+
+1. **Start the app**: Ensure backend and frontend are running
+2. **Login page**: Navigate to `http://localhost:3000/login` - verify cream background
+3. **Dashboard**: After login, check that styling is consistent
+4. **Planner tab**: Navigate to `/planner` - note the newspaper-style design
+5. **Settings page**: Navigate to `/settings` - verify it now matches planner styling
+6. **Logout button**: Verify logout button appears in navigation bar when logged in
+7. **Theme toggle**: Switch between light/dark modes - verify all pages adapt correctly
+8. **Logout flow**: Click logout button - verify redirect to login page
+
+### Automated Tests
+No existing tests found for visual consistency. This is primarily visual work.

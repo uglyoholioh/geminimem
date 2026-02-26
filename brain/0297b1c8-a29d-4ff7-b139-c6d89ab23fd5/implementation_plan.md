@@ -1,0 +1,86 @@
+# Quick Add Task Dropdowns & AI Daily Brief
+
+## Overview
+Two enhancements:
+1. **Quick Add Dropdowns**: Add priority and due date selectors to the quick add bar
+2. **AI Daily Brief**: Use GLM 4.7 to generate intelligent daily suggestions (toggle-able)
+
+---
+
+## 1. Quick Add Task Enhancements
+
+### Current Behavior
+The quick add bar only accepts a task title. Priority and due date require opening the advanced modal.
+
+### Proposed Changes
+Add dropdown buttons inline with the quick add input:
+
+```
+[📅 Due] [🚩 Priority] [________________________________] [Add]
+```
+
+Clicking each dropdown shows options:
+- **Due Date**: Today, Tomorrow, This Week, Next Week, Custom Date
+- **Priority**: High (🔴), Medium (🟡), Low (🔵)
+
+When user presses Enter or clicks Add, these settings are applied.
+
+### Files to Modify
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/todos/page.tsx)
+- Add state for `quickDueDate` and `quickPriority`
+- Add dropdown components inline with quick add input
+- Pass these values to `createTodo()` on submit
+
+---
+
+## 2. AI Daily Brief Integration
+
+### Current Behavior
+- Settings page has GLM API key input (for Telegram AI)
+- Daily brief shows static suggestions from backend
+- `brief.summary.ai_summary` field exists but may be empty
+
+### Proposed Changes
+
+#### Settings
+- Add "Enable AI Daily Brief" toggle in Settings
+- Persist setting to user profile
+
+#### Backend
+- Add new endpoint `/api/daily-brief/ai-generate` that:
+  1. Fetches Canvas data (assignments, announcements, courses, todos)
+  2. Sends to GLM 4.7 for analysis
+  3. Returns AI-generated daily brief summary
+
+#### Frontend
+- Modify `DailyBrief` component to:
+  1. Check if AI brief is enabled
+  2. Call AI endpoint instead of/in addition to regular brief
+  3. Show "✨ AI" badge when AI-generated
+
+### Files to Modify
+
+#### [MODIFY] [settings/page.tsx](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx)
+- Add toggle for "Enable AI Daily Brief"
+- Save to user profile
+
+#### [MODIFY] [models.py](file:///Users/oli/Desktop/LMSManager/backend/app/models.py)
+- Add `ai_daily_brief_enabled` boolean field to User model
+
+#### [MODIFY] [daily_brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/daily_brief.py)
+- Add AI generation logic to daily brief endpoint
+- Call GLM when `ai_daily_brief_enabled` is true
+
+#### [MODIFY] [daily-brief.tsx](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx)
+- Show AI-generated content with visual indicator
+- Fallback to regular suggestions when AI disabled
+
+---
+
+## Verification Plan
+
+### Manual Testing
+1. Quick Add: Create task with different priority/due date combinations
+2. AI Brief: Enable AI in settings, verify dynamic content appears
+3. AI Brief: Disable AI, verify fallback to static suggestions

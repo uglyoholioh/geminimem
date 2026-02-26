@@ -1,0 +1,32 @@
+# Dashboard Redesign
+
+The dashboard has been successfully redesigned to provide critical information at a glance with intentional use of space and no unnecessary scrolling.
+
+## Changes Made
+
+- **Layout Structure**: Migrated from a 60/40 two-column split with scrolling cards to a **fixed-height viewport layout** using flex proportions.
+- **Section Sizing**:
+  - The left column is split **70/30** between the Daily Brief & Chat and Upcoming Assignments.
+  - The right column is split **40/30/30** among Today's Schedule, Tasks, and Announcements.
+- **Content Cutoffs**: Long-list sections are now capped to prevent them from growing unbounded:
+  - Schedule: max 4 classes
+  - Tasks: max 4 open tasks
+  - Announcements: max 3 recent announcements
+  - Assignments: max 4 upcoming assignments
+  - If a section has more items, a "View all →" link indicates the remaining count.
+- **Header Stats**: The redundant "This Week" stats card was removed. Key metrics (Open Tasks, Classes Today, Due Soon, Unread) are now shown as inline stat badges in the top right header.
+- **Empty States**: Replaced large, padded empty state messages ("No classes today") with compact italic strings to reclaim wasted vertical space.
+
+## Validation
+
+- Verified in the browser at `http://localhost:3000/`.
+- Confirmed there is **no page-level scrollbar**.
+- Confirmed sections expand visually proportional to their flex ratio while holding their content constraints intact.
+
+### Before & After
+
+````carousel
+![Before: Dashboard](file:///Users/oli/.gemini/antigravity/brain/845d5fa6-e7a6-4029-9480-cdd6f96d9bcd/current_dashboard_1772018458331.webp)
+<!-- slide -->
+![After: Refined Dashboard](file:///Users/oli/.gemini/antigravity/brain/845d5fa6-e7a6-4029-9480-cdd6f96d9bcd/dashboard_verify_2_1772019093051.webp)
+````

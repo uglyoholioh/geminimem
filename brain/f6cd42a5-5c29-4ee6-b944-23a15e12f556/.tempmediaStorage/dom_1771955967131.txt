@@ -1,0 +1,61 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+Code
+Description
+Links
+201
+Successful Response
+Media type
+[0] (210,190)<select aria-label='Media Type' class='content-type' />
+Controls
+Accept
+header.
+[1] (153,270)<li class='tabitem active' role='presentation' />
+	[2] (148,271)<button class='tablinks' id='547DbRw=' role='tab'>Example Value />
+[3] (220,270)<li class='tabitem' role='presentation' />
+	[4] (213,271)<button class='tablinks' id='C4AyGXA=' role='tab'>Schema />
+{
+"additionalProp1"
+: {}
+}
+No links
+422
+Validation Error
+Media type
+[5] (210,513)<select aria-label='Media Type' class='content-type' />
+[6] (153,567)<li class='tabitem active' role='presentation' />
+	[7] (148,568)<button class='tablinks' id='IWkU4v4=' role='tab'>Example Value />
+[8] (220,567)<li class='tabitem' role='presentation' />
+	[9] (213,568)<button class='tablinks' id='O1xPLqM=' role='tab'>Schema />
+{
+"detail"
+: [
+{
+"loc"
+: [
+"string"
+,
+0
+],
+"msg"
+:
+"string"
+,
+"type"
+:
+"string"
+,
+"input"
+:
+"string"
+,
+"ctx"
+: {}
+}
+]
+}
+No links
+
+</current_dom>

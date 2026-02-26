@@ -1,0 +1,34 @@
+# Phase 11: Task System Polish
+
+We are heavily augmenting the Task interface to support functional workflows (subtasks, recurrence) and advanced UI visualisations (drag and drop, Kanban, calendar) driven by a "cozy, productive" aesthetic inspired by Due Gooder.
+
+## Proposed Changes
+
+### Database & Backend
+#### [MODIFY] [backend/models/task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py)
+Add structural fields to support the new features:
+```python
+subtasks: Optional[str] = None # JSON string for checklist items [{"id": 1, "title": "Read chapter", "completed": false}]
+recurrence_rule: Optional[str] = None # "daily", "weekly", "monthly", etc.
+position: Optional[float] = None # For drag and drop ordering within priority/status views
+```
+
+#### [MODIFY] [backend/routers/tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py)
+- Expose the new fields in [TaskCreate](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#24-37) and [TaskUpdate](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#39-50).
+- Intercept the [complete_task](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#378-402) and update endpoints. If a task has a `recurrence_rule` and is marked "completed", generate a *new* cloned task mapped to the next recurrence date, leaving the original marked as completed for historical tracking.
+
+### Frontend
+#### [MODIFY] [frontend/app/tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx)
+- **View Toggles**: Add a top-bar component to switch between [List](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx#173-210), `Kanban`, and `Calendar` visualisations.
+- **Drag-and-Drop**: Wrap the [List](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx#173-210) and `Kanban` columns in `dnd-kit` to allow users to drag tasks to reorder them or drag them between Kanban status columns.
+- **Task Detail Panel Upgrade**:
+  - **Subtasks Component**: A dynamic checklist builder where users can quickly add/toggle subtasks.
+  - **Recurrence Settings**: A simple dropdown (None, Daily, Weekly, Monthly) to set the `recurrence_rule`.
+- **Aesthetic Refinement (Due Gooder Vibe)**:
+  - Add smooth transition animations for task completion (e.g. `framer-motion` scale down/strike-through).
+  - Include a circular progress ring on tasks that have subtasks (e.g., "2/4 completed").
+
+## Verification Plan
+1. **Model Upgrade**: Wipe DB and verify backend can read/write structural JSON for subtasks.
+2. **Recurrence Logic**: Complete a daily recurring task and verify the next day's task spawns automatically.
+3. **DND UX Testing**: Manually drag tasks around in the Kanban board to verify correct optimistic UI updates and backend syncing.

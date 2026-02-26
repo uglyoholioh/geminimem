@@ -1,0 +1,47 @@
+# Comprehensive Testing Suite Walkthrough
+
+We have successfully implemented and verified a multi-layered testing suite for the CraftCanvas application, covering Backend API logic, Frontend component behavior, and End-to-End user flows.
+
+## 🧪 Backend Testing (pytest)
+- **Framework**: `pytest` with `pytest-asyncio` and `httpx` for async API testing.
+- **Coverage**: All core routers ([auth](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py#82-87), [tasks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#57-117), [courses](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py#24-68), [timetable](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py#117-254)) and background jobs (`brief_generator`, [canvas_sync](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py#47-73)).
+- **Results**: **30 Tests Passed**.
+
+## ⚛️ Frontend Unit Testing (Jest)
+- **Framework**: `Jest` with `@testing-library/react`.
+- **Coverage**: 
+  - Essential UI components ([ThemeToggle](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/ThemeToggle.tsx#6-38), [FloatingTimer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/FloatingTimer.tsx#7-69)).
+  - Complex State Providers ([FocusTimerProvider](file:///Users/oli/Desktop/CraftCanvas/frontend/components/FocusTimerProvider.tsx#40-126)).
+  - Utility functions ([api](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts#7-36) client, [date](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py#187-226) formatting).
+- **Results**: **30 Tests Passed**.
+
+## 🎭 E2E Testing (Playwright)
+- **Framework**: `Playwright` with robust mocking for isolated frontend testing.
+- **Achievements**:
+  - Established the E2E framework and configuration.
+  - Implemented authentication redirection tests.
+  - Implemented task management CRUD flow specs.
+  - Configured a local development server integration for fast test cycles.
+
+## 🚀 How to Run Tests
+
+### Backend
+```bash
+cd backend
+pytest
+```
+
+### Frontend Unit
+```bash
+cd frontend
+npm test
+```
+
+### E2E Flow
+```bash
+cd frontend
+npx playwright test
+```
+
+> [!NOTE]
+> E2E tests are configured to mock all backend responses, allowing them to run even if the backend server is offline or in a different environment.

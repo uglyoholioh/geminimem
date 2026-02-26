@@ -1,0 +1,16 @@
+# Fix Canvas API Data Loading on Dashboard
+
+## Investigation
+- [x] Examine frontend data hooks and page.tsx
+- [x] Review backend routes for courses, assignments, announcements, materials, schedule
+- [x] Identify missing user_id filtering in endpoints
+
+## Implementation
+- [ ] Fix `/assignments/upcoming` - Add user_id filter and auth dependency
+- [ ] Fix `/schedule` - Add user_id filter and auth dependency to all views
+- [ ] Fix `/schedule/deadlines` - Add user_id filter and auth dependency
+- [ ] Clean up dead code in `/announcements/recent`
+
+## Verification
+- [ ] Test endpoints return user-specific data
+- [ ] Verify dashboard loads data correctly

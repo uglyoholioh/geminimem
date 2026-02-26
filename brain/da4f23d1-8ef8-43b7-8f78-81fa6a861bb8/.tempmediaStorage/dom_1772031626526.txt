@@ -1,0 +1,44 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+OS
+S
+Focus
+Focus
+Short Break
+Long Break
+25:00
+Customise Appearance
+Focusing On
+Select a task below to start tracking time
+Up Next
+New UI Test Task
+0m
+Test task
+0m
+Test task for timetable Verification
+0m
+Customise Focus
+[0] (619,256)<button class='text-muted hover:text-primary transition-colors' />
+[1] (404,304)<button class='px-4 py-2.5 text-xs font-medium border-b-2 transition-colors text-muted hover:text-primary border-transparent'>Backgrounds />
+[2] (457,304)<button class='px-4 py-2.5 text-xs font-medium border-b-2 transition-colors text-accent border-accent'>Clock Style />
+Choose how your timer looks.
+[3] (500,422)<button class='w-full rounded-xl border-2 transition-all p-4 flex items-center justify-between border-border bg-base hover:border-muted' />
+	Minimal
+	25:00
+[4] (500,521)<button class='w-full rounded-xl border-2 transition-all p-4 flex items-center justify-between border-border bg-base hover:border-muted' />
+	Digital
+	25:00
+[5] (500,617)<button class='w-full rounded-xl border-2 transition-all p-4 flex items-center justify-between border-accent bg-accent/5' />
+	8-Bit
+	25:00
+[6] (500,707)<button class='w-full rounded-xl border-2 transition-all p-4 flex items-center justify-between border-border bg-base hover:border-muted' />
+	Flip
+	2
+	5
+	:
+	0
+	0
+
+</current_dom>

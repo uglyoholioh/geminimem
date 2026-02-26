@@ -1,0 +1,52 @@
+# Walkthrough — Phase 2 Fixes + Frontend Design System
+
+## Backend Fixes
+
+Fixed 5 critical backend issues:
+
+| File | Fix |
+|---|---|
+| [requirements.txt](file:///Users/oli/Desktop/CraftCanvas/backend/requirements.txt) | Added `python-dateutil` |
+| [ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py) | Proper timezone, RRULE serialization, SUMMARY regex, end_date |
+| [timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py) | RRULE expansion via dateutil, FullCalendar fields |
+| [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py) | Config-based DB URL |
+| [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) | API key auth on all routes |
+
+## Frontend Implementation
+
+Implemented the botanical earth-tone design system with light + dark modes across all pages.
+
+### Files created/rewritten
+
+| File | Purpose |
+|---|---|
+| [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css) | Design tokens, CSS variables, Tailwind v4 @theme, fonts |
+| [utils.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/utils.ts) | cn(), getModuleColour(), formatRelativeDate() |
+| [api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts) | Centralized API client replacing raw axios |
+| [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx) | 56px icon navigation |
+| [ThemeToggle.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/ThemeToggle.tsx) | Light/dark toggle with localStorage |
+| [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx) | Root layout with sidebar, theme flash prevention |
+| [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) | Dashboard (3-column) |
+| [tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx) | Tasks page with circular checkboxes |
+| [timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx) | Timetable with grid calendar |
+
+### Verification
+
+- ✅ `next build` passes with zero errors
+- ✅ Light mode renders correctly with warm off-white, sage green accents
+- ✅ Dark mode renders correctly with warm charcoal, brighter sage
+- ✅ Theme toggle persists selection via localStorage
+- ✅ Sidebar navigation highlights active route
+- ✅ Real data from backend displayed (tasks, assignments, timetable, announcements)
+
+### Screenshots
+
+````carousel
+![Dashboard — Light Mode](/Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/dashboard_full_light_1771917084751.png)
+<!-- slide -->
+![Dashboard — Dark Mode](/Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/dashboard_full_dark_1771917090540.png)
+````
+
+### Recording
+
+![Browser verification recording](/Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/dashboard_verification_1771917071252.webp)

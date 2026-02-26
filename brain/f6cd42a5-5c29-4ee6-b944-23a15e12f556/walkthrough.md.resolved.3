@@ -1,0 +1,41 @@
+# Task System Upgrade Walkthrough
+
+The task management system has been completely overhauled with a premium, responsive UI and a robust backend. Here is a demonstration of the new features.
+
+## 🗂️ Task Views & Sidebar
+A new sidebar provides quick navigation between various task perspectives.
+
+- **Inbox**: Your default landing area for new tasks.
+- **Today & Upcoming**: Tasks grouped chronologically to help you plan.
+- **By Module**: Automatic grouping of tasks by their course code for academic focus.
+- **Completed**: A retrospective view of all finished work.
+
+## 📝 Task Creation & Detail Control
+Creating and managing tasks is now more intuitive with dual-mode creation and a rich detail panel.
+
+````carousel
+![Task List View](file:///Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/.system_generated/click_feedback/click_feedback_1771927643610.png)
+<!-- slide -->
+![Manual Entry Modal](file:///Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/.system_generated/click_feedback/click_feedback_1771927648870.png)
+<!-- slide -->
+![Task Detail Panel](file:///Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/.system_generated/click_feedback/click_feedback_1771927697468.png)
+````
+
+- **Keyboard Shortcuts**: Press `N` to quickly open the creation modal.
+- **Detail Panel**: Edit titles inline, add rich markdown notes, manage tags, and pick modules/dates with ease.
+- **Real-time Updates**: Changes save instantly with optimistic UI updates for a snappy feel.
+
+## 🔄 Canvas Auto-Tasking
+You can now toggle automatic task creation from Canvas assignments.
+
+![Settings Toggle](file:///Users/oli/.gemini/antigravity/brain/f6cd42a5-5c29-4ee6-b944-23a15e12f556/.system_generated/click_feedback/click_feedback_1771927774949.png)
+
+When enabled, any new assignment synced from Canvas will automatically appear in your **Inbox**, pre-populated with the due date and module information.
+
+## ✅ Verification Results
+- **Backend Stability**: Fixed all 500 errors and standardized the database schema (merged `course_id` into `course_code` for consistency).
+- **Persistence**: Verified that settings (like the Canvas toggle) and task edits (notes, priority) persist correctly after page reloads.
+- **E2E Flow**: Confirmed the full lifecycle: Create → View → Edit → Complete.
+
+---
+**The system is now fully upgraded and ready for use.**

@@ -1,0 +1,51 @@
+
+# AI Daily Brief & Settings Fix Plan
+
+## Goal Description
+Fix the issue where GLM API key persistence state is not reflected in the UI after navigation, and improve the visual presentation of the AI Daily Brief by enabling Markdown formatting and increasing readability.
+
+## User Review Required
+> [!IMPORTANT]
+> The AI Daily Brief prompt will be updated to explicitly request Markdown. The frontend will implement a lightweight Markdown parser to render this content.
+
+## Proposed Changes
+
+### Backend
+#### [brief.py](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py)
+- Update [generate_ai_summary](file:///Users/oli/Desktop/LMSManager/backend/app/routes/brief.py#93-211) prompt to explicitly request Markdown formatting (headers in bold, bullet points).
+- Instruct AI to structure the response clearly with sections.
+
+### Frontend
+#### [Settings Page](file:///Users/oli/Desktop/LMSManager/frontend/app/settings/page.tsx)
+- Update `useEffect` to explicitly set `hasGlmKey` based on `user.has_glm_key` regardless of truthiness (to handle `false` case correctly, though `false` is default).
+- Ensure `setHasGlmKey` is called even if `user.has_glm_key` is undefined (defaulting to false).
+
+#### [Daily Brief Component](file:///Users/oli/Desktop/LMSManager/frontend/components/dashboard/daily-brief.tsx)
+- Implement `renderMarkdown` helper function to parse:
+    - Bold text (`**text**`)
+    - Bullet points (`- `)
+    - Line breaks
+- Replace simple `<p>` tag rendering with `renderMarkdown`.
+- Adjust styling to give more whitespace/breathing room.
+- Increase or adjust `max-h` constraint to provide "more space".
+
+## Verification Plan
+
+### Automated Tests
+- None possible for UI rendering without E2E.
+
+### Manual Verification
+1. **Settings Persistence**:
+    - Go to Settings.
+    - Verify "GLM API Key" toggle state.
+    - Navigate to Dashboard.
+    - Navigate back to Settings.
+    - Verify toggle state persists.
+    - Refresh page.
+    - Verify toggle state persists.
+
+2. **Daily Brief Formatting**:
+    - Generate AI Summary.
+    - Verify output is not a "chunk of text".
+    - Verify bold headers and bullet points are rendered correctly.
+    - Verify spacing is "digestible".

@@ -1,0 +1,123 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (500,3)<h3  />
+	[1] (59,2)<a class='nostyle' href='#/setup' />
+		[2] (59,2)<span >setup />
+	[3] (946,2)<button class='expand-operation' title='Collapse operation' />
+[4] (500,74)<div  />
+	[5] (486,74)<button class='opblock-summary-control' />
+		[6] (63,74)<span >POST />
+		[7] (520,74)<div  />
+			[8] (223,74)<span  />
+				[9] (223,74)<a class='nostyle' href='#/setup/validate_canvas_api_v1_setup_validate_canvas_post' />
+					[10] (223,74)<span >/api
+/v1
+/setup
+/validate-canvas />
+			[11] (390,74)<div >Validate Canvas />
+	[12] (958,74)<button aria-label='post ​/api​/v1​/setup​/validate-canvas' class='opblock-control-arrow' />
+[13] (500,152)<div  />
+	[14] (486,152)<button class='opblock-summary-control' />
+		[15] (63,152)<span >POST />
+		[16] (520,152)<div  />
+			[17] (211,152)<span  />
+				[18] (211,152)<a class='nostyle' href='#/setup/validate_llm_api_v1_setup_validate_llm_post' />
+					[19] (211,152)<span >/api
+/v1
+/setup
+/validate-llm />
+			[20] (356,152)<div >Validate Llm />
+	[21] (958,152)<button aria-label='post ​/api​/v1​/setup​/validate-llm' class='opblock-control-arrow' />
+[22] (500,231)<div  />
+	[23] (486,231)<button class='opblock-summary-control' />
+		[24] (63,231)<span >POST />
+		[25] (520,231)<div  />
+			[26] (232,231)<span  />
+				[27] (232,231)<a class='nostyle' href='#/setup/validate_telegram_api_v1_setup_validate_telegram_post' />
+					[28] (232,231)<span >/api
+/v1
+/setup
+/validate-telegram />
+			[29] (410,231)<div >Validate Telegram />
+	[30] (958,231)<button aria-label='post ​/api​/v1​/setup​/validate-telegram' class='opblock-control-arrow' />
+[31] (500,316)<h3  />
+	[32] (77,316)<a class='nostyle' href='#/meetings' />
+		[33] (77,316)<span >meetings />
+	[34] (946,316)<button class='expand-operation' title='Collapse operation' />
+[35] (500,388)<div  />
+	[36] (486,388)<button class='opblock-summary-control' />
+		[37] (63,388)<span >POST />
+		[38] (520,388)<div  />
+			[39] (174,388)<span  />
+				[40] (174,388)<a class='nostyle' href='#/meetings/create_meeting_api_v1_meetings__post' />
+					[41] (174,388)<span >/api
+/v1
+/meetings
+/ />
+			[42] (290,388)<div >Create Meeting />
+	[43] (958,388)<button aria-label='post ​/api​/v1​/meetings​/' class='opblock-control-arrow' />
+[44] (500,466)<div  />
+	[45] (486,466)<button class='opblock-summary-control' />
+		[46] (63,466)<span >GET />
+		[47] (520,466)<div  />
+			[48] (174,466)<span  />
+				[49] (174,466)<a class='nostyle' href='#/meetings/list_user_meetings_api_v1_meetings__get' />
+					[50] (174,466)<span >/api
+/v1
+/meetings
+/ />
+			[51] (298,466)<div >List User Meetings />
+	[52] (958,466)<button aria-label='get ​/api​/v1​/meetings​/' class='opblock-control-arrow' />
+[53] (500,544)<div  />
+	[54] (486,544)<button class='opblock-summary-control' />
+		[55] (63,544)<span >DELETE />
+		[56] (520,544)<div  />
+			[57] (223,544)<span  />
+				[58] (223,544)<a class='nostyle' href='#/meetings/delete_meeting_api_v1_meetings__meeting_id__delete' />
+					[59] (223,544)<span >/api
+/v1
+/meetings
+/{meeting_id} />
+			[60] (387,544)<div >Delete Meeting />
+	[61] (958,544)<button aria-label='delete ​/api​/v1​/meetings​/{meeting_id}' class='opblock-control-arrow' />
+[62] (500,623)<div  />
+	[63] (486,623)<button class='opblock-summary-control' />
+		[64] (63,623)<span >GET />
+		[65] (520,623)<div  />
+			[66] (232,623)<span  />
+				[67] (232,623)<a class='nostyle' href='#/meetings/get_shared_meeting_api_v1_meetings_shared__token__get' />
+					[68] (232,623)<span >/api
+/v1
+/meetings
+/shared
+/{token} />
+			[69] (416,623)<div >Get Shared Meeting />
+	[70] (958,623)<button aria-label='get ​/api​/v1​/meetings​/shared​/{token}' class='opblock-control-arrow' />
+[71] (500,701)<div  />
+	[72] (486,701)<button class='opblock-summary-control' />
+		[73] (63,701)<span >POST />
+		[74] (520,701)<div  />
+			[75] (285,701)<span  />
+				[76] (285,701)<a class='nostyle' href='#/meetings/update_participant_availability_api_v1_meetings_shared__token__participants_post' />
+					[77] (285,701)<span >/api
+/v1
+/meetings
+/shared
+/{token}
+/participants />
+			[78] (545,701)<div >Update Participant Availability />
+	[79] (958,701)<button aria-label='post ​/api​/v1​/meetings​/shared​/{token}​/participants' class='opblock-control-arrow' />
+[80] (500,827)<h4  />
+	[81] (496,823)<button class='models-control' />
+		[82] (487,823)<span >Schemas />
+[83] (245,920)<button class='json-schema-2020-12-accordion' />
+	[84] (235,920)<div  />
+		[85] (235,920)<div >Body_import_timetable_api_v1_timetable_import_post />
+	[86] (420,920)<span  />
+[87] (459,923)<button class='json-schema-2020-12-expand-deep-button'>Expand all />
+object
+BulkSettingsUpdate
+
+</current_dom>

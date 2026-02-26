@@ -1,0 +1,121 @@
+# Course Features Expansion
+
+Add unique colour assignment, quick-action buttons (View Tasks, View Notes), a full Notes system, and a Module Brief/AI summary tab.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Notes feature** — This adds a new database table (`notes`), a new backend router, a new sidebar nav item, and a new `/notes` page. This is a net-new feature across the stack.
+
+> [!IMPORTANT]
+> **Auto-colour assignment** — Courses currently get a default `#6366f1` colour. This plan auto-assigns unique colours from the design system palette on Canvas sync. Existing courses will be backfilled.
+
+## Proposed Changes
+
+### 1. Auto-assign Unique Module Colours
+
+#### [MODIFY] [course.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/course.py)
+
+- Add a `MODULE_COLOURS` palette constant (8 differentiable colours from [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css) tokens: sage, clay, stone, rose, olive, mauve, eucalyptus, sienna)
+- Change default colour from `#6366f1` to use the palette rotation
+
+#### [MODIFY] [sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/sync.py) / canvas_sync service
+
+- When creating a new course, auto-assign the next unused colour from the palette (round-robin by course index)
+
+#### [NEW] [backfill_colours.py](file:///Users/oli/Desktop/CraftCanvas/backend/scripts/backfill_colours.py)
+
+- One-time script to assign unique colours to existing courses that still have the default
+
+---
+
+### 2. Course Card Quick Actions (View Tasks, View Notes)
+
+#### [MODIFY] [page.tsx (courses listing)](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx)
+
+- Replace the 2-button footer (Canvas / View Details) with 4 actions:
+  - **Tasks** → navigates to `/tasks?module={code}`
+  - **Notes** → navigates to `/notes?module={code}`
+  - **Canvas** → opens external Canvas URL
+  - **→** arrow / "Details" → navigates to `/courses/{id}`
+
+---
+
+### 3. Notes System (Full-Stack)
+
+#### [NEW] [note.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/note.py)
+
+```python
+class Note(SQLModel, table=True):
+    id: Optional[int] = PK
+    user_id: int = FK(users.id)
+    course_id: Optional[int] = FK(courses.id)
+    course_code: Optional[str]
+    title: str
+    content: str  # markdown content
+    pinned: bool = False
+    created_at: datetime
+    updated_at: datetime
+```
+
+#### [NEW] [notes.py (router)](file:///Users/oli/Desktop/CraftCanvas/backend/routers/notes.py)
+
+- `GET /notes` — list notes (optional `course_code` filter)
+- `GET /notes/{id}` — get single note
+- `POST /notes` — create note
+- `PUT /notes/{id}` — update note
+- `DELETE /notes/{id}` — delete note
+
+#### [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+
+- Register `notes_router` at `/api/v1/notes`
+
+#### [NEW] [page.tsx (notes)](file:///Users/oli/Desktop/CraftCanvas/frontend/app/notes/page.tsx)
+
+- Split-pane layout: sidebar list + editor panel
+- Module filter dropdown (or populated from `?module=` URL param)
+- Markdown editor with preview
+- Create/edit/delete/pin notes
+- Module colour badge on each note
+
+#### [MODIFY] [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx)
+
+- Add "Notes" nav item (with `StickyNote` icon) between "Courses" and "AI Chat"
+
+---
+
+### 4. Tasks Page — Module Filter via URL
+
+#### [MODIFY] [page.tsx (tasks)](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx)
+
+- Read `?module=` from URL search params
+- If present, auto-set view to `by_module` and filter to that module
+- Show a "Filtered by {code}" banner with a clear button
+
+---
+
+### 5. Module Brief / AI Tab
+
+#### [MODIFY] [page.tsx (course detail)](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/%5Bid%5D/page.tsx)
+
+- Add a new **"Module Brief"** tab to the course detail page
+- Content:
+  - **Module Info section** — code, name, term, schedule summary, total assignments/grades
+  - **AI Chat** — embedded chat interface (reuse the AI chat pattern from [app/ai/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/ai/page.tsx)) but pre-seeded with module context: "You are an AI assistant for the module {code} {name}. Here is the module's data: {assignments}, {schedule}, {grades}..."
+  - Suggestions: "Summarise this module", "What's due next?", "Help me study for this module"
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- `npx tsc --noEmit` — ensure all TypeScript compiles
+- `curl` the new notes API endpoints
+
+### Manual Verification
+1. Sync courses → verify each gets a unique colour
+2. Visit [/courses](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses) → cards should show colour-coded left stripes + footer actions (Tasks, Notes, Canvas, Details)
+3. Click "Tasks" on a card → `/tasks?module=CS2103T` → tasks filtered
+4. Click "Notes" on a card → `/notes?module=CS2103T` → notes filtered
+5. Create/edit/delete notes on `/notes` page
+6. Visit course detail → "Module Brief" tab → AI chat works with module context
