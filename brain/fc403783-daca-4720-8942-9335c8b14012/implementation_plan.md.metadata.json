@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to add a \"Your Modules\" widget to the dashboard. The widget will display active courses with their codes and names, allowing users to click into each module. Data will be fetched from the existing `/courses` endpoint.",
+  "updatedAt": "2026-02-26T18:20:47.326202Z"
+}

@@ -1,0 +1,25 @@
+# Dashboard Modules Access Walkthrough
+
+I have added a "Your Modules" widget to the dashboard to make it easy for you to access your individual courses.
+
+## Changes Made
+
+### Frontend
+
+#### Dashboard Page ([page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx))
+- **State Management**: Added `courses` state to store active module data.
+- **Data Fetching**: Updated the [load](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx#80-90) effect to fetch active courses from the `/courses` endpoint in parallel with other dashboard data.
+- **UI Layout**:
+    - Inserted a new "Your Modules" section in the right column of the dashboard.
+    - The widget displays active modules in a 2-column grid.
+    - Each module card shows the course code (with its assigned color) and name.
+    - Modules are clickable and navigate directly to the specific course page.
+- **Lint Fix**: Added missing `ChevronRight` import from `lucide-react`.
+
+## Verification Results
+
+### Manual Verification
+- **Data Load**: Verified that the dashboard now correctly fetches and displays active modules.
+- **Navigation**: Verified that clicking a module card redirects the user to `/courses/[id]`.
+- **UI/UX**: The grid layout integrates seamlessly into the dashboard's right column, maintaining visual consistency with the "Today's Agenda" and "Tasks" sections.
+- **Responsiveness**: The grid adapts naturally to the dashboard's layout.

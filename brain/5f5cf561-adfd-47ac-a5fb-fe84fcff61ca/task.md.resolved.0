@@ -1,0 +1,19 @@
+# Craft Integration Updates
+
+## 1. Backend Updates
+- [ ] Update [backend/services/craft_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/craft_sync.py) to support `target_type` and `target_document_id`.
+- [ ] Update [backend/services/brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py) to retrieve the `craft_*` settings from DB and orchestrate the push to Craft using these parameters.
+
+## 2. Frontend Settings Page Updates
+- [ ] Update [frontend/app/settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx) default settings to include `craft_target_type` ("daily_note" or "specific_document") and `craft_target_document_id` (empty by default).
+- [ ] Add radio buttons or a select dropdown for Craft Target Type in the Craft Integration section of Settings.
+- [ ] Render a text input for Document ID unconditionally when "specific_document" is selected.
+
+## 3. Frontend Setup Page Updates
+- [ ] Update [frontend/app/setup/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/setup/page.tsx) state to include `craftTargetType` and `craftTargetId`.
+- [ ] Show the selection for target type and optional Document ID in the Power User Integrations step (if Craft connection URL is provided, or always alongside it).
+- [ ] Ensure these fields are sent in the [bulk](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py#50-70) settings updates during onboarding completion.
+
+## 4. Verification
+- [ ] Ensure no compilation errors in frontend.
+- [ ] Start backend and verify brief generator doesn't crash on manual trigger or scheduler initialization related to Craft variables.

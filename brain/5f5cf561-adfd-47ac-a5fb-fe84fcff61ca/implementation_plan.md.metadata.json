@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Implementation plan documenting changes to frontend setup/settings pages and backend craft_sync/brief_generator to support 'daily_note' vs 'specific_document' integration options for Craft.",
+  "updatedAt": "2026-02-26T18:19:40.830109Z"
+}
