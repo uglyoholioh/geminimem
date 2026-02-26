@@ -1,0 +1,26 @@
+# Tasks Page and Dashboard Features
+
+## 1. Backend Updates
+- [x] Add `status` field to Task model (TODO, IN_PROGRESS, DONE)
+- [x] Add `percentage_done` field to Task model (integer 0-100)
+- [x] Update routers to handle new fields
+
+## 2. Frontend Models & API Updates
+- [x] Update frontend Task types to include `status` and `percentage_done`
+- [x] Update API calls for task mutation
+
+## 3. Tasks Page (Kanban Board)
+- [x] Implement React DnD or simpler Kanban board for Tasks Page
+- [x] Show percentages of done on task cards
+- [x] Sort tasks logically within columns
+
+## 4. Dashboard Updates
+- [x] Fetch and display tasks with closest due date / highest priority
+- [x] Show in-progress tasks
+- [x] Add a percentage slider for in-progress tasks (visually appealing, no glowy effects)
+- [x] Hook slider `onChangeEnd` or debounced `onChange` to API
+
+## 5. Verification
+- [ ] Verify tasks appear in kanban board
+- [ ] Verify slider updates test tasks
+- [ ] Verify dashboard tasks are sorted correctly

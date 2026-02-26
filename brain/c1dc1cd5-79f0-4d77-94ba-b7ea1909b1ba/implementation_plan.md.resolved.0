@@ -1,0 +1,48 @@
+# Kanban Board and Dashboard Progress Tracking
+
+## Goal
+Update the [Task](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py#14-50) model to support `percentage_done`. Modify the tasks page Kanban board to display this percentage. Update the Dashboard to prioritize in-progress tasks along with those having the closest due date and highest priority, and add a visually appealing (non-glowy) progress slider for in-progress tasks.
+
+## Proposed Changes
+
+### Backend Database & Models
+- Run an SQLite migration to add the column: `ALTER TABLE tasks ADD COLUMN percentage_done INTEGER DEFAULT 0;` (assuming SQLite).
+- #### [MODIFY] [backend/models/task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py)
+  - Add `percentage_done: Optional[int] = Field(default=0)` to the [Task](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py#14-50) model.
+
+### Backend API Routers
+- #### [MODIFY] [backend/routers/tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py)
+  - Update [TaskCreate](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#23-39) and [TaskUpdate](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#40-55) Pydantic models to include `percentage_done: Optional[int] = 0`.
+  - Update [create_task](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#158-243), [update_task](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#297-385), [list_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#57-117), and [get_task](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#119-156) to handle and return `percentage_done`.
+  - In [list_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#57-117), update the sorting logic slightly if needed, though we will mainly handle Dashboard sorting in the frontend to ensure `in_progress` tasks appear first. Currently [list_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#57-117) sorts by `due_date, created_at` and then `priority`.
+
+### Frontend Models & Kanban
+- #### [MODIFY] [frontend/components/tasks/KanbanBoard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/tasks/KanbanBoard.tsx)
+  - Add `percentage_done: number` to the implicit Task type definitions.
+  - In [SortableTask](file:///Users/oli/Desktop/CraftCanvas/frontend/components/tasks/KanbanBoard.tsx#20-72), add a visual indicator (like a discrete text or minimal progress bar) for `percentage_done` when the task is not completed.
+  - *Note: The Tasks page is already passing tasks to the KanbanBoard component for the "Board" view mode.*
+
+### Frontend Dashboard
+- #### [MODIFY] [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+  - Update local [Task](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py#14-50) interface to include `percentage_done`.
+  - Enhance the sorting of [tasks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#57-117) fetched for the Dashboard so that:
+    1. `in_progress` status tasks appear first.
+    2. Then sort by `due_date` (closest due date first).
+    3. Then sort by `priority` (urgent > high > medium > low).
+  - For tasks rendered in the Dashboard, if the status is `in_progress`, render a sleek, non-glowy slider (a standard HTML `<input type="range">` styled with Tailwind) beneath the task title.
+  - Create a debounced API call or attach the API call to the slider's `onMouseUp`/`onTouchEnd` (or `onChange` with a timer) to issue a `PUT /tasks/{id}` updating the `percentage_done`.
+
+## Verification Plan
+
+### Automated Tests
+- Run Pytest for the backend to ensure router endpoints still work with the new field: `pytest` in the `backend/` directory.
+- Run frontend specific tests if applicable.
+
+### Manual Verification
+- Start `uvicorn main:app --reload` from `backend/` and `npm run dev` from `frontend/`.
+- Open the Dashboard page in a browser:
+  - Create an Inbox task, mark it as "In Progress", set it a due date.
+  - Verify it bubbles up to the top of the Tasks widget in the Dashboard.
+  - Try sliding the progress slider and verify it visually updates and triggers a DB update (reloading the page should preserve the percentage).
+- Open the Tasks page in "Board" view:
+  - Verify the tasks show the percentage done.

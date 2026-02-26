@@ -1,0 +1,24 @@
+# Include User Name in Dashboard Greeting
+
+This change will personalize the dashboard greeting by including the user's display name.
+
+## Proposed Changes
+
+### Frontend
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- Import [useAuth](file:///Users/oli/Desktop/CraftCanvas/frontend/components/AuthProvider.tsx#29-34) from `@/components/AuthProvider`.
+- Get the [user](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py#44-63) object from [useAuth()](file:///Users/oli/Desktop/CraftCanvas/frontend/components/AuthProvider.tsx#29-34).
+- Update the greeting `h1` to include `user?.display_name`.
+
+## Verification Plan
+
+### Manual Verification
+- Log in to the application.
+- Navigate to the dashboard.
+- Verify that the greeting shows "Good morning, [Name]", "Good afternoon, [Name]", or "Good evening, [Name]".
+- Change the display name in Settings and verify the dashboard update.
+
+### Automated Tests
+- I will run the existing Playwright tests to ensure no regressions.
+- `npx playwright test e2e/auth.spec.ts`

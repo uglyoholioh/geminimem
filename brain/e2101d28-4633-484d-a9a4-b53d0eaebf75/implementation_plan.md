@@ -1,0 +1,39 @@
+# Implementation Plan - Allow Users to Recolour Modules
+
+This plan outlines the changes needed to allow users to customize the color of their modules (courses). This includes backend API updates and a frontend UI for color selection.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [models/course.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/course.py)
+- Export `MODULE_COLOURS` or create a helper to return them if needed, though they are already top-level.
+
+#### [MODIFY] [routers/courses.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py)
+- Add `ColourUpdate` Pydantic model.
+- Add `GET /api/v1/courses/colours` to return the list of default colors.
+- Add `PATCH /api/v1/courses/{course_id}/colour` to update a course's color.
+
+### Frontend
+
+#### [MODIFY] [app/courses/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx)
+- Create a `ColourPicker` component (or a simple dropdown/popover).
+- Add a "recolour" button to the `CourseCard`.
+- Implement the logic to call the backend API and update the local state.
+- The UI will show:
+    - Default color buttons (fetched from backend or hardcoded if simple).
+    - A custom hex color input/picker.
+
+## Verification Plan
+
+### Automated Tests
+- Run backend tests to ensure the new endpoint works.
+    - `pytest backend/tests/test_routers/test_courses.py` (add a new test case for colour update).
+- Run frontend E2E tests if applicable (though manual verification is better for UI).
+
+### Manual Verification
+- Open the Courses page.
+- Click the "recolour" button on a module card.
+- Select a default color and verify it updates the card and persists on refresh.
+- Enter a custom hex color and verify it updates and persists.
+- Navigate to other pages (dashboard, timetable) and verify the color change is reflected everywhere.

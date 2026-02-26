@@ -1,0 +1,31 @@
+# Modular AI Context Provider Architecture
+
+We will implement a Context Provider Registry that allows any backend service/data model to dynamically provide relevant data to the AI during chat or brief generation. This will be configurable via the user's settings.
+
+## User Review Required
+Please review the proposed architecture. This proposes adding an "AI Context" tab to your Settings page where users can toggle which data sources the AI has access to.
+
+## Proposed Changes
+
+### Context Registry (`backend/services/context_registry.py`)
+- **[NEW] `backend/services/context_registry.py`**: A registry singleton `context_registry` where context providers can register functions that return markdown/text context for a given `user_id`. Each provider will have an identifier (e.g., [tasks](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py#91-109), `timetable`).
+
+### Provider Implementations
+- Implementation of domain-specific providers (e.g., in [backend/services/brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py) or new dedicated service files):
+  - `TasksContextProvider`
+  - `TimetableContextProvider`
+  - `AssignmentsContextProvider`
+
+### AI Service Refactoring ([backend/services/ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py))
+- **[MODIFY] [backend/services/ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)**: Update [chat()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#18-30) and [stream_chat()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#55-85) to optionally gather context from the `context_registry` (filtering by what the user has enabled in their [Settings](file:///Users/oli/Desktop/CraftCanvas/backend/models/settings.py#8-19) table) and inject it as a "system" message before the user messages, ensuring the LLM knows about the user's current data. 
+
+### Frontend Settings Update ([frontend/app/settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx))
+- **[MODIFY] [frontend/app/settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)**: Add an "AI Context" tab that contains toggles for enabling/disabling data export for Tasks, Timetable, Assignments, etc., to the AI.
+
+## Verification Plan
+### Automated Tests
+- Validate that `context_registry` correctly filters providers based on settings.
+- Mock `ai_service.chat` and ensure the system message appropriately reflects user context preferences.
+
+### Manual Verification
+- Test toggling preferences in the frontend Settings page and verifying using the AI chat if it knows about the tasks or timetable.

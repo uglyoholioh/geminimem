@@ -1,0 +1,48 @@
+# Implementation Plan: User-selectable colour schemes
+
+This plan outlines the steps to allow users to choose from several predefined colour schemes (e.g., Midnight, Forest, Sunset) in addition to the default theme.
+
+## User Review Required
+
+> [!IMPORTANT]
+> This change introduces a `colour_scheme` setting that persists to the backend. It will override any local theme choices once loaded.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/settings.py)
+- Ensure the `Settings` model can handle the `colour_scheme` key (it already does as a key-value store).
+
+### Frontend
+
+#### [MODIFY] [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css)
+- Add CSS variables for new colour schemes:
+    - ` Midnight` (Deep blues/purples)
+    - ` Forest` (Earth tones, greens)
+    - ` Sunset` (Warm oranges/reds)
+- Use data attributes (e.g., `[data-theme='midnight']`) to scope these variables.
+
+#### [NEW] [ThemeProvider.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ThemeProvider.tsx)
+- Create a `ThemeProvider` context to manage the active theme and colour scheme.
+- Handle synchronization between `localStorage`, backend settings, and `document.documentElement`.
+
+#### [MODIFY] [ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx)
+- Wrap the app with `ThemeProvider`.
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)
+- Add a new "Colour Scheme" section in the Appearance tab.
+- Provide visual previews for each scheme.
+- Hook up scheme selection to the `ThemeProvider` and backend settings.
+
+## Verification Plan
+
+### Automated Tests
+- Run `npm run test` (if applicable) to ensure no regressions in layout.
+- Check backend settings API with a scratch script to verify `colour_scheme` persists.
+
+### Manual Verification
+- Open Settings -> Appearance.
+- Select different colour schemes and verify they apply immediately.
+- Refresh the page and verify the chosen scheme persists.
+- Switch between Light/Dark mode and verify schemes adapt if applicable (or remain consistent if they are standalone themes).

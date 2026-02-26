@@ -1,0 +1,17 @@
+# Kanban Default View and Dashboard Updates
+
+## 1. Tasks Page Update
+- [ ] Set default visualization to `kanban` instead of [list](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#59-120).
+- [ ] Add a [groupBy](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#76-85) state to KanbanBoard (Status, Module, Priority) to allow users to switch how the board is organized.
+- [ ] Pass the [groupBy](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#76-85) state or let KanbanBoard manage its own grouping.
+
+## 2. Kanban Board Component Update
+- [ ] Accept [groupBy](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#76-85) config (or manage it internally).
+- [ ] Group by Status: Columns = Inbox, In Progress, Completed.
+- [ ] Group by Priority: Columns = Urgent, High, Medium, Low.
+- [ ] Group by Module: Columns = dynamically generated based on task `course_code`.
+- [ ] Disable drag-and-drop between columns if grouping by something other than `status` (or implement the update logic for Priority/Module too). If grouping by Status, update `status`. If Priority, update `priority`. If Module, update `course_code`.
+
+## 3. Dashboard Updates
+- [ ] Increase maximum tasks shown or ensure critical (urgent/high priority + due soon) show up.
+- [ ] Update the range slider to have `step="10"` and be smaller/more compact.

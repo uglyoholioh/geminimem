@@ -1,0 +1,29 @@
+# Walkthrough: User-selectable Colour Schemes
+
+Users can now choose from several premium colour schemes in the application settings.
+
+## Changes Made
+
+### 1. New Colour Schemes in CSS
+Added `Midnight`, `Forest`, and `Sunset` colour palettes to [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css) using CSS variables scoped by `data-scheme` attributes.
+
+### 2. Global Theme Management
+- Created a [ThemeProvider](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ThemeProvider.tsx#18-89) React context to manage both the appearance mode (Light/Dark/System) and the selected Colour Scheme.
+- Integrated the provider into the root layout for global availability.
+- Replaced the legacy theme-switching script with a more robust React-based solution that also handles external colour schemes.
+
+### 3. Settings UI Improvements
+- Enhanced the "Appearance" tab in the Settings page.
+- Added a visual preview grid for selecting colour schemes.
+- Hooked up selection to persist both to `localStorage` (for immediate load) and the backend (for cross-device sync).
+
+## Verification Results
+
+### Build & Compilation
+- Verified frontend build with `npm run build`.
+- No TypeScript or compilation errors found in the new theme logic.
+
+### UI/UX Validation
+- Schemes apply instantly upon selection.
+- Persistence verified through `localStorage` and backend settings API integration.
+- The "Default" scheme remains available to revert to the original Academic Life OS aesthetic.

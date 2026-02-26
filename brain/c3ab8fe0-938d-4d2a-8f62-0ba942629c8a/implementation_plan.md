@@ -1,0 +1,45 @@
+# Implementation Plan: Chat filters and settings updates
+
+Allow users to chat to change what is shown in tasks, assignments, and announcements (filtering/sorting) and update application settings via chat.
+
+## Proposed Changes
+
+### [Component] AI Service (Backend)
+Modify `ai_service.py` and potentially add new action types to support:
+- Filtering commands (e.g., "show only urgent tasks")
+- Settings update commands (e.g., "hide CS101 assignments")
+
+#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+- Update system prompt to include instructions for filtering and settings actions.
+- Add tool/action definitions for `filter_view` and `update_setting`.
+
+### [Component] Dashboard & Chat (Frontend)
+Enhance the chat interface to handle new action types.
+
+#### [MODIFY] [parseActions.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/parseActions.ts)
+- Add `filter_view` and `update_setting` to `ActionData` type.
+
+#### [MODIFY] [ActionCard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx)
+- Implement UI and logic for `filter_view` (communicating back to the page) and `update_setting` (calling the settings API).
+
+### [Component] Tasks, Assignments, Announcements Pages (Frontend)
+Add a chat drawer or inline chat to these pages to allow local filtering.
+
+#### [MODIFY] [tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx)
+- Integrate the chat component.
+- Implement a listener for `filter_view` actions to update the local state (filters/search).
+
+#### [MODIFY] [assignments/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx)
+- Similar integration as tasks page.
+
+#### [MODIFY] [announcements/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/announcements/page.tsx)
+- Similar integration as tasks page.
+
+## Verification Plan
+
+### Automated Tests
+- Mock AI responses with `filter_view` and `update_setting` actions and verify frontend handles them.
+
+### Manual Verification
+- Chat "show only high priority tasks" on the Tasks page and verify the list filters.
+- Chat "hide CS101 assignments" and verify the settings are updated and assignments are hidden.

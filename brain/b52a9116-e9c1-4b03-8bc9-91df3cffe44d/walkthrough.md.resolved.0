@@ -1,0 +1,17 @@
+# Walkthrough
+
+## Completed Work
+
+1. **Removed Grade Estimates and Completion Rates**
+   - Removed the "Completion" and "Grade Estimate" stat cards from the module's Overview tab.
+   - Removed the overall grade estimate display from the module's Grades tab.
+   - Removed the Grade summary block from the top of the module's "Module Brief" tab.
+
+2. **Added Knowledge Base Schedule View**
+   - Implemented a new section in the "Module Brief" tab to automatically query the AI and extract a learning schedule based on all user-uploaded knowledge base files for the course.
+   - The AI uses a targeted `extract_schedule` task type to focus specifically on schedules without conversational filler.
+   - If the uploaded text doesn't contain a clear schedule, or no files are uploaded, a polished message is shown encouraging the user to upload their module syllabus or outlines to enable this feature.
+
+## Files Changed
+
+- [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/[id]/page.tsx)

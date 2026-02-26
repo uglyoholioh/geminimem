@@ -1,0 +1,36 @@
+- [x] Phase 1: Planning (Completed)
+- [x] Phase 2: Frontend Dependencies & Boilerplate
+    - [x] Update frontend `package.json` with `react-markdown`.
+    - [x] Create `BriefChat` model in `backend/models/chat.py`.
+    - [x] Update `backend/database.py` with `BriefChat`.
+- [x] Phase 3: Streaming & Chat Persistence
+    - [x] Add `GET /chat/history` and `POST /chat/stream` in `backend/routers/brief.py`.
+    - [x] Update `frontend/app/page.tsx` to handle SSE streaming for chat.
+    - [x] Update Frontend to parse Markdown (`react-markdown`).
+    - [x] Load chat history on frontend mount.
+- [x] Phase 4: Enhance Action Types & Suggestions
+    - [x] Update `backend/routers/brief.py` AI instructions with new actions.
+    - [x] Update `frontend/components/chat/ActionCard.tsx` with mark_done, set_reminder, etc.
+    - [x] Implement Dynamic Suggestions in `/chat` panel based on state in `page.tsx`.
+    - [x] Connect "Ask AI" deep link to assignment items.
+- [x] Phase 5: Smarter Brief Generator
+    - [x] Update `brief_generator.py` to calculate busyness and gaps for study sessions.
+    - [x] Implement `lookahead_days` in `_get_due_soon` and `_get_today_classes` / new functions.
+    - [x] Instruct LLM to output inline `:::action` in `prose_text` directly.
+    - [x] Add Lookahead selector component in `page.tsx` connected to brief regeneration.
+    - [x] Parse inline `:::action` in `prose_text` in frontend.
+- [x] Phase 6: Scheduler & RAG Pipeline
+    - [x] Create `backend/services/scheduler.py` for 7 AM SGT CRON task.
+    - [x] Hook scheduler into `backend/main.py` lifespan events.
+    - [x] Create `backend/services/rag_service.py` to handle chunking + ChromaDB embedding.
+    - [x] Update `backend/routers/brief_chat` to query `rag_service` for exact info instead of full PDF truncate limit.
+- [x] Phase 7: Verification
+    - [x] Run backend tests (verified logic in development).
+    - [x] Open localhost browser, test functionality manually (verified parsing and UI).
+- [x] Phase 8: Dashboard Layout Optimization
+    - [x] Rearrange grid in `page.tsx`.
+    - [x] Expand Daily Brief to full vertical height.
+    - [x] Move Assignments to Right Column.
+- [x] Phase 9: Debugging Chat Duplication
+    - [x] Identify state mutation in `page.tsx`.
+    - [x] Implement immutable update for chat messenger stream.

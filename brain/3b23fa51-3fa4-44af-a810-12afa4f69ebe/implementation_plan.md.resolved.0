@@ -1,0 +1,63 @@
+# Goal Description
+Enhance the Daily Brief & Chat feature by adding streaming responses, markdown support, chat persistence, smarter brief generation, contextual recommendations (study sessions, workload analysis), multi-day lookahead, and RAG-based context retrieval for module files. We also want to auto-generate the brief daily at 7 AM SGT.
+
+## Proposed Changes
+
+### Frontend Component
+- [MODIFY] [frontend/package.json](file:///Users/oli/Desktop/CraftCanvas/frontend/package.json)
+  - Install `react-markdown` and `remark-gfm` dependencies.
+- [MODIFY] [frontend/components/chat/ActionCard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx)
+  - Enhance ActionCard to support new action types (`mark_assignment_done`, `set_reminder`, `add_calendar_event`, `update_task_progress`).
+- [MODIFY] [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+  - Change [/chat](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat) API call to `/chat/stream` and use SSE reader to accumulate streaming chunks.
+  - Replace raw text chat bubbles with `ReactMarkdown`.
+  - Add contextual suggestions derived from brief data (e.g. "Plan for [Upcoming Assignment]").
+  - Add a "Lookahead" selector (Today, This Week, Next 3 Days) for manual brief regeneration.
+  - Add an "Ask AI" button on assignments to auto-fill chat.
+  - Parse `prose_text` from the brief for inline `:::action ... :::` blocks to render [ActionCard](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx#10-81) components inline for quick actions.
+  - Implement chat persistence by fetching `/chat/history` on mount.
+
+---
+
+### Backend Components
+
+- [NEW] `backend/models/chat.py`
+  - Create [BriefChat](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py#26-29) model extending SQLModel to store chat messages (`user_id`, `date`, `role`, `content`, `timestamp`).
+- [MODIFY] [backend/database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py)
+  - Register [BriefChat](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py#26-29) model in [init_db](file:///Users/oli/Desktop/CraftCanvas/backend/database.py#15-36).
+
+- [MODIFY] [backend/services/brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)
+  - Implement a 2-pass approach: collect structured data (workload heatmap, context info) and determine study session gaps, then call AI to write `prose_text` directly with `:::action` components natively embedded.
+  - Add `lookahead_days` parameter.
+  - Pass time-of-day awareness so the LLM output shifts logically if it's afternoon vs morning.
+
+- [NEW] `backend/services/scheduler.py`
+  - Initialize `apscheduler.AsyncIOScheduler`.
+  - Add a job running at `07:00` (SGT timezone) that queries all active users, calls [generate_brief(user_id)](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py#212-354).
+- [MODIFY] [backend/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+  - Start/shutdown the `apscheduler` on app startup/shutdown events.
+
+- [NEW] `backend/services/rag_service.py`
+  - Instantiate a ChromaDB client.
+  - Implements an embedding function (using local Ollama embedding or lightweight sentence-transformers) to embed ingested `ModuleFile` text.
+  - Provide `retrieve_relevant_chunks(course_id, query)` to fetch top-K matching chunks.
+- [MODIFY] `backend/routers/module.py` (or where PDFs are ingested)
+  - During file parse, chunk text and store vector embeddings via `rag_service`.
+
+- [MODIFY] [backend/routers/brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py)
+  - Add `GET /chat/history` and `POST /chat` that persist user messages to [BriefChat](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py#26-29).
+  - Add `POST /chat/stream` that returns a `StreamingResponse` from `ai_service.stream_chat`.
+  - Incorporate RAG: in [brief_chat](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py#113-283), if the user asks a question, instead of appending first 2000 chars of all PDFs, query `rag_service` for the specific question and append retrieved context.
+
+## Verification Plan
+
+### Automated Tests
+- Run `pytest backend/tests/test_routers/test_brief.py` to ensure `/chat/stream` and `/chat/history` endpoints work correctly.
+- Add test coverage for `scheduler.py` directly by invoking the scheduled function and asserting logs.
+
+### Manual Verification
+1. Open dashboard UI, verify that new `lookahead` dropdown works.
+2. Ask a question about an uploaded module PDF to test the RAG pipeline; verify chat streams response and correctly limits PDF context size.
+3. Test formatting: verify bolding, lists, and markdown headers render properly in chat utilizing `react-markdown`.
+4. Click "Ask AI" via an assignment and observe the chat auto-populating.
+5. Emulate the time to 7 AM SGT and observe background scheduling logs correctly kicking off daily brief generator tasks.

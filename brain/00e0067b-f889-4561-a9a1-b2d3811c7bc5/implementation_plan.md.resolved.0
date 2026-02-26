@@ -1,0 +1,29 @@
+# Modular AI Context Provider Architecture
+
+We will implement a Context Provider Registry that allows any backend service/data model to dynamically provide relevant data to the AI during chat or brief generation.
+
+## User Review Required
+Does the context need to be aggregated securely depending on user preferences on a per-module basis? Will there be a UI for "AI Data Tracking Toggle" (where users choose what data to feed the AI)? Currently, we plan to inject it globally into [chat](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#18-30) requests.
+
+## Proposed Changes
+
+### Context Registry (`backend/services/context_registry.py`)
+- **[NEW] `backend/services/context_registry.py`**: A registry service `ContextRegistry` where context providers can register functions that return markdown/text context for a given `user_id`.
+- Providers will return structured information like "Here are the user's tasks...", "Here is their timetable...".
+
+### AI Service Refactoring ([backend/services/ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py))
+- **[MODIFY] [backend/services/ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)**: Update [chat()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#18-30) and [stream_chat()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#55-85) to optionally gather context from the `ContextRegistry` and inject it as a "system" message before the user messages, ensuring the LLM knows about the user's current data. 
+
+### Provider Implementations
+- **[MODIFY] [backend/services/brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)** or related services: Break down data fetching into providers (e.g., `TaskContextProvider`, `ScheduleContextProvider`). Registration to the registry will happen on startup (e.g., in `main.py` or a dedicated setup file).
+
+### User Preferences Model (`backend/models/user_preferences.py` or existing settings)
+- We need to ensure context generation respects "user preferences and specifications". If there's an existing `Settings` table, we can query it to see if the user wants tasks, canvas data, etc., included.
+
+## Verification Plan
+### Automated Tests
+- Validate that `ContextRegistry` correctly registers and invokes providers.
+- Mock `ai_service.chat` and ensure the system message includes data from providers before making the external HTTP call.
+
+### Manual Verification
+- Test the chat feature in the frontend to see if it correctly answers questions about today's tasks or timetable without explicit injection in the original chat request payload.

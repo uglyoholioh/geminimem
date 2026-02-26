@@ -1,0 +1,7 @@
+# Task: User-selectable colour schemes
+
+- [/] Planning Colour Schemes and Integration <!-- id: 0 -->
+- [ ] Backend: Update UserSettings model and API <!-- id: 1 -->
+- [ ] Frontend: Theme logic and Context provider <!-- id: 2 -->
+- [ ] Frontend: Settings UI for colour scheme selection <!-- id: 3 -->
+- [ ] Verification and Polish <!-- id: 4 -->

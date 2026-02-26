@@ -4,10 +4,9 @@ We have significantly enhanced the Assignments page with a more interactive and 
 
 ## Key Improvements
 
-### 1. Hover-to-preview Detail Panel
-- **Quick Peek**: Simply hover your cursor over any assignment to see its details instantly in the right panel.
-- **Pin to Edit**: Click an assignment to "pin" it open, allowing you to edit notes, status, and track hours.
-- **Fluid Experience**: The interface responds instantly to your focus, reducing the need for excessive clicking.
+### 1. Click-to-view Detail Panel
+- **Pin to Edit**: Click an assignment to open the detail panel, allowing you to see its full description, edit notes, status, and track hours.
+- **Fluid Experience**: The right-side panel keeps you in context without navigating away from the list.
 
 ### 2. Logical Sorting & Grouping
 The list is now organized by priority to help you focus on what's actionable:

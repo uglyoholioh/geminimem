@@ -1,0 +1,25 @@
+# Dynamic Timetable Hours
+
+The goal is to optimize the timetable view by only displaying the range of hours where classes are actually scheduled during the selected week.
+
+## Proposed Changes
+
+### Frontend
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+
+1.  **Remove the static `TIME_SLOTS` constant.**
+2.  **Add a `useMemo` hook to calculate `dynamicTimeSlots` based on `weekData.slots`.**
+    *   Find the minimum `start_time` and maximum `end_time` across all slots in the week.
+    *   Round down the minimum start hour and round up the maximum end hour.
+    *   Generate an array of time strings for this range (e.g., `["09:00", "10:00", ...]`).
+    *   Provide a fallback range (e.g., 09:00 – 18:00) if no slots exist or if it's a non-teaching week.
+3.  **Update the rendering logic** (both horizontal and vertical views) to use `dynamicTimeSlots` instead of the global `TIME_SLOTS`.
+
+## Verification Plan
+
+### Manual Verification
+1.  Open the timetable with a week containing classes (e.g., Week 1).
+2.  Verify that the range starts at the earliest class hour and ends at the latest class hour.
+3.  Navigate to a week with a different schedule (e.g., a week with only one late class) and verify the grid adjusts correctly.
+4.  Verify that non-teaching weeks still show a reasonable default range or the empty state banner correctly.

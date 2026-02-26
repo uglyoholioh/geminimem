@@ -1,0 +1,6 @@
+# Module Brief Updates
+
+- [ ] Remove grade estimates from the course page.
+- [ ] Remove course completion rates from the course page.
+- [ ] Add a schedule view in the module brief based on the knowledge base.
+- [ ] Add a message suggesting to upload to the knowledge base if no schedule is found or no knowledge base exists.

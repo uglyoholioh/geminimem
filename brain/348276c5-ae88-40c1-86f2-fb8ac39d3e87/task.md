@@ -1,0 +1,6 @@
+# Task: Include User Name in Dashboard Greeting
+
+- [x] Create Implementation Plan
+- [x] User Approval of Plan
+- [x] Implement greeting with user name in `frontend/app/page.tsx`
+- [x] Verify changes

@@ -1,0 +1,6 @@
+# Task: Allow Users to Recolour Modules
+
+- [x] Research existing course/module update endpoints <!-- id: 0 -->
+- [x] Implement backend endpoint for updating course colour <!-- id: 1 -->
+- [x] Implement frontend UI for colour selection (default + custom) <!-- id: 2 -->
+- [x] Verify the changes <!-- id: 3 -->

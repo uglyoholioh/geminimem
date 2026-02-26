@@ -1,0 +1,18 @@
+# Walkthrough: Modular AI Context
+
+I have successfully implemented a modular architecture for feeding user data to the AI assistant. The AI's context is now fully customisable by the user.
+
+## Changes Made
+- **Backend Context Registry** (`backend/services/context_registry.py`): Created a central registry that allows any feature to supply data to the AI.
+- **Backend Context Providers** (`backend/services/context_providers.py`): Migrated the existing data fetching logic for Tasks, Timetable, Assignments, and Announcements into independent providers.
+- **Backend AI Integration** (`backend/services/ai_service.py`): Modified the AI chat service to dynamically collect and inject these contexts as a system prompt before responding to user queries, respecting the user's preferences.
+- **Frontend Settings** (`frontend/app/settings/page.tsx`): Added a brand new `AI Context` tab in the user's settings. You can now effortlessly toggle which personal data the AI is allowed to see, keeping you in full control.
+
+## Verification
+- The backend context providers compile correctly and accurately use the `Settings` table filtering.
+- Settings UI dynamically saves boolean preferences in the format the backend expects (`ai_context_tasks`, `ai_context_timetable`, etc.).
+
+## Bug Fixes
+- **Daily Brief Class Discrepancy**: Standardised the daily timetable checking. Previously, the Daily Brief relied on a naive day-of-the-week check instead of respecting specific teaching weeks (e.g. Recess Week), excluded dates (EXDATE), and the user's manual class attendance toggles. Both the AI Service context injections and Daily Brief generations now use the same complex date evaluations (`slot_occurs_on_date`) as the "Today's Schedule" widget natively uses.
+
+Everything is complete! Try heading to the Settings page to check out the new AI Context toggles and have a chat with the assistant to see it gracefully incorporate your tasks, upcoming deadlines, and schedule!

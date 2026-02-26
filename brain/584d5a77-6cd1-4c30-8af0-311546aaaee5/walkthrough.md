@@ -22,13 +22,13 @@ Added `total_slots` to the `/week` response so the frontend can distinguish "no 
 
 ### Frontend — [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
 
-Three changes:
+1. **Differentiated empty states** — `total_slots === 0` shows the import prompt; `total_slots > 0 && slots === 0` shows a contextual banner with a ☕ Coffee icon (Recess Week fix).
 
-1. **Differentiated empty states** — `total_slots === 0` shows the import prompt; `total_slots > 0 && slots === 0` shows a contextual banner with a ☕ Coffee icon and a message specific to the week type (Recess, Reading, Exam, etc.)
+2. **Auto-navigate after import** — Automatically jumps to semester week 1 if the current week is non-teaching.
 
-2. **Auto-navigate after import** — `navigateToTeachingWeek(data)` jumps to semester week 1 if the current week is non-teaching, so users immediately see their imported classes
+3. **Dynamic Hour Range** — The table now calculates a custom hour range with `useMemo` based on your weekly classes. If you have classes from 10 AM to 4 PM, the 8 AM, 9 AM, 5 PM, etc., slots are hidden to save space.
 
-3. **Fixed stale closure** — `fetchWeek` now returns the data directly instead of relying on React state, which avoids the async state update timing issue
+4. **Improved Grid Math** — Classes ending with minutes (e.g., 10:30) are now correctly rounded up to occupy the full 11:00 slot in the hour-based grid, preventing visual cutoffs.
 
 ## Verification
 
@@ -36,3 +36,4 @@ Three changes:
 |---|---|
 | Backend tests (`test_timetable.py`) | ✅ 2/2 passed |
 | Frontend build (`next build`) | ✅ Clean build |
+| Dynamic hour range | ✅ Verified (unions weekly slots) |

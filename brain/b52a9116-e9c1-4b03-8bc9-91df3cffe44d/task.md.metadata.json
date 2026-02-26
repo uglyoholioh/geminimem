@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_TASK",
+  "summary":  "Task list for updating the module brief page, removing grade/completion rate, and adding schedule view based on knowledge base.",
+  "updatedAt":  "2026-02-26T08:18:01.859433Z",
+  "version":  "2"
+}

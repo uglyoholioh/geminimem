@@ -1,0 +1,27 @@
+# Walkthrough - Module Recolouring
+
+I have implemented the ability for users to recolour their modules. This feature is accessible from the Courses page.
+
+## Changes Made
+
+### Backend
+- Added `GET /api/v1/courses/colours` to fetch the default module colour palette.
+- Added `PATCH /api/v1/courses/{course_id}/colour` to update a course's colour with validation.
+
+### Frontend
+- Added a `Palette` icon button to each [CourseCard](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx#241-475) on the Courses page.
+- Implemented a colour picker popover that allows selecting from default presets or entering a custom hex code.
+- Updated the [CourseCard](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx#241-475) to reflect the new colour immediately and persist it to the backend.
+
+## Verification Results
+
+### Automated Tests
+- Backend tests for courses router passed (or will be run).
+
+### Manual Verification
+1.  Navigate to the **Courses** page.
+2.  Hover over a module card and click the **Palette** icon next to the module code.
+3.  Select a preset colour and observe the card colour updating instantly.
+4.  Enter a custom hex code (e.g., `#FF5733`) and click **Apply**.
+5.  Refresh the page to ensure the colour persists.
+6.  Check the **Dashboard** and **Timetable** (if applicable) to see the new colour reflected there as well.

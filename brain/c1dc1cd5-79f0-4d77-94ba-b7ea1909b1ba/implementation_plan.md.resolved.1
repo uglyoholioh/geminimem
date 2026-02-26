@@ -1,0 +1,30 @@
+# Kanban Feature and Dashboard Improvements Plan
+
+## Proposed Changes
+
+### 1. Kanban Default View and Config
+- **File**: [frontend/app/tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx)
+  - Change default visualization state from [list](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#59-120) to `kanban`.
+  - Pass the current courses to [KanbanBoard](file:///Users/oli/Desktop/CraftCanvas/frontend/components/tasks/KanbanBoard.tsx#103-229) if we want to support module grouping.
+- **File**: [frontend/components/tasks/KanbanBoard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/tasks/KanbanBoard.tsx)
+  - Implement a [groupBy](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#76-85) state (`status`, `priority`, `course`).
+  - Add a small control header in the Kanban Board to let the user pick the grouping.
+  - Dynamically generate columns based on the grouping:
+    - **Status**: Inbox, In Progress, Completed
+    - **Priority**: Urgent, High, Medium, Low
+    - **Module**: Group by `course_code` (and an "Uncategorized" column).
+  - Update the [handleDragEnd](file:///Users/oli/Desktop/CraftCanvas/frontend/components/tasks/KanbanBoard.tsx#174-204) function so that when a task is dropped into a different column, it triggers an `onUpdate` with the correct field based on [groupBy](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#76-85) (e.g. if grouped by priority, dragging a task to "High" triggers `onUpdate(id, { priority: 'high' })`).
+
+### 2. Dashboard Tasks Sorting and Compact Slider
+- **File**: [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+  - Update Dashboard Tasks sorting: Ensure highly critical tasks (Priority = Urgent/High, Due Date is today or soon) and In-Progress tasks are prioritized. The new sort order will explicitly rank: Highly Critical > In Progress > Everything Else.
+  - Optionally increase `MAX_TASKS` from 4 to 6 so more critical context is shown on the dashboard.
+  - **Sleek Compact Slider**: Update the `<input type="range">` on in-progress tasks.
+    - Add `step="10"`.
+    - Adjust styles to make it extremely compact (e.g. `h-1`) with a smaller thumb, and clearly discrete levels.
+
+## Verification
+- Start Next.js server locally and verify:
+  - Tasks page loads directly to Kanban view.
+  - The Kanban board has a select or toggle for grouped-by properties. Dragging a task to "Urgent" correctly updates the API.
+  - Dashboard shows important tasks up front and the slider snaps to 10% steps.

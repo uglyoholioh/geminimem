@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary":  "Walkthrough of the Settings page layout fixes and adaptive colour scheme implementation. Summarizes the new adaptive CSS logic and the immediate persistence of colour scheme choices.",
+  "updatedAt":  "2026-02-26T09:51:27.602974Z",
+  "version":  "1"
+}

@@ -1,0 +1,35 @@
+# Kanban Feature and Dashboard Improvements Plan
+
+## Proposed Changes
+
+### 1. Kanban Default View and Config
+- **File**: [frontend/app/tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx)
+  - Change default visualization state from [list](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#59-120) to `kanban`.
+  - Pass the current courses to [KanbanBoard](file:///Users/oli/Desktop/CraftCanvas/frontend/components/tasks/KanbanBoard.tsx#110-297) if we want to support module grouping.
+- **File**: [frontend/components/tasks/KanbanBoard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/tasks/KanbanBoard.tsx)
+  - Implement a [groupBy](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#76-85) state (`status`, `priority`, `course`).
+  - Add a small control header in the Kanban Board to let the user pick the grouping.
+  - Dynamically generate columns based on the grouping:
+    - **Status**: Inbox, In Progress, Completed
+    - **Priority**: Urgent, High, Medium, Low
+    - **Module**: Group by `course_code` (and an "Uncategorized" column).
+  - Update the [handleDragEnd](file:///Users/oli/Desktop/CraftCanvas/frontend/components/tasks/KanbanBoard.tsx#202-238) function so that when a task is dropped into a different column, it triggers an `onUpdate` with the correct field based on [groupBy](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#76-85) (e.g. if grouped by priority, dragging a task to "High" triggers `onUpdate(id, { priority: 'high' })`).
+
+### 2. Dashboard Tasks Segmented Progress Widget
+- **File**: [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+  - Replace the `<input type="range">` with a custom segmented UI.
+  - The UI will consist of 10 small, clickable vertical bars or rounded boxes.
+  - Active/Filled segments will use `var(--accent)`, empty ones will use `var(--border)`.
+  - Clicking the 5th bar sets progress to 50%.
+  - Wrap this in a small, horizontally compact container that feels like a discrete "level" selector.
+  - Ensure it remains accessible and visually premium (minimalist).
+### 3. Dashboard Cleanup
+- **File**: [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+  - Locate and remove the duplicate "Tasks" section.
+  - Ensure the surviving section is the one with the new compact segmented progress bar.
+
+## Verification
+- Start Next.js server locally and verify:
+  - Tasks page loads directly to Kanban view.
+  - Dashboard shows the new segmented progress widget.
+  - Clicking segments updates the dashboard UI and persists via API.
