@@ -1,0 +1,25 @@
+# Walkthrough: Meeting Finder Fixes
+
+I have implemented fixes for the Meeting Finder to ensure consistent behavior across the frontend and backend.
+
+## Changes Made
+
+### backend/routers/meetings.py
+- Added validation for the meeting time range: `time_range_start` must now be before `time_range_end`.
+- Added documentation to `ProposalCreate` specifying that `day_of_week` follows the 0=Monday convention.
+
+### frontend/components/meetings/AvailabilityGrid.tsx
+- **Robust Date Range Logic**: Refactored `visibleDays` (now `visibleDates`) to correctly iterate through every date in the specified range.
+- **Day-of-Week Normalization**: Standardized the mapping of `date-fns` results (where 0=Sunday) to match the backend's convention (where 0=Monday).
+- **Type Safety**: Added explicit types for map parameters and resolved all relevant lint errors.
+
+## Verification Results
+
+### Backend Verification
+Ran [repro_meeting.py](file:///Users/oli/Desktop/CraftCanvas/backend/repro_meeting.py) which confirms:
+- Meetings are correctly created with tokens.
+- Participants and proposals store the correct `day_of_week` (0 for Monday).
+
+### Frontend Verification
+- Verified that the grid now correctly shows all dates in a range, even when spanning multiple weeks.
+- Verified that the "Today" highlighting and day labels remain accurate under the new normalization.

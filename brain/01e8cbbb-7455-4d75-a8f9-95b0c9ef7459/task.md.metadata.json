@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Initial task list for debugging meeting finder. I will be investigating the backend models, routers, and frontend components to identify and fix bugs in the meeting finder feature.",
+  "updatedAt": "2026-02-26T15:28:07.433231Z"
+}

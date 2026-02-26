@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "Walkthrough of the meeting finder fixes, including standardized day-of-week indexing (0=Monday), robust date range calculation in the availability grid, and backend validation for time ranges.",
+  "updatedAt": "2026-02-26T15:29:42.335342Z"
+}
