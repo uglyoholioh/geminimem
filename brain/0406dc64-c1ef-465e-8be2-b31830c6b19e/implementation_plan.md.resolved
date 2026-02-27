@@ -1,0 +1,31 @@
+# Implementation Plan: Brief Correction & Prompt Recipes
+
+This plan covers the implementation of Intelligent Brief Correction (user feedback for AI personalization) and Custom Prompt Recipes (UI shortcuts for common AI workflows).
+
+## Proposed Changes
+
+### Database & Models
+- **[MODIFY] [models/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/settings.py)**: Ensure we can store feedback-related preferences (e.g., `ai_preference_brief_verbosity`, `ai_preference_brief_ignored_modules`).
+- **[NEW] [models/brief_feedback.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/brief_feedback.py)**: (Optional) Or just use [Settings](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx#297-314) for simplicity. Let's stick with [Settings](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx#297-314) for "learned" preferences and potentially a new table for specific brief corrections if needed. For now, let's use [Settings](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx#297-314) with keys like `brief_feedback_summary`.
+
+### Backend: AI & Routers
+- **[MODIFY] [services/brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)**: Update [_build_prompt](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py#169-261) to fetch user preferences from the database and inject them into the system instructions.
+- **[MODIFY] [routers/brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py)**: Add a `POST /brief/feedback` endpoint to process and store user feedback.
+- **[NEW] [routers/ai_recipes.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai_recipes.py)**: (Optional) If we want server-side driven recipes, otherwise they can be hardcoded in the frontend.
+
+### Frontend: UI Components
+- **[MODIFY] [components/chat/DailyBriefSummary.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefSummary.tsx)**: Add Thumb Up/Down buttons to each section of the brief.
+- **[NEW] [components/chat/PromptRecipes.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/PromptRecipes.tsx)**: Create a horizontally scrolling list of mono-styled buttons for quick prompt triggers.
+- **[MODIFY] [components/chat/DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx)**: Integrate the `PromptRecipes` component above the message input.
+
+## Verification Plan
+
+### Automated Tests
+- `pytest backend/tests/test_services/test_brief_generator_feedback.py`: Verify that feedback correctly alters the prompt.
+- `api.post('/brief/feedback')`: Verify endpoint saves to DB.
+
+### Manual Verification
+- Generate a brief.
+- Click "Down" on a section and provide feedback (e.g., "Too long").
+- Regenerate the brief and verify the AI acknowledges or follows the new constraint.
+- Click "Exam Prep" recipe in chat and verify it populates the input with a structured prompt.

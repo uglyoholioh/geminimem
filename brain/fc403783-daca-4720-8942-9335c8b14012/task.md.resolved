@@ -1,7 +1,7 @@
-# Dashboard Reversion Task
+# Dashboard Restoration Task
 
-- [x] Complete reversion of [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) to original state
-- [x] Removal of tabbed navigation and isolated "Modules" tab
-- [x] Restoration of original header and greeting
-- [x] Fix minor lint errors and typos
-- [x] Verify final layout and data integration
+- [x] Identify correct "original" state (AI Brief + Agenda/Modules grid)
+- [x] Remove redudant Weekly Timetable from dashboard
+- [x] Fix syntax errors and mismatched tags in [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- [x] Verify side-by-side layout for Agenda and Modules
+- [x] Final verification of single-view dashboard
