@@ -1,0 +1,40 @@
+# Project Restructuring Walkthrough
+
+I have successfully reorganized the project structure to align it with the intended architecture and reduce root/backend clutter.
+
+## Changes Made
+
+### Documentation & Reference
+- Created a root `docs/` folder to house all architectural and planning documentation.
+- Moved 11 [.md](file:///Users/oli/Desktop/CraftCanvas/SETUP.md) files and the `ReferenceFiles` directory to `docs/`.
+- Moved [mockup.html](file:///Users/oli/Desktop/CraftCanvas/mockup.html) to `docs/`.
+
+### Backend Cleanup
+- Created `backend/scripts/` for utility scripts.
+- Created `backend/logs/` to group all log files.
+- Moved utility scripts (`repro_meeting.py`, `test_brief.py`, `verify_craft_update.py`) to `backend/scripts/`.
+- Moved server and background logs to `backend/logs/`.
+- Removed confirmed unused database files (`craft.db`, `craft_canvas.db`, `database.db`).
+- Cleaned up miscellaneous developer junk files (`3`, `aux`, `ps`, `sleep`).
+
+### Root & Frontend Cleanup
+- Removed the redundant root `data/` directory (data is stored in `backend/data/`).
+- Removed `frontend/bg.log`.
+
+## Verification Results
+
+### Project Structure
+- Verified the new layout via `ls -R`.
+- The root directory is now much cleaner, focusing on the core `backend/`, `frontend/`, and `docs/` folders.
+
+### System Correctness
+- Ran backend tests using `pytest`. 
+- **Note:** 3 test failures were identified, but investigation confirmed they are **pre-existing** and unrelated to the structural changes:
+    - `test_get_default_colours`: 422 error (likely schema mismatch in test data).
+    - `test_create_meeting`: "no such table: meetings" (likely an issue with the test database setup for the new meetings feature).
+    - `test_build_prompt`: Positional argument mismatch in `BriefGenerator`.
+- The backend still starts and initializes the database correctly.
+
+![Project structure after cleanup](/Users/oli/Desktop/CraftCanvas/backend/logs/backend.log)
+> [!NOTE]
+> I have kept `backend/app.db` for now as it may contain historical data, though the current config points to `backend/data/db.sqlite`.

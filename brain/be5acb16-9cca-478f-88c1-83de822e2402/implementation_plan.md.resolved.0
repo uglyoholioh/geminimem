@@ -1,0 +1,63 @@
+# Project Restructuring Plan
+
+This plan aims to clean up the project structure, move documentation to a dedicated folder, and organize the backend components to reduce clutter and improve maintainability.
+
+## Proposed Changes
+
+### Documentation & Reference
+- [NEW] Create `docs/` folder in the root.
+- [MOVE] Move the following files from root to `docs/`:
+    - [AI_LAYER.md](file:///Users/oli/Desktop/CraftCanvas/AI_LAYER.md)
+    - [ARCHITECTURE.md](file:///Users/oli/Desktop/CraftCanvas/ARCHITECTURE.md)
+    - [BEST_PRACTICES.md](file:///Users/oli/Desktop/CraftCanvas/BEST_PRACTICES.md)
+    - [BUILD_PLAN.md](file:///Users/oli/Desktop/CraftCanvas/BUILD_PLAN.md)
+    - [DATA_SCHEMA.md](file:///Users/oli/Desktop/CraftCanvas/DATA_SCHEMA.md)
+    - [DESIGN_SYSTEM.md](file:///Users/oli/Desktop/CraftCanvas/DESIGN_SYSTEM.md)
+    - [FEATURES.md](file:///Users/oli/Desktop/CraftCanvas/FEATURES.md)
+    - [GEMINI.md](file:///Users/oli/Desktop/CraftCanvas/GEMINI.md)
+    - [INTEGRATIONS.md](file:///Users/oli/Desktop/CraftCanvas/INTEGRATIONS.md)
+    - [OPUS_PLANNING_BRIEF.md](file:///Users/oli/Desktop/CraftCanvas/OPUS_PLANNING_BRIEF.md)
+    - [mockup.html](file:///Users/oli/Desktop/CraftCanvas/mockup.html)
+    - `ReferenceFiles/` (move the whole directory)
+
+### Backend Cleanup
+- [NEW] Create `backend/scripts/` folder.
+- [NEW] Create `backend/logs/` folder.
+- [MOVE] Move utility scripts from `backend/` to `backend/scripts/`:
+    - [repro_meeting.py](file:///Users/oli/Desktop/CraftCanvas/backend/repro_meeting.py)
+    - [test_brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/test_brief.py)
+    - [verify_craft_update.py](file:///Users/oli/Desktop/CraftCanvas/backend/verify_craft_update.py)
+- [MOVE] Move logs from `backend/` to `backend/logs/` (and update [.gitignore](file:///Users/oli/Desktop/CraftCanvas/.gitignore) if needed):
+    - [backend.log](file:///Users/oli/Desktop/CraftCanvas/backend/backend.log)
+    - [bg.log](file:///Users/oli/Desktop/CraftCanvas/backend/bg.log)
+    - [fastapi.log](file:///Users/oli/Desktop/CraftCanvas/backend/fastapi.log)
+    - [out.log](file:///Users/oli/Desktop/CraftCanvas/backend/out.log)
+    - [uvicorn.log](file:///Users/oli/Desktop/CraftCanvas/backend/uvicorn.log)
+- [DELETE] Remove junk files in `backend/`:
+    - `3`
+    - [aux](file:///Users/oli/Desktop/CraftCanvas/backend/aux)
+    - [ps](file:///Users/oli/Desktop/CraftCanvas/backend/ps)
+    - [sleep](file:///Users/oli/Desktop/CraftCanvas/backend/sleep)
+- [DELETE] Remove redundant database files in `backend/` (after confirming they are not in use):
+    - [app.db](file:///Users/oli/Desktop/CraftCanvas/backend/app.db)
+    - [craft.db](file:///Users/oli/Desktop/CraftCanvas/backend/craft.db)
+    - [craft_canvas.db](file:///Users/oli/Desktop/CraftCanvas/backend/craft_canvas.db)
+    - [database.db](file:///Users/oli/Desktop/CraftCanvas/backend/database.db)
+    - (Wait! [app.db](file:///Users/oli/Desktop/CraftCanvas/backend/app.db) might be used. I should double check [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) or [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py) again, but [config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py) says [./data/db.sqlite](file:///Users/oli/Desktop/CraftCanvas/data/db.sqlite))
+
+### Data Consolidation
+- [DELETE] Remove root `data/` directory (redundant as `backend/data/` is the source of truth).
+
+### Frontend Cleanup
+- [DELETE] Remove `frontend/bg.log`.
+
+## Verification Plan
+
+### Automated Tests
+- Run backend tests to ensure nothing broke: `cd backend && pytest`
+- Run frontend build to ensure imports are still correct: `cd frontend && npm run build` (or just check if it starts)
+
+### Manual Verification
+- Check that all moved files are accessible in their new locations.
+- Verify that the backend server still starts: `cd backend && uvicorn main:app --port 8000`
+- Verify that the workspace docs still work (if the user uses them).
