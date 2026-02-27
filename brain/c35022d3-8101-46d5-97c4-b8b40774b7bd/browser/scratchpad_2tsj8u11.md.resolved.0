@@ -1,0 +1,17 @@
+# Task Checklist
+- [ ] Evaluate Home page (http://localhost:3000)
+- [ ] Evaluate Login page (http://localhost:3000/login)
+- [ ] Evaluate Tasks page (http://localhost:3000/tasks)
+- [ ] Evaluate Timetable page (http://localhost:3000/timetable)
+- [ ] Evaluate Assignments page (http://localhost:3000/assignments)
+- [ ] Evaluate Focus page (http://localhost:3000/focus)
+- [ ] Evaluate Settings page (http://localhost:3000/settings)
+
+# Observations
+- Home:
+- Login:
+- Tasks:
+- Timetable:
+- Assignments:
+- Focus:
+- Settings:
