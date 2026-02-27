@@ -1,0 +1,10 @@
+# Meeting Functionality Verification
+
+- [x] Research meeting implementation <!-- id: 0 -->
+    - [x] Locate relevant backend files <!-- id: 1 -->
+    - [x] Analyze `routers/meetings.py` and `models/meeting.py` <!-- id: 2 -->
+- [x] Reproduce the issue <!-- id: 3 -->
+    - [x] Create a reproduction script or test case <!-- id: 4 -->
+    - [x] Identify the cause of the failure <!-- id: 5 -->
+- [x] Implement a fix <!-- id: 6 -->
+- [x] Verify the fix <!-- id: 7 -->

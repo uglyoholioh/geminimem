@@ -1,0 +1,7 @@
+# Module Hub Filtering & Refinement Task
+
+- [ ] Implement `is_active` filtering in the Module Hub
+- [ ] Add "Manage View" toggle UI to the Module Hub header
+- [ ] Implement visibility toggle logic (API + State)
+- [ ] Increase dashboard vertical height (~700px)
+- [ ] Visual verification of bottom space usage

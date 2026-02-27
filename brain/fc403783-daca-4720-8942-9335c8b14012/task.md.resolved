@@ -1,8 +1,7 @@
-# Dashboard & Module Hub Redesign Task
+# Module Hub Filtering & Refinement Task
 
-- [x] Planning: Design stacked Agenda/Module Hub layout
-- [x] EXECUTION: Move Module Hub into right column flex stack
-- [x] EXECUTION: Adjust heights to match Command Center (600px total)
-- [x] EXECUTION: Refine Module Hub grid for sidebar width
-- [x] VERIFICATION: Verify vertical alignment via browser subagent
-- [x] VERIFICATION: Confirm visual balance and responsiveness
+- [x] Implement `is_active` filtering in the Module Hub
+- [x] Add "VISIBILITY" toggle UI to the Module Hub header
+- [x] Implement visibility toggle logic (API + State)
+- [x] Increase dashboard vertical height (700px)
+- [x] Visual verification of bottom space usage

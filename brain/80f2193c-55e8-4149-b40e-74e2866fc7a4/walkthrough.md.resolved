@@ -1,29 +1,27 @@
-# Walkthrough - Optional Task Date and Time
+# Walkthrough - Simplified Optional Deadlines
 
-I have made it optional to add a date and time when creating or editing tasks.
+I have implemented a simplified "Deadline Toggle" to make it easier to add or remove dates and times for tasks.
 
 ## Changes Made
 
 ### Frontend
 - **InlineTaskCreator**:
-    - Restored default date (today) and time (current hour).
-    - Added clear buttons (X) to the date and time inputs for quick removal.
-    - Improved [adjustDate](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#188-193) and [adjustTime](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#194-207) logic to handle empty fields (defaults to today/now).
+    - Replaced individual "Clear" buttons with a single **"Has Deadline / No Deadline"** toggle.
+    - When "No Deadline" is selected, the task is created without any date or time.
+    - When "Has Deadline" is selected, it pre-fills with today's date and the current hour, which can still be adjusted using the `+1d`, `+1w` etc. shortcuts.
 - **TaskDetail**:
-    - Added clear buttons (X) to the date and time input sections for easier removal.
+    - Added a **"Set Deadline / Clear Deadline"** button at the top of the date section. This provides a one-click way to remove dates from an existing task.
 
 ### Backend
-- Verified that the backend already supports optional `due_date` and `due_time` fields.
-- Existing tests confirm that tasks can be created and listed without these fields.
+- Verified that the backend correctly handles tasks created with or without deadlines.
+- All existing task management tests are passing.
 
 ## Verification Results
 
 ### Automated Tests
 - Ran backend router tests: `pytest backend/tests/test_routers/test_tasks.py`
-- Result: `5 passed` (including tasks with and without dates).
+- Result: `5 passed`.
 
 ### Manual Verification (Expected Behavior)
-- When adding a task, the date and time fields will now be populated by default.
-- You can clear a date/time from the task creator by clicking the (X) button next to the input.
-- If you don't select a date, the task will appear in the "No due date" section of the task list.
-- You can clear a date/time from an existing task in the detail panel by clicking the (X) button and saving.
+- **Adding a Task**: By default, "Has Deadline" is on. Click it to switch to "No Deadline" instantly.
+- **Editing a Task**: Open the task details and click "Clear Deadline" to remove all date metadata at once. Click "Set Deadline" to re-add defaults for editing.

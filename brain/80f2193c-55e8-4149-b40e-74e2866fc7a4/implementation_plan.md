@@ -8,13 +8,13 @@ The user wants to make the date and time fields optional when adding or editing 
 
 #### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx)
 - **InlineTaskCreator**:
-    - Restore initial `dueDate` and `dueTime` to current date and time.
-    - Add clear buttons (X) to the date and time input sections.
-    - Update `adjustDate` and `adjustTime` to handle cases where the field is currently empty (default to today/now).
-    - Ensure `handleSubmit` still handles empty strings as `null`.
-    - Reset to defaults after successful submission.
+    - Add a `hasDeadline` state (boolean).
+    - If `hasDeadline` is false, hide the date/time adjustment controls and send `null` for `due_date`/`due_time`.
+    - If `hasDeadline` is true, show pre-filled date/time controls.
+    - Default `hasDeadline` to `true` but allow one-click toggling.
 - **TaskDetail**:
-    - Add clear buttons to the date and time input sections for easier removal.
+    - Add a "No due date" toggle at the top of the date/time section.
+    - Simplifies the UI by hiding specific inputs when a task is intended to be un-dated.
 
 ### [Component Name] Backend
 

@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Implementation plan to fix meeting creation by preserving trailing slashes in the API proxy.",
+  "updatedAt":  "2026-02-27T14:02:40.444011Z"
+}

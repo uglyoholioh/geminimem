@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Implementation plan to stack Today's Agenda and Module Hub in a sidebar column.",
-  "updatedAt":  "2026-02-27T10:15:18.774319Z",
-  "version":  "6"
+  "summary":  "Implementation plan to fix Module Hub filtering and expand dashboard height.",
+  "updatedAt":  "2026-02-27T13:54:37.914752Z",
+  "version":  "7"
 }

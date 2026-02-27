@@ -19,6 +19,10 @@ This plan outlines how to implement colour coding for task tags, with automatic 
     - If tag is in `tag_colours`, use that.
     - If not, deterministically generate a color based on the tag name (hash string to HSL).
 - Update `TaskRow`, `InlineTaskCreator`, and `TaskDetail` to use these styles for tags.
+- **Tag Blocks Input**:
+    - In `InlineTaskCreator` and `TaskDetail`, replace the text-based tag input with a "chip-base" container.
+    - Active tags selected from presets or typed (on Enter) will appear as distinct colour-coded blocks.
+    - Each block will have a "remove" (X) icon.
 - In `TaskDetail`, add a small color picker (or a set of logical preset colors) next to each tag in the detail view to allow customisation.
 - Customisation will save the new color to the `tag_colours` setting via the bulk update API.
 

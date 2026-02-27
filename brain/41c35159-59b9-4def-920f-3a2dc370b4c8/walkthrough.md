@@ -17,7 +17,12 @@ I have implemented preset task tags to streamline task creation and organization
     - Added a small colour picker in the `TaskDetail` panel.
     - Clicking the tiny colour dot next to a preset tag opens a palette to change its colour.
     - Changes are persisted back to the user's settings.
-- **UI Improvements**: Adjusted the layout of the tag input in the creator to accommodate preset pills with colour coding.
+- **Tag Blocks (Chips)**:
+    - Refactored the tag input in both `InlineTaskCreator` and `TaskDetail` to use a modern chip-based "block" style.
+    - Tags now appear as distinct, colour-coded blocks with their own "remove" (X) button.
+    - Intuitively add tags by typing and pressing Enter, comma, or space.
+    - Use Backspace to quickly delete the last tag when the input is empty.
+- **UI Improvements**: Transformed the static text tags into interactive, visually appealing blocks that reflect their assigned colours consistently across the app.
 
 ## Verification Results
 

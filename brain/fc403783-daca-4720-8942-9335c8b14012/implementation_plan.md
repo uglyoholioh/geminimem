@@ -1,28 +1,27 @@
-# Dashboard Layout Refinement Plan
+# Module Hub Filtering & Layout Refinement Plan
 
-The goal is to optimize the dashboard space by stacking "Today's Agenda" and "Module Hub" in a right-hand column, balancing them against the "Command Center" on the left.
+This plan addresses the issue of hidden modules appearing in the Module Hub and provides a way for users to manage their displayed modules. It also optimizes the dashboard's vertical space.
 
 ## Proposed Changes
 
 ### Dashboard Page ([page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx))
 
 #### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
-- **Restructure Grid**:
-    - Revert the "Command Center" and sidebar to a 2-column grid (`lg:grid-cols-[1.3fr,1fr]`).
-    - The left column remains the **Command Center** (fixed or min height of around 600px).
-    - The right column will now be a `flex flex-col` container matching the height of the Command Center.
-- **Stack Sections**:
-    - **Today's Agenda**: Place in the top half of the right column. Use a smaller min-height or flexible height.
-    - **Module Hub**: Place directly under the Agenda in the right column.
-    - **Proportional Heights**: Ensure the combined height of Agenda and Module Hub equals the Command Center height.
-- **Compact Module Hub**:
-    - Since the Module Hub is back in a column, switch its internal grid to `grid-cols-1` or a compact `grid-cols-2` if width allows, but prioritize a vertical list or small grid that fits the sidebar.
-    - Keep the rich card details but ensure they scale down gracefully for the narrower column.
+- **Filtering Logic**: 
+    - Update the `Course` mapping in the Module Hub to filter courses by `is_active === true`.
+- **Visibility Management**:
+    - Add a "Manage View" overlay/modal that lists all fetched courses with checkboxes or toggles.
+    - Implement a local state update and API call to persist the `is_active` status when toggled.
+- **Layout Expansion**:
+    - Increase the main container height from `600px` to `700px` (or dynamic flex) to fill the bottom space.
+    - Adjust the right sidebar stack heights proportionally.
+
+### Backend API ([routers/courses.py] (if needed))
+- Ensure the `PATCH /courses/{id}` endpoint correctly updates the `is_active` field (if not already implemented).
 
 ## Verification Plan
 
 ### Manual Verification
-- Verify that the Command Center, Agenda, and Module Hub are all visible without excessive scrolling.
-- Confirm that the Agenda and Module Hub are stacked correctly in the right column.
-- Check that the vertical heights align as requested.
-- Ensure the layout is responsive on smaller screens.
+- Verify that only "active" modules appear in the Module Hub initially.
+- Open the management overlay and toggle a module's visibility; confirm it appears/disappears from the hub.
+- Visually inspect the bottom of the dashboard to ensure the vertical space is filled effectively.

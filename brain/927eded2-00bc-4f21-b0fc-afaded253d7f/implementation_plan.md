@@ -1,0 +1,37 @@
+# Fix Meeting Creation Redirect Issue
+
+Meeting creation is failing because the Next.js API proxy strips trailing slashes from the request path. This causes the FastAPI backend to issue a `307 Temporary Redirect` (from `/api/v1/meetings` to `/api/v1/meetings/`). Node.js `fetch` fails to follow `POST` redirects when the request body is a stream (which it is in the proxy).
+
+## Proposed Changes
+
+### Frontend Proxy
+
+#### [MODIFY] [route.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/app/api/%5B...path%5D/route.ts)
+
+Preserve the trailing slash when forwarding requests to the backend.
+
+```diff
+-  const backendUrl = `${API_BASE}/api/${path}${searchParams}`;
++  const hasTrailingSlash = request.nextUrl.pathname.endsWith('/');
++  const backendUrl = `${API_BASE}/api/${path}${hasTrailingSlash ? '/' : ''}${searchParams}`;
+```
+
+### Backend (Optional but Recommended for Consistency)
+
+#### [MODIFY] [meetings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/meetings.py)
+
+Update the router to match the pattern used by other routers in the project (prefix in `main.py`, none in the router itself).
+
+#### [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+
+Move the prefix and dependencies to `main.py` for consistency.
+
+## Verification Plan
+
+### Automated Tests
+- Run the reproduction test script `backend/tests/test_routers/test_meetings.py` again.
+- Since the test uses `httpx` directly against the FastAPI app (bypassing the proxy), it should pass if the trailing slashes are handled correctly in the URL.
+- I will also create a small Node.js script to verify the proxy logic.
+
+### Manual Verification
+- Ask the user to try creating a meeting in the browser.

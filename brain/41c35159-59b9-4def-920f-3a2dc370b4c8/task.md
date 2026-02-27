@@ -12,3 +12,7 @@
 - [x] Update `TaskRow`, `InlineTaskCreator`, and `TaskDetail` to use tag colours <!-- id: 11 -->
 - [x] Add simple UI in `TaskDetail` to customise tag colours <!-- id: 12 -->
 - [x] Verify functionality <!-- id: 6 -->
+- [x] Refactor tag input to a chip-based "block" style <!-- id: 13 -->
+- [x] Ensure tag blocks use their assigned colours <!-- id: 14 -->
+- [x] Add ability to remove tags from the block input <!-- id: 15 -->
+- [x] Verify visual consistency across TaskRow and detail views <!-- id: 16 -->
