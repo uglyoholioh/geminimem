@@ -1,0 +1,31 @@
+# Proposed Improvements for CraftCanvas
+
+After reviewing the current implementation of the Academic Life OS, I've identified several areas where we can elevate the experience, focusing on academic success and the unique "Dense Terminal" aesthetic.
+
+## 1. AI-Powered Academic Companion
+Currently, the AI handles chat and daily briefs well. We can extend this into active learning:
+- **Active Recall (Quiz Mode)**: Generate multiple-choice or short-answer questions directly from the synced Canvas course files and announcements.
+- **Smart Flashcards**: Automatically generate flashcards from lecture notes. We could integrate with Anki or build a simple terminal-style flashcard viewer in the app.
+- **Semantic File Search**: Enhance the `/ai` session to allow searching through the content of all downloaded PDFs/PPTs from Canvas using the existing RAG pipeline.
+
+## 2. Immersive Focus Environment
+The Focus Mode is a great start. We can make it a truly world-class productivity space:
+- **Ambient Soundscape**: Integrate a built-in audio player with curated, desaturated soundscapes (Lo-Fi, Heavy Rain, Busy NUS Library).
+- **Post-Session Reflection**: After a focus session ends, have the AI prompt a 30-second reflection: *"What was the most challenging part of this task?"* to help with metacognition.
+- **Picture-in-Picture (PiP) Timer**: Allow the focus timer to pop out into a small PiP window so you can see your progress while working in other apps.
+
+## 3. Academic Analytics & Visibility
+Make the "Life OS" more proactive about your academic standing:
+- **Grade Simulator / CAP Tracker**: Build a view that predicts your final grade/CAP based on current scores and weighted averages. *"What do I need in the final exam to get an A?"*
+- **Workload Heatmap**: A visualization that combines your NUSMods timetable with upcoming Assignment deadlines to identify "crunch weeks" before they happen.
+
+## 4. UI/UX "Dense Terminal" Polish
+Lean harder into the Terminal aesthetic for a more premium feel:
+- **Command Palette (Cmd+K)**: Implement a powerful keyboard-centric palette for jumping between modules, creating tasks, or triggering AI commands without touching the mouse.
+- **CRT / Terminal Effects**: Add an optional toggle for subtle CRT scanlines, flicker, and a slight screen glow to match the "Dense Terminal" vibe.
+- **Typographic Micro-animations**: Use subtle typing animations for AI responses and "data stream" effects when syncing with Canvas.
+
+---
+
+> [!TIP]
+> **Which of these should we tackle first?** I'm happy to dive deep into an implementation plan for any that pique your interest.

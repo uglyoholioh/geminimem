@@ -1,5 +1,6 @@
 {
-  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary": "Walkthrough of the \"Your Modules\" widget addition to the dashboard. Includes details on state management, data fetching, and UI layout.",
-  "updatedAt": "2026-02-26T18:22:04.966381Z"
+  "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary":  "Walkthrough of the reverted dashboard with isolated Modules tab.",
+  "updatedAt":  "2026-02-27T06:50:27.630802Z",
+  "version":  "2"
 }

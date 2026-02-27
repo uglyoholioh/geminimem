@@ -1,5 +1,6 @@
 {
-  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary": "Plan to add a \"Your Modules\" widget to the dashboard. The widget will display active courses with their codes and names, allowing users to click into each module. Data will be fetched from the existing `/courses` endpoint.",
-  "updatedAt": "2026-02-26T18:20:47.326202Z"
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Implementation plan to revert the dashboard to a single view while keeping the enhanced 'Modules' section as a separate tab.",
+  "updatedAt":  "2026-02-27T06:48:33.059478Z",
+  "version":  "2"
 }

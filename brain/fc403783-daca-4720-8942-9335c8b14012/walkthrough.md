@@ -1,25 +1,25 @@
-# Dashboard Modules Access Walkthrough
+# Dashboard Reversion Walkthrough
 
-I have added a "Your Modules" widget to the dashboard to make it easy for you to access your individual courses.
+I have reverted the dashboard to its original single-view layout while maintaining the enhanced "Modules" view as a separate tab.
 
 ## Changes Made
 
-### Frontend
+### 1. Dashboard Tab (Primary View)
+- The main dashboard now contains all original sections in a single scrollable view.
+- **Combined Sections**: The "Command Center" (AI Brief & Chat) and "Agenda" are back to their original positions.
+- **Restored Timetable**: The full weekly academic schedule has been restored to the bottom of the main dashboard, ensuring all primary information is available at a glance.
 
-#### Dashboard Page ([page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx))
-- **State Management**: Added `courses` state to store active module data.
-- **Data Fetching**: Updated the `load` effect to fetch active courses from the `/courses` endpoint in parallel with other dashboard data.
-- **UI Layout**:
-    - Inserted a new "Your Modules" section in the right column of the dashboard.
-    - The widget displays active modules in a 2-column grid.
-    - Each module card shows the course code (with its assigned color) and name.
-    - Modules are clickable and navigate directly to the specific course page.
-- **Lint Fix**: Added missing `ChevronRight` import from `lucide-react`.
+### 2. Modules Tab (Secondary View)
+- The rich, grid-style "Modules" view remains accessible via the tab navigation.
+- This view provides expanded course cards with detailed stats (pending tasks and announcements).
 
-## Verification Results
+### 3. Simplified Navigation
+- The header navigation has been updated to switch only between **Dashboard** and **Modules**.
+- Smooth animations have been preserved for the transition between these two primary views.
 
-### Manual Verification
-- **Data Load**: Verified that the dashboard now correctly fetches and displays active modules.
-- **Navigation**: Verified that clicking a module card redirects the user to `/courses/[id]`.
-- **UI/UX**: The grid layout integrates seamlessly into the dashboard's right column, maintaining visual consistency with the "Today's Agenda" and "Tasks" sections.
-- **Responsiveness**: The grid adapts naturally to the dashboard's layout.
+## Verification
+
+- [x] **Primary Dashboard**: Verified that all sections (Brief, Chat, Agenda, Schedule) render correctly in one view.
+- [x] **Modules View**: Confirmed that the "Modules" tab properly displays the detailed course grid.
+- [x] **Data Integrity**: Ensured that `todaySlots` correctly populates the weekly schedule.
+- [x] **Syntax & Linting**: Fixed multiple JSX nesting issues and variable reference errors during the refactor.

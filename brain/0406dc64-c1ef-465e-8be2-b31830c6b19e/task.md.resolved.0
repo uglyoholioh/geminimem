@@ -1,0 +1,17 @@
+# Task: Improvement Recommendations for CraftCanvas
+
+## Research & Exploration
+- [x] Read system documentation (README, FEATURES, ARCHITECTURE) <!-- id: 0 -->
+- [x] Review design system specification <!-- id: 1 -->
+- [ ] Inspect existing implementation of key features (Dashboard, Focus Timer, AI Chat) <!-- id: 2 -->
+- [ ] Check current test coverage and quality <!-- id: 3 -->
+
+## Brainstorming & Design
+- [ ] Develop "Focus Mode" enhancement plan <!-- id: 4 -->
+- [ ] Design "Academic Analytics" (Grades/Workload) <!-- id: 5 -->
+- [ ] Propose AI RAG pipeline improvements <!-- id: 6 -->
+- [ ] Identify aesthetic/UX polishing opportunities (Dense Terminal theme) <!-- id: 7 -->
+
+## Documentation
+- [ ] Create `improvements.md` artifact with detailed suggestions <!-- id: 8 -->
+- [ ] Present findings to user <!-- id: 9 -->

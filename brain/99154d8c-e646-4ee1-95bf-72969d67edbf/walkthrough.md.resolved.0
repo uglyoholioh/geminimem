@@ -1,0 +1,34 @@
+# Gemini AI Studio Integration Walkthrough
+
+I have integrated the free tier Gemini models from Google AI Studio into CraftCanvas. This allows you to leverage powerful models like Gemini 1.5 Flash for chat and daily briefs.
+
+## Changes Made
+
+### Backend
+
+- **[config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py)**: Added settings for `GOOGLE_API_KEY`, `AI_PROVIDER` (defaults to [ollama](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#124-146)), and `GEMINI_MODEL` (defaults to `gemini-1.5-flash`).
+- **[ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)**: Refactored [AIService](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#18-227) to support multiple providers. It now routes requests to either Ollama or Gemini based on your configuration. Context injection is preserved for both.
+- **[requirements.txt](file:///Users/oli/Desktop/CraftCanvas/backend/requirements.txt)**: Added `google-generativeai` package.
+
+## Verification Results
+
+### Automated Tests
+- Created [test_gemini.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_services/test_gemini.py) which mocks the Gemini SDK to verify:
+    - Proper routing when `AI_PROVIDER=gemini` is set.
+    - Correct formatting of chat history for Gemini.
+    - Successful streaming of responses.
+- **Result**: `2 passed`
+
+## How to use Gemini
+
+1.  **Add your API Key**: Go to [aistudio.google.com](https://aistudio.google.com/), generate an API key, and add it to your `.env` file:
+    ```bash
+    GOOGLE_API_KEY=your_key_here
+    ```
+2.  **Switch Provider**: Update your `.env` to use Gemini:
+    ```bash
+    AI_PROVIDER=gemini
+    ```
+3.  **Restart the backend**.
+
+Ollama will still be used for local embeddings to ensure your vector store remains consistent and private.

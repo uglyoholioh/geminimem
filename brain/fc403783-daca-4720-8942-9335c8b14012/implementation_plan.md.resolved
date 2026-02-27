@@ -1,22 +1,26 @@
-# Dashboard Modules Access Implementation Plan
+# Dashboard Reversion and Modules Tab Implementation Plan
 
-The goal is to make it easy for users to access their modules directly from the dashboard. This will be achieved by adding a new "Your Modules" widget in the right column of the dashboard.
+The user wants to revert the main dashboard to its original single-view layout (removing the global tab switching for Overview and Schedule) but keep the new, enhanced "Modules" view as a separate tab or section.
 
 ## Proposed Changes
 
-### [Component Name] Dashboard Page ([frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx))
+### Dashboard Page ([frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx))
 
 #### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
-- Add [Course](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx#24-37) interface.
-- Fetch courses from `/courses?active_only=true` in the [load](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#170-226) function.
-- Add a new "Your Modules" section in the right column (grid).
-- The section will display a list of active modules as clickable cards or a horizontal/grid list.
-- Each module will show its code and name, using the module's color for visual reference.
+- **Simplify Structure**: Remove the `activeTab === 'overview'` and `activeTab === 'schedule'` conditional wrappers.
+- **Restore Single View**: The "Overview" content (Command Center, Agenda, Academic Track summary) and the "Schedule" view (if it was originally there or if the user wants it back) will be merged back into a single primary view.
+  - *Correction based on user instruction*: "Only the modules section of that added to another tab". I will restore the original dashboard layout as the primary view.
+- **Modules Tab**:
+  - Keep the `activeTab` state but use it *only* to switch between the main Dashboard and the enhanced Modules view.
+  - Alternatively, if the user wants the "original dashboard" exactly as it was, and the "modules section" as a tab:
+    - I will keep a simple tab switcher: **Dashboard** | **Modules**.
+    - "Dashboard" will contain everything the old dashboard had.
+    - "Modules" will contain the new grid view.
+- **Header UI**: Simplified tab switcher (e.g., "Dashboard" and "Courses" or "Modules").
 
 ## Verification Plan
 
 ### Manual Verification
-- Verify that the "Your Modules" section appears on the dashboard.
-- Verify that only active modules are shown.
-- Verify that clicking a module navigates to the module's detail page (`/courses/[id]`).
-- Verify that the design feels premium and matches the rest of the dashboard.
+- Verify the main dashboard looks exactly as it did before (single scrollable view or original grid).
+- Verify clicking the "Modules" tab shows the new enhanced view.
+- Verify animations still look good for this specific transition.

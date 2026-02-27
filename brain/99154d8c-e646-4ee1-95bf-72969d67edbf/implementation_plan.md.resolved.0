@@ -1,0 +1,52 @@
+# Integrate Gemini AI Studio Models
+
+This plan outlines the integration of Gemini models (specifically Gemini 1.5 Flash) from Google AI Studio into the CraftCanvas backend. This will provide a free, high-performance alternative to local Ollama.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Data Privacy**: In the Gemini AI Studio **Free Tier**, Google may use your data (inputs and outputs) to train and improve their models. Please ensure this aligns with your privacy requirements.
+> 
+> **API Key**: You will need to obtain an API key from [aistudio.google.com](https://aistudio.google.com/) and add it to your `.env` file as `GOOGLE_API_KEY`.
+
+## Proposed Changes
+
+### Backend Configuration
+
+#### [MODIFY] [config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py)
+- Add `google_api_key` to [Settings](file:///Users/oli/Desktop/CraftCanvas/backend/config.py#13-57).
+- Add `ai_provider` setting to toggle between [ollama](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#97-120) and `gemini`.
+- Add `gemini_model` setting (defaulting to `gemini-1.5-flash`).
+
+### AI Service Implementation
+
+#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+- Refactor [AIService](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#18-175) to support multiple providers.
+- Implement `_call_gemini` and `_stream_gemini` using the `google-generativeai` SDK or `httpx` (direct API calls).
+- Update [chat](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#81-96) and [stream_chat](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#143-175) to route requests based on the `ai_provider` setting.
+
+### Dependencies
+
+#### [MODIFY] [requirements.txt](file:///Users/oli/Desktop/CraftCanvas/backend/requirements.txt)
+- Add `google-generativeai` library.
+
+## Cost Estimation (Gemini AI Studio)
+
+| Model | Tier | RPM | RPD | TPM | Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Gemini 1.5 Flash** | Free | 15 | 1,500 | 1,000,000 | **$0** |
+| **Gemini 1.5 Pro** | Free | 2 | 50 | 32,000 | **$0** |
+
+*RPM: Requests Per Minute, RPD: Requests Per Day, TPM: Tokens Per Minute.*
+
+## Verification Plan
+
+### Automated Tests
+- Run `pytest backend/tests/test_routers/test_tasks.py` (and other relevant tests) to ensure no regressions.
+- Create a new test `backend/tests/test_services/test_gemini.py` to mock Gemini API responses and verify the integration.
+
+### Manual Verification
+- Toggle `AI_PROVIDER=gemini` in `.env`.
+- Use the Chat feature in the dashboard to ask a question (e.g., "What's on my agenda today?").
+- Verify that the response is returned correctly and reflects the user context.
+- Check backend logs for appropriate Gemini API calls.

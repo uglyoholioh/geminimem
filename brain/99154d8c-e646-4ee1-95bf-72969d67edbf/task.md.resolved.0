@@ -1,0 +1,7 @@
+# Task: Integrate Gemini Models from AI Studio
+
+- [/] Research current AI implementation <!-- id: 0 -->
+- [ ] Research Gemini AI Studio free tier limits and costs <!-- id: 1 -->
+- [ ] Propose integration plan <!-- id: 2 -->
+- [ ] Implement Gemini service provider <!-- id: 3 -->
+- [ ] Verify integration <!-- id: 4 -->

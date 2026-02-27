@@ -1,0 +1,26 @@
+# Tabbed Dashboard Implementation Plan
+
+The goal is to enhance the dashboard by introducing a tabbed interface. This will allow for more focused views, specifically a rich "Modules" view and a dedicated "Schedule" view, while keeping the "Overview" as the primary landing spot. We will also implement smooth animations for tab switching.
+
+## Proposed Changes
+
+### Dashboard Page ([frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx))
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- **Tab State**: Introduce `activeTab` state ('overview' | 'modules' | 'schedule').
+- **Tab Navigation**: Add a sleek tab switcher in the header with micro-animations.
+- **Overview Tab**: Current dashboard content (Today's Agenda, Tasks, Assignments).
+- **Modules Tab**:
+  - Expanded grid or list of active modules.
+  - Per-module quick stats (assignment progress, unread announcements).
+  - Quick action buttons for each module (View Tasks, View Brief).
+- **Schedule Tab**: Dedicated full-width view of the week's classes and upcoming deadlines.
+- **Animations**: Use CSS transitions and `animate-in` classes for smooth tab switching.
+
+## Verification Plan
+
+### Manual Verification
+- Verify tab switching works correctly.
+- Verify animations are smooth and "cool".
+- Verify "Modules" tab shows comprehensive data.
+- Verify "Schedule" tab displays the weekly outlook accurately.
