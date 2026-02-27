@@ -1,0 +1,17 @@
+# Task: Make date and time optional for tasks
+
+- [x] Backend Changes
+    - [x] Update [Task](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#42-62) model in [backend/models/task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py) to allow null for date/time fields (Already supports)
+    - [x] Update task creation logic in [backend/routers/tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py) (Already supports)
+    - [x] Update `task_parser` service if needed in [backend/services/task_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/task_parser.py) (Already supports)
+- [x] Frontend Changes (v1)
+    - [x] Update [InlineTaskCreator](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#154-395) to allow empty date/time
+    - [x] Update [TaskDetail](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#565-977) to allow empty date/time
+- [/] Frontend Changes (v2 - Restore Defaults)
+    - [ ] Restore default date/time values in [InlineTaskCreator](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#154-395)
+    - [ ] Add clear buttons to date/time inputs in [InlineTaskCreator](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#154-395) and [TaskDetail](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#565-977)
+    - [ ] Update [adjustDate](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#188-194) and [adjustTime](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#195-205) logic
+- [ ] Verification
+    - [ ] Test creating a task without date/time (clearing defaults)
+    - [ ] Test creating a task with defaults
+    - [ ] Verify adjustment buttons work when field is empty

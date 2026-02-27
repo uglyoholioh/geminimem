@@ -1,0 +1,64 @@
+OS
+[0] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/' title='Dashboard' />
+[1] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[2] (14,187)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (14,233)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (14,278)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[5] (14,324)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,370)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,415)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[8] (14,461)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[9] (14,507)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[10] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[11] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Good evening
+, Oli
+Friday, February 27
+0
+tasks
+0
+classes
+15
+due
+10
+unread
+Command Center
+[12] (463,109)<select class='bg-base border border-border/50 rounded px-2 py-0.5 text-[10px] font-mono text-muted focus:outline-none focus:border-accent' />
+[13] (493,109)<a class='h-7 w-7 rounded-lg flex items-center justify-center text-muted hover:text-accent hover:bg-accent-subtle/30 transition-all' href='/brief' />
+No brief generated yet
+Click Generate to get your personalized summary for today, or ask me anything.
+Suggestions
+[14] (135,626)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[EXAM_PREP] />
+[15] (191,626)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[SYLLABUS_CHECK] />
+[16] (255,626)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[TASK_BREAKDOWN] />
+[17] (315,626)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[WEEKLY_RECAP] />
+[18] (295,671)<input class='flex-1 rounded-lg border border-border bg-base px-3 py-2 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none disabled:opacity-50' placeholder='Ask about your schedule, tasks, module materials...' />
+Today's Agenda
+Nothing scheduled today
+Module Hub
+[19] (896,414)<a class='text-[10px] font-mono text-accent hover:underline flex items-center gap-1 group' href='/courses'>MANAGE />
+[20] (719,570)<div class='flex-1 overflow-y-auto p-4 custom-scrollbar' scrollable='true' />
+	BT1101
+	BT1101 Introduction to Business Analytics [2520]
+	[21] (893,485)<a class='h-7 w-7 shrink-0 rounded-xl bg-surface border border-border flex items-center justify-center text-muted hover:text-accent opacity-0 group-hover:opacity-100 transition-all' href='/courses/17' />
+	Online Video: Overview and Data for Business Analytics
+	[22] (595,582)<a class='flex flex-col items-center p-1.5 rounded-lg bg-surface/40 border border-border/30 hover:border-accent/40 transition-all group/link' href='/assignments?module=BT1101' />
+		[23] (595,589)<span >23 />
+	[24] (718,582)<a class='flex flex-col items-center p-1.5 rounded-lg bg-surface/40 border border-border/30 hover:border-accent/40 transition-all group/link' href='/tasks?module=BT1101' />
+		[25] (718,589)<span >0 />
+	[26] (841,582)<a class='flex flex-col items-center p-1.5 rounded-lg bg-surface/40 border border-border/30 hover:border-accent/40 transition-all group/link' href='/courses/17#announcements' />
+		[27] (841,589)<span >16 />
+	CS2030
+	CS2030 Programming Methodology II [2520]
+	[28] (893,666)<a class='h-7 w-7 shrink-0 rounded-xl bg-surface border border-border flex items-center justify-center text-muted hover:text-accent opacity-0 group-hover:opacity-100 transition-all' href='/courses/18' />
+	pelogin account
+	1
+	0
+	5
+	GES1035/GESS1025
+	GES1035/GESS1025 Singapore: Imagining the Next 50 Years [2520]
+	Roll Call Attendance
+	7
+	0
+	5

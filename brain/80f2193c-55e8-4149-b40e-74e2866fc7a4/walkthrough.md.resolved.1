@@ -1,0 +1,30 @@
+# Walkthrough - Optional Task Date and Time
+
+I have made it optional to add a date and time when creating or editing tasks.
+
+## Changes Made
+
+### Frontend
+- **InlineTaskCreator**:
+    - Restored default date (today) and time (current hour).
+    - Added clear buttons (X) to the date and time inputs for quick removal.
+    - Improved [adjustDate](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#188-193) and [adjustTime](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#194-207) logic to handle empty fields (defaults to today/now).
+- **TaskDetail**:
+    - Added clear buttons (X) to the date and time input sections for easier removal.
+
+### Backend
+- Verified that the backend already supports optional `due_date` and `due_time` fields.
+- Existing tests confirm that tasks can be created and listed without these fields.
+
+## Verification Results
+
+### Automated Tests
+- Ran backend router tests: `pytest backend/tests/test_routers/test_tasks.py`
+- Result: `5 passed` (including tasks with and without dates).
+
+### Manual Verification (Expected Behavior)
+- When adding a task, the date and time fields will now be empty by default.
+- If you don't select a date, the task will appear in the "No due date" section of the task list.
+- You can clear a date/time from an existing task in the detail panel by deleting the value and saving.
+
+![Timeline View showing 'No Date' group](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#L430-470)

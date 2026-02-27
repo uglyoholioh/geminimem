@@ -1,0 +1,30 @@
+# Module Hub Redesign Implementation Plan
+
+Redesign the "Academic Track" section into a richer "Module Hub". This section will show only active modules and provide quick access to assignments, tasks, announcements, and module briefs with summary stats or top items.
+
+## Proposed Changes
+
+### Dashboard Page ([page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx))
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- **Rename Section**: Change "Academic Track" heading to "Module Hub".
+- **Enhanced Module Cards**:
+    - Update the module card layout to a more detailed view.
+    - Add quick-access icons/links for:
+        - **Assignments**: Show count and link to filtered view.
+        - **Tasks**: Show count and link to filtered view.
+        - **Announcements**: Show unread count and trigger modal or link.
+        - **Module Brief**: Link to a specific module brief view (if available) or relevant section.
+    - Use a more spacious layout to accommodate these additions.
+- **Layout Adjustment**: 
+    - Adjust the right column grid or overflow behavior to allow "Module Hub" to take up more presence if needed.
+    - Consider wrapping the hub in a more premium container with hover effects.
+
+## Verification Plan
+
+### Manual Verification
+- Verify that only "active" modules (those selected during onboarding/saved as active) are displayed.
+- Verify that the section is renamed to "Module Hub".
+- Check that each module card displays correct stats for assignments and announcements.
+- Confirm that clicking quick-access icons navigates to the correct filtered views or opens relevant modals.
+- Ensure the design feels premium and matches the "Module Hub" aesthetic.

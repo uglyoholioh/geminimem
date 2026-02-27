@@ -1,0 +1,9 @@
+# Module Hub Redesign Task
+
+- [x] Rename "Academic Track" to "Module Hub"
+- [x] Implement enhanced module card with quick stats
+- [x] Add quick-access links for assignments, tasks, announcements
+- [x] Ensure only active modules are shown
+- [x] Redesign layout to give Module Hub more presence
+- [x] Verify data integration and navigation
+- [x] Fix minor lint and syntax issues

@@ -1,0 +1,13 @@
+# Task: Make date and time optional for tasks
+
+- [/] Backend Changes
+    - [ ] Update `Task` model in [backend/models/task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py) to allow null for date/time fields
+    - [ ] Update task creation logic in [backend/routers/tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py)
+    - [ ] Update `task_parser` service if needed in [backend/services/task_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/task_parser.py)
+- [ ] Frontend Changes
+    - [ ] Update task creation form UI to make date/time optional
+    - [ ] Update API calls to handle missing date/time
+- [ ] Verification
+    - [ ] Test creating a task without date and time
+    - [ ] Test creating a task with date and time
+    - [ ] Verify task display when date/time is missing

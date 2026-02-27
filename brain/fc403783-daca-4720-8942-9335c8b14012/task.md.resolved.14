@@ -1,0 +1,7 @@
+# Dashboard Layout Refinement Task
+
+- [ ] Planning: Design stacked Agenda/Module Hub layout
+- [ ] EXECUTION: Move Module Hub into right column flex stack
+- [ ] EXECUTION: Adjust heights to match Command Center (~600px total)
+- [ ] EXECUTION: Refine Module Hub grid for sidebar width
+- [ ] VERIFICATION: Verify vertical alignment and visual balance

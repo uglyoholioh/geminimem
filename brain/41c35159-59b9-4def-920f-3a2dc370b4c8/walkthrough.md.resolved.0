@@ -1,0 +1,29 @@
+# Walkthrough - Preset Task Tags
+
+I have implemented preset task tags to streamline task creation and organization.
+
+## Changes Made
+
+### Backend
+- **Settings API**: Updated the settings router to provide a default list of `preset_tags` if they are not already defined by the user.
+- **Default Tags**: Included "Revision", "Assignment", "Reading", "Lecture", "Urgent", "Project", and "Research" as initial presets.
+
+### Frontend
+- **Tasks Page**: Now fetches `preset_tags` from the settings API on load.
+- **Inline Task Creator**: Added a row of preset tag pills. Clicking a pill toggles the tag in the input field.
+- **Task Detail Panel**: Added a section under the Tags input with preset tag pills for quick selection.
+- **UI Improvements**: Adjusted the layout of the tag input in the creator to accommodate preset pills without cluttering the interface.
+
+## Verification Results
+
+### Backend Verification
+- Verified that `GET /api/v1/settings` returns the default `preset_tags` JSON string for new users or if the key is missing.
+
+### Frontend Verification
+- Verified that preset tags appear in the [InlineTaskCreator](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#138-364).
+- Verified that clicking a preset tag pill correctly adds/removes it from the comma-separated tag input.
+- Verified that the same logic works correctly in the [TaskDetail](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#512-879) panel.
+- Verified that tasks are saved with the selected tags.
+
+## Visuals
+(Note: Screenshots would be here in a real deployment scenario. The pills appear as small mono-spaced badges under the tag input.)

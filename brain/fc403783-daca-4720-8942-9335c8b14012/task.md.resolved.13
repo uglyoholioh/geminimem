@@ -1,0 +1,9 @@
+# Module Hub Redesign Task
+
+- [x] Identify layout imbalance (right-heavy) and cramped cards
+- [x] Planning: Redesign grid to move Module Hub to full-width row
+- [/] EXECUTION: Restructure [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) grid layout
+- [ ] EXECUTION: Implement full-width responsive Module Hub grid
+- [ ] EXECUTION: Enhance module cards with top tasks/assignments
+- [ ] VERIFICATION: Verify visual balance and responsiveness
+- [x] Fix minor lint and syntax issues

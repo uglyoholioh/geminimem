@@ -1,0 +1,9 @@
+# Task Checklist
+
+- [ ] Define preset tags in the backend (database/settings) <!-- id: 0 -->
+- [ ] Implement API endpoints to get/update preset tags <!-- id: 1 -->
+- [ ] Update frontend to fetch and display preset tags <!-- id: 2 -->
+- [ ] Update [InlineTaskCreator](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#138-333) to allow selecting preset tags <!-- id: 3 -->
+- [ ] Update [TaskDetail](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#481-816) to allow selecting preset tags <!-- id: 4 -->
+- [ ] Create initial preset tags <!-- id: 5 -->
+- [ ] Verify functionality <!-- id: 6 -->

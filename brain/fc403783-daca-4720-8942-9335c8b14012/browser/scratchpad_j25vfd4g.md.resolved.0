@@ -1,0 +1,11 @@
+# Task: Visual Verification of Dashboard Layout
+
+## Plan
+1. Open http://localhost:3000 (or http://localhost:3001).
+2. Capture screenshot of the dashboard.
+3. Analyze 'Command Center', 'Today's Agenda', and 'Module Hub' layout.
+4. Check for alignment, vertical stretching, and column balance.
+5. Report findings to the user.
+
+## Findings
+- 

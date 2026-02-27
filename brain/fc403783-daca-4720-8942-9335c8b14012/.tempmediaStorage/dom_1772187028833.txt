@@ -1,0 +1,95 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+OS
+[0] (19,113)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/' title='Dashboard' />
+[1] (19,167)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[2] (19,221)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (19,276)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (19,330)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[5] (19,384)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (19,438)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (19,492)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[8] (19,546)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[9] (19,600)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[10] (19,852)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[11] (19,907)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Good evening
+, Oli
+Friday, February 27
+0
+tasks
+0
+classes
+15
+due
+10
+unread
+[12] (519,509)<div class='flex-1 min-h-0 overflow-y-auto pr-1' scrollable='true' />
+	Nothing scheduled today
+	Module Hub
+	[13] (933,419)<a class='text-[10px] font-mono text-accent hover:underline flex items-center gap-1 group' href='/courses'>MANAGE MODULES />
+	BT1101
+	BT1101 Introduction to Business Analytics [2520]
+	[14] (256,530)<a class='h-9 w-9 shrink-0 rounded-2xl bg-surface border border-border flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 hover:shadow-lg transition-all' href='/courses/17' />
+	Online Video: Overview and Data for Business Analytics
+	Quiz 1- Overview to BA and Course Syllabus
+	[15] (111,716)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/assignments?module=BT1101' />
+		[16] (111,728)<span >23 />
+	[17] (175,716)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/tasks?module=BT1101' />
+		[18] (175,728)<span >0 />
+	[19] (239,716)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/courses/17#announcements' />
+		[20] (239,728)<span >16 />
+	CS2030
+	CS2030 Programming Methodology II [2520]
+	[21] (483,530)<a class='h-9 w-9 shrink-0 rounded-2xl bg-surface border border-border flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 hover:shadow-lg transition-all' href='/courses/18' />
+	pelogin account
+	[22] (338,689)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/assignments?module=CS2030' />
+		[23] (338,700)<span >1 />
+	[24] (402,689)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/tasks?module=CS2030' />
+		[25] (402,700)<span >0 />
+	[26] (467,689)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/courses/18#announcements' />
+		[27] (467,700)<span >5 />
+	GES1035/GESS1025
+	GES1035/GESS1025 Singapore: Imagining the Next 50 Years [2520]
+	[28] (710,530)<a class='h-9 w-9 shrink-0 rounded-2xl bg-surface border border-border flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 hover:shadow-lg transition-all' href='/courses/19' />
+	Roll Call Attendance
+	[29] (565,689)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/assignments?module=GES1035/GESS1025' />
+		[30] (565,700)<span >7 />
+	[31] (630,689)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/tasks?module=GES1035/GESS1025' />
+		[32] (630,700)<span >0 />
+	[33] (694,689)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/courses/19#announcements' />
+		[34] (694,700)<span >5 />
+	GEX1015/GET1029
+	GEX1015/GET1029 Life, the Universe, and Everything [2520]
+	[35] (938,530)<a class='h-9 w-9 shrink-0 rounded-2xl bg-surface border border-border flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 hover:shadow-lg transition-all' href='/courses/20' />
+	Roll Call Attendance
+	[36] (792,689)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/assignments?module=GEX1015/GET1029' />
+		[37] (792,700)<span >1 />
+	[38] (857,689)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/tasks?module=GEX1015/GET1029' />
+		[39] (857,700)<span >0 />
+	[40] (921,689)<a class='flex flex-col items-center justify-center p-2 rounded-xl bg-surface/40 border border-border/30 hover:border-accent/40 hover:bg-base/40 transition-all group/link' href='/courses/20#announcements' />
+		[41] (921,700)<span >3 />
+	MA1522
+	MA1522 Linear Algebra for Computing [2520]
+	[42] (256,842)<a class='h-9 w-9 shrink-0 rounded-2xl bg-surface border border-border flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 hover:shadow-lg transition-all' href='/courses/21' />
+	16 Jan 2026
+	20 Jan 2026
+	THE1001/RC1000A
+	THE1001/RC1000A A Culture of Respect and Consent (Student)
+	[43] (483,842)<a class='h-9 w-9 shrink-0 rounded-2xl bg-surface border border-border flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 hover:shadow-lg transition-all' href='/courses/22' />
+	Declaration of Conformance
+	THE1002/SE1000
+	THE1002/SE1000 Student Essentials
+	[44] (710,842)<a class='h-9 w-9 shrink-0 rounded-2xl bg-surface border border-border flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 hover:shadow-lg transition-all' href='/courses/23' />
+	Fundamentals of Academic Life
+	Personal Data Protection for Students
+	TPC
+	Travel Preparedness Course
+	[45] (938,842)<a class='h-9 w-9 shrink-0 rounded-2xl bg-surface border border-border flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 hover:shadow-lg transition-all' href='/courses/24' />
+	Global Health Threat Awareness
+	Handling Emergencies
+
+</current_dom>

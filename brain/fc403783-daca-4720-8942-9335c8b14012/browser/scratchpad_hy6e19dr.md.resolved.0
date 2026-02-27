@@ -1,0 +1,13 @@
+# Task: Verify Dashboard Layout
+
+## Plan
+1. [ ] Navigate to http://localhost:3000
+2. [ ] Verify "Command Center" is on the left
+3. [ ] Verify "Agenda" and "Module Hub" are stacked on the right
+4. [ ] Check if total height of right stack matches Command Center
+5. [ ] Verify no horizontal scrolling or overlapping elements
+6. [ ] Capture screenshot for visual confirmation
+7. [ ] Report findings
+
+## Findings
+- 

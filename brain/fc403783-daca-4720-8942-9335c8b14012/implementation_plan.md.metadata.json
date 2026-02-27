@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Implementation plan to restore the dashboard to its true original state.",
-  "updatedAt":  "2026-02-27T07:58:59.915700Z",
-  "version":  "3"
+  "summary":  "Implementation plan to stack Today's Agenda and Module Hub in a sidebar column.",
+  "updatedAt":  "2026-02-27T10:15:18.774319Z",
+  "version":  "6"
 }

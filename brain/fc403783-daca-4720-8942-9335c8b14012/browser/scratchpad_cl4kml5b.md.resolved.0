@@ -1,0 +1,7 @@
+# Dashboard Layout Verification
+
+- [ ] Navigate to http://localhost:3000
+- [ ] Verify Command Center (left) and Sidebar Stack (right) are side-by-side
+- [ ] Verify right sidebar stack height matches Command Center (~600px)
+- [ ] Verify Module Hub is visible in the right column
+- [ ] Take screenshot for final report

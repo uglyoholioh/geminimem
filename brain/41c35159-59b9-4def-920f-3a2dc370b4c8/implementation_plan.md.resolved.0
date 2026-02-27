@@ -1,0 +1,27 @@
+# Preset Task Tags Implementation Plan
+
+This plan outlines the steps to allow users to create and use preset tags for their tasks.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [backend/app/models/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/app/models/settings.py)
+- Ensure `preset_tags` key is handled in default settings if applicable.
+
+#### [MODIFY] [backend/app/routers/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/app/routers/settings.py)
+- Ensure settings endpoints can handle the `preset_tags` key.
+
+### Frontend
+
+#### [MODIFY] [frontend/app/tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx)
+- Add state to fetch and store `preset_tags` from settings.
+- Update [InlineTaskCreator](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#138-333) to show a list of preset tags that can be toggled.
+- Update [TaskDetail](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#481-816) to show a list of preset tags that can be toggled.
+
+## Verification Plan
+
+### Manual Verification
+- Create a task and select preset tags from the list.
+- Edit a task and toggle preset tags.
+- Update the list of preset tags in the settings (if UI is added, otherwise via API/DB).

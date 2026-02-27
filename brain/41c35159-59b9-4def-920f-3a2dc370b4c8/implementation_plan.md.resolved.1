@@ -1,0 +1,31 @@
+# Preset Task Tags Implementation Plan
+
+This plan outlines the steps to allow users to create and use preset tags for their tasks.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [backend/routers/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py)
+- Update [get_all_settings](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py#29-37) to include default `preset_tags` if not already set.
+- Default tags: `["Revision", "Assignment", "Reading", "Lecture", "Urgent", "Project", "Research"]`.
+
+### Frontend
+
+#### [MODIFY] [frontend/app/tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx)
+- Fetch `preset_tags` from settings on load.
+- In [InlineTaskCreator](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#138-333):
+    - Display preset tags as clickable pills.
+    - Clicking a pill toggles it in the `tagsInput`.
+- In [TaskDetail](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#481-816):
+    - Display preset tags as clickable pills under the Tags input.
+    - Clicking a pill toggles it in the `tagsInput`.
+- Add a new "Manage Tags" section in settings or a button in the task page to add more presets.
+
+
+## Verification Plan
+
+### Manual Verification
+- Create a task and select preset tags from the list.
+- Edit a task and toggle preset tags.
+- Update the list of preset tags in the settings (if UI is added, otherwise via API/DB).

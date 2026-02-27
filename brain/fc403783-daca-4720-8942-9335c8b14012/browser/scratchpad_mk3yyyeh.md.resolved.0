@@ -1,0 +1,8 @@
+# Dashboard Layout Verification Plan
+
+- [ ] Open http://localhost:3000 (already active)
+- [ ] Capture screenshot to verify high-level layout
+- [ ] Inspect DOM to check column structure (Command Center & Agenda side-by-side)
+- [ ] Verify Module Hub is full-width below the top section
+- [ ] Verify Module cards are in a grid and show tasks/assignments
+- [ ] Check for any layout breaks or overlaps

@@ -1,0 +1,30 @@
+# Dashboard Layout & Module Hub Redesign Plan
+
+The current dashboard layout is "right-heavy" and the Module Hub is cramped. This plan moves the Module Hub to its own full-width row below the Command Center and Agenda, allowing it to expand and show more detail as requested.
+
+## Proposed Changes
+
+### Dashboard Page ([page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx))
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- **Restructure Grid**:
+    - Keep **Command Center** and **Today's Agenda** in the top 2-column grid.
+    - Change the grid ratio to be more balanced (e.g., `lg:grid-cols-[1.2fr,1fr]`).
+    - Remove the Module Hub from the right column stack.
+- **New Module Hub Row**:
+    - Create a new `section` below the top grid that spans the full width.
+    - Title it "Module Hub" with a "Manage Modules" link.
+    - Inside, use a responsive grid (`grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`) to display modules.
+- **Enhanced Module Card**:
+    - Since there's now more width, make the module cards more descriptive.
+    - Show the **top 2 most urgent tasks** or **assignments** directly on the card if they exist.
+    - Keep the quick-access icons for filtered views.
+- **Remove Internal Scroll**: Let the Module Hub grow naturally so it uses the main page scroll, avoiding nested scrollbars.
+
+## Verification Plan
+
+### Manual Verification
+- Verify that the layout feels balanced and no longer "right-heavy".
+- Confirm the **Module Hub** is now full-width and the cards have more room.
+- Verify that the Module Hub cards show the most urgent items as per the design.
+- Check responsiveness on various screen widths.
