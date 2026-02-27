@@ -1,0 +1,23 @@
+# Task: Explore and Propose Craft Integration Ideas
+
+- [x] Analyze current Craft integration <!-- id: 0 -->
+- [x] Research existing infrastructure (models, services) <!-- id: 1 -->
+- [x] Brainstorm new integration use cases <!-- id: 2 -->
+- [x] Document proposed ideas in an artifact <!-- id: 3 -->
+- [x] Present ideas to the user <!-- id: 4 -->
+- [x] Formulate detailed implementation plans <!-- id: 5 -->
+    - [x] Plan 1: Bi-Directional Task Inbox <!-- id: 6 -->
+    - [x] Plan 2: Module Workspaces (Auto-Provisioning) <!-- id: 7 -->
+    - [x] Plan 3: Automated Meeting & Class Notes <!-- id: 8 -->
+    - [x] Plan 4: Central Task/Assignment Sync View <!-- id: 9 -->
+- [x] Present implementation plans for approval <!-- id: 10 -->
+- [x] Execute implementation plans <!-- id: 11 -->
+    - [x] Implement Bi-Directional Task Inbox <!-- id: 12 -->
+    - [x] Implement Module Workspaces <!-- id: 13 -->
+    - [x] Implement Automated Class Notes <!-- id: 14 -->
+    - [x] Implement Central Task/Assignment Sync View <!-- id: 15 -->
+- [x] Verify all features <!-- id: 16 -->
+- [x] Brainstorm further enhancements <!-- id: 17 -->
+    - [x] Draft new integration features <!-- id: 18 -->
+    - [x] Update craft_integration_ideas.md <!-- id: 19 -->
+- [/] Present new ideas to user <!-- id: 20 -->

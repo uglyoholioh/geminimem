@@ -1,0 +1,38 @@
+# 🧶 Craft Integration Expanded: Walkthrough
+
+I have implemented four powerful new features that deepen the integration between AcademicOS and Craft.
+
+## 🚀 New Features
+
+### 1. 🔄 Bi-Directional Task Inbox
+You can now write tasks directly in a Craft document, and they will be automatically synced to AcademicOS.
+- **Service**: `backend/services/craft_inbox_sync.py`
+- **Logic**: Uses our AI task parser to extract titles and due dates from your Craft blocks.
+- **Safety**: Employs a new `ProcessedCraftBlock` model to track synced items and prevent duplicates.
+
+### 2. 📁 Course Workspace Provisioning
+AcademicOS now automatically sets up your notes structure in Craft for every course synced from Canvas.
+- **Service**: `backend/services/craft_workspace_builder.py`
+- **Structure**: Creates a "Header" page for each course with pre-populated sections for Lecture Notes, Deadlines, and Resources.
+
+### 3. 📝 Automated Class Notes
+Never start a class with a blank page again.
+- **Service**: `backend/services/class_notes_preparer.py`
+- **Logic**: Identifies classes starting in the next 3 hours (via NUSMods schedule) and prepares a rich notes template in the relevant Craft Course Workspace.
+
+### 4. 📊 Central Sync Dashboard
+A single "Operating System" view in Craft that stays in sync with your AcademicOS priorities.
+- **Service**: `backend/services/craft_todo_sync.py`
+- **Content**: Automatically pushes a markdown-formatted dashboard of your overdue tasks, upcoming assignments, and high-priority items.
+
+## 🛠 Technical Foundation
+- **New Model**: [craft_block.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/craft_block.py) tracks processed blocks.
+- **New Services**:
+    - [craft_inbox_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/craft_inbox_sync.py)
+    - [craft_workspace_builder.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/craft_workspace_builder.py)
+    - [class_notes_preparer.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/class_notes_preparer.py)
+    - [craft_todo_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/craft_todo_sync.py)
+
+## 🧪 Verification
+- **Import Validation**: Verified all new services are syntactically correct and integrate with existing `SQLModel` schemas.
+- **Duplicate Prevention**: Tested (via unit tests) that the `ProcessedCraftBlock` logic correctly ignores already-synced blocks.

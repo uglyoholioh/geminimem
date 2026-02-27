@@ -1,0 +1,186 @@
+OS
+[0] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[1] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[2] (14,187)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (14,233)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (14,278)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[5] (14,324)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/courses' title='Courses' />
+[6] (14,370)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,415)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[8] (14,461)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[9] (14,507)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[10] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[11] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Courses
+Your enrolled modules and course materials
+8
+Active Modules
+52
+Total Assignments
+32
+Unread Announcements
+[12] (480,240)<input class='w-full pl-9 pr-4 py-2.5 rounded-xl border border-border bg-surface text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none transition-colors' placeholder='Search by module code or name...' />
+[13] (770,240)<button class='flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-surface text-xs font-medium text-secondary hover:bg-surface-hover transition-colors shrink-0'>Active only />
+[14] (320,393)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/17' />
+	[15] (320,373)<div  />
+		[16] (229,373)<div  />
+		[17] (322,373)<div  />
+			[18] (322,322)<div  />
+				[19] (264,322)<div  />
+					[20] (257,322)<span >BT1101 />
+					[21] (282,322)<button class='p-1 rounded-md transition-colors text-muted hover:bg-border/50 hover:text-secondary' title='Recolour module' />
+			[22] (322,363)<h3 >BT1101 Introduction to Business Analytics [2520] />
+			[23] (322,397)<span >[2520] 2025/2026 Semester 2 />
+			[24] (322,429)<div  />
+				[25] (250,429)<div  />
+					[26] (255,429)<span >23 />
+				[27] (284,429)<div  />
+					[28] (289,429)<span >16
+new />
+	[29] (320,478)<div  />
+		[30] (251,478)<span >Tasks />
+		[31] (297,478)<span >Notes />
+		[32] (343,478)<span >Canvas />
+		[33] (390,478)<span >Hide />
+[34] (515,393)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/18' />
+	[35] (515,373)<div  />
+		[36] (424,373)<div  />
+		[37] (516,373)<div  />
+			[38] (516,322)<div  />
+				[39] (459,322)<div  />
+					[40] (451,322)<span >CS2030 />
+					[41] (477,322)<button class='p-1 rounded-md transition-colors text-muted hover:bg-border/50 hover:text-secondary' title='Recolour module' />
+			[42] (516,353)<h3 >CS2030 Programming Methodology II [2520] />
+			[43] (516,377)<span >[2520] 2025/2026 Semester 2 />
+			[44] (516,409)<div  />
+				[45] (443,409)<div  />
+					[46] (448,409)<span >1 />
+				[47] (473,409)<div  />
+					[48] (478,409)<span >5
+new />
+	[49] (515,478)<div  />
+		[50] (445,478)<span >Tasks />
+		[51] (491,478)<span >Notes />
+		[52] (538,478)<span >Canvas />
+		[53] (584,478)<span >Hide />
+[54] (709,393)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/19' />
+	[55] (709,373)<div  />
+		[56] (618,373)<div  />
+		[57] (711,373)<div  />
+			[58] (711,322)<div  />
+				[59] (671,322)<div  />
+					[60] (663,322)<span >GES1035/GESS1025 />
+					[61] (705,322)<button class='p-1 rounded-md transition-colors text-muted hover:bg-border/50 hover:text-secondary' title='Recolour module' />
+			[62] (711,363)<h3 >GES1035/GESS1025 Singapore: Imagining the Next 50 Years [2520] />
+			[63] (711,397)<span >[2520] 2025/2026 Semester 2 />
+			[64] (711,429)<div  />
+				[65] (637,429)<div  />
+					[66] (642,429)<span >7 />
+				[67] (667,429)<div  />
+					[68] (672,429)<span >5
+new />
+	[69] (709,478)<div  />
+		[70] (639,478)<span >Tasks />
+		[71] (686,478)<span >Notes />
+		[72] (732,478)<span >Canvas />
+		[73] (779,478)<span >Hide />
+[74] (320,620)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/20' />
+	[75] (320,601)<div  />
+		[76] (229,601)<div  />
+		[77] (322,601)<div  />
+			[78] (322,549)<div  />
+				[79] (280,549)<div  />
+					[80] (272,549)<span >GEX1015/GET1029 />
+					[81] (313,549)<button class='p-1 rounded-md transition-colors text-muted hover:bg-border/50 hover:text-secondary' title='Recolour module' />
+			[82] (322,590)<h3 >GEX1015/GET1029 Life, the Universe, and Everything [2520] />
+			[83] (322,624)<span >[2520] 2025/2026 Semester 2 />
+			[84] (322,657)<div  />
+				[85] (248,657)<div  />
+					[86] (253,657)<span >1 />
+				[87] (278,657)<div  />
+					[88] (283,657)<span >3
+new />
+	[89] (320,705)<div  />
+		[90] (251,706)<span >Tasks />
+		[91] (297,706)<span >Notes />
+		[92] (343,706)<span >Canvas />
+		[93] (390,706)<span >Hide />
+[94] (515,620)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/21' />
+	[95] (515,601)<div  />
+		[96] (424,601)<div  />
+		[97] (516,601)<div  />
+			[98] (516,549)<div  />
+				[99] (459,549)<div  />
+					[100] (451,549)<span >MA1522 />
+					[101] (477,549)<button class='p-1 rounded-md transition-colors text-muted hover:bg-border/50 hover:text-secondary' title='Recolour module' />
+			[102] (516,580)<h3 >MA1522 Linear Algebra for Computing [2520] />
+			[103] (516,604)<span >[2520] 2025/2026 Semester 2 />
+			[104] (516,637)<div  />
+				[105] (445,637)<div  />
+					[106] (450,637)<span >13 />
+				[107] (476,637)<div  />
+					[108] (482,637)<span >2
+new />
+	[109] (515,705)<div  />
+		[110] (445,706)<span >Tasks />
+		[111] (491,706)<span >Notes />
+		[112] (538,706)<span >Canvas />
+		[113] (584,706)<span >Hide />
+[114] (709,620)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/22' />
+	[115] (709,601)<div  />
+		[116] (618,601)<div  />
+		[117] (711,601)<div  />
+			[118] (711,549)<div  />
+				[119] (669,549)<div  />
+					[120] (661,549)<span >THE1001/RC1000A />
+					[121] (702,549)<button class='p-1 rounded-md transition-colors text-muted hover:bg-border/50 hover:text-secondary' title='Recolour module' />
+			[122] (711,590)<h3 >THE1001/RC1000A A Culture of Respect and Consent (Student) />
+			[123] (711,624)<span >Non-Academic />
+			[124] (711,657)<div  />
+				[125] (637,657)<div  />
+					[126] (642,657)<span >1 />
+	[127] (709,705)<div  />
+		[128] (639,706)<span >Tasks />
+		[129] (686,706)<span >Notes />
+		[130] (732,706)<span >Canvas />
+		[131] (779,706)<span >Hide />
+[132] (320,837)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/23' />
+	[133] (320,818)<div  />
+		[134] (229,818)<div  />
+		[135] (322,818)<div  />
+			[136] (322,776)<div  />
+				[137] (278,776)<div  />
+					[138] (270,776)<span >THE1002/SE1000 />
+					[139] (310,776)<button class='p-1 rounded-md transition-colors text-muted hover:bg-border/50 hover:text-secondary' title='Recolour module' />
+			[140] (322,808)<h3 >THE1002/SE1000 Student Essentials />
+			[141] (322,832)<span >Non-Academic />
+			[142] (322,864)<div  />
+				[143] (248,864)<div  />
+					[144] (253,864)<span >2 />
+	[145] (320,913)<div  />
+		[146] (251,913)<span >Tasks />
+		[147] (297,913)<span >Notes />
+		[148] (343,913)<span >Canvas />
+		[149] (390,913)<span >Hide />
+[150] (515,837)<a class='group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 transition-all duration-200' href='/courses/24' />
+	[151] (515,818)<div  />
+		[152] (424,818)<div  />
+		[153] (516,818)<div  />
+			[154] (516,776)<div  />
+				[155] (454,776)<div  />
+					[156] (446,776)<span >TPC />
+					[157] (466,776)<button class='p-1 rounded-md transition-colors text-muted hover:bg-border/50 hover:text-secondary' title='Recolour module' />
+			[158] (516,808)<h3 >Travel Preparedness Course />
+			[159] (516,832)<span >Non-Academic />
+			[160] (516,864)<div  />
+				[161] (443,864)<div  />
+					[162] (448,864)<span >4 />
+				[163] (473,864)<div  />
+					[164] (478,864)<span >1
+new />
+	[165] (515,913)<div  />
+		[166] (445,913)<span >Tasks />
+		[167] (491,913)<span >Notes />
+		[168] (538,913)<span >Canvas />
+		[169] (584,913)<span >Hide />

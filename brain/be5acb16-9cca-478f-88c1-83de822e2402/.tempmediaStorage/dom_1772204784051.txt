@@ -1,0 +1,47 @@
+OS
+[0] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[1] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/tasks' title='Tasks' />
+[2] (14,187)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[3] (14,233)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[4] (14,278)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[5] (14,324)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,370)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,415)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[8] (14,461)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[9] (14,507)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[10] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[11] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Tasks
+[12] (83,81)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors bg-accent-subtle text-accent font-medium'>Inbox
+0 />
+	Inbox
+	0
+[13] (83,120)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Today
+0 />
+	Today
+	0
+[14] (83,160)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Upcoming />
+	Upcoming
+[15] (83,199)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>By Module />
+	By Module
+[16] (83,239)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Completed
+4 />
+	Completed
+	4
+0
+open
+4
+completed
+[17] (83,965)<button class='flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all text-secondary hover:bg-surface-hover'>AI Filter />
+Inbox
+[18] (670,29)<input class='w-full pl-8 pr-3 py-1.5 rounded-lg border border-border bg-base text-xs text-primary placeholder:text-muted focus:border-accent focus:outline-none' placeholder='Search tasks...' />
+[19] (779,29)<button class='px-2 py-1 rounded-md text-[10px] font-mono font-medium transition-colors border text-muted border-border hover:text-secondary hover:bg-surface-hover'>Low />
+[20] (800,29)<button class='px-2 py-1 rounded-md text-[10px] font-mono font-medium transition-colors border text-muted border-border hover:text-secondary hover:bg-surface-hover'>Med />
+[21] (822,29)<button class='px-2 py-1 rounded-md text-[10px] font-mono font-medium transition-colors border text-muted border-border hover:text-secondary hover:bg-surface-hover'>High />
+[22] (845,29)<button class='px-2 py-1 rounded-md text-[10px] font-mono font-medium transition-colors border text-muted border-border hover:text-secondary hover:bg-surface-hover'>!!! />
+[23] (888,29)<button class='px-2.5 py-1 text-xs rounded-md transition-colors flex items-center gap-1.5 text-muted hover:text-secondary'>List />
+[24] (922,29)<button class='px-2.5 py-1 text-xs rounded-md transition-colors flex items-center gap-1.5 bg-surface shadow-sm text-primary font-medium border border-border/50'>Board />
+[25] (965,29)<button class='px-2.5 py-1 text-xs rounded-md transition-colors flex items-center gap-1.5 text-muted hover:text-secondary'>Calendar />
+[26] (578,102)<input class='flex-1 bg-transparent text-primary text-sm placeholder:text-muted focus:outline-none' placeholder='Add a new task...' />
+No tasks here — add one above

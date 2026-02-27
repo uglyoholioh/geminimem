@@ -1,0 +1,40 @@
+# 🎨 Expanding the Craft Integration
+
+Craft is more than just a place for the Daily Brief; it can become the primary "operating system" for your academic life, while CraftCanvas handles the heavy lifting of data sync and AI processing.
+
+Here are 5 ways we can level up the integration:
+
+## 1. 🔄 Bi-Directional Task Inbox
+**The Idea**: Create a "Task Sync" document in Craft. Any block you add there (via mobile, desktop, or quick capture) gets automatically imported into CraftCanvas as a new task.
+- **Why**: You spend a lot of time in Craft. Capturing tasks there should be the default, not an extra step.
+- **How**: We poll the "Task Inbox" document periodically and parse new blocks using our AI task parser.
+
+## 2. 📁 Module Workspaces (Auto-Provisioning)
+**The Idea**: When a new course is synced from Canvas, CraftCanvas automatically sets up a rich module workspace in Craft.
+- **Structure**:
+  - `[CS2103T] Software Engineering` (Folder)
+    - `Lecture Notes` (Sub-page)
+    - `Assignments` (Sub-page, synced with Canvas deadlines)
+    - `Announcements Archive`
+- **Why**: Keeps your notes organized by course without manual setup.
+
+## 3. 📝 Automated Meeting & Class Notes
+**The Idea**: Before every lecture or tutorial (from your NUSMods schedule), CraftCanvas prepares a "Meeting Note" in Craft.
+- **Content**: Pre-populated with the lecture title, date, venue, and a "Questions for Professor" section.
+- **Why**: Eliminates "blank page syndrome" right as class starts.
+
+## 4. 📊 Weekly Academic Reviews
+**The Idea**: Every Sunday, CraftCanvas pushes a "Weekly Review" page to a dedicated folder.
+- **Content**: 
+  - Accomplishments this week (completed tasks).
+  - High-priority deadlines for the *next* two weeks.
+  - A "Reflection" block where you can write about your progress.
+- **Why**: Encourages consistent planning and reflection.
+
+## 5. 🧠 Contextual "Project" Awareness
+**The Idea**: Tell CraftCanvas about a specific project document in Craft (e.g., "Senior Thesis"). 
+- **Benefit**: The AI will "read" that document's recent updates to provide more specific advice in your Daily Brief, like "I noticed you haven't updated your Thesis Draft in 3 days—maybe use your 2pm gap today for that?"
+
+---
+> [!TIP]
+> **Which of these should we tackle first?** I'm personally excited about the **Bi-Directional Task Inbox** as it makes the workflow feel seamless.
