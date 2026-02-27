@@ -41,9 +41,34 @@ Move beyond just pushing a daily note:
 Reduce the administrative burden of being a student:
 - **Auto-Email Drafts**: When a new announcement is posted about a "Missing Grade" or "Project Submission", the AI drafts a polite inquiry email for you to review and send.
 - **Conflict Resolver**: The system identifies when a task's estimated time exceeds your free blocks in the NUSMods timetable and suggests moving the task or "Focusing" during a specific gap.
-- **Financial Tracker (Optional)**: A simple terminal-style ledger for tracking student expenses, tuition payments, and meal plan balances, keeping everything in one "Academic Life OS".
+
+## 8. Local Social & Collaborative OS
+Since this is self-hosted on a tunnel, we can add "Presence" and "Shared Study" features:
+- **Study-Together Mode**: Allow a friend (also on CraftCanvas) to "Join" your focus session. Both see each other's timers and a minimal "Presence" indicator (Mono labels: `[OLI: FOCUSING] [FRIEND: BREAK]`).
+- **Shared Flashcard Decks**: Build a local "Marketplace" or simple P2P sync to share the smart flashcards we generated from lecture notes.
+- **Project Team Room**: A dedicated "Module Detail" sub-page for group projects where tasks can be assigned to team members and synced to a shared Craft page.
+
+## 9. Hardware & Ambient Integration
+Integrate the "Academic OS" into your physical environment:
+- **Smart Light Sync (Home Assistant)**: Integrate with local smart lights to turn them "Red" during focus mode and "Green" during breaks automatically (via Webhooks).
+- **Physical "Focus Button"**: Support for a USB/Bluetooth physical button to start/stop the focus timer, pushing a purely tactical interface.
+- **Mac Menu Bar / Desktop Widget**: A tiny companion app (or just a transparent Electron window) that stays on the desktop, mirroring the "Dense Terminal" metadata stream.
+
+## 10. Long-Term Academic Portfolio
+Transform from a "Management Tool" to a "Growth Tool":
+- **Skill Tree Visualization**: Map module credits and grades to a "Skill Tree" (e.g., Computer Systems, Math, Soft Skills) to see your academic evolution over 4 years.
+- **Automatic Portfolio Builder**: At the end of a semester, the AI selects your "Best Work" (top-graded assignments and project notes) and generates a markdown portfolio/resume page.
+- **CAP Projection & Goal Setting**: Set target grades for the next 2 years and let the system calculate the required GPA per semester to reach your goal.
+
+## 11. Deep Refinements (Polished Utility)
+Instead of new modules, these ideas "deepen" the current experience:
+- **Focus Effort vs. Estimate Analysis**: In the `Focus Mode`, show a small comparison of "Estimated Minutes" (from the task) vs. "Actual Minutes" (from the timer) once a task is completed. The AI can then suggest better estimates for future similar tasks.
+- **"Data Stream" Sync Status**: Lean into the Terminal aesthetic by adding a small, scrolling "Sync Log" in the footer or settings that shows raw data coming in from Canvas (`[SYNC: 2 NEWS ANNS FROM CS2103T] [SYNC: TIMETABLE UPDATED]`).
+- **Contextual Action Shortcuts**: In the Dashboard `Agenda`, add a "Start Focus" button directly next to any task or assignment due today, pre-filling the focus timer with that item.
+- **AI Chat "Prompt Recipes"**: Add a set of curated mono-styled buttons above the AI chat input for common academic workflows: `[SYLLABUS_CHECK]` `[EXAM_PREP]` `[TASK_BREAKDOWN]`. This reduces typing and guides the user toward more powerful AI interactions.
+- **Intelligent Brief "Correction"**: Allow the user to " thumbs down" a section of the Daily Brief, prompting the AI to learn their preference (e.g., "Too wordy", "Ignore this module's announcements") for the next day's generation.
 
 ---
 
 > [!TIP]
-> **Focusing on the "Power User":** These Round 2 ideas are designed to make the system feel like a personal Chief of Staff. I'm ready to prototype any of these for you.
+> **Refining the Core:** These ideas focus on making the existing app feel more "alive" and connected. I'm ready to implement any of these refinements to polish the current experience.

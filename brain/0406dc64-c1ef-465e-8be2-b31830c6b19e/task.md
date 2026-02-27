@@ -22,5 +22,20 @@
 - [x] Identify automation/workflow opportunities <!-- id: 12 -->
 - [x] Update `improvements.md` with new ideas <!-- id: 13 -->
 
+## Brainstorming Round 3
+- [x] Develop "Study Group / Social" local concepts <!-- id: 15 -->
+- [x] Design "Hardware / Presence" integration ideas <!-- id: 16 -->
+- [x] Propose "Long-term Growth / Portfolio" tracking <!-- id: 17 -->
+- [x] Update `improvements.md` with final set of ultra-advanced ideas <!-- id: 18 -->
+
 ## Next Steps
-- [/] Wait for user preference on priority <!-- id: 14 -->
+- [x] Final proposal review with user <!-- id: 19 -->
+
+## Brainstorming Round 4 (Deep Refinements)
+- [x] Analyze "Focus Mode" data depth <!-- id: 20 -->
+- [x] Review "Sync Engine" feedback loops <!-- id: 21 -->
+- [x] Design "Intelligence UX" within current chat <!-- id: 22 -->
+- [x] Update `improvements.md` with deep polish ideas <!-- id: 23 -->
+
+## Next Steps
+- [x] Comprehensive proposal review with user <!-- id: 24 -->
