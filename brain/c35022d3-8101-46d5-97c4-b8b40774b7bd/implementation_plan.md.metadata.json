@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Comprehensive implementation plans for all 12 issues and 5 feature suggestions from the CraftCanvas app evaluation. Each plan is self-contained with exact file paths, code changes, and verification steps. Plans are ordered by priority (P0 → P2) and designed to be independently executable by Gemini 3 Flash.",
-  "updatedAt":  "2026-02-28T07:16:03.802864Z"
+  "summary":  "Implementation plan for Plan 9: Make Timetable Useful During Breaks. Adds a new `TimetableEvent` model for personal scheduling and integrates an \"AI Study Planner\" that suggests revision blocks based on upcoming deadlines during recess/reading weeks.",
+  "updatedAt":  "2026-02-28T08:47:37.061707Z",
+  "version":  "6"
 }

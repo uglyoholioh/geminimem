@@ -1,0 +1,24 @@
+
+# Plan 10: Improve Tasks Page Defaults
+
+This plan focuses on UI/UX refinements for the Tasks page to make it more efficient for fast task management.
+
+## Proposed Changes
+
+### [Frontend] Tasks Page UI Refinement
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx)
+- **Default View**: Change the default `vizKey` (visualization) from `'kanban'` to `'list'`. The list/timeline view is more efficient for academic task triage.
+- **Persistent View State**: Ensure that if the user switches views, it stays consistent (or at least defaults to list).
+- **Inline Creator Focus**: Enhance the [InlineTaskCreator](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#159-462) to be more keyboard-friendly (ensuring focus on open).
+- **Auto-expansion**: If the user has many items, ensure the default view is "Inbox" or "Today" rather than a fragmented "By Module" view by default.
+
+## Verification Plan
+
+### Automated Tests
+- Verify `npm run build` passes with the changes.
+
+### Manual Verification
+- Navigate to `/tasks`.
+- Verify it defaults to **List View** (Timeline groups).
+- Verify the "Add new task" input is prominent and easy to use.

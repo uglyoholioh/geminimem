@@ -1,0 +1,7 @@
+- [x] Login to http://localhost:3000/login (admin/admin) [FAILED - 500 Internal Server Error]
+- [x] Navigate to /timetable [FAILED - Redirects to login or stuck on loading]
+- [ ] Find and navigate to a recess week [UNABLE TO PROCEED]
+- [ ] Verify Break Banner (Coffee icon + text) [UNABLE TO PROCEED]
+- [ ] Verify hover UI (+ Add) on empty slot [UNABLE TO PROCEED]
+- [ ] Verify AI Plan confirmation prompt [UNABLE TO PROCEED]
+- [x] Capture screenshot of timetable grid [Captured login error instead]

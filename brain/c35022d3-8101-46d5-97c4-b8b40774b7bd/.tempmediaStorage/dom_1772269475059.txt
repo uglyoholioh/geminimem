@@ -1,0 +1,29 @@
+OS
+[0] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[1] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[2] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[3] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[4] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[5] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[6] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[7] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/timetable' title='Timetable' />
+[8] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[9] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[10] (14,917)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+Timetable
+•
+Feb 23
+—
+Mar 1
+[11] (587,44)<button class='flex items-center gap-1.5 px-3 h-9 text-xs font-mono font-medium border border-accent/20 bg-accent/5 text-accent hover:bg-accent/10 transition-colors rounded-sm mr-2' title='Suggest Study Blocks'>AI Plan />
+[12] (642,44)<button class='h-full flex items-center gap-1.5 px-3 transition-colors text-muted hover:bg-surface-hover' title='Show Tasks'>Tasks />
+	Tasks
+[13] (684,44)<button class='w-10 h-full flex items-center justify-center transition-colors bg-primary/10 text-primary' title='Horizontal View (Days on Y, Time on X)' />
+[14] (705,44)<button class='w-10 h-full flex items-center justify-center transition-colors text-muted hover:bg-surface-hover' title='Vertical View (Time on Y, Days on X)' />
+[15] (734,44)<button class='h-9 w-9 flex items-center justify-center border border-border bg-surface hover:bg-surface-hover transition-colors rounded-sm' />
+[16] (767,44)<button class='px-4 h-9 border border-border bg-surface text-xs font-mono font-medium uppercase tracking-widest text-primary hover:bg-surface-hover transition-colors rounded-sm'>Today />
+[17] (800,44)<button class='h-9 w-9 flex items-center justify-center border border-border bg-surface hover:bg-surface-hover transition-colors rounded-sm' />
+[18] (840,44)<label class='cursor-pointer hidden sm:block' />
+	[19] (840,44)<span >ICS />
+[20] (917,44)<input class='bg-transparent border-none text-xs font-mono h-full px-3 w-48 focus:ring-0 placeholder:text-muted' placeholder='Paste NUSMods URL...' />
+Loading timetable…

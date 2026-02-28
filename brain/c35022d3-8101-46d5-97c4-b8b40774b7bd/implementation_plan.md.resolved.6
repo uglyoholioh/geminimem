@@ -1,0 +1,44 @@
+# Plan 9: Make Timetable Useful During Breaks
+
+This plan enhances the timetable to be useful even when there are no classes (e.g., during recess week, reading week, or weekends). It introduces "Personal Events" and an "AI Study Planner".
+
+## Proposed Changes
+
+### [Backend] Personal Events Model
+Add a generic event model for the timetable that isn't tied to a specific NUSMods class.
+
+#### [NEW] [event.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/event.py)
+- `TimetableEvent` model:
+    - [id](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx#52-172), `user_id`, `title`, `description`
+    - `start_time`, `end_time` (HH:MM)
+    - [date](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py#200-239) (YYYY-MM-DD)
+    - [colour](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx#45-50) (hex)
+    - `category` ("study", "meeting", "personal", "deatline")
+
+#### [MODIFY] [timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py)
+- Update [get_timetable_week](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py#549-621) to fetch both [TimetableSlot](file:///Users/oli/Desktop/CraftCanvas/backend/models/timetable.py#8-40) (academic) and `TimetableEvent` (personal).
+- Merge them into a single response array.
+- Update [slot_occurs_on_date](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable.py#25-115) to optionally show "normal" class hours as "ghost" blocks during recess week if requested (low priority, maybe just stick to manual/AI blocks).
+
+### [Frontend] Timetable Enhancements
+Update the UI to support creating personal events and visualizing breaks better.
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+- **Always show Grid**: Don't hide the grid behind a "No Classes" message if it's a break; instead, show a subtle banner and allow creating events.
+- **Event Creation**: Allow clicking an empty cell to open a "New Event" modal.
+- **AI Study Planner**:
+    - Add a "Plan Study Blocks" button.
+    - Logic: Call backend to look at assignments due in the next 14 days and suggest 2-hour blocks in the gaps (9am-6pm).
+- **Personal Event Rendering**: Render `TimetableEvent` alongside classes with different styling (e.g., dashed borders or specific icons).
+
+## Verification Plan
+
+### Automated Tests
+- Test adding and retrieving `TimetableEvent`.
+- Verify overlap logic (if any) or just ensure both types appear in `/week`.
+
+### Manual Verification
+- Go to a recess week on the timetable.
+- Verify the grid is visible.
+- Create a "Recess Revision" event.
+- Use the "AI Plan" button (if implemented) and verify suggestions.

@@ -1,0 +1,16 @@
+# Task Checklist - Timetable Page Testing
+
+- [ ] Login to the application (admin/admin) - **Attempted forced submission with 'admin'/'admin', currently loading**
+- [ ] Navigate to the Timetable page (/timetable) - **Previously stuck on "Loading timetable..."**
+- [x] Check for 500 errors and debug if necessary - **Confirmed 500 errors on multiple endpoints**
+- [ ] Navigate to a recess week using 'Next'
+- [ ] Verify Break banner visibility
+- [ ] Verify empty slot interaction
+- [ ] Verify 'AI Plan' interaction
+- [ ] Capture final screenshot
+
+## Findings
+- Login page is stuck on "Loading..." and returns 500 for `auth/login`.
+- Direct navigation to `/timetable` works but the page is stuck on "Loading timetable...".
+- Multiple API endpoints returning 500 Internal Server Error, including `timetable/week`.
+- The current week displayed is Feb 23 — Mar 1.

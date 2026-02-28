@@ -9,14 +9,15 @@
 - [x] [Plan 2] Revive Dashboard for Off-Days / Recess Week
 - [x] [Plan 4] Migrate Grades from localStorage to Backend
 - [x] [Plan 5] Connect Focus Timer to Task Cards
-- [ ] [Plan 8] Reorganise Sidebar Navigation Tiers
-- [ ] [Plan 9] Make Timetable Useful During Breaks
-- [ ] [Plan 10] Improve Tasks Page Defaults (Auto list view)
-- [ ] [Plan 11] Global Search (⌘K)
+- [x] [Plan 8] Reorganise Sidebar Navigation Tiers
+- [x] [Plan 9] Make Timetable Useful During Breaks
+- [x] [Plan 10] Improve Tasks Page Defaults (Auto list view)
+- [x] [Plan 11] Global Search (⌘K)
 
 ## iOS & Backend Readiness
-- [ ] [Plan 12] iOS API Readiness (JWT Auth + Pagination)
-- [ ] [Plan 13] Push Notifications (APNs integration)
+- [x] [Plan 12] iOS API Readiness (JWT Auth + Pagination)
+- [x] [Plan 13] Push Notifications (APNs integration foundation)
 
 ## Refactoring
 - [x] [Plan 6] Decompose God Components (Dashboard)
+- [x] [Plan 7] Implement Mobile-First Push/In-App Notification Strategy

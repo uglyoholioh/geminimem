@@ -1,0 +1,58 @@
+# Test Plan: Comprehensive Frontend Verification
+
+This plan outlines the verification steps for the latest functional enhancements to ensure visual correctness, functional reliability, and edge-case handling.
+
+## 1. Timetable Page (Break Mode & AI Planner)
+
+### Test Cases
+- [ ] **Teaching Week Rendering**: Mock a normal teaching week and verify that academic slots (lectures/tutorials) are displayed.
+- [ ] **Recess/Reading Week Transition**: Mock a break week (e.g., "Recess Week") and verify:
+    - The "Break Banner" (Coffee icon) is visible.
+    - The grid is still visible and interactable.
+- [ ] **Personal Event Creation**: 
+    - Click an empty cell.
+    - Fill the event title.
+    - Verify the `POST` request to `/api/v1/timetable/events`.
+- [ ] **AI Study Planner**:
+    - Click the "AI Plan" button.
+    - Verify the fetch from `/api/v1/timetable/ai-plan`.
+    - Verify the confirmation dialog appears with suggested blocks.
+    - Verify "Apply" triggers creation of suggested events.
+
+### Edge Cases
+- **Empty Planner**: AI returns zero suggestions (verify "No blocks found" state).
+- **Overlapping Events**: Multiple personal events in the same slot (verify stacking logic).
+
+## 2. Tasks Management (Defaults & Creator)
+
+### Test Cases
+- [ ] **Default List View**: Load `/tasks` and verify the `VizKey` defaults to `'list'`. The timeline should be the primary visualization.
+- [ ] **Inline Task Creator**:
+    - Focus main input -> Verify expansion of priority, tags, and date fields.
+    - Quick Entry: Enter title + `Enter` -> Verify immediate creation.
+- [ ] **Status Toggles**: Toggle completion on a task and verify visual transitions (line-through, opacity).
+
+### Edge Cases
+- **Past Deadlines**: Verify tasks with past-due dates are highlighted in red/urgency colors.
+- **Deep Linking**: Navigate to `/tasks?id=123` and verify the detail panel opens automatically.
+
+## 3. Global Command Palette (⌘K)
+
+### Test Cases
+- [ ] **Shortcut Trigger**: Press `Meta+K` and verify the overlay appears.
+- [ ] **Live Search**: Type "CS" and verify aggregated results (Tasks, Courses, Notes) appear after debounce.
+- [ ] **Navigation**: Select a result with Arrow keys + Enter and verify routing to the target URL.
+- [ ] **Static Nav**: Search for "Settings" and verify it provides a direct navigation link.
+
+### Edge Cases
+- **No Results**: Type gibberish and verify the "No results found" empty state.
+- **Escape Key**: Verify `Esc` closes the palette reliably.
+
+## 4. Cross-Feature Integration
+
+### Test Cases
+- [ ] **Focus Timer Sync**: Start timer from a Task row -> Verify `FloatingTimer` appears globally with the task title.
+- [ ] **Dashboard Agenda**: Verify that adding a personal event on the Timetable page causes it to appear in the Dashboard "Today's Agenda" section.
+
+---
+*Testing will be performed using Playwright for automated scenarios and the Browser Subagent for visual/interactive validation.*

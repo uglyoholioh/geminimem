@@ -1,0 +1,49 @@
+# Mobile-First Notification Strategy & iOS API Readiness
+
+This plan outlines the steps to prepare the backend for an iOS app and implement a robust notification strategy, including push notifications via Firebase Cloud Messaging (FCM).
+
+## Proposed Changes
+
+### [Backend] Authentication & User Model
+To support mobile access and push notifications, we need to transition from purely cookie-based sessions to a hybrid system that includes JWT for mobile and stores push tokens.
+
+#### [MODIFY] [user.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py)
+- Add `fcm_token: Optional[str] = Field(default=None)` to the [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-46) model.
+- Add `notification_preferences: str = Field(default="{}")` to store JSON-encoded preferences (e.g., quiet hours, specific alert types).
+
+#### [MODIFY] [auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)
+- Implement a `/login/mobile` endpoint that returns a JWT instead of setting a session cookie.
+- Add a `/me/fcm-token` endpoint (PUT) to allow the iOS app to register its FCM token.
+
+#### [NEW] [jwt_utils.py](file:///Users/oli/Desktop/CraftCanvas/backend/lib/jwt_utils.py)
+- Utility for generating and verifying JWTs using a secret key.
+
+### [Backend] Unified Notification System
+Create a centralized service to handle both in-app "announcements" and push notifications.
+
+#### [NEW] [notification_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/notification_service.py)
+- A unified service to send notifications.
+- logic to check user preferences before sending.
+- Integration with Firebase Admin SDK for push notifications.
+
+#### [MODIFY] [announcements.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/announcements.py)
+- Update to leverage the new notification service.
+- Add an endpoint for fetching a "Live Feed" of all notifications across categories.
+
+### [Frontend] Dashboard Integration
+Update the dashboard to reflect "Live" status and show a notification center.
+
+#### [MODIFY] [DashboardHeader.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardHeader.tsx)
+- Transform the "unread" badge into a clickable dropdown/panel showing recent alerts.
+
+## Verification Plan
+
+### Automated Tests
+- Test JWT generation and verification.
+- Mock FCM service to verify push notification logic is triggered correctly.
+- API tests for the new token registration and preference endpoints.
+
+### Manual Verification
+- Verify that the login flow still works on the web (sessions).
+- Simulate a mobile login and verify JWT-based authentication for protected routes.
+- Mock a push notification and verify it's recorded in the database.

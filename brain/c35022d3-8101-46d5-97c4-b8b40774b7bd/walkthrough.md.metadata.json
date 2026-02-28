@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Walkthrough of the Dashboard component refactoring. Documents the extraction of `DashboardHeader`, `AgendaTimeline`, `ModuleHub`, and `taskSort` utility, along with the significant reduction in complexity and successful production build verification.",
-  "updatedAt":  "2026-02-28T08:05:04.558486Z",
-  "version":  "1"
+  "summary":  "Updated walkthrough with details of the Sidebar Navigation Tiers reorganization (Plan 8). Includes visual evidence of grouped items, separators, and enhanced tooltips.",
+  "updatedAt":  "2026-02-28T08:41:41.823851Z",
+  "version":  "3"
 }

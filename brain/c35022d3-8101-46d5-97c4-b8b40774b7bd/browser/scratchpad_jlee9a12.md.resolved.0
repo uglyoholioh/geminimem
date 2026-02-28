@@ -1,0 +1,10 @@
+# Task Checklist - Timetable Page Testing
+
+- [ ] Login to the application (admin/admin)
+- [ ] Navigate to the Timetable page (/timetable)
+- [ ] Check for 500 errors and debug if necessary
+- [ ] Navigate to a recess week using 'Next'
+- [ ] Verify Break banner visibility
+- [ ] Verify empty slot interaction
+- [ ] Verify 'AI Plan' interaction
+- [ ] Capture final screenshot

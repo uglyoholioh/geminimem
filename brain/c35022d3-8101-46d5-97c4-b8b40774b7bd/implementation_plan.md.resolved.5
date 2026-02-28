@@ -1,0 +1,23 @@
+# Plan 8: Reorganise Sidebar Navigation Tiers
+
+This plan aims to improve the navigation experience by grouping sidebar items into logical "tiers" or categories. This reduces cognitive load and makes it easier for users to find the tool they need.
+
+## Proposed Changes
+
+### [Frontend] Sidebar Reorganization
+Group the navigation items into three distinct sections with subtle dividers.
+
+#### [MODIFY] [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx)
+- Define `NAV_GROUPS` instead of a flat `NAV_ITEMS`.
+- **Core**: Dashboard, Focus.
+- **Academic**: Tasks, Assignments, Courses, Notes, Grades.
+- **Planning**: Timetable, Activity Finder, History.
+- Update the render logic to iterate through groups and add subtle separators/spacing between them.
+
+## Verification Plan
+
+### Manual Verification
+- Verify that all navigation items are still present and lead to the correct pages.
+- Check the visual layout of the sidebar to ensure the grouping is intuitive and aesthetic.
+- Ensure tooltips still work for all items.
+- Verify responsive behavior (though the sidebar is fixed width).

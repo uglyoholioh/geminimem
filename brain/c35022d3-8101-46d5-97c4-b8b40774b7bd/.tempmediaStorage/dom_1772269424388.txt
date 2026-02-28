@@ -1,0 +1,10 @@
+Welcome back
+Sign in to Academic Life OS
+[0] (500,446)<label class='text-xs text-secondary block mb-1.5 font-medium'>Email />
+[1] (500,484)<input class='w-full rounded-xl border border-border bg-base px-4 py-3 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all' placeholder='you@example.com' />
+[2] (500,533)<label class='text-xs text-secondary block mb-1.5 font-medium'>Password />
+[3] (500,572)<input class='w-full rounded-xl border border-border bg-base px-4 py-3 pr-10 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all' placeholder='••••••••' />
+[4] (589,572)<button class='absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-secondary transition-colors' />
+Need an account?
+[5] (528,687)<button class='text-accent hover:underline'>Register />
+Academic Life OS
