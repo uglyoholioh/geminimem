@@ -1,0 +1,22 @@
+# CraftCanvas Implementation Task List
+
+## Security & Core Fixes
+- [x] [Plan 3] Remove Client-Side API Key Exposure (Next.js rewrites)
+- [x] [Plan 1] Fix Assignments Page "Wall of Red" (Auto-sync + grouping)
+- [x] [Plan 7] Update DESIGN_SYSTEM.md doc
+
+## UX Improvements
+- [x] [Plan 2] Revive Dashboard for Off-Days / Recess Week
+- [x] [Plan 4] Migrate Grades from localStorage to Backend
+- [x] [Plan 5] Connect Focus Timer to Task Cards
+- [x] [Plan 8] Reorganise Sidebar Navigation Tiers
+- [x] [Plan 9] Make Timetable Useful- [x] Verify Timetable Break Mode & AI Planner
+- [x] Verify Tasks Page Default List View
+- [x] Verify Command Palette (⌘K) Functionality
+- [x] Resolve Backend 500 Errors and Database Stalls
+- [x] Run Final E2E Suite ([new_features.spec.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/e2e/new_features.spec.ts)) (JWT Auth + Pagination)
+- [x] [Plan 13] Push Notifications (APNs integration foundation)
+
+## Refactoring
+- [x] [Plan 6] Decompose God Components (Dashboard)
+- [x] [Plan 7] Implement Mobile-First Push/In-App Notification Strategy
