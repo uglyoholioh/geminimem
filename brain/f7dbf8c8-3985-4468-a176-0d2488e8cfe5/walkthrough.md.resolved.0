@@ -1,0 +1,26 @@
+# Walkthrough - Logo Redesign
+
+I have modernized the visual identity of "Academic Life OS" by replacing the generic logo and tab icon with a minimal, premium design.
+
+## Changes Made
+
+### Frontend Assets
+- Replaced [logo.png](file:///Users/oli/Desktop/CraftCanvas/frontend/public/logo.png) with a new glassmorphic design.
+- Replaced [favicon.png](file:///Users/oli/Desktop/CraftCanvas/frontend/public/favicon.png) with the same design to ensure consistency in the browser tab.
+
+## Selection
+
+The "Glassmorphic A" variant was chosen for its modern aesthetic and clever combination of academic symbols (book and pen nib).
+
+![New Logo Design](/Users/oli/.gemini/antigravity/brain/f7dbf8c8-3985-4468-a176-0d2488e8cfe5/minimal_academic_logo_1772291503785.png)
+
+## Verification Results
+
+| Step | Status | Notes |
+| :--- | :--- | :--- |
+| File Replacement | ✅ Success | Commands executed successfully. |
+| Tab Icon Update | ✅ Success | [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx) already points to [/favicon.png](file:///Users/oli/Desktop/CraftCanvas/frontend/public/favicon.png). |
+| Logo Consistency | ✅ Success | Both [logo.png](file:///Users/oli/Desktop/CraftCanvas/frontend/public/logo.png) and [favicon.png](file:///Users/oli/Desktop/CraftCanvas/frontend/public/favicon.png) are now identical high-quality assets. |
+
+> [!TIP]
+> You may need to hard-refresh your browser (Cmd+Shift+R or Ctrl+F5) to see the new favicon in your tab as browsers often cache these heavily.

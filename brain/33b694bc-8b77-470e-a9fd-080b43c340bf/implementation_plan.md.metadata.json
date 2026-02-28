@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Prioritised plan for 9 architecture and code quality improvements across CraftCanvas backend and frontend.\n\nP0 items: Centralise duplicated timezone logic (12+ files) into lib/timezone.py, and extract the session store from routers/auth to break a circular import.\n\nP1 items: Delete dead APIKeyMiddleware, split the 34KB timetable router into 3 focused modules, extract a useChat hook to deduplicate chat logic across 6 pages, and break up the 1706-line tasks/page.tsx into 4 focused components.\n\nP2 items: Replace useState<any> with typed state, add Pydantic response schemas, and add error boundaries + useFetch hook.",
+  "updatedAt":  "2026-02-28T15:07:34.312519Z",
+  "version":  "1"
+}

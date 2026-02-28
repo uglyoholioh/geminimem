@@ -1,0 +1,28 @@
+# Fix Login and Backend Import Errors
+
+The login page is failing due to a missing `/auth/login` endpoint and an `ImportError` in the backend caused by circular or incorrect imports of [get_current_user](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#28-70). This plan addresses both issues.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)
+- Implement the `@router.post("/login")` endpoint.
+- Ensure it uses `bcrypt` for password verification (already in [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#20-48) model).
+- Set the session cookie on successful login.
+
+#### [MODIFY] [grades.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/grades.py)
+- Fix the import of [get_current_user](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#28-70). It should be `from dependencies import get_current_user`, not `from routers.auth import get_current_user`.
+
+#### [MODIFY] [Other Routers]
+- Check all other routers in `routers/` for the same incorrect import and fix them.
+
+### Verification Plan
+
+#### Automated Tests
+- Run `pytest backend/tests/test_routers/test_auth.py` (if it exists) or create a reproduction script to verify the `/auth/login` endpoint and fix the `ImportError`.
+- Restart the backend and check [uvicorn.log](file:///Users/oli/Desktop/CraftCanvas/backend/logs/uvicorn.log) to ensure no more `ImportError` occurs.
+
+#### Manual Verification
+- Attempt to login via the frontend UI and verify successful redirection to the dashboard.
+- Check the browser console and network tab for any 500 errors or slow requests.

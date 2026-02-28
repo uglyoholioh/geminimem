@@ -1,0 +1,26 @@
+# Tasks
+
+- [x] Logo Redesign (Initial Concept)
+    - [x] Research/Brainstorm minimal icon designs
+    - [x] Generate modern minimal logo variants
+    - [x] Present logo to user for feedback
+    - [x] Replace existing logo and favicon files
+- [x] Gen Z Logo Redesign
+    - [x] Research Gen Z design trends (Neubrutalism, Pixel Art, Bold Minimalism)
+    - [x] Generate Neubrutalist variant
+    - [x] Generate Cyber/Minimalist variant
+    - [x] Generate Pixel Art variant
+    - [x] Ensure transparency is handled correctly
+    - [x] Present new options to user
+    - [x] Replace assets with chosen Gen Z logo
+- [x] Retro Pixel Art Redesign
+    - [x] Generate flat retro pixel art book (No glow, pure transparent background)
+    - [x] Manual transparency cleanup if needed
+    - [x] Present new options to user
+    - [x] Replace assets with chosen pixel art logo
+- [x] SVG Migration & Transparency Fix
+    - [x] Create `Logo.tsx` SVG component (Retro pixel style)
+    - [x] Integrate SVG Logo in `Sidebar.tsx`
+    - [x] Integrate SVG Logo in `app/login/page.tsx`
+    - [x] Regenerate `favicon.png` with ultra-strict transparency
+    - [x] Verify zero white background in dark mode

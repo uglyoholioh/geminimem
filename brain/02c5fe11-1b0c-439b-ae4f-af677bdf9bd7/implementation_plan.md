@@ -1,0 +1,21 @@
+# Fix 404 Error: Missing Timetable Day Endpoint
+
+The frontend dashboard attempts to fetch timetable slots for future days if today is empty, using the endpoint `/api/v1/timetable/day/{date}`. However, this endpoint is not currently implemented in the backend.
+
+## Proposed Changes
+
+### [Component Name] backend/routers/timetable.py
+
+Implement the `@router.get("/day/{day_str}")` endpoint.
+- It will accept a date string in `YYYY-MM-DD` format.
+- It will filter `TimetableSlot` by user and `day_of_week`.
+- It will use the existing `slot_occurs_on_date` helper to handle `RRULE` and `EXDATE` logic.
+- It will return a structure similar to the `/today` endpoint for consistency.
+
+## Verification Plan
+
+### Automated Tests
+- I will use `curl` or a Python script to verify the new endpoint returns 200 OK and expected data for a valid date.
+
+### Manual Verification
+- Reload the dashboard and verify that the "Lookahead" logic now correctly fetches and displays slots for future days instead of throwing a 404 error.

@@ -1,0 +1,25 @@
+# Tasks
+
+- [x] Implement Quick Wins
+    - [x] Consolidate frontend type definitions for major modules and shared entities.
+- [x] Refactor dashboard to use shared types, sorting utility, and implement skeleton loaders.
+- [x] Standardize backend timestamps to use Singapore timezone (`Asia/Singapore`).
+- [x] Improve Playwright test stability by adding appropriate timeouts.
+- [x] Add branding assets (favicon/logo) and unique page titles.
+- [x] Generate a walkthrough artifact documenting all improvements.
+
+# Architecture & Code Quality Improvements
+- [x] P0 — Backend Infrastructure
+    - [x] P0-1: Centralise Timezone Handling (backend/lib/timezone.py)
+    - [x] P0-2: Extract Session Store from Router (backend/lib/session_store.py)
+- [ ] P1 — Refactoring & Deduplication
+    - [ ] P1-1: Delete Dead Middleware (backend/middleware.py)
+    - [ ] P1-2: Split Timetable Router (CRUD, import, attendance)
+    - [ ] P1-3: Extract Frontend useChat Hook
+    - [ ] P1-4: Break up tasks/page.tsx into components
+- [ ] P2 — Type Safety & Robustness
+    - [ ] P2-1: Eliminate frontend useState<any>
+    - [ ] P2-2: Add Pydantic Response Schemas (backend/schemas/)
+    - [ ] P2-3: Add Error Boundaries & useFetch hook
+est timeouts
+    - [x] Add favicon and set unique page titles

@@ -1,0 +1,44 @@
+# Dashboard Module Hub Optimization
+
+The goal is to optimize the Module Hub widget on the dashboard for better space utilization and user experience, implementing quick actions and a denser layout.
+
+## User Review Required
+
+> [!IMPORTANT]
+> I am reverting the changes made to the standalone Courses page (`/courses`) as the user clarified they intended these changes for the Dashboard widget.
+
+## Proposed Changes
+
+### Reversion
+
+#### [REVERT] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx)
+- Revert all layout and styling changes to restore the original 2-column grid and persistent footer actions.
+
+---
+
+### Dashboard Module Hub
+
+#### [MODIFY] [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)
+
+**Space Utilization:**
+- Change the vertical list to a **grid layout** (`grid-cols-2`) when not in visibility mode.
+- Reduce vertical padding and margins on the module cards.
+- Make the card footer (actions) appear on **hover** only to save vertical space.
+
+**Quick Actions:**
+- Add **Quick Add** icons for "New Task" and "New Note" in the card header (visible on hover).
+- Ensure "Manage" link and "Visibility" toggle remain accessible but compact.
+
+**Visual Polish:**
+- Add subtle hover animations (lift/scale).
+- Refine typography to ensure clarity in a denser grid.
+
+## Verification Plan
+
+### Automated Tests
+- N/A (Visual/Interaction focus)
+
+### Manual Verification
+- Verify the Dashboard Module Hub now displays modules in a 2-column grid.
+- Confirm quick actions (New Task, New Note) appear on hover and navigate correctly.
+- Ensure the "Visibility" toggle still works and functions correctly with the new layout.

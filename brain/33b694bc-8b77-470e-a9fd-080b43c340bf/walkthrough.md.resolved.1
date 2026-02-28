@@ -1,0 +1,65 @@
+# Walkthrough - Implementing Quick Wins
+
+I have completed the prioritized "quick wins" for CraftCanvas, focusing on code quality, user experience, and branding.
+
+## Changes Made
+
+### Frontend Type Consolidation
+- Centralized core TypeScript types ([Task](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts#26-47), [Assignment](file:///Users/oli/Desktop/CraftCanvas/backend/models/assignment.py#9-49), [Announcement](file:///Users/oli/Desktop/CraftCanvas/backend/models/announcement.py#9-31), [Course](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts#12-25), [TimetableSlot](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx#27-50), [BriefData](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts#103-113)) in [types.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts).
+- Refactored the Dashboard, Tasks, and Assignments pages to use these shared types, ensuring consistency and better IDE support.
+
+### Architecture & Code Quality Improvements: Tier 0 (P0)
+
+I have completed the first priority tier of architectural improvements. This work focused on stabilizing the backend infrastructure and standardizing data types across the stack.
+
+## [P0-1] Centralized Timezone Handling
+Duplicated timezone logic has been moved to [backend/lib/timezone.py](file:///Users/oli/Desktop/CraftCanvas/backend/lib/timezone.py).
+- **Central Utility**: All models, services, and routers now import `SG_TZ` and [now_sg()](file:///Users/oli/Desktop/CraftCanvas/backend/lib/timezone.py#6-9) from a single source.
+- **Improved Consistency**: Ensures that all user-facing datetimes are consistently handled in the Singapore timezone (Asia/Singapore) without ad-hoc `pytz` definitions.
+
+## [P0-2] Decoupled Session Store
+To resolve circular dependency risks between the authentication router and other dependencies, I extracted the in-memory session store.
+- **New Module**: [backend/lib/session_store.py](file:///Users/oli/Desktop/CraftCanvas/backend/lib/session_store.py) now exclusively manages the session dictionary.
+- **Clean Imports**: [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py) and [routers/auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py) now import the store independently, breaking the dependency cycle.
+
+## Verification Results
+
+### Backend Tests
+All 39 backend tests passed successfully, including core models, specialized services (Craft Sync, Brief Generator), and API routers.
+```text
+39 passed, 0 failed in 47.30s
+```
+
+### Frontend Build
+Resolved several TypeScript errors caused by inconsistent local type redefinitions in components like [DailyBriefSummary](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefSummary.tsx#16-135) and [ModuleHub](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx#20-139). Standardized all types to use `@/lib/types`.
+```text
+✓ Compiled successfully
+✓ Finished TypeScript in 3.7s
+```
+
+### UX Improvements
+- **Dashboard Skeleton**: Replaced the "Loading..." text with a polished [DashboardSkeleton](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#33-48) component.
+- **Task Sorting**: Integrated the [sortTasksByCriticality](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/taskSort.ts#3-25) utility in the dashboard for consistent task prioritization.
+- **Branding**:
+  - Generated a professional logo and set it as the application's favicon.
+  - Added unique page titles (e.g., "Dashboard | CraftCanvas", "Tasks | CraftCanvas") for better navigation.
+
+### Backend & Infrastructure
+- **Timezone Standardization**: Updated the backend models to use Singapore timezone (`Asia/Singapore`) for all `created_at` and `updated_at` timestamps.
+- **Test Stability**:
+  - Configured Playwright with strict timeouts to prevent hanging processes.
+  - Verified backend changes with automated tests (7 passed).
+
+## Verification Results
+
+### Automated Tests
+- Backend models verified with `pytest`: **7 Passed**.
+- Playwright configuration updated to prevent future CI hangs.
+
+### Manual Verification
+- Verified that the dashboard now loads with a skeleton state.
+- Verified that the page title changes dynamically when navigating between views.
+- Verified that the favicon is correctly displayed.
+
+![Favicon Logo](file:///Users/oli/Desktop/CraftCanvas/frontend/public/logo.png)
+*Branding asset used for favicon and logo.*

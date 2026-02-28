@@ -1,0 +1,36 @@
+# Optimize Module Hub Space Utilization
+
+The Goal is to make the Module Hub (Courses page) more compact and efficient with space, allowing more modules to be visible at once and reducing unnecessary whitespace.
+
+## Proposed Changes
+
+### Frontend Layout
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx)
+
+- **Header Section**: Reduce the bottom margin and possibly move the "Courses" title and description into a more compact format.
+- **Stats Bar**:
+    - Change from a 3-column grid to a more flexible layout or reduce the padding and height of each stat card.
+    - Reduce the icon sizes and font sizes slightly.
+- **Search & Filter Bar**:
+    - Reduce the vertical padding.
+    - Consider placing the search bar and the "Active only" toggle on the same line as the stats or in a more compact arrangement.
+- **Course Grid**:
+    - Increase columns to `grid-cols-2 md:grid-cols-3 lg:grid-cols-4` to show more cards per row.
+    - Reduce the gap between cards from `gap-4` to `gap-3`.
+- **Course Card Component**:
+    - Reduce internal padding from `p-5` to `p-4`.
+    - Compact the footer actions (Tasks, Notes, Canvas, Hide/Show).
+    - Reduce the height of the "Colour Stripe".
+    - Tighten typography (reduce line heights and margins).
+
+## Verification Plan
+
+### Manual Verification
+1.  **Visual Inspection**: Open the `/courses` page in the browser and verify that more modules are visible on the screen without scrolling.
+2.  **Responsiveness**: Resize the browser window to ensure the 4-column layout (on large screens) and 3-column layout (on medium screens) work correctly.
+3.  **Functionality Check**:
+    - Verify that clicking "Tasks", "Notes", and "Canvas" still works as expected.
+    - Verify that the "Hide/Show" toggle and the "Active only" filter still function.
+    - Verify that the color picker still opens and works correctly.
+    - Verify search functionality.

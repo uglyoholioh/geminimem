@@ -1,0 +1,8 @@
+# Task: Verify Module Hub Layout Optimizations
+
+- [ ] Navigate to `/courses`
+- [ ] Verify header and stats bar are compact
+- [ ] Verify course grid shows at least 4 columns on desktop
+- [ ] Verify course cards are compact and footer actions are icon-only
+- [ ] Verify functionality (filtering, search, links)
+- [ ] Take a screenshot

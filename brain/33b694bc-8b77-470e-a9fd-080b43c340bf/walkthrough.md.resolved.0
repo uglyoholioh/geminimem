@@ -1,0 +1,36 @@
+# Walkthrough - Implementing Quick Wins
+
+I have completed the prioritized "quick wins" for CraftCanvas, focusing on code quality, user experience, and branding.
+
+## Changes Made
+
+### Frontend Type Consolidation
+- Centralized core TypeScript types ([Task](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#47-67), [Assignment](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts#48-69), [Announcement](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts#70-83), [Course](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx#24-37), [TimetableSlot](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts#84-100), [BriefData](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts#101-111)) in [types.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts).
+- Refactored the Dashboard, Tasks, and Assignments pages to use these shared types, ensuring consistency and better IDE support.
+
+### UX Improvements
+- **Dashboard Skeleton**: Replaced the "Loading..." text with a polished [DashboardSkeleton](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#33-49) component.
+- **Task Sorting**: Integrated the [sortTasksByCriticality](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/taskSort.ts#3-25) utility in the dashboard for consistent task prioritization.
+- **Branding**:
+  - Generated a professional logo and set it as the application's favicon.
+  - Added unique page titles (e.g., "Dashboard | CraftCanvas", "Tasks | CraftCanvas") for better navigation.
+
+### Backend & Infrastructure
+- **Timezone Standardization**: Updated the backend models to use Singapore timezone (`Asia/Singapore`) for all `created_at` and `updated_at` timestamps.
+- **Test Stability**:
+  - Configured Playwright with strict timeouts to prevent hanging processes.
+  - Verified backend changes with automated tests (7 passed).
+
+## Verification Results
+
+### Automated Tests
+- Backend models verified with `pytest`: **7 Passed**.
+- Playwright configuration updated to prevent future CI hangs.
+
+### Manual Verification
+- Verified that the dashboard now loads with a skeleton state.
+- Verified that the page title changes dynamically when navigating between views.
+- Verified that the favicon is correctly displayed.
+
+![Favicon Logo](file:///Users/oli/Desktop/CraftCanvas/frontend/public/logo.png)
+*Branding asset used for favicon and logo.*

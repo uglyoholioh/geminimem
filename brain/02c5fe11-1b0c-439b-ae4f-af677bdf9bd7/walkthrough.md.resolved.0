@@ -1,0 +1,18 @@
+# Walkthrough - Login and Backend Fixes
+
+I have resolved the issues causing the login page to fail and the backend to throw internal server errors.
+
+## Changes Made
+
+### Backend
+
+- **[auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)**: Implemented the missing `@router.post("/login")` endpoint. This allows the frontend to authenticate users and establish a session.
+- **[grades.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/grades.py)**: Fixed an incorrect import statement. The file was attempting to import [get_current_user](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#28-70) from `routers.auth` (where it didn't exist), causing a startup failure. It now correctly imports from [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py).
+
+## Verification Results
+
+- **Backend Startup**: I verified that the backend now starts without any `ImportError`.
+- **API Health**: The application initializes the database and scheduler correctly.
+
+> [!NOTE]
+> The login latency you experienced was likely due to the backend failing to start or respond correctly because of the import error, coupled with the missing endpoint causing 404/500 errors on the frontend.

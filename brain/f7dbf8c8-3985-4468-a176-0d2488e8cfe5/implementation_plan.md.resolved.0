@@ -1,0 +1,46 @@
+# Logo Redesign & Modernization
+
+This plan outlines the replacement of the current web app icon and logo with a more minimal, modern, and premium design. Three variants have been generated for consideration.
+
+## Proposed Variants
+
+Select your preferred design from the options below:
+
+````carousel
+![Glassmorphic "A" Icon](/Users/oli/.gemini/antigravity/brain/f7dbf8c8-3985-4468-a176-0d2488e8cfe5/minimal_academic_logo_1772291503785.png)
+A modern, glassmorphic "A" combining a book and a pen nib. Premium indigo and violet palette.
+<!-- slide -->
+![Line Art Book & Star](/Users/oli/.gemini/antigravity/brain/f7dbf8c8-3985-4468-a176-0d2488e8cfe5/minimal_academic_logo_variant_2_1772291529629.png)
+Hyper-minimalist continuous line art design representing knowledge and achievement. Clean and sophisticated.
+<!-- slide -->
+![Tech-Focused Geometric "AC"](/Users/oli/.gemini/antigravity/brain/f7dbf8c8-3985-4468-a176-0d2488e8cfe5/minimal_academic_logo_variant_3_1772291544877.png)
+Sleek geometric circles forming "AC" (Academic Craft Life OS). Modern tech aesthetic with translucency.
+````
+
+## User Review Required
+
+> [!IMPORTANT]
+> Please select one of the three variants above (or suggest refinements).
+> Note: The generated images may have a simulated transparency background (checkerboard). If selected, I will attempt to clean this up or regenerate to ensure a clean finish.
+
+## Proposed Changes
+
+### [Component: Frontend Assets]
+
+Summary: Replace the existing logo and favicon files in the `public` directory.
+
+#### [MODIFY] [logo.png](file:///Users/oli/Desktop/CraftCanvas/frontend/public/logo.png)
+- Replace with the selected high-resolution variant.
+
+#### [MODIFY] [favicon.png](file:///Users/oli/Desktop/CraftCanvas/frontend/public/favicon.png)
+- Replace with an optimized, square version of the selected variant.
+
+## Verification Plan
+
+### Automated Tests
+- None required for asset replacement.
+
+### Manual Verification
+1.  **Tab Icon Check**: Verify the new icon appears correctly in the browser tab.
+2.  **App Logo Check**: Verify the logo appears correctly in the application UI (e.g., sidebar or login page).
+3.  **Transparency Check**: Ensure the logo has a clean background (no checkerboard).

@@ -1,0 +1,35 @@
+# Implementation Plan – Quick Wins
+
+This plan covers immediate improvements to code quality, consistency, and user experience.
+
+## Proposed Changes
+
+### 1. Frontend: Type Consolidation & Shared Logic
+- **[NEW] [types.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts)**: Create a central place for [Task](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx#8-15), [Assignment](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#53-61), [Course](file:///Users/oli/Desktop/CraftCanvas/frontend/app/notes/page.tsx#26-32), [Announcement](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#62-70), and [TimetableSlot](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx#27-50) types.
+- **[MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)**: 
+    - Import shared types from `lib/types.ts`.
+    - Replace duplicated sorting logic with `sortTasksByCriticality` from [lib/taskSort.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/taskSort.ts).
+    - Add `Suspense` and basic skeleton loaders for the dashboard sections.
+- **[MODIFY] [tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx)**, **[assignments/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx)**: Use shared types.
+
+### 2. Backend: Timezone Standardization
+- **[MODIFY] [assignment.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/assignment.py)**: Replace `datetime.utcnow` with SG timezone aware datetimes using the helper from [Task](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx#8-15) model.
+- **[MODIFY] [course.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/course.py)**, **[announcement.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/announcement.py)**: Ensure all `default_factory` timestamps use the SG timezone helper.
+
+### 3. UX & Infrastructure
+- **[MODIFY] [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx)**: Add page-specific titles using Next.js Metadata API or a common pattern.
+- **[NEW] [favicon.ico](file:///Users/oli/Desktop/CraftCanvas/frontend/app/favicon.ico)**: Add a simple OS-themed favicon.
+- **[MODIFY] [playwright.config.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/playwright.config.ts)**: Add `timeout` and `expect.timeout` to prevent hung processes.
+
+## Verification Plan
+
+### Automated Tests
+- Run backend tests to ensure timezone changes don't break existing logic:
+  `cd backend && pytest tests/test_models`
+- Run frontend lint to ensure types are correctly imported:
+  `cd frontend && npm run lint`
+
+### Manual Verification
+- Check the dashboard to verify that tasks are still sorted correctly.
+- Verify that the browser tab titles update when navigating between pages.
+- Confirm that the "Playwright" processes are no longer hanging after a fresh test run.

@@ -1,0 +1,42 @@
+# Optimize Module Hub Space Utilization
+
+The Goal is to make the Module Hub (Courses page) more compact and efficient with space, allowing more modules to be visible at once and reducing unnecessary whitespace.
+
+## Proposed Changes
+
+### Frontend Layout
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx)
+
+- **Header Section**: Reduce the bottom margin and possibly move the "Courses" title and description into a more compact format.
+- **Stats Bar**:
+    - Change from a 3-column grid to a more flexible layout or reduce the padding and height of each stat card.
+    - Reduce the icon sizes and font sizes slightly.
+- **Search & Filter Bar**:
+    - Reduce the vertical padding.
+    - Consider placing the search bar and the "Active only" toggle on the same line as the stats or in a more compact arrangement.
+- **Course Grid**:
+    - Increase columns to `grid-cols-2 md:grid-cols-3 lg:grid-cols-4` to show more cards per row.
+    - Reduce the gap between cards from `gap-4` to `gap-3`.
+## Phase 2: Quick Actions & Ultra-Compact View
+
+### Frontend Adjustments
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx)
+
+- **Grid Density**:
+    - Push desktop grid to `grid-cols-5` if the screen is wide enough (`2xl:grid-cols-5`).
+    - Standard desktop `lg:grid-cols-4`.
+- **Course Card Quick Actions**:
+    - **Hover Overlay**: Instead of always showing the footer row, show it on hover to reduce visual clutter and vertical height when browsing.
+    - **Quick Add**: Add icons for "New Task" and "New Note" directly on the card for instant action.
+    - **Compact Meta**: Combine module code and name more efficiently.
+- **Micro-Animations**: Add subtle scale or lift on hover to make the high-density grid feel interactive and not flat.
+
+## Verification Plan
+
+### Manual Verification
+1.  **Check Density**: Verify that at least 8-10 cards are visible on a standard 1080p screen without scrolling.
+2.  **Quick Action Flow**: Hover over a card and ensure the action bar appears smoothly.
+3.  **Navigation**: Ensure "New Task" and "New Note" (if implemented as quick links) lead to the correct filtered views or modals.
+4.  **Clutter Check**: Ensure text is still legible and icons are distinguishable.
