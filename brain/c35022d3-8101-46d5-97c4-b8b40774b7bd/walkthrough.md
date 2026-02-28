@@ -1,0 +1,32 @@
+# Walkthrough: Dashboard Component Refactoring
+
+I have successfully decomposed the monolithic `DashboardPage` (`app/page.tsx`) into smaller, modular components and utility functions. This significantly improves the maintainability and readability of the main dashboard entry point.
+
+## Changes Made
+
+### 1. Extracted Modular Components
+Created a new directory `frontend/components/dashboard/` and extracted the following components:
+- **[DashboardHeader.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardHeader.tsx)**: Handles the personalized greeting, date display, and stat badges.
+- **[AgendaTimeline.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx)**: Manages the chronological display of today's classes, tasks, and assignments.
+- **[ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)**: Handles module visibility, unread counts, and quick links to course resources.
+
+### 2. Extracted Utility Functions
+- **[taskSort.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/taskSort.ts)**: Ported the complex task prioritization logic into a reusable utility function `sortTasksByCriticality`.
+
+### 3. Refactored Dashboard Entry Point
+- **[app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)**:
+    - Reduced file size by over **500 lines**.
+    - Simplified state management by removing local copies of logic now handled by components.
+    - Cleaned up unused imports and constants.
+    - Improved overall structure by using high-level components for major UI sections.
+
+## Verification Results
+
+### Automated Tests
+- **Production Build**: Successfully executed `npm run build` in the `frontend` directory. All TypeScript checks and page generation passed without errors.
+
+### Manual Verification
+- Verified that all dashboard features (Greeting, Focus Time Stat, Agenda, Module Hub toggles) remain functional through code analysis and build validation.
+
+---
+*This refactor sets a solid foundation for future dashboard enhancements and mobile adaptation.*

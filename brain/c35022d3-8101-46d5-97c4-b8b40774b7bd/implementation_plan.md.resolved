@@ -19,7 +19,9 @@
 | 9 | 🟢 P2 | [Make Timetable Useful During Breaks](#plan-9-make-timetable-useful-during-breaks) | Frontend |
 | 10 | 🟢 P2 | [Improve Tasks Page Defaults](#plan-10-improve-tasks-page-defaults) | Frontend |
 | 11 | 🟢 P2 | [Global Search (⌘K)](#plan-11-global-search-cmdk) | Backend + Frontend |
-| 12 | 🟢 P2 | [Basic Mobile Responsiveness](#plan-12-basic-mobile-responsiveness) | Frontend CSS |
+| 12 | 🟡 P1 | [iOS API Readiness](#plan-12-ios-api-readiness) | Backend |
+| 13 | 🟡 P1 | [Push Notifications (APNs + Backend)](#plan-13-push-notifications-apns--backend) | Backend |
+| 14 | 🟢 P2 | [iOS App Feature Ideas](#plan-14-ios-app-feature-ideas) | Design reference |
 
 ---
 
@@ -39,7 +41,7 @@ In [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canva
 
 ##### [MODIFY] [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
 
-In the [sync_assignments](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#139-260) function, after updating `existing.is_submitted` (around line 199), add logic to auto-promote `user_status`:
+In the [sync_assignments](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#139-279) function, after updating `existing.is_submitted` (around line 199), add logic to auto-promote `user_status`:
 
 ```python
 # After line 199: existing.is_submitted = assign_data.get("has_submitted", False)
@@ -146,7 +148,7 @@ The dashboard is designed around "today" and fails during weekends, breaks, and 
 
 **Change 1: Agenda — show next 7 days when today is empty**
 
-Currently the agenda only shows items where [isToday(t.due_date)](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#504-511) is true (line 504-510). When `agendaItems.length === 0`, instead of showing the "Nothing scheduled" placeholder, fetch and display upcoming items for the next 7 days:
+Currently the agenda only shows items where [isToday(t.due_date)](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#528-535) is true (line 504-510). When `agendaItems.length === 0`, instead of showing the "Nothing scheduled" placeholder, fetch and display upcoming items for the next 7 days:
 
 ```typescript
 // After computing agendaItems (line 537-556):
@@ -189,7 +191,7 @@ In the Module Hub cards (around line 765-777), the stats show just numbers with 
 
 Currently: icon + `24` + icon + `0` + icon + `17`
 
-Change to: icon + `24` + `asgn` + icon + `0` + `tasks` + icon + `17` + [ann](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#262-334)
+Change to: icon + `24` + `asgn` + icon + `0` + `tasks` + icon + `17` + [ann](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#281-353)
 
 Or use tooltips on hover. The key is that bare numbers are meaningless.
 
@@ -300,34 +302,21 @@ Create a new grades router with the following endpoints:
 # Create a new grade component
 # Body: { "course_id": int, "name": str, "weight": float, "max_score": float }
 
-# PUT /grades/components/{id}
+# PATCH /grades/components/{id}
 # Update a grade component
 
 # DELETE /grades/components/{id}
 # Delete a grade component and its entries
 
-# POST /grades/entries
-# Create/update a grade entry for a component
-# Body: { "component_id": int, "score": float | null, "notes": str | null }
-
-# PUT /grades/entries/{id}
-# Update a grade entry
-
-# DELETE /grades/entries/{id}
-# Delete a grade entry
+# PATCH /grades/entries/{id}
+# Update score/notes for a component
 ```
 
-Use SQLModel, follow the pattern in [assignments.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/assignments.py) for auth and session handling. All routes under `/api/v1/grades` with `get_current_user` dependency.
+Use SQLModel, follow the pattern in [assignments.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/assignments.py) for auth and session handling.
 
 ##### [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
 
-Register the new router:
-
-```python
-from routers.grades import router as grades_router
-# ...
-app.include_router(grades_router, prefix="/api/v1/grades", tags=["grades"], dependencies=auth_dep)
-```
+Register the new router: `app.include_router(grades_router, prefix="/api/v1/grades")`
 
 ##### [MODIFY] [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py)
 
@@ -795,66 +784,371 @@ import { CommandPalette } from '@/components/CommandPalette'
 
 ---
 
-## Plan 12: Basic Mobile Responsiveness
+## Plan 12: iOS API Readiness
 
 ### Problem
-The app is desktop-only. Students frequently check schedules from their phones but currently get an unusable layout on mobile.
+The current backend API is designed for the Next.js web frontend (session cookies, web-only assumptions). An iOS app needs:
+1. **Token-based auth** (not cookies) — the iOS app can't rely on browser cookie jars
+2. **Consistent response envelopes** — iOS needs predictable JSON shapes
+3. **Pagination** — mobile devices can't load all 100+ assignments at once
+4. **Device registration** — for push notifications (Plan 13)
+
+### Existing Foundation
+- Auth router at `/api/v1/auth` already handles login/register
+- Session cookies exist via `AuthProvider`, but `X-API-Key` header auth is also supported
+- All data endpoints return JSON, which is good
 
 ### Proposed Changes
 
-> [!NOTE]
-> This is NOT a full mobile redesign. It's the minimum needed for the dashboard, timetable, and tasks to be usable on < 768px screens.
+#### Backend
 
-#### [MODIFY] [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css)
+##### [MODIFY] [routers/auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)
 
-Add a mobile breakpoint for the sidebar:
+**Add JWT token auth flow for mobile clients:**
 
-```css
-@media (max-width: 768px) {
-    /* Hide sidebar on mobile, use bottom nav instead */
-    aside { display: none; }
-    main { margin-left: 0 !important; }
+```python
+# POST /api/v1/auth/token
+# Body: { "email": str, "password": str }
+# Returns: { "access_token": str, "refresh_token": str, "expires_in": 3600 }
+#
+# POST /api/v1/auth/token/refresh
+# Body: { "refresh_token": str }
+# Returns: { "access_token": str, "expires_in": 3600 }
+```
+
+Use PyJWT for token generation. Access tokens expire in 1 hour, refresh tokens in 30 days. Store refresh tokens in a new `refresh_tokens` table.
+
+The access token should carry: `{ "user_id": int, "iat": int, "exp": int }`.
+
+##### [MODIFY] [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py)
+
+Update `get_current_user` to accept BOTH session cookies (web) AND Bearer tokens (iOS):
+
+```python
+async def get_current_user(request: Request, session: Session = Depends(get_session)) -> User:
+    # Try 1: Session cookie (web)
+    # Try 2: Bearer token (iOS)
+    auth_header = request.headers.get("Authorization", "")
+    if auth_header.startswith("Bearer "):
+        token = auth_header[7:]
+        payload = jwt.decode(token, settings.jwt_secret, algorithms=["HS256"])
+        user = session.get(User, payload["user_id"])
+        if user: return user
+    # Try 3: X-API-Key (legacy/dev)
+    # ... existing logic
+```
+
+##### [NEW] [models/device_token.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/device_token.py)
+
+```python
+class DeviceToken(SQLModel, table=True):
+    """APNs device tokens for push notifications."""
+    __tablename__ = "device_tokens"
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id")
+    token: str = Field(index=True, unique=True)  # APNs device token
+    platform: str = Field(default="ios")  # ios | web
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    last_used_at: Optional[datetime] = None
+```
+
+##### [NEW] [routers/devices.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/devices.py)
+
+```python
+# POST /api/v1/devices/register
+# Body: { "token": str, "platform": "ios" }
+# Registers an APNs device token for push notifications
+
+# DELETE /api/v1/devices/{token}
+# Unregisters a device token (on logout or uninstall)
+```
+
+##### [MODIFY] Pagination for list endpoints
+
+Add cursor-based pagination to heavy endpoints. Update the existing list endpoints:
+
+- `GET /api/v1/assignments?page=1&per_page=20` (currently returns ALL assignments)
+- `GET /api/v1/tasks?page=1&per_page=20` (currently returns ALL tasks)
+- `GET /api/v1/announcements?page=1&per_page=20`
+
+Response envelope:
+
+```json
+{
+    "items": [...],
+    "total": 87,
+    "page": 1,
+    "per_page": 20,
+    "has_more": true
 }
 ```
 
-#### [NEW] `frontend/components/layout/MobileNav.tsx`
+> [!IMPORTANT]
+> Keep backward compatibility — if `page` param is absent, return all items (web frontend still needs this). Only paginate when `page` is explicitly provided.
 
-Create a bottom navigation bar for mobile — 5 key icons:
+##### [NEW] [config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py) additions
 
-```tsx
-// Dashboard | Tasks | Timetable | Assignments | More (opens full menu)
-// Only visible on max-width: 768px
-// Fixed to bottom, 56px height, bg-sidebar
+Add new settings:
+
+```python
+jwt_secret: str = "change-this-in-production"
+jwt_access_token_expire_minutes: int = 60
+jwt_refresh_token_expire_days: int = 30
+apns_key_id: Optional[str] = None
+apns_team_id: Optional[str] = None
+apns_key_path: Optional[str] = None  # Path to .p8 file
+apns_bundle_id: Optional[str] = None
 ```
-
-#### [MODIFY] [ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx)
-
-Conditionally render [Sidebar](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx#37-151) on desktop and `MobileNav` on mobile (use CSS media queries, not JS detection).
-
-#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) (Dashboard)
-
-Change the grid from `grid-cols-2` to responsive:
-
-```tsx
-// Line 591: Change from:
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-// This is already responsive (grid-cols-1 on small). But ensure the fixed heights work:
-// Line 593: Remove fixed `lg:h-[700px]` → use `lg:h-[700px] h-auto` or `min-h-[400px]`
-// Line 625: Remove fixed `h-[700px]` → use `lg:h-[700px] h-auto`
-```
-
-#### [MODIFY] [timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
-
-On mobile, default to showing **1 day at a time** (today) instead of the full Mon-Fri grid. Add swipe gestures or prev/next buttons for day navigation.
 
 ### Verification
 
-- **Manual test**: Open the app on a phone (or use Chrome DevTools mobile emulation at 375px width):
-  1. Dashboard should stack vertically
-  2. Bottom nav should appear
-  3. Tasks should be usable
-  4. Timetable should show a single day view
-- Run: `cd frontend && npm run build` (no TypeScript errors)
+- **Backend test**: Add `test_routers/test_auth_token.py` — test token generation, refresh, and expiry
+- **Manual test**: Use `curl` to get a token, then access a protected endpoint with `Authorization: Bearer <token>`
+- Run: `cd backend && python -m pytest tests/ -v`
+
+---
+
+## Plan 13: Push Notifications (APNs + Backend)
+
+### Problem
+Currently notifications are only via Telegram bot, which requires the user to have Telegram set up. With an iOS app, Apple Push Notifications (APNs) provides a much better notification experience — native banners, sounds, badges, and Lock Screen integration.
+
+### What to Notify About (Deadline Intelligence)
+
+Instead of just "send reminder at X time", the notification system should be **smart**:
+
+| Trigger | Example | Timing |
+|---------|---------|--------|
+| Assignment due soon | "BT1101 Quiz 2 is due in 24 hours" | 24h and 2h before due |
+| Class starting | "CS2030 Lecture starts in 15 minutes @ COM1-0212" | 15min before |
+| Canvas sync: new assignment | "New: BT1101 Datacamp Assignment on dplyr" | On sync |
+| Canvas sync: new announcement | "📢 CS2030: Lab 4 Updated Instructions" | On sync |
+| Daily brief ready | "Your morning brief is ready ☀️" | On generation (6am) |
+| Focus streak | "You've maintained a 5-day focus streak! 🔥" | After 5th consecutive day |
+| Overdue warning | "You have 3 assignments due tonight" | Morning of due date |
+| Grade posted | "BT1101: Quiz 1 graded — 85/100" | On Canvas sync detection |
+
+### Proposed Changes
+
+#### Backend
+
+##### [NEW] [services/push_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/push_service.py)
+
+APNs push notification service:
+
+```python
+import httpx
+import jwt
+import time
+from config import settings
+
+class PushService:
+    """Send push notifications via Apple Push Notification service (APNs)."""
+
+    def __init__(self):
+        self._token = None
+        self._token_expiry = 0
+
+    def _get_apns_token(self) -> str:
+        """Generate a provider authentication token (JWT for APNs)."""
+        if self._token and time.time() < self._token_expiry:
+            return self._token
+
+        with open(settings.apns_key_path, 'r') as f:
+            key = f.read()
+
+        payload = {
+            "iss": settings.apns_team_id,
+            "iat": int(time.time()),
+        }
+        self._token = jwt.encode(payload, key, algorithm="ES256", headers={
+            "kid": settings.apns_key_id,
+        })
+        self._token_expiry = time.time() + 3500  # Refresh before 1h expiry
+        return self._token
+
+    async def send(self, device_token: str, title: str, body: str,
+                   category: str = "default", data: dict = None):
+        """Send a single push notification."""
+        url = f"https://api.push.apple.com/3/device/{device_token}"
+        headers = {
+            "authorization": f"bearer {self._get_apns_token()}",
+            "apns-topic": settings.apns_bundle_id,
+            "apns-push-type": "alert",
+        }
+        payload = {
+            "aps": {
+                "alert": {"title": title, "body": body},
+                "sound": "default",
+                "category": category,
+            }
+        }
+        if data:
+            payload["data"] = data
+
+        async with httpx.AsyncClient(http2=True) as client:
+            await client.post(url, json=payload, headers=headers)
+
+    async def send_to_user(self, session, user_id: int, title: str, body: str, **kwargs):
+        """Send to all registered devices for a user."""
+        from models.device_token import DeviceToken
+        tokens = session.exec(
+            select(DeviceToken).where(DeviceToken.user_id == user_id)
+        ).all()
+        for dt in tokens:
+            await self.send(dt.token, title, body, **kwargs)
+
+push_service = PushService()
+```
+
+##### [NEW] [jobs/notification_jobs.py](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/notification_jobs.py)
+
+Scheduled notification jobs that run alongside the existing APScheduler:
+
+```python
+async def deadline_reminder_job():
+    """Check for upcoming deadlines and send push notifications.
+    Runs every hour."""
+    # 1. Find assignments due in next 24h that haven't been notified
+    # 2. Find assignments due in next 2h that haven't been notified
+    # 3. Send push to each user via push_service.send_to_user()
+    # 4. Mark as notified (store in settings or a notifications_sent table)
+
+async def class_reminder_job():
+    """Send 15-minute reminder before classes.
+    Runs every 5 minutes."""
+    # 1. Check timetable slots starting in 10-20 minutes
+    # 2. Send push with venue info
+
+async def new_content_notifier(user_id: int, content_type: str, title: str):
+    """Called inline during Canvas sync when new content is found.
+    Not a scheduled job — called from canvas_sync.py."""
+    # Send immediate push for new assignments / announcements
+```
+
+##### [MODIFY] [jobs/scheduler.py](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py)
+
+Register the new notification jobs. In [start_scheduler()](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py#75-105):
+
+```python
+from jobs.notification_jobs import deadline_reminder_job, class_reminder_job
+
+# Deadline reminders — every hour
+scheduler.add_job(
+    deadline_reminder_job,
+    IntervalTrigger(hours=1),
+    id="deadline_reminders",
+    name="Deadline Reminder Notifications",
+    replace_existing=True,
+)
+
+# Class reminders — every 5 minutes
+scheduler.add_job(
+    class_reminder_job,
+    IntervalTrigger(minutes=5),
+    id="class_reminders",
+    name="Class Reminder Notifications",
+    replace_existing=True,
+)
+```
+
+##### [MODIFY] [services/canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+
+When a **new** assignment or announcement is created during sync (the `else` branch around lines 203-220 and 312-328), also fire a push notification:
+
+```python
+# After creating new assignment:
+try:
+    from jobs.notification_jobs import new_content_notifier
+    await new_content_notifier(
+        user_id, "assignment",
+        f"New: [{course_code}] {assignment.title}"
+    )
+except Exception:
+    pass  # Don't fail sync for notification errors
+```
+
+##### [NEW] [routers/notifications.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/notifications.py)
+
+User-facing notification preferences:
+
+```python
+# GET /api/v1/notifications/settings
+# Returns: { "deadline_24h": true, "deadline_2h": true, "class_15min": true,
+#            "new_assignments": true, "new_announcements": true, "daily_brief": true }
+
+# PUT /api/v1/notifications/settings
+# Update preferences
+```
+
+### Verification
+
+- **Backend test**: Mock APNs endpoint, register a device, trigger a deadline reminder job, assert push was sent
+- **Manual test**: Register an iOS simulator device token, trigger a Canvas sync with a new assignment, verify push arrives
+- Run: `cd backend && python -m pytest tests/ -v`
+
+---
+
+## Plan 14: iOS App Feature Ideas
+
+> [!NOTE]
+> This is a **design reference** for when you build the iOS app, not an implementation plan for the backend. These are features that would leverage native iOS capabilities and should be kept in mind while building Plans 12-13.
+
+### iOS Home Screen Widgets (WidgetKit)
+
+| Widget | Size | Content |
+|--------|------|---------|
+| **Next Class** | Small | Module code, time, venue, countdown |
+| **Daily Agenda** | Medium | Today's classes + due items (scrollable) |
+| **Focus Stats** | Small | Today's total focus time, streak count |
+| **Deadline Countdown** | Small | Next upcoming deadline with days/hours remaining |
+
+These widgets poll the backend API on a schedule (WidgetKit handles refresh timing).
+
+### Live Activities & Dynamic Island
+
+When a **focus timer is running**, show a Live Activity on the Lock Screen and in the Dynamic Island:
+
+```
+┌──────────────────────────────┐
+│ 🎯 CS2030 Lab 4  │  18:42  │
+│ ████████████░░░░  │  Focus  │
+└──────────────────────────────┘
+```
+
+This requires adding a backend endpoint for focus session state sync:
+
+```python
+# POST /api/v1/focus/sessions — start a session
+# PUT /api/v1/focus/sessions/{id} — update (pause/resume/complete)
+# GET /api/v1/focus/sessions/active — get current active session
+```
+
+### Shortcuts Integration
+
+Register iOS Shortcuts actions:
+- "Start focusing on [task]" → starts timer for a task
+- "What's due this week?" → returns text summary from brief
+- "Quick add task: [title]" → creates a task
+
+These use the existing API endpoints — just need an `IntentDefinition` file in the iOS project.
+
+### Offline Sync Strategy
+
+The iOS app should work **offline** for:
+- Viewing timetable (cache in Core Data)
+- Viewing tasks and assignments (cache in Core Data)
+- Creating new tasks (queue mutations, sync when online)
+- Focus timer (runs fully locally, syncs minutes when online)
+
+Use a simple queue: POST/PUT operations are stored locally, then replayed to the backend when connectivity returns. The backend should handle idempotency via `If-Match` headers or `updated_at` timestamps to avoid conflicts.
+
+### Haptic & Sound Design
+
+- **Focus timer complete**: Strong haptic (`.notification`) + custom completion chime
+- **Task completed**: Medium haptic (`.impact`) + satisfying check sound
+- **Class starting in 5m**: Gentle haptic sequence
 
 ---
 
@@ -869,4 +1163,11 @@ For **minimum viable improvement**, tackle in this order:
 5. **Plan 4** (Grades backend) — data integrity fix, ~1-2 hours
 6. **Plan 5** (Focus integration) — quality of life, ~1 hour
 7. **Plan 6** (Decompose) — maintainability, ~2-3 hours
-8. **Plans 8-12** — polish features, tackle as time allows
+8. **Plans 8-11** — polish features, tackle as time allows
+
+For **iOS app preparation** (do after the above):
+
+9. **Plan 12** (API readiness) — JWT auth + pagination, ~2-3 hours
+10. **Plan 13** (Push notifications) — APNs integration, ~3-4 hours
+11. **Plan 14** (iOS features) — reference doc for iOS development
+
