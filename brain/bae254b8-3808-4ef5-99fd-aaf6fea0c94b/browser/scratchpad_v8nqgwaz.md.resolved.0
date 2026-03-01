@@ -1,0 +1,11 @@
+# CraftCanvas Testing Plan
+
+## Checklist
+- [ ] Login at http://localhost:3000/login (test@example.com / password123)
+- [ ] Verify Dashboard (http://localhost:3000/)
+- [ ] Verify Assignments (http://localhost:3000/assignments)
+- [ ] Verify Grades (http://localhost:3000/grades)
+- [ ] Verify Courses (http://localhost:3000/courses)
+- [ ] Verify Tasks (http://localhost:3000/tasks)
+- [ ] Confirm data loading in Assignments and Grades
+- [ ] Final status report

@@ -1,0 +1,13 @@
+# Visual Verification Checklist
+
+- [ ] Verify Dashboard (http://localhost:3000/)
+    - [ ] Glassmorphism effects
+    - [ ] New Dashboard Header layout
+    - [ ] Module Hub 2-column grid
+    - [ ] Capture screenshot
+- [ ] Verify Tasks (/tasks)
+    - [ ] Sidebar glass effect
+    - [ ] Higher information density
+- [ ] Verify Courses (/courses)
+    - [ ] New card layout
+    - [ ] Glassmorphism consistency

@@ -1,0 +1,8 @@
+# Debugging Login Issue Checklist
+
+- [x] Open http://localhost:3000/auth/login
+- [ ] Attempt login with test@example.com / password123
+- [ ] Check for session_token cookie
+- [ ] Monitor network requests for /me or /settings (check for 401s)
+- [ ] Navigate to Dashboard and verify access
+- [ ] Report findings (cookie name, request status)

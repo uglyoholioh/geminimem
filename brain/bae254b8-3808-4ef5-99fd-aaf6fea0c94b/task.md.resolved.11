@@ -1,0 +1,77 @@
+# Stage 1: State Sync — Implementation Task List
+
+## Backend
+- [x] Register `ai_router` in [backend/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+- [x] Create [backend/services/context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py) (Prompt logic)
+- [x] Update [backend/routers/ai.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai.py) to handle [ChatRequest](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai.py#21-25) with [uiContext](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx#15-45)
+- [x] Implement [_format_ui_context](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py#53-87) in [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+
+## Frontend
+- [x] Create [frontend/lib/uiContext.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiContext.ts) (Types & Helpers)
+- [x] Create [frontend/lib/UIContextProvider.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx)
+- [x] Wrap app in `UIContextProvider` ([app/layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx))
+- [x] Integrate [uiContext](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx#15-45) into [useChat.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/hooks/useChat.ts)
+- [x] Integrate [uiContext](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx#15-45) reporting into `app/dashboard/page.tsx` (or root)
+
+## Verification
+- [x] Verify AI receives visible items in system prompt
+- [x] Verify UI update after action execution
+
+# Stage 2: Data Sync Strategy — Implementation Task List
+
+## Backend
+- [x] Create [backend/models/sync_log.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/sync_log.py)
+- [x] Update [SyncLog](file:///Users/oli/Desktop/CraftCanvas/backend/models/sync_log.py#7-23) in [backend/database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py)
+- [x] Implement `GET /api/v1/sync/freshness` endpoint
+- [x] Update [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py) to log results to [SyncLog](file:///Users/oli/Desktop/CraftCanvas/backend/models/sync_log.py#7-23)
+
+## Frontend
+- [x] Create [frontend/components/chat/SyncIndicator.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/SyncIndicator.tsx)
+- [x] Add [SyncIndicator](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/SyncIndicator.tsx#19-106) to `ConversationPanel`
+- [x] Implement periodic freshness check
+
+## Verification
+- [x] Verify freshness dot turns yellow/red after simulated time
+- [x] Verify "Sync Now" trigger works from chat header
+
+# Stage 3: Component State Awareness — Implementation Task List
+
+## Backend
+- [x] Implement `schema_registry.py` for component serialization
+- [x] Implement compact serializers for Tasks, Assignments, Timetable
+
+## Frontend
+- [x] Implement [frontend/lib/componentSchemas.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/componentSchemas.ts)
+- [x] Update [DashboardPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#68-513) to use deep state reporting
+- [x] Implement state reporting for [TasksPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx#30-37) and [AssignmentsPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx#34-397)
+
+## Verification
+- [/] Verify AI system prompt contains detailed item state (priority, status, etc.)
+- [/] Verify contextual resolution of "the high priority task" works
+
+# Stage 4: AI Full Data Access via Gemini Function Calling
+
+## Backend
+- [x] Create [backend/services/ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py) with 9 tool functions
+- [x] Update [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) to pass tool declarations to Gemini
+- [x] Implement tool call loop (execute → feed back → generate response)
+- [x] Update [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py) to inform AI about available tools
+
+## Verification
+- [x] Test cross-domain queries (assignments for a specific course)
+- [x] Test queries beyond the current page (future timetable, all notes)
+
+# Stage 4: Intelligent Action Routing
+
+## Backend
+- [ ] Add `ui_navigate` tool to [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- [ ] Add mutation tools ([create_task](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#89-175), [update_task](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#230-324), etc.) to [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- [ ] Implement automatic `:::action` block appending in [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) for UI actions
+
+## Frontend
+- [ ] Update [ActionData](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/parseActions.ts#11-25) type in [parseActions.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/parseActions.ts) to include `navigate`
+- [ ] Implement automatic/manual navigation in [ActionCard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx) (or a new `ActionRouter`)
+
+## Verification
+- [ ] Verify AI can "take me to the assignments page"
+- [ ] Verify AI can create a task and it appears immediately after refresh

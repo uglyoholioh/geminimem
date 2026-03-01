@@ -1,0 +1,14 @@
+# Task: Verify Login and Dashboard
+
+## Plan
+- [x] Open http://localhost:3000/login
+- [x] Login with test@example.com / password123
+- [x] Verify Dashboard loads
+- [ ] Check for 401/500 errors in network tab
+- [ ] Verify functionality (navigate around)
+
+## Findings
+- Login successful with test@example.com.
+- Dashboard loads correctly.
+- Observed 401 error for `api/v1/assignments` redirecting to `localhost:8000`.
+- Other endpoints (tasks, timetable, brief) are working.

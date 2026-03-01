@@ -1,0 +1,12 @@
+# Task Plan
+- [ ] Login with test@example.com / password123
+- [ ] Verify Dashboard (/) loads data
+- [ ] Verify Assignments (/assignments) loads data
+- [ ] Verify Grades (/grades) loads data
+- [ ] Verify Tasks (/tasks) loads data
+- [ ] Verify Courses (/courses) loads data
+- [ ] Confirm actual data items in Assignments and Grades
+- [ ] Report final result
+
+# Findings
+- 

@@ -1,0 +1,50 @@
+# Stage 1: State Sync — Implementation Task List
+
+## Backend
+- [x] Register `ai_router` in [backend/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+- [x] Create [backend/services/context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py) (Prompt logic)
+- [x] Update [backend/routers/ai.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai.py) to handle [ChatRequest](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai.py#21-25) with [uiContext](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx#15-45)
+- [x] Implement [_format_ui_context](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py#52-81) in [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+
+## Frontend
+- [x] Create [frontend/lib/uiContext.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiContext.ts) (Types & Helpers)
+- [x] Create [frontend/lib/UIContextProvider.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx)
+- [x] Wrap app in `UIContextProvider` ([app/layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx))
+- [x] Integrate [uiContext](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx#15-45) into [useChat.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/hooks/useChat.ts)
+- [x] Integrate [uiContext](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx#15-45) reporting into `app/dashboard/page.tsx` (or root)
+
+## Verification
+- [x] Verify AI receives visible items in system prompt
+- [x] Verify UI update after action execution
+
+# Stage 2: Data Sync Strategy — Implementation Task List
+
+## Backend
+- [x] Create [backend/models/sync_log.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/sync_log.py)
+- [x] Update [SyncLog](file:///Users/oli/Desktop/CraftCanvas/backend/models/sync_log.py#7-23) in [backend/database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py)
+- [x] Implement `GET /api/v1/sync/freshness` endpoint
+- [x] Update [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py) to log results to [SyncLog](file:///Users/oli/Desktop/CraftCanvas/backend/models/sync_log.py#7-23)
+
+## Frontend
+- [x] Create [frontend/components/chat/SyncIndicator.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/SyncIndicator.tsx)
+- [x] Add [SyncIndicator](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/SyncIndicator.tsx#19-106) to `ConversationPanel`
+- [x] Implement periodic freshness check
+
+## Verification
+- [x] Verify freshness dot turns yellow/red after simulated time
+- [x] Verify "Sync Now" trigger works from chat header
+
+# Stage 3: Component State Awareness — Implementation Task List
+
+## Backend
+- [ ] Implement `schema_registry.py` for component serialization [ ]
+- [ ] Implement compact serializers for Tasks, Assignments, Timetable [ ]
+
+## Frontend
+- [ ] Implement `frontend/lib/componentSchemas.ts` [ ]
+- [ ] Update [DashboardPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#67-509) to use deep state reporting [ ]
+- [ ] Implement state reporting for `TasksPage` and `AssignmentsPage` [ ]
+
+## Verification
+- [ ] Verify AI system prompt contains detailed item state (priority, status, etc.) [ ]
+- [ ] Verify contextual resolution of "the high priority task" works [ ]

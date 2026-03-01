@@ -1,0 +1,51 @@
+# Stage 1: State Sync — Proof of Work
+
+I have successfully implemented the infrastructure for Stage 1: State Sync. The AI is now aware of the user's current screen state, including visible items and active view.
+
+## Changes Made
+
+### Backend Implementation
+- **AI Router Registered**: Active at `/api/v1/ai/chat`.
+- **Context Assembler**: Created [backend/services/context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py) to merge [UIContext](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiContext.ts#21-40) from the frontend with database data.
+- **AI Service Updated**: [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) now accepts [ui_context](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py#52-81) and injects a rich system prompt that includes visibility data.
+
+### Frontend Implementation
+- **UIContext Infrastructure**: Created [uiContext.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiContext.ts) (types) and [UIContextProvider.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx) (engine).
+- **Global Provider**: Wrapped the app in [UIProvider](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx#49-65) within [ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx).
+- **State Reporting**: Integrated [useUIDispatch](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx#72-77) in [app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) to report the dashboard's visible tasks, assignments, and timetable slots.
+- **Chat Hook Integration**: Updated [useChat.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/hooks/useChat.ts) to automatically send the latest [UIContext](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiContext.ts#21-40) with every message.
+
+## Verification Results
+
+### Proof of Context Injection
+The system prompt now includes a `## Current UI Context` section like this:
+
+```markdown
+## Current UI Context
+Active View: DASHBOARD
+
+Visible Items on Screen:
+- [TASK #42] [HIGH] CS2030 Tutorial 5 Prep (CS2030, due 2026-03-05, inbox, 0%)
+- [ASSIGNMENT #15] Lab 4 Report (CS2030) — in_progress — due 2026-03-05
+- [TIMETABLE_SLOT #8] 08:00-10:00: CS2103T Lecture @ COM1-B103
+```
+
+This ensures that when a user says "move that task", the AI can correctly resolve "that task" to Task #42.
+
+## Stage 2: Data Sync Strategy — Proof of Work
+
+I have implemented the data freshness tracking system to ensure you always know how "live" your data is.
+
+### Backend Implementation
+- **SyncLog Tracking**: Every sync operation (Canvas/Craft/ICS) is now recorded with timestamps, duration, and metadata.
+- **Freshness API**: A new `/api/v1/sync/freshness` endpoint calculates the age of data based on the last successful sync.
+
+### Frontend Implementation
+- **Visual Sync Status**: Added a [SyncIndicator](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/SyncIndicator.tsx#19-106) dot to the Command Center header.
+  - **Green**: Data is fresh (< 5 mins old).
+  - **Yellow/Amber**: Data is becoming stale.
+  - **Red**: Data is > 60 mins old or never synced.
+- **Manual Trigger**: Clicking the indicator triggers an immediate background sync, updating the status in real-time.
+
+---
+Validated: Sync indicator correctly fetches age on mount and updates status after a manual sync trigger.

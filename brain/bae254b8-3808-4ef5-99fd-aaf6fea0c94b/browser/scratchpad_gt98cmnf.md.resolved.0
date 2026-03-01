@@ -1,0 +1,6 @@
+# Task Strategy
+- [ ] Open http://localhost:3000/login
+- [ ] Verify page renders without errors
+- [ ] Log in with test credentials
+- [ ] Verify dashboard loads data without 401 errors
+- [ ] Report successes and failures

@@ -1,0 +1,14 @@
+# Task: Improve Today's Agenda
+
+- [ ] Research and Planning [/]
+    - [x] Analyze current implementation of [AgendaTimeline](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx#18-61)
+    - [x] Identify UX gaps and improvement opportunities
+- [ ] Technical Implementation [ ]
+    - [ ] Refactor [AgendaTimeline](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx#18-61) component for richer data display
+    - [ ] Update [DashboardPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#68-513) to support multi-day agenda based on lookahead
+    - [ ] Add "Current Time" indicator and progress tracking
+    - [ ] Implement quick actions for agenda items
+- [ ] Verification [ ]
+    - [ ] Verify responsive behavior
+    - [ ] Test with various data states (empty, busy, multi-day)
+    - [ ] Final UI/UX polish

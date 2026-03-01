@@ -1,0 +1,18 @@
+# CraftCanvas UI/UX Audit and Enhancements
+
+- [/] Visual Audit of Frontend
+    - [ ] Screenshot and analyze Dashboard
+    - [ ] Screenshot and analyze Login/Registration flow
+    - [ ] Screenshot and analyze Module pages (Tasks, Courses, etc.)
+- [ ] Refine Core Design System
+    - [ ] Update [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css) with premium HSL colors and glassmorphism
+    - [ ] Verify font choices and typography
+- [ ] Enhance Components & Interactions
+    - [ ] Update Navigation/Sidebar with Framer Motion animations
+    - [ ] Refine "Module Hub" layout and interactions
+- [ ] Restructuring and Optimization
+    - [ ] Increase vertical density and screen utilization
+    - [ ] Implement responsive 2-column grid for Module Hub
+- [ ] Final Verification
+    - [ ] Run E2E tests
+    - [ ] Manual visual check and polish

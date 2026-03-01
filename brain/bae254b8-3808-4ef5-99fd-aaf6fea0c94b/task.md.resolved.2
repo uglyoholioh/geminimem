@@ -1,0 +1,18 @@
+# Stage 1: State Sync — Implementation Task List
+
+## Backend
+- [ ] Register `ai_router` in [backend/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) [/]
+- [ ] Create `backend/services/context_assembler.py` (Prompt logic) [ ]
+- [ ] Update [backend/routers/ai.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai.py) to handle [ChatRequest](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai.py#21-24) with `uiContext` [ ]
+- [ ] Implement `_format_ui_context` in [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) [ ]
+
+## Frontend
+- [ ] Create `frontend/lib/uiContext.ts` (Types & Helpers) [ ]
+- [ ] Create `frontend/lib/UIContextProvider.tsx` [ ]
+- [ ] Wrap app in `UIContextProvider` ([app/layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx)) [ ]
+- [ ] Integrate `uiContext` into [useChat.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/hooks/useChat.ts) [ ]
+- [ ] Integrate `uiContext` reporting into `app/dashboard/page.tsx` (or root) [ ]
+
+## Verification
+- [ ] Verify AI receives visible items in system prompt [ ]
+- [ ] Verify UI update after action execution [ ]

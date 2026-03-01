@@ -1,0 +1,34 @@
+# Walkthrough - Agenda Improvements
+
+I have transformed the "Today's Agenda" into a more powerful "Upcoming Agenda" that helps users stay on top of their schedule with ease.
+
+## Key Improvements
+
+### 1. Multi-day Lookahead
+The agenda now respects the lookahead filter from the Command Center (Today, 3 Days, Week). Items are automatically grouped by date, providing a clear forecast of the coming days.
+
+### 2. Rich Visual Identity
+Each item type has a distinct visual style:
+- **Classes**: Professional teal accents with course codes and venues.
+- **Deadlines**: High-visibility urgency colors (red/orange) with clear "DUE" labels.
+- **Tasks**: Clean, focused display for general action items.
+
+### 3. "Now" Indicator & Past Fading
+- A dynamic **"Now" indicator** (pinging dot) appears next to ongoing activities.
+- **Past items are faded** and desaturated, allowing users to focus purely on what remains.
+- A real-time clock ensures users always know where they are in their schedule.
+
+### 4. Interactive Feel
+- Hover effects on each agenda card provide subtle depth.
+- Smooth entry animations using `framer-motion` make the dashboard feel alive.
+
+## Verification Results
+
+### Lookahead Sync
+Validated that switching lookahead modes correctly fetches and displays items across multiple days.
+
+### Visual Polish
+Confirmed the timeline grouping and date headers provide excellent hierarchical clarity.
+
+### Recording
+![Agenda Verification](/Users/oli/.gemini/antigravity/brain/baf2bd5d-1476-4990-864f-c61a5caf5570/verify_agenda_ui_1772365085447.webp)

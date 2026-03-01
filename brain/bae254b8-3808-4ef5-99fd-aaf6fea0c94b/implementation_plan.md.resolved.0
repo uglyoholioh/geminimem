@@ -1,0 +1,68 @@
+# Stage 1: State Sync Implementation Plan
+
+Implement the core infrastructure for state synchronization between the frontend UI and the AI context, allowing the AI to "see" what's on the user's screen.
+
+## Proposed Changes
+
+### Backend: AI Layer & Routing
+
+#### [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+Register the AI router which is currently defined but not active.
+- Import `routers.ai` and include it in the FastAPI app with the prefix `/api/v1/ai`.
+
+#### [NEW] [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)
+Create a dedicated service to handle prompt engineering and context merging.
+- Implement `ContextAssembler` class.
+- Add methods to format `UIContext` into a system prompt section.
+- Merge DB-sourced academic data (from [context_providers.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_providers.py)) with frontend `UIContext`.
+
+#### [MODIFY] [ai.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai.py)
+Update the API contract to handle state-aware chat.
+- Add `ui_context` field to [ChatRequest](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai.py#21-24) pydantic model.
+- Update `/chat` and `/chat/stream` (if applicable) to pass `ui_context` to the AI service.
+
+#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+- Refactor [chat](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai.py#26-42) method to accept `ui_context`.
+- Update [_inject_context](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#30-86) to use `ContextAssembler`.
+
+---
+
+### Frontend: State Sync Infrastructure
+
+#### [NEW] [uiContext.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiContext.ts)
+Define the core data structures for state sync.
+- `interface UIContext`: `activeView`, `visibleItems`, `filters`, `focusedItem`, `resolvedReferences`.
+- `interface VisibleItem`: [id](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_providers.py#89-107), `type`, `summary`.
+
+#### [NEW] [UIContextProvider.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx)
+Create the React Context engine for state sync.
+- Implement `UIProvider` using `useReducer` to manage state.
+- Provide hooks (`useUIContext`, `useUIDispatch`) for components to report visibility and read state.
+
+#### [MODIFY] [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx)
+Wrap the application in `UIProvider` to enable global state awareness.
+
+#### [MODIFY] [useChat.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/hooks/useChat.ts)
+- Use `useUIContext` to get the latest state snapshot.
+- Include `uiContext` in the body of the POST request to `/api/v1/ai/chat`.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- Run existing tests to ensure no regressions:
+  ```bash
+  pytest backend/tests
+  ```
+- Create a new test `backend/tests/test_ai/test_context_assembler.py` to verify prompt formatting logic.
+
+### Manual Verification
+1. **Context Inspection**: Open the network tab in browser, send a chat message, and verify the `uiContext` field in the request payload contains correct `activeView` and matching `visibleItems`.
+2. **AI Awareness Test**:
+   - Navigate to the **Tasks** page.
+   - Ask the AI: "Which tasks are currently visible on my screen?"
+   - Verify that the AI lists the exact items shown in the task list.
+3. **Navigation Sync**:
+   - Move from **Tasks** to **Assignments**.
+   - Send another message and verify the `activeView` in the request has changed.

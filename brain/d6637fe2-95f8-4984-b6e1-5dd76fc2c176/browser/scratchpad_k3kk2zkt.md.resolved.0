@@ -1,0 +1,15 @@
+# Task Checklist
+- [ ] Login/Register to access the dashboard
+- [ ] Check Dashboard Module Hub
+    - [ ] Verify module cards show both code and name
+    - [ ] Test hover sliding overlay and quick stats
+    - [ ] Click 'MANAGE' and verify visibility toggles
+- [ ] Check Courses Page
+    - [ ] Verify updated CourseCard design
+    - [ ] Look for rich metadata (credits, exam dates)
+    - [ ] Check 'Pin/Unpin' buttons
+- [ ] Summarize findings
+
+# Observations
+- App is running on http://localhost:3000
+- Requires login/registration. Failed login with guessed credentials. Attempting registration.

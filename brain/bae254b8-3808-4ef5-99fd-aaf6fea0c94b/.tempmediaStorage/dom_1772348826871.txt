@@ -1,0 +1,233 @@
+1
+/
+1
+Next.js 16.1.6
+Turbopack
+[0] (500,542)<div class='error-overlay-dialog-scroll' role='dialog' scrollable='true' />
+	Build Error
+	[1] (758,192)<button aria-label='Copy Error Info' class='copy-error-button nextjs-data-copy-button nextjs-data-copy-button--initial' title='Copy Error Info' />
+	[2] (781,192)<a aria-label='Go to related documentation' class='docs-link-button' href='https://nextjs.org/docs/messages/module-not-found' title='Go to related documentation' />
+	[3] (804,192)<button class='nodejs-inspector-button' title='Attach Node.js inspector' />
+	Module not found: Can't resolve '@/components/ui/tooltip'
+	./components/chat/SyncIndicator.tsx (6:1)
+	[4] (797,299)<button aria-label='Open in editor' />
+		[5] (797,298)<span  />
+	Module
+	not
+	found:
+	Can't
+	resolve
+	'@/components/ui/tooltip'
+	4
+	|
+	import
+	{
+	api
+	}
+	from
+	'@/lib/api'
+	5
+	|
+	import
+	{
+	RefreshCw
+	,
+	AlertCircle
+	,
+	CheckCircle2
+	,
+	Clock
+	}
+	from
+	'lucide-react'
+	>
+	6
+	|
+	import
+	{
+	|
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	>
+	7
+	|
+	Tooltip
+	,
+	|
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	>
+	8
+	|
+	TooltipContent
+	,
+	|
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	>
+	9
+	|
+	TooltipProvider
+	,
+	|
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	>
+	10
+	|
+	TooltipTrigger
+	,
+	|
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	>
+	11
+	|
+	}
+	from
+	'@/components/ui/tooltip'
+	|
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	^
+	12
+	|
+	13
+	|
+	interface
+	FreshnessData
+	{
+	14
+	|
+	last_synced_at
+	:
+	string
+	|
+	null
+	Import
+	map:
+	aliased
+	to
+	relative
+	'./components/ui/tooltip'
+	inside
+	of
+	[project]/
+	Import
+	traces:
+	Client
+	Component
+	Browser:
+	./components/chat/SyncIndicator.tsx
+	[Client
+	Component
+	Browser]
+	./app/page.tsx
+	[Client
+	Component
+	Browser]
+	./app/page.tsx
+	[Server
+	Component]
+	Client
+	Component
+	SSR:
+	./components/chat/SyncIndicator.tsx
+	[Client
+	Component
+	SSR]
+	./app/page.tsx
+	[Client
+	Component
+	SSR]
+	./app/page.tsx
+	[Server
+	Component]
+	https://nextjs.org/docs/messages/module-not-found
+	1
+	2
+[6] (46,955)<div  />
+	[7] (46,955)<div  />
+		[8] (46,955)<div  />
+			[9] (26,955)<button aria-label='Open Next.js Dev Tools' id='next-logo' />
+			[10] (58,955)<div  />
+				[11] (58,955)<button aria-label='Open issues overlay' />
+					[12] (46,955)<div  />
+						[13] (46,955)<div >1 />
+					[14] (61,955)<div >Issue />

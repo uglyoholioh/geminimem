@@ -1,0 +1,8 @@
+# Task: Verify Login and Dashboard
+
+## Plan
+- [ ] Open http://localhost:3000/login
+- [ ] Login with test@example.com / password123
+- [ ] Verify Dashboard loads
+- [ ] Check for 401/500 errors in network tab
+- [ ] Verify functionality (navigate around)

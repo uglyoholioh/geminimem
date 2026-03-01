@@ -1,0 +1,154 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+1
+/
+1
+Next.js 16.1.6
+Turbopack
+Build Error
+[0] (762,192)<button aria-label='Copy Error Info' class='copy-error-button nextjs-data-copy-button nextjs-data-copy-button--initial' title='Copy Error Info' />
+[1] (785,192)<a aria-label='Go to related documentation' class='docs-link-button' href='https://nextjs.org/docs/messages/module-not-found' title='Go to related documentation' />
+[2] (808,192)<button class='nodejs-inspector-button' title='Attach Node.js inspector' />
+Module not found: Can't resolve '@/components/layout/Header'
+./components/ClientLayout.tsx (13:1)
+[3] (801,299)<button aria-label='Open in editor' />
+	[4] (801,298)<span  />
+Module
+not
+found:
+Can't
+resolve
+'@/components/layout/Header'
+11
+|
+import
+{
+Toaster
+}
+from
+'@/components/ui/toaster'
+12
+|
+import
+{
+TooltipProvider
+}
+from
+'@/components/ui/tooltip'
+>
+13
+|
+import
+{
+Header
+}
+from
+'@/components/layout/Header'
+|
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+^
+14
+|
+15
+|
+export
+function
+ClientLayout
+({
+children
+}
+:
+{
+children
+:
+React
+.
+ReactNode
+})
+{
+16
+|
+const
+pathname
+=
+usePathname()
+Import
+map:
+aliased
+to
+relative
+'./components/layout/Header'
+inside
+of
+[project]/
+Import
+trace:
+Server
+Component:
+./components/ClientLayout.tsx
+./app/layout.tsx
+[5] (311,655)<a href='https://nextjs.org/docs/messages/module-not-found'>https://nextjs.org/docs/messages/module-not-found />
+1
+2
+[6] (46,955)<div  />
+	[7] (46,955)<div  />
+		[8] (46,955)<div  />
+			[9] (26,955)<button aria-label='Open Next.js Dev Tools' id='next-logo' />
+			[10] (58,955)<div  />
+				[11] (58,955)<button aria-label='Open issues overlay' />
+					[12] (46,955)<div  />
+						[13] (46,955)<div >1 />
+					[14] (61,955)<div >Issue />
+
+</current_dom>

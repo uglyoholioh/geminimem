@@ -1,0 +1,39 @@
+# Stage 3: Component State Awareness Implementation Plan
+
+This stage focuses on "Deep State Reporting". Instead of just sending a title, we will send full component metadata (priority, status, due dates) so the AI can reason about them (e.g., "Which of my tasks is most urgent?").
+
+## Proposed Changes
+
+### Frontend: Deep State Reporting
+
+#### [NEW] [componentSchemas.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/componentSchemas.ts)
+Define precise TypeScript interfaces for the "AI View" of each component.
+- `TaskAIView`: title, priority, status, due_date, course_code.
+- `AssignmentAIView`: title, course_code, user_status, due_at.
+- `TimetableAIView`: module_code, time, venue, lesson_type.
+
+#### [MODIFY] [DashboardPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- Upgrade the `useEffect` that reports `visibleItems` to use these deeper schemas.
+
+#### [MODIFY] [TasksPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx) & [AssignmentsPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx)
+- Integrate [useUIDispatch](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx#72-77) to report state when these pages are active.
+
+---
+
+### Backend: Prompt Integration
+
+#### [MODIFY] [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)
+- Update [_format_ui_context](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py#52-81) to handle the richer item data and format it into a compact, AI-readable table or list.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- None (UI-driven logic), but will check backend prompt formatting via logs.
+
+### Manual Verification
+1. **Prompt Inspection**: Interact with the AI and verify (via backend logs) that the system message contains the full metadata for visible items.
+2. **Context Resolution**:
+   - Ask: "What are my high priority tasks?" (The AI should know without querying the DB, because they are on screen).
+   - Ask: "Which assignment is due first?" 

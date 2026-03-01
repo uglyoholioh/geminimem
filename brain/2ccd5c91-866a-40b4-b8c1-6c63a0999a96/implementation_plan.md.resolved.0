@@ -1,0 +1,48 @@
+# CraftCanvas Implementation Plan - UI/UX Audit and Enhancements
+
+This plan outlines the steps to visually audit the CraftCanvas frontend, identify areas for improvement in aesthetics and structure, and implement a more premium, dynamic user interface.
+
+## User Review Required
+
+> [!IMPORTANT]
+> I will be performing a visual audit using the browser tool. I will propose specific UI/UX changes after the audit.
+> Significant restructuring of the dashboard or main navigation will be presented for approval before implementation.
+
+## Proposed Changes
+
+### [Phase 1: Visual Audit & Research]
+- Capture screenshots of the current dashboard, login, and key module pages (Tasks, Courses, etc.).
+- Analyze the [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css) and existing components to understand the current design system.
+- Research modern "Glassmorphism" and "Academic Productivity" aesthetics for inspiration.
+
+### [Phase 2: Core Design System Update]
+- **[MODIFY] [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css)**
+  - Refine color palette with more "premium" HSL-based colors.
+  - Enhance glassmorphism utility classes (blur, border-opacity, background-saturation).
+  - Standardize typography and spacing tokens.
+- **[MODIFY] [tailwind.config.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/tailwind.config.ts)**
+  - Ensure modern Tailwind 4 features are leveraged if applicable.
+
+### [Phase 3: Component Enhancements]
+- **[MODIFY] [Logo.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/Logo.tsx)**
+  - Ensure the pixel art logo is sharp and fits the premium aesthetic.
+- **[MODIFY] Navigation/Sidebar Components**
+  - Add micro-animations (Framer Motion) for hover and active states.
+  - Implement a more refined, less "boxy" layout.
+
+### [Phase 4: Dashboard Restructuring]
+- **[MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)**
+  - Optimize the "Module Hub" for high-density information without feeling cluttered.
+  - Use 2-column grids and hover-to-reveal actions as previously requested.
+  - Increase vertical utilization of the screen.
+
+## Verification Plan
+
+### Automated Tests
+- Run existing Playwright E2E tests: `npx playwright test`.
+- Check for accessibility (aria-labels, contrast) using browser audit tools.
+
+### Manual Verification
+- Visual inspection of all screens in the browser subagent.
+- Verify "Wow factor" - does it feel premium and alive?
+- Check responsiveness on different viewport sizes.

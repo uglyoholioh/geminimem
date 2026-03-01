@@ -1,0 +1,13 @@
+# Browser Task Checklist
+- [x] Open http://localhost:3000/login
+- [x] Login with test@example.com / password123
+- [i] Visit /assignments: "No assignments yet" shown, API return 401.
+- [i] Visit /grades: "Failed to load grades" shown, API return 401.
+- [ ] Provide summary
+
+## Findings
+- Login was successful on frontend (dashboard showed "Test User").
+- Assignments and Grades API calls to backend (port 8000) are failing with 401 Unauthorized.
+- The browser seems to be redirecting from `:3000/api/v1/...` to `:8000/api/v1/...`.
+- Backend `/api/v1/auth/status` indicates not logged in (output `{"has_users":true}` which might be a fallback or incorrect endpoint check).
+- Error badge shows "API error 401: {"detail":"Not authenticated"}".

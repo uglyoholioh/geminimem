@@ -1,0 +1,17 @@
+# CraftCanvas Testing Plan
+
+## Checklist
+- [/] Login at http://localhost:3000/login (test@example.com / password123) - IN PROGRESS (Logging in now)
+- [ ] Verify Dashboard (http://localhost:3000/)
+- [ ] Verify Assignments (http://localhost:3000/assignments)
+- [ ] Verify Grades (http://localhost:3000/grades)
+- [ ] Verify Courses (http://localhost:3000/courses)
+- [ ] Verify Tasks (http://localhost:3000/tasks)
+- [ ] Confirm data loading in Assignments and Grades
+- [ ] Final status report
+
+## Findings
+- Was initially logged in as `test@example.com`.
+- Assignments and Grades showed "No assignments yet" or "Failed to load" with 401 errors in console.
+- Frontend seems to call `http://localhost:8000/api/v1/...` directly, causing 401.
+- Logged out manually to test the login flow as requested.

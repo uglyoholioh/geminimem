@@ -1,0 +1,50 @@
+# Stage 2: Data Sync Strategy Implementation Plan
+
+This stage focuses on making the system awareness of data freshness visible to both the user and the AI.
+
+## Proposed Changes
+
+### Backend: Freshness Tracking
+
+#### [NEW] [sync_log.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/sync_log.py)
+Create a new model to track individual sync runs.
+- [id](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/UIContextProvider.tsx#49-65), `user_id`, `source` (canvas/ics/craft), `status` (success/failed), `started_at`, `duration_ms`, `details` (JSON).
+
+#### [MODIFY] [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py)
+- Register `SyncLog` model for initialization.
+
+#### [NEW] [sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/sync.py)
+Create a new router for sync operations and freshness status.
+- `GET /api/v1/sync/freshness`: Returns age of last sync for all modules.
+- `POST /api/v1/sync/canvas`: Trigger a manual sync.
+
+#### [MODIFY] [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+- Update [sync_all](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#355-412) to create a `SyncLog` entry upon completion.
+
+---
+
+### Frontend: Visual Indicators
+
+#### [NEW] [SyncIndicator.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/SyncIndicator.tsx)
+Create a small, status-dot component for the chat panel.
+- Green: < 5 mins
+- Yellow: 5-30 mins
+- Amber: 30-60 mins
+- Red: > 60 mins (plus a "Sync Now" link)
+
+#### [MODIFY] [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx)
+- Embed `SyncIndicator` in the chat header.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- `pytest backend/tests/test_routers/test_sync.py` to verify freshness logic.
+
+### Manual Verification
+1. **Sync Tracking**: Run a Canvas sync and verify a new entry appears in the `sync_logs` table.
+2. **Indicator State**:
+   - Manually modify the `last_synced_at` in the DB to 45 minutes ago.
+   - Verify the `SyncIndicator` turns amber.
+3. **Manual Sync**: Click "Sync Now" in the UI and verify it triggers a backend sync and updates the indicator to green.

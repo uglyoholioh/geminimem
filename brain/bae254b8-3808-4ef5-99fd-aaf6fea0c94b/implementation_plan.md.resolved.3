@@ -1,0 +1,66 @@
+# AI Full Data Access via Gemini Function Calling
+
+The AI is currently limited to narrow context snapshots (today's timetable, 7-day assignments, top 10 tasks, 5 announcements) plus whatever is visible on the current UI page. The user wants the AI to access **everything** — all Canvas data, Craft docs, tasks, timetable, notes, grades, and more.
+
+## Approach: Gemini Function Calling (Tool Use)
+
+Instead of dumping all data into the prompt (token-expensive, doesn't scale), we give the Gemini model **tools** it can call on demand. When the user asks "What assignments do I have for CS2103?", the AI calls `search_assignments(course_code="CS2103")` and gets the results.
+
+> [!IMPORTANT]
+> This replaces the current "inject everything into the system prompt" approach with a dynamic, on-demand data access pattern. The existing context providers will be kept as a lightweight **summary layer** (so the AI has awareness), but the tools give it the ability to **drill down** into any data source.
+
+## Proposed Changes
+
+### Backend: Tool Definitions & Executor
+
+---
+
+#### [NEW] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+
+Defines the 9 tool functions the AI can call:
+
+| Tool | Purpose |
+|------|---------|
+| `search_tasks` | Query tasks by status, priority, course, keyword |
+| `search_assignments` | Query assignments by course, status, due date range |
+| `get_timetable` | Get schedule for any day (not just today) |
+| `search_notes` | Full-text search across user notes |
+| `search_announcements` | Search announcements by course/keyword |
+| `get_courses` | List all enrolled courses |
+| `get_module_files` | Get files/resources for a specific course |
+| `search_craft_docs` | Search synced Craft documents |
+| `get_grades` | Get grade components for a course |
+
+Each tool function:
+1. Accepts typed parameters (course_code, query, status, etc.)
+2. Queries the database via SQLModel
+3. Returns a compact JSON response
+
+---
+
+#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+
+- **Gemini calls**: Pass tool declarations to `GenerativeModel`
+- **Tool call loop**: When Gemini returns a `function_call`, execute it via `ai_tools.py`, feed the result back, and let Gemini generate the final response
+- **Streaming**: Handle the tool-call-then-stream pattern for [stream_chat](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#166-182)
+
+---
+
+#### [MODIFY] [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)
+
+- Update [_role_preamble](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py#41-51) to inform the AI about its available tools
+- Add instruction: "Use your tools to look up data when the user asks about something not in the visible context"
+
+---
+
+### No Frontend Changes
+
+The frontend doesn't need to change — tool calling happens entirely server-side between the AI service and Gemini.
+
+## Verification Plan
+
+### Manual Verification
+1. Ask: "What assignments do I have for CS2103?" → AI should call `search_assignments` and return all, not just the 7-day window
+2. Ask: "Show me my timetable for Friday" → AI should call `get_timetable(day="friday")` 
+3. Ask: "Do I have any notes about recursion?" → AI should call `search_notes(query="recursion")`
+4. Ask: "What are my grades for CS2040?" → AI should call `get_grades(course_code="CS2040")`

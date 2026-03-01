@@ -1,0 +1,13 @@
+# Testing Academic Life OS
+
+## Plan
+1. [ ] Log in at http://localhost:3000/login
+    - Email: test@example.com
+    - Password: password123
+2. [ ] Verify Dashboard data (http://localhost:3000/)
+3. [ ] Verify Assignments data (http://localhost:3000/assignments)
+4. [ ] Verify Grades data (http://localhost:3000/grades)
+5. [ ] Verify Tasks data (http://localhost:3000/tasks)
+
+## Status
+- Initializing...

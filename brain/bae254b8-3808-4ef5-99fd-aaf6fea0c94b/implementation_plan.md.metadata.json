@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan for Stage 5: Intelligent Action Routing. This expands the AI's capabilities from \"Reading\" to \"Writing\" and \"Navigating\". The AI will gain tools to modify tasks/assignments and navigate the user interface, with the frontend automatically reacting to these backend-triggered actions via the existing Action segment mechanism.",
+  "updatedAt":  "2026-03-01T05:40:07.541274Z",
+  "version":  "4"
+}
