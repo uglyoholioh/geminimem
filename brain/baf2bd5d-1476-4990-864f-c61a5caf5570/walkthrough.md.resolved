@@ -22,6 +22,11 @@ Each item type has a distinct visual style:
 - Hover effects on each agenda card provide subtle depth.
 - Smooth entry animations using `framer-motion` make the dashboard feel alive.
 
+## Bug Fixes
+
+### Precise Date Grouping
+Fixed an issue where classes for the next available day were incorrectly labeled as "Today" when the current day was empty. The system now correctly identifies and labels items as "Today", "Tomorrow", or by their specific weekday using full ISO timestamps from the backend.
+
 ## Verification Results
 
 ### Lookahead Sync
@@ -30,5 +35,9 @@ Validated that switching lookahead modes correctly fetches and displays items ac
 ### Visual Polish
 Confirmed the timeline grouping and date headers provide excellent hierarchical clarity.
 
-### Recording
+### Date Logic Verification
+Confirmed that when today (Sunday) is empty, Monday's classes are correctly labeled as "TOMORROW" instead of "TODAY".
+
+### Recording & Fix Verification
 ![Agenda Verification](/Users/oli/.gemini/antigravity/brain/baf2bd5d-1476-4990-864f-c61a5caf5570/verify_agenda_ui_1772365085447.webp)
+![Date Fix Verification](/Users/oli/.gemini/antigravity/brain/baf2bd5d-1476-4990-864f-c61a5caf5570/verify_date_fix_1772366566485.webp)

@@ -1,0 +1,12 @@
+# Dashboard Customization Verification
+
+- [ ] Navigate to http://localhost:3000/
+- [ ] Check for "Customise" button in header
+- [ ] Click "Customise"
+- [ ] Verify "Remove" (X) buttons and drag handles on widgets
+- [ ] Click "Add New Widget"
+- [ ] Verify widget picker modal appears
+- [ ] Close picker
+- [ ] Click "Save Layout"
+- [ ] Take screenshot of dashboard
+- [ ] Return report

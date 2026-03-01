@@ -4,7 +4,15 @@ Revitalize the "Today's Agenda" component to provide a more comprehensive, inter
 
 ## Proposed Changes
 
+### Bug Fix: Incorrect Date Grouping
+- **Issue**: Sunday view shows Monday's classes as "Today".
+- **Cause**: Frontend uses only `start_time` (HH:mm) and defaults to current date if ISO datestring is missing.
+- **Fix**: Use the `start` ISO field from the backend and update the `TimetableSlot` interface to support it.
+
 ### Frontend Components
+
+#### [MODIFY] [types.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts)
+- Add `start?: string` and `end?: string` to `TimetableSlot`.
 
 #### [MODIFY] [AgendaTimeline.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx)
 - **Visual Overhaul**: Implement a more dynamic timeline with better color coding and icons.

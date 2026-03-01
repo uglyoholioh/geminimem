@@ -1,0 +1,18 @@
+# Task: Visual Check of Font Sizes
+
+## Plan
+- [/] Open http://localhost:3000
+- [ ] Log in if necessary
+- [ ] Dashboard Check
+    - [ ] Widgets font size
+    - [ ] Main content font size
+- [ ] Timetable Page Check
+    - [ ] Class titles font size
+    - [ ] Times and dates font size
+- [ ] Course Page Check
+    - [ ] Course details font size
+- [ ] Identify small elements (<14px or 16px)
+- [ ] Report findings
+
+## Findings
+- 

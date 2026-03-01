@@ -1,0 +1,27 @@
+# Editable Dashboard Widgets
+
+## Planning
+- [x] Research current dashboard architecture
+- [x] Draft implementation plan with widget ideas
+- [x] User review & approval
+
+## Execution
+- [x] Create widget registry & config types
+- [x] Build [WidgetShell](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/WidgetShell.tsx#18-86) wrapper component (drag handle, remove, resize)
+- [/] Create [DashboardLayoutManager](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx#37-212) with grid + edit mode toggle
+- [ ] Persist layout to backend (user settings)
+- [ ] Build new widget components
+  - [x] Grades Overview widget
+  - [x] Pinned Notes widget
+  - [x] Focus Timer mini widget
+  - [x] Upcoming Deadlines widget
+  - [x] Quick Add widget
+  - [x] Announcements Feed widget
+- [ ] Migrate existing [AgendaTimeline](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx#21-191) + [ModuleHub](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx#32-215) into widget system
+- [ ] Add "Add Widget" picker panel
+- [ ] Wire up layout persistence via `/api/v1/settings`
+
+## Verification
+- [ ] Visual browser test: edit mode, add/remove/reorder widgets
+- [ ] Persistence test: reload page and verify layout survives
+- [ ] Manual verification of each new widget's data

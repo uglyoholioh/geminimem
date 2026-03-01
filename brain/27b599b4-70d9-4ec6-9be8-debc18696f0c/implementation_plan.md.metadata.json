@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Implementation plan for making dashboard widgets editable (add/remove/reorder) and introducing 6 new widget types: Grades Snapshot, Pinned Notes, Focus Timer Mini, Announcements Feed, Upcoming Deadlines, and Quick Add. Covers the widget registry, shell wrapper, layout manager, persistence via backend settings, and refactoring existing components.",
+  "updatedAt":  "2026-03-01T12:12:46.883923Z"
+}

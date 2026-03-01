@@ -1,0 +1,46 @@
+# Replace Browser Interactions with In-App UI
+
+The goal is to remove all native browser `alert()`, `confirm()`, and `prompt()` calls and replace them with a premium, consistent in-app UI system.
+
+## Proposed Changes
+
+### [Component Name] UI Feedback System
+We will implement a global feedback system using Zustand for state management and Framer Motion for animations.
+
+#### [NEW] [toastStore.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/toastStore.ts)
+A Zustand store to manage active toasts and modal state.
+
+#### [NEW] [Toaster.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ui/Toaster.tsx)
+A global component to render active toasts.
+
+#### [NEW] [Dialog.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ui/Dialog.tsx)
+A global modal component for confirmations and prompts.
+
+#### [MODIFY] [ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx)
+Register the `Toaster` and `Dialog` providers.
+
+### Refactoring Callsites
+We will replace all native calls with the new system.
+
+#### [MODIFY] Multiple Files
+- [frontend/app/meetings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/meetings/page.tsx): Replace `alert` with `toast`.
+- [frontend/app/timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx): Replace `confirm` with `dialog`.
+- [frontend/app/notes/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/notes/page.tsx): Replace `confirm` with `dialog`.
+- [frontend/app/tasks/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/tasks/page.tsx): Replace `confirm` with `dialog`.
+- [frontend/components/meetings/SettingsModal.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/meetings/SettingsModal.tsx): Replace `confirm` with `dialog`.
+- (And all other identified files)
+
+## Verification Plan
+
+### Automated Tests
+- I will write a small test script/component to verify that calling the new toast/dialog functions correctly renders the UI.
+- Run `npm run dev` and manually verify the interactions.
+
+### Manual Verification
+1. Open the app in the browser.
+2. Trigger an action that previously showed an alert (e.g., saving a meeting).
+3. Verify that a toast notification appears instead.
+4. Trigger an action that previously showed a confirm box (e.g., deleting a task).
+5. Verify that a custom modal appears and functions correctly.
+6. Trigger an action that previously showed a prompt (if any).
+7. Verify that a custom prompt modal appears.

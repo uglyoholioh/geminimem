@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Implementation plan for replacing browser alert/confirm/prompt with custom UI components.",
+  "updatedAt":  "2026-03-01T12:02:54.178895Z"
+}

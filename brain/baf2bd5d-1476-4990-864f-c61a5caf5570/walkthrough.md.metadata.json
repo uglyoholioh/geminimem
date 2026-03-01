@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Walkthrough of the Agenda improvements, including multi-day support, rich visuals, and lookahead functionality.",
-  "updatedAt":  "2026-03-01T11:40:56.718284Z"
+  "summary":  "Updated walkthrough to include the bug fix for incorrect date grouping.",
+  "updatedAt":  "2026-03-01T12:03:37.463099Z",
+  "version":  "1"
 }

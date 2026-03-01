@@ -1,0 +1,166 @@
+# Editable Dashboard Widgets
+
+Make the dashboard layout customisable—users can add, remove, reorder, and resize widgets—and introduce 6 new widget types beyond the existing Agenda and Module Hub.
+
+## Current State
+
+![Current Dashboard](dashboard_state_1772367053083.png)
+
+The dashboard (`page.tsx`, 571 lines) renders a **fixed 2-column grid**:
+
+| Left Column | Right Column |
+|---|---|
+| AI Command Center (Brief + Chat) — full height | Upcoming Agenda (`AgendaTimeline`) |
+| | Module Hub (`ModuleHub`) |
+
+The header (`DashboardHeader`) sits above the grid with stat badges. There is **no layout persistence**, no concept of "widgets", and no way to customise what appears.
+
+---
+
+## Proposed New Widgets
+
+### 1. 📊 Grades Snapshot
+A compact view of your current grade per module (letter + %) using data from `/api/v1/grades`. Shows a mini bar or radial for each active course. Clicking expands to the full Grades page.
+
+### 2. 📌 Pinned Notes
+Shows your pinned notes from `/api/v1/notes?pinned_only=true` as small cards. Click to jump directly into the note editor. Great for keeping references visible.
+
+### 3. ⏱️ Focus Timer Mini
+An embedded mini Pomodoro timer (reuses `FocusTimerProvider` context). Shows current session status, today's total focused minutes, and a quick start/pause button—without leaving the dashboard.
+
+### 4. 🔔 Announcements Feed
+Scrollable list of recent unread announcements from `/api/v1/announcements`. Each item shows course badge, title, author, and relative time. "Mark as read" inline.
+
+### 5. ⏰ Upcoming Deadlines
+A focused countdown-style widget showing the next 5 assignment/task deadlines sorted by urgency. Each row has a progress indicator and "days left" badge. Different from the Agenda timeline because it only shows deadlines (no classes) in a compact ranked list.
+
+### 6. ⚡ Quick Add
+A multi-purpose inline creation widget: type a title, select type (task/note/meeting), assign a course, and submit—all without navigating away. Powered by existing POST endpoints.
+
+---
+
+## Proposed Changes
+
+### Widget System Core
+
+#### [NEW] [widgetRegistry.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/widgetRegistry.ts)
+Central registry defining all available widgets:
+```ts
+interface WidgetDefinition {
+  id: string           // e.g. 'agenda', 'module_hub', 'grades_snapshot'
+  label: string        // Human-friendly name
+  icon: LucideIcon     // For the picker
+  description: string  // One-liner
+  defaultSize: { w: number; h: number }  // grid units
+  minSize?: { w: number; h: number }
+  component: React.ComponentType<WidgetProps>  // lazy-loaded
+}
+
+interface WidgetLayout {
+  widgetId: string
+  x: number      // column (0 or 1)
+  y: number      // row position (order within column)
+  w: number      // 1 = half width, 2 = full width
+  h: number      // relative height units
+}
+
+type DashboardConfig = {
+  widgets: WidgetLayout[]
+}
+```
+Exports `WIDGET_REGISTRY`, `DEFAULT_LAYOUT`, and helpers.
+
+---
+
+#### [NEW] [WidgetShell.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/WidgetShell.tsx)
+Generic wrapper that renders around every widget:
+- In **view mode**: just the glass-morphism card with title bar
+- In **edit mode**: shows a drag handle, a ✕ remove button, and resize handle
+- Props: `title`, `icon`, `isEditing`, `onRemove`, `children`
+
+#### [NEW] [WidgetPicker.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/WidgetPicker.tsx)
+A slide-up panel / modal that shows all widgets from `WIDGET_REGISTRY` that aren't currently on the dashboard. Click to add.
+
+#### [NEW] [DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx)
+Replaces the hardcoded grid in `page.tsx`. Responsibilities:
+- Reads `DashboardConfig` from user settings (or uses `DEFAULT_LAYOUT`)
+- Renders widgets in a CSS grid based on config
+- In edit mode: handles drag-to-reorder via HTML5 drag & drop (no heavy lib needed)
+- Exposes an "Edit Layout" toggle button (pencil icon in the header)
+- On save: PATCHes the config to `/api/v1/settings/dashboard_layout`
+
+---
+
+### New Widget Components
+
+#### [NEW] [GradesSnapshot.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/GradesSnapshot.tsx)
+Fetches from `/api/v1/grades`, renders compact grade bars per module.
+
+#### [NEW] [PinnedNotes.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/PinnedNotes.tsx)
+Fetches from `/api/v1/notes`, filters pinned, renders as mini-cards with click-to-navigate.
+
+#### [NEW] [FocusMini.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/FocusMini.tsx)
+Consumes `useFocusTimer()` hook. Shows elapsed time, session count, start/pause button.
+
+#### [NEW] [AnnouncementsFeed.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/AnnouncementsFeed.tsx)
+Fetches from `/api/v1/announcements`, renders scrollable list with mark-as-read.
+
+#### [NEW] [UpcomingDeadlines.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/UpcomingDeadlines.tsx)
+Merges tasks + assignments by due date, renders compact countdown rows.
+
+#### [NEW] [QuickAdd.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/QuickAdd.tsx)
+Inline form with type selector, title input, course dropdown, and submit button.
+
+---
+
+### Existing Component Refactors
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- Replace the hardcoded 2-column grid with `<DashboardLayoutManager />`
+- The **AI Command Center** (left column) stays pinned and is NOT a removable widget—it's the core of the dashboard
+- The right side becomes the widget area managed by the layout manager
+- Add "Edit Layout" button to the header area
+- Move data-fetching for each widget into the widgets themselves (progressive loading)
+
+#### [MODIFY] [AgendaTimeline.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx)
+Adapt to accept data via its own fetch (self-contained) OR from props, so it works as a widget.
+
+#### [MODIFY] [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)
+Same adaptation—self-contained data fetching when used as a widget.
+
+#### [MODIFY] [DashboardHeader.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardHeader.tsx)
+Add "Edit Layout" toggle button (pencil + "Customise" label).
+
+---
+
+### Backend
+
+#### [MODIFY] [settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py)
+Add a `dashboard_layout` key to the user settings JSON. The `GET /api/v1/settings` already returns a JSON blob—we just add a new field. `PATCH /api/v1/settings` already supports partial updates, so this should work out of the box with no schema changes.
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **AI Command Center stays pinned.** The brief/chat panel is always visible on the left and is not part of the editable widget area. Only the right-side content (currently Agenda + Module Hub) becomes customisable. This keeps the core AI experience intact. Let me know if you'd rather make **everything** movable.
+
+> [!NOTE]
+> **No heavy dependency.** Drag-and-drop will use HTML5 native drag events rather than adding `react-beautiful-dnd` or `react-grid-layout`. This keeps the bundle lean. The trade-off is simpler reordering (column-based, not pixel-perfect grid snapping). If you want pixel-perfect free-form layout, we'd need to add a library.
+
+---
+
+## Verification Plan
+
+### Browser Testing
+1. **Edit mode toggle**: Click "Customise" → widgets show drag handles and ✕ buttons → click "Done" to exit edit mode
+2. **Add widget**: Open widget picker → add "Grades Snapshot" → it appears in the layout
+3. **Remove widget**: In edit mode, click ✕ on a widget → it disappears → it reappears in the picker
+4. **Reorder**: Drag a widget above/below another → order updates
+5. **Persistence**: Customise layout → reload page → layout is preserved
+
+### Manual Verification
+- Each new widget loads its data correctly (check Network tab)
+- Quick Add widget successfully creates a task
+- Focus Mini widget reflects the global timer state
+- Grades Snapshot shows correct percentages matching the Grades page

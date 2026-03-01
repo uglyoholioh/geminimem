@@ -1,52 +1,39 @@
-# Implementation Plan - Module Hub Improvements
+# Module Hub Complete Redesign
 
-The goal is to enhance the Module Hub (dashboard and courses page) to be more visually appealing ("premium"), provide better at-a-glance information, and improve the user experience for managing modules.
-
-## User Review Required
-
-> [!IMPORTANT]
-> I will be consolidating the Module Hub card design. The dashboard cards will remain more compact than the courses page cards, but they will share a unified aesthetic.
+The objective is to overhaul the Module Hub (specifically the Module Detail Page) into a premium, command-center-like experience. This involves moving from a standard tabbed interface to a more dynamic, "Bento Grid" based layout with immersive aesthetics.
 
 ## Proposed Changes
 
-### Dashboard
+### [Component] Module Detail Page (`frontend/app/courses/[id]/page.tsx`)
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/[id]/page.tsx)
+- **Layout Structure**: 
+    - Replace horizontal tabs with a **vertical navigation sidebar** for better horizontal space utilization.
+    - Implement a **"Bento Grid"** for the Overview tab, featuring distinct tiles for:
+        - **Critical Tasks**: Next 3 deadlines.
+        - **Module Pulse**: Circular progress for completion and current grade.
+        - **Recent Announcements**: Last 2 unread or important messages.
+        - **Module Meta**: Credits, Workload, and Exam details.
+- **Aesthetics**:
+    - **Immersive Hero**: Large background typography of the module code with a frosted glass overlay.
+    - **Dynamic Colors**: Use the module's color for subtle accents throughout the page (gradients, shadows, icons).
+    - **Premium Shadows**: Use "shadow-premium" style (soft, large spread, low opacity).
+- **Functionality**:
+    - **Integrated AI**: Move the "Module Brief" into a more prominent role, potentially as a split-pane view or a refined chat bubble that persists.
+    - **Robustness**: Fix potential backend crashes for specific courses and add graceful loading/error skeletons.
+
+### [Component] Dashboard Hub (`frontend/components/dashboard/ModuleHub.tsx`)
 
 #### [MODIFY] [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)
-- **Visuals**: Enhance the card design with better glassmorphism (subtle border glows, refined backdrop-blur).
-- **Content**:
-    - Update the normal view to show the module name below the code (using truncated text).
-    - Refine the hover overlay to be less intrusive or more informative.
-    - Implement a "Quick Stats" row on hover that shows specific counts (e.g., "2 Due Today").
-- **UX**: Rename "VISIBILITY" to "MANAGE" and improve the toggle animation/feedback.
-
-### Courses Page
-
-#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/page.tsx)
-- **Visuals**: Match the new "premium" aesthetic of the dashboard.
-- **Content**: 
-    - Add "Rich Metadata" display (e.g., Credits, Exam Date) to the `CourseCard`.
-    - Improve the layout for better information density.
-- **Interaction**: Change "Hide/Show" to "Pin to Dashboard" for better clarity on what the toggle does.
-
-### Shared / Library
-
-#### [MODIFY] [types.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts)
-- Ensure all rich metadata fields are available in the frontend `Course` type.
-
----
+- **Grid Refinement**: Ensure the grid layout is optimized for the new larger card sizes.
+- **Sync Visuals**: Align the card aesthetics with the new Detail Page (borders, glows).
 
 ## Verification Plan
 
 ### Automated Tests
-- Run `npm run test` to ensure no regressions in existing dashboard components.
-- Check for build errors with `npm run build` (or `next build`).
+- Run `npm run build` to ensure no regression in types or build process.
+- Use the browser subagent to verify navigation and responsiveness.
 
 ### Manual Verification
-1.  **Dashboard**:
-    - Verify that module cards show the module name.
-    - Verify hover effects and quick actions.
-    - Test the "Manage" (formerly Visibility) toggle to ensure modules can be hidden/shown correctly.
-2.  **Courses Page**:
-    - Verify the updated `CourseCard` design.
-    - Verify that "Pin to Dashboard" correctly reflects the `is_active` status.
-    - Check if rich metadata (like credits) displays correctly if available.
+- Verify that clicking each module in the dashboard leads to the correctly redesigned detail page.
+- Test the new vertical navigation and Bento grid interactions.

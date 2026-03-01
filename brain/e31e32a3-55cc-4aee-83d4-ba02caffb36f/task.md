@@ -1,0 +1,11 @@
+# Task: Visual Check and Font Size Optimization
+
+- [x] Explore the app and identify small font sizes <!-- id: 0 -->
+    - [x] Run the app locally and navigate through key pages <!-- id: 1 -->
+    - [x] Inspect font sizes in the Dashboard, Timetable, and Course pages <!-- id: 2 -->
+- [x] Create an implementation plan to increase font sizes where necessary <!-- id: 3 -->
+- [x] Implement font size adjustments <!-- id: 4 -->
+    - [x] Update global typography if needed <!-- id: 5 -->
+    - [x] Adjust specific components (Timetable, Dashboard, etc.) <!-- id: 6 -->
+- [x] Verify the changes <!-- id: 7 -->
+- [x] Finalize the walkthrough <!-- id: 8 -->

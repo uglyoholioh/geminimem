@@ -4,12 +4,13 @@ I have implemented a series of visual and functional improvements to the Module 
 
 ## Dashboard Improvements
 
-- **Better Identity**: Module cards now display the full module name alongside the code, making them easier to identify.
-- **Improved UX**: Renamed "VISIBILITY" to "MANAGE" and updated the icon to `Maximize2`.
-- **Quick Stats**: Each card now shows a mini-row of pending tasks and assignments.
-- **Premium Visuals**: Enhanced glassmorphism with subtle borders, hover glows, and refined backdrop blurs.
+- **Minimalist Identity**: Dashboard module cards now show **only module codes** for an ultra-clean, focused view.
+- **Improved Hierarchy**: Increased card size (`min-h-[100px]`) and padding for a more premium presence.
+- **Permanent Visibility**: All action buttons (New Task/Note and Footer actions) are now **permanently visible**. The pop-up animations and "hidden" nature have been removed for immediate access.
+- **Quick Stats**: Prominent stat badges for pending tasks and assignments are always accessible.
+- **Visual Polish**: Stronger hover states with shadow-lg and soft glow effects, without the clutter of moving parts.
 
-![Dashboard Module Hub](file:///Users/oli/.gemini/antigravity/brain/d6637fe2-95f8-4984-b6e1-5dd76fc2c176/module_hub_hover_1772365390414.png)
+![Dashboard Module Hub Permanent Buttons](/Users/oli/.gemini/antigravity/brain/d6637fe2-95f8-4984-b6e1-5dd76fc2c176/module_hub_verification_1772367015902.png)
 
 ## Courses Page Improvements
 
@@ -17,7 +18,7 @@ I have implemented a series of visual and functional improvements to the Module 
 - **Consolidated Actions**: Changed "Hide/Show" to "Pin/Unpin" to clarify the action's effect on the dashboard.
 - **Refined Layout**: Improved the grid layout and card headers for better readability.
 
-![Courses Page Grid](file:///Users/oli/.gemini/antigravity/brain/d6637fe2-95f8-4984-b6e1-5dd76fc2c176/course_card_details_1772365482466.png)
+![Courses Page Grid](/Users/oli/.gemini/antigravity/brain/d6637fe2-95f8-4984-b6e1-5dd76fc2c176/course_card_details_1772365482466.png)
 
 ## Verification Results
 

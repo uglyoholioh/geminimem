@@ -1,0 +1,31 @@
+# Task: Visual Check of Font Sizes
+
+## Plan
+- [/] Open http://localhost:3000
+- [ ] Log in if necessary
+- [x] Dashboard Check
+    - [x] Widgets font size: Found many text-[10px] (e.g., CUSTOMISE button, stats labels, command center times).
+    - [x] Main content font size: Greeting (H1) is fine, but stats and secondary text are small (10px).
+- [x] Timetable Page Check
+    - [x] Class titles font size: 10px font-medium.
+    - [x] Times and dates font size: 10px/11px font-mono. Module badges 10px/11px.
+- [ ] Course Page Check
+    - [ ] Course details font size
+- [ ] Identify small elements (<14px or 16px)
+- [ ] Report findings
+
+## Findings
+- Dashboard:
+    - `CUSTOMISE` / `MANAGE` buttons: 10px
+    - Stats labels (`TASKS`, `CLASSES`, etc.): 10px
+    - Command Center timestamps: 10px
+    - `TODAY` label in Agenda: 10px
+    - Agenda course titles: 11px
+    - Agenda course codes: 9px
+- Timetable:
+    - Time headers (10:00, etc.): 10px
+    - Class titles: 10px
+    - Class metadata (location, time range): 10px/11px
+    - Module badges: 9px/11px
+    - Day labels (Mon Mar 2): 12px but secondary text is smaller.
+    - Weekly Insights labels: 10px

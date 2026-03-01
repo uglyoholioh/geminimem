@@ -1,0 +1,170 @@
+[0] (19,38)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (19,110)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/' title='Dashboard' />
+[2] (19,163)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (19,250)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (19,303)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (19,355)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (19,408)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (19,461)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (19,548)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (19,600)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (19,653)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (19,856)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[12] (19,909)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Good evening
+, Oli
+Sunday, March 1
+[13] (225,80)<button class='
+                            flex items-center gap-2 px-3 py-1.5 rounded-xl border font-mono text-[10px] font-bold uppercase tracking-wider transition-all active:scale-95
+                            bg-accent text-white border-accent shadow-lg shadow-accent/20
+                        '>Save Layout />
+1
+tasks
+3
+classes
+0
+min focused
+3
+due
+[14] (933,80)<button class='relative group transition-transform active:scale-95' />
+	10
+	unread
+[15] (508,551)<div class='flex-1 min-h-0 overflow-y-auto pr-1' scrollable='true' />
+	Command Center
+	[16] (385,142)<select class='bg-base border border-border/50 rounded px-2 py-0.5 text-[10px] font-mono text-muted focus:outline-none focus:border-accent' />
+	[17] (439,142)<button class='flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-surface-hover transition-colors text-[10px] font-mono text-yellow-500'>9m ago />
+		9m ago
+	[18] (478,142)<a class='h-7 w-7 rounded-lg flex items-center justify-center text-muted hover:text-accent hover:bg-accent-subtle/30 transition-all' href='/brief' />
+	[19] (274,568)<div class='flex-1 overflow-y-auto px-4 py-2 space-y-3 min-h-0' scrollable='true' />
+		what do i have to prepare for tomorrow?
+		11:34 AM
+		Let me check your assignments and tasks for you.
+		You have the following due tomorrow, March 2nd:
+		Online Video: Linear Regression (BT1101) - due in 1 day(s)
+		Quiz 7 - Linear Regression (BT1101) - due in 1 day(s)
+		As for tasks, there are no tasks due tomorrow.
+		However, I recommend checking the announcements section to see if there's any important information or reminders from your lecturers.
+		Would you like me to suggest any actions based on this information?
+		11:35 AM
+		can you check again?
+		12:16 PM
+		Let me re-check your assignments and tasks for tomorrow, March 2nd.
+		You have the following due in a few days:
+		Online Video: Linear Regression (BT1101) — due in 4 day(s)
+		Quiz 7 - Linear Regression (BT1101) — due in 4 day(s)
+		However, I noticed that you also have a task "Debug Task" which is due on February 27th.
+		As for tasks and assignments due tomorrow specifically, there's nothing due yet.
+		Would you like me to suggest any actions based on this information?
+		12:16 PM
+	[20] (87,852)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[EXAM_PREP] />
+	[21] (160,852)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[SYLLABUS_CHECK] />
+	[22] (243,852)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[TASK_BREAKDOWN] />
+	[23] (322,852)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[WEEKLY_RECAP] />
+	[24] (258,904)<input class='flex-1 rounded-lg border border-border bg-base px-3 py-2 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none disabled:opacity-50' placeholder='Ask about your schedule, tasks, module materials...' />
+	[25] (735,526)<div class='lg:h-[calc(100vh-140px)] min-w-0 overflow-y-auto pr-1 pb-4' scrollable='true' />
+		[26] (732,347)<div  />
+			Upcoming Agenda
+			[27] (732,374)<div  />
+				[28] (732,374)<section  />
+					[29] (732,189)<div  />
+						[30] (565,190)<h2 >Upcoming Agenda />
+						[31] (925,190)<div >20:20 />
+					[32] (732,378)<div  />
+						[33] (732,365)<div  />
+							[34] (732,365)<div  />
+								[35] (732,239)<div  />
+									[36] (544,239)<span >Tomorrow />
+									[37] (754,239)<div  />
+								[38] (732,289)<div  />
+									[39] (536,289)<div >10:00 />
+									[40] (566,272)<div  />
+										[41] (566,272)<div  />
+									[42] (762,289)<div  />
+										[43] (762,289)<div  />
+											[44] (643,289)<div  />
+												[45] (643,280)<div  />
+													[46] (607,280)<span >BT1101 />
+													[47] (661,280)<span >BT1101 Laboratory />
+												[48] (643,302)<div  />
+													[49] (620,302)<span >COM4-02-03 />
+											[50] (929,276)<div  />
+								[51] (732,377)<div  />
+									[52] (536,377)<div >12:00 />
+									[53] (566,359)<div  />
+										[54] (566,359)<div  />
+									[55] (762,377)<div  />
+										[56] (762,377)<div  />
+											[57] (639,377)<div  />
+												[58] (639,368)<div  />
+													[59] (607,368)<span >CS2030 />
+													[60] (658,368)<span >CS2030 Lecture />
+												[61] (639,390)<div  />
+													[62] (607,390)<span >LT19 />
+											[63] (929,363)<div  />
+								[64] (732,464)<div  />
+									[65] (536,464)<div >14:00 />
+									[66] (566,447)<div  />
+										[67] (566,447)<div  />
+									[68] (762,464)<div  />
+										[69] (762,464)<div  />
+											[70] (642,464)<div  />
+												[71] (642,455)<div  />
+													[72] (609,455)<span >GEX1015 />
+													[73] (663,455)<span >GEX1015 Tutorial />
+												[74] (642,477)<div  />
+													[75] (615,477)<span >AS3-0212 />
+											[76] (929,450)<div  />
+					[77] (732,563)<div  />
+						[78] (575,564)<div >Class
+Deadline
+Task />
+							[79] (524,564)<span  />
+							[80] (560,564)<span  />
+							[81] (606,564)<span  />
+		[82] (732,632)<div  />
+			[83] (558,634)<h2 >Module Hub />
+			[84] (934,634)<button aria-label='Remove Module Hub' class='h-6 w-6 rounded-full flex items-center justify-center text-muted hover:text-urgency hover:bg-urgency-subtle/30 transition-all active:scale-90' />
+		[85] (732,690)<div  />
+			[86] (556,689)<div  />
+				[87] (529,689)<div  />
+				[88] (566,689)<h2 >Module Hub />
+			[89] (903,689)<div  />
+				[90] (890,689)<button class='h-7 px-2 rounded-lg border flex items-center gap-1.5 text-[10px] font-mono transition-all border-border text-muted hover:text-accent hover:border-accent/40 shadow-sm'>MANAGE />
+				[91] (931,689)<a class='text-[10px] font-mono text-accent hover:underline flex items-center gap-0.5 group' href='/courses'>ALL />
+		[92] (624,824)<div  />
+			[93] (520,824)<div  />
+			[94] (624,788)<div  />
+				[95] (624,768)<div  />
+					[96] (554,768)<div  />
+						[97] (548,768)<span >BT1101 />
+						[98] (575,768)<span  />
+					[99] (697,768)<div  />
+						[100] (686,768)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/tasks?module=BT1101&action=new' title='New Task' />
+						[101] (708,768)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/notes?module=BT1101&action=new' title='New Note' />
+				[102] (624,812)<div  />
+					[103] (541,812)<span >1 />
+			[104] (624,870)<div  />
+				[105] (563,871)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/courses/17' title='Open Module' />
+				[106] (624,871)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/tasks?module=BT1101' title='Tasks' />
+				[107] (685,871)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/notes?module=BT1101' title='Notes' />
+		[108] (840,824)<div  />
+			[109] (737,824)<div  />
+			[110] (840,788)<div  />
+				[111] (840,768)<div  />
+					[112] (770,768)<div  />
+						[113] (765,768)<span >CS2030 />
+						[114] (791,768)<span  />
+					[115] (914,768)<div  />
+						[116] (903,768)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/tasks?module=CS2030&action=new' title='New Task' />
+						[117] (924,768)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/notes?module=CS2030&action=new' title='New Note' />
+				[118] (840,812)<div  />
+					[119] (758,812)<span >1 />
+			[120] (840,870)<div  />
+				[121] (779,871)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/courses/18' title='Open Module' />
+				[122] (840,871)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/tasks?module=CS2030' title='Tasks' />
+				[123] (901,871)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/notes?module=CS2030' title='Notes' />
+		GES1035/GESS1025
+		1
+		GEX1015/GET1029
+		Clear schedule

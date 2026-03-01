@@ -1,0 +1,9 @@
+# Task: Remove Browser Alerts and Replace with In-App UI
+
+- [ ] Audit codebase for `alert()`, `confirm()`, and `prompt()` <!-- id: 0 -->
+- [ ] Implement or verify existing Toast/Notification system <!-- id: 1 -->
+- [ ] Implement or verify existing Modal/Dialog system for confirmations <!-- id: 2 -->
+- [ ] Replace `alert()` calls with Toasts <!-- id: 3 -->
+- [ ] Replace `confirm()` calls with Modals <!-- id: 4 -->
+- [ ] Replace `prompt()` calls with Modals/Forms <!-- id: 5 -->
+- [ ] Verify changes in the browser <!-- id: 6 -->

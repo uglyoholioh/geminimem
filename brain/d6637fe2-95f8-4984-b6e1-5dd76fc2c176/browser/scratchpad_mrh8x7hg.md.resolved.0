@@ -1,0 +1,9 @@
+# Task: Verify Module Hub Improvements
+
+- [ ] Navigate to the dashboard
+- [ ] Inspect Module Hub cards for button visibility (WITHOUT hovering)
+    - [ ] Quick Actions (New Task/Note) visible
+    - [ ] Footer buttons (Maximize, Tasks, Notes) visible
+- [ ] Verify no hover animations for buttons
+- [ ] Capture screenshot
+- [ ] Provide summary findings

@@ -1,0 +1,53 @@
+# Walkthrough - Removing Browser Alerts
+
+The application has been upgraded to replace all native browser dialogs (`alert`, [confirm](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiStore.ts#60-78), [prompt](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiStore.ts#79-99)) with a premium, integrated UI feedback system. This ensures a consistent and modern user experience throughout CraftCanvas.
+
+## Changes
+
+### 1. In-App UI Infrastructure
+- **[uiStore.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiStore.ts)**: Created a centralized Zustand store to manage toasts and global dialogs.
+- **[Toaster.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ui/Toaster.tsx)**: A new component for elegant, animated toast notifications with support for Success, Error, Warning, and Info states.
+- **[GlobalDialog.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ui/GlobalDialog.tsx)**: A flexible modal system that handles confirmation requests and user prompts with custom inputs.
+- **[ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx)**: Integrated the [Toaster](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ui/Toaster.tsx#23-59) and [GlobalDialog](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ui/GlobalDialog.tsx#8-97) into the main application structure.
+
+### 2. Codebase Refactoring
+Every instance of native browser interactions was identified and refactored:
+- **Meetings**: Refactored meeting creation, deletion, and sharing flows.
+- **Timetable**: Replaced native dialogs in AI planning, URL imports, and event management.
+- **Daily Brief**: Updated feedback submission to use in-app prompts.
+- **Tasks & Notes**: Secured deletion flows with the new confirmation modal.
+- **Grades**: Modernized the data migration and component deletion experience.
+- **Courses**: Integrated the new system into the Knowledge Base file management.
+
+## Verification Results
+
+### Automated Audit
+- Ran `grep` across the entire project to ensure no `alert(`, [confirm(](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiStore.ts#60-78), or [prompt(](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiStore.ts#79-99) calls remain in active code.
+- Verified that all new `useUIStore` calls are correctly typed and awaited where necessary.
+
+### Visual & Interactive
+- **Toasts**: Success notifications (e.g., "Link Copied") and error messages now appear as sleek, animated cards.
+- **Dialogs**: Confirmation requests (e.g., "Delete Task?") now use a consistent modal design that matches the application's aesthetic.
+- **Prompts**: Input requests (e.g., AI Plan title) are handled within a modern dialog interface instead of a browser-native popup.
+
+## Proof of Work
+
+````carousel
+```typescript
+// Example of the new premium confirmation flow
+const confirmed = await useUIStore.getState().confirm({
+    title: 'Delete Meeting',
+    message: 'Are you sure you want to delete this meeting finder? This will remove all participant data.',
+    confirmLabel: 'Delete',
+    cancelLabel: 'Keep'
+})
+if (confirmed) {
+    // perform deletion
+}
+```
+<!-- slide -->
+```typescript
+// Example of the new toast notification
+useUIStore.getState().addToast("Copied to clipboard!", "success")
+```
+````

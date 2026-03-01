@@ -1,0 +1,10 @@
+# Task: Inspect Module Hub Improvements
+
+## Checklist
+- [ ] Navigate to the dashboard (http://localhost:3000)
+- [ ] Verify module cards show only module codes
+- [ ] Verify card size is increased
+- [ ] Verify 'Quick Actions' and 'Footer Actions' are visible and clickable on hover
+- [ ] Verify 'Quick Stats' clarity
+- [ ] Capture screenshot of hovered module card
+- [ ] Summarize findings

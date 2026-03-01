@@ -1,0 +1,13 @@
+# Task: Removing Browser Alerts
+
+- [x] Initial Audit: Identify all instances of `alert`, [confirm](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiStore.ts#60-78), and [prompt](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiStore.ts#79-99) in the frontend codebase.
+- [x] Implement UI Feedback System:
+    - [x] Create [uiStore.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiStore.ts) (Zustand) for global state.
+    - [x] Build [Toaster.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ui/Toaster.tsx) for notifications.
+    - [x] Build [GlobalDialog.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ui/GlobalDialog.tsx) for confirmations and prompts.
+    - [x] Integrate components into [ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx).
+- [x] Refactor Components:
+    - [x] Replace native calls in Timetable ([app/timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)).
+    - [x] Replace native calls in Meetings ([app/meetings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/meetings/page.tsx), `app/meetings/[token]/page.tsx`, etc.).
+    - [x] Replace native calls in Tasks, Notes, Grades, and Courses.
+- [x] Final Verification: Run audit again and verify all interactions work as expected.
