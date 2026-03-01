@@ -1,0 +1,42 @@
+# Walkthrough - Enhanced Timetable Events
+
+I have significantly improved the timetable event system, moving from a basic title-only prompt to a full-featured management system.
+
+## Changes Made
+
+### Frontend Enhancements
+- **New Event Modal**: Replaced the simple prompt with a dedicated [EventModal](file:///Users/oli/Desktop/CraftCanvas/frontend/components/timetable/EventModal.tsx#29-191) component.
+    - **Duration Support**: Users can now set specific start and end times for events.
+    - **Categories**: Added support for 'Study', 'Meeting', 'Personal', and 'Deadline' categories.
+    - **Visual Cues**: Each category has a dedicated icon (Book, Users, Alert, etc.) and a consistent color scheme.
+    - **Editing**: Clicking an existing event now opens the modal for modification or deletion.
+- **Styling Fix**: Resolved a build error in [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css) where an unknown `glass` utility was being applied incorrectly.
+
+### Backend Updates
+- **Update Endpoint**: Added `PUT /api/v1/timetable/events/{event_id}` to support modifying existing events.
+- **Routing Fix**: Identified and removed a stale `.pyc` file that was causing `405 Method Not Allowed` errors on the new routes.
+
+## Verification Results
+
+### Automated Testing
+The following browser recording demonstrates the new event creation and editing flow:
+![Enhanced Event Flow](file:///Users/oli/.gemini/antigravity/brain/f51e80ec-111f-4075-afdb-481a07df1785/verify_enhanced_events_1772386121932.webp)
+
+#### Test Steps & Validation:
+1. **Creation**: Successfully created a "Meeting with Team" event with a 1.5-hour duration and "Meeting" category.
+2. **Visuals**: Confirmed the event appears on the grid with the correct icon and purple meeting color.
+3. **Editing**: Verified that clicking the event opens the modal with pre-filled details.
+4. **API Stability**: Direct `curl` tests confirmed that the `PUT` and `DELETE` endpoints are now correctly routed and active.
+
+```bash
+# Verification of PUT endpoint availability
+curl -X PUT http://localhost:8000/api/v1/timetable/events/1 ...
+< HTTP/1.1 401 Unauthorized # Confirms route exists and is protected
+```
+
+### Manual Verification
+- Users can now click any empty slot to create an event with a specific duration.
+- Clicking an existing personal event allows for immediate updates or deletion via the red "Delete" button in the modal.
+
+---
+**Status**: All tasks completed and verified.

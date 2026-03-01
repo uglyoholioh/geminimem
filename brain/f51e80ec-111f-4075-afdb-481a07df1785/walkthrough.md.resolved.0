@@ -1,0 +1,26 @@
+# Walkthrough - Timetable Event Fix
+
+I have resolved the issue where personal events in the timetable were not displaying or functioning correctly.
+
+## Changes Made
+
+### Frontend
+- **Updated [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)**:
+    - Added logic to the horizontal view to correctly identify and render personal events.
+    - Fixed the rendering of event titles (previously showing as "CLS").
+    - Implemented a category-based label (e.g., "STUDY", "MEETING", "PERSONAL") for events.
+    - Added a delete button to the horizontal view for personal events, matching the vertical view's functionality.
+    - Improved consistency of event styling (dashed borders and color-coded labels).
+
+## Verification Results
+
+### Automated Browser Testing
+I used a browser subagent to verify the fix in the actual application:
+1. **Event Creation**: A new event "Verify Fix Horizontal" was successfully created in Horizontal mode.
+2. **Title & Label Verification**: The event block correctly displayed the title and the "PERSONAL" category label instead of the generic "CLS" label.
+3. **Deletion**: The delete button was visible and functional, successfully removing the event from the timetable.
+
+![Verification Recording](file:///Users/oli/.gemini/antigravity/brain/f51e80ec-111f-4075-afdb-481a07df1785/verify_timetable_fix_horizontal_1772385841030.webp)
+
+## Final Status
+The timetable now correctly handles both academic classes and personal events in all view modes.

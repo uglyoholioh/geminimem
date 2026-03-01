@@ -1,0 +1,254 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Week 7
+•
+Sem 2 · AY2025-2026
+•
+Mar 2
+—
+Mar 8
+[13] (568,77)<button class='flex items-center gap-1.5 px-3 h-9 text-xs font-mono font-medium border border-accent/20 bg-accent/5 text-accent hover:bg-accent/10 transition-colors rounded-sm mr-2' title='Suggest Study Blocks'>AI Plan />
+[14] (626,77)<button class='h-full flex items-center gap-1.5 px-3 transition-colors text-muted hover:bg-surface-hover' title='Show Tasks'>Tasks />
+	Tasks
+[15] (667,77)<button class='w-10 h-full flex items-center justify-center transition-colors text-muted hover:bg-surface-hover' title='Horizontal View (Days on Y, Time on X)' />
+[16] (689,77)<button class='w-10 h-full flex items-center justify-center transition-colors bg-primary/10 text-primary' title='Vertical View (Time on Y, Days on X)' />
+[17] (717,77)<button class='h-9 w-9 flex items-center justify-center border border-border bg-surface hover:bg-surface-hover transition-colors rounded-sm' />
+[18] (750,77)<button class='px-4 h-9 border border-border bg-surface text-xs font-mono font-medium uppercase tracking-widest text-primary hover:bg-surface-hover transition-colors rounded-sm'>Today />
+[19] (783,77)<button class='h-9 w-9 flex items-center justify-center border border-border bg-surface hover:bg-surface-hover transition-colors rounded-sm' />
+[20] (823,77)<label class='cursor-pointer hidden sm:block' />
+	[21] (823,77)<span >ICS />
+[22] (900,77)<input class='bg-transparent border-none text-xs font-mono h-full px-3 w-48 focus:ring-0 placeholder:text-muted' placeholder='Paste NUSMods URL...' />
+[23] (506,506)<div class='overflow-x-auto' scrollable='true' />
+	Time
+	Mon
+	Mar 2
+	Tue
+	Mar 3
+	Wed
+	Mar 4
+	Thu
+	Mar 5
+	Fri
+	Mar 6
+	10:00
+	[24] (161,263)<td  />
+		BT1101
+		LAB
+		[02]
+		[25] (235,216)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+		Introduction to Business Analytics
+		10:00
+		–
+		12:00
+		COM4-02-03
+	[26] (330,226)<td  />
+	[27] (506,263)<td  />
+		[28] (506,265)<div  />
+			[29] (506,217)<div  />
+				[30] (478,217)<div  />
+					[31] (423,217)<span  />
+					[32] (463,217)<span >Meeting with Team />
+					[33] (518,217)<span >MEETING />
+				[34] (588,217)<div  />
+					[35] (588,217)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-urgency hover:bg-urgency/10 opacity-0 group-hover:opacity-100' title='Delete event' />
+			[36] (506,313)<div  />
+				[37] (506,315)<div  />
+					[38] (447,315)<span >10:00
+–
+11:30 />
+	[39] (698,263)<td  />
+		GESS1025
+		TUT
+		[D30]
+		[40] (785,216)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+		Singapore: Imagining the Next 50 Years
+		10:00
+		–
+		12:00
+		UTSRC-SR5
+	[41] (882,263)<td  />
+		CS2030
+		LAB
+		[10D]
+		[42] (956,216)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+		Programming Methodology II
+		10:00
+		–
+		12:00
+		COM1-0120
+	11:00
+	[43] (330,296)<td  />
+		[44] (330,298)<div  />
+			[45] (330,283)<div  />
+				[46] (304,283)<div  />
+					[47] (257,283)<span  />
+					[48] (287,283)<span >Test Event 1 />
+					[49] (334,283)<span >PERSONAL />
+				[50] (401,283)<div  />
+					[51] (401,283)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-urgency hover:bg-urgency/10 opacity-0 group-hover:opacity-100' title='Delete event' />
+			[52] (330,313)<div  />
+				[53] (330,315)<div  />
+					[54] (281,315)<span >11:00
+–
+12:00 />
+	12:00
+	[55] (161,445)<td  />
+		CS2030
+		LEC
+		[1]
+		[56] (235,356)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+		Programming Methodology II
+		12:00
+		–
+		14:00
+		LT19
+	[57] (330,389)<td  />
+	[58] (506,389)<td  />
+	[59] (698,389)<td  />
+	[60] (882,389)<td  />
+		BT1101
+		TUT
+		[3]
+		[61] (956,356)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+		Introduction to Business Analytics
+		12:00
+		–
+		13:00
+		COM3-01-21
+	13:00
+	[62] (330,502)<td  />
+	[63] (506,502)<td  />
+		CS2030
+		REC
+		[01]
+		[64] (588,469)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+		Programming Methodology II
+		13:00
+		–
+		14:00
+		COM3-01-21
+	[65] (698,502)<td  />
+	[66] (882,502)<td  />
+	14:00
+	[67] (161,614)<td  />
+		GEX1015
+		TUT
+		[W3]
+		[68] (235,582)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+		Life, the Universe, and Everything
+		14:00
+		–
+		15:00
+		AS3-0212
+	[69] (330,614)<td  />
+	[70] (506,614)<td  />
+	[71] (698,614)<td  />
+	[72] (882,651)<td  />
+		GEX1015
+		LEC
+		[1]
+		[73] (956,582)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted bg-black/10 hover:bg-black/20 opacity-100' title='Mark as attended' />
+		Life, the Universe, and Everything
+		14:00
+		–
+		16:00
+		LT11
+	15:00
+	[74] (161,708)<td  />
+		[75] (161,710)<div  />
+			[76] (161,695)<div  />
+				[77] (118,695)<div  />
+					[78] (86,695)<span  />
+					[79] (102,695)<span >study />
+					[80] (135,695)<span >PERSONAL />
+				[81] (234,695)<div  />
+					[82] (234,695)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-urgency hover:bg-urgency/10 opacity-0 group-hover:opacity-100' title='Delete event' />
+			[83] (161,724)<div  />
+				[84] (161,726)<div  />
+					[85] (110,726)<span >15:00
+–
+16:00 />
+	[86] (330,708)<td  />
+	[87] (506,708)<td  />
+	[88] (698,708)<td  />
+	16:00
+	[89] (161,781)<td  />
+		[90] (161,783)<div  />
+			[91] (161,769)<div  />
+				[92] (133,769)<div  />
+					[93] (86,769)<span  />
+					[94] (116,769)<span >erdcftvgyhjn />
+					[95] (163,769)<span >PERSONAL />
+				[96] (234,769)<div  />
+					[97] (234,769)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-urgency hover:bg-urgency/10 opacity-0 group-hover:opacity-100' title='Delete event' />
+			[98] (161,798)<div  />
+				[99] (161,800)<div  />
+					[100] (110,800)<span >16:00
+–
+17:00 />
+	[101] (330,815)<td  />
+		MA1522
+		LEC
+		[2]
+		[102] (401,768)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+		Linear Algebra for Computing
+		16:00
+		–
+		18:00
+		LT16
+	[103] (506,781)<td  />
+	[104] (698,815)<td  />
+		BT1101
+		LEC
+		[1]
+		[105] (785,768)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted bg-black/10 hover:bg-black/20 opacity-100' title='Mark as attended' />
+		Introduction to Business Analytics
+		16:00
+		–
+		18:00
+		I3-LT38
+	[106] (882,815)<td  />
+		MA1522
+		LEC
+		[2]
+		[107] (956,768)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+		Linear Algebra for Computing
+		16:00
+		–
+		18:00
+		LT16
+	17:00
+	[108] (161,852)<td  />
+	[109] (506,852)<td  />
+Weekly Insights
+Contact Hours
+23.5
+hrs
+Busiest Day
+Friday
+7
+hrs of classes
+Skipped Classes
+2
+classes
+Active Modules
+5
+mods
+
+</current_dom>

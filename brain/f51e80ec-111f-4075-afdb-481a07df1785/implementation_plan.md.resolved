@@ -1,0 +1,42 @@
+# Implementation Plan - Simplifying Animations and Adding Toggle
+
+The goal is to simplify the landing/loading animations for the Dashboard and Timetable pages and provide a user setting to toggle these animations.
+
+## User Review Required
+> [!NOTE]
+> I will be adding a new setting `enable_animations` (default: `true`). This will be available under the 'Appearance' tab in Settings.
+
+## Proposed Changes
+
+### Backend
+#### [MODIFY] [routers/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py)
+- Ensure the retrieval of all settings handles the new `enable_animations` key appropriately (though the current implementation is generic enough).
+
+### Frontend
+#### [MODIFY] [app/settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)
+- Add `enable_animations` to the [AppSettings](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx#40-60) type.
+- Add a toggle for animations under the "Appearance" tab.
+
+#### [MODIFY] [app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- Fetch the `enable_animations` setting.
+- Unify the layout entrance. Instead of nested animations, use a single `AnimatePresence` or container-level motion with a subtle fade (0 to 1) and a smooth, single-step slide (e.g., 8px).
+- Ensure no "2-part" movement occur by coordinating with [WidgetShell](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/WidgetShell.tsx#18-84).
+
+#### [MODIFY] [app/timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+- Apply a similar unified fade + slide effect to the timetable grid.
+
+#### [MODIFY] [components/dashboard/WidgetShell.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/WidgetShell.tsx)
+- Simplify or remove individual widget entrance animations if the parent container already handles it, or ensure they are perfectly synced.
+- Re-introduce subtle `opacity` transition for a softer, more "natural" appearance.
+
+#### [MODIFY] [app/globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css)
+- Review and refine global transition variables if necessary to ensure "smoothness" without "extra adjustment".
+
+## Verification Plan
+### Automated Tests
+- Browser subagent will verify that the toggle exists in settings.
+- Browser subagent will verify that toggling it affects the presence of animation classes or motion properties (visually verified).
+
+### Manual Verification
+- Manually check the "Appearance" tab for the new toggle.
+- Verify the animation feels like "loading in" rather than "adjusting".

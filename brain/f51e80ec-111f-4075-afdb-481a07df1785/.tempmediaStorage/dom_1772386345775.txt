@@ -1,0 +1,76 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+1
+/
+1
+Next.js 16.1.6
+Turbopack
+Build Error
+[0] (701,180)<button aria-label='Copy Error Info' class='copy-error-button nextjs-data-copy-button nextjs-data-copy-button--initial' title='Copy Error Info' />
+[1] (736,180)<button class='nodejs-inspector-button' title='Attach Node.js inspector' />
+Error evaluating Node.js code
+./app/globals.css
+[2] (730,273)<button aria-label='Open in editor' />
+	[3] (730,272)<span  />
+[4] (500,419)<pre class='code-frame-pre' scrollable='true' />
+	Error
+	evaluating
+	Node.js
+	code
+	CssSyntaxError:
+	tailwindcss:
+	/Users/oli/Desktop/CraftCanvas/frontend/app/globals.css:1:1:
+	Cannot
+	apply
+	unknown
+	utility
+	class
+	`glass`
+	[at
+	Input.error
+	(turbopack:///[project]/node_modules/postcss/lib/input.js:135:16)]
+	[at
+	Root.error
+	(turbopack:///[project]/node_modules/postcss/lib/node.js:146:32)]
+	[at
+	Object.Once
+	(/Users/oli/Desktop/CraftCanvas/frontend/node_modules/@tailwindcss/postcss/dist/index.js:10:6913)]
+	[at
+	async
+	LazyResult.runAsync
+	(turbopack:///[project]/node_modules/postcss/lib/lazy-result.js:293:11)]
+	[at
+	async
+	transform
+	(turbopack:///[turbopack-node]/transforms/postcss.ts:70:34)]
+	[at
+	async
+	run
+	(turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23)]
+	Import
+	trace:
+	Client
+	Component
+	Browser:
+	./app/globals.css
+	[Client
+	Component
+	Browser]
+	./app/layout.tsx
+	[Server
+	Component]
+1
+2
+[5] (35,961)<div  />
+	[6] (35,961)<div  />
+		[7] (35,961)<div  />
+			[8] (20,961)<button aria-label='Open Next.js Dev Tools' id='next-logo' />
+			[9] (44,961)<div  />
+				[10] (44,961)<button aria-label='Open issues overlay' />
+					[11] (35,961)<div  />
+						[12] (35,961)<div >1 />
+					[13] (47,961)<div >Issue />
+
+</current_dom>

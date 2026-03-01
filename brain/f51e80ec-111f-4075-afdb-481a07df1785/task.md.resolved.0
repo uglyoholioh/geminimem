@@ -1,0 +1,10 @@
+# Tasks
+
+- [ ] Research timetable event implementation <!-- id: 0 -->
+    - [x] Identify relevant frontend and backend files <!-- id: 1 -->
+    - [/] Analyze [handleCreateEvent](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx#362-390) in frontend <!-- id: 2 -->
+    - [ ] Analyze [create_event](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable/main.py#246-271) in backend <!-- id: 3 -->
+- [ ] Reproduce the issue <!-- id: 4 -->
+- [ ] Determine root cause <!-- id: 5 -->
+- [ ] Implement fix <!-- id: 6 -->
+- [ ] Verify fix <!-- id: 7 -->

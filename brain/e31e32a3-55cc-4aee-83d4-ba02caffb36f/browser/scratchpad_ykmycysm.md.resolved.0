@@ -1,0 +1,15 @@
+# Task: Verify Dashboard and Timetable UI/UX
+
+## Plan
+- [ ] Verify Dashboard (http://localhost:3000)
+    - [ ] Observe entrance animations.
+    - [ ] Check glass card design (no double headers in widgets).
+    - [ ] Take screenshot.
+- [ ] Verify Timetable (http://localhost:3000/timetable)
+    - [ ] Observe entrance animations.
+    - [ ] Check glass card design in slots.
+    - [ ] Take screenshot.
+- [ ] Report findings.
+
+## Discoveries
+- 

@@ -1,0 +1,70 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+GES1035/GESS1025
+[13] (78,66)<button class='group flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-muted hover:text-primary transition-colors mb-8'>Back to Courses />
+GE
+GES1035/GESS1025 Singapore: Imagining the Next 50 Years [2520]
+GES1035/GESS1025
+[14] (96,334)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group bg-surface shadow-sm border border-border/50' />
+	Overview
+[15] (96,385)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group text-muted hover:text-primary hover:bg-surface/50'>7 />
+	Assignments
+	7
+[16] (96,435)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group text-muted hover:text-primary hover:bg-surface/50'>5 />
+	Announcements
+	5
+[17] (96,485)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group text-muted hover:text-primary hover:bg-surface/50' />
+	Grades
+[18] (96,535)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group text-muted hover:text-primary hover:bg-surface/50' />
+	Schedule
+[19] (96,585)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group text-muted hover:text-primary hover:bg-surface/50' />
+	Module Brief
+Critical Deadlines
+Roll Call Attendance
+Due
+TBA
+Critical Reflections (Economy)
+Due
+6 Mar
+Critical Reflections (Security)
+Due
+20 Mar
+Module Pulse
+14
+%
+Complete
+Current Grade
+N/A
+Credits
+4
+MCs
+Workload
+1-1-0-3-5
+Final Exam
+No Exam Scheduled
+Recent Updates
+[20] (840,649)<button class='text-xs font-mono text-accent hover:underline flex items-center gap-1 group/btn'>VIEW ALL />
+Course Webinar Recording
+23 Feb
+Feedback for Lecture Topic 2: Population
+16 Feb
+Feedback for Topic 1: Singapore in the World
+6 Feb
+
+</current_dom>

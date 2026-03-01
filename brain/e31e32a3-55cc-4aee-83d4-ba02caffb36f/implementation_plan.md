@@ -1,43 +1,43 @@
-# Implementation Plan - Font Size Optimization
+# Implementation Plan - UI/UX Improvements
 
 ## Goal
-Increase font sizes across the application to improve legibility and accessibility. Many elements currently use font sizes between 9px and 11px, which are too small for comfortable reading. The goal is to bring most metadata to at least 12px (`text-xs`) and primary content/labels to at least 14px (`text-sm`).
+Elevate the visual polish and interactivity of CraftCanvas by implementing a unified design system for cards, adding staggered entrance animations, and improving layout spacing.
 
 ## Proposed Changes
 
-### [Timetable]
-#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
-- Increase time labels from `text-[10px]` to `text-xs` (12px).
-- Increase module type badges from `text-[9px]` to `text-xs` (12px).
-- Increase module names from `text-[11px]` to `text-sm` (14px).
-- Increase metadata (Venue, Clock) from `text-[10px]` to `text-xs` (12px).
-- Scale icons accordingly to match the new font sizes.
+### [Design System]
+#### [MODIFY] [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css)
+- Define a `.glass-card` utility class for consistent glassmorphism across components.
+- Standardize border-radius and shadow tokens.
 
-### [Dashboard]
+### [Dashboard & Motion]
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- Wrap dashboard sections (`AgendaTimeline`, `ModuleHub`, `CommandCenter`) in `framer-motion` components for staggered entrance animations.
+
 #### [MODIFY] [AgendaTimeline.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx)
-- Increase header and secondary labels from `text-[10px]` or `text-[11px]` to `text-xs` (12px).
-- Increase item titles from `text-[11px]` to `text-sm` (14px).
-- Increase badges from `text-[9px]` to `text-xs` (12px).
+- Apply the unified `.glass-card` style.
+- Add hover subtle lift effects.
 
 #### [MODIFY] [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)
-- Increase header and button text from `text-[10px]` or `text-[11px]` to `text-xs` (12px).
-- Increase module codes in manage view from `text-[9px]` to `text-xs` (12px).
-- Increase module info in cards from `text-[11px]` to `text-sm` (14px).
+- Apply the unified `.glass-card` style to module cards.
+- Add hover scale and glow effects to individual modules.
 
-### [Course Detail]
-#### [MODIFY] [[id]/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/[id]/page.tsx)
-- Increase stats labels (Credits, Workload, etc.) from `text-[10px]` to `text-xs` (12px).
-- Increase badges from `text-[9px]` to `text-xs` (12px).
-- Increase secondary metadata from `text-[10px]` to `text-xs` (12px).
+### [Timetable]
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+- Add staggered entrance animations for timetable slots.
+- Audit and adjust low-saturation background colors to ensure WCAG AA contrast against text.
+
+### [Layout]
+#### [MODIFY] [DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx)
+- Adjust gap spacing and ensure consistent vertical alignment (masonry-lite).
 
 ## Verification Plan
 
 ### Automated Tests
-- None planned as this is a visual change.
+- None planned as these are primarily aesthetic changes.
 
 ### Manual Verification
-1. Run the app locally (`npm run dev` in `frontend`).
-2. Navigate to the Dashboard, Timetable, and Course Detail pages.
-3. Verify that the font sizes are noticeably larger and more readable.
-4. Check that layouts remain intact and don't break with the slightly larger text.
-5. Use browser developer tools to confirm that the new font sizes are at least 12px for metadata and 14px for content.
+1. Navigate to the Dashboard and verify the "pop-in" effect of widgets.
+2. Hover over cards and modules to check interactivity.
+3. Compare `AgendaTimeline` and `ModuleHub` cards side-by-side for visual consistency.
+4. Verify accessibility contrast in the Timetable using Chrome DevTools.

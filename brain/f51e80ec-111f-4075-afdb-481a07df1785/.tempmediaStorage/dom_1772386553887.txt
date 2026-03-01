@@ -1,0 +1,203 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,917)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+Week 7
+•
+Sem 2 · AY2025-2026
+•
+Mar 2
+—
+Mar 8
+[12] (568,77)<button class='flex items-center gap-1.5 px-3 h-9 text-xs font-mono font-medium border border-accent/20 bg-accent/5 text-accent hover:bg-accent/10 transition-colors rounded-sm mr-2' title='Suggest Study Blocks'>AI Plan />
+[13] (626,77)<button class='h-full flex items-center gap-1.5 px-3 transition-colors text-muted hover:bg-surface-hover' title='Show Tasks'>Tasks />
+	Tasks
+[14] (667,77)<button class='w-10 h-full flex items-center justify-center transition-colors bg-primary/10 text-primary' title='Horizontal View (Days on Y, Time on X)' />
+[15] (689,77)<button class='w-10 h-full flex items-center justify-center transition-colors text-muted hover:bg-surface-hover' title='Vertical View (Time on Y, Days on X)' />
+[16] (717,77)<button class='h-9 w-9 flex items-center justify-center border border-border bg-surface hover:bg-surface-hover transition-colors rounded-sm' />
+[17] (750,77)<button class='px-4 h-9 border border-border bg-surface text-xs font-mono font-medium uppercase tracking-widest text-primary hover:bg-surface-hover transition-colors rounded-sm'>Today />
+[18] (783,77)<button class='h-9 w-9 flex items-center justify-center border border-border bg-surface hover:bg-surface-hover transition-colors rounded-sm' />
+[19] (823,77)<label class='cursor-pointer hidden sm:block' />
+	[20] (823,77)<span >ICS />
+[21] (900,77)<input class='bg-transparent border-none text-xs font-mono h-full px-3 w-48 focus:ring-0 placeholder:text-muted' placeholder='Paste NUSMods URL...' />
+Day
+10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00
+17:00
+Mon
+Mar 2
+[22] (228,233)<td  />
+	[23] (324,195)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+[24] (440,233)<td  />
+	[25] (536,195)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+[26] (599,233)<td  />
+	[27] (642,195)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+[28] (705,233)<td  />
+	[29] (708,233)<div  />
+		[30] (708,195)<div  />
+			[31] (699,195)<div  />
+				[32] (667,195)<span  />
+				[33] (683,195)<span  />
+				[34] (716,195)<span  />
+			[35] (748,195)<div  />
+				[36] (748,195)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-urgency hover:bg-urgency/10 opacity-0 group-hover:opacity-100' title='Delete event' />
+		[37] (708,270)<div  />
+			[38] (687,272)<div  />
+				[39] (691,272)<span  />
+[40] (811,233)<td  />
+	[41] (814,233)<div  />
+		[42] (814,220)<div  />
+			[43] (814,207)<div  />
+				[44] (773,193)<span  />
+				[45] (803,193)<span  />
+				[46] (789,218)<span  />
+			[47] (775,245)<div  />
+				[48] (775,245)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-urgency hover:bg-urgency/10 opacity-0 group-hover:opacity-100' title='Delete event' />
+		[49] (814,270)<div  />
+			[50] (793,272)<div  />
+				[51] (797,272)<span  />
+[52] (917,233)<td  />
+	[53] (917,233)<div  />
+		[54] (917,233)<div  />
+			[55] (917,233)<span  />
+Tue
+Mar 3
+[56] (175,358)<td  />
+	[57] (175,358)<div  />
+		[58] (175,358)<div  />
+			[59] (175,358)<span  />
+[60] (281,358)<td  />
+	[61] (283,358)<div  />
+		[62] (284,346)<div  />
+			[63] (284,332)<div  />
+				[64] (243,319)<span  />
+				[65] (273,319)<span  />
+				[66] (259,344)<span  />
+			[67] (245,371)<div  />
+				[68] (245,371)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-urgency hover:bg-urgency/10 opacity-0 group-hover:opacity-100' title='Delete event' />
+		[69] (284,396)<div  />
+			[70] (262,398)<div  />
+				[71] (267,398)<span  />
+[72] (387,358)<td  />
+	[73] (387,358)<div  />
+		[74] (387,358)<div  />
+			[75] (387,358)<span  />
+[76] (493,358)<td  />
+	[77] (493,358)<div  />
+		[78] (493,358)<div  />
+			[79] (493,358)<span  />
+[80] (599,358)<td  />
+	[81] (599,358)<div  />
+		[82] (599,358)<div  />
+			[83] (599,358)<span  />
+[84] (705,358)<td  />
+	[85] (705,358)<div  />
+		[86] (705,358)<div  />
+			[87] (705,358)<span  />
+[88] (864,358)<td  />
+	[89] (960,321)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+Wed
+Mar 4
+[90] (228,478)<td  />
+	[91] (230,478)<div  />
+		[92] (231,447)<div  />
+			[93] (192,447)<div  />
+				[94] (137,447)<span  />
+				[95] (177,447)<span  />
+				[96] (232,447)<span  />
+			[97] (324,447)<div  />
+				[98] (324,447)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-urgency hover:bg-urgency/10 opacity-0 group-hover:opacity-100' title='Delete event' />
+		[99] (231,510)<div  />
+			[100] (156,512)<div  />
+				[101] (161,512)<span  />
+[102] (387,478)<td  />
+	[103] (387,478)<div  />
+		[104] (387,478)<div  />
+			[105] (387,478)<span  />
+[106] (493,478)<td  />
+	[107] (536,447)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+[108] (599,478)<td  />
+	[109] (599,478)<div  />
+		[110] (599,478)<div  />
+			[111] (599,478)<span  />
+[112] (705,478)<td  />
+	[113] (705,478)<div  />
+		[114] (705,478)<div  />
+			[115] (705,478)<span  />
+[116] (811,478)<td  />
+	[117] (811,478)<div  />
+		[118] (811,478)<div  />
+			[119] (811,478)<span  />
+[120] (917,478)<td  />
+	[121] (917,478)<div  />
+		[122] (917,478)<div  />
+			[123] (917,478)<span  />
+Thu
+Mar 5
+[124] (228,592)<td  />
+	[125] (324,561)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+[126] (387,592)<td  />
+	[127] (387,592)<div  />
+		[128] (387,592)<div  />
+			[129] (387,592)<span  />
+[130] (493,592)<td  />
+	[131] (493,592)<div  />
+		[132] (493,592)<div  />
+			[133] (493,592)<span  />
+[134] (599,592)<td  />
+	[135] (599,592)<div  />
+		[136] (599,592)<div  />
+			[137] (599,592)<span  />
+[138] (705,592)<td  />
+	[139] (705,592)<div  />
+		[140] (705,592)<div  />
+			[141] (705,592)<span  />
+[142] (864,592)<td  />
+	[143] (960,561)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted bg-black/10 hover:bg-black/20 opacity-100' title='Mark as attended' />
+Fri
+Mar 6
+[144] (228,707)<td  />
+	[145] (324,675)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+[146] (387,707)<td  />
+	[147] (430,675)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+[148] (493,707)<td  />
+	[149] (493,707)<div  />
+		[150] (493,707)<div  />
+			[151] (493,707)<span  />
+[152] (652,707)<td  />
+	[153] (748,675)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted bg-black/10 hover:bg-black/20 opacity-100' title='Mark as attended' />
+[154] (864,707)<td  />
+	[155] (960,675)<button class='h-5 w-5 rounded-md flex items-center justify-center shrink-0 transition-colors text-muted hover:text-primary hover:bg-black/5 opacity-0 group-hover:opacity-100' title='Mark as unattended' />
+Weekly Insights
+Contact Hours
+23.5
+hrs
+Busiest Day
+Friday
+7
+hrs of classes
+Skipped Classes
+2
+classes
+Active Modules
+5
+mods
+
+</current_dom>

@@ -1,0 +1,11 @@
+# Task: Verify Dashboard and Timetable Animations
+
+## Checklist
+- [ ] Navigate to Dashboard (http://localhost:3000/) and observe animation
+- [ ] Navigate to Timetable (http://localhost:3000/timetable) and observe animation
+- [ ] Confirm animations are smooth, natural, and synchronous
+- [ ] Verify animations are single-part (fade + subtle slide up)
+
+## Observations
+- Dashboard: 
+- Timetable: 

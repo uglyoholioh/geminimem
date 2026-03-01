@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary":  "Successfully simplified the dashboard and timetable animations and added a settings toggle.\n- Replaced jarring \"layout\" animations and fades with smooth \"slide-in\" movement.\n- Added an \"Enable Animations\" toggle in the Settings > Appearance tab.\n- Verified that animations can be turned off entirely for a snappier experience.",
+  "updatedAt":  "2026-03-01T17:46:50.441532Z",
+  "version":  "2"
+}

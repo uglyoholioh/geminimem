@@ -9,3 +9,10 @@
     - [x] Adjust specific components (Timetable, Dashboard, etc.) <!-- id: 6 -->
 - [x] Verify the changes <!-- id: 7 -->
 - [x] Finalize the walkthrough <!-- id: 8 -->
+- [x] Perform overall UI/UX analysis and provide suggestions <!-- id: 9 -->
+- [x] Implement priority UI/UX improvements <!-- id: 10 -->
+    - [x] Define shared .glass-card styles in globals.css <!-- id: 11 -->
+    - [x] Add staggered entrance animations to Dashboard <!-- id: 12 -->
+    - [x] Enhance Timetable with motion and better contrast <!-- id: 13 -->
+    - [x] Refine DashboardLayoutManager for consistent spacing <!-- id: 14 -->
+- [x] Finalize the walkthrough <!-- id: 15 -->

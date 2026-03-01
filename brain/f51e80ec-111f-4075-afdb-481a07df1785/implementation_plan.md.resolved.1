@@ -1,0 +1,45 @@
+# Enhanced Timetable Event Functionality
+
+The current event creation is limited to a simple title prompt. I will implement a more robust system that allows users to specify duration, choose categories, and edit existing events.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable/main.py)
+- **ADD**: `update_event` endpoint (`PUT /events/{event_id}`) to allow modifying existing events.
+- **MODIFY**: [create_event](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable/main.py#246-271) to ensure it handles all fields correctly (already seems okay, but will double-check).
+
+### Frontend
+
+#### [NEW] [EventModal.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/timetable/EventModal.tsx)
+- Create a dedicated modal for creating and editing events.
+- Features:
+    - Title input.
+    - Category selection (Study, Meeting, Personal, Deadline).
+    - Start and End time selection.
+    - Description (optional).
+    - Delete button (if editing).
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+- Replace simple [prompt](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/uiStore.ts#79-99) in [handleCreateEvent](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx#362-390) with the new `EventModal`.
+- Add `handleEditEvent` function to open the modal for existing events.
+- Update both grid views to trigger `handleEditEvent` when an event is clicked.
+- Visual improvements:
+    - Add category-specific icons (e.g., Book for Study, Users for Meeting).
+    - Ensure colors are consistent with the category.
+
+## Verification Plan
+
+### Automated Tests
+- I will use the browser subagent to:
+    1. Navigate to `/timetable`.
+    2. Click an empty slot to open the new `EventModal`.
+    3. Create an event with a specific category and duration.
+    4. Click the created event to open the edit modal.
+    5. Update its title and duration.
+    6. Verify the changes are reflected on the grid.
+    7. Delete the event from the edit modal.
+
+### Manual Verification
+- User can test the flow of creating, editing, and deleting events with various categories and times.

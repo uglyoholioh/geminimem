@@ -1,40 +1,40 @@
-# Walkthrough - Font Size Optimization
+# UI/UX Improvements Walkthrough
 
-I have completed a comprehensive font size audit and optimization across the CraftCanvas application to improve legibility and accessibility.
+We have successfully implemented a series of UI/UX enhancements designed to give CraftCanvas a premium, cohesive, and dynamic feel. The core of these changes centers on a unified glassmorphism design system and subtle motion logic.
 
-## Changes Made
+## 1. Unified Glass Card System
 
-### 1. Typography Standards
-- Increased **Primary Content** (module names, assignment titles, headers) to at least **14px** (`text-sm`).
-- Increased **Primary Metadata** (times, venues, module codes, credits, workload) to at least **12px** (`text-xs`).
-- Increased **Secondary UI Elements** (status tags, utility buttons, command center headers, timestamps) to at least **12px** (`text-xs`).
-- Scaled **Icons** from **10px-12px** to **12px-14px** (`h-3.5 w-3.5` or `size={12}`) for better visual balance with the larger text.
+We've introduced a global `.glass-card` utility in `globals.css` that standardizes the glass look across the entire application. This ensures consistent blurs, border-radii, and hover states.
 
-### 2. Component Adjustments
-- **Timetable Page**: Updated grid labels, module badges, and weekly insights.
-- **Dashboard**: Updated 'Upcoming Agenda' items, 'Module Hub' cards, and 'Command Center' utility UI.
-- **Dashboard Header**: Increased font sizes for status tags (TASKS, CLASSES, etc.) and the 'Customise' button.
-- **Course Detail Page**: Optimized headers, assignment lists, stats markers, and knowledge base metadata.
-- **Chat Interface**: Improved legibility for suggestions, timestamps, and AI thinking indicators.
+### Redundancy Refactor
+A major part of this update was refactoring the `DashboardLayoutManager` and its widgets (`AgendaTimeline`, `ModuleHub`, and `WidgetShell`). We eliminated "double headers" and "double borders" by making components shell-aware.
 
-## Verification Results
+| Before (Standalone) | In Dashboard (As Widget) |
+| :--- | :--- |
+| Shows full header and dedicated glass container. | Inherits container and title from `WidgetShell`, rendering only its core content with optimized spacing. |
 
-### Visual Comparison
-I performed a post-implementation visual audit using a browser subagent:
-- **Dashboard Overview**: ![Dashboard Overview](file:///Users/oli/.gemini/antigravity/brain/e31e32a3-55cc-4aee-83d4-ba02caffb36f/dashboard_overview_1772383509068.png)
-- **Timetable Verification**: Verified at `text-xs` (12px) for metadata and `text-sm` (14px) for content.
-- **Course Detail Verification**: Confirmed all stats and labels meet the new standards.
+## 2. Motion & Dynamic Interactivity
 
-### Code Verification
-A comprehensive grep search confirmed that arbitrary sub-12px utility classes (e.g., `text-[9px]`, `text-[10px]`) have been removed from the following files:
-- [timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
-- [AgendaTimeline.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx)
-- [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)
-- [courses/[id]/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/[id]/page.tsx)
-- [DashboardHeader.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardHeader.tsx)
-- [app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
-- [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx)
-- [DailyBriefSummary.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefSummary.tsx)
+Using `framer-motion`, we've added staggered entrance animations to the Dashboard and Timetable pages. This "staggered pop-in" effect guides the user's eye and makes the application feel alive.
 
-## Conclusion
-The application is now significantly more readable, especially on high-density displays. All text elements now adhere to modern accessibility and design system standards.
+````carousel
+![Dashboard Entrance](/Users/oli/.gemini/antigravity/brain/e31e32a3-55cc-4aee-83d4-ba02caffb36f/dashboard_entrance_verification_1772386759781.png)
+<!-- slide -->
+![Timetable Sequences](/Users/oli/.gemini/antigravity/brain/e31e32a3-55cc-4aee-83d4-ba02caffb36f/timetable_verification_1772386776983.png)
+````
+
+## 3. Timetable Enhancements
+
+The Timetable now features:
+- **Motion Slots**: Grid items animate in with a slight scale and fade-in, staggered by day and time.
+- **Accessibility Audit**: Improved the `getLowSatBg` logic to ensure better color contrast for text against desaturated backgrounds in both light and dark modes.
+- **Visual Consistency**: All timetable blocks now follow the same glassmorphism pattern as the dashboard widgets.
+
+## Verification Summary
+
+- [x] **Dashboard**: Verified smooth staggered animations and clean header integration.
+- [x] **Timetable**: Verified slot animations and accessibility contrast.
+- [x] **Consistency**: Confirmed the `.glass-card` utility is applied across all major interactive areas.
+
+### Recording of Improvements
+![UI/UX Recording](file:///Users/oli/.gemini/antigravity/brain/e31e32a3-55cc-4aee-83d4-ba02caffb36f/verify_ui_ux_improvements_1772386736369.webp)

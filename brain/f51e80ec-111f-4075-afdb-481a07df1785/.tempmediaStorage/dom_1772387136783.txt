@@ -1,0 +1,52 @@
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/settings' title='Settings' />
+O
+Settings
+Manage your account and app configuration
+[13] (335,172)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Profile />
+[14] (335,214)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Canvas />
+[15] (335,255)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Craft />
+[16] (335,297)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Timetable />
+[17] (335,339)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Notifications />
+[18] (335,380)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all bg-accent-subtle text-accent font-medium'>Appearance />
+[19] (335,422)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>AI Context />
+Appearance
+Customize the look and feel
+[20] (563,259)<label class='text-xs text-secondary block mb-2 font-medium'>Theme />
+[21] (435,297)<button class='flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm transition-all bg-base text-secondary border border-border hover:bg-surface-hover'>Light />
+[22] (485,297)<button class='flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm transition-all bg-accent text-white shadow-lg shadow-accent/25'>Dark />
+[23] (540,297)<button class='flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm transition-all bg-base text-secondary border border-border hover:bg-surface-hover'>System />
+Enable Animations
+Enable smooth transitions and loading animations across the app.
+[24] (703,377)<button class='relative w-11 h-6 rounded-full transition-colors shrink-0 bg-accent' />
+[25] (563,443)<label class='text-xs text-secondary block mb-2 font-medium'>Colour Scheme />
+[26] (446,499)<button class='group relative p-3 rounded-xl border-2 transition-all border-accent bg-accent/5'>Default />
+	Default
+[27] (524,499)<button class='group relative p-3 rounded-xl border-2 transition-all border-border bg-base hover:border-muted'>Midnight />
+	Midnight
+[28] (601,499)<button class='group relative p-3 rounded-xl border-2 transition-all border-border bg-base hover:border-muted'>Forest />
+	Forest
+[29] (679,499)<button class='group relative p-3 rounded-xl border-2 transition-all border-border bg-base hover:border-muted'>Sunset />
+	Sunset
+Focus Background
+[30] (446,652)<button class='h-20 rounded-lg flex items-center justify-center border-2 transition-all border-border bg-base hover:border-muted' title='Dynamic Colors'>Dynamic
+Colors />
+	Dynamic
+	Colors
+[31] (524,652)<button class='h-20 rounded-lg bg-cover bg-center border-2 transition-all border-transparent hover:ring-2 ring-muted/50' />
+[32] (601,652)<button class='h-20 rounded-lg bg-cover bg-center border-2 transition-all border-transparent hover:ring-2 ring-muted/50' />
+[33] (679,652)<button class='h-20 rounded-lg bg-cover bg-center border-2 transition-all border-transparent hover:ring-2 ring-muted/50' />
+[34] (563,719)<label class='text-xs text-secondary block mb-1.5 font-medium'>Custom Image URL />
+[35] (563,755)<input class='w-full rounded-xl border border-border bg-base px-4 py-2.5 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all' placeholder='https://...' />
+Or manage uploaded files directly from the Focus tab.

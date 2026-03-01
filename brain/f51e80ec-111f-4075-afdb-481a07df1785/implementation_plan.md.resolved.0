@@ -1,0 +1,28 @@
+# Fix Timetable Event Rendering in Horizontal View
+
+The "adding event in timetable" functionality is mostly working in the backend, but the frontend's horizontal view incorrectly renders personal events. It treats them as academic classes, leading to "CLS" labels and missing titles. Additionally, events cannot be deleted from the horizontal view.
+
+## Proposed Changes
+
+### Frontend
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+
+- Update the horizontal view loop (around line 1024) to identify if a slot is an event.
+- Fix the rendering of `typeShort` to use the event category if it's an event.
+- Fix the title rendering to use `slotStart.title` for events.
+- Add a delete button (using [handleDeleteEvent](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx#421-440)) for events in the horizontal view, similar to the vertical view.
+- (Optional) Improve the [getCellData](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx#323-361) day calculation to be more robust against timezone issues, though it seems okay for Singapore.
+
+## Verification Plan
+
+### Automated Tests
+- I will use the browser subagent to:
+    1. Navigate to `/timetable`.
+    2. Ensure horizontal view is active.
+    3. Add a new event "Test Fix 1".
+    4. Verify the event block shows "Test Fix 1" and the correct category (e.g., "PERSONAL").
+    5. Verify the delete button appears and works.
+
+### Manual Verification
+- User can verify by adding an event in horizontal view and checking if the title is displayed correctly.

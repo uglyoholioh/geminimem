@@ -12,6 +12,6 @@
 - [x] Make buttons permanently visible in Dashboard cards <!-- id: 9 -->
 - [x] Verify button visibility refinements <!-- id: 10 -->
 - [x] Research and design complete Module Hub redesign <!-- id: 11 -->
-- [/] Implement redesigned Module Detail Page <!-- id: 12 -->
-- [ ] Refine Dashboard Hub layout to match new aesthetic <!-- id: 13 -->
-- [ ] Verify complete redesign <!-- id: 14 -->
+- [x] Implement redesigned Module Detail Page <!-- id: 12 -->
+- [x] Refine Dashboard Hub layout to match new aesthetic <!-- id: 13 -->
+- [x] Verify complete redesign <!-- id: 14 -->

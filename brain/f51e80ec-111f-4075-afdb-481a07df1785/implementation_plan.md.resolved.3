@@ -1,0 +1,40 @@
+# Implementation Plan - Simplifying Animations and Adding Toggle
+
+The goal is to simplify the landing/loading animations for the Dashboard and Timetable pages and provide a user setting to toggle these animations.
+
+## User Review Required
+> [!NOTE]
+> I will be adding a new setting `enable_animations` (default: `true`). This will be available under the 'Appearance' tab in Settings.
+
+## Proposed Changes
+
+### Backend
+#### [MODIFY] [routers/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py)
+- Ensure the retrieval of all settings handles the new `enable_animations` key appropriately (though the current implementation is generic enough).
+
+### Frontend
+#### [MODIFY] [app/settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)
+- Add `enable_animations` to the [AppSettings](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx#40-60) type.
+- Add a toggle for animations under the "Appearance" tab.
+
+#### [MODIFY] [app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- Fetch the `enable_animations` setting.
+- Simplify `framer-motion` animations to a smooth "slide-in" effect (e.g., small y-offset) without jarring layout shifts.
+- Disable animations if the setting is false.
+
+#### [MODIFY] [app/timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+- Fetch the `enable_animations` setting.
+- Simplify `framer-motion` or Tailwind animations to use subtle, non-jarring movement.
+- Disable animations if the setting is false.
+
+#### [MODIFY] [app/globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css)
+- Review and refine global transition variables if necessary to ensure "smoothness" without "extra adjustment".
+
+## Verification Plan
+### Automated Tests
+- Browser subagent will verify that the toggle exists in settings.
+- Browser subagent will verify that toggling it affects the presence of animation classes or motion properties (visually verified).
+
+### Manual Verification
+- Manually check the "Appearance" tab for the new toggle.
+- Verify the animation feels like "loading in" rather than "adjusting".

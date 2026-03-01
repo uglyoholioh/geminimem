@@ -1,0 +1,23 @@
+# Timetable Event Addition Testing
+
+## Task Description
+The user reported that adding events to the timetable is not functioning properly.
+Goal:
+1. Navigate to http://localhost:3000/timetable
+2. Wait for the timetable to load.
+3. Click on an empty slot (e.g., Monday 10:00 AM).
+4. Enter "Test Event 1" and click "Create".
+5. Check if the event appears on the timetable.
+6. Check for errors if it fails.
+
+## Plan
+- [ ] Navigate to /timetable
+- [ ] Wait for page load
+- [ ] Identify Monday 10:00 AM slot
+- [ ] Click slot and trigger prompt
+- [ ] Enter "Test Event 1" and click "Create"
+- [ ] Verify event appearance
+- [ ] Check console/network logs if failure occurs
+
+## Findings
+(To be updated)

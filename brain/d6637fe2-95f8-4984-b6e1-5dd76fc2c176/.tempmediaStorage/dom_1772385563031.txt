@@ -1,0 +1,103 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Good morning
+, Oli
+Monday, March 2
+[13] (238,69)<button class='
+                            flex items-center gap-2 px-3 py-1.5 rounded-xl border font-mono text-xs font-bold uppercase tracking-wider transition-all active:scale-95
+                            bg-surface/50 border-border/50 text-muted hover:border-accent/40 hover:text-accent
+                        '>Customise />
+1
+tasks
+3
+classes
+0
+min focused
+3
+due
+[14] (884,69)<button class='relative group transition-transform active:scale-95' />
+	10
+	unread
+[15] (506,545)<div class='flex-1 min-h-0 overflow-y-auto pr-1' scrollable='true' />
+	Command Center
+	[16] (410,151)<select class='bg-base border border-border/50 rounded px-2 py-0.5 text-xs font-mono text-muted focus:outline-none focus:border-accent' />
+	[17] (454,151)<button class='flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-surface-hover transition-colors text-[10px] font-mono text-yellow-500'>7m ago />
+		7m ago
+	[18] (483,151)<a class='h-7 w-7 rounded-lg flex items-center justify-center text-muted hover:text-accent hover:bg-accent-subtle/30 transition-all' href='/brief' />
+	give me suggestions in general
+	04:20 PM
+	[19] (127,899)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[EXAM_PREP] />
+	[20] (183,899)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[SYLLABUS_CHECK] />
+	[21] (246,899)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[TASK_BREAKDOWN] />
+	[22] (307,899)<button class='whitespace-nowrap px-2.5 py-1 text-[10px] font-mono border border-border bg-surface-hover/50 text-muted hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded shadow-sm uppercase tracking-tight'>[WEEKLY_RECAP] />
+	[23] (286,944)<input class='flex-1 rounded-lg border border-border bg-base px-3 py-2 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none disabled:opacity-50' placeholder='Ask about your schedule, tasks, module materials...' />
+	[24] (709,550)<div class='lg:h-[calc(100vh-140px)] min-w-0 overflow-y-auto pr-1 pb-4' scrollable='true' />
+		Upcoming Agenda
+		Upcoming Agenda
+		01:19
+		Today
+		10:00
+		BT1101
+		BT1101 Laboratory
+		COM4-02-03
+		12:00
+		CS2030
+		CS2030 Lecture
+		LT19
+		14:00
+		GEX1015
+		GEX1015 Tutorial
+		AS3-0212
+		Class
+		Deadline
+		Task
+		Module Hub
+		Module Hub
+		[25] (849,612)<button class='h-8 px-2.5 rounded-lg border flex items-center gap-1.5 text-xs font-mono transition-all border-border text-muted hover:text-accent hover:border-accent/40 shadow-sm'>MANAGE />
+		[26] (885,612)<a class='text-xs font-mono text-accent hover:underline flex items-center gap-0.5 group' href='/courses'>ALL />
+		BT1101
+		[27] (671,682)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/tasks?module=BT1101&action=new' title='New Task' />
+		[28] (688,682)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/notes?module=BT1101&action=new' title='New Note' />
+		1
+		[29] (553,773)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/courses/17' title='Open Module' />
+		[30] (609,773)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/tasks?module=BT1101' title='Tasks' />
+		[31] (665,773)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/notes?module=BT1101' title='Notes' />
+		CS2030
+		[32] (865,682)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/tasks?module=CS2030&action=new' title='New Task' />
+		[33] (882,682)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/notes?module=CS2030&action=new' title='New Note' />
+		1
+		[34] (747,773)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/courses/18' title='Open Module' />
+		[35] (803,773)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/tasks?module=CS2030' title='Tasks' />
+		[36] (859,773)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/notes?module=CS2030' title='Notes' />
+		GES1035/GESS1025
+		[37] (671,854)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/tasks?module=GES1035%2FGESS1025&action=new' title='New Task' />
+		[38] (688,854)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/notes?module=GES1035%2FGESS1025&action=new' title='New Note' />
+		1
+		[39] (553,944)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/courses/19' title='Open Module' />
+		[40] (609,944)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/tasks?module=GES1035%2FGESS1025' title='Tasks' />
+		[41] (665,944)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/notes?module=GES1035%2FGESS1025' title='Notes' />
+		GEX1015/GET1029
+		[42] (865,854)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/tasks?module=GEX1015%2FGET1029&action=new' title='New Task' />
+		[43] (882,854)<a class='p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent/15 transition-all border border-border/10 hover:border-accent/20 bg-surface/50' href='/notes?module=GEX1015%2FGET1029&action=new' title='New Note' />
+		Clear schedule
+		[44] (747,944)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/courses/20' title='Open Module' />
+		[45] (803,944)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/tasks?module=GEX1015%2FGET1029' title='Tasks' />
+		[46] (859,944)<a class='flex-1 flex items-center justify-center p-2 text-muted hover:text-accent hover:bg-accent/10 rounded-xl transition-all' href='/notes?module=GEX1015%2FGET1029' title='Notes' />
+
+</current_dom>
