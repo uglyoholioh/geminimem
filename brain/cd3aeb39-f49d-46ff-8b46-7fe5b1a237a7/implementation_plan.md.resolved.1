@@ -1,0 +1,74 @@
+# Dashboard UX Overhaul
+
+The dashboard has functional widgets but feels dense, noisy, and inconsistent. This plan addresses the major UX issues visible in the current state.
+
+## Current Issues
+
+![Current dashboard state](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/full_dashboard_initial_1772478320509.png)
+
+1. **Duplicate Module Hub header** — WidgetShell renders "MODULE HUB" AND ModuleHub renders its own "MODULE HUB" header internally
+2. **Noisy stat badges** — five mono-font badges crowd the header row, competing with the greeting
+3. **Command Center header tooling is heavy** — the TODAY dropdown, sync indicator, and expand icon create visual clutter
+4. **Agenda takes a fixed 350px height** even when there's only 1 item — wastes space
+5. **Typography mismatch** — some widget headers are 11px mono, others 10px, inconsistent tracking widths
+6. **Grid spacing is tight** — `gap-4` between the two columns is fine but items within feel compressed
+
+## Proposed Changes
+
+### Fix Duplicate Module Hub Header
+
+#### [MODIFY] [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)
+
+- When `isWidget` is true, **hide the internal header** — the WidgetShell already provides one
+- The settings/configure button moves into the WidgetShell header area or is appended conditionally
+
+---
+
+### Redesign Stat Badges
+
+#### [MODIFY] [DashboardHeader.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardHeader.tsx)
+
+- Make badges smaller, lighter, and less visually dominant
+- Use softer pill styling with `text-[10px]` and muted backgrounds
+- Reduce horizontal padding to take less space
+- The greeting and date should dominate, badges are secondary glanceable info
+
+---
+
+### Clean Up Command Center Header
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+
+- Simplify the Command Center header: reduce padding, tighten the controls
+- Make the TODAY/3 DAYS/WEEK dropdown subtler (inline text vs full select element)
+
+---
+
+### Improve Agenda Widget Sizing
+
+#### [MODIFY] [AgendaTimeline.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx)
+
+- When `isWidget`, remove the fixed `h-[350px]` and let it size naturally within the widget shell
+- Clean up the footer legend to be more compact
+
+---
+
+### Typography & Spacing Consistency
+
+#### [MODIFY] [WidgetShell.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/WidgetShell.tsx)
+
+- Ensure widget header styling is consistent: same font size, weight, tracking
+- Add a slight bottom padding improvement
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+
+- Small tweaks to overall grid gaps and content area padding
+
+## Verification Plan
+
+### Automated
+- `npx next build` — must compile cleanly
+
+### Visual
+- Browser verification of dashboard at `http://localhost:3000`
+- Confirm: no duplicate headers, lighter badges, better spacing, natural agenda sizing

@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Walkthrough documenting the AI chat UX redesign: what changed across 5 files, browser verification screenshots, and a recording of the verification flow.",
-  "updatedAt":  "2026-03-02T18:41:33.654340Z"
+  "summary":  "Documents the AI chat tool fixes: double context injection elimination, Clear endpoint, enhanced tool prompt, improved error feedback, and streaming fallback chunking.",
+  "updatedAt":  "2026-03-02T20:02:20.230509Z",
+  "version":  "2"
 }

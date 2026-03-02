@@ -1,0 +1,14 @@
+# AI Chat Testing Plan
+
+1.  **Open URL**: Navigate to `http://localhost:3000`.
+2.  **Wait for Load**: Give the page 3-5 seconds to load.
+3.  **Find Chat Input**: Locate the textarea in the "Command Center" panel.
+4.  **Send Query**:
+    *   Click the textarea.
+    *   Type: "What are the key topics covered in the BT1101 probability distributions lecture?".
+    *   Click the send button.
+5.  **Observe Response**: Wait for 15-20 seconds and verify tool usage in the response.
+6.  **Capture Response**: Take a screenshot of the response.
+7.  **Test "CLEAR" Button**: Click the "CLEAR" text near the prompt recipe chips.
+8.  **Verify Clear**: Wait 2 seconds and take a screenshot to confirm the clear worked.
+9.  **Report Findings**: Summarize success of response, content retrieval, and clear functionality.

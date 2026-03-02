@@ -1,89 +1,40 @@
-# Redesign AI Chat Experience on Dashboard
+# Fix AI Chat Tool Usage & Material Retrieval
 
-The current AI chat ("Command Center") is functional but feels utilitarian — cryptic `[LABEL]` prompt tags, plain text input, basic message bubbles, and a static "Thinking..." loading state. This plan redesigns it into a polished, modern AI chat experience that feels premium and inviting.
+RAG data exists (858 chunks, 153 indexed files). The issue is in the invocation pipeline.
+
+## Root Causes
+
+1. **Double context injection** — `brief_chat_stream` builds a system prompt via `_build_brief_chat_context()`, then `stream_chat` calls `_inject_context()` which stacks ANOTHER system prompt. This bloats the context window and can confuse model tool routing.
+2. **Missing `/clear` endpoint** — frontend calls `DELETE /brief/chat/clear` which returns 404.
+3. **Poor streaming tool fallback** — when tool call detected during streaming, the entire sync response is dumped at once, breaking the streaming UX.
+4. **Weak `search_module_materials` error feedback** — returns empty list silently; Gemini interprets this as "tool failed" rather than "no matching materials found".
 
 ## Proposed Changes
 
-### Chat Animations & Utilities
+### Eliminate Double Context Injection
 
-#### [MODIFY] [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css)
+#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+- Add `skip_context` parameter to `stream_chat()` — when True, skip `_inject_context` since caller already injected full context.
 
-Add new CSS keyframes and utility classes:
-- **Typing indicator** — three bouncing dots animation (`@keyframes chat-bounce`)
-- **Message entry** — subtle slide-up + fade-in for new messages (`@keyframes chat-message-in`)
-- **Auto-growing textarea** — ensure the chat textarea resizes smoothly
-
----
-
-### Prompt Recipes Redesign
-
-#### [MODIFY] [PromptRecipes.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/PromptRecipes.tsx)
-
-Transform the cryptic `[EXAM_PREP]`, `[SYLLABUS_CHECK]` tags into human-readable, icon-enriched chips:
-
-| Before | After |
-|--------|-------|
-| `[EXAM_PREP]` | 📝 Exam Prep |
-| `[SYLLABUS_CHECK]` | 📋 Syllabus |
-| `[TASK_BREAKDOWN]` | ✂️ Break Down Tasks |
-| `[WEEKLY_RECAP]` | 📊 Weekly Recap |
-
-Better pill styling with rounded, opaque backgrounds and subtle hover effects.
+#### [MODIFY] [brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py)
+- Pass `skip_context=True` when calling `stream_chat` from `brief_chat_stream`, since `_build_brief_chat_context` already provides comprehensive context.
+- Add `DELETE /chat/clear` endpoint that deletes all `BriefChat` records for today.
 
 ---
 
-### Main Chat Component Overhaul
+### Improve Tool Error Feedback
 
-#### [MODIFY] [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx)
-
-This is the largest change. Key improvements:
-
-1. **Empty State Redesign** — Replace the plain "Suggested Prompts" header with a warm, personality-driven welcome:
-   - AI avatar icon with greeting text ("How can I help you today?")
-   - Suggestion cards as full-width buttons with descriptive text and an arrow icon, plus a subtle accent border
-   - Each suggestion has an emoji prefix for scanability
-
-2. **Message Bubbles** — Refine the visual treatment:
-   - User messages: accent background with white text (keep) but add softer border-radius and max-width consistency
-   - AI messages: clean `bg-surface` with a left accent stripe, the Zap icon retained as the AI avatar
-   - Apply the `chat-message-in` entry animation to each message
-
-3. **Typing Indicator** — Replace plain "Thinking..." with an animated three-dot bounce inside a styled bubble
-
-4. **Input Area Redesign**:
-   - Replace `<input>` with `<textarea>` that auto-grows up to 4 lines, shrinks back to 1 when empty
-   - Replace the confusing rotated `Plus` send icon with `ArrowUp` (standard for modern chat UIs)
-   - Wrap in a styled container with an inner border and subtle background
-
-5. **PromptRecipes integration** — Keep the recipes row above the input but with the new human-readable design
+#### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- When `search_module_materials` returns empty results, include a message about available file count so Gemini can inform the user properly instead of saying "tool failed".
 
 ---
 
-### Dashboard Chat Section Refinement
+### Fix Streaming Tool Fallback
 
-#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+- In `_stream_gemini`, when detecting a tool call mid-stream, yield the response in chunks instead of all at once so the frontend streaming handler parsess it correctly.
 
-- Refine the chat panel area with slightly better spacing between the Brief summary and the chat
-- Ensure the chat area fills available space properly
+## Verification
 
----
-
-### Fullscreen Brief Chat Refinement
-
-#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/brief/page.tsx)
-
-- Apply same layout refinements for consistency
-
-## Verification Plan
-
-### Browser Verification
-1. Start the dev server: `cd /Users/oli/Desktop/CraftCanvas/frontend && npm run dev`
-2. Open `http://localhost:3000` in the browser
-3. Verify on the **dashboard page**:
-   - Empty chat state shows the redesigned welcome with suggestion cards
-   - Clicking a suggestion sends it and the typing indicator renders with animated dots
-   - AI response appears with slide-in animation and clean styling
-   - The textarea input auto-grows on multiline text and shrinks when cleared
-   - Send button shows `ArrowUp` icon
-   - PromptRecipes show human-readable labels with emojis
-4. Navigate to `/brief` and verify the same chat improvements render correctly in fullscreen mode
+- `pytest` — existing tests should still pass
+- Manual: send a message asking about module materials and verify the AI uses tools successfully

@@ -1,0 +1,17 @@
+# Fix AI Chat Tool Usage & Material Retrieval
+
+## Planning
+- [x] Trace full pipeline: brief.py → ai_service → Gemini tools
+- [x] Check RAG index state (858 chunks, 153 indexed files)
+- [x] Root cause analysis (double context, missing /clear, weak error feedback)
+- [/] Write implementation plan
+
+## Execution
+- [ ] Fix double context injection — add skip_context to stream_chat
+- [ ] Add missing DELETE /brief/chat/clear endpoint
+- [ ] Improve search_module_materials error feedback
+- [ ] Fix streaming tool call fallback
+
+## Verification
+- [ ] Build/lint check
+- [ ] Manual test via browser

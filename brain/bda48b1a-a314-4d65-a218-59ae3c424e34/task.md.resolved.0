@@ -1,0 +1,6 @@
+# Focus Tab Redesign
+
+- [ ] Analyze current [app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx) structure and features.
+- [ ] Define "minimalistic glassmorphic" aesthetic for the Focus tab.
+- [ ] Brainstorm fully fleshed-out features (e.g., advanced Pomodoro settings, task lists, ambient sounds, stats).
+- [ ] Create implementation plan for the redesign and new features.

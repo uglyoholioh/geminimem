@@ -1,0 +1,26 @@
+# Dashboard UX Overhaul — Walkthrough
+
+## Before → After
+
+````carousel
+![Before — noisy badges, duplicate Module Hub header, cramped spacing](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/full_dashboard_initial_1772478320509.png)
+<!-- slide -->
+![After — lighter badges, no duplicate headers, better spacing](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/dashboard_after.png)
+````
+
+## Changes Made
+
+| File | Change |
+|------|--------|
+| [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx) | Hides internal header when `isWidget=true` (fixes duplicate "MODULE HUB" header). Settings gear moved to content area. |
+| [DashboardHeader.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardHeader.tsx) | Stat badges redesigned — smaller icons/padding, muted backgrounds, shorter labels (e.g. "min focused" → "min"). Heading from 3xl → 2xl. |
+| [AgendaTimeline.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx) | Widget mode uses `min-h/max-h` instead of fixed `h-[350px]` — sizes naturally to content. |
+| [WidgetShell.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/WidgetShell.tsx) | Header harmonized: font `text-[10px]`, padding `pt-2.5 pb-1.5`, background `surface-hover/10`. |
+| [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) | Command Center header lighter. Grid gap increased from 4 → 5 for breathing room. |
+
+## Verification
+
+- ✅ Build passes cleanly (`npx next build`)
+- ✅ All six fixes confirmed in browser
+
+![Verification recording](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/dashboard_ux_after_1772478567601.webp)

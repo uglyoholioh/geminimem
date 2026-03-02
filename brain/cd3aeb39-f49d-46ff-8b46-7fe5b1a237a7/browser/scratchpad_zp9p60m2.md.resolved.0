@@ -1,0 +1,14 @@
+# Task: Redesign Dashboard UI/UX for CraftCanvas
+
+## Objectives
+- [ ] Open http://localhost:3000
+- [ ] Take screenshot of the full dashboard (at load)
+- [ ] Scroll down and take another screenshot if needed
+- [ ] Document:
+    - [ ] Header area (greeting, stats badges, customise button)
+    - [ ] Left panel (Command Center — chat)
+    - [ ] Right panel (widgets — Agenda, Module Hub, etc.)
+    - [ ] Sidebar navigation
+    - [ ] Overall spacing, alignment, typography
+    - [ ] Visual bugs or issues
+    - [ ] Color scheme observations

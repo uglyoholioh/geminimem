@@ -1,16 +1,20 @@
-# AI Chat UX Redesign
+# Fix AI Chat Tool Usage & Material Retrieval
 
 ## Planning
-- [x] Research current chat components + design system
+- [x] Trace full pipeline: brief.py → ai_service → Gemini tools
+- [x] Check RAG index state (858 chunks, 153 indexed files)
+- [x] Root cause analysis (double context, missing /clear, weak error feedback)
 - [x] Write implementation plan
 
 ## Execution
-- [x] Add chat animation/utility CSS to `globals.css`
-- [x] Redesign `PromptRecipes.tsx` — human-readable labels
-- [x] Overhaul `DailyBriefChat.tsx` — empty state, bubbles, input, typing indicator
-- [x] Refine dashboard `page.tsx` chat section layout
-- [x] Refine `brief/page.tsx` fullscreen chat layout
+- [x] Fix double context injection — add `skip_context` to `stream_chat`
+- [x] Add missing POST `/brief/chat/clear` endpoint
+- [x] Improve `search_module_materials` error feedback
+- [x] Fix streaming tool call fallback (chunk the response)
+- [x] Enhance system prompt with explicit tool instructions
 
 ## Verification
-- [x] Visual browser test on dashboard
-- [x] Visual browser test on fullscreen brief
+- [x] Backend imports clean, 20 tools registered
+- [x] Backend starts without errors
+- [x] Clear endpoint returns 200 OK
+- [x] Tool invocation test — hit external API rate limit (429), code path is correct

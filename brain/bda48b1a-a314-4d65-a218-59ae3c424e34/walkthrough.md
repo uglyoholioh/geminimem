@@ -1,0 +1,24 @@
+# Focus Tab Redesign Complete
+
+I have completely redesigned the Focus tab to meet a premium, minimalistic "dark glass" aesthetic and added the fully fleshed-out features requested. 
+
+## Visual Redesign
+*   **Dark Glassmorphism**: Implemented a sleek styling using \`bg-black/40 backdrop-blur-2xl\` on top of the Focus backdrop. It creates a stunning glass effect while strictly adhering to your \`DESIGN_SYSTEM.md\` constraints (no light modes, no arbitrary shadows).
+*   **Layout Adjustments**: The dashboard feels more open and centers around your selected timer variant. 
+
+## Fully Fleshed-Out Features
+1.  **Ambient Sound Player**:
+    *   Integrated a floating **Ambient Sounds** remote directly below the center Pomodoro timer.
+    *   Added four standard soundscapes (Heavy Rain, Coffee Shop, Campfire, Beach Waves).
+    *   Includes inline volume controls and easily toggleable playback.
+2.  **Custom Pomodoro Durations**:
+    *   Added a new "Durations" tab under the Customise Settings modal.
+    *   Your preferred Focus Length, Short Break, and Long Break times can now be individually configured.
+    *   These durations save reliably alongside your existing backend `Settings` storage.
+3.  **Local Session Tracking**:
+    *   Added a small session pill to locally track how many Pomodoro focus blocks you complete in today's active session.
+4.  **Inline Task Completion**:
+    *   When you're focusing on a task, you can now press **Done** right from the Focus tab to mark it completed globally, without having to switch tabs.
+
+## Verification
+You can verify the updates locally by navigating to your app's **Focus** page. Play around with the Customise Settings to see the durations edit, and try out the new inline ambient volume tracks!

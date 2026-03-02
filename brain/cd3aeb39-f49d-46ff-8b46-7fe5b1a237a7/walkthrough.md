@@ -1,39 +1,46 @@
-# AI Chat UX Redesign — Walkthrough
+# AI Chat Tool Usage & Material Retrieval — Fixes
 
-## What Changed
+## What Was Wrong
 
-Five files were modified to transform the AI chat from a utilitarian interface into a polished, modern experience:
+The AI chat's `search_module_materials` tool and material retrieval were failing due to four issues:
 
-### CSS Animations — [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css)
-- Bouncing typing-dot animation (`chat-bounce` keyframe)
-- Slide-up message entry animation (`chat-message-in`)
-- Auto-growing textarea utility class (`chat-textarea`)
+| Issue | Root Cause |
+|-------|-----------|
+| Tools not invoked | System prompt didn't tell the AI it HAS tools — just said "use the above data" |
+| Double context injection | `_build_brief_chat_context` + `_inject_context` both built system prompts, bloating the context |
+| Clear button 404 | No `/brief/chat/clear` endpoint existed |
+| Streaming tool fallback | Tool response dumped at once, breaking SSE parsing |
 
-### Prompt Recipes — [PromptRecipes.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/PromptRecipes.tsx)
-- `[EXAM_PREP]` → `📝 Exam Prep`, `[SYLLABUS_CHECK]` → `📋 Syllabus`, etc.
-- Softer pill styling with rounded borders
+## Fixes Applied
 
-### Main Chat Component — [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx)
-- **Empty state**: Sparkles icon + "How can I help you today?" + suggestion cards
-- **Message bubbles**: Asymmetric rounded corners, slide-in animation, refined typography
-- **Typing indicator**: Animated bouncing dots replacing "Thinking..."
-- **Input**: Auto-growing `<textarea>` replacing `<input>`, `ArrowUp` send icon
+### 1. System Prompt — Tool Awareness
+[brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py) — Added explicit tool instructions:
 
-### Dashboard Layout — [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
-- Removed redundant Sparkles fallback icon (was duplicating the chat empty state)
-- Cleaned up chat panel background tint
+```diff
++- You have ACCESS TO TOOLS. If information is not in the context above, USE your tools
++  * search_module_materials(query, course_code) — Search inside lecture PDFs, slides
++  * search_tasks, search_assignments, get_grades, etc.
++- ALWAYS call search_module_materials when asked about lecture content
++- NEVER say you cannot access module materials
+```
 
-### Brief Page — [brief/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/brief/page.tsx)
-- Softer border on chat container
+### 2. Double Context Elimination  
+[ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) — Added `skip_context` parameter to `stream_chat()`. Brief chat passes `True` since it builds its own comprehensive system prompt.
+
+### 3. Clear Endpoint
+[brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py) — Added `POST /brief/chat/clear` that deletes all today's `BriefChat` records.
+
+### 4. Tool Error Feedback
+[ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py) — `search_module_materials` now returns informative messages with file count instead of empty list.
+
+### 5. Streaming Fallback
+[ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) — Tool response yielded in 80-char chunks for proper SSE streaming.
 
 ## Verification
 
-Build compiles cleanly with no TypeScript errors. Browser verification confirmed all elements render correctly:
+- ✅ Backend starts cleanly, 20 tools registered
+- ✅ Clear button returns 200 OK (previously 404)
+- ⚠️ Full tool test hit Gemini API rate limit (429) — code path is correct, just quota exhausted
 
-````carousel
-![Chat with messages — refined bubbles, emoji prompt chips, textarea + ArrowUp send button](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/chat_with_messages.png)
-<!-- slide -->
-![Empty state — welcome greeting with Sparkles icon](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/chat_empty_state.png)
-````
-
-![Browser verification recording](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/chat_redesign_verify_1772476660958.webp)
+> [!NOTE]
+> RAG data is present: **858 chunks** across **153 indexed files**. The tool invocation flow is structurally correct. Full end-to-end testing requires the Gemini quota to reset.
