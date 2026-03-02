@@ -1,0 +1,13 @@
+# Module Hub Redesign Task
+
+- [x] Audit current [ModuleHub](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx#33-206) implementation
+- [ ] Design and Plan Redesign [/]
+    - [ ] Define "Premium" layout (Vertical Sidebar + Bento Grid)
+- [ ] Implementation [/]
+    - [ ] Create new structure in [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)
+    - [ ] Implement Sidebar for module switching
+    - [ ] Implement Bento Grid for active module details
+    - [ ] Refine "Manage Modules" view
+    - [ ] Style with glassmorphism and micro-animations
+- [ ] Verification [ ]
+    - [ ] Verify functionality and responsiveness

@@ -1,0 +1,9 @@
+# Task Plan: Verify AI Chat functionality
+
+- [ ] Navigate to the chat/dashboard page at http://localhost:3000.
+- [ ] Open the AI Chat (Daily Brief Chat).
+- [ ] Ask: "What are the main topics covered in GEX1015? Can you list the slides you have access to?"
+- [ ] Verify tool usage and file listing.
+- [ ] Ask: "Tell me about the Week 3 morality topic."
+- [ ] Verify retrieval from 'Week 3 Singer Famine, Affluence, and Morality.pdf' and summary.
+- [ ] Final summary.

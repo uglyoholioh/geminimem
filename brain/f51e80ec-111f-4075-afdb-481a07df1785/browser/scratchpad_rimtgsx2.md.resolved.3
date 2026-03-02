@@ -1,0 +1,10 @@
+# Task Plan: Verify AI Chat functionality
+
+- [x] Navigate to the chat/dashboard page at http://localhost:3000.
+- [x] Open the AI Chat (Daily Brief Chat).
+- [x] Ask: "What are the main topics covered in GEX1015? Can you list the slides you have access to?"
+- [x] Verify tool usage and file listing. (FAILED: AI returned coroutine error for 'search_module_materials')
+- [x] Ask: "Tell me about the Week 3 morality topic."
+- [x] Verify retrieval from 'Week 3 Singer Famine, Affluence, and Morality.pdf' and summary. (FAILED: AI could not retrieve content due to tool error)
+- [x] Observation: Course detail link for GEX1015 (/courses/20) returns "Module not found".
+- [x] Final summary. (Ready to report)

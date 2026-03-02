@@ -1,0 +1,11 @@
+- [x] Audit current `ModuleHub` implementation
+- [x] Design and Plan Redesign
+    - [x] Define "Premium" layout (Vertical Sidebar + Bento Grid)
+- [x] Implementation - Size-Aware Variants
+    - [x] Support multiple layout modes (Compact, Medium)
+    - [x] Implement robust "Compact" view (High-density grid)
+    - [x] Implement robust "Medium" view (Sidebar + Bento detail)
+    - [x] Add auto-scaling or size-detection logic
+    - [x] Integrate size toggle in `WidgetShell`
+- [x] Verification
+    - [x] Verify each size variant in different layout positions

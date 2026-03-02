@@ -1,0 +1,27 @@
+# Module Hub Redesign
+
+Redesign the Module Hub from a simple grid to a premium, interactive component featuring vertical module navigation and a detailed bento-grid layout for the selected module.
+
+## Proposed Changes
+
+### Dashboard Component
+
+#### [MODIFY] [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)
+-   Introduce a two-pane layout:
+    -   **Left Sidebar**: Scrollable vertical list of active modules with high-contrast active states and color indicators.
+    -   **Right Detail Pane (Bento Grid)**: Detailed view for the selected module containing:
+        -   Module header with code and full name (if available).
+        -   Upcoming tasks count/list.
+        -   Assignments count/list.
+        -   Quick links (Canvas, Course details, Task list).
+-   Polished "Manage Modules" view with a cleaner toggle interface.
+-   Enhanced aesthetics using glassmorphism, subtle gradients, and Framer Motion for smooth transitions between module views.
+-   Responsive adjustments to stack on mobile if necessary (though primary focus is the layout manager's desktop view).
+
+## Verification Plan
+
+### Manual Verification
+-   Switch between modules in the sidebar and verify the detail pane updates correctly.
+-   Verify all links (Canvas, Details, Tasks) are functional.
+-   Test the "Manage" view toggle and module visibility updates.
+-   Verify aesthetics (transparency, blurs, and animations) look premium.

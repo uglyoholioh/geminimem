@@ -24,3 +24,4 @@
     - [x] Unify `get_module_files` to search Canvas files <!-- id: 36 -->
     - [x] Improve extraction and indexing logic <!-- id: 37 -->
     - [x] Verify retrieval with test scripts <!-- id: 38 -->
+    - [/] Fix async tool invocation in ai_service.py <!-- id: 39 -->

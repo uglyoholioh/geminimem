@@ -1,0 +1,9 @@
+# Module Hub Verification Checklist
+
+- [ ] Navigate to http://localhost:3000/
+- [ ] Observe default Compact view (Grid)
+- [ ] Enter 'Edit' mode
+- [ ] Resize/Move to observe Medium view (Sidebar)
+- [ ] Verify 'MANAGE' toggle in Compact view
+- [ ] Verify 'MANAGE' toggle in Medium view
+- [ ] Summary of responsive behavior
