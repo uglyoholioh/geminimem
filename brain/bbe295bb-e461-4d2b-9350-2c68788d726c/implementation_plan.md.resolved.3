@@ -8,28 +8,33 @@ The user wants the AI to have full access to Canvas data (materials, announcemen
 
 #### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
 - **Enhanced Tools**:
-    - [search_announcements(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#144-171): Now returns the full `message_html` (stripped of HTML tags for the LLM) to allow the AI to actually read the content of announcements.
+    - [search_announcements(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#197-234): Now returns the full `message_html` (stripped of HTML tags for the LLM) to allow the AI to actually read the content of announcements.
     - [get_courses()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#172-179): Include more summary data.
 - **New Tools**:
     - [search_module_materials(query: str, course_code: Optional[str] = None)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#235-279): Uses the **RAG Service** to search inside the *contents* of uploaded files, Canvas documents, and synced materials. This is the "everything" access.
     - [get_module_details(course_code: str)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#288-309): Returns rich metadata from the [Course](file:///Users/oli/Desktop/CraftCanvas/backend/models/course.py#38-65) model.
     - [create_note(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#144-170), [update_note(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#171-196), [delete_task(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#446-460): CRUD operations.
-    - [create_timetable_event(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#487-522), [delete_timetable_event(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#523-540): Sanitized timetable tools.
+    - [create_timetable_event(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#342-367), [delete_timetable_event(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#523-540): Sanitized timetable tools.
 
+#### [MODIFY] [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+- **New Sync Functions**:
+    - `sync_files(session, user_id, course_id, canvas_id, api_token)`: Fetches file metadata from Canvas API.
+    - `download_canvas_file(file_record, api_token)`: Downloads the file to local storage.
+    - `index_files(session, user_id, course_id)`: Extracts text (PDF/PPT/Docx) and pushes to **RAG Service**.
 - **Update [sync_all](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#356-440)**: Integrate `sync_files` and indexing into the main sync loop.
 
 #### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
 - **Enhanced Tools**:
-    - [search_announcements(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#144-171): Already returning `message_text`.
+    - [search_announcements(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#197-234): Already returning `message_text`.
     - [search_module_materials(...)](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#235-279): Uses **RAG Service** to search inside the *contents* of downloaded Canvas files. (Verified working, but needs data).
 
 ## Verification Plan
 
 ### Automated Tests
-- Run the `test_rag_search.py` script (to be created) to verify:
-    1. Canvas files are synced and downloaded.
-    2. File content is extracted (PDF/Docx) and chunks exist in `rag_chunks`.
-    3. AI can answer questions using [search_module_materials](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#235-279).
+- Run the `test_chat_tools.py` script (to be created) to verify that the AI can now:
+    1. Fetch module description/details for "CS2030".
+    2. Create a new note about a module's assessment criteria.
+    3. Create and then delete a timetable event.
 
 ### Manual Verification
 - Test in the Command Center UI: "What is the assessment criteria for CS2030?"

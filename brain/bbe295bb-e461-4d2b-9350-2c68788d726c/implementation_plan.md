@@ -16,16 +16,20 @@ The user wants the AI to have full access to Canvas data (materials, announcemen
     - `create_note(...)`, `update_note(...)`, `delete_task(...)`: CRUD operations.
     - `create_timetable_event(...)`, `delete_timetable_event(...)`: Sanitized timetable tools.
 
-#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
-- Update `_call_gemini` and `_stream_gemini` tool injection logic to ensure `session` and `user_id` are consistently handled for the new tools. (Wait, I already did this with `**kwargs` inspection, but I should verify).
+- **Update `sync_all`**: Integrate `sync_files` and indexing into the main sync loop.
+
+#### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- **Enhanced Tools**:
+    - `search_announcements(...)`: Already returning `message_text`.
+    - `search_module_materials(...)`: Uses **RAG Service** to search inside the *contents* of downloaded Canvas files. (Verified working, but needs data).
 
 ## Verification Plan
 
 ### Automated Tests
-- Run the `test_chat_tools.py` script (to be created) to verify that the AI can now:
-    1. Fetch module description/details for "CS2030".
-    2. Create a new note about a module's assessment criteria.
-    3. Create and then delete a timetable event.
+- Run the `test_rag_search.py` script (to be created) to verify:
+    1. Canvas files are synced and downloaded.
+    2. File content is extracted (PDF/Docx) and chunks exist in `rag_chunks`.
+    3. AI can answer questions using `search_module_materials`.
 
 ### Manual Verification
 - Test in the Command Center UI: "What is the assessment criteria for CS2030?"

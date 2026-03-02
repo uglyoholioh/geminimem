@@ -7,11 +7,10 @@ I have simplified the animations on the Dashboard and Timetable pages to be smoo
 ### 1. Settings Toggle
 Added an "Enable Animations" toggle under the **Appearance** tab in Settings. This setting is persisted in the backend and synced across the app.
 
-### 2. Dashboard & Timetable Refactor
-- **Unified Transitions**: Removed all nested movements and staggered offsets. The entire dashboard/timetable grid now slides in as a single, solid unit.
-- **Natural Movement**: Re-introduced subtle fades (opacity 0 -> 1) combined with a gentle 8-12px slide. This avoids the "2-part" movement where elements seemed to move independently.
-- **Premium Easing**: Used a custom cubic-bezier easing (`[0.23, 1, 0.32, 1]`) for a smoother, more "intended" feel.
-- Modified [app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx), [app/timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx), and [WidgetShell.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/WidgetShell.tsx) to ensure all animations are perfectly synced with the `enable_animations` setting.
+### 2. Animation Removal
+- **Static UI**: Completely removed `framer-motion` and `AnimatePresence` from the Dashboard, Timetable, and Widget components.
+- **Removed Toggles**: The "Enable Animations" toggle has been removed from Settings as the feature is no longer present, ensuring a snappier and more direct user experience.
+- **Code Cleanup**: Removed all `motion.*` elements and cleaned up unused imports across the frontend.
 
 ## Verification Results
 

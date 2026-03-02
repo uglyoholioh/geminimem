@@ -13,3 +13,9 @@
     - [x] Refactor Timetable grid transition <!-- id: 25 -->
     - [x] Update WidgetShell for soft entrance <!-- id: 26 -->
     - [x] Verify "Natural" feel in browser <!-- id: 27 -->
+- [x] Remove animations entirely <!-- id: 28 -->
+    - [x] Remove motion wrappers from Dashboard <!-- id: 29 -->
+    - [x] Remove motion wrappers from Timetable <!-- id: 30 -->
+    - [x] Remove motion wrappers from WidgetShell <!-- id: 31 -->
+    - [x] Remove animation toggle from Settings <!-- id: 32 -->
+    - [x] Remove enable_animations from backend settings <!-- id: 33 -->

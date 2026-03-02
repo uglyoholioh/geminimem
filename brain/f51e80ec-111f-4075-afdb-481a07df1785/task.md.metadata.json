@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_TASK",
-  "summary":  "- [x] Plan enhanced event features <!-- id: 8 -->\n- [x] Implement enhanced event features <!-- id: 11 -->\n- [x] Verify event functionality <!-- id: 14 -->\n- [x] Simplify animations and add toggle <!-- id: 17 -->\n- [x] Refine animations for natural feel <!-- id: 23 -->\n    - [x] Coordinate Dashboard container & widget animations <!-- id: 24 -->\n    - [x] Refactor Timetable grid transition <!-- id: 25 -->\n    - [x] Update WidgetShell for soft entrance <!-- id: 26 -->\n    - [x] Verify \"Natural\" feel in browser <!-- id: 27 -->\n",
-  "updatedAt":  "2026-03-02T06:18:12.927396Z",
-  "version":  "14"
+  "summary":  "- [x] Plan enhanced event features <!-- id: 8 -->\n- [x] Implement enhanced event features <!-- id: 11 -->\n- [x] Verify event functionality <!-- id: 14 -->\n- [x] Simplify animations and add toggle <!-- id: 17 -->\n- [x] Refine animations for natural feel <!-- id: 23 -->\n- [x] Remove animations entirely <!-- id: 28 -->\n    - [x] Remove motion wrappers from Dashboard <!-- id: 29 -->\n    - [x] Remove motion wrappers from Timetable <!-- id: 30 -->\n    - [x] Remove motion wrappers from WidgetShell <!-- id: 31 -->\n    - [x] Remove animation toggle from Settings <!-- id: 32 -->\n    - [x] Remove enable_animations from backend settings <!-- id: 33 -->\n",
+  "updatedAt":  "2026-03-02T08:18:34.471526Z",
+  "version":  "16"
 }
