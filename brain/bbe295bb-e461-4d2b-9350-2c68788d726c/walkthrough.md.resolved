@@ -1,34 +1,24 @@
-# Walkthrough - Resolving Gemini Quota Issues
+# Walkthrough - Expanded AI Data Access & CRUD
 
-I have identified and resolved the `RESOURCE_EXHAUSTED` (429) errors you were encountering.
+I've significantly expanded the AI's capabilities to give it deeper access to your data and allow it to perform more actions on your behalf.
 
-## The Issue
-The Gemini API's free tier has specific per-model quotas. Even if you haven't used the individual model much today, certain models (like `gemini-2.0-flash`) can have very restrictive global or account-level limits that trigger 429 errors.
+## New AI Capabilities
 
-## The Fix
-I switched the application to use **`gemini-2.5-flash-latest`** (aliased as `gemini-2.5-flash`). This model has its own separate quota and I have verified it is fully functional for your account.
+### 1. Rich Module Details
+The AI can now provide detailed information about your modules, including descriptions, credits, and workload. I have populated this data from NUSMods for all your enrolled courses.
+- **Try asking**: "What is the description of CS2030?" or "What's the workload for MA1522?"
 
-### Changes Made
-1. **[backend/config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py)**: Updated the default fallback models to `gemini-2.5-flash`.
-2. **[.env](file:///Users/oli/Desktop/CraftCanvas/.env)**: Updated `EXTERNAL_LLM_MODEL` to `gemini-2.5-flash`.
+### 2. Note Management (Full CRUD)
+The AI is now empowered to manage your notes. You can ask it to take notes about specific modules or update existing ones.
+- **Try asking**: "Create a note for CS2030 about the mid-term dates." or "Update my study plan note to include 2 extra hours of Linear Algebra."
 
-## Verification Results
+### 3. Advanced Task & Timetable Control
+- **Task Deletion**: You can now ask the AI to "Delete my 'Buy milk' task."
+- **Timetable Events**: The AI can once again create and delete personal study blocks or events on your timetable.
 
-### Chat Connectivity
-Verified that the standard chat now responds instantly using the new model:
-```text
-AI PROVIDER: gemini
-MODEL NAME: gemini-2.5-flash
-Testing basic chat...
-API TEST SUCCESS: Hello!
-```
+## Technical Improvements
+- **Tool Injection Fix**: Resolved a critical issue where the AI was losing your `user_id` context during tool calls. It now correctly identifies your specific data for every action.
+- **Gemini 2.5 Flash Optimization**: Fine-tuned the function calling loop to ensure maximum reliability and speed.
+- **NUSMods Integration**: Implemented a background sync that automatically fetches the latest course metadata for you.
 
-### Daily Brief Generation
-Confirmed that the complex briefing generation (which uses tools to fetch your tasks and timetable) now succeeds using Gemini:
-```text
-Testing brief generation (includes tools)...
-BRIEF SUCCESS! Model used: gemini-2.5-flash
-Preview: 📋 Overview Good morning! It looks like you have a wonderfully light day ahead...
-```
-
-You are now back online with Gemini 2.5 Flash!
+Everything is ready for you to explore in the Command Center!

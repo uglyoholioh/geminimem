@@ -19,3 +19,10 @@
     - [x] Identify working models on free tier (gemini-2.5-flash) <!-- id: 16 -->
     - [x] Update config.py and .env to use working models <!-- id: 17 -->
     - [x] Final verification of all AI features <!-- id: 18 -->
+- [x] Expand AI Tool Access & CRUD <!-- id: 19 -->
+    - [x] Implement get_module_details (NUSMods) <!-- id: 20 -->
+    - [x] Implement Create/Update Note tools <!-- id: 21 -->
+    - [x] Add delete_task tool <!-- id: 22 -->
+    - [x] Re-enable sanitized timetable tools <!-- id: 23 -->
+    - [x] Fix user_id/session injection in ai_service.py <!-- id: 24 -->
+    - [x] Verify rich data retrieval and CRUD operations <!-- id: 25 -->

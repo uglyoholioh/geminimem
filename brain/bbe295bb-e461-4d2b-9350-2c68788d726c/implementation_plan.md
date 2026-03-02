@@ -1,29 +1,33 @@
-# Fix Command Center AI and Brief Generation
+# Expanding AI Tool Access
 
-The Command Center AI and Daily Brief regeneration are currently failing due to code bugs in `brief_generator.py` and potential issues with the local AI service (Ollama).
+The user wants the AI to have deeper access to module data (learning objectives, assessment criteria) and more CRUD operations. 
 
 ## Proposed Changes
 
-### Backend Services
+### [AI Tools Component]
 
-#### [MODIFY] [brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)
-- Implement the missing `_get_today_classes` function to fetch today's timetable slots for the user.
-- Fix the logic in `_get_recent_announcements` or `_build_prompt` to ensure `Announcement` objects are handled correctly (ensuring no `course_code` attribute is accessed on the object directly).
-- Add better error handling for AI service calls.
+#### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- **New Tools**:
+    - `get_module_details(course_code: str)`: Returns rich metadata from the `Course` model (description, credits, workload, etc.).
+    - `create_note(title: str, content: str, course_code: Optional[str] = None)`: Allow AI to create new notes.
+    - `update_note(note_id: int, title: Optional[str] = None, content: Optional[str] = None)`: Allow AI to update existing notes.
+    - `delete_task(task_id: int)`: Allow AI to remove tasks.
+    - `create_timetable_event(...)`: Re-enable this tool with the correct sanitized signature (handling `**kwargs`).
+    - `delete_timetable_event(...)`: Re-enable this tool with the correct sanitized signature.
+- **Improved Tools**:
+    - Update `get_courses` to include more summary data if requested.
 
-### AI Service Optimization
-
-#### [MODIFY] [.env](file:///Users/oli/Desktop/CraftCanvas/backend/.env) (If necessary)
-- Recommend switching `AI_PROVIDER` to `gemini` if Ollama remains unresponsive, provided the user has a `GOOGLE_API_KEY`.
+#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+- Update `_call_gemini` and `_stream_gemini` tool injection logic to ensure `session` and `user_id` are consistently handled for the new tools. (Wait, I already did this with `**kwargs` inspection, but I should verify).
 
 ## Verification Plan
 
 ### Automated Tests
-- Run backend tests (if any exist) for the brief service.
-- I will create a temporary script `/tmp/test_brief_gen.py` to trigger brief generation and verify it succeeds without attribute errors.
-- Command: `cd backend && .venv/bin/python /tmp/test_brief_gen.py`
+- Run the `test_chat_tools.py` script (to be created) to verify that the AI can now:
+    1. Fetch module description/details for "CS2030".
+    2. Create a new note about a module's assessment criteria.
+    3. Create and then delete a timetable event.
 
 ### Manual Verification
-1. Trigger a "Refresh Brief" from the dashboard UI (if possible) or via API call.
-2. Verify the AI chat in the Command Center responds correctly.
-3. Check the backend logs for any remaining "attribute" or "missing function" errors.
+- Test in the Command Center UI: "What is the assessment criteria for CS2030?"
+- Test: "Create a note for me about my MA1522 study plan."

@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Documenting the switch to gemini-2.5-flash to resolve the 429 RESOURCE_EXHAUSTED errors encountered with gemini-2.0-flash.",
-  "updatedAt":  "2026-03-02T06:27:45.583621Z",
-  "version":  "2"
+  "summary":  "Documenting the expanded AI tool access, including module details, note management, and task CRUD operations.",
+  "updatedAt":  "2026-03-02T06:44:03.752356Z",
+  "version":  "3"
 }
