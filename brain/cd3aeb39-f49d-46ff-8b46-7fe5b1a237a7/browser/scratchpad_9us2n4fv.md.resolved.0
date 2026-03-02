@@ -1,0 +1,10 @@
+# Redesign Verification Progress
+
+- [ ] Open `http://localhost:3000`
+- [ ] Take a screenshot of the dashboard
+- [ ] Verify the following redesigned features:
+    - [ ] Welcome greeting "How can I help you today?" with Sparkles icon
+    - [ ] Suggestion cards below greeting
+    - [ ] Prompt recipe chips with emojis (e.g., "📝 Exam Prep") at the bottom
+    - [ ] Textarea input with ArrowUp send button
+- [ ] Report any visual issues or findings

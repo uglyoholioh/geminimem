@@ -1,0 +1,28 @@
+# Walkthrough - Removed Hover Animations from Dashboard Items
+
+I have removed the hover animations (translations, scaling, and excessive shadows) from all dashboard item sections to provide a more stable and less "jumpy" user experience.
+
+## Changes Made
+
+### Global Styles
+- **[globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css)**: 
+    - Removed `translateY(-2px)` and `shadow-lg` from the `.glass-card:hover` state.
+    - Disabled global transitions for `transform` and `box-shadow` on all elements to eliminate lingering "animated" feels.
+
+### Dashboard Components
+- **[ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)**: Completely rewrote the `ModuleCard` to use standard `div`s instead of `motion.div`, removed all `layout` animations, and replaced Framer Motion overlays with static `div` overlays.
+- **[AgendaTimeline.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx)**: Replaced `motion.div` with standard `div`s and removed `layout` and initial/animate props.
+- **[UpcomingDeadlines.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/UpcomingDeadlines.tsx)**: Removed `transition-all` from list items.
+- **[PinnedNotes.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/PinnedNotes.tsx)**: Removed `transition-all` and the sliding animation on the "Chevron" icon.
+- **[AnnouncementsFeed.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/AnnouncementsFeed.tsx)**: Removed `transition-all` from individual announcement items.
+
+## Verification Results
+
+| Component | Hover Effect Removed | State Feedback Maintained |
+| :--- | :--- | :--- |
+| **Glass Cards** | Lift (translateY) removed | Border highlight remains |
+| **Module Hub** | Shadow lift removed | Overlay still appears on hover |
+| **Agenda Timeline** | Dot scaling & card shadow removed | Background color shift remains |
+| **Deadlines/Notes/Feed** | Jittery transitions removed | Hover background color remains |
+
+The UI now feels more solid while still providing clear visual feedback on which item is being interacted with via background color changes and subtle border highlights.

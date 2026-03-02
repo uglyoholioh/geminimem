@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Implementation plan to remove hover animations from dashboard item sections. This involves updating `globals.css` and individual component files.",
+  "updatedAt":  "2026-03-02T18:28:08.765160Z"
+}

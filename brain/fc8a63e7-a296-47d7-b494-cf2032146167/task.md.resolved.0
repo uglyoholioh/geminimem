@@ -1,0 +1,6 @@
+# Task: Remove Animation on Hovering Dashboard Item Sections
+
+- [ ] Research animation styles in [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css) and component files <!-- id: 0 -->
+- [ ] Identify "dashboard item sections" components <!-- id: 1 -->
+- [ ] Remove hover animations <!-- id: 2 -->
+- [ ] Verify changes <!-- id: 3 -->
