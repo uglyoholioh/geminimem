@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_TASK",
+  "summary":  "Task tracking for fixing the Command Center AI issue.\nHighlights:\n- Investigating frontend/backend implementation.\n- Verifying AI and RAG services.\n- Implementing and verifying fixes.",
+  "updatedAt":  "2026-03-02T02:08:54.500471Z"
+}
