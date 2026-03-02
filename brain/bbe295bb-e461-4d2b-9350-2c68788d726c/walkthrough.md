@@ -1,24 +1,23 @@
-# Walkthrough - Expanded AI Data Access & CRUD
+# Walkthrough - Full Canvas Data Access
 
-I've significantly expanded the AI's capabilities to give it deeper access to your data and allow it to perform more actions on your behalf.
+I have successfully expanded the AI's reach into your Canvas data, fulfilling the request for "everything" access including materials and announcements.
 
 ## New AI Capabilities
 
-### 1. Rich Module Details
-The AI can now provide detailed information about your modules, including descriptions, credits, and workload. I have populated this data from NUSMods for all your enrolled courses.
-- **Try asking**: "What is the description of CS2030?" or "What's the workload for MA1522?"
+### 1. Full Announcement Reading
+The AI can now read the **actual content** of your course announcements, not just the titles. This allows it to summarize instructor updates and answer questions about logistical changes.
+- **Try asking**: "What was the most recent announcement in BT1101 about?" or "Summarize the announcements from the last week."
 
-### 2. Note Management (Full CRUD)
-The AI is now empowered to manage your notes. You can ask it to take notes about specific modules or update existing ones.
-- **Try asking**: "Create a note for CS2030 about the mid-term dates." or "Update my study plan note to include 2 extra hours of Linear Algebra."
+### 2. Deep Material Search (RAG)
+I've integrated the **RAG (Retrieval-Augmented Generation)** engine directly into the AI's toolset. This allows the AI to search *inside* the contents of your PDFs, slides, and synced Canvas files.
+- **Try asking**: "Is there anything in my materials about monads in CS2030?" or "What do my slides say about the exam format for MA1522?"
 
-### 3. Advanced Task & Timetable Control
-- **Task Deletion**: You can now ask the AI to "Delete my 'Buy milk' task."
-- **Timetable Events**: The AI can once again create and delete personal study blocks or events on your timetable.
+### 3. Integrated Source Retrieval
+When the AI searches your materials, it now sees the relevance of each finding and the source type, allowing it to provide more grounded and accurate answers based on your specific academic resources.
 
 ## Technical Improvements
-- **Tool Injection Fix**: Resolved a critical issue where the AI was losing your `user_id` context during tool calls. It now correctly identifies your specific data for every action.
-- **Gemini 2.5 Flash Optimization**: Fine-tuned the function calling loop to ensure maximum reliability and speed.
-- **NUSMods Integration**: Implemented a background sync that automatically fetches the latest course metadata for you.
+- **Enhanced `search_announcements`**: Now strips HTML and returns the first 1000 characters of each announcement message for immediate AI processing.
+- **New `search_module_materials` Tool**: Connects the LLM directly to your vector database (ChromaDB) for real-time document retrieval.
+- **Sync Optimization**: Verified that User 2 has the necessary data populated for these features to work instantly.
 
-Everything is ready for you to explore in the Command Center!
+Your Command Center AI is now fully equipped to be your ultimate academic second brain!

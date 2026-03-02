@@ -1,21 +1,20 @@
-# Expanding AI Tool Access
+# Expanding AI Tool Access & Canvas Data
 
-The user wants the AI to have deeper access to module data (learning objectives, assessment criteria) and more CRUD operations. 
+The user wants the AI to have full access to Canvas data (materials, announcements, etc.) and more CRUD operations. 
 
 ## Proposed Changes
 
 ### [AI Tools Component]
 
 #### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- **Enhanced Tools**:
+    - `search_announcements(...)`: Now returns the full `message_html` (stripped of HTML tags for the LLM) to allow the AI to actually read the content of announcements.
+    - `get_courses()`: Include more summary data.
 - **New Tools**:
-    - `get_module_details(course_code: str)`: Returns rich metadata from the `Course` model (description, credits, workload, etc.).
-    - `create_note(title: str, content: str, course_code: Optional[str] = None)`: Allow AI to create new notes.
-    - `update_note(note_id: int, title: Optional[str] = None, content: Optional[str] = None)`: Allow AI to update existing notes.
-    - `delete_task(task_id: int)`: Allow AI to remove tasks.
-    - `create_timetable_event(...)`: Re-enable this tool with the correct sanitized signature (handling `**kwargs`).
-    - `delete_timetable_event(...)`: Re-enable this tool with the correct sanitized signature.
-- **Improved Tools**:
-    - Update `get_courses` to include more summary data if requested.
+    - `search_module_materials(query: str, course_code: Optional[str] = None)`: Uses the **RAG Service** to search inside the *contents* of uploaded files, Canvas documents, and synced materials. This is the "everything" access.
+    - `get_module_details(course_code: str)`: Returns rich metadata from the `Course` model.
+    - `create_note(...)`, `update_note(...)`, `delete_task(...)`: CRUD operations.
+    - `create_timetable_event(...)`, `delete_timetable_event(...)`: Sanitized timetable tools.
 
 #### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
 - Update `_call_gemini` and `_stream_gemini` tool injection logic to ensure `session` and `user_id` are consistently handled for the new tools. (Wait, I already did this with `**kwargs` inspection, but I should verify).

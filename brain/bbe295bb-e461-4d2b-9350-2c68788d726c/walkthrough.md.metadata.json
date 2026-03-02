@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Documenting the expanded AI tool access, including module details, note management, and task CRUD operations.",
-  "updatedAt":  "2026-03-02T06:44:03.752356Z",
-  "version":  "3"
+  "summary":  "Documenting the expanded Canvas data access, including full announcement reading and RAG-based material search.",
+  "updatedAt":  "2026-03-02T07:48:42.281847Z",
+  "version":  "4"
 }
