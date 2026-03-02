@@ -1,0 +1,31 @@
+# Walkthrough: Command Center AI Fixes
+
+The Command Center AI and Daily Brief generation have been restored by fixing critical backend code issues.
+
+## Changes Made
+
+### Backend
+
+#### [brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)
+- **Implemented [_get_today_classes](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py#149-174)**: This function was missing, causing a `NameError` (caught as "Brief generation failed" in the logs).
+- **Fixed [Announcement](file:///Users/oli/Desktop/CraftCanvas/backend/models/announcement.py#9-31) handling**: Ensured that the `course_code` for an announcement is derived from its related `Course` object, resolving an `AttributeError`.
+
+#### [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- **Updated [search_announcements](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#114-135) and [search_assignments](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#49-81)**: Fixed incorrect attribute access by properly joining with the `Course` table to retrieve `course_code`.
+
+## Verification Results
+
+### Success Confirmation
+Brief generation was tested using a dedicated script and completed successfully.
+The AI-generated content was correctly formatted and returned.
+
+#### Test Execution
+```bash
+Testing brief generation for user: Oli (ID: 1)
+✅ Brief generation succeeded!
+Brief ID: 7
+Prose Text Preview: 📋 **Overview**
+It's a quiet Monday...
+```
+
+The AI is now able to parse actions and respond with a structured brief, which in turn populates the Command Center.
