@@ -8,8 +8,8 @@
     - [x] Add toggle to Settings UI <!-- id: 19 -->
     - [x] Refactor Dashboard animations <!-- id: 20 -->
     - [x] Refactor Timetable animations <!-- id: 21 -->
-- [/] Refine animations for natural feel <!-- id: 23 -->
-    - [ ] Coordinate Dashboard container & widget animations <!-- id: 24 -->
-    - [ ] Refactor Timetable grid transition <!-- id: 25 -->
-    - [ ] Update WidgetShell for soft entrance <!-- id: 26 -->
-    - [ ] Verify "Natural" feel in browser <!-- id: 27 -->
+- [x] Refine animations for natural feel <!-- id: 23 -->
+    - [x] Coordinate Dashboard container & widget animations <!-- id: 24 -->
+    - [x] Refactor Timetable grid transition <!-- id: 25 -->
+    - [x] Update WidgetShell for soft entrance <!-- id: 26 -->
+    - [x] Verify "Natural" feel in browser <!-- id: 27 -->

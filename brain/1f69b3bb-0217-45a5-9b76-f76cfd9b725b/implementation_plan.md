@@ -5,10 +5,32 @@ I am currently investigating the codebase to understand why it might be failing.
 
 ## Proposed Changes
 
-TBD - Investigating...
+I've identified several issues with the current "AI Plan" implementation:
+1. **Limited Heuristics**: The current logic only checks for free slots at 10:00 AM and 2:00 PM. If the user is busy during these times, it finds nothing.
+2. **Timezone Comparisons**: The comparison between aware SG time and naive UTC strings in the database is fragile.
+3. **Lack of Truly "AI" Logic**: The name "AI Plan" suggests LLM involvement, but it's currently a hardcoded script.
+
+### Backend Improvements
+
+#### [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable/main.py)
+- Refactor `ai_plan_study_blocks` to iterate through all hours between 08:00 and 20:00.
+- Convert `now_sg()` to naive UTC for safe database comparison.
+- Improve the scheduling algorithm to avoid the same-assignment-one-slot limitation.
+
+#### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- [NEW] Add `create_timetable_event` tool to allow the Gemini AI to actually schedule study blocks via chat.
+- [NEW] Add `delete_timetable_event` tool for management.
+
+### Frontend Improvements
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+- Improve error handling in `handleAiPlan` to show helpful toasts (e.g., if assignments are missing).
 
 ## Verification Plan
 
+### Automated Tests
+- Run a script to verify that study blocks are generated correctly when gaps exist.
+
 ### Manual Verification
-- Test AI Plan Timetable feature from frontend.
-- Check backend logs for errors.
+- Click "AI Plan" button and verify study blocks appear in the timetable.
+- Ask the AI Chat: "Plan 2 hours of study for [Course Code] tomorrow" and verify the event is created.

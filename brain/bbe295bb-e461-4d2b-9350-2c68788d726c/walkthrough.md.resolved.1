@@ -1,0 +1,43 @@
+# Walkthrough - Connecting Gemini to Command Center AI
+
+I have successfully connected Gemini as the AI provider for CraftCanvas. This involved several technical steps to ensure stability, proper tool usage, and compatibility with the latest Google APIs.
+
+## Changes Made
+
+### backend/config.py
+- Updated to support both `GOOGLE_API_KEY` and the user's existing `EXTERNAL_LLM_API_KEY` environment variables.
+- Added flexibility for model naming (`GEMINI_MODEL` or `EXTERNAL_LLM_MODEL`).
+
+### .env
+- Configured `AI_PROVIDER=gemini`.
+- Set `EXTERNAL_LLM_MODEL=gemini-2.0-flash` (confirmed working stable version).
+
+### backend/services/ai_service.py
+- Refactored the entire Gemini implementation to use the modern `google-genai` SDK (v1.65.0).
+- Implemented a robust manual tool loop to handle "injection" of database sessions and user IDs without exposing them to the AI's internal schema.
+- Added support for both synchronous and streaming chat with the new SDK.
+
+### backend/services/ai_tools.py
+- Sanitized tool functions to remove complex type hints (like `sqlmodel.Session`) that were causing Gemini registration errors.
+- Added explicit docstrings and type hints for all AI-exposed parameters to satisfy Gemini's schema requirements.
+
+## Verification Results
+
+### Gemini Connectivity
+I verified that the backend can successfully communicate with Gemini 2.0 Flash using the new SDK.
+```bash
+Testing gemini-2.0-flash...
+SUCCESS: Hi there! How can I help you today?
+```
+
+### Daily Brief Generation
+I ran a full generation cycle for the Command Center AI, confirming that Gemini can use tools to fetch data and generate a personalized brief.
+```bash
+AI PROVIDER: gemini
+MODEL NAME: gemini-2.0-flash
+Testing brief generation (includes tools)...
+BRIEF SUCCESS! Model used: gemini-2.0-flash
+Preview: Good morning, Oli! Here is your update for Monday, March 2nd, 2026...
+```
+
+The Command Center AI is now fully operational and powered by Gemini 2.0 Flash!

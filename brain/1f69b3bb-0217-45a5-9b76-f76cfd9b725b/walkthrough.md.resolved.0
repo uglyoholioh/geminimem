@@ -1,0 +1,30 @@
+# Walkthrough: AI Plan Timetable Fix & Upgrade
+
+I have fixed the "AI Plan" timetable feature and upgraded it with true AI (LLM) capabilities.
+
+## Changes Made
+
+### 1. Robust Heuristic Planner
+- **Broadened Search**: The planner now checks multiple time slots (9 AM, 11 AM, 2 PM, 4 PM, 7 PM) across the next 7 days instead of just 10 AM and 2 PM.
+- **Timezone Awareness**: Fixed a bug where aware Singapore time was being compared wrongly with naive UTC strings in the database.
+- **Improved Logic**: The algorithm now properly handles assignment due dates and avoids overlapping with existing classes or previously suggested study blocks.
+
+### 2. AI Tool Integration
+- **Direct Scheduling**: Added [create_timetable_event](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#342-367) and [delete_timetable_event](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#368-380) tools to the Gemini AI layer.
+- **Conversational Planning**: You can now ask the AI Chat things like:
+  - *"Schedule 2 hours of study for CS2103T tomorrow"*
+  - *"Delete the study block on Wednesday"*
+
+### 3. Frontend Feedback
+- **Informative Notifications**: Updated the "AI Plan" button to show a helpful toast if no assignments are found or if no free slots are available, rather than failing silently.
+
+## Verification Results
+
+### Algorithm Test
+I ran a simulation of the new planning algorithm which confirmed:
+- It correctly identifies free gaps in the schedule.
+- It respects assignment deadlines.
+- It handles timezone conversions between SGT and UTC naive correctly.
+
+### AI Tool Verification
+Tools are registered and ready for use via the Command Center (Gemini).

@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Walkthrough of the fixes implemented for Command Center AI and Daily Brief generation.",
-  "updatedAt":  "2026-03-02T02:21:00.757454Z"
+  "summary":  "Documenting the switch to gemini-2.5-flash to resolve the 429 RESOURCE_EXHAUSTED errors encountered with gemini-2.0-flash.",
+  "updatedAt":  "2026-03-02T06:27:45.583621Z",
+  "version":  "2"
 }
