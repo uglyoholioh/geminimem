@@ -19,8 +19,8 @@
     - [x] Remove motion wrappers from WidgetShell <!-- id: 31 -->
     - [x] Remove animation toggle from Settings <!-- id: 32 -->
     - [x] Remove enable_animations from backend settings <!-- id: 33 -->
-- [x] Debug Module File Retrieval <!-- id: 34 -->
+- [/] Debug Module File Retrieval <!-- id: 34 -->
     - [x] Investigate RAG indexing for Canvas files <!-- id: 35 -->
-    - [x] Unify `get_module_files` to search Canvas files <!-- id: 36 -->
+    - [x] Unify [get_module_files](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#307-355) to search Canvas files <!-- id: 36 -->
     - [x] Improve extraction and indexing logic <!-- id: 37 -->
-    - [x] Verify retrieval with test scripts <!-- id: 38 -->
+    - [/] Verify retrieval with test scripts <!-- id: 38 -->

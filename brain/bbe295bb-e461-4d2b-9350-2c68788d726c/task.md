@@ -27,6 +27,9 @@
     - [x] Fix user_id/session injection in ai_service.py <!-- id: 24 -->
     - [x] Verify rich data retrieval and CRUD operations <!-- id: 25 -->
 - [x] Expand Canvas Data Access (Materials & Announcements) <!-- id: 26 -->
-    - [x] Enhance search_announcements with full content <!-- id: 27 -->
-    - [x] Implement search_module_materials (RAG searching) <!-- id: 28 -->
-    - [x] Verify full Canvas data retrieval <!-- id: 29 -->
+    - [x] Enhance `search_announcements` with full content <!-- id: 27 -->
+    - [x] Implement `sync_files` and `download_canvas_file` logic <!-- id: 30 -->
+    - [x] Implement `index_files` with shared `extract_text` utility <!-- id: 31 -->
+    - [x] Fix Gemini embedding model (`gemini-embedding-001`) <!-- id: 32 -->
+    - [x] Refactor `search_module_materials` to be async <!-- id: 33 -->
+    - [x] Verify retrieval of GEX1015 midterm materials <!-- id: 29 -->

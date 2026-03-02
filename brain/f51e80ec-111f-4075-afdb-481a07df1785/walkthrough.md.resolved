@@ -1,31 +1,30 @@
-# Walkthrough - Simplified Animations & Settings Toggle
+# Walkthrough - UI Cleanup & AI Retrieval Fixes
 
-I have simplified the animations on the Dashboard and Timetable pages to be smoother and less jarring, while adding a user setting to toggle them on or off.
+I have completed the requested UI changes and fixed the AI's module material retrieval.
 
-## Changes Made
+## 1. Animation Removal (Completed)
+As requested, all animations have been completely removed from the application to provide a faster, static experience.
+- **Static UI**: Removed `framer-motion` and `AnimatePresence` from Dashboard, Timetable, and Widgets.
+- **Settings Cleanup**: Removed the "Enable Animations" toggle from the Settings page.
+- **Improved Performance**: The app now loads and navigates instantly without transitional delays.
 
-### 1. Settings Toggle
-Added an "Enable Animations" toggle under the **Appearance** tab in Settings. This setting is persisted in the backend and synced across the app.
+## 2. AI Module Retrieval Fixes (Completed)
+The AI can now correctly retrieve and use module materials (slides, transcripts, documents) when you ask questions.
 
-### 2. Animation Removal
-- **Static UI**: Completely removed `framer-motion` and `AnimatePresence` from the Dashboard, Timetable, and Widget components.
-- **Removed Toggles**: The "Enable Animations" toggle has been removed from Settings as the feature is no longer present, ensuring a snappier and more direct user experience.
-- **Code Cleanup**: Removed all `motion.*` elements and cleaned up unused imports across the frontend.
+### Changes Made
+- **Unified File Search**: Updated the AI tools to search both synced Canvas files and manually uploaded documents.
+- **Enhanced Extraction**: Installed `python-docx` to allow the AI to read lecture transcripts and documents in `.docx` format.
+- **Fixed Search Logic**: Corrected the RAG (Retrieval-Augmented Generation) query syntax to ensure precise filtering by user and course.
+- **Reliable Indexing**: Improved the background indexing process to ensure materials are correctly processed and searchable.
 
-## Verification Results
+### Verification Results
+I verified the fixes using **GEX1015/GET1029** materials:
+- **Indexing**: Successfully indexed 18 files for GEX1015, including previously skipped documents.
+- **Retrieval**: Confirmed that queries for course content (e.g., "universe", "morality") now return relevant snippets from the lecture materials.
 
-### Browser Testing
-The browser subagent verified that:
-- The toggle exists and successfully saves to the backend.
-- With animations **ON**, the dashboard widgets slide in smoothly without fading.
-- With animations **OFF**, the pages load instantly with no movement.
+#### Screenshot: GEX1015 Materials List
+(The AI now correctly identifies these as searchable sources)
+![GEX1015 Materials](file:///Users/oli/.gemini/antigravity/brain/f51e80ec-111f-4075-afdb-481a07df1785/media__1772440284505.png)
 
-#### Screenshot: Dashboard with Animations ON (Slide-in)
-![Dashboard Slide-in](/Users/oli/.gemini/antigravity/brain/f51e80ec-111f-4075-afdb-481a07df1785/dashboard_loading_animation_1772387152036.png)
-
-#### Screenshot: Dashboard with Animations OFF (Instant Load)
-![Dashboard Instant](/Users/oli/.gemini/antigravity/brain/f51e80ec-111f-4075-afdb-481a07df1785/dashboard_no_animation_1772387175458.png)
-
-#### Recording: Animation Toggle Verification
-The full verification recording can be found here:
-![Animation Toggle Recording](/Users/oli/.gemini/antigravity/brain/f51e80ec-111f-4075-afdb-481a07df1785/verify_animation_toggle_1772387111282.webp)
+---
+All tasks are complete. The AI should now be much more helpful with your course-specific questions!

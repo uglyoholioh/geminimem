@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Simplify dashboard and timetable animations and add a settings toggle.\n- Create `enable_animations` setting in the backend.\n- Update `SettingsPage.tsx` to include the toggle.\n- Refactor `DashboardPage` and `TimetablePage` to use a unified \"fade-in\" animation controlled by the setting.\n- Remove complex \"adjustment\" animations.",
-  "updatedAt":  "2026-03-01T17:43:05.633221Z",
-  "version":  "2"
+  "summary":  "This plan outlines the steps to fix the AI's module file retrieval issue. It involves improving RAG indexing for Canvas-synced files, unifying search logic in `ai_tools.py`, and better logging in `rag_service.py` to diagnose retrieval failures accurately.",
+  "updatedAt":  "2026-03-02T08:32:12.057167Z",
+  "version":  "5"
 }

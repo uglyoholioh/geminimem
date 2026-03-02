@@ -1,42 +1,25 @@
-# Implementation Plan - Simplifying Animations and Adding Toggle
+# Improving Module File Retrieval for AI Chat
 
-The goal is to simplify the landing/loading animations for the Dashboard and Timetable pages and provide a user setting to toggle these animations.
-
-## User Review Required
-> [!NOTE]
-> I will be adding a new setting `enable_animations` (default: `true`). This will be available under the 'Appearance' tab in Settings.
+The AI currently reports being "unable to retrieve" module files despite having tools to search them. This is primarily due to a disconnect between how Canvas files are stored/indexed and how the AI tools query them.
 
 ## Proposed Changes
 
-### Backend
-#### [MODIFY] [routers/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py)
-- Ensure the retrieval of all settings handles the new `enable_animations` key appropriately (though the current implementation is generic enough).
+### Backend Service ([ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py))
+- **[MODIFY] search_module_materials**: Ensure it points specifically at the RAG service and provide better error handling/logging if the RAG query returns no results.
+- **[MODIFY] get_module_files**: Update to search both `ModuleFile` (user-uploaded) and `CanvasFile` (synced) tables, or unify the retrieval logic.
 
-### Frontend
-#### [MODIFY] [app/settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)
-- Add `enable_animations` to the `AppSettings` type.
-- Add a toggle for animations under the "Appearance" tab.
+### Canvas Sync Service ([canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py))
+- **[MODIFY] index_files**: Improve logging and ensure it's robust against extraction failures.
+- **[MODIFY] sync_all**: Added a check to trigger re-indexing for files that were downloaded but not yet indexed.
 
-#### [MODIFY] [app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
-- Fetch the `enable_animations` setting.
-- Unify the layout entrance. Instead of nested animations, use a single `AnimatePresence` or container-level motion with a subtle fade (0 to 1) and a smooth, single-step slide (e.g., 8px).
-- Ensure no "2-part" movement occur by coordinating with `WidgetShell`.
-
-#### [MODIFY] [app/timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
-- Apply a similar unified fade + slide effect to the timetable grid.
-
-#### [MODIFY] [components/dashboard/WidgetShell.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/WidgetShell.tsx)
-- Simplify or remove individual widget entrance animations if the parent container already handles it, or ensure they are perfectly synced.
-- Re-introduce subtle `opacity` transition for a softer, more "natural" appearance.
-
-#### [MODIFY] [app/globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css)
-- Review and refine global transition variables if necessary to ensure "smoothness" without "extra adjustment".
+### RAG Service ([rag_service.py](file:///シー/oli/Desktop/CraftCanvas/backend/services/rag_service.py))
+- **[MODIFY] query**: Add more detailed logging about which filters are applied (user_id, course_id) to help debug why "0 results" are often returned.
 
 ## Verification Plan
+
 ### Automated Tests
-- Browser subagent will verify that the toggle exists in settings.
-- Browser subagent will verify that toggling it affects the presence of animation classes or motion properties (visually verified).
+- Run a standalone test script `test_rag_retrieval.py` to verify that `rag_service.query` returns expected chunks for a known indexed file.
+- Verify `get_module_files` returns both Canvas and manual uploads.
 
 ### Manual Verification
-- Manually check the "Appearance" tab for the new toggle.
-- Verify the animation feels like "loading in" rather than "adjusting".
+- Use the AI chat to ask about a specific course material (e.g., "What is in the Week 1 slides for GEX1015?") and verify it can list the files and summarize their content if indexed.
