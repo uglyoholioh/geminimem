@@ -2,23 +2,25 @@
 
 I have completed the redesign of the Module Hub, transforming it into a premium, interactive component with a dual-pane layout.
 
-## Size-Aware Variants
+## Course-First UX Redesign
 
-The Module Hub now intelligently adapts its layout based on the space it occupies on your dashboard.
+The Module Hub has been transformed from a complex nested app into a high-density, informative dashboard widget designed specifically for a student's workflow.
 
-### 1. Medium View (Sidebar + Bento)
-Ideal for wider dashboard slots. It features a vertical sidebar for module selection and a detailed "On Radar" bento view for the selected module.
-![Medium View](file:///Users/oli/.gemini/antigravity/brain/5830c039-c1a9-4a13-b7d6-fb98fb8c067e/default_dashboard_view_1772455515825.png)
+### 1. Rich Module Cards
+Every active module is now represented by a **Rich Card**. These cards provide immediate value without requiring any interaction:
+- **At-a-glance Status**: View module codes and full names in a clean grid.
+- **Next Up Tracking**: Each card automatically scans your tasks and assignments to show the **nearest deadline** (e.g., "Due in 2h" or "Overdue") directly in the tile.
 
-### 2. Compact View (High-Density Grid)
-Automatically activates when the widget is in a narrow slot. It provides a clean grid of module cards for quick access without overwhelming the dashboard.
-![Compact View](file:///Users/oli/.gemini/antigravity/brain/5830c039-c1a9-4a13-b7d6-fb98fb8c067e/compact_grid_view_1772455696056.png)
+### 2. Hover-Activated Actions
+To maintain a premium, clutter-free aesthetic, navigation buttons only appear when you need them.
+- **Glassmorphism Overlay**: Hovering over a card reveals a smooth blur overlay with buttons to jump into the **Module Hub** or open **Canvas** in a new tab.
+![Hover Action View](file:///Users/oli/.gemini/antigravity/brain/5830c039-c1a9-4a13-b7d6-fb98fb8c067e/module_hub_hover_success_1772463538812.png)
 
-## Highlights
-- **Automatic Scaling**: Uses `react-use-measure` to detect width changes and switch modes instantly.
-- **Micro-animations**: Smooth layout shifts and hover effects using Framer Motion.
-- **Unified Management**: The "MANAGE" toggle works seamlessly in both views to control module visibility.
+### 3. Unified Configuration
+The configuration view has been refined to manage module visibility while maintaining the premium look and feel of the dashboard.
+![Hub Config View](file:///Users/oli/.gemini/antigravity/brain/5830c039-c1a9-4a13-b7d6-fb98fb8c067e/module_hub_config_view_1772463550902.png)
 
 ## Verification Result
-- Confirmed smooth switching between Grid and Sidebar layouts by resizing the container.
-- Verified that all links and the "Manage" overlay work correctly in both modes.
+- **UX Flow**: Verified that deadlines are correctly prioritized and displayed for each module.
+- **Interactivity**: Confirmed smooth hover transitions and accurate action overlays via browser testing.
+- **Responsiveness**: The grid adapts from 2 columns to 1 column based on the dashboard slot width.

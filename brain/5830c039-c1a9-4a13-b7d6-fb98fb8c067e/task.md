@@ -1,11 +1,12 @@
 - [x] Audit current `ModuleHub` implementation
 - [x] Design and Plan Redesign
     - [x] Define "Premium" layout (Vertical Sidebar + Bento Grid)
-- [x] Implementation - Size-Aware Variants
-    - [x] Support multiple layout modes (Compact, Medium)
-    - [x] Implement robust "Compact" view (High-density grid)
-    - [x] Implement robust "Medium" view (Sidebar + Bento detail)
-    - [x] Add auto-scaling or size-detection logic
-    - [x] Integrate size toggle in `WidgetShell`
-- [x] Verification
-    - [x] Verify each size variant in different layout positions
+- [/] Redesign Module Hub for Student UX [/]
+    - [ ] Implement "Rich Card" grid (High-density info)
+    - [ ] Add "Next Deadline" logic to cards
+    - [ ] Implement Hover-to-Action overlays
+    - [ ] Refine "Configuration" view aesthetics
+    - [ ] Ensure smooth responsive transitions
+- [ ] Visual Verification
+    - [ ] Capture screenshots of 1-col and 2-col views
+    - [ ] Test interactvity (Hover, Clicks)

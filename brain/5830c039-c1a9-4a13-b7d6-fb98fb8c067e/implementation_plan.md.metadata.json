@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Revised plan to make Module Hub size-aware with multiple layout variants.",
-  "updatedAt":  "2026-03-02T12:43:04.112147Z",
-  "version":  "1"
+  "summary":  "Pivot to a Course-First UX for the Module Hub, emphasizing high-density informative cards and hover-activated actions.",
+  "updatedAt":  "2026-03-02T14:54:46.523179Z",
+  "version":  "2"
 }

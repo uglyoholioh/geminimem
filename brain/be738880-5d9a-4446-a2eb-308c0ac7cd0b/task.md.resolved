@@ -1,9 +1,9 @@
 # Tasks
 
-- [/] Command Center Improvements
-    - [ ] Add "Clear" functionality to Command Center
-    - [ ] Redesign prompt suggestions with glassmorphism
-    - [ ] Improve UI/UX of prompt suggestions
+- [/] Refine Command Center & AI Chat UI
+    - [ ] Create a more "tasteful" and refined glassmorphic UI for command suggestions
+    - [ ] Add "Clear Chat" functionality to the Dashboard AI Command Center
+    - [ ] Modernize the chat interface for a premium feel
 - [ ] Verification
-    - [ ] Manual verification of clear functionality
-    - [ ] Visual inspection of new styles
+    - [ ] Verify chat clearing resets history
+    - [ ] Visual audit of the refined UI

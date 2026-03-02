@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Walkthrough of the Command Center improvements, including the new 'Clear' button and the glassmorphic prompt suggestions.",
-  "updatedAt":  "2026-03-02T13:32:35.799138Z"
+  "summary":  "Walkthrough of the refined Command Center UI and the new 'Clear Chat' functionality.",
+  "updatedAt":  "2026-03-02T14:58:00.651617Z",
+  "version":  "1"
 }

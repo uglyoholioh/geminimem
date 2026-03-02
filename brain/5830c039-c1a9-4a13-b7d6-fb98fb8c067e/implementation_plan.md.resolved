@@ -1,29 +1,38 @@
-# Module Hub: Size-Aware Variants
+# Module Hub: Course-First UX Redesign
 
-Redesign the Module Hub to be a versatile dashboard component that adapts its layout based on the context and available space, rather than a forced "dashboard-within-a-dashboard."
+Redesign the Module Hub to provide immediate value to students by showing critical module status (deadlines) at a glance, using high-density "Rich Cards" instead of complex nested navigation.
+
+## User Experience Strategy: "Information at a Glance"
+
+A student using a dashboard widget wants to see **what's next** without clicking.
+1. **Rich Cards**: Each active module is a distinct card with its own accent color and gradient.
+2. **Contextual Info**: Instead of just counts, show the **next upcoming deadline** for each module directly on its card.
+3. **Hover-to-Action**: Keep the UI clean by hiding navigation buttons (Canvas, Hub) until the user hovers over a module card. This reduces clutter while keeping actions "one click away."
+4. **Interactive Manage Mode**: A streamlined configuration view that feels like part of the design.
 
 ## Proposed Changes
 
 ### Module Component
 
 #### [MODIFY] [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)
--   Introduce three distinct layout modes:
-    -   **Compact**: A sleek, high-density grid of module cards (similar to the original but with premium styling). Optimized for 1x1 or 1x2 slots.
-    -   **Medium**: The "Dual Pane" layout (Sidebar + Bento Detail). Optimized for wide or tall slots (e.g., 2x2 or 1x3).
-    -   **Expanded**: A full-page style view with even more detail, intended for a dedicated "Hub" page or a very large dashboard area.
--   Implement an `autoScale` or `viewMode` prop to switch between these.
--   Integrate `react-use-measure` or similar (or simple width-based CSS) to respond to the widget container size.
+- **Grid Layout**: Implement a flexible grid (1 or 2 columns based on width).
+- **Rich Module Card**:
+  - Top: Module Code + Title.
+  - Middle: **Next Deadline Status** (e.g., "Assignment 1: Due in 2h" with urgency color).
+  - Bottom (Hover): Floating glassmorphism action bar with "View Hub" and "Canvas" buttons.
+- **Animations**: Use Framer Motion for smooth "lift" effects on hover and reveal of action buttons.
 
-### Dashboard Integration
+### Styles
 
-#### [MODIFY] [WidgetShell.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/WidgetShell.tsx)
--   Explore adding a "size toggle" in the header of widgets that support multiple views.
+#### [MODIFY] [globals.css](file:///Users/oli/Desktop/CraftCanvas/frontend/app/globals.css) (if needed)
+- Add specific card-hover and backdrop-blur utilities if not already present.
 
 ## Verification Plan
 
 ### Manual Verification
--   Resize the browser and move the Module Hub across different dashboard columns to verify layout adaptation.
--   Manually toggle between Compact and Medium views to ensure consistency.
+- Verify that the nearest deadline is correctly calculated and displayed for each module.
+- Test hover interactions to ensure button overlays are smooth and don't flicker.
+- Check that the grid adapts correctly to 1-column vs 2-column dashboard slots.
 
 ## Verification Plan
 
