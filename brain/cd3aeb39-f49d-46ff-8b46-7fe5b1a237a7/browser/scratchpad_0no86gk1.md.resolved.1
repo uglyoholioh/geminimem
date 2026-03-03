@@ -1,0 +1,13 @@
+# Task Plan
+- [ ] Log in with oliverkoh96@gmail.com / password123
+- [ ] Open the Command Center Chat (bottom right button)
+- [ ] Ask the AI: "Based on my module materials, what is the Multiplication Rule for independent events?"
+- [ ] Verify the AI can extract the rule (P(A and B) = P(A)*P(B) or similar)
+- [ ] Take a screenshot of the response
+- [ ] Return with the result.
+
+## Findings
+- Backend on port 8000 seems unreachable (Connection Refused).
+- Frontend on port 3000 is running but all API calls return 500 Internal Server Error.
+- Login attempts fail with 500.
+- Observed `tempPassword123` in a network request, but even with correct password it might fail due to the universal 500.

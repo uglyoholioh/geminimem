@@ -1,0 +1,141 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Good evening
+, Oli
+Tuesday, March 3
+[13] (205,74)<button class='
+                            flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-mono text-[10px] font-bold uppercase tracking-wider transition-all active:scale-95
+                            bg-surface/40 border-border/40 text-muted hover:border-accent/30 hover:text-accent
+                        '>Customise />
+0
+tasks
+1
+classes
+0
+min
+3
+due
+[14] (895,74)<button class='relative group transition-transform active:scale-95' />
+	10
+	new
+[15] (506,540)<div class='flex-1 min-0 overflow-y-auto pr-1' scrollable='true' />
+	Command Center
+	[16] (405,121)<select class='bg-base border border-border/50 rounded px-2 py-0.5 text-xs font-mono text-muted focus:outline-none focus:border-accent' />
+	[17] (451,121)<button class='flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-surface-hover transition-colors text-[10px] font-mono text-yellow-500'>21m ago />
+		21m ago
+	[18] (482,121)<a class='h-7 w-7 rounded-lg flex items-center justify-center text-muted hover:text-accent hover:bg-accent-subtle/30 transition-all' href='/brief' />
+	[19] (298,190)<button class='group flex items-center justify-between w-full p-3.5 rounded-2xl border border-border bg-surface hover:bg-surface-hover hover:border-accent/30 transition-all mb-4 shadow-sm' />
+		Today's Brief is ready
+		Tap to expand your AI summary for the day
+	List all my module materials or search for any file name containing 'Probability' or 'Rule'.
+	06:26 PM
+	Thinking & searching materials...
+	06:26 PM
+	[20] (130,860)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📝
+Exam Prep />
+		📝
+		Exam Prep
+	[21] (181,860)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📋
+Syllabus />
+		📋
+		Syllabus
+	[22] (243,860)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>✂️
+Break Down Tasks />
+		✂️
+		Break Down Tasks
+	[23] (313,860)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📊
+Weekly Recap />
+		📊
+		Weekly Recap
+	[24] (474,862)<button class='flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] font-mono uppercase text-muted hover:text-urgency transition-colors shrink-0 ml-2' title='Clear conversation'>Clear />
+		Clear
+	[25] (709,523)<div class='lg:h-[calc(100vh-140px)] min-w-0 overflow-y-auto pr-1 pb-4' scrollable='true' />
+		Upcoming Agenda
+		Today
+		16:00
+		MA1522
+		MA1522 Lecture
+		LT16
+		Module Hub
+		[26] (890,414)<button class='h-6 px-2 rounded-lg border flex items-center gap-1.5 text-[9px] font-mono font-bold transition-all border-border/50 text-muted hover:text-accent hover:border-accent/40 bg-surface/40' />
+		[27] (707,466)<button class='flex items-center justify-between p-3 cursor-pointer text-left w-full h-full min-h-[48px]' />
+			[28] (679,466)<div  />
+				[29] (525,466)<div  />
+				[30] (588,466)<div  />
+					[31] (588,458)<span >BT1101 />
+					[32] (588,476)<span >BT1101 Introduction to Business Analytics [2520] />
+			[33] (863,466)<div  />
+				[34] (855,466)<div  />
+					[35] (844,466)<div >1 />
+					[36] (865,466)<div >6 />
+		[37] (707,536)<button class='flex items-center justify-between p-3 cursor-pointer text-left w-full h-full min-h-[48px]' />
+			[38] (689,536)<div  />
+				[39] (525,536)<div  />
+				[40] (584,536)<div  />
+					[41] (584,528)<span >CS2030 />
+					[42] (584,546)<span >CS2030 Programming Methodology II [2520] />
+			[43] (873,536)<div  />
+				[44] (865,536)<div  />
+					[45] (865,536)<div >1 />
+		[46] (707,606)<button class='flex items-center justify-between p-3 cursor-pointer text-left w-full h-full min-h-[48px]' />
+			[47] (679,606)<div  />
+				[48] (525,606)<div  />
+				[49] (609,606)<div  />
+					[50] (609,598)<span >GES1035/GESS1025 />
+					[51] (609,617)<span >GES1035/GESS1025 Singapore: Imagining the Next 50 Years [2520] />
+			[52] (863,606)<div  />
+				[53] (855,606)<div  />
+					[54] (844,606)<div >1 />
+					[55] (865,606)<div >2 />
+		[56] (707,676)<button class='flex items-center justify-between p-3 cursor-pointer text-left w-full h-full min-h-[48px]' />
+			[57] (689,676)<div  />
+				[58] (525,676)<div  />
+				[59] (601,676)<div  />
+					[60] (601,668)<span >GEX1015/GET1029 />
+					[61] (601,687)<span >GEX1015/GET1029 Life, the Universe, and Everything [2520] />
+			[62] (873,676)<div  />
+				[63] (865,676)<div  />
+					[64] (865,676)<div >1 />
+		[65] (707,746)<button class='flex items-center justify-between p-3 cursor-pointer text-left w-full h-full min-h-[48px]' />
+			[66] (689,746)<div  />
+				[67] (525,746)<div  />
+				[68] (585,746)<div  />
+					[69] (585,738)<span >MA1522 />
+					[70] (585,757)<span >MA1522 Linear Algebra for Computing [2520] />
+			[71] (873,746)<div  />
+				[72] (865,746)<div  />
+					[73] (865,746)<div >1 />
+		[74] (707,816)<button class='flex items-center justify-between p-3 cursor-pointer text-left w-full h-full min-h-[48px]' />
+			[75] (698,816)<div  />
+				[76] (525,816)<div  />
+				[77] (604,816)<div  />
+					[78] (604,808)<span >THE1001/RC1000A />
+					[79] (604,827)<span >THE1001/RC1000A A Culture of Respect and Consent (Student) />
+			[80] (882,816)<div  />
+		[81] (707,887)<button class='flex items-center justify-between p-3 cursor-pointer text-left w-full h-full min-h-[48px]' />
+			[82] (698,887)<div  />
+				[83] (525,887)<div  />
+				[84] (575,887)<div  />
+					[85] (575,879)<span >THE1002/SE1000 />
+					[86] (575,897)<span >THE1002/SE1000 Student Essentials />
+			[87] (882,887)<div  />
+		[88] (566,949)<span >TPC />
+		Travel Preparedness Course
+
+</current_dom>

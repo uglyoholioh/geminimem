@@ -1,0 +1,96 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+[13] (175,72)<input class='w-full pl-11 pr-4 py-2.5 bg-surface rounded-full border border-border text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent text-primary' placeholder='Search assignments...' />
+[14] (532,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>BT1101 />
+[15] (575,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>CS2030 />
+[16] (637,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>GES1035/GESS1025 />
+[17] (712,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>GEX1015/GET1029 />
+[18] (771,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>MA1522 />
+[19] (831,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>THE1001/RC1000A />
+[20] (903,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>THE1002/SE1000 />
+[21] (956,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>TPC />
+[22] (82,126)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-emerald-500/15 text-emerald-600 ring-1 ring-emerald-400/30'>Showing
+31
+submitted />
+[23] (178,126)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface text-muted border border-border'>Showing
+55
+non-submittable />
+[24] (257,126)<button class='inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-surface text-secondary border border-border'>AI Filter />
+[25] (506,596)<div class='flex-1 overflow-y-auto p-6 md:p-10 max-w-5xl mx-auto w-full relative' scrollable='true' />
+	Semester Progress
+	31
+	/
+	55
+	completed (
+	56
+	%)
+	Week of 12 Jan
+	[26] (505,358)<div  />
+		[27] (286,358)<span >MA1522 />
+		[28] (486,358)<span >16 Jan 2026 />
+		[29] (694,358)<span >16 Jan />
+		[30] (735,358)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+	Week of 19 Jan
+	[31] (505,481)<div  />
+		[32] (286,481)<span >MA1522 />
+		[33] (486,481)<span >20 Jan 2026 />
+		[34] (694,481)<span >20 Jan />
+		[35] (735,481)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+	[36] (505,537)<div  />
+		[37] (286,537)<span >BT1101 />
+		[38] (486,537)<span >Online Video: Overview and Data for Business Analytics />
+		[39] (694,537)<span >22 Jan />
+		[40] (735,537)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border border-border text-border hover:border-accent hover:text-accent' />
+	[41] (505,593)<div  />
+		[42] (286,593)<span >BT1101 />
+		[43] (486,593)<span >Quiz 1- Overview to BA and Course Syllabus />
+		[44] (694,593)<span >22 Jan />
+		[45] (735,593)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+	[46] (505,650)<div  />
+		[47] (286,650)<span >MA1522 />
+		[48] (486,650)<span >23 Jan 2026 />
+		[49] (694,650)<span >23 Jan />
+		[50] (735,650)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+	Week of 26 Jan
+	[51] (505,773)<div  />
+		[52] (286,773)<span >MA1522 />
+		[53] (486,773)<span >27 Jan 2026 />
+		[54] (694,773)<span >27 Jan />
+		[55] (735,773)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+	[56] (505,829)<div  />
+		[57] (286,829)<span >BT1101 />
+		[58] (486,829)<span >Datacamp Assignment - Introduction to R />
+		[59] (694,829)<span >27 Jan />
+		[60] (735,829)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border border-border text-border hover:border-accent hover:text-accent' />
+	[61] (505,885)<div  />
+		[62] (286,885)<span >BT1101 />
+		[63] (486,885)<span >Datacamp Assignment on dplyr />
+		[64] (694,885)<span >27 Jan />
+		[65] (735,885)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border border-border text-border hover:border-accent hover:text-accent' />
+	[66] (505,941)<div  />
+		[67] (286,941)<span >BT1101 />
+		[68] (486,941)<span >Online Video: Introduction to R />
+		[69] (694,941)<span >27 Jan />
+		[70] (735,941)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border border-border text-border hover:border-accent hover:text-accent' />
+	[71] (286,997)<span >BT1101 />
+	Online Video: Data Visualisation
+	[72] (694,997)<span >29 Jan />
+	[73] (735,997)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border border-border text-border hover:border-accent hover:text-accent' />
+
+</current_dom>

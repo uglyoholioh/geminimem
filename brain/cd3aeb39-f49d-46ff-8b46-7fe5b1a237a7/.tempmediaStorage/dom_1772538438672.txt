@@ -1,0 +1,99 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+[13] (51,71)<a class='h-9 w-9 rounded-xl flex items-center justify-center text-muted hover:text-primary hover:bg-surface-hover transition-all border border-border' href='/' />
+Daily Brief
+Fullscreen Mode
+[14] (871,71)<select class='bg-surface border border-border rounded-lg px-3 py-1.5 text-xs font-mono text-secondary focus:outline-none focus:border-accent' />
+[15] (936,71)<button class='flex items-center gap-2 px-4 py-1.5 rounded-lg bg-accent text-white hover:bg-accent-hover transition-colors disabled:opacity-50 text-sm font-medium'>Regenerate />
+Today's Brief
+📋 **Overview**
+Things are quiet today! Your busyness score is 1/10, with just one deadline this week. You have your MA1522 Lecture at LT16 from 16:00-18:00 today.
+[16] (698,209)<button class='p-1 hover:text-accent text-muted transition-colors' title='Like this section' />
+[17] (711,209)<button class='p-1 hover:text-urgency text-muted transition-colors' title='Need improvement' />
+🎯 **Today's Focus**
+With a light schedule, today is a great opportunity to catch up on announcements and get ahead. Make sure to check out the new information:
+[18] (698,301)<button class='p-1 hover:text-accent text-muted transition-colors' title='Like this section' />
+[19] (711,301)<button class='p-1 hover:text-urgency text-muted transition-colors' title='Need improvement' />
+*   Review the midterm information for GEX1015/GET1029.
+*   Check your grades for MA1522 Graded Quiz 3.
+*   Sign up for the BT1101 Coaching Session for Week 7.
+*   Review your BT1101 Tutorial 2 grades and feedback.
+*   Watch the Course Webinar Recording for GES1035/GESS1025.
+:::action{type="set_reminder" title="Check all new announcements"}
+⚠️ **Heads Up**
+Great news! There are no upcoming deadlines to worry about this week, keeping your workload light.
+[20] (698,572)<button class='p-1 hover:text-accent text-muted transition-colors' title='Like this section' />
+[21] (711,572)<button class='p-1 hover:text-urgency text-muted transition-colors' title='Need improvement' />
+📌 **Weekly Focus**
+This week seems calm. Take advantage of the low busyness score to review past lecture materials, organize your notes, or get a head start on any readings for the upcoming weeks. Staying proactive now will pay off when things get busier!
+[22] (698,640)<button class='p-1 hover:text-accent text-muted transition-colors' title='Like this section' />
+[23] (711,640)<button class='p-1 hover:text-urgency text-muted transition-colors' title='Need improvement' />
+[24] (506,741)<button class='mt-4 flex items-center justify-center w-full py-1.5 gap-1.5 text-xs font-medium text-muted hover:text-primary hover:bg-surface-hover rounded-md transition-colors uppercase tracking-wider border border-transparent hover:border-border'>Hide summary />
+[25] (506,843)<div class='flex-1 overflow-y-auto px-4 py-3 space-y-3 min-h-0' scrollable='true' />
+	I couldn't find any indexed files for BT1101, and therefore I am unable to tell you the Multiplication Rule for independent events from those materials. It's possible that the files for BT1101 have not been uploaded or indexed yet.
+	11:27 AM
+	Search through all my materials for MA1522 for the Multiplication Rule for independent events.
+	11:28 AM
+	I couldn't find any indexed module materials for MA1522. It's possible that the files for this course have not been uploaded or indexed yet. Therefore, I cannot tell you about the Multiplication Rule for independent events from your MA1522 materials.
+	11:28 AM
+	What are the key learning objectives and assessmBased on my module materials, what is the Multiplication Rule for independent events?ent criteria for my active modules this semester?
+	11:36 AM
+	Here are the key learning objectives and assessment criteria for your active modules this semester:
+	BT1101 Introduction to Business Analytics
+	Description:
+	Introduces fundamental concepts and tools for business analytics and data science, focusing on applying basic tools (like R) to real-life datasets and interpreting results for better business decisions. Covers both organisational and technical aspects.
+	Workload:
+	2-1-2-2-3 (Lectures-Tutorials-Labs-Self-study-Project work)
+	Exam:
+	April 29, 2026, 17:00 (150 minutes)
+	CS2030 Programming Methodology II
+	Description:
+	A follow-up to CS1010, exploring object-oriented and functional programming paradigms. Students will develop medium-scale software programs using object-oriented design principles and advanced programming constructs.
+	Workload:
+	2-1-2-3-2 (Lectures-Tutorials-Labs-Self-study-Project work)
+	Exam:
+	April 29, 2026, 13:00 (120 minutes)
+	GES1035/GESS1025 Singapore: Imagining the Next 50 Years
+	Description:
+	Encourages reflection on Singapore's post-independence history, imagining future co-creation, and deliberating ways to achieve future visions. All lectures are online.
+	Workload:
+	1-1-0-3-5 (Lectures-Tutorials-Labs-Self-study-Project work)
+	GEX1015/GET1029 Life, the Universe, and Everything
+	Description:
+	Grapples with enduring challenges to human thought, investigating alternative conceptions of the human condition and their implications on values. Discussion is argument-driven and historically informed.
+	Workload:
+	2-1-0-0-7 (Lectures-Tutorials-Labs-Self-study-Project work)
+[26] (318,918)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📝
+Exam Prep />
+	📝
+	Exam Prep
+[27] (369,918)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📋
+Syllabus />
+	📋
+	Syllabus
+[28] (431,918)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>✂️
+Break Down Tasks />
+	✂️
+	Break Down Tasks
+[29] (500,918)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📊
+Weekly Recap />
+	📊
+	Weekly Recap
+
+</current_dom>

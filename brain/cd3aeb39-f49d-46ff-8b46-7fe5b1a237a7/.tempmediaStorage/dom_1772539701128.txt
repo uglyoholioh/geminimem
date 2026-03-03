@@ -1,0 +1,43 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/settings' title='Settings' />
+O
+Settings
+Manage your account and app configuration
+[13] (335,172)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Profile />
+[14] (335,214)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all bg-accent-subtle text-accent font-medium'>Canvas />
+[15] (335,255)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Craft />
+[16] (335,297)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Timetable />
+[17] (335,339)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Notifications />
+[18] (335,380)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Appearance />
+[19] (335,422)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>AI Context />
+Canvas Integration
+Connect to your university's Canvas LMS
+[20] (563,259)<label class='text-xs text-secondary block mb-1.5 font-medium'>Canvas Base URL />
+[21] (563,295)<input class='w-full rounded-xl border border-border bg-base px-4 py-2.5 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all' placeholder='https://canvas.nus.edu.sg' />
+[22] (563,346)<label class='text-xs text-secondary block mb-1.5 font-medium'>API Token />
+[23] (563,382)<input class='w-full rounded-xl border border-border bg-base px-4 py-2.5 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all pr-10' placeholder='Paste your Canvas API token' />
+[24] (704,382)<button class='absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-secondary transition-colors' />
+[25] (563,433)<label class='text-xs text-secondary block mb-1.5 font-medium'>Sync Interval (minutes) />
+[26] (563,469)<input class='w-full rounded-xl border border-border bg-base px-4 py-2.5 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all w-24' />
+[27] (443,539)<button class='flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-xl bg-accent text-white hover:bg-accent-hover transition-colors disabled:opacity-50'>Sync Now />
+Sync completed successfully
+Auto-create tasks from assignments
+Automatically add new Canvas assignments to your task inbox
+[28] (703,616)<button class='relative w-11 h-6 rounded-full transition-colors shrink-0 bg-border' />
+
+</current_dom>

@@ -1,0 +1,16 @@
+# AI Model Indicate Walkthrough
+
+The AI model name is now being passed to the frontend to ensure users know exactly what is generating the responses. 
+
+## Changes Made
+- **Backend Chunking**: 
+  - Updated [backend/routers/brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py) to yield a metadata chunk prior to the text stream chunks.
+  - The metadata yields a structure `{"meta": {"model": "..."}}`.
+- **Frontend Logic Integration**:
+  - Expanded `api.stream` inside [frontend/lib/api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts) with a new `onMeta` callback to specifically parse and manage these metadata JSON events.
+  - Upgraded both [frontend/hooks/useChat.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/hooks/useChat.ts) and [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) with logic to capture the `meta.model` property and append it to the chat message context.
+- **UI Enhancements**:
+  - [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx) was enhanced to conditionally render a `• ✨ [model_name]` tag directly to the right of the timestamp inside each assistant message container.
+
+## How to Verify
+Open the CraftCanvas dashboard layout and send a chat message via Command Center or right sidebar. As the stream resolves, you'll see a sparkles icon accompanied by the AI model being actively queried (such as `gemini-2.5-flash` or the selected [ollama](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py#261-283) model) next to the message timestamp.

@@ -1,0 +1,73 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Brief History
+3
+briefs
+March 2026
+[13] (87,156)<button class='w-full text-left px-3 py-2 rounded-lg text-sm transition-colors bg-accent-subtle text-accent font-medium'>Tue, 3 Mar
+fallback />
+	Tue, 3 Mar
+	fallback
+February 2026
+[14] (87,241)<button class='w-full text-left px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Thu, 26 Feb
+llama3.1:latest />
+	Thu, 26 Feb
+	llama3.1:latest
+[15] (87,292)<button class='w-full text-left px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Wed, 25 Feb
+llama3.1:latest />
+	Wed, 25 Feb
+	llama3.1:latest
+Tue, 3 Mar 2026
+Generated at
+06:00 am
+·
+fallback
+Classes
+16:00
+MA1522
+·
+Lecture
+LT16
+Due Soon
+BT1101
+Online Video: Linear Regression
+BT1101
+Quiz 7 - Linear Regression
+BT1101
+Tutorial 4 - Statistical Measures & Probability Distributions
+GES1035/GESS1025
+Critical Reflections (Economy)
+MA1522
+Quiz 3
+Open Tasks
+Debug Task
+medium
+Announcements
+GEX1015/GET1029
+More midterm information
+MA1522
+Graded Quiz 3
+BT1101
+Coaching Session Sign Up Week 7
+BT1101
+Tutorial 2 grades and feedback
+GES1035/GESS1025
+Course Webinar Recording
+
+</current_dom>

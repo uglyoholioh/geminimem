@@ -1,0 +1,112 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+[13] (175,72)<input class='w-full pl-11 pr-4 py-2.5 bg-surface rounded-full border border-border text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent text-primary' placeholder='Search assignments...' />
+[14] (532,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>BT1101 />
+[15] (575,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>CS2030 />
+[16] (637,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>GES1035/GESS1025 />
+[17] (712,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>GEX1015/GET1029 />
+[18] (771,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>MA1522 />
+[19] (831,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>THE1001/RC1000A />
+[20] (903,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>THE1002/SE1000 />
+[21] (956,72)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface border border-border'>TPC />
+[22] (82,126)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-emerald-500/15 text-emerald-600 ring-1 ring-emerald-400/30'>Showing
+31
+submitted />
+[23] (178,126)<button class='inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all bg-surface text-muted border border-border'>Showing
+55
+non-submittable />
+[24] (257,126)<button class='inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-surface text-secondary border border-border'>AI Filter />
+[25] (506,596)<div class='flex-1 overflow-y-auto p-6 md:p-10 max-w-5xl mx-auto w-full relative' scrollable='true' />
+	BT1101
+	Online Video: Overview and Data for Business Analytics
+	22 Jan
+	BT1101
+	Quiz 1- Overview to BA and Course Syllabus
+	22 Jan
+	MA1522
+	23 Jan 2026
+	23 Jan
+	Week of 26 Jan
+	[26] (505,253)<div  />
+		[27] (286,253)<span >MA1522 />
+		[28] (486,253)<span >27 Jan 2026 />
+		[29] (694,253)<span >27 Jan />
+		[30] (735,253)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+	[31] (505,309)<div  />
+		[32] (286,309)<span >BT1101 />
+		[33] (486,309)<span >Datacamp Assignment - Introduction to R />
+		[34] (694,309)<span >27 Jan />
+		[35] (735,309)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border border-border text-border hover:border-accent hover:text-accent' />
+	[36] (505,366)<div  />
+		[37] (286,366)<span >BT1101 />
+		[38] (486,366)<span >Datacamp Assignment on dplyr />
+		[39] (694,366)<span >27 Jan />
+		[40] (735,366)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border border-border text-border hover:border-accent hover:text-accent' />
+	[41] (505,422)<div  />
+		[42] (286,422)<span >BT1101 />
+		[43] (486,422)<span >Online Video: Introduction to R />
+		[44] (694,422)<span >27 Jan />
+		[45] (735,422)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border border-border text-border hover:border-accent hover:text-accent' />
+	[46] (505,478)<div  />
+		[47] (286,478)<span >BT1101 />
+		[48] (486,478)<span >Online Video: Data Visualisation />
+		[49] (694,478)<span >29 Jan />
+		[50] (735,478)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border border-border text-border hover:border-accent hover:text-accent' />
+	[51] (505,534)<div  />
+		[52] (286,534)<span >BT1101 />
+		[53] (486,534)<span >Quiz 2 - Data Visualisations />
+		[54] (694,534)<span >29 Jan />
+		[55] (735,534)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+	[56] (505,590)<div  />
+		[57] (286,590)<span >MA1522 />
+		[58] (486,590)<span >30 Jan 2026 />
+		[59] (694,590)<span >30 Jan />
+		[60] (735,590)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+	[61] (505,646)<div  />
+		[62] (286,646)<span >MA1522 />
+		[63] (486,646)<span >Quiz 1 />
+		[64] (694,646)<span >1 Feb />
+		[65] (735,646)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+	Week of 2 Feb
+	[66] (505,769)<div  />
+		[67] (286,769)<span >MA1522 />
+		[68] (486,769)<span >3 Feb 2026 />
+		[69] (694,769)<span >3 Feb />
+		[70] (735,769)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+	[71] (505,825)<div  />
+		[72] (286,825)<span >BT1101 />
+		[73] (486,825)<span >Datacamp Assignment on RMarkdown />
+		[74] (694,825)<span >3 Feb />
+		[75] (735,825)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border border-border text-border hover:border-accent hover:text-accent' />
+	[76] (505,881)<div  />
+		[77] (286,881)<span >BT1101 />
+		[78] (486,881)<span >Online Video: Statistical Measures & Probability Distributions />
+		[79] (694,881)<span >5 Feb />
+		[80] (735,881)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border border-border text-border hover:border-accent hover:text-accent' />
+	[81] (505,937)<div  />
+		[82] (286,937)<span >BT1101 />
+		[83] (486,937)<span >Quiz 3 - Statistical Measures />
+		[84] (694,937)<span >5 Feb />
+		[85] (735,937)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+	[86] (286,993)<span >BT1101 />
+	Quiz 4 - Probability Distributions
+	[87] (694,993)<span >5 Feb />
+	[88] (735,993)<button class='h-5 w-5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-colors border bg-emerald-500/10 border-emerald-500/30 text-emerald-500' />
+
+</current_dom>

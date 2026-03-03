@@ -1,38 +1,23 @@
-# Fix AI Tool Capabilities
+# Expanding AI Document Access (RAG Extraction)
 
-Comprehensive fix for AI tool interactions including task creation, scheduling, and canvas material retrieval.
-
-## Root Causes
-
-1. **JSON Serialization**: `task.dict()` returns Python `date`/`datetime` objects that can't be serialized by the Gemini SDK → `Object of type date is not JSON serializable`
-2. **ContextVar Gap**: Only `create_task` reads from `ContextVar` as fallback. All other tools silently get `session=None` in streaming mode → tools crash or return empty
-3. **Canvas Retrieval**: Many files failing text extraction (CSVs, images, .doc, .pptx) — need to verify RAG pipeline works for indexed PDFs
+The AI currently supports PDF and TXT file extraction but fails to extract text from other common lecture formats like PowerPoint (PPTX), Word (DOCX), CSV, and HTML. This prevents the AI from "reading" a large portion of Canvas module materials.
 
 ## Proposed Changes
 
-### AI Tools Component
-4. **Missing `due_time` in `create_task`**: The tool doesn't accept a time argument even though the model supports it → AI ignores time requests like "at 6pm"
+We will upgrade the extraction pipeline to support a wider array of document formats so they can be indexed into the AI's knowledge base.
 
-#### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+### Backend
 
-1. **Add `_safe_serialize()` helper** — recursively convert `date`/`datetime`/`time` to ISO strings in dicts/lists
-2. **Apply ContextVar fallback to ALL 18 tools** — change every `kwargs.get('session')` to `kwargs.get('session') or ai_session.get()` (same for `user_id`)
-3. **Update `create_task`** — add `due_time: Optional[str] = None` argument and map to `task.due_time` using `time.fromisoformat()`
-4. **Use `_safe_serialize()` on all return values** that include `.dict()` output
-5. **Remove debug prints** — keep only `logger` calls
-
----
-
-#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
-
-1. **Remove debug prints** — clean up `print(f"DEBUG: ...")` statements
-2. **Keep manual tool loop in `_call_gemini`** — still used for brief generation and non-streaming calls
-3. **Keep `automatic_function_calling=True` in `_stream_gemini`** — works with ContextVars
+#### [MODIFY] `lib/extraction.py`(file:///Users/oli/Desktop/CraftCanvas/backend/lib/extraction.py)
+- **Add PPTX Support**: We have installed `python-pptx` to parse `.pptx` presentations and extract text from all slides and shapes.
+- **Add HTML Support**: We have installed `beautifulsoup4` to clean and extract plain text from `.html` files.
+- **Add CSV Support**: Use the built-in `csv` module to parse tabular `.csv` files into readable text content.
+- **Fix DOCX**: Ensure `python-docx` is correctly used for `.docx` files.
 
 ## Verification Plan
 
-### Automated Tests
-1. Restart backend, use browser to ask AI: "Add a task: Review probability chapter at 6pm today"  
-2. Verify in result (or DB) that `due_time` is set to `18:00:00`.
-3. Ask AI: "What are my upcoming assignments?" (tests `search_assignments` with ContextVar)
-4. Ask AI: "What topics are covered in BT1101 lectures?" (tests `search_module_materials` RAG)
+### Automated Re-Indexing
+We will write and run a script to find all `canvas_files` that have `is_indexed = False` or where extraction previously failed silently, and force them through the new extraction pipeline.
+
+### Manual Verification
+Ask the AI to retrieve specific information only found within a newly indexed PPTX or CSV file to verify the RAG system is successfully searching through the new formats.

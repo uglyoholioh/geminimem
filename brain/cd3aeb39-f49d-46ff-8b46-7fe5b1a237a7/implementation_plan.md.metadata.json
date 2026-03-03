@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Updated plan to include `due_time` support in `create_task` tool and verify it correctly handles 24h format.",
-  "updatedAt":  "2026-03-03T08:43:39.760772Z",
-  "version":  "6"
+  "summary":  "Implementation plan for adding AI document parsing capabilities for PPTX, HTML, CSV, and DOCX.",
+  "updatedAt":  "2026-03-03T10:09:12.587942Z",
+  "version":  "8"
 }

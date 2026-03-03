@@ -1,0 +1,34 @@
+# Module Hub Redesign Plan
+
+## Goal
+Redesign the Module Hub widget on the dashboard to be maximally "useful" at a glance. The current design (large cards with the single next deadline) was a step towards a course-first view, but might be taking up too much space or lacking actionable density for a high-level dashboard.
+
+## User Review Required
+> [!IMPORTANT]
+> Since defining "more useful" is highly subjective, please review the proposed changes below and let me know which direction you prefer, or if you have a specific vision in mind!
+
+### Proposed Design Concept: "High-Density, Actionable List"
+Instead of the current grid of large cards ([ModuleCard](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx#125-203)), we shift to a **compact list view** (or a very dense grid) that maximizes the information-to-space ratio.
+
+**Key Features per Module Row/Item:**
+1. **Status Indicators:** A quick visual summary of the module's health (e.g., small badges indicating `[3 Tasks]`, `[1 Overdue]`).
+2. **Immediate "Next Up":** Still show the immediate next deadline, but integrated inline rather than taking up a whole block.
+3. **Quick Actions Inline:** Instead of a full-card hover overlay, use smaller icon buttons that appear on hover for "Go to Hub", "Open Canvas", or even a quick "+" to add a task specific to that module.
+4. **Progress/Load Visual:** A sparkline or miniature progress bar indicating the workload for that module this week.
+
+## Proposed Changes
+
+### Frontend Components
+#### [MODIFY] [frontend/components/dashboard/ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)
+- Replace [ModuleCard](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx#125-203) with a `ModuleRow` or `CompactModuleCard` component.
+- Adjust the layout container to handle a vertical list (or dense grid) of these new components.
+- Enhance the data processing to pass more aggregated stats (e.g., task counts, overdue status) to each module component.
+
+## Verification Plan
+### Automated Tests
+- N/A (UI-centric changes)
+
+### Manual Verification
+- View the dashboard to ensure the Module Hub renders correctly.
+- Verify that hover states and inline actions (clicking Canvas link, Hub link) work as expected.
+- Verify that the new layout is responsive and fits well within the Widget container.

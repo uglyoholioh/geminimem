@@ -1,0 +1,104 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+BT1101
+[13] (78,66)<button class='group flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-muted hover:text-primary transition-colors mb-8'>Back to Courses />
+BT
+BT1101 Introduction to Business Analytics [2520]
+BT1101
+[14] (96,307)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group text-muted hover:text-primary hover:bg-surface/50' />
+	Overview
+[15] (96,358)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group bg-surface shadow-sm border border-border/50'>24 />
+	Assignments
+	24
+[16] (96,409)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group text-muted hover:text-primary hover:bg-surface/50'>17 />
+	Announcements
+	17
+[17] (96,459)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group text-muted hover:text-primary hover:bg-surface/50' />
+	Grades
+[18] (96,509)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group text-muted hover:text-primary hover:bg-surface/50' />
+	Schedule
+[19] (96,559)<button class='w-full flex items-center justify-between px-4 py-3 text-sm rounded-xl transition-all duration-200 group text-muted hover:text-primary hover:bg-surface/50' />
+	Module Brief
+[20] (573,533)<main class='flex-1 overflow-y-auto relative z-10 bg-base/50 p-8' scrollable='true' />
+	Online Video: Overview and Data for Business Analytics
+	22 Jan, 08:00 am
+	Not Started
+	[21] (859,103)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228368' />
+	Quiz 1- Overview to BA and Course Syllabus
+	22 Jan, 08:00 am
+	15
+	pts
+	Graded
+	[22] (859,184)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228342' />
+	Datacamp Assignment - Introduction to R
+	27 Jan, 03:59 pm
+	6
+	pts
+	Not Started
+	[23] (859,265)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228354' />
+	Datacamp Assignment on dplyr
+	27 Jan, 03:59 pm
+	3
+	pts
+	Not Started
+	[24] (859,346)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228356' />
+	Online Video: Introduction to R
+	27 Jan, 03:59 pm
+	Not Started
+	[25] (859,427)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228364' />
+	Online Video: Data Visualisation
+	29 Jan, 08:00 am
+	Not Started
+	[26] (859,508)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228362' />
+	Quiz 2 - Data Visualisations
+	29 Jan, 08:00 am
+	10
+	pts
+	Graded
+	[27] (859,589)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228346' />
+	Datacamp Assignment on RMarkdown
+	3 Feb, 03:59 pm
+	1
+	pts
+	Not Started
+	[28] (859,670)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228355' />
+	Online Video: Statistical Measures & Probability Distributions
+	5 Feb, 08:00 am
+	Not Started
+	[29] (859,751)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228370' />
+	Quiz 3 - Statistical Measures
+	5 Feb, 08:00 am
+	8
+	pts
+	Graded
+	[30] (859,832)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228347' />
+	Quiz 4 - Probability Distributions
+	5 Feb, 08:00 am
+	7
+	pts
+	Graded
+	[31] (859,913)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228345' />
+	Tutorial 1 - Value Generation with Analytics
+	6 Feb, 01:00 am
+	20
+	pts
+	Graded
+	[32] (859,994)<a class='text-muted hover:text-secondary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity' href='https://canvas.nus.edu.sg/courses/85030/assignments/228373' />
+
+</current_dom>

@@ -1,0 +1,15 @@
+# Module Hub Redesign Walkthrough
+
+## Summary of Work
+The dashboard Module Hub widget has been redesigned to be much more dense and actionable, pivoting away from the bulky card-based layout to a high-density list view as requested.
+
+## What was changed
+1. **Compact Layout ([ModuleRow](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx#125-212))**: Replaced the large `ModuleCard` components with a sleek, compact [ModuleRow](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx#125-212) that fits perfectly in a vertical list.
+2. **Aggregated Status Indicators**: Added inline badges that show the total number of pending items (tasks + assignments) at a glance (e.g., `2 pending`), which was previously not visible on the cards.
+3. **Actionable Hover States**: Removed the full-card hover overlay. Now, when you hover over a course, elegant quick-action buttons (Go to Hub, Open Canvas) slide in from the right.
+4. **Immediate Insight**: Kept the "Next Up" deadline prominently displayed by default on the right side, but dynamically styling it in red (`text-urgency`) if the deadline is overdue.
+5. **Aesthetic Enhancements**: Applied premium styling with subtle backgrounds, glassmorphism borders on hover, dynamic animations (`animate-in fade-in`), and glowing indicator dots derived from course colours.
+
+## Validation Results
+- Verified that the rewritten [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx) correctly filters active courses and compiles with no TypeScript errors.
+- Confirmed that the new layout seamlessly integrates with the [DashboardLayoutManager](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx#45-233) and looks fantastic in both widget and full-page views.

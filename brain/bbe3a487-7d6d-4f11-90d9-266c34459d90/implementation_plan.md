@@ -1,0 +1,31 @@
+# Hierarchical Expandable Module Hub
+
+## Goal
+Replace the current Module Hub with a hierarchical, drill-down design:
+- **Level 1 – Module Cards**: Compact cards per course showing summary stats (pending tasks, assignments, unread announcements). Clicking expands the card.
+- **Level 2 – Category Sections**: Inside an expanded card, collapsible sections for Tasks, Assignments, and Announcements, each showing a count badge.
+- **Level 3 – Item Details**: Expanding a category reveals individual items. Each item can be further expanded to show details (notes, description, due date, priority, etc.).
+
+## Proposed Changes
+
+### Data Threading
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+- Pass `announcements` to `DashboardLayoutManager`.
+
+#### [MODIFY] [DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx)
+- Accept `announcements` prop and forward it to `ModuleHub`.
+
+---
+
+### Core Component
+#### [MODIFY] [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx)
+- Accept `announcements` prop.
+- Replace `ModuleRow` with a new `ExpandableModuleCard` component.
+- Each card has an accordion-style expand/collapse.
+- Inside: collapsible category sections (Tasks, Assignments, Announcements).
+- Inside each category: individual expandable items with detail views.
+- Premium styling: smooth animations, colour-coded accents, hierarchy indentation, subtle dividers.
+
+## Verification Plan
+- Type-check with `npx tsc --noEmit` (ignoring pre-existing test file errors).
+- Visual check in browser.

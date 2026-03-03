@@ -1,0 +1,10 @@
+# Task: Verify AI search in module materials
+
+## Checklist
+- [ ] Navigate to http://localhost:3000
+- [ ] Log in with oliverkoh96@gmail.com / password123
+- [ ] Open Command Center Chat
+- [ ] Ask: "Based on my module materials, what is the Multiplication Rule for independent events?"
+- [ ] Verify AI response contains the rule
+- [ ] Take screenshot of the response
+- [ ] Report results

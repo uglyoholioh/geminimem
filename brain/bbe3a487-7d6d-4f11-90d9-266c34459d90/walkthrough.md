@@ -1,0 +1,28 @@
+# Fresh Hierarchical Module Hub — Walkthrough
+
+## What Changed
+
+Completely rewrote [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx) from scratch with a 3-level drill-down hierarchy:
+
+| Level | What it shows | Interaction |
+|-------|--------------|-------------|
+| **1 — Module Card** | Course code, name, summary badges (assignments, tasks, unread announcements) | Click to expand |
+| **2 — Category Group** | Assignments / Tasks / Announcements with count | Click to expand |
+| **3 — Item Detail** | Individual item with deadline, priority, notes, Canvas links | Click to expand |
+
+### Data Pipeline
+- Threaded `announcements` through [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) → [DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx) → `ModuleHub`
+- Only **active modules** (set during onboarding via `is_active`) are displayed
+
+### Design
+- Matches app aesthetic: `glass-card`, `font-mono`, `text-muted`, module colour dots, urgency colors
+- No fixed heights — content flows naturally inside `WidgetShell`
+- Clean border/background transitions on expand/collapse
+
+## Screenshot
+
+![Module Hub on Dashboard](file:///Users/oli/.gemini/antigravity/brain/bbe3a487-7d6d-4f11-90d9-266c34459d90/module_hub_screenshot.png)
+
+## Validation
+- TypeScript: ✅ No errors related to ModuleHub or DashboardLayoutManager
+- Visual: ✅ Confirmed rendering on live dashboard at `localhost:3000`

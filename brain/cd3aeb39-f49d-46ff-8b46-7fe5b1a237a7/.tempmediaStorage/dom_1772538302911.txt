@@ -1,0 +1,175 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/grades' title='Grades' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Good evening
+, Oli
+Tuesday, March 3
+[13] (196,74)<button class='
+                            flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-mono text-[10px] font-bold uppercase tracking-wider transition-all active:scale-95
+                            bg-accent text-white border-accent shadow-lg shadow-accent/20
+                        '>Save />
+0
+tasks
+1
+classes
+0
+min
+3
+due
+[14] (895,74)<button class='relative group transition-transform active:scale-95' />
+	10
+	new
+[15] (506,540)<div class='flex-1 min-0 overflow-y-auto pr-1' scrollable='true' />
+	Command Center
+	[16] (409,140)<select class='bg-base border border-border/50 rounded px-2 py-0.5 text-xs font-mono text-muted focus:outline-none focus:border-accent' />
+	[17] (453,140)<button class='flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-surface-hover transition-colors text-[10px] font-mono text-green-500'>4m ago />
+		4m ago
+	[18] (482,140)<a class='h-7 w-7 rounded-lg flex items-center justify-center text-muted hover:text-accent hover:bg-accent-subtle/30 transition-all' href='/brief' />
+	[19] (298,209)<button class='group flex items-center justify-between w-full p-3.5 rounded-2xl border border-border bg-surface hover:bg-surface-hover hover:border-accent/30 transition-all mb-4 shadow-sm' />
+		Today's Brief is ready
+		Tap to expand your AI summary for the day
+	[20] (298,562)<div class='flex-1 overflow-y-auto px-4 py-3 space-y-3 min-h-0' scrollable='true' />
+		11:36 AM
+		Here are the key learning objectives and assessment criteria for your active modules this semester:
+		BT1101 Introduction to Business Analytics
+		Description:
+		Introduces fundamental concepts and tools for business analytics and data science, focusing on applying basic tools (like R) to real-life datasets and interpreting results for better business decisions. Covers both organisational and technical aspects.
+		Workload:
+		2-1-2-2-3 (Lectures-Tutorials-Labs-Self-study-Project work)
+		Exam:
+		April 29, 2026, 17:00 (150 minutes)
+		CS2030 Programming Methodology II
+		Description:
+		A follow-up to CS1010, exploring object-oriented and functional programming paradigms. Students will develop medium-scale software programs using object-oriented design principles and advanced programming constructs.
+		Workload:
+		2-1-2-3-2 (Lectures-Tutorials-Labs-Self-study-Project work)
+		Exam:
+		April 29, 2026, 13:00 (120 minutes)
+		GES1035/GESS1025 Singapore: Imagining the Next 50 Years
+		Description:
+		Encourages reflection on Singapore's post-independence history, imagining future co-creation, and deliberating ways to achieve future visions. All lectures are online.
+		Workload:
+		1-1-0-3-5 (Lectures-Tutorials-Labs-Self-study-Project work)
+		GEX1015/GET1029 Life, the Universe, and Everything
+		Description:
+		Grapples with enduring challenges to human thought, investigating alternative conceptions of the human condition and their implications on values. Discussion is argument-driven and historically informed.
+		Workload:
+		2-1-0-0-7 (Lectures-Tutorials-Labs-Self-study-Project work)
+		Exam:
+		April 27, 2026, 17:00 (120 minutes)
+		MA1522 Linear Algebra for Computing
+		Description:
+		Introduces basic linear algebra concepts and develops skills in computing with vectors and matrices, with and without software (MATLAB). Focuses on computational facilities and geometric intuition.
+		Workload:
+		3-1-1-0-5 (Lectures-Tutorials-Labs-Self-study-Project work)
+		Exam:
+		April 30, 2026, 09:00 (120 minutes)
+		11:36 AM
+	[21] (130,878)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📝
+Exam Prep />
+		📝
+		Exam Prep
+	[22] (181,878)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📋
+Syllabus />
+		📋
+		Syllabus
+	[23] (243,878)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>✂️
+Break Down Tasks />
+		✂️
+		Break Down Tasks
+	[24] (313,878)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📊
+Weekly Recap />
+		📊
+		Weekly Recap
+	[25] (474,880)<button class='flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] font-mono uppercase text-muted hover:text-urgency transition-colors shrink-0 ml-2' title='Clear conversation'>Clear />
+		Clear
+	[26] (286,927)<textarea class='chat-textarea w-full px-3.5 py-2.5 text-sm text-primary placeholder:text-muted/60 bg-transparent focus:outline-none disabled:opacity-50' placeholder='Ask anything…' />
+	[27] (709,542)<div class='lg:h-[calc(100vh-140px)] min-w-0 overflow-y-auto pr-1 pb-4' scrollable='true' />
+		[28] (707,240)<div  />
+			[29] (707,137)<div  />
+				[30] (552,138)<h2 >Upcoming Agenda />
+				[31] (889,138)<button aria-label='Remove Upcoming Agenda' class='h-6 w-6 rounded-full flex items-center justify-center text-muted hover:text-urgency hover:bg-urgency-subtle/30 transition-all active:scale-90' />
+			[32] (707,262)<div  />
+				[33] (707,262)<div  />
+					[34] (707,262)<div  />
+						[35] (707,219)<div  />
+							[36] (707,219)<div  />
+								[37] (707,183)<div  />
+									[38] (530,183)<span >Today />
+									[39] (719,183)<div  />
+								[40] (707,229)<div  />
+									[41] (530,229)<div >16:00 />
+									[42] (555,212)<div  />
+										[43] (555,212)<div  />
+									[44] (732,229)<div  />
+										[45] (732,229)<div  />
+											[46] (621,229)<div  />
+												[47] (621,220)<div  />
+													[48] (590,220)<span >MA1522 />
+													[49] (639,220)<span >MA1522 Lecture />
+												[50] (621,242)<div  />
+													[51] (590,242)<span >LT16 />
+											[52] (885,215)<div  />
+		[53] (707,670)<div  />
+			[54] (707,406)<div  />
+				[55] (544,407)<h2 >Module Hub />
+				[56] (889,407)<button aria-label='Remove Module Hub' class='h-6 w-6 rounded-full flex items-center justify-center text-muted hover:text-urgency hover:bg-urgency-subtle/30 transition-all active:scale-90' />
+			[57] (707,692)<div  />
+				[58] (707,692)<div  />
+					[59] (707,464)<div  />
+						[60] (707,464)<button class='w-full flex items-center gap-3 p-3 text-left' />
+							BT1101
+							BT1101 Introduction to Business Analytics [2520]
+							1
+							6
+					[61] (707,529)<div  />
+						[62] (707,529)<button class='w-full flex items-center gap-3 p-3 text-left' />
+							CS2030
+							CS2030 Programming Methodology II [2520]
+							1
+					[63] (707,594)<div  />
+						[64] (707,594)<button class='w-full flex items-center gap-3 p-3 text-left' />
+							GES1035/GESS1025
+							GES1035/GESS1025 Singapore: Imagining the Next 50 Years [2520]
+							1
+							2
+					[65] (707,659)<div  />
+						[66] (707,659)<button class='w-full flex items-center gap-3 p-3 text-left' />
+							GEX1015/GET1029
+							GEX1015/GET1029 Life, the Universe, and Everything [2520]
+							1
+					[67] (707,724)<div  />
+						[68] (707,724)<button class='w-full flex items-center gap-3 p-3 text-left' />
+							MA1522
+							MA1522 Linear Algebra for Computing [2520]
+							1
+					[69] (707,789)<div  />
+						[70] (707,789)<button class='w-full flex items-center gap-3 p-3 text-left' />
+							THE1001/RC1000A
+							THE1001/RC1000A A Culture of Respect and Consent (Student)
+					[71] (707,854)<div  />
+						[72] (707,854)<button class='w-full flex items-center gap-3 p-3 text-left' />
+							THE1002/SE1000
+							THE1002/SE1000 Student Essentials
+					[73] (707,919)<div  />
+						[74] (707,919)<button class='w-full flex items-center gap-3 p-3 text-left' />
+							TPC
+							Travel Preparedness Course
+		+
+
+</current_dom>

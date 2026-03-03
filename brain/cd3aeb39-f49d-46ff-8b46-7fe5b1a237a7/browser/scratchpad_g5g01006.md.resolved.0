@@ -1,0 +1,10 @@
+# Task Plan: Verify Task Visibility and Completion on Agenda
+
+- [x] Navigate to http://localhost:3000
+- [ ] Log in with oliverkoh96@gmail.com / password123
+- [ ] Observe "Upcoming Agenda" section
+- [ ] Check for completed/submitted tasks on the timeline
+- [ ] Take a screenshot of the initial agenda
+- [ ] Use Command Center to mark "Submit MA1522 lecture practice" as done
+- [ ] Verify the task disappears from the agenda
+- [ ] Final summary of findings
