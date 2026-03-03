@@ -17,3 +17,4 @@
 - [x] Test assignment queries (ContextVar streaming fix)
 - [x] Test canvas material retrieval (RAG)
 - [x] Verify `due_time` correctly saved and serialized
+- [x] Verify frontend time display on the dashboard agenda

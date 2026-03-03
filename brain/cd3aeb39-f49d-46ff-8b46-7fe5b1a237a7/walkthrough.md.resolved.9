@@ -11,7 +11,7 @@ Previously, the AI failed to create tasks or query data in "Streaming" mode beca
 Added a [_safe_serialize()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#28-37) helper to prevent errors like `Object of type date is not JSON serializable`. All dates, datetimes, and times from the database are now correctly converted to strings before being returned to the AI.
 
 ### 3. Task Due Time Support
-Updated the [create_task](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#465-508) tool to accept a `due_time` parameter. The AI can now fulfill requests like "Submit practice at 6pm today" by correctly setting both the date and the time in the database.
+Updated the [create_task](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#445-474) tool to accept a `due_time` parameter. The AI can now fulfill requests like "Submit practice at 6pm today" by correctly setting both the date and the time in the database.
 
 ### 4. Dashboard Agenda Time Display
 Fixed a bug in [AgendaTimeline.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx) where tasks created with specific times were displaying as `23:59`. The frontend now correctly prioritizes `task.due_time` over `task.due_date` when sorting and displaying agenda items.
@@ -21,10 +21,10 @@ Fixed a bug in [AgendaTimeline.tsx](file:///Users/oli/Desktop/CraftCanvas/fronte
 ### Frontend Agenda Display
 Successfully verified that tasks scheduled for specific times (e.g., 6 PM) now display their time accurately on the dashboard's Upcoming Agenda widget.
 
-![Dashboard Agenda Verification](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/upcoming_agenda_widget_1772528612284.png)
+![Dashboard Agenda Verification](file:///Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/upcoming_agenda_widget_1772528612284.png)
 
 ### Task Creation with Time
-Verified that [create_task](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#465-508) now correctly parses and saves due times.
+Verified that [create_task](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#445-474) now correctly parses and saves due times.
 ```python
 # Result from verification script
 Result: {

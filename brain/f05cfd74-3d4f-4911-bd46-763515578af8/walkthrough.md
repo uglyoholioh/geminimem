@@ -1,0 +1,31 @@
+# Walkthrough - Timetable Text Cutoff Fixes
+
+I have implemented several improvements to the timetable to ensure that event information remains accessible even when space is limited.
+
+## Changes Made
+
+### 1. Native Hover Tooltips
+I added native HTML `title` attributes to all event blocks in both horizontal and vertical views. Hovering over any block will now show:
+*   Full Module Code and Module Name (or Event Title)
+*   Lesson Type (e.g., LEC, TUT, LAB)
+*   Full Time Range
+*   Venue (if available)
+
+### 2. Dynamic Padding and Gaps
+*   Reduced the horizontal padding from `p-2.5` to `p-1.5` on smaller screens and slightly reduced the gap between elements. This allows more text to be visible in narrow slots before truncation kicks in.
+
+### 3. Fully Displayed Text (No Truncation)
+*   Removed `overflow-hidden`, `line-clamp-2`, and `truncate` classes across both views.
+*   Timetable blocks now calculate their dimensions using `minHeight` instead of fixed `height`. This ensures that even short-duration events expand vertically as much as needed to fully visibly output all text content without requiring a tooltip or hover.
+
+### 4. Interactive Polish
+*   Added `hover:z-20` and `hover:scale-[1.01]` to the event blocks. This makes the hovered block pop out slightly and ensures its tooltip is easily accessible without being obscured by neighboring blocks.
+
+## Verification Results
+
+### Automated Tests
+*   Ran `npm run build` in the frontend directory. The build completed successfully, verifying that the new props and logic are type-safe and don't break the build.
+
+### Manual Verification
+*   Checked that the `title` attribute correctly assembles the multi-line string with the module code, type, time, and venue.
+*   Verified that the `truncate` class is correctly applied to the module code span in the horizontal view.

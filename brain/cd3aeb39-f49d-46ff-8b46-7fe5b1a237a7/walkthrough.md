@@ -13,7 +13,15 @@ Added a `_safe_serialize()` helper to prevent errors like `Object of type date i
 ### 3. Task Due Time Support
 Updated the `create_task` tool to accept a `due_time` parameter. The AI can now fulfill requests like "Submit practice at 6pm today" by correctly setting both the date and the time in the database.
 
+### 4. Dashboard Agenda Time Display
+Fixed a bug in `AgendaTimeline.tsx` where tasks created with specific times were displaying as `23:59`. The frontend now correctly prioritizes `task.due_time` over `task.due_date` when sorting and displaying agenda items.
+
 ## Verification Results
+
+### Frontend Agenda Display
+Successfully verified that tasks scheduled for specific times (e.g., 6 PM) now display their time accurately on the dashboard's Upcoming Agenda widget.
+
+![Dashboard Agenda Verification](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/upcoming_agenda_widget_1772528612284.png)
 
 ### Task Creation with Time
 Verified that `create_task` now correctly parses and saves due times.
