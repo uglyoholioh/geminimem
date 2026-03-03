@@ -1,0 +1,6 @@
+# Task: Test "Forgot Password?" navigation
+
+- [ ] Go to http://localhost:3000/login
+- [ ] Click the "Forgot Password?" button
+- [ ] Check if navigation happens to http://localhost:3000/forgot-password
+- [ ] Report the result

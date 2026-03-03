@@ -1,0 +1,12 @@
+# Forgot Password Button Troubleshooting
+
+## Task List
+- [ ] Go to http://localhost:3000/login
+- [ ] Inspect the "Forgot Password?" button area using DOM tool
+- [ ] Check for overlapping elements or z-index issues
+- [ ] Click the button and check console logs
+- [ ] Capture a screenshot with the button highlighted
+- [ ] Report findings
+
+## Findings
+- 

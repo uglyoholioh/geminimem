@@ -1,0 +1,7 @@
+# Forgot Password Testing Plan
+
+- [ ] Navigate to http://localhost:3000/login
+- [ ] Open console logs
+- [ ] Click "Forgot Password?" button
+- [ ] Verify "Forgot password clicked" in console
+- [ ] Verify navigation to forgot-password page

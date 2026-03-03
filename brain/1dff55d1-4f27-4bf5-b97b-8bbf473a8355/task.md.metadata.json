@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_TASK",
-  "summary":  "Task list for debugging login internal server error.",
-  "updatedAt":  "2026-03-03T16:35:29.855382Z"
+  "summary":  "Task list for implementing password reset functionality.",
+  "updatedAt":  "2026-03-03T16:59:56.168700Z",
+  "version":  "1"
 }

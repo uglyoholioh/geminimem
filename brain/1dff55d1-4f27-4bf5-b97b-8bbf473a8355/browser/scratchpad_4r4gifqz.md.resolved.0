@@ -1,0 +1,10 @@
+# Task: Test Forgot Password Functionality
+
+## Plan
+- [ ] Go to http://localhost:3000/login
+- [ ] Click on the "Forgot Password?" button.
+- [ ] Verify that the URL changes to http://localhost:3000/forgot-password.
+- [ ] Report the result.
+
+## Findings
+- 

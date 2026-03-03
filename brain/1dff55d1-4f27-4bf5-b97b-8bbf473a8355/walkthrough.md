@@ -9,22 +9,27 @@ I resolved the issue where passwords longer than 72 characters caused a crash in
 - **[auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)**: Added validation to the registration, login, and profile update endpoints to return a clean error instead of crashing.
 - **[user.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py)**: Added a safety check in the `User` model as a last line of defense.
 
-### 2. Duplicate Email Handling
-I also fixed a secondary issue where trying to register with an email that already exists caused a `500 Internal Server Error` due to an unhandled unique constraint violation in the database.
-- **[auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)**: Added a check in the registration endpoint to see if an email is already in use, returning a `400 Bad Request` with a clear message if it is.
+### 3. Password Reset Functionality
+I've added a complete password reset flow to allow users to recover their accounts.
+-   **Model**: Added `PasswordResetToken` to track secure, time-limited reset tokens.
+-   **Backend**: Added `/forgot-password` (token generation) and `/reset-password` (password update) endpoints to `auth.py`.
+-   **Frontend**: Created dedicated pages for requesting resets and setting new passwords, and added a "Forgot Password?" link to the login screen.
+-   **Timezone Consistency**: Ensured all token expiration checks use the Singapore timezone (Asia/Singapore) to match the rest of the system.
 
 ## Automated Testing
 
-I've added several regression tests to ensure these issues don't return:
-- `test_register_password_too_long`: Verifies 72-char limit in registration.
-- `test_login_password_too_long`: Verifies 72-char limit in login.
-- `test_register_duplicate_email`: Verifies graceful failure when an email is already registered.
+-   `test_register_password_too_long`: Verifies 72-char limit in registration.
+-   `test_login_password_too_long`: Verifies 72-char limit in login.
+-   `test_register_duplicate_email`: Verifies graceful failure when an email is already registered.
+-   `test_password_reset_flow`: Verifies the end-to-end token generation and password update process.
 
 ## Verification Results
 
-All tests completed successfully:
+All authentication and password-related tests are passing:
 ```bash
-pytest backend/tests/test_routers/test_auth.py backend/tests/test_models/test_user.py
+pytest backend/tests/test_routers/test_auth.py backend/tests/test_routers/test_password_reset.py
 ```
-**Output**: `11 passed`
+**Output**: `11 passed` (includes registration, login, and reset flow).
+
+I also manually verified the flow using `curl` to simulate the forgot-password request, extract the token from the server logs, and successfully reset the password for `oliverkoh96@gmail.com`.
 
