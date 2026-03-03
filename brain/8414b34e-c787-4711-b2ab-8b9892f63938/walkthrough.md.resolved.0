@@ -1,0 +1,78 @@
+# AI Document Tooling Expansion — Walkthrough
+
+## What Changed
+
+### 5 New Document Intelligence Tools
+
+Added to [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py):
+
+| Tool | Trigger phrases | What it does |
+|------|----------------|-------------|
+| [summarize_document](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#679-714) | "Summarise the Week 3 slides" | Retrieves full document text (4K chars) for LLM summarisation |
+| [search_across_documents](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#716-750) | "Search all modules for recursion" | Cross-course RAG query (no course filter) |
+| [get_document_outline](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#752-802) | "What topics does this PDF cover?" | Extracts headings from PPTX slide titles, DOCX heading styles, PDF font-size heuristics, or text patterns |
+| [extract_key_concepts](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#804-840) | "Key concepts in Week 5 notes" | Returns document content (3K chars) for LLM concept extraction |
+| [compare_documents](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#842-892) | "Compare Week 1 and Week 2 slides" | Fetches two files side-by-side (2K chars each) for LLM comparison |
+
+Also added shared helper [_find_file_by_name()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#46-87) that searches across both [ModuleFile](file:///Users/oli/Desktop/CraftCanvas/backend/models/module_file.py#8-25) and [CanvasFile](file:///Users/oli/Desktop/CraftCanvas/backend/models/canvas_file.py#8-30) tables by partial filename match.
+
+---
+
+### RAG Improvements — [rag_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py)
+
+- **Sentence-aware chunking**: Replaced naive 500-char slicing with [_smart_chunk()](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py#22-61) that splits on sentence boundaries (~800 chars, 100-char overlap)
+- **Section heading detection**: [_detect_section_heading()](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py#63-79) identifies markdown headings, numbered sections, and ALL-CAPS titles
+- **Enriched metadata**: Chroma now stores `chunk_index`, `total_chunks`, and [section_heading](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py#63-79) per chunk
+- **Richer query results**: Returns [section](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py#63-79) and `chunk_position` fields
+
+---
+
+### Extraction — [extraction.py](file:///Users/oli/Desktop/CraftCanvas/backend/lib/extraction.py)
+
+Added [extract_outline()](file:///Users/oli/Desktop/CraftCanvas/backend/lib/extraction.py#86-191) function with native support for:
+- **PPTX**: Slide title shapes
+- **DOCX**: Heading paragraph styles
+- **PDF**: Font-size heuristics (>13pt = heading)
+- **Fallback**: Markdown `#` headings, numbered sections, ALL-CAPS lines
+
+---
+
+### System Prompt — [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)
+
+Added a "Document Intelligence Tools" section to the AI's system prompt so it knows when to use each tool.
+
+---
+
+## Test Results
+
+**21/21 tests passed** in [test_ai_tools_documents.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_services/test_ai_tools_documents.py):
+
+```
+tests/test_services/test_ai_tools_documents.py::TestSmartChunk::test_empty_text PASSED
+tests/test_services/test_ai_tools_documents.py::TestSmartChunk::test_short_text PASSED
+tests/test_services/test_ai_tools_documents.py::TestSmartChunk::test_respects_sentence_boundaries PASSED
+tests/test_services/test_ai_tools_documents.py::TestSmartChunk::test_overlap_carries_context PASSED
+tests/test_services/test_ai_tools_documents.py::TestSmartChunk::test_paragraph_breaks PASSED
+tests/test_services/test_ai_tools_documents.py::TestDetectSectionHeading::test_markdown_heading PASSED
+tests/test_services/test_ai_tools_documents.py::TestDetectSectionHeading::test_numbered_heading PASSED
+tests/test_services/test_ai_tools_documents.py::TestDetectSectionHeading::test_all_caps_heading PASSED
+tests/test_services/test_ai_tools_documents.py::TestDetectSectionHeading::test_no_heading PASSED
+tests/test_services/test_ai_tools_documents.py::TestDetectSectionHeading::test_short_caps_ignored PASSED
+tests/test_services/test_ai_tools_documents.py::TestSummarizeDocument::test_found_with_text PASSED
+tests/test_services/test_ai_tools_documents.py::TestSummarizeDocument::test_not_found PASSED
+tests/test_services/test_ai_tools_documents.py::TestSummarizeDocument::test_found_no_text PASSED
+tests/test_services/test_ai_tools_documents.py::TestGetDocumentOutline::test_with_markdown_headings PASSED
+tests/test_services/test_ai_tools_documents.py::TestGetDocumentOutline::test_not_found PASSED
+tests/test_services/test_ai_tools_documents.py::TestExtractKeyConcepts::test_returns_content PASSED
+tests/test_services/test_ai_tools_documents.py::TestExtractKeyConcepts::test_truncates_long_content PASSED
+tests/test_services/test_ai_tools_documents.py::TestCompareDocuments::test_both_found PASSED
+tests/test_services/test_ai_tools_documents.py::TestCompareDocuments::test_one_missing PASSED
+tests/test_services/test_ai_tools_documents.py::TestSearchAcrossDocuments::test_returns_results PASSED
+tests/test_services/test_ai_tools_documents.py::TestSearchAcrossDocuments::test_no_results PASSED
+======================== 21 passed in 0.05s ========================
+```
+
+**25 tools registered** and importing cleanly — verified via direct import check.
+
+> [!IMPORTANT]
+> Existing indexed documents use the old 500-char naive chunking. Run `python3 reindex_files.py` to re-index with the new sentence-aware chunker for better RAG quality.

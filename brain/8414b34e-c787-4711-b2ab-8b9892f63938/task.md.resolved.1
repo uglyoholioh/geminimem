@@ -1,0 +1,30 @@
+# AI Tooling Expansion
+
+## Planning
+- [x] Analyse current AI tools ([ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py), [rag_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py), [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py))
+- [x] Analyse extraction pipeline ([extraction.py](file:///Users/oli/Desktop/CraftCanvas/backend/lib/extraction.py))
+- [x] Review context assembly and system prompt
+- [x] Review frontend action cards and chat rendering
+- [x] Write implementation plan
+- [x] Get user approval
+
+## Execution — Backend New Tools
+- [x] Add [summarize_document](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#679-714) tool (AI-powered single doc summary)
+- [x] Add [search_across_documents](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#716-750) tool (multi-course RAG search)
+- [x] Add [get_document_outline](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#752-802) tool (headings/structure extraction)
+- [x] Add [extract_key_concepts](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#804-840) tool (structured concept extraction)
+- [x] Add [compare_documents](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#842-892) tool (cross-doc comparison)
+- [x] Register all new tools in `TOOL_DEFINITIONS`
+
+## Execution — RAG Improvements
+- [x] Upgrade chunking to sentence-aware with overlap
+- [x] Add filename metadata to RAG chunks for better citation
+- [x] Improve [search_module_materials](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#307-372) to return richer metadata (page numbers, section headings)
+
+## Execution — System Prompt Updates
+- [/] Update [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py) to document new tools for the AI
+- [/] Add document-search-specific instructions
+
+## Verification
+- [ ] Write unit tests for new tool functions
+- [ ] Manual end-to-end test via chat

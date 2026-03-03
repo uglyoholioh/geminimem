@@ -1,0 +1,27 @@
+# Module Hub V3 — Redesign Walkthrough
+
+## What Changed
+Complete rewrite of [ModuleHub.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/ModuleHub.tsx) addressing feedback that text was too small and info wasn't significant.
+
+### Key Design Changes
+
+| Before (V2) | After (V3) |
+|---|---|
+| 8–11px font sizes everywhere | `text-sm` / `text-base` (14–16px) throughout |
+| Tiny count badges only | Full stat pills with labels: "3 Assignments", "2 Tasks", "1 New" |
+| No immediate context | **Next deadline shown prominently** with title, countdown, and urgency icon |
+| Flat item lists | Expandable detail cards with bg, border, and padding for each item |
+
+### Hierarchy Structure
+1. **Module Card** — course code (16px bold), next deadline with icon + urgency styling, stat pills
+2. **Category Section** — "Assignments" / "Tasks" / "Announcements" with count badge, auto-opens for ≤3 items
+3. **Item Detail** — expandable card showing priority, time estimate, due date, notes, Canvas links
+
+### Visual Treatment
+- Urgency items get `bg-urgency-subtle` + `AlertTriangle` icon
+- Module colour dot at 12px (was 8px)
+- Detail cards use `bg-surface/50` inset panels with proper `rounded-xl` borders
+- "Full Hub" and "Canvas" links in the expanded nav bar
+
+## Validation
+- TypeScript: ✅ Zero errors

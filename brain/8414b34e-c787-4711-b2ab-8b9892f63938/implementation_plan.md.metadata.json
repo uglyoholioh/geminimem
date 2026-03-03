@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to add 5 new AI document tools (summarize, cross-search, outline, key concepts, compare), upgrade RAG chunking to sentence-aware with overlap, enrich metadata for citations, and update the system prompt. Includes unit test plan and manual chat verification steps.",
+  "updatedAt":  "2026-03-03T12:49:21.217923Z"
+}
