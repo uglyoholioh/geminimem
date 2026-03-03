@@ -4,36 +4,27 @@ I have resolved the issue where users were experiencing a `500 Internal Server E
 
 ## Changes Made
 
-### Backend Validation
+### 1. Password Length Validation
+I resolved the issue where passwords longer than 72 characters caused a crash in the `bcrypt` library.
+- **[auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)**: Added validation to the registration, login, and profile update endpoints to return a clean error instead of crashing.
+- **[user.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py)**: Added a safety check in the `User` model as a last line of defense.
 
-I added validation and graceful handling to several key areas:
+### 2. Duplicate Email Handling
+I also fixed a secondary issue where trying to register with an email that already exists caused a `500 Internal Server Error` due to an unhandled unique constraint violation in the database.
+- **[auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)**: Added a check in the registration endpoint to see if an email is already in use, returning a `400 Bad Request` with a clear message if it is.
 
-1.  **[auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)**:
-    -   **Registration**: Added a check to ensure passwords are at most 72 characters, returning a `422 Unprocessable Entity` if exceeded.
-    -   **Login (Web & Mobile)**: Added a check to gracefully fail with `401 Unauthorized` if a user attempts to login with an excessively long password, preventing a server crash.
-    -   **Profile Update**: Added the same 72-character limit for new password updates.
+## Automated Testing
 
-2.  **[user.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py)**:
-    -   **Safety Check**: Added a `ValueError` in the `set_password` method as a last-line-of-defense safety measure.
-
-### Automated Testing
-
-I added comprehensive tests to verify the fix and prevent regressions:
-
-1.  **[test_auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_routers/test_auth.py)**:
-    -   `test_register_password_too_long`: Verifies that long passwords trigger a 422 error during registration.
-    -   `test_login_password_too_long`: Verifies that long passwords trigger a 401 error during login instead of a 500.
-2.  **[test_user.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_models/test_user.py)**:
-    -   `test_user_set_password_too_long`: Verifies the safety check in the `User` model.
+I've added several regression tests to ensure these issues don't return:
+- `test_register_password_too_long`: Verifies 72-char limit in registration.
+- `test_login_password_too_long`: Verifies 72-char limit in login.
+- `test_register_duplicate_email`: Verifies graceful failure when an email is already registered.
 
 ## Verification Results
 
-### Automated Tests
-I ran the test suite and all 11 auth-related and user-model tests passed successfully:
+All tests completed successfully:
 ```bash
 pytest backend/tests/test_routers/test_auth.py backend/tests/test_models/test_user.py
 ```
-Output: `11 passed, 2 warnings in 2.87s`
+**Output**: `11 passed`
 
-### Manual Verification
-The validation now provides clear feedback to the user and ensures the server remains stable even with unexpected input.
