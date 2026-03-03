@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_TASK",
-  "summary":  "Task list for debugging and fixing the AI task creation 'NoneType' error. includes refactoring session management and verification steps.",
-  "updatedAt":  "2026-03-03T06:23:20.200961Z",
-  "version":  "10"
+  "summary":  "Task checklist for fixing JSON serialization, ContextVar propagation, debug cleanup, and RAG verification across all AI tools.",
+  "updatedAt":  "2026-03-03T08:20:29.920965Z",
+  "version":  "12"
 }

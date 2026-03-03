@@ -1,9 +1,17 @@
-# Fix AI Plan in Timetable
+# AI Plan Improvements
 
-- [x] Investigate `GET /timetable/ai-plan` in `backend/routers/timetable/main.py`.
-- [x] Identify why the AI plan is failing or incorrect.
-- [x] Fix the AI plan generation logic.
-- [x] Test the AI plan functionality.
-- [x] Fix the "Review First" action logic to give users a preview.
-- [x] Fix text contrast on global confirm modal tracking buttons.
-- [x] Make AI plan visual block names clearer (remove repetitive "Study:" prefix, show assignment names).
+## Phase 1: Backend — Smarter Scheduling Engine
+- [ ] Refactor `ai_plan_study_blocks` in `backend/routers/timetable/main.py`
+  - [ ] Add 30-min buffer after classes
+  - [ ] Add user preference support (study hours, session duration)
+  - [ ] Balance workload across days (max sessions/day cap)
+  - [ ] Allow multiple sessions for assignments due far away
+  - [ ] Use Gemini for intelligent slot reasoning (optional enhancement)
+
+## Phase 2: Backend — User Preferences
+- [ ] Add settings keys: `ai_plan_preferred_hours`, `ai_plan_session_duration`, `ai_plan_max_daily`
+- [ ] Read preferences in `ai_plan_study_blocks`
+
+## Phase 3: Frontend — Floating Preview Bar Improvements
+- [ ] Show per-block details in the preview bar (module codes + count breakdown)
+- [ ] Manual test the full flow

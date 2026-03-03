@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_TASK",
-  "summary":  "Task list for fixing the AI plan in timetable",
-  "updatedAt":  "2026-03-03T05:10:28.305237Z"
+  "summary":  "Checklist tracking AI plan improvements across backend scheduling engine, user preferences, and frontend preview bar.",
+  "updatedAt":  "2026-03-03T08:23:12.378064Z",
+  "version":  "4"
 }

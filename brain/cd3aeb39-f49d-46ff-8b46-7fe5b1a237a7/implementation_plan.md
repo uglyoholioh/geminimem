@@ -1,32 +1,35 @@
-# Debugging AI Task Creation
+# Fix AI Tool Capabilities
 
-The objective is to resolve the "unexpected error" encountered when the AI attempts to create tasks via the chat interface. This has been traced to a `NoneType` error where the database session is not correctly injected into the tool call.
+Comprehensive fix for AI tool interactions including task creation, scheduling, and canvas material retrieval.
 
-## User Review Required
+## Root Causes
 
-> [!IMPORTANT]
-> I am moving from a generator-based session injection to explicit `with Session(engine)` blocks within the tool execution loop of `ai_service.py`. This ensures session persistence and clarity as it doesn't rely on the generator's state.
+1. **JSON Serialization**: `task.dict()` returns Python `date`/`datetime` objects that can't be serialized by the Gemini SDK → `Object of type date is not JSON serializable`
+2. **ContextVar Gap**: Only `create_task` reads from `ContextVar` as fallback. All other tools silently get `session=None` in streaming mode → tools crash or return empty
+3. **Canvas Retrieval**: Many files failing text extraction (CSVs, images, .doc, .pptx) — need to verify RAG pipeline works for indexed PDFs
 
 ## Proposed Changes
 
-### AI Service Component
-#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
-- Import `engine` and `Session` directly from `database.py`.
-- Refactor `_call_gemini` to use `with Session(engine) as session:` for each tool execution.
-- Add clear debug logging to verify session acquisition and tool mapping.
-
 ### AI Tools Component
+
 #### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
-- Add a safety check in `create_task` to log a detailed error if `session` is `None`.
-- Include `print` statements that will show up in the backend console for immediate debugging.
+
+1. **Add `_safe_serialize()` helper** — recursively convert `date`/`datetime` to ISO strings in dicts/lists
+2. **Apply ContextVar fallback to ALL 18 tools** — change every `kwargs.get('session')` to `kwargs.get('session') or ai_session.get()` (same for `user_id`)
+3. **Use `_safe_serialize()` on all return values** that include `.dict()` output
+4. **Remove debug prints** — keep only `logger` calls
+
+---
+
+#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
+
+1. **Remove debug prints** — clean up `print(f"DEBUG: ...")` statements
+2. **Keep manual tool loop in `_call_gemini`** — still used for brief generation and non-streaming calls
+3. **Keep `automatic_function_calling=True` in `_stream_gemini`** — works with ContextVars
 
 ## Verification Plan
 
 ### Automated Tests
-- I will use the browser subagent to:
-  1. Register a new user (to ensure a fresh, valid session).
-  2. Ask the AI to: "Add a new task: Finish probability quiz by Friday".
-  3. Verify the AI response and check the backend logs for "Successfully created task ID".
-
-### Manual Verification
-- I will monitor the `backend_debug.log` in real-time to ensure the session acquisition and tool calls are appearing correctly.
+1. Restart backend, use browser to ask AI: "Add a task: Test serialization fix by Friday"  
+2. Ask AI: "What are my upcoming assignments?" (tests `search_assignments` with ContextVar)
+3. Ask AI: "What topics are covered in BT1101 lectures?" (tests `search_module_materials` RAG)

@@ -1,0 +1,65 @@
+# Smarter AI Study Plan
+
+Upgrade the timetable "AI Plan" feature from a simple first-fit heuristic to a smarter, preference-aware scheduling engine with optional Gemini reasoning.
+
+## Proposed Changes
+
+### Backend — Smarter Scheduling Engine
+
+#### [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable/main.py)
+
+Refactor the [ai_plan_study_blocks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable/main.py#322-450) function with these improvements:
+
+1. **30-minute buffer after classes**: Don't schedule study immediately after a lecture/tutorial ends. Add a 30-min gap so the student can travel or take a break. Currently `start_h` candidates are hardcoded; we'll filter any candidate that starts within 30 min of an existing slot's end time.
+
+2. **User-configurable preferred study hours**: Instead of the hardcoded `[9, 11, 14, 16, 19]`, read from a setting `ai_plan_preferred_hours` (e.g. `"14,16,19,21"` for afternoon/evening studiers). Fall back to the current defaults.
+
+3. **Configurable session duration**: Instead of always 2 hours, read `ai_plan_session_duration` (e.g. `"1.5"` for 90 min). Default: `2`.
+
+4. **Daily cap / workload balancing**: Read `ai_plan_max_daily` (default `3`). If a day already has N suggested blocks, skip to the next day. Prevents stacking 5 sessions on one free day.
+
+5. **Multiple sessions for distant deadlines**: If an assignment is due >3 days away, schedule up to 2 study blocks (spaced across different days). Currently it's capped at 1.
+
+6. **Gemini enhancement (optional)**: After the heuristic generates candidate slots, send the schedule summary + assignment list to Gemini with a prompt asking it to re-rank or adjust the plan. This makes the output feel "AI-reasoned" rather than mechanical. If Gemini is unavailable or errors, fall back to the heuristic output silently.
+
+---
+
+### Backend — User Preferences
+
+#### [MODIFY] [settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py)
+
+No schema changes needed — settings are already a key-value store. The AI plan function will just read these keys:
+- `ai_plan_preferred_hours` — comma-separated hours (e.g. `"9,11,14,16,19"`)
+- `ai_plan_session_duration` — float hours (e.g. `"1.5"`)
+- `ai_plan_max_daily` — int (e.g. `"3"`)
+
+Default values provided in the endpoint if not set.
+
+---
+
+### Frontend — Preview Bar Enhancement
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+
+Enhance the floating AI plan preview bar to show a breakdown of which modules have blocks, e.g. "3 blocks: CS2103T ×2, MA1522 ×1" instead of just "3 suggested blocks".
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- Existing test file: [backend/tests/test_routers/test_timetable.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_routers/test_timetable.py) — currently tests `/today` and `/week` endpoints but not `/ai-plan`. We will not add new automated tests for this endpoint since it requires complex seeding of assignments, courses, and timetable slots with specific date relationships.
+
+### Manual Verification
+1. Start the backend (`python -m uvicorn main:app --reload` from `backend/`)
+2. Open the timetable page in the browser
+3. Click the **AI Plan** button
+4. Verify:
+   - Study blocks appear as dashed previews on the timetable
+   - No block starts immediately after any class (30-min buffer)
+   - Blocks respect the user's preferred hours (or defaults)
+   - No more than 3 blocks appear on any single day
+   - Assignments due >3 days out may get 2 blocks on different days
+   - The floating bar shows module code breakdown (e.g. "CS2103T ×2, MA1522 ×1")
+   - Clicking "Apply Plan" saves all blocks
+   - Clicking "Discard" removes all previews

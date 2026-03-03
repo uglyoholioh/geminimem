@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Implementation plan for debugging and fixing the AI task creation 'NoneType' error. includes refactoring session management in `ai_service.py` and adding verbose logging.",
-  "updatedAt":  "2026-03-03T06:23:09.950709Z",
-  "version":  "4"
+  "summary":  "Plan to fix JSON serialization errors, apply ContextVar fallback to all 18 AI tools, clean up debug prints, and verify canvas material retrieval via RAG.",
+  "updatedAt":  "2026-03-03T08:20:29.907341Z",
+  "version":  "5"
 }

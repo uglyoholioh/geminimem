@@ -1,15 +1,17 @@
-# Debugging AI Task Creation
+# Fix AI Tool Capabilities
 
 ## Planning
-- [x] Analyze `ai_service.py` tool calling logic.
-- [x] Identify `NoneType` error in `ai_tools.py` create_task.
-- [x] Design robust session injection using `with Session(engine)`.
+- [x] Analyze root causes of tool failures (serialization, ContextVar, RAG)
+- [x] Write implementation plan
 
 ## Execution
-- [x] Refactor `ai_service.py` to use `ContextVar` for session/user ID.
-- [x] Update `ai_tools.py` to retrieve session from `ContextVar`.
-- [x] Restart backend server to apply changes.
+- [ ] Add `_safe_serialize()` helper to `ai_tools.py`
+- [ ] Apply ContextVar fallback to all 18 tool functions
+- [ ] Apply `_safe_serialize()` to all tool return values
+- [ ] Clean up debug prints in `ai_service.py` and `ai_tools.py`
+- [ ] Restart backend
 
 ## Verification
-- [/] Verify AI task creation with browser subagent.
-- [ ] Inspect `backend_debug.log` for successful task ID creation.
+- [ ] Test task creation (serialization fix)
+- [ ] Test assignment queries (ContextVar streaming fix)
+- [ ] Test canvas material retrieval (RAG)
