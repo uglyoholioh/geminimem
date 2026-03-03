@@ -4,21 +4,27 @@ I have completely redesigned the Focus tab to meet a premium, minimalistic "dark
 
 ## Visual Redesign
 *   **Dark Glassmorphism**: Implemented a sleek styling using \`bg-black/40 backdrop-blur-2xl\` on top of the Focus backdrop. It creates a stunning glass effect while strictly adhering to your \`DESIGN_SYSTEM.md\` constraints (no light modes, no arbitrary shadows).
-*   **Layout Adjustments**: The dashboard feels more open and centers around your selected timer variant. 
+*   **Expanded Customisation**: Added deeply integrated visual options, including Rich Gradient backgrounds, dynamic Animated CSS backdrops (Aurora, Matrix, Dust Particles), and multiple new Clock Typographies (Serif, Neon Glow, Outline).
 
 ## Fully Fleshed-Out Features
-1.  **Ambient Sound Player**:
+1.  **Spotify Integration (NEW!)**:
+    *   Fully integrated the official Spotify Web Playback SDK.
+    *   Built a custom **Vinyl Player** UI component right in the Focus tab.
+    *   When the Pomodoro timer switches from Focus to Break mode, the player will automatically pause your music so you don't get distracted!
+2.  **Ambient Sound Player**:
     *   Integrated a floating **Ambient Sounds** remote directly below the center Pomodoro timer.
-    *   Added four standard soundscapes (Heavy Rain, Coffee Shop, Campfire, Beach Waves).
+    *   Added seven standard soundscapes (Heavy Rain, Coffee Shop, Campfire, Beach Waves, Ambient Drone, Deep Forest, Summer Night).
     *   Includes inline volume controls and easily toggleable playback.
-2.  **Custom Pomodoro Durations**:
+3.  **Custom Pomodoro Durations**:
     *   Added a new "Durations" tab under the Customise Settings modal.
     *   Your preferred Focus Length, Short Break, and Long Break times can now be individually configured.
     *   These durations save reliably alongside your existing backend `Settings` storage.
-3.  **Local Session Tracking**:
+4.  **Local Session Tracking**:
     *   Added a small session pill to locally track how many Pomodoro focus blocks you complete in today's active session.
-4.  **Inline Task Completion**:
+5.  **Inline Task Completion**:
     *   When you're focusing on a task, you can now press **Done** right from the Focus tab to mark it completed globally, without having to switch tabs.
 
 ## Verification
-You can verify the updates locally by navigating to your app's **Focus** page. Play around with the Customise Settings to see the durations edit, and try out the new inline ambient volume tracks!
+1. Please **restart your backend server** so it picks up the new `.env` variables for Spotify!
+2. Navigate to your app's **Focus** page. 
+3. Click the new "Connect Spotify" button under the Pomodoro timer, log in, and check out the Vinyl UI!

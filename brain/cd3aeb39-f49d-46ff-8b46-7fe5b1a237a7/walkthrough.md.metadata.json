@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Documents the AI chat tool fixes: double context injection elimination, Clear endpoint, enhanced tool prompt, improved error feedback, and streaming fallback chunking.",
-  "updatedAt":  "2026-03-02T20:02:20.230509Z",
-  "version":  "2"
+  "summary":  "Added section detailing the UI chat interactivity improvements, including the \"ask clarification\" interactive buttons and the refined loading indicator.",
+  "updatedAt":  "2026-03-03T04:18:06.853853Z",
+  "version":  "3"
 }

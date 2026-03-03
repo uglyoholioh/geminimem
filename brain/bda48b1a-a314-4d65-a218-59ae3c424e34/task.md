@@ -9,3 +9,22 @@
 - [x] Add Ambient Sounds player UI and logic.
 - [x] Add inline task completion toggle.
 - [x] Redesign FocusPage aesthetic to dark glassmorphism.
+
+## Expanding Customization
+- [x] Add smooth CSS gradient background presets.
+- [x] Add new animated backgrounds (e.g., Aurora, Particles).
+- [x] Add more minimal/modern clock styles (e.g., Outline, Glow).
+- [x] Expand the ambient sound library.
+
+## Spotify Integration (Option B - Full SDK)
+- [x] Guide user to create Spotify Developer App and get credentials.
+- [x] Add Spotify OAuth flow to backend (`/api/spotify/login`, `/api/spotify/callback`).
+- [x] Create Spotify Web Playback SDK component in frontend.
+- [x] Build a custom "Vinyl Player" visualizer for the Focus tab.
+- [x] Integrate Spotify playback state with Pomodoro timer (e.g., auto-pause on break).
+
+## Layout Refinements
+- [x] Optimize component placement for a more logical layout.
+- [x] Move Media Controls (Spotify and Ambient Sounds) into the "Tasks Details" panel on the Right.
+- [x] Streamline Left panel to be exclusively Timer Logic & Session Stats.
+- [x] Implement 'Transfer Playback' action button for Spotify SDK connection UX improvement.

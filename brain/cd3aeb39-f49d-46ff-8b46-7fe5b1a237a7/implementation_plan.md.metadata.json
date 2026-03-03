@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Plan for fixing the AI chat tool usage and material retrieval. Covers: eliminating double context injection in the streaming path, adding the missing /clear endpoint, improving search_module_materials error feedback, and fixing the streaming tool call fallback.",
-  "updatedAt":  "2026-03-02T19:48:03.380991Z",
-  "version":  "2"
+  "summary":  "Implementation plan for adding AI clarification buttons and an improved loading state in the chat UI.",
+  "updatedAt":  "2026-03-03T04:05:18.148763Z",
+  "version":  "3"
 }

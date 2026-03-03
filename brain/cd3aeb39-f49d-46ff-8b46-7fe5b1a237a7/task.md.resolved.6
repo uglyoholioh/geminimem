@@ -1,0 +1,16 @@
+# Enhancing AI Chat Interactivity
+
+## Planning
+- [x] Analyze [brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/brief.py), [parseActions.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/parseActions.ts), [ActionCard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx), and [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx)
+- [x] Create implementation plan for `ask_clarification` action block and new loading indicator
+
+## Execution
+- [x] Backend: Update [brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/brief.py) system prompt to teach Gemini the `ask_clarification` syntax for ambiguous queries
+- [x] Frontend: Update [parseActions.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/parseActions.ts) to type the new action block
+- [x] Frontend: Update [ActionCard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx) to render the question and mapping options to clickable buttons
+- [x] Frontend: Update [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx) to pass the `onSend` callback to [ActionCard](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx#11-187)
+- [x] Frontend: Update [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx) to display an animated "Thinking & searching materials..." state during AI load times
+
+## Verification
+- [x] Run browser visual test to verify chat loading states
+- [x] Verify clickability of interactive UI elements

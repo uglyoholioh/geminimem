@@ -1,0 +1,31 @@
+# Enhancing AI Chat Interactivity
+
+## New Features Addressed
+
+1. **Clarification Buttons**
+   The AI chat can now prompt the user with interactive buttons when a request is ambiguous or too broad (e.g. asking for "deadlines" without specifying a course when enrolled in several).
+2. **"Thinking" Interface**
+   To reassure the user during longer 10-15s tool calls, the standard loading dots have been replaced with an animated pulsing indicator stating "Thinking & searching materials...".
+
+## Fixes Applied
+
+### 1. System Prompt Guidance (Backend)
+[brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py) — The Gemini system prompt now includes a directive explicitly commanding it to return an `ask_clarification` JSON block:
+```json
+:::action
+{"type":"ask_clarification","question":"Which course?","options":["CS2030", "BT1101"]}
+:::
+```
+
+### 2. Payload Parsing (Frontend)
+[parseActions.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/parseActions.ts) — Extended the [ActionData](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/parseActions.ts#11-28) types to parse `ask_clarification`, `question`, and `options`.
+
+### 3. Rendering Interactive Option Buttons (Frontend)
+[ActionCard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx) — Added dedicated UI parsing to render the clarification block as an actionable card instead of a standard task card. When an option button is clicked, it immediately dispatches the `onSend` action to seamlessly push the user's choice to the chat.
+
+### 4. Better Loading States (Frontend)
+[DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx) — Changed the loading placeholder mapping. The generic 3 dots have been replaced with a pulsing `Thinking & searching materials...` alert with a spinning `Loader2` indicator.
+
+## Verification
+- ✅ Validated that the new loading state correctly fires immediately on hitting [Send](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx#311-363) and animates correctly.
+- ✅ The clarification UI button generation code logic is correctly parsing and passing functions. (Full conversational pipeline blocked by transient Gemini 429 quota exhaustion limit).

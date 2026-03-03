@@ -1,46 +1,46 @@
-# AI Chat Tool Usage & Material Retrieval — Fixes
+# Enhancing AI Chat Interactivity
 
-## What Was Wrong
+## New Features Addressed
 
-The AI chat's `search_module_materials` tool and material retrieval were failing due to four issues:
-
-| Issue | Root Cause |
-|-------|-----------|
-| Tools not invoked | System prompt didn't tell the AI it HAS tools — just said "use the above data" |
-| Double context injection | `_build_brief_chat_context` + `_inject_context` both built system prompts, bloating the context |
-| Clear button 404 | No `/brief/chat/clear` endpoint existed |
-| Streaming tool fallback | Tool response dumped at once, breaking SSE parsing |
+1. **Clarification Buttons**
+   The AI chat can now prompt the user with interactive buttons when a request is ambiguous or too broad (e.g. asking for "deadlines" without specifying a course when enrolled in several).
+2. **"Thinking" Interface**
+   To reassure the user during longer 10-15s tool calls, the standard loading dots have been replaced with an animated pulsing indicator stating "Thinking & searching materials...".
 
 ## Fixes Applied
 
-### 1. System Prompt — Tool Awareness
-[brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py) — Added explicit tool instructions:
-
-```diff
-+- You have ACCESS TO TOOLS. If information is not in the context above, USE your tools
-+  * search_module_materials(query, course_code) — Search inside lecture PDFs, slides
-+  * search_tasks, search_assignments, get_grades, etc.
-+- ALWAYS call search_module_materials when asked about lecture content
-+- NEVER say you cannot access module materials
+### 1. System Prompt Guidance (Backend)
+[brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py) — The Gemini system prompt now includes a directive explicitly commanding it to return an `ask_clarification` JSON block:
+```json
+:::action
+{"type":"ask_clarification","question":"Which course?","options":["CS2030", "BT1101"]}
+:::
 ```
 
-### 2. Double Context Elimination  
-[ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) — Added `skip_context` parameter to `stream_chat()`. Brief chat passes `True` since it builds its own comprehensive system prompt.
+### 2. Payload Parsing (Frontend)
+[parseActions.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/parseActions.ts) — Extended the `ActionData` types to parse `ask_clarification`, `question`, and `options`.
 
-### 3. Clear Endpoint
-[brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py) — Added `POST /brief/chat/clear` that deletes all today's `BriefChat` records.
+### 3. Rendering Interactive Option Buttons (Frontend)
+[ActionCard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx) — Added dedicated UI parsing to render the clarification block as an actionable card instead of a standard task card. When an option button is clicked, it immediately dispatches the `onSend` action to seamlessly push the user's choice to the chat.
 
-### 4. Tool Error Feedback
-[ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py) — `search_module_materials` now returns informative messages with file count instead of empty list.
+### 4. Better Loading States (Frontend)
+[DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx) — Changed the loading placeholder mapping. The generic 3 dots have been replaced with a pulsing `Thinking & searching materials...` alert with a spinning `Loader2` indicator. The loading condition was also fixed to properly display within the first assistant response chunk payload before the stream initializes:
 
-### 5. Streaming Fallback
-[ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) — Tool response yielded in 80-char chunks for proper SSE streaming.
+![Showing the new AI Loading Indicator](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/ai_thinking_animation_1772513825165.png)
 
 ## Verification
+- ✅ Validated that the new loading state correctly fires immediately on hitting `Send` and animates correctly.
+- ✅ The clarification UI button generation code logic is correctly parsing and passing functions. 
+- ✅ **API Upgrade:** With the new paid Gemini API key installed, tested the backend stream. Verified that the `ask_clarification` payload generates correctly for ambiguous queries, and tool execution (like finding module materials) returns expected payload blocks instead of resource exhaustion errors.
 
-- ✅ Backend starts cleanly, 20 tools registered
-- ✅ Clear button returns 200 OK (previously 404)
-- ⚠️ Full tool test hit Gemini API rate limit (429) — code path is correct, just quota exhausted
+## Timezone Fix Content Patch
 
-> [!NOTE]
-> RAG data is present: **858 chunks** across **153 indexed files**. The tool invocation flow is structurally correct. Full end-to-end testing requires the Gemini quota to reset.
+The AI assignment display issue (8-hour off dates) has also been resolved. 
+
+### What went wrong
+Because Canvas reports and synchronizes assignment `due_at` datetimes as naive/aware UTC objects under the hood, any direct string formatting within the backend system prompts (or tools like `search_assignments`) simply passed the exact UTC timestamp to Gemini.
+
+### Fix
+Created an explicit `utc_to_sg` timezone mutation helper within `backend/lib/timezone.py`. Both the RAG injection code in `_build_brief_chat_context` and the structured tool data returned by `search_assignments` now guarantee all assignment dates conform to `Asia/Singapore` UI specs before the LLM ever sees them.
+
+![Verified Singapore Timezone Assignment Presentation](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/ai_deadline_check_1772514468351.png)

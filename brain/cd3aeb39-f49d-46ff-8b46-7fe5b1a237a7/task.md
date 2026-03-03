@@ -1,20 +1,16 @@
-# Fix AI Chat Tool Usage & Material Retrieval
+# Fixing Assignment Timezone Issues in AI Context
 
 ## Planning
-- [x] Trace full pipeline: brief.py → ai_service → Gemini tools
-- [x] Check RAG index state (858 chunks, 153 indexed files)
-- [x] Root cause analysis (double context, missing /clear, weak error feedback)
-- [x] Write implementation plan
+- [x] Investigate how assignment deadlines are formatted in the AI system prompt (`brief.py` or context builder).
+- [x] Identify if the timezone conversion is missing (UTC vs Asia/Singapore).
+- [x] Investigate the Canvas sync logic (`canvas_sync.py` or similar) to see if dates are saved in UTC or local time.
+- [x] Create an implementation plan to ensure all assignment dates provided to the AI are in `Asia/Singapore` timezone.
 
 ## Execution
-- [x] Fix double context injection — add `skip_context` to `stream_chat`
-- [x] Add missing POST `/brief/chat/clear` endpoint
-- [x] Improve `search_module_materials` error feedback
-- [x] Fix streaming tool call fallback (chunk the response)
-- [x] Enhance system prompt with explicit tool instructions
+- [x] Create helper function `utc_to_sg` in `timezone.py`.
+- [x] Apply timezone conversion to the assignment data context in `brief.py`.
+- [x] Apply timezone conversion to the `search_assignments` AI tool.
 
 ## Verification
-- [x] Backend imports clean, 20 tools registered
-- [x] Backend starts without errors
-- [x] Clear endpoint returns 200 OK
-- [x] Tool invocation test — hit external API rate limit (429), code path is correct
+- [x] Reloaded backend instance natively to apply changes.
+- [x] Asked the AI for assignment deadlines via UI browser test. Screenshots verify that 18:30 is listed instead of the erroneous 10:30 UTC.

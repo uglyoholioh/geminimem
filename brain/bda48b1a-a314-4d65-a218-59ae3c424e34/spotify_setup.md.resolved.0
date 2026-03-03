@@ -1,0 +1,22 @@
+# Spotify Developer Setup
+
+To build the custom Vinyl Player and control your music correctly, we need to register CraftCanvas with Spotify. It's completely free, you just need your Spotify Premium account.
+
+Please follow these exact steps:
+
+1. **Log into the Developer Dashboard:** Go to [Developer.spotify.com/dashboard](https://developer.spotify.com/dashboard) and log in with your Spotify account.
+2. **Create an App:**
+    *   Click the **Create app** button.
+    *   **App name:** CraftCanvas Focus (or whatever you like)
+    *   **App description:** CraftCanvas local development player
+    *   **Redirect URIs:** You must enter **exactly**: `http://localhost:8000/api/v1/spotify/callback`
+    *   Accept the Terms of Service and click **Save**.
+3. **Get your Credentials:**
+    *   Once your app is created, click on the **Settings** button in the top right of your app dashboard.
+    *   You will see your **Client ID**.
+    *   Click **View client secret** to reveal your **Client Secret**.
+
+## Please Reply With:
+Once you have them, please reply to this chat with both your **Client ID** and **Client Secret**. (Don't worry, this is a local environment, so sharing it here is safe).
+
+Once I have those, I'll add them to our backend `.env` file and start building the OAuth flow and the Vinyl Player UI!

@@ -1,40 +1,39 @@
-# Fix AI Chat Tool Usage & Material Retrieval
+# Enhancing AI Chat Interactivity
 
-RAG data exists (858 chunks, 153 indexed files). The issue is in the invocation pipeline.
-
-## Root Causes
-
-1. **Double context injection** — `brief_chat_stream` builds a system prompt via `_build_brief_chat_context()`, then `stream_chat` calls `_inject_context()` which stacks ANOTHER system prompt. This bloats the context window and can confuse model tool routing.
-2. **Missing `/clear` endpoint** — frontend calls `DELETE /brief/chat/clear` which returns 404.
-3. **Poor streaming tool fallback** — when tool call detected during streaming, the entire sync response is dumped at once, breaking the streaming UX.
-4. **Weak `search_module_materials` error feedback** — returns empty list silently; Gemini interprets this as "tool failed" rather than "no matching materials found".
+This plan addresses making the AI more interactive by allowing it to ask for clarification using clickable option buttons, and improving the responsiveness of the loading state.
 
 ## Proposed Changes
 
-### Eliminate Double Context Injection
-
-#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
-- Add `skip_context` parameter to `stream_chat()` — when True, skip `_inject_context` since caller already injected full context.
-
+### 1. Backend: System Prompt Instructions
 #### [MODIFY] [brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py)
-- Pass `skip_context=True` when calling `stream_chat` from `brief_chat_stream`, since `_build_brief_chat_context` already provides comprehensive context.
-- Add `DELETE /chat/clear` endpoint that deletes all `BriefChat` records for today.
+Update the `_build_brief_chat_context` system prompt to instruct the AI on how to output a new action block type: `ask_clarification`.
+- The instructions will tell the AI that if a user query is too broad (e.g., "what's the deadline?" without specifying a course), it should output:
+  ```json
+  :::action
+  {"type":"ask_clarification","question":"Which course?","options":["CS2030", "BT1101"]}
+  :::
+  ```
 
----
+### 2. Frontend: Action Parsing
+#### [MODIFY] [parseActions.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/parseActions.ts)
+- Extend the `ActionData` interface to include the new type `ask_clarification`, along with `question?` (string) and `options?` (string array) properties.
 
-### Improve Tool Error Feedback
+### 3. Frontend: Action Rendering
+#### [MODIFY] [ActionCard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx)
+- Add rendering logic for the `ask_clarification` type.
+- Instead of the standard action rendering (which looks like a task card with an "Add/Done" button), this will render the specific clarification `question` and display the `options` as a horizontal or wrapped list of clickable buttons.
+- Update the component signature to optionally accept an `onSend(text: string)` callback from the parent, so clicking an option automatically sends it as a user message.
 
-#### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
-- When `search_module_materials` returns empty results, include a message about available file count so Gemini can inform the user properly instead of saying "tool failed".
+### 4. Frontend: Chat Component & Loading State
+#### [MODIFY] [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx)
+- Pass the `onSend` callback down to the `ActionCard` components being rendered within assistant messages.
+- Revamp the loading indicator: Enhance the visual feedback when waiting for the AI response. Since the AI often takes 10-15 seconds to search RAG and use tools before streaming starts, we will update the typing indicator to show text like **"Thinking & searching materials..."** alongside a pulsing or spinning icon to reassure the user that work is happening in the background.
 
----
+## Verification Plan
 
-### Fix Streaming Tool Fallback
-
-#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
-- In `_stream_gemini`, when detecting a tool call mid-stream, yield the response in chunks instead of all at once so the frontend streaming handler parsess it correctly.
-
-## Verification
-
-- `pytest` — existing tests should still pass
-- Manual: send a message asking about module materials and verify the AI uses tools successfully
+### Manual Verification
+1. I will ask a vague question like "What's the deadline?"
+2. Check if the AI outputs the `ask_clarification` action block with course options.
+3. Verify the frontend renders this action as clickable buttons.
+4. Click an option and ensure it fires off a new user message.
+5. Verify the new loading indicator is visible and reassuring immediately after sending a message.

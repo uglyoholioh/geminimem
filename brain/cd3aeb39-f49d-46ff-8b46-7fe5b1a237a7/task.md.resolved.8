@@ -1,0 +1,14 @@
+# Fixing Assignment Timezone Issues in AI Context
+
+## Planning
+- [ ] Investigate how assignment deadlines are formatted in the AI system prompt ([brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/brief.py) or context builder).
+- [ ] Identify if the timezone conversion is missing (UTC vs Asia/Singapore).
+- [ ] Investigate the Canvas sync logic (`canvas_sync.py` or similar) to see if dates are saved in UTC or local time.
+- [ ] Create an implementation plan to ensure all assignment dates provided to the AI are in `Asia/Singapore` timezone.
+
+## Execution
+- [ ] Apply timezone conversion to the assignment data context.
+- [ ] Apply timezone conversion to the [search_assignments](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#62-102) AI tool if applicable.
+
+## Verification
+- [ ] Ask the AI for assignment deadlines again to verify if they match the actual Canvas UI.
