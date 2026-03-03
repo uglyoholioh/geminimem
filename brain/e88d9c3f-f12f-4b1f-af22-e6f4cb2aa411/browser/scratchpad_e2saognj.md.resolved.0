@@ -1,0 +1,14 @@
+# Timetable Layout Inspection
+
+## Plan
+1. [ ] Navigate to http://localhost:3000/timetable
+2. [ ] Observe the layout, especially CS2030 Recitation
+3. [ ] Check horizontal and vertical views
+4. [ ] Take screenshots and identify issues
+    - [ ] Uneven rows
+    - [ ] Slots bleeding into other hours
+    - [ ] Text overflowing
+5. [ ] Report findings
+
+## Observations
+- 

@@ -3,4 +3,4 @@
 - [x] Visually inspect timetable in browser to understand "opposite" result
 - [x] Re-implement strict grid containment (no row expansion)
 - [x] Ensure long text uses scroll or truncation without bleeding
-- [x] Verify fix visually in browser
+- [/] Verify fix visually in browser

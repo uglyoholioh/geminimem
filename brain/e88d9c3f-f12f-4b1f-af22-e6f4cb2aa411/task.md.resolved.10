@@ -1,0 +1,6 @@
+# Timetable Layout Correction
+
+- [x] Visually inspect timetable in browser to understand "opposite" result
+- [/] Re-implement strict grid containment (no row expansion)
+- [ ] Ensure long text uses scroll or truncation without bleeding
+- [ ] Verify fix visually in browser
