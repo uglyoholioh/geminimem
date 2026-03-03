@@ -1,0 +1,18 @@
+# Fix AI Tool Capabilities
+
+## Planning
+- [x] Analyze root causes of tool failures (serialization, ContextVar, RAG)
+- [x] Write implementation plan
+
+## Execution
+- [ ] Add [_safe_serialize()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#28-39) helper to [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- [ ] Apply ContextVar fallback to all 18 tool functions
+- [ ] Add `due_time` support to [create_task](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#467-507) tool
+- [ ] Apply [_safe_serialize()](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#28-39) to all tool return values
+- [ ] Clean up debug prints in [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) and [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- [ ] Restart backend
+
+## Verification
+- [ ] Test task creation (serialization fix)
+- [ ] Test assignment queries (ContextVar streaming fix)
+- [ ] Test canvas material retrieval (RAG)

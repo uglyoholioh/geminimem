@@ -1,0 +1,11 @@
+# Task: Verify AI capabilities and task creation
+
+## Progress Checklist
+- [ ] Login to localhost:3000/login <!-- id: 0 -->
+- [ ] Wait for dashboard to load <!-- id: 1 -->
+- [ ] Enter "Create a task called Study for midterms with high priority" in chat <!-- id: 2 -->
+- [ ] Wait for AI response <!-- id: 3 -->
+- [ ] Capture screenshot and AI response <!-- id: 4 -->
+
+## Findings
+- None yet.

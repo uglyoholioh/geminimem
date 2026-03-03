@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Documented the fixes to the timetable AI Plan endpoint.",
-  "updatedAt":  "2026-03-03T05:12:45.345062Z"
+  "summary":  "Documents all AI Plan improvements: backend scheduling engine refactor with buffer times, user preferences, workload balancing, multi-session support, and frontend preview bar and visual enhancements.",
+  "updatedAt":  "2026-03-03T08:47:51.567742Z",
+  "version":  "3"
 }

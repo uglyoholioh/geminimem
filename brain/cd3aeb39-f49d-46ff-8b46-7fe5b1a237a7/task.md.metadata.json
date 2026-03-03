@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_TASK",
-  "summary":  "Task checklist for fixing JSON serialization, ContextVar propagation, debug cleanup, and RAG verification across all AI tools.",
-  "updatedAt":  "2026-03-03T08:20:29.920965Z",
-  "version":  "12"
+  "summary":  "Finalized task list for JSON serialization, ContextVar, and due_time fixes.",
+  "updatedAt":  "2026-03-03T08:49:15.347510Z",
+  "version":  "14"
 }

@@ -11,13 +11,15 @@ Comprehensive fix for AI tool interactions including task creation, scheduling, 
 ## Proposed Changes
 
 ### AI Tools Component
+4. **Missing `due_time` in `create_task`**: The tool doesn't accept a time argument even though the model supports it → AI ignores time requests like "at 6pm"
 
 #### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
 
-1. **Add `_safe_serialize()` helper** — recursively convert `date`/`datetime` to ISO strings in dicts/lists
+1. **Add `_safe_serialize()` helper** — recursively convert `date`/`datetime`/`time` to ISO strings in dicts/lists
 2. **Apply ContextVar fallback to ALL 18 tools** — change every `kwargs.get('session')` to `kwargs.get('session') or ai_session.get()` (same for `user_id`)
-3. **Use `_safe_serialize()` on all return values** that include `.dict()` output
-4. **Remove debug prints** — keep only `logger` calls
+3. **Update `create_task`** — add `due_time: Optional[str] = None` argument and map to `task.due_time` using `time.fromisoformat()`
+4. **Use `_safe_serialize()` on all return values** that include `.dict()` output
+5. **Remove debug prints** — keep only `logger` calls
 
 ---
 
@@ -30,6 +32,7 @@ Comprehensive fix for AI tool interactions including task creation, scheduling, 
 ## Verification Plan
 
 ### Automated Tests
-1. Restart backend, use browser to ask AI: "Add a task: Test serialization fix by Friday"  
-2. Ask AI: "What are my upcoming assignments?" (tests `search_assignments` with ContextVar)
-3. Ask AI: "What topics are covered in BT1101 lectures?" (tests `search_module_materials` RAG)
+1. Restart backend, use browser to ask AI: "Add a task: Review probability chapter at 6pm today"  
+2. Verify in result (or DB) that `due_time` is set to `18:00:00`.
+3. Ask AI: "What are my upcoming assignments?" (tests `search_assignments` with ContextVar)
+4. Ask AI: "What topics are covered in BT1101 lectures?" (tests `search_module_materials` RAG)

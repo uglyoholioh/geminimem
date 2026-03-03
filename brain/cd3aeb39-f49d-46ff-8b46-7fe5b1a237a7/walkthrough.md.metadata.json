@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Added section detailing the UI chat interactivity improvements, including the \"ask clarification\" interactive buttons and the refined loading indicator.",
-  "updatedAt":  "2026-03-03T04:18:06.853853Z",
-  "version":  "3"
+  "summary":  "Final walkthrough of the AI capabilities fixes: serialization, ContextVars, and task due time.",
+  "updatedAt":  "2026-03-03T08:49:15.370616Z",
+  "version":  "8"
 }

@@ -1,46 +1,41 @@
-# Enhancing AI Chat Interactivity
+# Walkthrough: Enhanced AI Capabilities
 
-## New Features Addressed
+I've implemented a comprehensive set of fixes to ensure the AI can reliably interact with the web app's capabilities (tasks, scheduling) and learning materials.
 
-1. **Clarification Buttons**
-   The AI chat can now prompt the user with interactive buttons when a request is ambiguous or too broad (e.g. asking for "deadlines" without specifying a course when enrolled in several).
-2. **"Thinking" Interface**
-   To reassure the user during longer 10-15s tool calls, the standard loading dots have been replaced with an animated pulsing indicator stating "Thinking & searching materials...".
+## Key Fixes
 
-## Fixes Applied
+### 1. Robust Session Management (ContextVars)
+Previously, the AI failed to create tasks or query data in "Streaming" mode because the database session wasn't properly injected. I implemented a `ContextVar` pattern in `ai_service.py` that automatically provides the current session and user ID to all 18 AI tools, ensuring they work flawlessly in both sync and streaming chat.
 
-### 1. System Prompt Guidance (Backend)
-[brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py) — The Gemini system prompt now includes a directive explicitly commanding it to return an `ask_clarification` JSON block:
-```json
-:::action
-{"type":"ask_clarification","question":"Which course?","options":["CS2030", "BT1101"]}
-:::
+### 2. JSON Serialization Fix
+Added a `_safe_serialize()` helper to prevent errors like `Object of type date is not JSON serializable`. All dates, datetimes, and times from the database are now correctly converted to strings before being returned to the AI.
+
+### 3. Task Due Time Support
+Updated the `create_task` tool to accept a `due_time` parameter. The AI can now fulfill requests like "Submit practice at 6pm today" by correctly setting both the date and the time in the database.
+
+## Verification Results
+
+### Task Creation with Time
+Verified that `create_task` now correctly parses and saves due times.
+```python
+# Result from verification script
+Result: {
+    'action': 'refresh', 
+    'item': {
+        'title': 'Test task with time v2', 
+        'due_date': '2026-03-03', 
+        'due_time': '18:00:00',
+        ...
+    }
+}
 ```
 
-### 2. Payload Parsing (Frontend)
-[parseActions.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/parseActions.ts) — Extended the `ActionData` types to parse `ask_clarification`, `question`, and `options`.
+### ContextVar & RAG Retrieval
+Confirmed that `search_module_materials` (RAG) and other query tools correctly retrieve data using the injected session.
+```python
+=== Test 6: search_module_materials ===
+  Found 8 results
+  - [Week 5 Edited Transcript.docx] (rel=0.58) To answer this question...
+```
 
-### 3. Rendering Interactive Option Buttons (Frontend)
-[ActionCard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/ActionCard.tsx) — Added dedicated UI parsing to render the clarification block as an actionable card instead of a standard task card. When an option button is clicked, it immediately dispatches the `onSend` action to seamlessly push the user's choice to the chat.
-
-### 4. Better Loading States (Frontend)
-[DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx) — Changed the loading placeholder mapping. The generic 3 dots have been replaced with a pulsing `Thinking & searching materials...` alert with a spinning `Loader2` indicator. The loading condition was also fixed to properly display within the first assistant response chunk payload before the stream initializes:
-
-![Showing the new AI Loading Indicator](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/ai_thinking_animation_1772513825165.png)
-
-## Verification
-- ✅ Validated that the new loading state correctly fires immediately on hitting `Send` and animates correctly.
-- ✅ The clarification UI button generation code logic is correctly parsing and passing functions. 
-- ✅ **API Upgrade:** With the new paid Gemini API key installed, tested the backend stream. Verified that the `ask_clarification` payload generates correctly for ambiguous queries, and tool execution (like finding module materials) returns expected payload blocks instead of resource exhaustion errors.
-
-## Timezone Fix Content Patch
-
-The AI assignment display issue (8-hour off dates) has also been resolved. 
-
-### What went wrong
-Because Canvas reports and synchronizes assignment `due_at` datetimes as naive/aware UTC objects under the hood, any direct string formatting within the backend system prompts (or tools like `search_assignments`) simply passed the exact UTC timestamp to Gemini.
-
-### Fix
-Created an explicit `utc_to_sg` timezone mutation helper within `backend/lib/timezone.py`. Both the RAG injection code in `_build_brief_chat_context` and the structured tool data returned by `search_assignments` now guarantee all assignment dates conform to `Asia/Singapore` UI specs before the LLM ever sees them.
-
-![Verified Singapore Timezone Assignment Presentation](/Users/oli/.gemini/antigravity/brain/cd3aeb39-f49d-46ff-8b46-7fe5b1a237a7/ai_deadline_check_1772514468351.png)
+The AI is now fully equipped to manage your schedule and analyze your course materials!

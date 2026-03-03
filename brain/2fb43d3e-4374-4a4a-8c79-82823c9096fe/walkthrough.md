@@ -1,32 +1,34 @@
-# Fix AI Plan in Timetable
+# AI Plan Improvements — Walkthrough
 
-## Issues Found
+## Backend: Smarter Scheduling Engine
 
-1. **`NameError: name 'pytz' is not defined`**: The endpoint `GET /api/v1/timetable/ai-plan` was trying to use `pytz.UTC` without importing the `pytz` package, which caused a hard crash whenever the "AI Plan" button was clicked.
-2. **Naive UTC vs Local SG Date Comparison**: The code was comparing the assignment's `due_at` (which is stored as a naive UTC datetime in the database) directly with the local Singapore `target_date`. This could lead to assignments being missed or skipping days incorrectly because the UTC date could differ from the Singapore date by up to 1 day.
+Refactored [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable/main.py) `ai_plan_study_blocks`:
 
-## Fixes Implemented
+| Feature | Before | After |
+|---|---|---|
+| **Buffer after classes** | None — could stack study right after a lecture | 30-min gap after every class |
+| **Preferred hours** | Hardcoded `[9, 11, 14, 16, 19]` | Reads `ai_plan_preferred_hours` setting; falls back to defaults |
+| **Session duration** | Always 2 hours | Reads `ai_plan_session_duration` (0.5–4 hrs); default 2 |
+| **Daily cap** | Unlimited | Reads `ai_plan_max_daily` (1–6); default 3 |
+| **Multi-session** | 1 block per assignment | 2 blocks for assignments due >3 days away, spaced across days |
+| **Block limit** | 10 | 12 |
+| **Collision detection** | Multiple manual loops with hour-level math | Clean `_get_busy_intervals` + `_has_collision` using minute-level precision |
 
-- Added the missing `import pytz` to `backend/routers/timetable/main.py`.
-- Imported `utc_to_sg` from `lib.timezone`.
-- Converted `assignment.due_at` to Singapore time before performing the date comparison:
-  ```python
-  sg_due_at = utc_to_sg(assignment.due_at)
-  if sg_due_at.date() < target_date:
-      continue
-  ```
+Settings are stored in the existing key-value `Settings` table — no migration needed.
 
-## Testing
+---
 
-- Wrote and ran a test script `test_ai_plan.py` to call the `ai_plan_study_blocks` function locally with the database session. The test ran successfully without raising the `NameError`.
-- Cleaned up the test script.
+## Frontend: Preview Bar & Visual Enhancements
 
-## UI Improvements Released (AI Plan Review Mode & Contrast Fixes)
+Updated [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx):
 
-1. **Better Contrast for Global Confirmation Modals**: Adjusted the styling of Confirm/Cancel buttons across the app to have clearer visual contrast against the background (e.g. solid white text on dark primary buttons).
-2. **AI Plan Review Mode**: 
-   - Instead of displaying a confusing "Review First" button inside a standard confirm dialog, clicking *AI Plan* now **previews** the generated study blocks directly on your timetable (using dashed outlines).
-   - A floating smart action bar appears at the bottom allowing you to **Apply** or **Discard** the entire plan, so you can see exactly where the slots fit before committing!
-   - **Clarity Update**: The AI plan blocks will now show the target assignment name (without the repetitive "Study: " prefix) along with the expected module code, making it instantly clear what you are studying for!
+1. **Module breakdown in preview bar**: Shows `"4 blocks · CS2103T ×2, MA1522 ×1"` instead of just `"4 suggested blocks"`.
+2. **Pulsing dashed border**: Preview blocks now render with `border-dashed border-2 animate-pulse` and a lighter translucent background so they visually stand out from real events in both vertical and horizontal views.
 
-You can now test the **AI Plan** button in the Timetable UI to verify that it generates study blocks properly, previews them correctly without throwing errors, and let you apply them if everything looks good.
+---
+
+## Verification
+
+- ✅ Backend Python syntax check passed
+- ✅ No new TS lint errors introduced in frontend
+- Manual testing recommended: click AI Plan → verify preview blocks appear with pulsing style, review the module breakdown bar, apply/discard
