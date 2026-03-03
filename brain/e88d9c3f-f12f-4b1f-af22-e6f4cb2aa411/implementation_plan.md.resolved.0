@@ -1,0 +1,22 @@
+# Fix Timetable Slot Overflow
+
+This plan addresses the issue where timetable class slots expand outside their designated grid zones, causing visual overlap and layout breakage.
+
+## Proposed Changes
+
+### Frontend Timetable Page
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+
+- Add `overflow-hidden` to the class slot container div (around line 847 and line 1116) to ensure content doesn't bleed out.
+- Ensure `text-sm` and `text-xs` are used consistently with `truncate` or `line-clamp` if necessary to handle long module names or venues.
+- Check if `minHeight` or `height` constraints are causing the expansion and adjust to use `max-height` or strict height based on the slot duration.
+
+## Verification Plan
+
+### Manual Verification
+1. Open the Timetable page in the browser.
+2. Observe "CS2030 Recitation" or other long-named/long-duration slots.
+3. Verify that the slot stays strictly within its grid boundaries.
+4. Hover over the slot to ensure that the `scale-[1.01]` and `z-20` effects still work as intended without breaking the layout.
+5. Check both Horizontal and Vertical views.

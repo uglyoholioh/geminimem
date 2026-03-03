@@ -1,0 +1,19 @@
+# Walkthrough - Timetable Overflow Fix
+
+I have fixed the issue where class slots in the timetable were expanding outside their allotted zones.
+
+## Changes Made
+
+### Frontend
+
+#### [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+- Added `overflow-hidden` to class and event slot containers in both Horizontal and Vertical views.
+- Implemented `line-clamp-2` (and `md:line-clamp-3`) for module names and event descriptions to ensure they elegantly truncate when space is limited.
+- These changes ensure that even for short-duration slots (like 1-hour recitations), the content remains contained within the slot boundaries.
+
+## Verification Results
+
+### Visual Inspection
+- Verified that slots now strictly respect their grid boundaries.
+- Long text is now truncated with ellipses instead of bleeding into adjacent slots.
+- Hover effects (scaling and depth) still function correctly within the new overflow constraints.

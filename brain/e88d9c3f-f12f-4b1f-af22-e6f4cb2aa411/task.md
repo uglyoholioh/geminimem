@@ -1,0 +1,10 @@
+# Timetable Overflow Fix
+
+- [x] Investigate timetable overflow issue in `frontend/app/timetable/page.tsx`
+- [x] Research CSS/Tailwind constraints for timetable slots
+- [x] Create implementation plan to fix slot expansion
+- [x] Implement initial overflow fixes (overflow-hidden)
+- [x] Refactor grid to allow vertical expansion for long text
+- [x] Create updated implementation plan
+- [x] Implement dynamic height for timetable slots
+- [x] Verify fix with browser subagent or visual inspection

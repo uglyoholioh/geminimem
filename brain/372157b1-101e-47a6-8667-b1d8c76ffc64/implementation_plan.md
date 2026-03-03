@@ -1,0 +1,29 @@
+# Restore Timetable Visibility Toggle
+
+The user wants to bring back the visibility toggle for classes they are skipping (unattended) in their timetable. Currently, unattended classes are shown with reduced opacity, but there is no way to hide them entirely.
+
+## Proposed Changes
+
+### Frontend
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+- Add a new state `hideUnattended` (default: `false`).
+- Persist `hideUnattended` in local storage or via a new setting if available.
+- Add a "Hide Unattended" toggle button in the timetable header, using `Eye`/`EyeOff` icons from `lucide-react`.
+- Update the `getCellData` and rendering logic to filter out slots where `is_attended === false` when `hideUnattended` is true.
+- Ensure the "Weekly Insights" still account for all classes (or update based on visibility if preferred—usually, insights should reflect the full schedule).
+
+### Backend
+
+> [!NOTE]
+> No backend changes are strictly necessary as the `is_attended` field already exists and is correctly handled by the API. However, I will check if a persistent user setting for "hide_unattended" would be beneficial.
+
+## Verification Plan
+
+### Manual Verification
+1. Navigate to the Timetable page.
+2. Mark a class as "unattended" using the `Eye` icon on the class block. Verify it becomes faded.
+3. Toggle the new "Hide Unattended" button in the header.
+4. Verify that the unattended class disappears from the grid when the toggle is active.
+5. Verify that toggling it back makes the class reappear (faded).
+6. Refresh the page and verify the toggle state persists (if implemented with localStorage).
