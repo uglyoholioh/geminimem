@@ -1,0 +1,16 @@
+# Debugging AI Task Creation
+
+## Planning
+- [x] Analyze [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) tool calling logic.
+- [x] Identify `NoneType` error in [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py) create_task.
+- [x] Design robust session injection using `with Session(engine)`.
+
+## Execution
+- [/] Refactor [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) to use explicit `Session(engine)` blocks.
+- [ ] Update [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py) with verbose logging and safety checks.
+- [ ] Restart backend server to apply changes.
+
+## Verification
+- [ ] Use browser subagent to register a new user.
+- [ ] Verify AI task creation with the new user session.
+- [ ] Inspect `backend_debug.log` for successful task ID creation.

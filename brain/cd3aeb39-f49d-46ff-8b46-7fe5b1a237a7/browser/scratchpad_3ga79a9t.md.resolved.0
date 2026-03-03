@@ -1,0 +1,9 @@
+# Task: Verify AI task creation error
+
+## Progress Checklist
+- [ ] Focus chat input
+- [ ] Type: "Add a new task: Finish probability quiz by Friday"
+- [ ] Press Enter
+- [ ] Wait for AI response
+- [ ] Check for error: "I'm sorry, I was unable to add the task at this time due to an unexpected error"
+- [ ] Report result

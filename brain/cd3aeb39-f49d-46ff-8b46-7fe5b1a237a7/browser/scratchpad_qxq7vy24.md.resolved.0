@@ -1,0 +1,7 @@
+# Task Plan
+- [ ] Navigate to http://localhost:3000
+- [ ] Focus AI chat input
+- [ ] Type "Add a new task: Success verify with ContextVar by tomorrow" and press Enter
+- [ ] Wait for "Added the task" response
+- [ ] Navigate to /tasks
+- [ ] Verify task and take screenshot

@@ -1,0 +1,10 @@
+# Task: Test Chat Functionality at localhost:3000
+
+## Checklist
+- [ ] Navigate to http://localhost:3000
+- [ ] Focus the chat input
+- [ ] Type "Add a new task: Finish probability quiz by Friday" and press Enter
+- [ ] Observe for "unexpected error"
+- [ ] Capture screenshot if failure occurs
+- [ ] Check logs if failure occurs
+- [ ] Report outcome

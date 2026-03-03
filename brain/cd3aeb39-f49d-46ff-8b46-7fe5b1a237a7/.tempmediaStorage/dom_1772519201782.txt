@@ -1,0 +1,12 @@
+Create your account
+Set up Academic Life OS for the first time
+[0] (500,415)<label class='text-xs text-secondary block mb-1.5 font-medium'>Display Name />
+[1] (500,453)<input class='w-full rounded-xl border border-border bg-base px-4 py-3 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all' placeholder='e.g. Oli' />
+[2] (500,502)<label class='text-xs text-secondary block mb-1.5 font-medium'>Email />
+[3] (500,540)<input class='w-full rounded-xl border border-border bg-base px-4 py-3 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all' placeholder='you@example.com' />
+[4] (500,589)<label class='text-xs text-secondary block mb-1.5 font-medium'>Password />
+[5] (500,628)<input class='w-full rounded-xl border border-border bg-base px-4 py-3 pr-10 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all' placeholder='Min 6 characters' />
+[6] (589,628)<button class='absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-secondary transition-colors' />
+Already have an account?
+[7] (539,743)<button class='text-accent hover:underline'>Sign in />
+Academic Life OS

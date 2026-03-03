@@ -1,0 +1,17 @@
+# Task: Add a new task via AI chat
+
+## Plan
+- [ ] Navigate to http://localhost:3000 (Blocked by 500 errors on login/register)
+- [ ] Focus chat input and type "Add a new task: Finish probability quiz by Friday"
+- [ ] Press Enter and wait for AI response
+- [ ] Capture screenshot of confirmation
+- [ ] Verify task appears in the task list
+- [ ] Report final result
+
+## Progress
+- Navigated to http://localhost:3000, redirected to /login.
+- Login and Register pages both show "API error 500: Internal Server Error".
+- Diagnostic Plan:
+    - [ ] Check http://localhost:8000/docs to see if backend is running.
+    - [ ] Try to access the dashboard directly if possible.
+    - [ ] If backend is completely down (500s everywhere), report to user.

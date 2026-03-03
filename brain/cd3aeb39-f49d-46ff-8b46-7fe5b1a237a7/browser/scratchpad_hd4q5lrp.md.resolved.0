@@ -1,0 +1,8 @@
+# Plan
+- [ ] Navigate to http://localhost:3000
+- [ ] Log in if necessary (check for existing session or credentials)
+- [ ] Focus chat input
+- [ ] Type "Add a new task: Finish probability quiz by Friday" and press Enter
+- [ ] Wait for AI response
+- [ ] Capture screenshot
+- [ ] Confirm task creation

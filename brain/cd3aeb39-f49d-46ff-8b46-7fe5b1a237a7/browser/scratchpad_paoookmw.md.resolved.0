@@ -1,0 +1,13 @@
+# Task: Add a new task via AI chat
+
+## Plan
+- [/] Navigate to http://localhost:3000 (Currently at login page)
+- [ ] Focus chat input and type "Add a new task: Finish probability quiz by Friday"
+- [ ] Press Enter and wait for AI response
+- [ ] Capture screenshot of confirmation
+- [ ] Verify task appears in the task list
+- [ ] Report final result
+
+## Progress
+- Initialized plan.
+- Navigated to http://localhost:3000, landed on login page.

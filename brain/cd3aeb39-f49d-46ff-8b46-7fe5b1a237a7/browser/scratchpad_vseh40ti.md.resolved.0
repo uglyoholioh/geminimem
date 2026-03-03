@@ -1,0 +1,10 @@
+# Task: Verify task creation via AI chat
+
+## Plan
+- [ ] Navigate to http://localhost:3000
+- [ ] Focus AI chat input
+- [ ] Type: "Add a new task: Final task verify v7 by tomorrow"
+- [ ] Press Enter
+- [ ] Wait for AI response
+- [ ] Verify task appearance in dashboard
+- [ ] Capture screenshot

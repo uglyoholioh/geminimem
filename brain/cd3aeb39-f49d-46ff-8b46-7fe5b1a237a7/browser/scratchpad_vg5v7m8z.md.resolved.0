@@ -1,0 +1,7 @@
+# Task Checklist
+- [ ] Navigate to http://localhost:3000
+- [ ] Focus AI chat input
+- [ ] Type "Add a new task: Final success verify by tomorrow" and press Enter
+- [ ] Wait for AI response confirmation
+- [ ] Verify "Final success verify" appears in the "Tasks" list
+- [ ] Take screenshot and finish
