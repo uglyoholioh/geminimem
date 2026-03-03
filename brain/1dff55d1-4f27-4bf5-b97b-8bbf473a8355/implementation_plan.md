@@ -1,0 +1,25 @@
+# Fix Internal Server Error for Long Passwords
+
+The backend currently throws a `500 Internal Server Error` when a user provides a password longer than 72 characters during registration or profile updates. This is due to a limitation in the `bcrypt` library used for password hashing.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)
+- Add validation to the `register` endpoint to ensure the password is not longer than 72 characters.
+- Add validation to the `update_me` endpoint for the `new_password` field.
+- Update the `LoginRequest` and `login` endpoint to gracefully handle passwords longer than 72 characters (by returning a `401 Unauthorized` instead of crashing).
+
+#### [MODIFY] [user.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py)
+- Optionally add a check in `set_password` to truncate or raise a more specific error, though validation at the router level is preferred for better API responses.
+
+## Verification Plan
+
+### Automated Tests
+- Run the reproduction test created in `backend/tests/test_routers/test_auth.py` (which I will formally add to the test suite or a new test file).
+- Command: `pytest backend/tests/test_routers/test_auth.py`
+
+### Manual Verification
+- Attempt to register with a password longer than 72 characters and verify a `422 Unprocessable Entity` is returned with a clear error message.
+- Attempt to login with a password longer than 72 characters and verify a `401 Unauthorized` is returned instead of a `500 Internal Server Error`.
