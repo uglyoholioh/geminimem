@@ -1,0 +1,31 @@
+# Assignment Page UI Improvements
+
+This plan outlines visual and structural polish for the assignments page to make it more premium, dynamic, and closely aligned with the requested modern design aesthetics.
+
+## Proposed Changes
+
+### Frontend Components
+
+#### [MODIFY] app/assignments/page.tsx
+- **Semester Progress Bar**: Upgrade the basic progress bar to a more visually striking "glassmorphic" or premium container with a smooth gradient fill and a pulsating glow effect for added dynamism.
+- **Assignment Rows**:
+  - Convert `renderAssignmentRow` into a more distinct card-like row with increased padding.
+  - Add highly polished hover effects (`hover:-translate-y-[1px]`, enhanced shadow, subtle border highlight).
+  - Improve the overdue state with clearer visual cues (e.g., a subtle red background tint or warning icon rather than just red text).
+  - Modernise the completion toggle button with a smoother transistion and stronger visual feedback.
+- **Header & Filters**:
+  - Refine the active module filter chips to look like sleek, modern interactive pills.
+  - Add micro-animations to the "AI Filter", "Show/Hide Submitted", and search inputs.
+- **Details Panel**:
+  - Improve typography scale and spacing inside the selected assignment panel to increase readability.
+  - Soften borders and enhance the empty/loading states with better iconography and animated pulses.
+
+## Verification Plan
+
+### Manual Verification
+1. Open the assignments page in the browser.
+2. Verify the semester progress bar has the new premium look and animates in correctly.
+3. Hover over assignment rows to confirm the new lift and glow effects.
+4. Toggle completion status on an assignment to verify the new checkmark styling.
+5. Click on an assignment to open the slide-out details panel and verify the improved typography and spacing.
+6. Verify the filter pills in the header look modern and respond well to clicks.

@@ -1,13 +1,14 @@
-# Walkthrough: Restarting Web App
+# Walkthrough: Customizing Focus Timings
 
-I have restarted the CraftCanvas web application by starting both the backend and frontend servers.
+I have implemented the requested changes to the Focus page to make the customize settings button more subtle and to add duration presets for the focus timer.
 
 ## Changes Made
-- Started the backend FastAPI server using `uvicorn` on port 8000.
-- Started the frontend Next.js server using `npm run dev` on port 3000.
+- **Settings Gear Icon**: Replaced the "Customise Settings" button located below the timer controls with a subtle, glassmorphic gear icon (`Settings` from `lucide-react`) positioned in the top-right corner of the focus area.
+- **Duration Presets**: Added a new "Presets" section to the "Durations" tab in the Customise modal. This section includes three pre-defined timer configurations that users can quickly apply:
+    - **Pomodoro**: 25m Focus / 5m Short Break / 15m Long Break
+    - **Deep Work**: 50m Focus / 10m Short Break / 30m Long Break
+    - **Quick Burst**: 15m Focus / 3m Short Break / 10m Long Break
 
 ## Verification
-- **Backend**: Verified with `curl -I http://localhost:8000/docs` -> `200 OK`.
-- **Frontend**: Verified with `curl -I http://localhost:3000` -> `200 OK`.
-
-The application is now up and running!
+- Verified that clicking a preset correctly updates the duration inputs in the form.
+- The app builds successfully and the /focus route responds with a 200 OK via `curl`.

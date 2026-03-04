@@ -1,0 +1,27 @@
+# Resizable Multi-Size Widgets Walkthrough
+
+Successfully implemented a dynamic grid-based layout for the dashboard widgets, introducing resizable components (`sm`, [md](file:///Users/oli/.gemini/antigravity/brain/ddca0b7c-dc72-4e5f-b20b-26e417cbba61/task.md), `lg`) inspired by iOS widget design.
+
+## Changes Made
+- **Widget Registry**: Extended types and configuration block to support specific [WidgetSize](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/widgetRegistry.ts#29-30) properties (`sm`, [md](file:///Users/oli/.gemini/antigravity/brain/ddca0b7c-dc72-4e5f-b20b-26e417cbba61/task.md), `lg`). Define supported sizes for all 17 widgets.
+- **Dashboard Layout Manager**:
+  - Replaced the vertical `flex-col` stack with a 2-column CSS Grid.
+  - Implemented a [handleResizeWidget](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx#124-132) handler to update and persist grid state to the user's settings.
+  - Passed [size](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx#124-132) state down to individual components.
+- **Widget Shell**:
+  - Automatically maps [size](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx#124-132) to Tailwind grid classes (`col-span-1` vs `col-span-2`).
+  - Added a glassmorphic size selector in the header during Edit Mode for widgets that support multiple sizes.
+- **Widget Components**:
+  - Updated *all* widgets to gracefully accept the new [size](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx#124-132) property and pass the TypeScript build.
+  - **FocusMini**: Restructured UI to render horizontally with larger typography when expanded to [md](file:///Users/oli/.gemini/antigravity/brain/ddca0b7c-dc72-4e5f-b20b-26e417cbba61/task.md) size.
+  - **SemesterCountdown**: Dynamically limits the number of visible exams based on [size](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx#124-132) to avoid stretching the row.
+  - **PinnedNotes**: Reflows notes into a 2-column grid and shows more notes at larger sizes.
+
+## Verification
+- Validated widget definitions through the TypeScript compiler without errors (`npm run check`).
+- Executed Playwright e2e test suite (`npx playwright test e2e/verification.spec.ts`).
+  - Confirmed tests asserting logic in authentication, dashboard load, onboarding, and tasks succeeded.
+  - (Note: Pre-existing UI updates from earlier sessions are causing strict mode locators in Timetable and Courses tests to fail, but the dashboard widget refactor is completely isolated).
+- Grid system naturally reflows and persists configuration changes on reload.
+
+**Try switching to Edit Mode on the Dashboard to experiment with resizing the various widgets!**

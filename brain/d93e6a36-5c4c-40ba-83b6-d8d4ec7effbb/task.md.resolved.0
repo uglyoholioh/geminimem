@@ -1,0 +1,14 @@
+# Task: Remove Grades Page and Widget
+
+- [/] Planning
+    - [x] Identify core files related to grades
+    - [/] Identify references in frontend (navigation, dashboard)
+    - [ ] Identify references in backend (main.py, imports)
+- [ ] Execution
+    - [ ] Remove frontend page and references
+    - [ ] Remove frontend widget and registration
+    - [ ] Remove backend router and model
+    - [ ] Clean up any remaining imports or types
+- [ ] Verification
+    - [ ] Verify frontend build
+    - [ ] Verify backend startup

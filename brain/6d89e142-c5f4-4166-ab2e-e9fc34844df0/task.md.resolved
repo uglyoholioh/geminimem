@@ -9,3 +9,7 @@
 - [x] Verify functionality <!-- id: 6 -->
     - [x] Check backend health <!-- id: 7 -->
     - [x] Check frontend accessibility <!-- id: 8 -->
+- [x] Customize Focus Timings <!-- id: 9 -->
+    - [x] Create customizable focus timings and presets UI <!-- id: 10 -->
+    - [x] Add settings gear icon (glassmorphic) to the corner <!-- id: 11 -->
+    - [x] Integrate custom timings with the timer logic <!-- id: 12 -->

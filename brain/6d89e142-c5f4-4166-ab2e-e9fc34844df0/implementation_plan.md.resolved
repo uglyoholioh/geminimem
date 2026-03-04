@@ -1,0 +1,35 @@
+# Focus Timings & Gear Icon Implementation
+
+## Overview
+The user wants to add presets for focus timings (which are already customizable) and move the "Customise Settings" button to a glassmorphic gear icon in the corner of the screen.
+
+## Proposed Changes
+
+### 1. [frontend/app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
+- **Move Customise Button**:
+  - **[MODIFY]**: Remove the current "Customise Settings" button located below the Play and Reset timer buttons.
+  - **[MODIFY]**: Add a new absolute-positioned button (e.g., `fixed` or `absolute top-6 right-6 z-30`) featuring a `Settings2` (or [Settings](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx#451-474)) gear icon from `lucide-react`. 
+  - Style the new button with glassmorphic classes: `bg-white/10 backdrop-blur-md border-[0.5px] border-white/20 text-white/80 hover:text-white hover:bg-white/20 rounded-full p-3 shadow-lg transition-all`.
+
+- **Add Duration Presets**:
+  - **[MODIFY]**: In the Customise Modal -> "Durations" tab (`customiseTab === 'durations'`), add a new "Presets" section above the manual number inputs.
+  - The presets will be:
+    - **Classic Pomodoro**: 25m Focus, 5m Short Break, 15m Long Break
+    - **Deep Work**: 50m Focus, 10m Short Break, 30m Long Break
+    - **Quick Burst**: 15m Focus, 3m Short Break, 10m Long Break
+  - Clicking a preset will instantly update the `durationsForm` state so the user can see the numbers change before clicking "Save Durations".
+
+## Verification Plan
+
+### Automated Tests
+Currently, there is no E2E test suite for the UI in Next.js. Validation will be performed manually or verified via compiler checks.
+- Build the app to ensure no typing errors.
+
+### Manual Verification
+1. Navigate to [/focus](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus) in a browser.
+2. Verify the old "Customise Settings" button is gone from the centre.
+3. Verify the new glassmorphic gear icon is in the top-right corner.
+4. Click the gear icon to open the modal.
+5. Go to the "Durations" tab.
+6. Click the "Deep Work" preset and ensure the inputs change to 50, 10, 30.
+7. Click "Save Durations" and verify the timer limits are updated.

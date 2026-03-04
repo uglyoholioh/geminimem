@@ -1,0 +1,6 @@
+# Debugging AI Chat Error
+
+- [/] Find the API route responsible for the AI Chat in the backend
+- [ ] Identify the exact location throwing the "Object of type coroutine is not JSON serializable" error
+- [ ] Fix the endpoint to properly `await` the coroutine before returning or yielding its content
+- [ ] Test the backend endpoint locally to ensure the chat functions correctly

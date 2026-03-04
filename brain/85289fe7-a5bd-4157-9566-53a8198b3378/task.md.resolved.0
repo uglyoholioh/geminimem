@@ -1,0 +1,7 @@
+# Assignments Page UI Improvement
+
+- [ ] Redesign Semester Progress component with better visual hierarchy, gradients, and micro-animations.
+- [ ] Enhance the Assignment Row item styling for a more premium look (better hover states, clearer overdue indication).
+- [ ] Polish the filter controls (Search bar, toggle buttons) in the header.
+- [ ] Improve empty states to be more visually engaging.
+- [ ] Refine the Assignment Details side panel (typography, spacing, layout).
