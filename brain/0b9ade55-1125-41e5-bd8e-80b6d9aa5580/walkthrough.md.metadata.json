@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Completed timetable class card adjustments to ensure horizontal rectangles by modifying column width and row minHeight.",
-  "updatedAt":  "2026-03-04T06:20:58.693951Z"
+  "summary":  "Detailed changes made to timetable component to match NUSMods zero-scroll fixed layout and precise event spanning.",
+  "updatedAt":  "2026-03-04T06:47:01.646259Z",
+  "version":  "1"
 }

@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Implementation plan for refactoring timetable to match NUSMods layout logic (spanning events, fixed table width, no scroll).",
+  "updatedAt":  "2026-03-04T06:45:02.059876Z"
+}

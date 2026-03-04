@@ -1,3 +1,5 @@
-- [x] Adjust timetable row height/scale to make class cards appear more horizontal
-- [x] Identify where timetable cards are rendered in frontend
-- [x] Test changes locally
+- [x] Analyze rendering logic for both views
+- [x] Convert Horizontal table to `table-fixed w-full` and remove minimum widths
+- [x] Implement absolute positioning for event blocks based on start offset and span duration
+- [x] Port the absolute positioning logic to Vertical view for consistency
+- [x] Test layout shrinks and handles narrow viewports gracefully

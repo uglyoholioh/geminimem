@@ -1,11 +1,16 @@
-# Timetable Interface Adjustments
+# NUSMods Style Timetable Refactor
+
+The timetable rendering logic has been rewritten to perfectly match the NUSMods experience.
 
 ## Changes Made
-- **Reduced Vertical Height**: Decreased the `minHeight` of the time cells in the **horizontal view** from `110` to `64`. This ensures the class cards are shorter and do not excessively stretch vertically.
-- **Increased Horizontal Width**: Expanded the width of the time columns (`th` headers) from `w-32` (128px) to `min-w-[14rem] w-56` (224px). This gives the class cards significantly more horizontal room to flow, achieving the desired "horizontal rectangle" aspect ratio.
-- The adjustments strictly apply to the horizontal view (`w-56` columns, `minHeight: 64` rows) without affecting the vertical view or other widgets.
+- **Responsive "Zero-Scroll" Layout**: The `table` in the horizontal view drops its minimum width limits and now uses `table-fixed w-full`. This ensures the table will **always** shrink or stretch to fit 100% of the screen width exactly, without throwing horizontal scrollbars.
+- **Dimensional Event Spanning**: Event blocks are now rendered with `absolute` positioning instead of block `relative` stacking.
+- **Accurate Event Ratios**: 
+  - An event's physical rendering `width` automatically calculates based on its true `spanHrs`. A 2-hour class will now precisely span across two 1-hour table columns.
+  - Events offset their `left` accurately via `offsetHrs`. A class starting at 10:30 will accurately render exactly halfway across the 10:00 table cell.
+- **Conflict Staggering**: Concurrent classes now elegantly overlap with a slight `4px` cascade stagger (rather than blowing up the height of the row or obscuring each other entirely).
+- **Vertical View Parity**: The same coordinate math (`top`, `height`, `left` staggering) was seamlessly ported to the vertical view (Days on X, Time on Y) to ensure visual consistency regardless of which orientation is toggled.
 
-## Validation 
-- Modified frontend component directly (`app/timetable/page.tsx`).
-- Tested logic: text layout, padding, and flex properties cleanly fit into the available compact `64px` height and `224px` width.
-- The UI will immediately update through Next.js Fast Refresh on the development server.
+## Validation
+- The frontend will auto-refresh. The timetable should now compactly squeeze to 100% viewport width and correctly visualize durations.
+- No scrollbar will appear under the horizontal view.

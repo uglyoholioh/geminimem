@@ -1,0 +1,30 @@
+# Refactor Timetable to Match NUSMods Layout
+
+Currently, the timetable in horizontal view stretches beyond the screen, requiring horizontal scrolling. Furthermore, events do not visually span their actual durations across columns (a 2-hour class only occupies the 1-hour cell width). NUSMods handles this by fitting the entire timetable into the viewport width and accurately spanning classes across time dividers.
+
+## Proposed Changes
+
+### [frontend/app/timetable/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx)
+
+1. **Table Layout adjustments**:
+   - Change the [table](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable) element in horizontal view from `style={{ minWidth: 1000 }}` to use CSS `table-fixed` completely fitting within `w-full`. This ensures no horizontal scroll.
+   - Update the day column header `th` width to a strict size (`w-20` or `w-24`).
+   - Remove explicit `min-w-[14rem]` and `w-56` from the time headers so they evenly partition the remaining width perfectly.
+
+2. **Accurate Duration Spanning (Horizontal View)**:
+   - Make the event cards `absolute`ly positioned within the relative `td` cell.
+   - Use the already-calculated `spanHrs` and `offsetHrs` values.
+   - Apply `left: calc(${offsetHrs * 100}%)` to correctly offset events starting at half-hours.
+   - Apply `width: calc(${spanHrs * 100}% + ${spanHrs - 1}px)` to make events span their full duration across the grid layout, overlapping into subsequent cells.
+   - Ensure the card has `overflow-hidden` and inner texts use `truncate` so it gracefully handles very short 1-hour durations on smaller screens. 
+   - Define `top: 4px` and `bottom: 4px` to retain padding. 
+
+3. **Accurate Duration Spanning (Vertical View)**:
+   - For consistency, apply the same absolute positioning logic to the vertical view.
+   - `top: calc(${offsetHrs * 100}%)`
+   - `height: calc(${spanHrs * 100}% + ${spanHrs - 1}px)`
+
+## Verification Plan
+1. **Visual Testing via Next.js Dev Server**: Allow the fast-refresh dev server to rebuild. The client timetable should instantly fit 100% of the screen width with absolutely zero horizontal scroll on a 1080p equivalent viewport.
+2. **Duration Accuracy**: Specifically check classes (e.g., lecture, tutorials) that are 2-hours long. They should accurately span 2 hour blocks in width.
+3. **Resizing**: Check that scaling window down squishes the cards gracefully rather than popping a scrollbar.
