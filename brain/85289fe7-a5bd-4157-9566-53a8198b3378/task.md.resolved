@@ -1,7 +1,7 @@
-# Assignments Page UI Improvement
+# Assignments Page Features: Board View
 
-- [x] Redesign Semester Progress component with better visual hierarchy, gradients, and micro-animations.
-- [x] Enhance the Assignment Row item styling for a more premium look (better hover states, clearer overdue indication).
-- [x] Polish the filter controls (Search bar, toggle buttons) in the header.
-- [x] Improve empty states to be more visually engaging.
-- [x] Refine the Assignment Details side panel (typography, spacing, layout).
+- [x] Add `viewMode` state to toggle between 'List' and 'Board' views.
+- [x] Add a beautiful segmented control in the header for switching views via `LayoutList` and `LayoutGrid` icons.
+- [x] Implement `renderBoardView` with 3 columns: To Do, In Progress, and Done.
+- [x] Style the Kanban cards to match the new premium glassmorphic aesthetic (hover lift, gradients, clear typography).
+- [x] Ensure side panel works seamlessly with board cards.

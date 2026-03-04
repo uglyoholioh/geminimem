@@ -1,36 +1,23 @@
-# Assignments Page UI Polish - Walkthrough
+# Assignments Page - Premium Board View Walkthrough
 
-The assignments views across the platform have received a significant premium UI refresh with a focus on visual hierarchy, sleekness, and micro-interactions. Below are the key changes made to [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx).
+Following the visual polish of the standard List view, I have added a brand new **Kanban Board** feature to the Assignments page, allowing for a completely different visual workflow. 
 
-## Visual Overhaul & Enhancements
+## The Board View Breakdown
 
-### 1. Semester Progress Bar
-- **Before:** Basic grey and solid progress bar.
-- **After:** Upgraded to a glassmorphic container with soft backgrounds. The progress fill now uses a smooth gradient spanning from `accent` to `accent/80` with background transitions (`duration-1000`) and a subtle moving highlight effect when hovering over the card.
+### 1. Toggle Control
+- Added two modern, pill-shaped icon buttons in the header using `LayoutList` and `LayoutGrid` from `lucide-react`. The active selection glows distinctly with an accent box shadow to denote selection.
+- Switching between them transforms the layout instantly without full-page reloads.
 
-### 2. Assignment List Rows
-- **Before:** Simple border cards.
-- **After:**
-  - Added larger paddings (`px-5`, `py-3.5`) and improved layout bounds to enhance readability.
-  - Introduced highly polished hover micro-animations (`hover:-translate-y-[1px]`, active shadow transitions, subtle borders).
-  - Urgent/Overdue rows are now appropriately highlighted with a subtle transparent red fill and clearly visible warning icons, differentiating priority clearly from `text-muted`.
-  - The "Mark Done" toggle interaction was tweaked to provide snap/scale feedback on hover (`scale-110`).
+### 2. Kanban Columns
+The board automatically sorts all tasks matching your current filters into three responsive columns:
+- **To Do**: A refined column style housing assignments not yet opened or started.
+- **In Progress**: Differentiated by a glowing accent dot in the header, housing currently ongoing assignments.
+- **Completed**: Differentiated by an Emerald glowing dot, showing finished assignments. The completed column subtly fades its contents (`opacity-80`) by default, bringing them to full focus only on hover, letting you focus on active tasks.
 
-### 3. Filters & Empty States
-- **Before:** Standard button tags and input fields.
-- **After:** 
-  - Filter pills (like active modules) now feature pill shapes (`rounded-full`), soft glowing shadow rings indicating selection, and bounce-like active transitions.
-  - The AI toggle, View toggles, and Search Box now feature more pronounced icons, scale adjustments, and background transitions during `focus-within`.
-  - Empty states ("No assignments" / "No matching tasks") were completely revamped incorporating larger, centrally aligned icons on rounded, slightly tilted backing tiles alongside helper text and quick-action resolution tools (e.g. `Clear all filters` button).
+### 3. Board Cards
+Instead of the full-width list items, tasks inside the Board View are rendered as dense, sleek cards:
+- **Responsive Layout**: Designed to pack tightly while maintaining breathing room. Uses the new premium elevated glass aesthetic (`shadow-sm hover:shadow-md hover:-translate-y-[2px]`).
+- **Quick Actions**: Features the module chip directly on the top-left, with the check/submit toggle floating seamlessly top-right.
+- **Integrated details**: Clicking a card will slide open the same elegant side-panel details pane previously polished!
 
-### 4. Details Panel Sidebar
-- **Before:** A functional slide-over without stylistic flair.
-- **After:**
-  - Elevated using backdrop-blur and a subtle left-oriented drop shadow for better foreground masking (`shadow-[-10px_0_30px_rgba(0,0,0,0.02)]`).
-  - Increased typography scaling (e.g. Title is `text-2xl font-bold font-primary`) and standardized spacing for a relaxed composition.
-  - Form elements (Status select and Note area) received a strong focus-state indicator (`focus:border-accent focus:ring-4`).
-
-All changes seamlessly integrate with the pre-existing light/dark design system variables without relying on custom hardcoded CSS or external library modifications.
-
-> [!TIP]
-> Hovering over most interactive components (rows, filter pills, AI buttons) now yields dynamic and snappy feedback to feel more responsive.
+Because it uses the same data arrays (`assignments` & `filtered`), the Board completely respects all active module filters, search queries, and AI Filters on the left! It’s the ultimate productivity workflow update.

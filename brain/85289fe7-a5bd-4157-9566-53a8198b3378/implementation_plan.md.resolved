@@ -1,31 +1,33 @@
-# Assignment Page UI Improvements
+# Assignment Board View Feature
 
-This plan outlines visual and structural polish for the assignments page to make it more premium, dynamic, and closely aligned with the requested modern design aesthetics.
+This plan outlines the addition of a major visually striking feature: a Kanban Board view for assignments, giving users another way to visualize and manage their workload.
 
 ## Proposed Changes
 
 ### Frontend Components
 
 #### [MODIFY] app/assignments/page.tsx
-- **Semester Progress Bar**: Upgrade the basic progress bar to a more visually striking "glassmorphic" or premium container with a smooth gradient fill and a pulsating glow effect for added dynamism.
-- **Assignment Rows**:
-  - Convert [renderAssignmentRow](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments/page.tsx#219-251) into a more distinct card-like row with increased padding.
-  - Add highly polished hover effects (`hover:-translate-y-[1px]`, enhanced shadow, subtle border highlight).
-  - Improve the overdue state with clearer visual cues (e.g., a subtle red background tint or warning icon rather than just red text).
-  - Modernise the completion toggle button with a smoother transistion and stronger visual feedback.
-- **Header & Filters**:
-  - Refine the active module filter chips to look like sleek, modern interactive pills.
-  - Add micro-animations to the "AI Filter", "Show/Hide Submitted", and search inputs.
-- **Details Panel**:
-  - Improve typography scale and spacing inside the selected assignment panel to increase readability.
-  - Soften borders and enhance the empty/loading states with better iconography and animated pulses.
+- **State Management**:
+  - Add `[viewMode, setViewMode] = useState<'list' | 'board'>('list')`.
+- **Header Additions**:
+  - Add a segmented control toggle using `lucide-react` icons (`LayoutList` and `LayoutGrid` or `Kanban`).
+- **Board Render Logic (`renderBoardView`)**:
+  - Group `filtered` assignments by status:
+    - **To Do**: `not_started`
+    - **In Progress**: `in_progress`
+    - **Completed**: `submitted`, `graded`
+  - Render a 3-column masonry/css-grid layout. 
+  - Each column will have a tinted glassmorphic header matching the status vibe (e.g. muted for To Do, accent for In Progress, emerald for Completed).
+  - Cards inside the board will look like premium elevated tiles, slightly different from the list rows but reusing the same visual language (lift on hover, shadow).
+- **Conditional Rendering**:
+  - Based on `viewMode`, render either the existing `list` (the `groupedByWeek` timeline) or the new `board` view.
 
 ## Verification Plan
 
 ### Manual Verification
-1. Open the assignments page in the browser.
-2. Verify the semester progress bar has the new premium look and animates in correctly.
-3. Hover over assignment rows to confirm the new lift and glow effects.
-4. Toggle completion status on an assignment to verify the new checkmark styling.
-5. Click on an assignment to open the slide-out details panel and verify the improved typography and spacing.
-6. Verify the filter pills in the header look modern and respond well to clicks.
+1. Open the assignments page.
+2. Verify the new toggle appears in the header.
+3. Click the toggle to switch to the Board view.
+4. Verify assignments correctly populate the "To Do", "In Progress", and "Completed" columns based on their `user_status`.
+5. Verify clicking a board card opens the details side-panel correctly.
+6. Verify changing the status in the sidebar instantly moves the card between columns in the board.
