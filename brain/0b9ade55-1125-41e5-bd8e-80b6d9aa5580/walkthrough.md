@@ -1,0 +1,11 @@
+# Timetable Interface Adjustments
+
+## Changes Made
+- **Reduced Vertical Height**: Decreased the `minHeight` of the time cells in the **horizontal view** from `110` to `64`. This ensures the class cards are shorter and do not excessively stretch vertically.
+- **Increased Horizontal Width**: Expanded the width of the time columns (`th` headers) from `w-32` (128px) to `min-w-[14rem] w-56` (224px). This gives the class cards significantly more horizontal room to flow, achieving the desired "horizontal rectangle" aspect ratio.
+- The adjustments strictly apply to the horizontal view (`w-56` columns, `minHeight: 64` rows) without affecting the vertical view or other widgets.
+
+## Validation 
+- Modified frontend component directly (`app/timetable/page.tsx`).
+- Tested logic: text layout, padding, and flex properties cleanly fit into the available compact `64px` height and `224px` width.
+- The UI will immediately update through Next.js Fast Refresh on the development server.

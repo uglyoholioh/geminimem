@@ -1,0 +1,31 @@
+# Walkthrough - Fix Gemini Client Initialization
+
+I have resolved the "Gemini client not initialized" error by adding the missing `google-genai` SDK to the backend dependencies and verifying its successful initialization.
+
+## Changes Made
+
+### Backend Dependencies
+- **[requirements.txt](file:///Users/oli/Desktop/CraftCanvas/backend/requirements.txt)**: Added `google-genai>=0.1.0` to ensure the newer Gemini SDK is available.
+
+## Verification Results
+
+### Initialization Test
+I created a debug script to verify that the `AIService` can now initialize the Gemini client correctly.
+
+```bash
+# Verification Command
+export PYTHONPATH=$PYTHONPATH:/Users/oli/Desktop/CraftCanvas/backend && python3 /tmp/debug_gemini.py
+```
+
+**Output:**
+```text
+AI Provider: gemini
+Google API Key (masked): AIzaSyB-wR...
+INFO:services.ai_service:Gemini client initialized successfully.
+Client initialized: True
+```
+
+The logs now confirm that the Gemini client is initialized successfully upon service startup.
+
+### Manual Verification
+The user can now use the chat feature without encountering the "Gemini client not initialized" error.

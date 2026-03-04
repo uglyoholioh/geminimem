@@ -1,0 +1,3 @@
+- [x] Adjust timetable row height/scale to make class cards appear more horizontal
+- [x] Identify where timetable cards are rendered in frontend
+- [x] Test changes locally
