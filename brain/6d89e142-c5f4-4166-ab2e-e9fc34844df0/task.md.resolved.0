@@ -1,0 +1,11 @@
+# Task: Restart Web App
+
+- [/] Restart Backend <!-- id: 0 -->
+    - [/] Stop existing backend processes <!-- id: 1 -->
+    - [ ] Start backend server (uvicorn) <!-- id: 2 -->
+- [/] Restart Frontend <!-- id: 3 -->
+    - [/] Stop existing frontend processes <!-- id: 4 -->
+    - [ ] Start frontend server (npm run dev) <!-- id: 5 -->
+- [ ] Verify functionality <!-- id: 6 -->
+    - [ ] Check backend health <!-- id: 7 -->
+    - [ ] Check frontend accessibility <!-- id: 8 -->
