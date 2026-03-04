@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary":  "Walkthrough of the login issue resolution, including the identification and removal of residual grades feature code that was causing the backend to crash.",
+  "updatedAt":  "2026-03-04T16:43:30.497331Z"
+}

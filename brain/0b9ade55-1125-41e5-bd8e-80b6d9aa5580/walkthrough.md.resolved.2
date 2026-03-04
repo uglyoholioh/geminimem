@@ -1,0 +1,9 @@
+# Timetable Proportion Restoration
+
+## Changes Made
+- Reverted the `minHeight` parameter of the table row cells (both vertical and horizontal views) back up to `100px` (from `76px`).
+- This effectively gives the absolute-positioned event blocks enough vertical room to render as proper, comfortable "cards", eliminating the compressed or squashed badge-like look without breaking the correct horizontal span calculations. 
+- Internal paddings (`p-1.5 md:px-2 md:py-1.5`) remain optimized so text flows nicely within the expanded card.
+
+## Validation
+- The frontend will auto-refresh. The timetable cells should look nicely padded and tall again, exactly as they did before the height reduction, but with the accurate NUSMods-style absolute width spanning.

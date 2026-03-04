@@ -5,3 +5,4 @@
 - [x] Implement `renderBoardView` with 3 columns: To Do, In Progress, and Done.
 - [x] Style the Kanban cards to match the new premium glassmorphic aesthetic (hover lift, gradients, clear typography).
 - [x] Ensure side panel works seamlessly with board cards.
+- [x] Fix bug where all assignments show as non-submittable.

@@ -1,0 +1,28 @@
+# Fix Backend Crash (Residual Grades Feature)
+
+The user "cant login" because the backend server is crashing on startup. The crash is caused by a `ModuleNotFoundError` for `models.grade`, which was partially removed in a previous task but residual imports and logic remain in [backend/routers/courses.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py) and [backend/database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py).
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [courses.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py)
+- Remove `from models.grade import GradeComponent, GradeEntry` (Line 15).
+- Remove grade calculation logic and data from [get_course](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py#74-161) (Lines 108-135).
+- Remove `grades` and `grade_percentage` from the response in [get_course](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py#74-161) (Lines 157-158).
+
+#### [MODIFY] [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py)
+- Remove `from models.grade import GradeComponent, GradeEntry` from [init_db](file:///Users/oli/Desktop/CraftCanvas/backend/database.py#15-41) (Line 27) to prevent potential future issues.
+
+## Verification Plan
+
+### Automated Tests
+- Run the backend server locally and verify it starts without errors:
+  ```bash
+  cd backend && source .venv/bin/activate && uvicorn main:app --port 8000
+  ```
+- Use the `scripts/check_login.py` (to be created/updated) to verify the `/api/v1/auth/status` and `/api/v1/auth/login` endpoints are responsive.
+
+### Manual Verification
+- Verify that the login page loads and allows signing in after the backend is stabilized.
+- Check the course detail page to ensure it still loads without the grade information.

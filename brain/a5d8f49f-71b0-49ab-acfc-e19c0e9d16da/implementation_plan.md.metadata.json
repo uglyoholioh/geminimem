@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Implementation plan to resolve the backend crash caused by residual references to the removed grades feature, which is preventing login and general app usage.",
+  "updatedAt":  "2026-03-04T16:41:08.813476Z"
+}

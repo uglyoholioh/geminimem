@@ -1,16 +1,12 @@
-# NUSMods Style Timetable Refactor
+# Fixing Thin Timetable Cards
 
-The timetable rendering logic has been rewritten to perfectly match the NUSMods experience.
+## The Bug
+The cards appeared vertically thin or "squashed" even after increasing the `minHeight` parameter earlier. This occurred because table row cells (`td`) were using a CSS trick `height: 1px` while setting `min-height: 140px` to attempt stretching. While this stretches the *cell* correctly, any `absolute`ly positioned child element (like the new timetable cards) asks its parent "What is your height?" so it can calculate `height: 100%`. The parent returns `1px`, causing the absolute card to crush vertically.
 
 ## Changes Made
-- **Responsive "Zero-Scroll" Layout**: The [table](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable) in the horizontal view drops its minimum width limits and now uses `table-fixed w-full`. This ensures the table will **always** shrink or stretch to fit 100% of the screen width exactly, without throwing horizontal scrollbars.
-- **Dimensional Event Spanning**: Event blocks are now rendered with `absolute` positioning instead of block `relative` stacking.
-- **Accurate Event Ratios**: 
-  - An event's physical rendering `width` automatically calculates based on its true `spanHrs`. A 2-hour class will now precisely span across two 1-hour table columns.
-  - Events offset their `left` accurately via `offsetHrs`. A class starting at 10:30 will accurately render exactly halfway across the 10:00 table cell.
-- **Conflict Staggering**: Concurrent classes now elegantly overlap with a slight `4px` cascade stagger (rather than blowing up the height of the row or obscuring each other entirely).
-- **Vertical View Parity**: The same coordinate math ([top](file:///Users/oli/Desktop/CraftCanvas/frontend/app/timetable/page.tsx#1411-1412), `height`, `left` staggering) was seamlessly ported to the vertical view (Days on X, Time on Y) to ensure visual consistency regardless of which orientation is toggled.
+- Removed the `height: 1px` trick on both Vertical and Horizontal layout cells.
+- Statically assigned `height: 140` to the row styles. 
+- Now, the absolute cards ask for `100%` height and correctly inherit `140px` instead of `1px`. 
 
 ## Validation
-- The frontend will auto-refresh. The timetable should now compactly squeeze to 100% viewport width and correctly visualize durations.
-- No scrollbar will appear under the horizontal view.
+- The UI should now dynamically map 100% heights within the rows. The cards will be appropriately thick rectangles matching the `140px` bounds edge-to-edge.
