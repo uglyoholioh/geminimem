@@ -1,0 +1,194 @@
+# Dashboard Widget Recommendations
+
+## Current Widgets (8)
+
+| Widget | What It Does |
+|---|---|
+| Agenda Timeline | Unified timeline of classes + tasks + assignments |
+| Module Hub | Expand/collapse access to active modules |
+| Grades Snapshot | Grade progress bars per module |
+| Pinned Notes | Links to pinned notes |
+| Focus Timer | Pomodoro start/pause/reset |
+| Announcements | Unread Canvas announcements |
+| Upcoming Deadlines | Countdown list to due dates |
+| Quick Add | Inline task/note creation |
+
+---
+
+## 🟢 Tier 1 — Zero Backend Changes Required
+
+These use existing data and APIs. Pure frontend work.
+
+---
+
+### 1. 🕐 Now / Next Class
+
+The single most-asked question during a school day: **"where do I need to be next?"**
+
+- If currently in class → module code, venue, progress bar, time remaining
+- If between classes → next class, venue, countdown ("starts in 34 min")
+- If done for the day → "No more classes today ✨"
+- Uses existing `/timetable/today` data + `Date.now()` comparison
+
+> [!TIP]
+> This is different from the Agenda (which mixes everything). This is a single, focused, glanceable card — think Apple Watch complication.
+
+---
+
+### 2. 📈 Weekly Progress Rings
+
+Two donut/ring charts showing completion rates:
+
+- **Outer ring:** Assignments submitted vs total due this week
+- **Inner ring:** Tasks completed vs total open
+- Color shifts amber → green as you approach 100%
+- Centre label: overall % or motivational message
+
+Purely computed from `tasks` + `assignments` already loaded on the dashboard.
+
+---
+
+### 3. 🎵 Spotify Mini Player
+
+Compact music controls on the dashboard — track name, artist, play/pause/skip.
+
+Your `SpotifyPlayer.tsx` and `spotify.py` OAuth backend **already exist**. This is just a dashboard-sized wrapper around the existing component, similar to how `FocusMini` wraps the focus timer.
+
+---
+
+### 4. 🔗 Quick Links
+
+A 2×3 grid of customizable bookmark tiles — Canvas, NUSMods, Library, Webmail, etc.
+
+- No backend needed — store in `localStorage` or existing settings
+- Each tile: emoji/icon + label + opens in new tab
+- Edit mode to customize URLs
+
+---
+
+### 5. 📊 Weekly Pulse (Study Stats)
+
+Gamification widget — the "Fitbit for studying":
+
+- Tasks completed this week (bar per day, Mon–Sun)
+- Total focus minutes this session (`accumulatedSeconds` from `FocusTimerProvider`)
+- Current streak: consecutive days with ≥1 task completed (from `tasks.completed_at`)
+
+All data exists in the tasks table + focus timer context.
+
+---
+
+### 6. ⏱️ Semester Countdown
+
+Your `Course` type already has `exam_date` and `exam_duration` fields!
+
+- Displays days remaining until each exam (or end of semester)
+- Sorted by nearest exam first
+- Visual urgency indicator (red when < 7 days)
+- If no exam dates set, shows "Set exam dates in module settings"
+
+---
+
+### 7. 📋 Task Progress Bar
+
+Your `Task` type has a `percentage_done` field and `subtasks` (JSON):
+
+- A compact per-task progress view for your top 3–5 in-progress tasks
+- Shows the task title + a progress bar based on `percentage_done`
+- Subtask completion count (e.g. "3/5 subtasks done")
+- Click to navigate to task detail
+
+Different from the agenda (which shows all items) — this focuses on *active work*.
+
+---
+
+## 🟡 Tier 2 — Light Backend Work
+
+These need a small new endpoint or minor data enrichment.
+
+---
+
+### 8. 📅 Week-at-a-Glance
+
+A compact 7-column mini calendar (Mon–Sun) showing density dots:
+
+- Each day cell shows small colour-coded dots for: classes, tasks due, assignments due
+- Today is highlighted
+- Hovering a day shows a tooltip with item count
+- Answers: "which days are heavy this week?"
+
+Needs a new endpoint like `GET /dashboard/week-density` or computed from existing data merged client-side.
+
+---
+
+### 9. 🤝 Upcoming Meetings
+
+Your meetings system has participants, availability, proposals, and votes:
+
+- Shows next 2–3 meetings with title, date/time (if decided), participant count
+- Status badge: "Voting", "Confirmed", "Pending"
+- Quick link to the meeting page
+
+Uses existing `GET /meetings` endpoint.
+
+---
+
+### 10. 🔄 Canvas Sync Status
+
+Lightweight status bar:
+
+- Last sync timestamp
+- Sync health indicator (✅ recent, ⚠️ stale, ❌ error)
+- Manual "Sync Now" button → hits `POST /sync/trigger`
+- Number of items updated in last sync
+
+Reduces student anxiety about stale data.
+
+---
+
+## 🔵 Tier 3 — Creative / Ambitious
+
+These need more design thinking or new backend logic.
+
+---
+
+### 11. 🧠 AI Study Tip
+
+A small card showing an AI-generated contextual tip based on your current workload:
+
+- "You have 3 assignments due this week. Consider starting CS2103T first — it's worth 15%."
+- Regenerate button for a new tip
+- Could piggyback on the existing brief generation logic
+
+---
+
+### 12. 📆 Workload Heatmap
+
+A GitHub-style contribution heatmap but for academic workload:
+
+- 4-week grid (past 2 weeks + next 2 weeks)
+- Each cell colored by "busyness": number of classes + deadlines + tasks on that day
+- Instantly shows which weeks are going to be intense
+- Could highlight "reading week" or "exam week" periods
+
+---
+
+## Summary Matrix
+
+| # | Widget | Effort | Backend? | Value |
+|---|---|---|---|---|
+| 1 | Now/Next Class | ~2h | No | ⭐⭐⭐⭐⭐ |
+| 2 | Weekly Progress Rings | ~3h | No | ⭐⭐⭐⭐ |
+| 3 | Spotify Mini | ~2h | No | ⭐⭐⭐⭐ |
+| 4 | Quick Links | ~1h | No | ⭐⭐⭐ |
+| 5 | Weekly Pulse | ~3h | No | ⭐⭐⭐⭐ |
+| 6 | Semester Countdown | ~2h | No | ⭐⭐⭐⭐ |
+| 7 | Task Progress Bar | ~2h | No | ⭐⭐⭐ |
+| 8 | Week-at-a-Glance | ~3h | Light | ⭐⭐⭐⭐ |
+| 9 | Upcoming Meetings | ~2h | No | ⭐⭐⭐ |
+| 10 | Canvas Sync Status | ~2h | Light | ⭐⭐⭐ |
+| 11 | AI Study Tip | ~4h | Yes | ⭐⭐⭐ |
+| 12 | Workload Heatmap | ~5h | Light | ⭐⭐⭐⭐ |
+
+> [!IMPORTANT]
+> The first 7 widgets can be built with **zero backend changes** — all data already exists in the current APIs and frontend state.

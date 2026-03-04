@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to transform the small inline Spotify player into a large, visually rich vinyl record experience in the Focus tab. Includes a redesigned SpotifyPlayer component with realistic grooves, tone arm, ambient glow, and micro-interactions, plus layout changes to promote the player when music is active.",
+  "updatedAt":  "2026-03-04T04:00:23.165998Z"
+}

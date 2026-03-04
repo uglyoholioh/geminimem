@@ -1,0 +1,47 @@
+# Walkthrough — 9 New Dashboard Widgets
+
+## Summary
+
+Added 9 new customizable dashboard widgets to CraftCanvas. All widgets are available via the widget picker (Customise → + Add New Widget).
+
+## Files Changed
+
+### Frontend — New Widgets
+
+| Widget | File | Data Source |
+|---|---|---|
+| Now / Next Class | [NowNextClass.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/NowNextClass.tsx) | `GET /timetable/today` |
+| Spotify Mini | [SpotifyMini.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/SpotifyMini.tsx) | Existing `SpotifyPlayer` component |
+| Quick Links | [QuickLinks.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/QuickLinks.tsx) | `localStorage` |
+| Exam Countdown | [SemesterCountdown.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/SemesterCountdown.tsx) | `GET /courses` |
+| Task Progress | [TaskProgress.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/TaskProgress.tsx) | `GET /tasks?status=in_progress` |
+| Week at a Glance | [WeekAtAGlance.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/WeekAtAGlance.tsx) | `/timetable/week` + `/tasks` + `/assignments` |
+| Canvas Sync | [SyncStatus.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/SyncStatus.tsx) | `GET /sync/freshness` + `POST /sync/canvas` |
+| Study Tip | [AIStudyTip.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/AIStudyTip.tsx) | `GET /dashboard/study-tip` |
+| Workload Heatmap | [WorkloadHeatmap.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/WorkloadHeatmap.tsx) | `/timetable/week` + `/tasks` + `/assignments` |
+
+### Frontend — Modified
+
+| File | Change |
+|---|---|
+| [widgetRegistry.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/widgetRegistry.ts) | Added 9 entries + new lucide-react icons |
+| [DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx) | Imported 9 components + added `case` entries |
+
+### Backend — New
+
+| File | Change |
+|---|---|
+| [study_tip.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/study_tip.py) | `GET /study-tip` endpoint with AI generation + daily caching |
+
+### Backend — Modified
+
+| File | Change |
+|---|---|
+| [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) | Registered `study_tip_router` under `/api/v1/dashboard` |
+
+## Verification
+
+```
+✓ npm run build — compiled successfully, zero TypeScript errors
+✓ All 19 pages generated
+```

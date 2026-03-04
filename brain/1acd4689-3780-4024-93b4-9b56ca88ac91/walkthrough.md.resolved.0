@@ -1,0 +1,3207 @@
+# Immersive Vinyl Player — Walkthrough
+
+## Changes Made
+
+### [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
+
+Added `isLargeMode` prop to switch between **compact** (original inline widget) and **immersive** modes. The new [ImmersiveVinyl](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#294-498) sub-component renders:
+
+- **280px spinning vinyl record** with `animation-play-state` toggling (freezes at current angle on pause)
+- **18 concentric grooves** with subtle semi-transparent rings
+- **Album art** clipped as the centre label (~44% of disc)
+- **Amber spindle** with radial glow
+- **Glossy highlight streak** (angled linear gradient overlay)
+- **SVG tone arm** that pivots 20° inward when playing, lifts back when paused (CSS transition with spring easing)
+- **Ambient glow** behind the record (pulsing radial gradient)
+- **Hover interaction** — shows play/pause overlay, subtle scale-up
+- **Click anywhere on the disc** to toggle play/pause
+- **Controls row** (prev / play-pause / next) with amber-accented play button
+- **Track info** centred underneath with marquee scroll for long titles
+
+```diff:SpotifyPlayer.tsx
+'use client'
+
+import React, { useState, useEffect, useRef } from 'react'
+import { Disc3, Play, Pause, SkipBack, SkipForward, Loader2 } from 'lucide-react'
+import { api } from '@/lib/api'
+import { useFocusTimer } from './FocusTimerProvider'
+
+export default function SpotifyPlayer() {
+    const [token, setToken] = useState<string | null>(null)
+    const [loginUrl, setLoginUrl] = useState<string | null>(null)
+    const [loading, setLoading] = useState(true)
+
+    // Spotify Player State
+    const [player, setPlayer] = useState<any>(null)
+    const [deviceId, setDeviceId] = useState<string | null>(null)
+    const [isPaused, setIsPaused] = useState(false)
+    const [isActive, setIsActive] = useState(false)
+    const [currentTrack, setCurrentTrack] = useState<any>(null)
+    const timer = useFocusTimer()
+    const lastTimerMode = useRef(timer.mode)
+
+    // Fetch token on mount
+    useEffect(() => {
+        const fetchToken = async () => {
+            try {
+                const res = await api.get('/spotify/token')
+                if (res.access_token) {
+                    setToken(res.access_token)
+                } else {
+                    const loginRes = await api.get('/spotify/login')
+                    setLoginUrl(loginRes.url)
+                }
+            } catch (err) {
+                console.error("Failed to fetch Spotify token", err)
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchToken()
+    }, [])
+
+    // Initialize Spotify SDK
+    useEffect(() => {
+        if (!token) return
+
+        const script = document.createElement("script")
+        script.src = "https://sdk.scdn.co/spotify-player.js"
+        script.async = true
+        document.body.appendChild(script)
+
+            ; (window as any).onSpotifyWebPlaybackSDKReady = () => {
+                const player = new (window as any).Spotify.Player({
+                    name: 'CraftCanvas Focus',
+                    getOAuthToken: (cb: any) => { cb(token) },
+                    volume: 0.5
+                })
+
+                setPlayer(player)
+
+                player.addListener('ready', ({ device_id }: any) => {
+                    console.log('Ready with Device ID', device_id)
+                    setDeviceId(device_id)
+                })
+
+                player.addListener('not_ready', ({ device_id }: any) => {
+                    console.log('Device ID has gone offline', device_id)
+                    setDeviceId(null)
+                })
+
+                player.addListener('initialization_error', ({ message }: any) => { console.error('Spotify Init Error:', message); });
+                player.addListener('authentication_error', ({ message }: any) => { console.error('Spotify Auth Error:', message); });
+                player.addListener('account_error', ({ message }: any) => {
+                    console.error('Spotify Account Error:', message);
+                    alert("Your Spotify account does not have Premium, which is required by the Web Playback SDK.")
+                });
+
+                player.addListener('player_state_changed', (state: any) => {
+                    if (!state) return
+                    setCurrentTrack(state.track_window.current_track)
+                    setIsPaused(state.paused)
+                    setIsActive(true) // We got state, so it's active
+                })
+
+                player.connect()
+            }
+
+        return () => {
+            if (player) {
+                player.disconnect()
+            }
+        }
+    }, [token])
+
+    // Auto-pause during breaks integration
+    useEffect(() => {
+        if (!player || !isActive) return
+
+        // If transitioning from focus to break, pause
+        if (lastTimerMode.current === 'focus' && timer.mode !== 'focus' && !isPaused) {
+            player.pause()
+        }
+        // If transitioning from break to focus, play (optional - user might find annoying if auto plays, let's just do auto-pause)
+        // if (lastTimerMode.current !== 'focus' && timer.mode === 'focus' && isPaused) {
+        //     player.play()
+        // }
+
+        lastTimerMode.current = timer.mode
+    }, [timer.mode, player, isActive, isPaused])
+
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center p-4 bg-black/40 backdrop-blur-xl border border-border rounded-2xl w-full max-w-sm">
+                <Loader2 className="w-5 h-5 animate-spin text-muted" />
+            </div>
+        )
+    }
+
+    if (!token) {
+        return (
+            <div className="flex flex-col items-center justify-center p-4 bg-black/40 backdrop-blur-xl border border-border rounded-2xl w-full max-w-sm py-6 gap-3 group hover:border-accent transition-colors">
+                <div className="w-12 h-12 rounded-full bg-[#1DB954]/20 flex items-center justify-center mb-1 group-hover:bg-[#1DB954]/30 transition-colors">
+                    <Disc3 className="w-6 h-6 text-[#1DB954]" />
+                </div>
+                <div className="text-center">
+                    <h3 className="text-sm font-semibold text-primary">Connect Spotify</h3>
+                    <p className="text-xs text-muted mt-1 leading-relaxed">Play your focus playlists directly from CraftCanvas.</p>
+                </div>
+                <a
+                    href={loginUrl || '#'}
+                    className="mt-2 text-xs font-mono font-bold bg-[#1DB954] text-black px-4 py-2 rounded-full hover:scale-105 active:scale-95 transition-transform"
+                >
+                    Link Account
+                </a>
+            </div>
+        )
+    }
+
+    const handleTransferPlayback = async () => {
+        if (!deviceId || !token) return
+        try {
+            await fetch('https://api.spotify.com/v1/me/player', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    device_ids: [deviceId],
+                    play: true
+                })
+            })
+        } catch (err) {
+            console.error("Failed to transfer playback", err)
+        }
+    }
+
+    // Has token but not playing anything right now
+    if (!currentTrack) {
+        return (
+            <div className="flex flex-col items-center justify-center p-4 bg-black/40 backdrop-blur-xl border border-border rounded-2xl w-full py-6 gap-3 group hover:border-accent transition-colors">
+                <div className="w-12 h-12 rounded-full bg-surface shrink-0 flex items-center justify-center border border-border mb-1">
+                    <Disc3 className="w-6 h-6 text-muted" />
+                </div>
+                <div className="text-center">
+                    <p className="text-sm font-semibold text-primary">Spotify Connected</p>
+                    <p className="text-xs text-muted mt-1 leading-relaxed px-4">Player is ready. Start playing music to see it here.</p>
+                </div>
+                {deviceId && (
+                    <button
+                        onClick={handleTransferPlayback}
+                        className="mt-2 text-xs font-mono font-bold bg-white text-black px-4 py-2 rounded-full hover:scale-105 active:scale-95 transition-transform"
+                    >
+                        Play Here
+                    </button>
+                )}
+            </div>
+        )
+    }
+
+    // Active Player UI (Vinyl Style)
+    return (
+        <div className="flex items-center gap-4 p-3 pr-4 bg-black/40 backdrop-blur-xl border border-border rounded-2xl w-full relative overflow-hidden group transition-all hover:bg-black/60 shadow-xl">
+            {/* Spinning Vinyl */}
+            <div className={`relative w-16 h-16 rounded-full shrink-0 flex items-center justify-center border-4 border-black shadow-[0_0_15px_rgba(0,0,0,0.8)] overflow-hidden bg-black ${!isPaused ? 'animate-[spin_4s_linear_infinite]' : ''}`}>
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-white/10" style={{ mixBlendMode: 'overlay' }}></div>
+                {currentTrack.album.images[0]?.url ? (
+                    <img
+                        src={currentTrack.album.images[0].url}
+                        alt="Album art"
+                        className="absolute inset-0 w-full h-full object-cover rounded-full opacity-80"
+                    />
+                ) : (
+                    <div className="absolute inset-0 bg-surface rounded-full flex items-center justify-center">
+                        <Disc3 className="w-6 h-6 text-muted" />
+                    </div>
+                )}
+                <div className="relative w-4 h-4 rounded-full bg-black flex items-center justify-center border border-[#111] z-10">
+                    <div className="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+                </div>
+                {/* Vinyl Grooves Simulation */}
+                <div className="absolute inset-0 rounded-full border border-white/5 m-1"></div>
+                <div className="absolute inset-0 rounded-full border border-white/5 m-2"></div>
+                <div className="absolute inset-0 rounded-full border border-white/5 m-3"></div>
+            </div>
+
+            {/* Track Info */}
+            <div className="flex-1 min-w-0 pr-2">
+                <style>{`
+                    .marquee-container {
+                        display: flex;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                    .marquee-content {
+                        display: inline-block;
+                        animation: marquee 10s linear infinite;
+                    }
+                    @keyframes marquee {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-50%); }
+                    }
+                `}</style>
+                <div className="w-full relative marquee-container mb-0.5">
+                    <p className={`text-sm font-semibold text-primary truncate ${currentTrack.name.length > 20 ? 'marquee-content' : ''}`}>
+                        {currentTrack.name}
+                        {currentTrack.name.length > 20 && <span className="pl-8">{currentTrack.name}</span>}
+                    </p>
+                </div>
+                <p className="text-[10px] font-mono text-muted uppercase tracking-wider truncate">
+                    {currentTrack.artists.map((a: any) => a.name).join(', ')}
+                </p>
+
+                {/* Controls */}
+                <div className="flex items-center gap-3 mt-2 h-6">
+                    <button
+                        onClick={() => player.previousTrack()}
+                        className="text-muted hover:text-primary transition-colors hover:scale-110 active:scale-90"
+                    >
+                        <SkipBack className="w-4 h-4" />
+                    </button>
+                    <button
+                        onClick={() => player.togglePlay()}
+                        className="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-primary transition-all hover:scale-110 active:scale-90 border border-white/5"
+                    >
+                        {isPaused ? <Play className="w-3 h-3 ml-0.5" /> : <Pause className="w-3 h-3" />}
+                    </button>
+                    <button
+                        onClick={() => player.nextTrack()}
+                        className="text-muted hover:text-primary transition-colors hover:scale-110 active:scale-90"
+                    >
+                        <SkipForward className="w-4 h-4" />
+                    </button>
+                </div>
+            </div>
+
+            {/* Spotify Logo Watermark */}
+            <div className="absolute -bottom-2 -right-2 opacity-5 pointer-events-none">
+                <Disc3 className="w-24 h-24" />
+            </div>
+        </div>
+    )
+}
+===
+'use client'
+
+import React, { useState, useEffect, useRef } from 'react'
+import { Disc3, Play, Pause, SkipBack, SkipForward, Loader2 } from 'lucide-react'
+import { api } from '@/lib/api'
+import { useFocusTimer } from './FocusTimerProvider'
+
+/* ────────────────────────────────────────────────────────── */
+/*  CSS keyframes & styles injected once                      */
+/* ────────────────────────────────────────────────────────── */
+const VINYL_STYLES = `
+@keyframes vinyl-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+@keyframes needle-drop {
+    0%   { transform: rotate(-30deg); }
+    60%  { transform: rotate(-9deg); }
+    80%  { transform: rotate(-12deg); }
+    100% { transform: rotate(-10deg); }
+}
+@keyframes needle-lift {
+    0%   { transform: rotate(-10deg); }
+    100% { transform: rotate(-30deg); }
+}
+@keyframes glow-pulse {
+    0%, 100% { opacity: 0.25; transform: scale(1); }
+    50%      { opacity: 0.4;  transform: scale(1.04); }
+}
+@keyframes marquee-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.vinyl-disc {
+    animation: vinyl-spin 4s linear infinite;
+    animation-play-state: paused;
+    will-change: transform;
+}
+.vinyl-disc.is-playing {
+    animation-play-state: running;
+}
+
+.vinyl-needle {
+    transform-origin: 85% 8%;
+    transform: rotate(-30deg);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.vinyl-needle.is-playing {
+    transform: rotate(-10deg);
+}
+
+.vinyl-glow {
+    animation: glow-pulse 4s ease-in-out infinite;
+}
+`
+
+interface SpotifyPlayerProps {
+    isLargeMode?: boolean
+}
+
+export default function SpotifyPlayer({ isLargeMode = false }: SpotifyPlayerProps) {
+    const [token, setToken] = useState<string | null>(null)
+    const [loginUrl, setLoginUrl] = useState<string | null>(null)
+    const [loading, setLoading] = useState(true)
+
+    // Spotify Player State
+    const [player, setPlayer] = useState<any>(null)
+    const [deviceId, setDeviceId] = useState<string | null>(null)
+    const [isPaused, setIsPaused] = useState(false)
+    const [isActive, setIsActive] = useState(false)
+    const [currentTrack, setCurrentTrack] = useState<any>(null)
+    const timer = useFocusTimer()
+    const lastTimerMode = useRef(timer.mode)
+
+    // Fetch token on mount
+    useEffect(() => {
+        const fetchToken = async () => {
+            try {
+                const res = await api.get('/spotify/token')
+                if (res.access_token) {
+                    setToken(res.access_token)
+                } else {
+                    const loginRes = await api.get('/spotify/login')
+                    setLoginUrl(loginRes.url)
+                }
+            } catch (err) {
+                console.error("Failed to fetch Spotify token", err)
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchToken()
+    }, [])
+
+    // Initialize Spotify SDK
+    useEffect(() => {
+        if (!token) return
+
+        const script = document.createElement("script")
+        script.src = "https://sdk.scdn.co/spotify-player.js"
+        script.async = true
+        document.body.appendChild(script)
+
+            ; (window as any).onSpotifyWebPlaybackSDKReady = () => {
+                const player = new (window as any).Spotify.Player({
+                    name: 'CraftCanvas Focus',
+                    getOAuthToken: (cb: any) => { cb(token) },
+                    volume: 0.5
+                })
+
+                setPlayer(player)
+
+                player.addListener('ready', ({ device_id }: any) => {
+                    console.log('Ready with Device ID', device_id)
+                    setDeviceId(device_id)
+                })
+
+                player.addListener('not_ready', ({ device_id }: any) => {
+                    console.log('Device ID has gone offline', device_id)
+                    setDeviceId(null)
+                })
+
+                player.addListener('initialization_error', ({ message }: any) => { console.error('Spotify Init Error:', message); });
+                player.addListener('authentication_error', ({ message }: any) => { console.error('Spotify Auth Error:', message); });
+                player.addListener('account_error', ({ message }: any) => {
+                    console.error('Spotify Account Error:', message);
+                    alert("Your Spotify account does not have Premium, which is required by the Web Playback SDK.")
+                });
+
+                player.addListener('player_state_changed', (state: any) => {
+                    if (!state) return
+                    setCurrentTrack(state.track_window.current_track)
+                    setIsPaused(state.paused)
+                    setIsActive(true)
+                })
+
+                player.connect()
+            }
+
+        return () => {
+            if (player) {
+                player.disconnect()
+            }
+        }
+    }, [token])
+
+    // Auto-pause during breaks integration
+    useEffect(() => {
+        if (!player || !isActive) return
+        if (lastTimerMode.current === 'focus' && timer.mode !== 'focus' && !isPaused) {
+            player.pause()
+        }
+        lastTimerMode.current = timer.mode
+    }, [timer.mode, player, isActive, isPaused])
+
+    // ─── Loading state ───
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center p-4 bg-black/40 backdrop-blur-xl border border-border rounded-2xl w-full max-w-sm">
+                <Loader2 className="w-5 h-5 animate-spin text-muted" />
+            </div>
+        )
+    }
+
+    // ─── Not connected ───
+    if (!token) {
+        return (
+            <div className="flex flex-col items-center justify-center p-4 bg-black/40 backdrop-blur-xl border border-border rounded-2xl w-full max-w-sm py-6 gap-3 group hover:border-accent transition-colors">
+                <div className="w-12 h-12 rounded-full bg-[#1DB954]/20 flex items-center justify-center mb-1 group-hover:bg-[#1DB954]/30 transition-colors">
+                    <Disc3 className="w-6 h-6 text-[#1DB954]" />
+                </div>
+                <div className="text-center">
+                    <h3 className="text-sm font-semibold text-primary">Connect Spotify</h3>
+                    <p className="text-xs text-muted mt-1 leading-relaxed">Play your focus playlists directly from CraftCanvas.</p>
+                </div>
+                <a
+                    href={loginUrl || '#'}
+                    className="mt-2 text-xs font-mono font-bold bg-[#1DB954] text-black px-4 py-2 rounded-full hover:scale-105 active:scale-95 transition-transform"
+                >
+                    Link Account
+                </a>
+            </div>
+        )
+    }
+
+    const handleTransferPlayback = async () => {
+        if (!deviceId || !token) return
+        try {
+            await fetch('https://api.spotify.com/v1/me/player', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    device_ids: [deviceId],
+                    play: true
+                })
+            })
+        } catch (err) {
+            console.error("Failed to transfer playback", err)
+        }
+    }
+
+    // ─── Connected but no track ───
+    if (!currentTrack) {
+        return (
+            <div className="flex flex-col items-center justify-center p-4 bg-black/40 backdrop-blur-xl border border-border rounded-2xl w-full py-6 gap-3 group hover:border-accent transition-colors">
+                <div className="w-12 h-12 rounded-full bg-surface shrink-0 flex items-center justify-center border border-border mb-1">
+                    <Disc3 className="w-6 h-6 text-muted" />
+                </div>
+                <div className="text-center">
+                    <p className="text-sm font-semibold text-primary">Spotify Connected</p>
+                    <p className="text-xs text-muted mt-1 leading-relaxed px-4">Player is ready. Start playing music to see it here.</p>
+                </div>
+                {deviceId && (
+                    <button
+                        onClick={handleTransferPlayback}
+                        className="mt-2 text-xs font-mono font-bold bg-white text-black px-4 py-2 rounded-full hover:scale-105 active:scale-95 transition-transform"
+                    >
+                        Play Here
+                    </button>
+                )}
+            </div>
+        )
+    }
+
+    // ─── Active Player: decide compact vs immersive ───
+    if (isLargeMode) {
+        return <ImmersiveVinyl currentTrack={currentTrack} isPaused={isPaused} player={player} />
+    }
+
+    // ─── Compact inline player (original style) ───
+    return (
+        <div className="flex items-center gap-4 p-3 pr-4 bg-black/40 backdrop-blur-xl border border-border rounded-2xl w-full relative overflow-hidden group transition-all hover:bg-black/60 shadow-xl">
+            {/* Spinning Vinyl */}
+            <div className={`relative w-16 h-16 rounded-full shrink-0 flex items-center justify-center border-4 border-black shadow-[0_0_15px_rgba(0,0,0,0.8)] overflow-hidden bg-black ${!isPaused ? 'animate-[spin_4s_linear_infinite]' : ''}`}>
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-white/10" style={{ mixBlendMode: 'overlay' }}></div>
+                {currentTrack.album.images[0]?.url ? (
+                    <img
+                        src={currentTrack.album.images[0].url}
+                        alt="Album art"
+                        className="absolute inset-0 w-full h-full object-cover rounded-full opacity-80"
+                    />
+                ) : (
+                    <div className="absolute inset-0 bg-surface rounded-full flex items-center justify-center">
+                        <Disc3 className="w-6 h-6 text-muted" />
+                    </div>
+                )}
+                <div className="relative w-4 h-4 rounded-full bg-black flex items-center justify-center border border-[#111] z-10">
+                    <div className="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+                </div>
+                <div className="absolute inset-0 rounded-full border border-white/5 m-1"></div>
+                <div className="absolute inset-0 rounded-full border border-white/5 m-2"></div>
+                <div className="absolute inset-0 rounded-full border border-white/5 m-3"></div>
+            </div>
+
+            {/* Track Info */}
+            <div className="flex-1 min-w-0 pr-2">
+                <div className="w-full relative overflow-hidden whitespace-nowrap mb-0.5">
+                    <p className={`text-sm font-semibold text-primary truncate ${currentTrack.name.length > 20 ? 'animate-[marquee-scroll_10s_linear_infinite] inline-block' : ''}`}>
+                        {currentTrack.name}
+                        {currentTrack.name.length > 20 && <span className="pl-8">{currentTrack.name}</span>}
+                    </p>
+                </div>
+                <p className="text-[10px] font-mono text-muted uppercase tracking-wider truncate">
+                    {currentTrack.artists.map((a: any) => a.name).join(', ')}
+                </p>
+                <div className="flex items-center gap-3 mt-2 h-6">
+                    <button onClick={() => player.previousTrack()} className="text-muted hover:text-primary transition-colors hover:scale-110 active:scale-90">
+                        <SkipBack className="w-4 h-4" />
+                    </button>
+                    <button onClick={() => player.togglePlay()} className="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-primary transition-all hover:scale-110 active:scale-90 border border-white/5">
+                        {isPaused ? <Play className="w-3 h-3 ml-0.5" /> : <Pause className="w-3 h-3" />}
+                    </button>
+                    <button onClick={() => player.nextTrack()} className="text-muted hover:text-primary transition-colors hover:scale-110 active:scale-90">
+                        <SkipForward className="w-4 h-4" />
+                    </button>
+                </div>
+            </div>
+            <div className="absolute -bottom-2 -right-2 opacity-5 pointer-events-none">
+                <Disc3 className="w-24 h-24" />
+            </div>
+        </div>
+    )
+}
+
+
+/* ═══════════════════════════════════════════════════════════ */
+/*  IMMERSIVE VINYL — the big, tactile experience             */
+/* ═══════════════════════════════════════════════════════════ */
+
+function ImmersiveVinyl({ currentTrack, isPaused, player }: {
+    currentTrack: any
+    isPaused: boolean
+    player: any
+}) {
+    const albumArt = currentTrack?.album?.images?.[0]?.url
+    const artistNames = currentTrack?.artists?.map((a: any) => a.name).join(', ') ?? ''
+    const titleLong = (currentTrack?.name?.length ?? 0) > 28
+
+    // Generate grooves — concentric rings
+    const grooves = Array.from({ length: 18 }, (_, i) => {
+        const pct = 52 + i * 2.6        // from ~52% to ~98% radius
+        return pct
+    })
+
+    return (
+        <div className="flex flex-col items-center gap-4 w-full select-none">
+            <style>{VINYL_STYLES}</style>
+
+            {/* ─── Record + Tone Arm Container ─── */}
+            <div className="relative" style={{ width: '280px', height: '280px' }}>
+
+                {/* Ambient glow (blurred album colour) */}
+                {albumArt && (
+                    <div
+                        className="absolute inset-0 rounded-full vinyl-glow pointer-events-none"
+                        style={{
+                            background: `radial-gradient(circle, rgba(240,168,74,0.15) 0%, transparent 70%)`,
+                            filter: 'blur(40px)',
+                            transform: 'scale(1.3)',
+                            zIndex: 0,
+                        }}
+                    />
+                )}
+
+                {/* ─── The Vinyl Record ─── */}
+                <div
+                    className={`vinyl-disc ${!isPaused ? 'is-playing' : ''} relative w-full h-full rounded-full cursor-pointer group`}
+                    onClick={() => player?.togglePlay()}
+                    title={isPaused ? 'Play' : 'Pause'}
+                    style={{ zIndex: 2 }}
+                >
+                    {/* Outer rim */}
+                    <div
+                        className="absolute inset-0 rounded-full"
+                        style={{
+                            background: 'radial-gradient(circle, #1a1a1a 48%, #0d0d0d 49%, #181818 50%, #111 96%, #0a0a0a 100%)',
+                            boxShadow: '0 8px 32px rgba(0,0,0,0.7), 0 2px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)',
+                        }}
+                    />
+
+                    {/* Vinyl grooves */}
+                    {grooves.map((pct, i) => (
+                        <div
+                            key={i}
+                            className="absolute rounded-full pointer-events-none"
+                            style={{
+                                inset: `${(100 - pct) / 2}%`,
+                                border: `0.5px solid rgba(255,255,255,${0.03 + (i % 3 === 0 ? 0.02 : 0)})`,
+                            }}
+                        />
+                    ))}
+
+                    {/* Album art label (centre) */}
+                    <div
+                        className="absolute rounded-full overflow-hidden"
+                        style={{
+                            inset: '28%',
+                            boxShadow: 'inset 0 0 20px rgba(0,0,0,0.6)',
+                        }}
+                    >
+                        {albumArt ? (
+                            <img
+                                src={albumArt}
+                                alt="Album art"
+                                className="w-full h-full object-cover"
+                                draggable={false}
+                            />
+                        ) : (
+                            <div className="w-full h-full bg-[#1a1a1a] flex items-center justify-center">
+                                <Disc3 className="w-10 h-10 text-white/20" />
+                            </div>
+                        )}
+                        {/* Inner ring around label */}
+                        <div className="absolute inset-0 rounded-full border-2 border-black/40" />
+                    </div>
+
+                    {/* Centre spindle */}
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#0a0a0a] border border-[#222] z-20 flex items-center justify-center">
+                        <div className="w-2 h-2 rounded-full" style={{
+                            background: 'radial-gradient(circle, #f0a84a 0%, #c08030 100%)',
+                            boxShadow: '0 0 6px rgba(240,168,74,0.5)',
+                        }} />
+                    </div>
+
+                    {/* Glossy highlight streak */}
+                    <div
+                        className="absolute inset-0 rounded-full pointer-events-none"
+                        style={{
+                            background: 'linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.06) 45%, transparent 55%)',
+                        }}
+                    />
+
+                    {/* Hover overlay — subtle play/pause hint */}
+                    <div className="absolute inset-0 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-30 bg-black/20">
+                        {isPaused ? (
+                            <Play className="w-10 h-10 text-white/70 drop-shadow-lg ml-1" fill="currentColor" />
+                        ) : (
+                            <Pause className="w-10 h-10 text-white/70 drop-shadow-lg" fill="currentColor" />
+                        )}
+                    </div>
+                </div>
+
+                {/* ─── Tone Arm ─── */}
+                <svg
+                    className={`vinyl-needle ${!isPaused ? 'is-playing' : ''} absolute pointer-events-none`}
+                    style={{
+                        top: '-24px',
+                        right: '-20px',
+                        width: '120px',
+                        height: '200px',
+                        zIndex: 10,
+                    }}
+                    viewBox="0 0 120 200"
+                    fill="none"
+                >
+                    {/* Pivot base */}
+                    <circle cx="102" cy="16" r="10" fill="#222" stroke="#333" strokeWidth="1" />
+                    <circle cx="102" cy="16" r="4" fill="#444" />
+
+                    {/* Arm */}
+                    <line x1="100" y1="18" x2="30" y2="150" stroke="#555" strokeWidth="3" strokeLinecap="round" />
+                    <line x1="100" y1="18" x2="30" y2="150" stroke="#666" strokeWidth="1.5" strokeLinecap="round" />
+
+                    {/* Headshell */}
+                    <rect x="22" y="146" width="18" height="8" rx="2" fill="#444" stroke="#555" strokeWidth="0.5"
+                        transform="rotate(-30 31 150)" />
+
+                    {/* Cartridge / stylus */}
+                    <line x1="22" y1="157" x2="18" y2="163" stroke="#f0a84a" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+            </div>
+
+            {/* ─── Track Info ─── */}
+            <div className="flex flex-col items-center gap-1 w-full max-w-[280px] mt-1">
+                <div className="w-full overflow-hidden whitespace-nowrap text-center">
+                    <p className={`text-[13px] font-semibold text-primary ${titleLong ? '' : ''}`}
+                        style={{
+                            fontFamily: 'var(--font-sans)',
+                            ...(titleLong ? {
+                                display: 'inline-block',
+                                animation: 'marquee-scroll 12s linear infinite',
+                            } : {})
+                        }}
+                    >
+                        {currentTrack.name}
+                        {titleLong && <span className="pl-10">{currentTrack.name}</span>}
+                    </p>
+                </div>
+                <p className="text-[10px] font-mono text-muted uppercase tracking-wider truncate max-w-full text-center">
+                    {artistNames}
+                </p>
+            </div>
+
+            {/* ─── Controls ─── */}
+            <div className="flex items-center gap-5 mt-1">
+                <button
+                    onClick={() => player?.previousTrack()}
+                    className="text-muted hover:text-primary transition-all hover:scale-110 active:scale-90"
+                    title="Previous"
+                >
+                    <SkipBack className="w-5 h-5" />
+                </button>
+
+                <button
+                    onClick={() => player?.togglePlay()}
+                    className="w-12 h-12 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95 border"
+                    style={{
+                        background: isPaused
+                            ? 'linear-gradient(135deg, rgba(240,168,74,0.15), rgba(240,168,74,0.05))'
+                            : 'rgba(255,255,255,0.08)',
+                        borderColor: isPaused ? 'rgba(240,168,74,0.4)' : 'rgba(255,255,255,0.1)',
+                        boxShadow: isPaused ? '0 0 20px rgba(240,168,74,0.15)' : 'none',
+                    }}
+                    title={isPaused ? 'Play' : 'Pause'}
+                >
+                    {isPaused ? (
+                        <Play className="w-5 h-5 text-amber ml-0.5" fill="currentColor" />
+                    ) : (
+                        <Pause className="w-5 h-5 text-white/70" fill="currentColor" />
+                    )}
+                </button>
+
+                <button
+                    onClick={() => player?.nextTrack()}
+                    className="text-muted hover:text-primary transition-all hover:scale-110 active:scale-90"
+                    title="Next"
+                >
+                    <SkipForward className="w-5 h-5" />
+                </button>
+            </div>
+        </div>
+    )
+}
+
+```
+
+---
+
+### [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
+
+- Vinyl player promoted to the **left column** (below timer controls + session stats) when Spotify is enabled
+- Removed duplicate compact [SpotifyPlayer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#62-288) from the right panel
+- Container no longer has a fixed `h-[650px]` — uses `max-h-[85vh]` only
+- Left column changed from `justify-center` to `justify-start` with `overflow-y-auto` to handle the extra content gracefully
+
+```diff:page.tsx
+'use client'
+
+import { useState, useEffect, useRef } from 'react'
+import { api } from '@/lib/api'
+import { useFocusTimer } from '@/components/FocusTimerProvider'
+import SpotifyPlayer from '@/components/SpotifyPlayer'
+import { Play, Pause, RotateCcw, CheckCircle2, Circle, Clock, Image as ImageIcon, X, Upload, Sparkles, Volume2, VolumeX, Music, CheckSquare, Target, Settings2, SkipForward } from 'lucide-react'
+
+// Ambient sounds to choose from
+const AMBIENT_SOUNDS = [
+    { id: 'rain', label: 'Heavy Rain', url: '/sounds/rain.mp3' },
+    { id: 'cafe', label: 'Coffee Shop', url: '/sounds/cafe.mp3' },
+    { id: 'fire', label: 'Campfire', url: '/sounds/fire.mp3' },
+    { id: 'waves', label: 'Beach Waves', url: '/sounds/waves.mp3' },
+    { id: 'forest', label: 'Deep Forest', url: '/sounds/forest.mp3' },
+    { id: 'night', label: 'Summer Night', url: '/sounds/night.mp3' },
+    { id: 'space', label: 'Ambient Drone', url: '/sounds/space.mp3' }
+]
+
+interface Task {
+    id: number
+    title: string
+    status: string
+    actual_minutes: number
+    course_code: string | null
+}
+
+type ClockStyle = 'minimal' | 'digital' | 'retro' | 'flip' | 'glow' | 'serif' | 'outline'
+
+const CLOCK_STYLES: { id: ClockStyle; label: string; preview: string }[] = [
+    { id: 'minimal', label: 'Minimal', preview: '25:00' },
+    { id: 'digital', label: 'Digital', preview: '25:00' },
+    { id: 'retro', label: '8-Bit', preview: '25:00' },
+    { id: 'flip', label: 'Flip', preview: '25:00' },
+    { id: 'glow', label: 'Neon Glow', preview: '25:00' },
+    { id: 'serif', label: 'Classic Serif', preview: '25:00' },
+    { id: 'outline', label: 'Outline', preview: '25:00' },
+]
+
+// Static image presets
+const IMAGE_PRESETS = [
+    { id: 'mountains', url: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1000', thumb: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=300', label: 'Mountains' },
+    { id: 'earth', url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000', thumb: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=300', label: 'Earth' },
+    { id: 'abstract', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000', thumb: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=300', label: 'Abstract' },
+    { id: 'forest', url: 'https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1000', thumb: 'https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=300', label: 'Forest' },
+]
+
+// Animated / fun presets (CSS-only animations rendered inline)
+const ANIMATED_PRESETS = [
+    { id: 'matrix', label: 'Matrix Rain', type: 'css' as const },
+    { id: 'stars', label: 'Starfield', type: 'css' as const },
+    { id: 'pixels', label: 'Pixel Grid', type: 'css' as const },
+    { id: 'waves', label: 'Synthwave', type: 'css' as const },
+    { id: 'aurora', label: 'Aurora', type: 'css' as const },
+    { id: 'mesh', label: 'Gradient Mesh', type: 'css' as const },
+    { id: 'particles', label: 'Dust Particles', type: 'css' as const },
+]
+
+// Gradient presets
+const GRADIENT_PRESETS = [
+    { id: 'midnight', label: 'Midnight Space', value: 'linear-gradient(to bottom right, #0B0B13, #1A1A32, #0D0D1C)' },
+    { id: 'deep_ocean', label: 'Deep Ocean', value: 'linear-gradient(to top right, #000428, #004e92)' },
+    { id: 'obsidian', label: 'Obsidian Fire', value: 'linear-gradient(to bottom, #111111, #2f1b1b, #000000)' },
+    { id: 'emerald', label: 'Dark Emerald', value: 'radial-gradient(circle at 50% 100%, #0d3826 0%, #05140e 100%)' },
+]
+
+// ─── Animated background components ──────────────────────────────────
+
+function MatrixRain() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: '#0a0a0a' }}>
+            <style>{`
+                @keyframes matrix-fall {
+                    0% { transform: translateY(-100%); opacity: 1; }
+                    100% { transform: translateY(100vh); opacity: 0; }
+                }
+                .matrix-col {
+                    position: absolute; top: -20px;
+                    font-family: 'Courier New', monospace;
+                    font-size: 14px; color: #00ff41;
+                    writing-mode: vertical-rl; text-orientation: upright;
+                    animation: matrix-fall linear infinite;
+                    opacity: 0.7; letter-spacing: 4px;
+                    text-shadow: 0 0 8px #00ff41, 0 0 20px #00ff41;
+                }
+            `}</style>
+            {Array.from({ length: 30 }).map((_, i) => (
+                <span
+                    key={i}
+                    className="matrix-col"
+                    style={{
+                        left: `${(i / 30) * 100}%`,
+                        animationDuration: `${3 + Math.random() * 5}s`,
+                        animationDelay: `${Math.random() * 3}s`,
+                        fontSize: `${10 + Math.random() * 8}px`,
+                        opacity: 0.3 + Math.random() * 0.5,
+                    }}
+                >
+                    {Array.from({ length: 20 }, () => String.fromCharCode(0x30A0 + Math.random() * 96)).join('')}
+                </span>
+            ))}
+        </div>
+    )
+}
+
+function Starfield() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: 'radial-gradient(ellipse at center, #0d1117 0%, #000 100%)' }}>
+            <style>{`
+                @keyframes twinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+                @keyframes drift { 0% { transform: translate(0, 0); } 100% { transform: translate(-20px, -30px); } }
+                .star {
+                    position: absolute; border-radius: 50%; background: white;
+                    animation: twinkle ease-in-out infinite, drift linear infinite;
+                }
+            `}</style>
+            {Array.from({ length: 80 }).map((_, i) => (
+                <div
+                    key={i}
+                    className="star"
+                    style={{
+                        width: `${1 + Math.random() * 3}px`,
+                        height: `${1 + Math.random() * 3}px`,
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`,
+                        animationDuration: `${2 + Math.random() * 4}s, ${20 + Math.random() * 30}s`,
+                        animationDelay: `${Math.random() * 3}s, 0s`,
+                        boxShadow: `0 0 ${2 + Math.random() * 4}px rgba(255,255,255,0.8)`,
+                    }}
+                />
+            ))}
+        </div>
+    )
+}
+
+function PixelGrid() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: '#1a1a2e' }}>
+            <style>{`
+                @keyframes pixel-pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+                .pixel-cell {
+                    position: absolute; border-radius: 2px;
+                    animation: pixel-pulse ease-in-out infinite;
+                }
+            `}</style>
+            {Array.from({ length: 100 }).map((_, i) => {
+                const colors = ['#e94560', '#0f3460', '#533483', '#16213e', '#00d2ff', '#ff6b6b', '#4ecdc4']
+                return (
+                    <div
+                        key={i}
+                        className="pixel-cell"
+                        style={{
+                            width: `${20 + Math.random() * 30}px`,
+                            height: `${20 + Math.random() * 30}px`,
+                            top: `${Math.random() * 100}%`,
+                            left: `${Math.random() * 100}%`,
+                            background: colors[Math.floor(Math.random() * colors.length)],
+                            animationDuration: `${1 + Math.random() * 3}s`,
+                            animationDelay: `${Math.random() * 2}s`,
+                        }}
+                    />
+                )
+            })}
+        </div>
+    )
+}
+
+function Synthwave() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: 'linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%)' }}>
+            <style>{`
+                @keyframes grid-scroll { 0% { transform: perspective(400px) rotateX(60deg) translateY(0); } 100% { transform: perspective(400px) rotateX(60deg) translateY(40px); } }
+                @keyframes sun-glow { 0%, 100% { box-shadow: 0 0 60px rgba(255,106,0,0.5); } 50% { box-shadow: 0 0 100px rgba(255,0,128,0.8); } }
+            `}</style>
+            {/* Sun */}
+            <div style={{
+                position: 'absolute', bottom: '35%', left: '50%', transform: 'translateX(-50%)',
+                width: '200px', height: '200px', borderRadius: '50%',
+                background: 'linear-gradient(180deg, #ff6a00, #ee0979)',
+                animation: 'sun-glow 4s ease-in-out infinite',
+            }} />
+            {/* Grid floor */}
+            <div style={{
+                position: 'absolute', bottom: 0, left: '-10%', right: '-10%', height: '45%',
+                backgroundImage: 'linear-gradient(rgba(255,0,128,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,128,0.3) 1px, transparent 1px)',
+                backgroundSize: '40px 40px',
+                animation: 'grid-scroll 2s linear infinite',
+            }} />
+        </div>
+    )
+}
+
+function Aurora() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: '#050510' }}>
+            <style>{`
+                @keyframes aurora-wave {
+                    0% { background-position: 0% 50%; opacity: 0.6; }
+                    50% { background-position: 100% 50%; opacity: 0.9; }
+                    100% { background-position: 0% 50%; opacity: 0.6; }
+                }
+            `}</style>
+            <div className="absolute inset-0 z-0 opacity-40 blur-[80px]" style={{
+                background: 'linear-gradient(45deg, #00ff88, #00d2ff, #2a0845, #11998e)',
+                backgroundSize: '400% 400%',
+                animation: 'aurora-wave 15s ease infinite',
+            }} />
+        </div>
+    )
+}
+
+function GradientMesh() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: '#0a0a0c' }}>
+            <style>{`
+                @keyframes mesh-blob {
+                    0% { transform: translate(0px, 0px) scale(1); }
+                    33% { transform: translate(30px, -50px) scale(1.1); }
+                    66% { transform: translate(-20px, 20px) scale(0.9); }
+                    100% { transform: translate(0px, 0px) scale(1); }
+                }
+            `}</style>
+            <div className="absolute top-1/4 left-1/4 w-[50vw] h-[50vw] rounded-full mix-blend-screen filter blur-[100px] opacity-30" style={{
+                background: '#f0a84a',
+                animation: 'mesh-blob 20s infinite',
+            }} />
+            <div className="absolute bottom-1/4 right-1/4 w-[40vw] h-[40vw] rounded-full mix-blend-screen filter blur-[100px] opacity-20" style={{
+                background: '#6a9fe8',
+                animation: 'mesh-blob 25s infinite alternate',
+            }} />
+        </div>
+    )
+}
+
+function DustParticles() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: 'linear-gradient(to bottom, #111, #1a1a24)' }}>
+            <style>{`
+                @keyframes particle-float { 
+                    0% { transform: translateY(110vh) scale(0); opacity: 0; } 
+                    20% { opacity: 1; }
+                    80% { opacity: 1; }
+                    100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } 
+                }
+            `}</style>
+            {Array.from({ length: 40 }).map((_, i) => (
+                <div
+                    key={i}
+                    className="absolute bg-white rounded-full"
+                    style={{
+                        width: `${1 + Math.random() * 3}px`,
+                        height: `${1 + Math.random() * 3}px`,
+                        left: `${Math.random() * 100}%`,
+                        opacity: 0,
+                        animation: `particle-float ${10 + Math.random() * 20}s linear infinite`,
+                        animationDelay: `-${Math.random() * 20}s`,
+                        filter: 'blur(1px)',
+                        boxShadow: '0 0 5px rgba(255,255,255,0.8)'
+                    }}
+                />
+            ))}
+        </div>
+    )
+}
+
+const AnimatedBGs: Record<string, React.FC> = {
+    matrix: MatrixRain,
+    stars: Starfield,
+    pixels: PixelGrid,
+    waves: Synthwave,
+    aurora: Aurora,
+    mesh: GradientMesh,
+    particles: DustParticles,
+}
+
+// ─── Clock display renderers ────────────────────────────────────────
+
+function MinimalClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`font-mono tracking-tighter text-primary font-light text-center drop-shadow-sm ${preview ? 'text-4xl' : 'text-8xl md:text-9xl mb-8'}`}>
+            {time}
+        </div>
+    )
+}
+
+function DigitalClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`text-center ${preview ? '' : 'mb-8'}`}>
+            <div
+                className={`inline-block rounded-xl border border-accent/30 ${preview ? 'px-4 py-2' : 'px-8 py-4 rounded-2xl'}`}
+                style={{
+                    background: 'rgba(0,0,0,0.6)',
+                    boxShadow: preview ? 'none' : '0 0 30px rgba(0,255,128,0.15), inset 0 0 30px rgba(0,0,0,0.5)',
+                }}
+            >
+                <span
+                    className={`font-mono font-bold tracking-widest ${preview ? 'text-3xl' : 'text-7xl md:text-8xl'}`}
+                    style={{
+                        color: '#00ff88',
+                        textShadow: preview ? 'none' : '0 0 10px #00ff88, 0 0 30px rgba(0,255,136,0.4)',
+                    }}
+                >
+                    {time}
+                </span>
+            </div>
+        </div>
+    )
+}
+
+function RetroClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`text-center ${preview ? '' : 'mb-8'}`}>
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+                .retro-time {
+                    font-family: 'Press Start 2P', monospace;
+                    color: #ffd700;
+                    image-rendering: pixelated;
+                    letter-spacing: 0.1em;
+                }
+            `}</style>
+            <div
+                className="retro-time"
+                style={preview ? {
+                    fontSize: '1.5rem',
+                    textShadow: '2px 2px 0px #ff6b00'
+                } : {
+                    fontSize: 'clamp(2rem, 5vw, 4rem)',
+                    textShadow: '3px 3px 0px #ff6b00, 6px 6px 0px rgba(0,0,0,0.3)'
+                }}
+            >
+                {time}
+            </div>
+        </div>
+    )
+}
+
+function FlipClock({ time, preview }: { time: string, preview?: boolean }) {
+    const [mins, secs] = time.split(':')
+    const FlipDigit = ({ value }: { value: string }) => (
+        <div className={`relative inline-flex flex-col items-center ${preview ? 'mx-0.5' : 'mx-1'}`}>
+            <div
+                className={`flex items-center justify-center font-bold text-white overflow-hidden ${preview ? 'w-8 h-10 rounded-md text-2xl' : 'w-16 h-20 md:w-24 md:h-28 rounded-xl text-5xl md:text-7xl'}`}
+                style={{
+                    background: 'linear-gradient(180deg, #333 0%, #333 49.5%, #222 50%, #2a2a2a 100%)',
+                    boxShadow: preview ? 'none' : '0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08)',
+                    fontFamily: "'SF Mono', 'Fira Code', monospace",
+                }}
+            >
+                {value}
+            </div>
+        </div>
+    )
+    return (
+        <div className={`flex items-center justify-center gap-1 ${preview ? '' : 'mb-8'}`}>
+            <div className="flex">{mins.split('').map((d, i) => <FlipDigit key={`m${i}`} value={d} />)}</div>
+            <span className={`font-bold text-muted animate-pulse ${preview ? 'text-2xl mx-1' : 'text-5xl md:text-7xl mx-1'}`}>:</span>
+            <div className="flex">{secs.split('').map((d, i) => <FlipDigit key={`s${i}`} value={d} />)}</div>
+        </div>
+    )
+}
+
+function GlowClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`font-mono font-medium tracking-tight text-center ${preview ? 'text-3xl' : 'text-8xl md:text-[10rem] leading-none mb-8'}`}
+            style={{
+                color: '#fff',
+                textShadow: preview ? '0 0 10px rgba(240, 168, 74, 0.4)' : '0 0 20px rgba(240, 168, 74, 0.6), 0 0 60px rgba(240, 168, 74, 0.2)',
+            }}>
+            {time}
+        </div>
+    )
+}
+
+function SerifClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`font-serif italic text-center text-primary ${preview ? 'text-4xl' : 'text-[7rem] md:text-[11rem] leading-none mb-8 tracking-tighter'}`}>
+            {time}
+        </div>
+    )
+}
+
+function OutlineClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`font-mono font-bold text-center ${preview ? 'text-4xl' : 'text-8xl md:text-[10rem] mb-8'}`}
+            style={{
+                color: 'transparent',
+                WebkitTextStroke: preview ? '1px var(--text-primary)' : '2px var(--text-primary)',
+                textShadow: preview ? 'none' : '4px 4px 0 rgba(0,0,0,0.5)'
+            }}>
+            {time}
+        </div>
+    )
+}
+
+const ClockRenderers: Record<ClockStyle, React.FC<{ time: string, preview?: boolean }>> = {
+    minimal: MinimalClock,
+    digital: DigitalClock,
+    retro: RetroClock,
+    flip: FlipClock,
+    glow: GlowClock,
+    serif: SerifClock,
+    outline: OutlineClock,
+}
+
+// ─── Main Page ──────────────────────────────────────────────────────
+
+export default function FocusPage() {
+    const [tasks, setTasks] = useState<Task[]>([])
+    const timer = useFocusTimer()
+
+    // Visual Customisation State
+    const [backgroundUrl, setBackgroundUrl] = useState<string | null>(null)
+    const [animatedBg, setAnimatedBg] = useState<string | null>(null)
+    const [gradientBg, setGradientBg] = useState<string | null>(null)
+    const [clockStyle, setClockStyle] = useState<ClockStyle>('minimal')
+    const [showCustomiseModal, setShowCustomiseModal] = useState(false)
+    const [customiseTab, setCustomiseTab] = useState<'backgrounds' | 'clock' | 'durations' | 'sounds'>('backgrounds')
+    const [uploading, setUploading] = useState(false)
+
+    // Ambient sound state
+    const [ambientSound, setAmbientSound] = useState<string | null>(null)
+    const [ambientVolume, setAmbientVolume] = useState<number>(0.5)
+    const [isPlayingAmbient, setIsPlayingAmbient] = useState(false)
+    const audioRef = useRef<HTMLAudioElement>(null)
+
+    // Duration form state
+    const [durationsForm, setDurationsForm] = useState({
+        focus: timer.durations.focus / 60,
+        short_break: timer.durations.short_break / 60,
+        long_break: timer.durations.long_break / 60,
+    })
+
+    const [enableSpotify, setEnableSpotify] = useState(false)
+
+    const fileInputRef = useRef<HTMLInputElement>(null)
+
+    // Fetch tasks + settings on load
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const res = await api.get('/tasks')
+                if (res.tasks) {
+                    setTasks(res.tasks.filter((t: any) => t.status !== 'completed' && t.status !== 'cancelled'))
+                }
+            } catch (err) {
+                console.error("Failed to load tasks", err)
+            }
+        }
+
+        const fetchSettings = async () => {
+            try {
+                const res = await api.get('/settings/focus_background')
+                if (res.value) {
+                    // Check if it's an animated preset ID
+                    if (ANIMATED_PRESETS.find(p => p.id === res.value)) {
+                        setAnimatedBg(res.value)
+                        setBackgroundUrl(null)
+                        setGradientBg(null)
+                    } else if (res.value.startsWith('linear-gradient') || res.value.startsWith('radial-gradient')) {
+                        setGradientBg(res.value)
+                        setAnimatedBg(null)
+                        setBackgroundUrl(null)
+                    } else {
+                        setBackgroundUrl(res.value)
+                        setAnimatedBg(null)
+                        setGradientBg(null)
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to load settings", err)
+            }
+        }
+
+        const fetchClockStyle = async () => {
+            try {
+                const res = await api.get('/settings/focus_clock_style')
+                if (res.value && CLOCK_STYLES.find(s => s.id === res.value)) {
+                    setClockStyle(res.value as ClockStyle)
+                }
+            } catch (err) { /* default is fine */ }
+        }
+
+        const fetchSpotifyEnabled = async () => {
+            try {
+                const res = await api.get('/settings/focus_spotify_enabled')
+                if (res.value === 'true') setEnableSpotify(true)
+            } catch (err) { }
+        }
+
+        fetchTasks()
+        fetchSettings()
+        fetchClockStyle()
+        fetchSpotifyEnabled()
+    }, [])
+
+    const formatMinutesAsHours = (minutes: number) => {
+        if (!minutes) return '0m'
+        if (minutes < 60) return `${minutes}m`
+        const h = Math.floor(minutes / 60)
+        const m = minutes % 60
+        if (m === 0) return `${h}h`
+        return `${h}h ${m}m`
+    }
+
+    const isVideoUrl = (url: string) => /\.(mp4|webm|mov|gif)(\?|$)/i.test(url)
+
+    const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+
+        setUploading(true)
+        const formData = new FormData()
+        formData.append('file', file)
+
+        try {
+            const data = await api.upload('/settings/focus-background', formData)
+            if (data.url) {
+                setBackgroundUrl(data.url)
+                setAnimatedBg(null)
+            }
+        } catch (err) {
+            console.error("Upload error", err)
+        } finally {
+            setUploading(false)
+        }
+    }
+
+    const handleSelectPreset = async (url: string | null) => {
+        setBackgroundUrl(url)
+        setAnimatedBg(null)
+        setGradientBg(null)
+        try {
+            await api.put(`/settings/focus_background`, { value: url || "" })
+        } catch (err) {
+            console.error("Failed to save preset", err)
+        }
+    }
+
+    const handleSelectAnimated = async (id: string | null) => {
+        setAnimatedBg(id)
+        setBackgroundUrl(null)
+        setGradientBg(null)
+        try {
+            await api.put(`/settings/focus_background`, { value: id || "" })
+        } catch (err) {
+            console.error("Failed to save animated preset", err)
+        }
+    }
+
+    const handleSelectGradient = async (value: string | null) => {
+        setGradientBg(value)
+        setAnimatedBg(null)
+        setBackgroundUrl(null)
+        try {
+            await api.put(`/settings/focus_background`, { value: value || "" })
+        } catch (err) {
+            console.error("Failed to save gradient preset", err)
+        }
+    }
+
+    const handleSelectClockStyle = async (style: ClockStyle) => {
+        setClockStyle(style)
+        try {
+            await api.put(`/settings/focus_clock_style`, { value: style })
+        } catch (err) {
+            console.error("Failed to save clock style", err)
+        }
+    }
+
+    useEffect(() => {
+        setDurationsForm({
+            focus: timer.durations.focus / 60,
+            short_break: timer.durations.short_break / 60,
+            long_break: timer.durations.long_break / 60,
+        })
+    }, [timer.durations])
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = ambientVolume
+        }
+    }, [ambientVolume])
+
+    const handleSelectTask = (taskId: number | null) => {
+        const task = tasks.find(t => t.id === taskId)
+        timer.setSelectedTask(taskId, task?.title ?? null)
+    }
+
+    const handleCompleteTask = async (taskId: number) => {
+        try {
+            await api.put(`/tasks/${taskId}`, { status: 'completed' })
+            setTasks(prev => prev.filter(t => t.id !== taskId))
+            if (timer.selectedTaskId === taskId) {
+                timer.setSelectedTask(null)
+            }
+        } catch (err) {
+            console.error("Failed to mark completed", err)
+        }
+    }
+
+    const handleSaveDurations = async (e: React.FormEvent) => {
+        e.preventDefault()
+        try {
+            await api.put('/settings/bulk', {
+                settings: {
+                    focus_duration: durationsForm.focus.toString(),
+                    short_break_duration: durationsForm.short_break.toString(),
+                    long_break_duration: durationsForm.long_break.toString()
+                }
+            })
+            timer.updateDurations({
+                focus: durationsForm.focus * 60,
+                short_break: durationsForm.short_break * 60,
+                long_break: durationsForm.long_break * 60,
+            })
+        } catch (err) {
+            console.error("Failed to save durations", err)
+        }
+    }
+
+    const toggleSpotifySetting = async () => {
+        const newVal = !enableSpotify
+        setEnableSpotify(newVal)
+        try {
+            await api.put('/settings/focus_spotify_enabled', { value: newVal.toString() })
+        } catch (err) {
+            console.error("Failed to save spotify setting", err)
+        }
+    }
+
+    const toggleAmbientPlayback = () => {
+        if (!audioRef.current) return
+        if (isPlayingAmbient) {
+            audioRef.current.pause()
+            setIsPlayingAmbient(false)
+        } else {
+            audioRef.current.play()
+            setIsPlayingAmbient(true)
+        }
+    }
+
+    const ActiveAnimatedBg = animatedBg && AnimatedBGs[animatedBg] ? AnimatedBGs[animatedBg] : null
+    const ActiveClock = ClockRenderers[clockStyle]
+    const hasCustomBg = !!backgroundUrl || !!animatedBg || !!gradientBg
+
+    return (
+        <div className="flex h-screen flex-col bg-base overflow-hidden relative">
+            <header className="flex h-14 items-center justify-between border-b border-border bg-surface/80 backdrop-blur-md px-6 shrink-0 z-20">
+                <h1 className="text-sm font-semibold text-primary font-mono tracking-tight uppercase">
+                    <Clock className="inline h-4 w-4 mr-2 mb-0.5" />
+                    Focus
+                </h1>
+            </header>
+
+            <div className="flex-1 flex items-center justify-center p-6 lg:p-12 relative overflow-hidden">
+
+                {/* ─── Background Layer ─── */}
+                {ActiveAnimatedBg ? (
+                    <ActiveAnimatedBg />
+                ) : gradientBg ? (
+                    <div className="absolute inset-0 w-full h-full z-0 transition-opacity duration-1000 opacity-100" style={{ background: gradientBg }} />
+                ) : backgroundUrl ? (
+                    isVideoUrl(backgroundUrl) ? (
+                        <video
+                            autoPlay loop muted playsInline
+                            className="absolute inset-0 w-full h-full object-cover z-0"
+                            src={backgroundUrl.startsWith('http') ? backgroundUrl : 'http://localhost:8000' + backgroundUrl}
+                        />
+                    ) : (
+                        <div
+                            className="absolute inset-0 bg-cover bg-center z-0 transition-opacity duration-1000 opacity-90"
+                            style={{ backgroundImage: `url(${backgroundUrl.startsWith('http') ? backgroundUrl : 'http://localhost:8000' + backgroundUrl})` }}
+                        />
+                    )
+                ) : (
+                    <div
+                        className={`absolute inset-0 opacity-5 blur-3xl transition-colors duration-1000 z-0 ${timer.mode === 'focus' ? 'bg-accent' :
+                            timer.mode === 'short_break' ? 'bg-green-500' : 'bg-blue-500'
+                            }`}
+                    />
+                )}
+
+                {/* Dark overlay for readability if using custom background */}
+                {hasCustomBg && <div className="absolute inset-0 bg-black/40 z-[1]" />}
+
+                <div className={`w-full max-w-4xl max-h-[85vh] h-[650px] ${hasCustomBg ? 'bg-black/40 backdrop-blur-2xl border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]' : 'bg-surface/60 backdrop-blur-xl border-border/50 shadow-2xl'} border rounded-3xl p-8 lg:p-10 relative z-10 flex flex-col md:flex-row gap-8 lg:gap-12 overflow-hidden`}>
+
+                    {/* Left side: Timer */}
+                    <div className="flex-1 flex flex-col items-center justify-center border-r border-border-subtle pr-8 relative">
+                        {/* Mode selectors */}
+                        <div className={`flex gap-2 p-1 ${hasCustomBg ? 'bg-white/10 border-white/10' : 'bg-base border-border'} border rounded-full mb-8 whitespace-nowrap overflow-x-auto max-w-full no-scrollbar`}>
+                            {(['focus', 'short_break', 'long_break'] as const).map((m) => {
+                                const labels = {
+                                    focus: "Focus",
+                                    short_break: "Short Break",
+                                    long_break: "Long Break"
+                                }
+                                return (
+                                    <button
+                                        key={m}
+                                        onClick={() => timer.switchMode(m)}
+                                        className={`px-4 py-1.5 rounded-full text-xs font-medium transition-colors ${timer.mode === m
+                                            ? (hasCustomBg ? 'bg-white text-black shadow-sm' : 'bg-primary text-base shadow-sm')
+                                            : (hasCustomBg ? 'text-white/60 hover:text-white hover:bg-white/10' : 'text-muted hover:text-primary hover:bg-surface-hover')
+                                            }`}
+                                    >
+                                        {labels[m]}
+                                    </button>
+                                )
+                            })}
+                        </div>
+
+                        {/* Timer Display */}
+                        <ActiveClock time={timer.formatTime(timer.timeLeft)} />
+
+                        {/* Controls */}
+                        <div className="flex flex-col items-center gap-8">
+                            <div className="flex items-center gap-4">
+                                <button
+                                    onClick={timer.toggleTimer}
+                                    className={`flex items-center justify-center h-16 w-16 md:h-20 md:w-20 rounded-full text-white shadow-lg transition-transform hover:scale-105 active:scale-95 ${timer.isRunning ? 'bg-secondary' : 'bg-accent hover:bg-accent-hover'
+                                        }`}
+                                >
+                                    {timer.isRunning ? <Pause className="h-8 w-8" fill="currentColor" /> : <Play className="h-8 w-8 ml-1" fill="currentColor" />}
+                                </button>
+
+                                <button
+                                    onClick={timer.resetTimer}
+                                    className={`flex items-center justify-center h-12 w-12 rounded-full ${hasCustomBg ? 'bg-white/10 border-white/10 text-white/60 hover:text-white hover:bg-white/20' : 'bg-base border-border text-muted hover:text-primary hover:bg-surface-hover'} border transition-colors`}
+                                    title="Reset Timer"
+                                >
+                                    <RotateCcw className="h-5 w-5" />
+                                </button>
+                            </div>
+
+                            <button
+                                onClick={() => setShowCustomiseModal(true)}
+                                className={`flex items-center gap-2 text-xs font-medium px-4 py-2 rounded-full transition-colors ${hasCustomBg ? 'bg-white/10 text-white/70 hover:text-white hover:bg-white/20' : 'bg-surface-hover text-secondary hover:text-primary'} border ${hasCustomBg ? 'border-white/10' : 'border-border'}`}
+                            >
+                                <Sparkles className="h-4 w-4" />
+                                Customise Settings
+                            </button>
+                        </div>
+
+                        {/* Session Stats */}
+                        <div className="mt-8 flex flex-col items-center gap-6">
+                            <div className={`flex justify-center gap-4 text-xs font-mono font-medium ${hasCustomBg ? 'text-white/50' : 'text-muted'}`}>
+                                <div className="flex items-center gap-1.5" title="Pomodoros completed this session">
+                                    <Target className="h-4 w-4 text-accent" />
+                                    {timer.sessionPomodoros} Sessions today
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right side: Task selection */}
+                    <div className="flex-[0.8] flex flex-col min-h-0 overflow-hidden">
+                        <h2 className={`text-sm font-semibold uppercase font-mono tracking-wide mb-4 ${hasCustomBg ? 'text-white' : 'text-primary'}`}>
+                            Focusing On
+                        </h2>
+
+                        {timer.selectedTaskId ? (
+                            <div className={`${hasCustomBg ? 'bg-white/10 border-white/10' : 'bg-base border-border'} border rounded-xl p-4 mb-6 shadow-sm relative group overflow-hidden`}>
+                                {(() => {
+                                    const t = tasks.find(t => t.id === timer.selectedTaskId)
+                                    if (!t) return null
+                                    return (
+                                        <>
+                                            <div className="flex justify-between items-start mb-2 pr-28">
+                                                <h3 className={`${hasCustomBg ? 'text-white' : 'text-secondary'} font-medium leading-tight`}>{t.title}</h3>
+                                            </div>
+                                            <div className="absolute top-4 right-4 flex items-center gap-2">
+                                                <button
+                                                    onClick={() => handleCompleteTask(t.id)}
+                                                    className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 px-2.5 py-1 rounded bg-green/10 text-green hover:bg-green/20 text-[10px] font-mono uppercase tracking-wider border border-green/20"
+                                                >
+                                                    <CheckSquare className="h-3 w-3" /> Done
+                                                </button>
+                                                <button
+                                                    onClick={() => handleSelectTask(null)}
+                                                    className={`text-xs transition-colors p-1 rounded hover:bg-black/10 ${hasCustomBg ? 'text-white/50 hover:text-white' : 'text-muted hover:text-primary'}`}
+                                                    title="Deselect task"
+                                                >
+                                                    <X className="h-4 w-4" />
+                                                </button>
+                                            </div>
+                                            <div className={`flex items-center gap-3 text-xs font-mono ${hasCustomBg ? 'text-white/50' : 'text-muted'}`}>
+                                                {t.course_code && (
+                                                    <span className="bg-accent/10 text-accent px-1.5 py-0.5 rounded border border-accent/20">
+                                                        {t.course_code}
+                                                    </span>
+                                                )}
+                                                <span>Time: {formatMinutesAsHours(t.actual_minutes || 0)}</span>
+                                            </div>
+                                        </>
+                                    )
+                                })()}
+                            </div>
+                        ) : (
+                            <div className={`${hasCustomBg ? 'bg-white/5 border-white/10 border-dashed text-white/40' : 'bg-base border-border border-dashed text-muted'} border rounded-xl p-6 mb-6 text-center font-sm items-center flex flex-col justify-center min-h-[100px]`}>
+                                <p className="mb-2 text-sm">Select a task below to start tracking time</p>
+                            </div>
+                        )}
+
+                        <div className="flex-1 overflow-y-auto min-h-0 border-t border-border-subtle pt-4 -mx-2 px-2">
+                            <h3 className={`text-xs font-mono uppercase tracking-wider mb-2 ${hasCustomBg ? 'text-white/40' : 'text-muted'}`}>Up Next</h3>
+                            <div className="space-y-1">
+                                {tasks.length === 0 ? (
+                                    <p className={`text-sm italic ${hasCustomBg ? 'text-white/30' : 'text-muted'}`}>No tasks available. Add some in the Tasks tab!</p>
+                                ) : (
+                                    tasks.sort((a, b) => (b.id - a.id)).map(t => (
+                                        <button
+                                            key={t.id}
+                                            onClick={() => handleSelectTask(t.id)}
+                                            className={`w-full text-left px-3 py-2.5 rounded-lg flex items-start gap-3 transition-colors ${timer.selectedTaskId === t.id
+                                                ? 'bg-accent-subtle border-accent ring-1 ring-accent/20'
+                                                : (hasCustomBg ? 'hover:bg-white/10' : 'hover:bg-surface-hover')
+                                                }`}
+                                        >
+                                            <div className={`mt-0.5 shrink-0 ${hasCustomBg ? 'text-white/40' : 'text-muted'}`}>
+                                                {timer.selectedTaskId === t.id ? <CheckCircle2 className="h-4 w-4 text-accent" /> : <Circle className="h-4 w-4" />}
+                                            </div>
+                                            <div className="min-w-0 flex-1">
+                                                <div className={`text-sm leading-tight truncate ${timer.selectedTaskId === t.id ? 'text-primary' : (hasCustomBg ? 'text-white/80' : 'text-secondary')}`}>
+                                                    {t.title}
+                                                </div>
+                                                <div className={`flex items-center gap-2 mt-1 font-mono text-[10px] ${hasCustomBg ? 'text-white/30' : 'text-muted'}`}>
+                                                    {t.course_code && <span>{t.course_code}</span>}
+                                                    {t.course_code && <span>•</span>}
+                                                    <span>{formatMinutesAsHours(t.actual_minutes || 0)}</span>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    ))
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Media Controls (Spotify / Ambient) */}
+                        {(enableSpotify || ambientSound) && (
+                            <div className="shrink-0 mt-4 pt-4 border-t border-border-subtle flex flex-col gap-3">
+                                {enableSpotify && <SpotifyPlayer />}
+
+                                {ambientSound && (() => {
+                                    const sound = AMBIENT_SOUNDS.find(s => s.id === ambientSound)
+                                    if (!sound) return null
+                                    return (
+                                        <div className={`w-full rounded-2xl px-4 py-3 flex items-center gap-4 border backdrop-blur-md transition-all ${hasCustomBg ? 'bg-black/40 border-white/10 hover:bg-black/60 shadow-xl' : 'bg-surface border-border hover:border-border-hover shadow-sm'}`}>
+                                            <button onClick={toggleAmbientPlayback} className={`shrink-0 transition-colors ${hasCustomBg ? 'text-white/70 hover:text-white' : 'text-muted hover:text-primary'}`}>
+                                                {isPlayingAmbient ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+                                            </button>
+                                            <div className="flex-1 flex flex-col justify-center">
+                                                <div className="flex justify-between items-center mb-1">
+                                                    <span className={`text-[10px] uppercase font-mono tracking-wider ${hasCustomBg ? 'text-white/50' : 'text-muted'}`}>{sound.label}</span>
+                                                </div>
+                                                <input
+                                                    type="range" min="0" max="1" step="0.01"
+                                                    value={ambientVolume}
+                                                    onChange={(e) => setAmbientVolume(parseFloat(e.target.value))}
+                                                    className="w-full h-1 bg-white/20 rounded-full appearance-none flex-1 cursor-pointer"
+                                                />
+                                            </div>
+                                            <button onClick={() => setAmbientSound(null)} className={`shrink-0 p-1.5 transition-colors rounded-full ${hasCustomBg ? 'text-white/50 hover:bg-white/10 hover:text-white' : 'text-muted hover:bg-black/5 hover:text-primary'}`}>
+                                                <X className="h-3.5 w-3.5" />
+                                            </button>
+                                        </div>
+                                    )
+                                })()}
+                            </div>
+                        )}
+
+                    </div>
+                </div>
+            </div>
+
+            {/* ─── Customise Modal ─── */}
+            {showCustomiseModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                    <div className="bg-surface border border-border rounded-2xl shadow-xl w-full max-w-lg overflow-hidden relative max-h-[85vh] flex flex-col">
+                        <div className="flex items-center justify-between p-4 border-b border-border shrink-0">
+                            <h2 className="font-semibold text-primary font-mono text-sm uppercase">Customise Focus</h2>
+                            <button onClick={() => setShowCustomiseModal(false)} className="text-muted hover:text-primary transition-colors">
+                                <X className="h-5 w-5" />
+                            </button>
+                        </div>
+
+                        {/* Tab switcher */}
+                        <div className="flex border-b border-border px-4 shrink-0">
+                            {[
+                                { id: 'backgrounds' as const, label: 'Backgrounds' },
+                                { id: 'clock' as const, label: 'Clock' },
+                                { id: 'durations' as const, label: 'Durations' },
+                                { id: 'sounds' as const, label: 'Sounds' },
+                            ].map(tab => (
+                                <button
+                                    key={tab.id}
+                                    onClick={() => setCustomiseTab(tab.id)}
+                                    className={`px-4 py-2.5 text-xs font-medium border-b-2 transition-colors ${customiseTab === tab.id
+                                        ? 'text-accent border-accent'
+                                        : 'text-muted hover:text-primary border-transparent'
+                                        }`}
+                                >
+                                    {tab.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="p-6 overflow-y-auto flex-1">
+                            {customiseTab === 'backgrounds' && (
+                                <div className="space-y-6">
+                                    {/* Default */}
+                                    <div>
+                                        <h3 className="text-xs font-medium text-secondary mb-3">Default</h3>
+                                        <button
+                                            onClick={() => { handleSelectPreset(null); setAnimatedBg(null); setGradientBg(null); }}
+                                            className={`w-full h-16 rounded-lg flex items-center justify-center border-2 transition-all ${!backgroundUrl && !animatedBg && !gradientBg ? 'border-accent bg-accent/5' : 'border-border bg-base hover:border-muted'}`}
+                                        >
+                                            <span className="text-xs font-mono text-muted">Dynamic Colors</span>
+                                        </button>
+                                    </div>
+
+                                    {/* Gradients */}
+                                    <div>
+                                        <h3 className="text-xs font-medium text-secondary mb-3">Rich Gradients</h3>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {GRADIENT_PRESETS.map(p => (
+                                                <button
+                                                    key={p.id}
+                                                    onClick={() => handleSelectGradient(p.value)}
+                                                    className={`h-20 rounded-lg border-2 transition-all relative overflow-hidden group ${gradientBg === p.value ? 'border-accent shadow-[0_0_15px_rgba(240,168,74,0.3)]' : 'border-transparent hover:ring-2 ring-muted/50'}`}
+                                                    style={{ background: p.value }}
+                                                >
+                                                    <div className="absolute inset-x-0 bottom-0 py-1 px-2 border-t border-white/5 bg-black/20">
+                                                        <span className="text-[10px] text-white/90 font-mono tracking-wide">{p.label}</span>
+                                                    </div>
+                                                    {gradientBg === p.value && (
+                                                        <div className="absolute top-1.5 right-1.5 bg-black/40 rounded-full p-0.5">
+                                                            <CheckCircle2 className="h-3 w-3 text-accent" />
+                                                        </div>
+                                                    )}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Photo Presets */}
+                                    <div>
+                                        <h3 className="text-xs font-medium text-secondary mb-3">Photos</h3>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {IMAGE_PRESETS.map(p => (
+                                                <button
+                                                    key={p.id}
+                                                    onClick={() => handleSelectPreset(p.url)}
+                                                    className={`h-20 rounded-lg bg-cover bg-center border-2 transition-all relative overflow-hidden group ${backgroundUrl === p.url ? 'border-accent shadow-md' : 'border-transparent hover:ring-2 ring-muted/50'}`}
+                                                    style={{ backgroundImage: `url('${p.thumb}')` }}
+                                                >
+                                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent py-1 px-2">
+                                                        <span className="text-[10px] text-white/80 font-medium">{p.label}</span>
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Animated / Fun Presets */}
+                                    <div>
+                                        <h3 className="text-xs font-medium text-secondary mb-3 flex items-center gap-1.5">
+                                            <Sparkles className="h-3.5 w-3.5 text-accent" />
+                                            Animated
+                                        </h3>
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                            {ANIMATED_PRESETS.map(p => (
+                                                <button
+                                                    key={p.id}
+                                                    onClick={() => handleSelectAnimated(p.id)}
+                                                    className={`h-20 rounded-lg border-2 transition-all flex items-center justify-center relative overflow-hidden ${animatedBg === p.id ? 'border-accent shadow-md bg-accent/10' : 'border-border hover:border-muted'}`}
+                                                    style={{
+                                                        background: p.id === 'matrix' ? '#0a0a0a'
+                                                            : p.id === 'stars' ? 'radial-gradient(ellipse at center, #0d1117, #000)'
+                                                                : p.id === 'pixels' ? '#1a1a2e'
+                                                                    : p.id === 'aurora' ? '#050510'
+                                                                        : p.id === 'mesh' ? '#0a0a0c'
+                                                                            : p.id === 'particles' ? 'linear-gradient(to bottom, #111, #1a1a24)'
+                                                                                : 'linear-gradient(180deg, #0f0c29, #302b63, #24243e)',
+                                                    }}
+                                                >
+                                                    {/* Inject static pseudo-preview for complex backgrounds */}
+                                                    {p.id === 'aurora' && <div className="absolute inset-0 bg-gradient-to-tr from-emerald-900/50 via-indigo-900/30 to-purple-900/40"></div>}
+                                                    {p.id === 'mesh' && <div className="absolute top-1 right-1 w-10 h-10 rounded-full bg-amber/20 blur-xl"></div>}
+                                                    {p.id === 'particles' && <div className="absolute w-1 h-1 bg-white/50 rounded-full top-4 left-4"></div>}
+
+                                                    <span className="text-[10px] font-mono whitespace-nowrap text-white/80 relative z-10 px-2 py-1 bg-black/40 rounded border border-white/10 backdrop-blur-sm">{p.label}</span>
+                                                    {animatedBg === p.id && (
+                                                        <div className="absolute top-1.5 right-1.5">
+                                                            <CheckCircle2 className="h-3 w-3 text-accent" />
+                                                        </div>
+                                                    )}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Upload */}
+                                    <div className="pt-2">
+                                        <h3 className="text-xs font-medium text-secondary mb-3">Upload your own</h3>
+                                        <p className="text-[10px] text-muted mb-2">Supports images, GIFs, and short videos (.mp4, .webm)</p>
+                                        <input
+                                            type="file"
+                                            ref={fileInputRef}
+                                            className="hidden"
+                                            accept="image/*,video/mp4,video/webm,.gif"
+                                            onChange={handleUpload}
+                                        />
+                                        <button
+                                            onClick={() => fileInputRef.current?.click()}
+                                            disabled={uploading}
+                                            className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-muted rounded-xl text-sm font-medium text-secondary hover:text-primary hover:border-primary hover:bg-surface-hover transition-colors disabled:opacity-50"
+                                        >
+                                            {uploading ? (
+                                                <span className="animate-pulse">Uploading...</span>
+                                            ) : (
+                                                <>
+                                                    <Upload className="h-4 w-4" />
+                                                    Choose File
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {customiseTab === 'clock' && (
+                                <div className="space-y-4">
+                                    <p className="text-xs text-muted">Choose how your timer looks.</p>
+                                    <div className="space-y-3">
+                                        {CLOCK_STYLES.map(style => {
+                                            const Preview = ClockRenderers[style.id]
+                                            return (
+                                                <button
+                                                    key={style.id}
+                                                    onClick={() => handleSelectClockStyle(style.id)}
+                                                    className={`w-full rounded-xl border-2 transition-all p-4 flex items-center justify-between ${clockStyle === style.id
+                                                        ? 'border-accent bg-accent/5'
+                                                        : 'border-border bg-base hover:border-muted'
+                                                        }`}
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        {clockStyle === style.id ? (
+                                                            <CheckCircle2 className="h-5 w-5 text-accent shrink-0" />
+                                                        ) : (
+                                                            <Circle className="h-5 w-5 text-muted shrink-0" />
+                                                        )}
+                                                        <span className="text-xs font-mono tracking-wide text-primary uppercase">{style.label}</span>
+                                                    </div>
+                                                    <div className="shrink-0 flex items-center justify-end scale-75 origin-right pointer-events-none">
+                                                        <Preview time="25:00" preview={true} />
+                                                    </div>
+                                                </button>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+
+                            {customiseTab === 'durations' && (
+                                <form onSubmit={handleSaveDurations} className="space-y-6">
+                                    <p className="text-xs text-muted mb-4">Set your preferred timer lengths in minutes.</p>
+
+                                    <div className="space-y-4">
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-sm font-medium text-primary">Focus Duration</label>
+                                            <input
+                                                title="Focus Duration in Minutes"
+                                                type="number" min="1" max="120"
+                                                value={durationsForm.focus}
+                                                onChange={(e) => setDurationsForm(p => ({ ...p, focus: parseInt(e.target.value) || 25 }))}
+                                                className="w-20 bg-raised border border-border rounded-md px-3 py-1.5 text-sm text-center font-mono focus:border-accent outline-none"
+                                            />
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-sm font-medium text-primary">Short Break</label>
+                                            <input
+                                                title="Short Break Duration in Minutes"
+                                                type="number" min="1" max="60"
+                                                value={durationsForm.short_break}
+                                                onChange={(e) => setDurationsForm(p => ({ ...p, short_break: parseInt(e.target.value) || 5 }))}
+                                                className="w-20 bg-raised border border-border rounded-md px-3 py-1.5 text-sm text-center font-mono focus:border-accent outline-none"
+                                            />
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-sm font-medium text-primary">Long Break</label>
+                                            <input
+                                                title="Long Break Duration in Minutes"
+                                                type="number" min="1" max="60"
+                                                value={durationsForm.long_break}
+                                                onChange={(e) => setDurationsForm(p => ({ ...p, long_break: parseInt(e.target.value) || 15 }))}
+                                                className="w-20 bg-raised border border-border rounded-md px-3 py-1.5 text-sm text-center font-mono focus:border-accent outline-none"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="pt-4 border-t border-border mt-6">
+                                        <button type="submit" className="w-full py-2.5 bg-amber/10 border border-amber text-amber rounded-lg text-xs font-mono uppercase tracking-wider hover:bg-amber hover:text-base transition-colors">
+                                            Save Durations
+                                        </button>
+                                    </div>
+                                </form>
+                            )}
+
+                            {customiseTab === 'sounds' && (
+                                <div className="space-y-4">
+                                    <p className="text-xs text-muted mb-4">Add some background ambience to stay focused.</p>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {AMBIENT_SOUNDS.map(sound => (
+                                            <button
+                                                key={sound.id}
+                                                onClick={() => {
+                                                    setAmbientSound(sound.id)
+                                                    setIsPlayingAmbient(true)
+                                                    // Trigger play immediately if audio ref matches later
+                                                    setTimeout(() => {
+                                                        if (audioRef.current && audioRef.current.paused) {
+                                                            audioRef.current.play()
+                                                        }
+                                                    }, 50)
+                                                }}
+                                                className={`h-16 rounded-xl border-2 transition-all p-4 flex items-center justify-between ${ambientSound === sound.id
+                                                    ? 'border-accent bg-accent/5'
+                                                    : 'border-border bg-base hover:border-muted'
+                                                    }`}
+                                            >
+                                                <div className="flex items-center gap-2">
+                                                    {ambientSound === sound.id ? (
+                                                        <Volume2 className="h-4 w-4 text-accent shrink-0" />
+                                                    ) : (
+                                                        <VolumeX className="h-4 w-4 text-muted shrink-0" />
+                                                    )}
+                                                    <span className="text-xs font-medium text-primary">{sound.label}</span>
+                                                </div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                    {ambientSound && (
+                                        <div className="mt-8 p-4 bg-raised rounded-xl border border-border flex items-center gap-4">
+                                            <span className="text-xs text-muted font-mono whitespace-nowrap">Volume</span>
+                                            <input
+                                                title="Ambient Volume"
+                                                type="range" min="0" max="1" step="0.01"
+                                                value={ambientVolume}
+                                                onChange={(e) => setAmbientVolume(parseFloat(e.target.value))}
+                                                className="w-full h-1.5 bg-border rounded-full appearance-none cursor-pointer"
+                                            />
+                                            <button onClick={() => setAmbientSound(null)} className="text-xs text-red hover:bg-red/10 px-2 py-1 rounded transition-colors uppercase font-mono tracking-wide">
+                                                Turn Off
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    <div className="pt-8 border-t border-border mt-8">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <h4 className="text-sm font-medium text-primary flex items-center gap-2">
+                                                    <Music className="w-4 h-4 text-[#1DB954]" />
+                                                    Spotify Integration
+                                                </h4>
+                                                <p className="text-xs text-muted mt-1 leading-relaxed max-w-[200px]">
+                                                    Show a spinning vinyl player for your Spotify music.
+                                                </p>
+                                            </div>
+                                            <button
+                                                onClick={toggleSpotifySetting}
+                                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${enableSpotify ? 'bg-accent' : 'bg-surface-hover border border-border'}`}
+                                            >
+                                                <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${enableSpotify ? 'translate-x-6' : 'translate-x-1'}`} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Global Audio Player for Ambient Sounds */}
+            {ambientSound && (
+                <audio
+                    ref={audioRef}
+                    src={AMBIENT_SOUNDS.find(s => s.id === ambientSound)?.url}
+                    loop
+                    onPlay={() => setIsPlayingAmbient(true)}
+                    onPause={() => setIsPlayingAmbient(false)}
+                />
+            )}
+        </div>
+    )
+}
+===
+'use client'
+
+import { useState, useEffect, useRef } from 'react'
+import { api } from '@/lib/api'
+import { useFocusTimer } from '@/components/FocusTimerProvider'
+import SpotifyPlayer from '@/components/SpotifyPlayer'
+import { Play, Pause, RotateCcw, CheckCircle2, Circle, Clock, Image as ImageIcon, X, Upload, Sparkles, Volume2, VolumeX, Music, CheckSquare, Target, Settings2, SkipForward } from 'lucide-react'
+
+// Ambient sounds to choose from
+const AMBIENT_SOUNDS = [
+    { id: 'rain', label: 'Heavy Rain', url: '/sounds/rain.mp3' },
+    { id: 'cafe', label: 'Coffee Shop', url: '/sounds/cafe.mp3' },
+    { id: 'fire', label: 'Campfire', url: '/sounds/fire.mp3' },
+    { id: 'waves', label: 'Beach Waves', url: '/sounds/waves.mp3' },
+    { id: 'forest', label: 'Deep Forest', url: '/sounds/forest.mp3' },
+    { id: 'night', label: 'Summer Night', url: '/sounds/night.mp3' },
+    { id: 'space', label: 'Ambient Drone', url: '/sounds/space.mp3' }
+]
+
+interface Task {
+    id: number
+    title: string
+    status: string
+    actual_minutes: number
+    course_code: string | null
+}
+
+type ClockStyle = 'minimal' | 'digital' | 'retro' | 'flip' | 'glow' | 'serif' | 'outline'
+
+const CLOCK_STYLES: { id: ClockStyle; label: string; preview: string }[] = [
+    { id: 'minimal', label: 'Minimal', preview: '25:00' },
+    { id: 'digital', label: 'Digital', preview: '25:00' },
+    { id: 'retro', label: '8-Bit', preview: '25:00' },
+    { id: 'flip', label: 'Flip', preview: '25:00' },
+    { id: 'glow', label: 'Neon Glow', preview: '25:00' },
+    { id: 'serif', label: 'Classic Serif', preview: '25:00' },
+    { id: 'outline', label: 'Outline', preview: '25:00' },
+]
+
+// Static image presets
+const IMAGE_PRESETS = [
+    { id: 'mountains', url: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1000', thumb: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=300', label: 'Mountains' },
+    { id: 'earth', url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000', thumb: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=300', label: 'Earth' },
+    { id: 'abstract', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000', thumb: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=300', label: 'Abstract' },
+    { id: 'forest', url: 'https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1000', thumb: 'https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=300', label: 'Forest' },
+]
+
+// Animated / fun presets (CSS-only animations rendered inline)
+const ANIMATED_PRESETS = [
+    { id: 'matrix', label: 'Matrix Rain', type: 'css' as const },
+    { id: 'stars', label: 'Starfield', type: 'css' as const },
+    { id: 'pixels', label: 'Pixel Grid', type: 'css' as const },
+    { id: 'waves', label: 'Synthwave', type: 'css' as const },
+    { id: 'aurora', label: 'Aurora', type: 'css' as const },
+    { id: 'mesh', label: 'Gradient Mesh', type: 'css' as const },
+    { id: 'particles', label: 'Dust Particles', type: 'css' as const },
+]
+
+// Gradient presets
+const GRADIENT_PRESETS = [
+    { id: 'midnight', label: 'Midnight Space', value: 'linear-gradient(to bottom right, #0B0B13, #1A1A32, #0D0D1C)' },
+    { id: 'deep_ocean', label: 'Deep Ocean', value: 'linear-gradient(to top right, #000428, #004e92)' },
+    { id: 'obsidian', label: 'Obsidian Fire', value: 'linear-gradient(to bottom, #111111, #2f1b1b, #000000)' },
+    { id: 'emerald', label: 'Dark Emerald', value: 'radial-gradient(circle at 50% 100%, #0d3826 0%, #05140e 100%)' },
+]
+
+// ─── Animated background components ──────────────────────────────────
+
+function MatrixRain() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: '#0a0a0a' }}>
+            <style>{`
+                @keyframes matrix-fall {
+                    0% { transform: translateY(-100%); opacity: 1; }
+                    100% { transform: translateY(100vh); opacity: 0; }
+                }
+                .matrix-col {
+                    position: absolute; top: -20px;
+                    font-family: 'Courier New', monospace;
+                    font-size: 14px; color: #00ff41;
+                    writing-mode: vertical-rl; text-orientation: upright;
+                    animation: matrix-fall linear infinite;
+                    opacity: 0.7; letter-spacing: 4px;
+                    text-shadow: 0 0 8px #00ff41, 0 0 20px #00ff41;
+                }
+            `}</style>
+            {Array.from({ length: 30 }).map((_, i) => (
+                <span
+                    key={i}
+                    className="matrix-col"
+                    style={{
+                        left: `${(i / 30) * 100}%`,
+                        animationDuration: `${3 + Math.random() * 5}s`,
+                        animationDelay: `${Math.random() * 3}s`,
+                        fontSize: `${10 + Math.random() * 8}px`,
+                        opacity: 0.3 + Math.random() * 0.5,
+                    }}
+                >
+                    {Array.from({ length: 20 }, () => String.fromCharCode(0x30A0 + Math.random() * 96)).join('')}
+                </span>
+            ))}
+        </div>
+    )
+}
+
+function Starfield() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: 'radial-gradient(ellipse at center, #0d1117 0%, #000 100%)' }}>
+            <style>{`
+                @keyframes twinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+                @keyframes drift { 0% { transform: translate(0, 0); } 100% { transform: translate(-20px, -30px); } }
+                .star {
+                    position: absolute; border-radius: 50%; background: white;
+                    animation: twinkle ease-in-out infinite, drift linear infinite;
+                }
+            `}</style>
+            {Array.from({ length: 80 }).map((_, i) => (
+                <div
+                    key={i}
+                    className="star"
+                    style={{
+                        width: `${1 + Math.random() * 3}px`,
+                        height: `${1 + Math.random() * 3}px`,
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`,
+                        animationDuration: `${2 + Math.random() * 4}s, ${20 + Math.random() * 30}s`,
+                        animationDelay: `${Math.random() * 3}s, 0s`,
+                        boxShadow: `0 0 ${2 + Math.random() * 4}px rgba(255,255,255,0.8)`,
+                    }}
+                />
+            ))}
+        </div>
+    )
+}
+
+function PixelGrid() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: '#1a1a2e' }}>
+            <style>{`
+                @keyframes pixel-pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+                .pixel-cell {
+                    position: absolute; border-radius: 2px;
+                    animation: pixel-pulse ease-in-out infinite;
+                }
+            `}</style>
+            {Array.from({ length: 100 }).map((_, i) => {
+                const colors = ['#e94560', '#0f3460', '#533483', '#16213e', '#00d2ff', '#ff6b6b', '#4ecdc4']
+                return (
+                    <div
+                        key={i}
+                        className="pixel-cell"
+                        style={{
+                            width: `${20 + Math.random() * 30}px`,
+                            height: `${20 + Math.random() * 30}px`,
+                            top: `${Math.random() * 100}%`,
+                            left: `${Math.random() * 100}%`,
+                            background: colors[Math.floor(Math.random() * colors.length)],
+                            animationDuration: `${1 + Math.random() * 3}s`,
+                            animationDelay: `${Math.random() * 2}s`,
+                        }}
+                    />
+                )
+            })}
+        </div>
+    )
+}
+
+function Synthwave() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: 'linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%)' }}>
+            <style>{`
+                @keyframes grid-scroll { 0% { transform: perspective(400px) rotateX(60deg) translateY(0); } 100% { transform: perspective(400px) rotateX(60deg) translateY(40px); } }
+                @keyframes sun-glow { 0%, 100% { box-shadow: 0 0 60px rgba(255,106,0,0.5); } 50% { box-shadow: 0 0 100px rgba(255,0,128,0.8); } }
+            `}</style>
+            {/* Sun */}
+            <div style={{
+                position: 'absolute', bottom: '35%', left: '50%', transform: 'translateX(-50%)',
+                width: '200px', height: '200px', borderRadius: '50%',
+                background: 'linear-gradient(180deg, #ff6a00, #ee0979)',
+                animation: 'sun-glow 4s ease-in-out infinite',
+            }} />
+            {/* Grid floor */}
+            <div style={{
+                position: 'absolute', bottom: 0, left: '-10%', right: '-10%', height: '45%',
+                backgroundImage: 'linear-gradient(rgba(255,0,128,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,128,0.3) 1px, transparent 1px)',
+                backgroundSize: '40px 40px',
+                animation: 'grid-scroll 2s linear infinite',
+            }} />
+        </div>
+    )
+}
+
+function Aurora() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: '#050510' }}>
+            <style>{`
+                @keyframes aurora-wave {
+                    0% { background-position: 0% 50%; opacity: 0.6; }
+                    50% { background-position: 100% 50%; opacity: 0.9; }
+                    100% { background-position: 0% 50%; opacity: 0.6; }
+                }
+            `}</style>
+            <div className="absolute inset-0 z-0 opacity-40 blur-[80px]" style={{
+                background: 'linear-gradient(45deg, #00ff88, #00d2ff, #2a0845, #11998e)',
+                backgroundSize: '400% 400%',
+                animation: 'aurora-wave 15s ease infinite',
+            }} />
+        </div>
+    )
+}
+
+function GradientMesh() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: '#0a0a0c' }}>
+            <style>{`
+                @keyframes mesh-blob {
+                    0% { transform: translate(0px, 0px) scale(1); }
+                    33% { transform: translate(30px, -50px) scale(1.1); }
+                    66% { transform: translate(-20px, 20px) scale(0.9); }
+                    100% { transform: translate(0px, 0px) scale(1); }
+                }
+            `}</style>
+            <div className="absolute top-1/4 left-1/4 w-[50vw] h-[50vw] rounded-full mix-blend-screen filter blur-[100px] opacity-30" style={{
+                background: '#f0a84a',
+                animation: 'mesh-blob 20s infinite',
+            }} />
+            <div className="absolute bottom-1/4 right-1/4 w-[40vw] h-[40vw] rounded-full mix-blend-screen filter blur-[100px] opacity-20" style={{
+                background: '#6a9fe8',
+                animation: 'mesh-blob 25s infinite alternate',
+            }} />
+        </div>
+    )
+}
+
+function DustParticles() {
+    return (
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ background: 'linear-gradient(to bottom, #111, #1a1a24)' }}>
+            <style>{`
+                @keyframes particle-float { 
+                    0% { transform: translateY(110vh) scale(0); opacity: 0; } 
+                    20% { opacity: 1; }
+                    80% { opacity: 1; }
+                    100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } 
+                }
+            `}</style>
+            {Array.from({ length: 40 }).map((_, i) => (
+                <div
+                    key={i}
+                    className="absolute bg-white rounded-full"
+                    style={{
+                        width: `${1 + Math.random() * 3}px`,
+                        height: `${1 + Math.random() * 3}px`,
+                        left: `${Math.random() * 100}%`,
+                        opacity: 0,
+                        animation: `particle-float ${10 + Math.random() * 20}s linear infinite`,
+                        animationDelay: `-${Math.random() * 20}s`,
+                        filter: 'blur(1px)',
+                        boxShadow: '0 0 5px rgba(255,255,255,0.8)'
+                    }}
+                />
+            ))}
+        </div>
+    )
+}
+
+const AnimatedBGs: Record<string, React.FC> = {
+    matrix: MatrixRain,
+    stars: Starfield,
+    pixels: PixelGrid,
+    waves: Synthwave,
+    aurora: Aurora,
+    mesh: GradientMesh,
+    particles: DustParticles,
+}
+
+// ─── Clock display renderers ────────────────────────────────────────
+
+function MinimalClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`font-mono tracking-tighter text-primary font-light text-center drop-shadow-sm ${preview ? 'text-4xl' : 'text-8xl md:text-9xl mb-8'}`}>
+            {time}
+        </div>
+    )
+}
+
+function DigitalClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`text-center ${preview ? '' : 'mb-8'}`}>
+            <div
+                className={`inline-block rounded-xl border border-accent/30 ${preview ? 'px-4 py-2' : 'px-8 py-4 rounded-2xl'}`}
+                style={{
+                    background: 'rgba(0,0,0,0.6)',
+                    boxShadow: preview ? 'none' : '0 0 30px rgba(0,255,128,0.15), inset 0 0 30px rgba(0,0,0,0.5)',
+                }}
+            >
+                <span
+                    className={`font-mono font-bold tracking-widest ${preview ? 'text-3xl' : 'text-7xl md:text-8xl'}`}
+                    style={{
+                        color: '#00ff88',
+                        textShadow: preview ? 'none' : '0 0 10px #00ff88, 0 0 30px rgba(0,255,136,0.4)',
+                    }}
+                >
+                    {time}
+                </span>
+            </div>
+        </div>
+    )
+}
+
+function RetroClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`text-center ${preview ? '' : 'mb-8'}`}>
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+                .retro-time {
+                    font-family: 'Press Start 2P', monospace;
+                    color: #ffd700;
+                    image-rendering: pixelated;
+                    letter-spacing: 0.1em;
+                }
+            `}</style>
+            <div
+                className="retro-time"
+                style={preview ? {
+                    fontSize: '1.5rem',
+                    textShadow: '2px 2px 0px #ff6b00'
+                } : {
+                    fontSize: 'clamp(2rem, 5vw, 4rem)',
+                    textShadow: '3px 3px 0px #ff6b00, 6px 6px 0px rgba(0,0,0,0.3)'
+                }}
+            >
+                {time}
+            </div>
+        </div>
+    )
+}
+
+function FlipClock({ time, preview }: { time: string, preview?: boolean }) {
+    const [mins, secs] = time.split(':')
+    const FlipDigit = ({ value }: { value: string }) => (
+        <div className={`relative inline-flex flex-col items-center ${preview ? 'mx-0.5' : 'mx-1'}`}>
+            <div
+                className={`flex items-center justify-center font-bold text-white overflow-hidden ${preview ? 'w-8 h-10 rounded-md text-2xl' : 'w-16 h-20 md:w-24 md:h-28 rounded-xl text-5xl md:text-7xl'}`}
+                style={{
+                    background: 'linear-gradient(180deg, #333 0%, #333 49.5%, #222 50%, #2a2a2a 100%)',
+                    boxShadow: preview ? 'none' : '0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08)',
+                    fontFamily: "'SF Mono', 'Fira Code', monospace",
+                }}
+            >
+                {value}
+            </div>
+        </div>
+    )
+    return (
+        <div className={`flex items-center justify-center gap-1 ${preview ? '' : 'mb-8'}`}>
+            <div className="flex">{mins.split('').map((d, i) => <FlipDigit key={`m${i}`} value={d} />)}</div>
+            <span className={`font-bold text-muted animate-pulse ${preview ? 'text-2xl mx-1' : 'text-5xl md:text-7xl mx-1'}`}>:</span>
+            <div className="flex">{secs.split('').map((d, i) => <FlipDigit key={`s${i}`} value={d} />)}</div>
+        </div>
+    )
+}
+
+function GlowClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`font-mono font-medium tracking-tight text-center ${preview ? 'text-3xl' : 'text-8xl md:text-[10rem] leading-none mb-8'}`}
+            style={{
+                color: '#fff',
+                textShadow: preview ? '0 0 10px rgba(240, 168, 74, 0.4)' : '0 0 20px rgba(240, 168, 74, 0.6), 0 0 60px rgba(240, 168, 74, 0.2)',
+            }}>
+            {time}
+        </div>
+    )
+}
+
+function SerifClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`font-serif italic text-center text-primary ${preview ? 'text-4xl' : 'text-[7rem] md:text-[11rem] leading-none mb-8 tracking-tighter'}`}>
+            {time}
+        </div>
+    )
+}
+
+function OutlineClock({ time, preview }: { time: string, preview?: boolean }) {
+    return (
+        <div className={`font-mono font-bold text-center ${preview ? 'text-4xl' : 'text-8xl md:text-[10rem] mb-8'}`}
+            style={{
+                color: 'transparent',
+                WebkitTextStroke: preview ? '1px var(--text-primary)' : '2px var(--text-primary)',
+                textShadow: preview ? 'none' : '4px 4px 0 rgba(0,0,0,0.5)'
+            }}>
+            {time}
+        </div>
+    )
+}
+
+const ClockRenderers: Record<ClockStyle, React.FC<{ time: string, preview?: boolean }>> = {
+    minimal: MinimalClock,
+    digital: DigitalClock,
+    retro: RetroClock,
+    flip: FlipClock,
+    glow: GlowClock,
+    serif: SerifClock,
+    outline: OutlineClock,
+}
+
+// ─── Main Page ──────────────────────────────────────────────────────
+
+export default function FocusPage() {
+    const [tasks, setTasks] = useState<Task[]>([])
+    const timer = useFocusTimer()
+
+    // Visual Customisation State
+    const [backgroundUrl, setBackgroundUrl] = useState<string | null>(null)
+    const [animatedBg, setAnimatedBg] = useState<string | null>(null)
+    const [gradientBg, setGradientBg] = useState<string | null>(null)
+    const [clockStyle, setClockStyle] = useState<ClockStyle>('minimal')
+    const [showCustomiseModal, setShowCustomiseModal] = useState(false)
+    const [customiseTab, setCustomiseTab] = useState<'backgrounds' | 'clock' | 'durations' | 'sounds'>('backgrounds')
+    const [uploading, setUploading] = useState(false)
+
+    // Ambient sound state
+    const [ambientSound, setAmbientSound] = useState<string | null>(null)
+    const [ambientVolume, setAmbientVolume] = useState<number>(0.5)
+    const [isPlayingAmbient, setIsPlayingAmbient] = useState(false)
+    const audioRef = useRef<HTMLAudioElement>(null)
+
+    // Duration form state
+    const [durationsForm, setDurationsForm] = useState({
+        focus: timer.durations.focus / 60,
+        short_break: timer.durations.short_break / 60,
+        long_break: timer.durations.long_break / 60,
+    })
+
+    const [enableSpotify, setEnableSpotify] = useState(false)
+
+    const fileInputRef = useRef<HTMLInputElement>(null)
+
+    // Fetch tasks + settings on load
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const res = await api.get('/tasks')
+                if (res.tasks) {
+                    setTasks(res.tasks.filter((t: any) => t.status !== 'completed' && t.status !== 'cancelled'))
+                }
+            } catch (err) {
+                console.error("Failed to load tasks", err)
+            }
+        }
+
+        const fetchSettings = async () => {
+            try {
+                const res = await api.get('/settings/focus_background')
+                if (res.value) {
+                    // Check if it's an animated preset ID
+                    if (ANIMATED_PRESETS.find(p => p.id === res.value)) {
+                        setAnimatedBg(res.value)
+                        setBackgroundUrl(null)
+                        setGradientBg(null)
+                    } else if (res.value.startsWith('linear-gradient') || res.value.startsWith('radial-gradient')) {
+                        setGradientBg(res.value)
+                        setAnimatedBg(null)
+                        setBackgroundUrl(null)
+                    } else {
+                        setBackgroundUrl(res.value)
+                        setAnimatedBg(null)
+                        setGradientBg(null)
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to load settings", err)
+            }
+        }
+
+        const fetchClockStyle = async () => {
+            try {
+                const res = await api.get('/settings/focus_clock_style')
+                if (res.value && CLOCK_STYLES.find(s => s.id === res.value)) {
+                    setClockStyle(res.value as ClockStyle)
+                }
+            } catch (err) { /* default is fine */ }
+        }
+
+        const fetchSpotifyEnabled = async () => {
+            try {
+                const res = await api.get('/settings/focus_spotify_enabled')
+                if (res.value === 'true') setEnableSpotify(true)
+            } catch (err) { }
+        }
+
+        fetchTasks()
+        fetchSettings()
+        fetchClockStyle()
+        fetchSpotifyEnabled()
+    }, [])
+
+    const formatMinutesAsHours = (minutes: number) => {
+        if (!minutes) return '0m'
+        if (minutes < 60) return `${minutes}m`
+        const h = Math.floor(minutes / 60)
+        const m = minutes % 60
+        if (m === 0) return `${h}h`
+        return `${h}h ${m}m`
+    }
+
+    const isVideoUrl = (url: string) => /\.(mp4|webm|mov|gif)(\?|$)/i.test(url)
+
+    const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+
+        setUploading(true)
+        const formData = new FormData()
+        formData.append('file', file)
+
+        try {
+            const data = await api.upload('/settings/focus-background', formData)
+            if (data.url) {
+                setBackgroundUrl(data.url)
+                setAnimatedBg(null)
+            }
+        } catch (err) {
+            console.error("Upload error", err)
+        } finally {
+            setUploading(false)
+        }
+    }
+
+    const handleSelectPreset = async (url: string | null) => {
+        setBackgroundUrl(url)
+        setAnimatedBg(null)
+        setGradientBg(null)
+        try {
+            await api.put(`/settings/focus_background`, { value: url || "" })
+        } catch (err) {
+            console.error("Failed to save preset", err)
+        }
+    }
+
+    const handleSelectAnimated = async (id: string | null) => {
+        setAnimatedBg(id)
+        setBackgroundUrl(null)
+        setGradientBg(null)
+        try {
+            await api.put(`/settings/focus_background`, { value: id || "" })
+        } catch (err) {
+            console.error("Failed to save animated preset", err)
+        }
+    }
+
+    const handleSelectGradient = async (value: string | null) => {
+        setGradientBg(value)
+        setAnimatedBg(null)
+        setBackgroundUrl(null)
+        try {
+            await api.put(`/settings/focus_background`, { value: value || "" })
+        } catch (err) {
+            console.error("Failed to save gradient preset", err)
+        }
+    }
+
+    const handleSelectClockStyle = async (style: ClockStyle) => {
+        setClockStyle(style)
+        try {
+            await api.put(`/settings/focus_clock_style`, { value: style })
+        } catch (err) {
+            console.error("Failed to save clock style", err)
+        }
+    }
+
+    useEffect(() => {
+        setDurationsForm({
+            focus: timer.durations.focus / 60,
+            short_break: timer.durations.short_break / 60,
+            long_break: timer.durations.long_break / 60,
+        })
+    }, [timer.durations])
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = ambientVolume
+        }
+    }, [ambientVolume])
+
+    const handleSelectTask = (taskId: number | null) => {
+        const task = tasks.find(t => t.id === taskId)
+        timer.setSelectedTask(taskId, task?.title ?? null)
+    }
+
+    const handleCompleteTask = async (taskId: number) => {
+        try {
+            await api.put(`/tasks/${taskId}`, { status: 'completed' })
+            setTasks(prev => prev.filter(t => t.id !== taskId))
+            if (timer.selectedTaskId === taskId) {
+                timer.setSelectedTask(null)
+            }
+        } catch (err) {
+            console.error("Failed to mark completed", err)
+        }
+    }
+
+    const handleSaveDurations = async (e: React.FormEvent) => {
+        e.preventDefault()
+        try {
+            await api.put('/settings/bulk', {
+                settings: {
+                    focus_duration: durationsForm.focus.toString(),
+                    short_break_duration: durationsForm.short_break.toString(),
+                    long_break_duration: durationsForm.long_break.toString()
+                }
+            })
+            timer.updateDurations({
+                focus: durationsForm.focus * 60,
+                short_break: durationsForm.short_break * 60,
+                long_break: durationsForm.long_break * 60,
+            })
+        } catch (err) {
+            console.error("Failed to save durations", err)
+        }
+    }
+
+    const toggleSpotifySetting = async () => {
+        const newVal = !enableSpotify
+        setEnableSpotify(newVal)
+        try {
+            await api.put('/settings/focus_spotify_enabled', { value: newVal.toString() })
+        } catch (err) {
+            console.error("Failed to save spotify setting", err)
+        }
+    }
+
+    const toggleAmbientPlayback = () => {
+        if (!audioRef.current) return
+        if (isPlayingAmbient) {
+            audioRef.current.pause()
+            setIsPlayingAmbient(false)
+        } else {
+            audioRef.current.play()
+            setIsPlayingAmbient(true)
+        }
+    }
+
+    const ActiveAnimatedBg = animatedBg && AnimatedBGs[animatedBg] ? AnimatedBGs[animatedBg] : null
+    const ActiveClock = ClockRenderers[clockStyle]
+    const hasCustomBg = !!backgroundUrl || !!animatedBg || !!gradientBg
+
+    return (
+        <div className="flex h-screen flex-col bg-base overflow-hidden relative">
+            <header className="flex h-14 items-center justify-between border-b border-border bg-surface/80 backdrop-blur-md px-6 shrink-0 z-20">
+                <h1 className="text-sm font-semibold text-primary font-mono tracking-tight uppercase">
+                    <Clock className="inline h-4 w-4 mr-2 mb-0.5" />
+                    Focus
+                </h1>
+            </header>
+
+            <div className="flex-1 flex items-center justify-center p-6 lg:p-12 relative overflow-hidden">
+
+                {/* ─── Background Layer ─── */}
+                {ActiveAnimatedBg ? (
+                    <ActiveAnimatedBg />
+                ) : gradientBg ? (
+                    <div className="absolute inset-0 w-full h-full z-0 transition-opacity duration-1000 opacity-100" style={{ background: gradientBg }} />
+                ) : backgroundUrl ? (
+                    isVideoUrl(backgroundUrl) ? (
+                        <video
+                            autoPlay loop muted playsInline
+                            className="absolute inset-0 w-full h-full object-cover z-0"
+                            src={backgroundUrl.startsWith('http') ? backgroundUrl : 'http://localhost:8000' + backgroundUrl}
+                        />
+                    ) : (
+                        <div
+                            className="absolute inset-0 bg-cover bg-center z-0 transition-opacity duration-1000 opacity-90"
+                            style={{ backgroundImage: `url(${backgroundUrl.startsWith('http') ? backgroundUrl : 'http://localhost:8000' + backgroundUrl})` }}
+                        />
+                    )
+                ) : (
+                    <div
+                        className={`absolute inset-0 opacity-5 blur-3xl transition-colors duration-1000 z-0 ${timer.mode === 'focus' ? 'bg-accent' :
+                            timer.mode === 'short_break' ? 'bg-green-500' : 'bg-blue-500'
+                            }`}
+                    />
+                )}
+
+                {/* Dark overlay for readability if using custom background */}
+                {hasCustomBg && <div className="absolute inset-0 bg-black/40 z-[1]" />}
+
+                <div className={`w-full max-w-4xl max-h-[85vh] ${hasCustomBg ? 'bg-black/40 backdrop-blur-2xl border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]' : 'bg-surface/60 backdrop-blur-xl border-border/50 shadow-2xl'} border rounded-3xl p-8 lg:p-10 relative z-10 flex flex-col md:flex-row gap-8 lg:gap-12 overflow-hidden`}>
+
+                    {/* Left side: Timer */}
+                    <div className="flex-1 flex flex-col items-center justify-start border-r border-border-subtle pr-8 relative overflow-y-auto py-4 no-scrollbar">
+                        {/* Mode selectors */}
+                        <div className={`flex gap-2 p-1 ${hasCustomBg ? 'bg-white/10 border-white/10' : 'bg-base border-border'} border rounded-full mb-8 whitespace-nowrap overflow-x-auto max-w-full no-scrollbar`}>
+                            {(['focus', 'short_break', 'long_break'] as const).map((m) => {
+                                const labels = {
+                                    focus: "Focus",
+                                    short_break: "Short Break",
+                                    long_break: "Long Break"
+                                }
+                                return (
+                                    <button
+                                        key={m}
+                                        onClick={() => timer.switchMode(m)}
+                                        className={`px-4 py-1.5 rounded-full text-xs font-medium transition-colors ${timer.mode === m
+                                            ? (hasCustomBg ? 'bg-white text-black shadow-sm' : 'bg-primary text-base shadow-sm')
+                                            : (hasCustomBg ? 'text-white/60 hover:text-white hover:bg-white/10' : 'text-muted hover:text-primary hover:bg-surface-hover')
+                                            }`}
+                                    >
+                                        {labels[m]}
+                                    </button>
+                                )
+                            })}
+                        </div>
+
+                        {/* Timer Display */}
+                        <ActiveClock time={timer.formatTime(timer.timeLeft)} />
+
+                        {/* Controls */}
+                        <div className="flex flex-col items-center gap-8">
+                            <div className="flex items-center gap-4">
+                                <button
+                                    onClick={timer.toggleTimer}
+                                    className={`flex items-center justify-center h-16 w-16 md:h-20 md:w-20 rounded-full text-white shadow-lg transition-transform hover:scale-105 active:scale-95 ${timer.isRunning ? 'bg-secondary' : 'bg-accent hover:bg-accent-hover'
+                                        }`}
+                                >
+                                    {timer.isRunning ? <Pause className="h-8 w-8" fill="currentColor" /> : <Play className="h-8 w-8 ml-1" fill="currentColor" />}
+                                </button>
+
+                                <button
+                                    onClick={timer.resetTimer}
+                                    className={`flex items-center justify-center h-12 w-12 rounded-full ${hasCustomBg ? 'bg-white/10 border-white/10 text-white/60 hover:text-white hover:bg-white/20' : 'bg-base border-border text-muted hover:text-primary hover:bg-surface-hover'} border transition-colors`}
+                                    title="Reset Timer"
+                                >
+                                    <RotateCcw className="h-5 w-5" />
+                                </button>
+                            </div>
+
+                            <button
+                                onClick={() => setShowCustomiseModal(true)}
+                                className={`flex items-center gap-2 text-xs font-medium px-4 py-2 rounded-full transition-colors ${hasCustomBg ? 'bg-white/10 text-white/70 hover:text-white hover:bg-white/20' : 'bg-surface-hover text-secondary hover:text-primary'} border ${hasCustomBg ? 'border-white/10' : 'border-border'}`}
+                            >
+                                <Sparkles className="h-4 w-4" />
+                                Customise Settings
+                            </button>
+                        </div>
+
+                        {/* Session Stats */}
+                        <div className="mt-8 flex flex-col items-center gap-6">
+                            <div className={`flex justify-center gap-4 text-xs font-mono font-medium ${hasCustomBg ? 'text-white/50' : 'text-muted'}`}>
+                                <div className="flex items-center gap-1.5" title="Pomodoros completed this session">
+                                    <Target className="h-4 w-4 text-accent" />
+                                    {timer.sessionPomodoros} Sessions today
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Immersive Vinyl Player (large mode) */}
+                        {enableSpotify && (
+                            <div className="mt-6 w-full flex justify-center">
+                                <SpotifyPlayer isLargeMode={true} />
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Right side: Task selection */}
+                    <div className="flex-[0.8] flex flex-col min-h-0 overflow-hidden">
+                        <h2 className={`text-sm font-semibold uppercase font-mono tracking-wide mb-4 ${hasCustomBg ? 'text-white' : 'text-primary'}`}>
+                            Focusing On
+                        </h2>
+
+                        {timer.selectedTaskId ? (
+                            <div className={`${hasCustomBg ? 'bg-white/10 border-white/10' : 'bg-base border-border'} border rounded-xl p-4 mb-6 shadow-sm relative group overflow-hidden`}>
+                                {(() => {
+                                    const t = tasks.find(t => t.id === timer.selectedTaskId)
+                                    if (!t) return null
+                                    return (
+                                        <>
+                                            <div className="flex justify-between items-start mb-2 pr-28">
+                                                <h3 className={`${hasCustomBg ? 'text-white' : 'text-secondary'} font-medium leading-tight`}>{t.title}</h3>
+                                            </div>
+                                            <div className="absolute top-4 right-4 flex items-center gap-2">
+                                                <button
+                                                    onClick={() => handleCompleteTask(t.id)}
+                                                    className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 px-2.5 py-1 rounded bg-green/10 text-green hover:bg-green/20 text-[10px] font-mono uppercase tracking-wider border border-green/20"
+                                                >
+                                                    <CheckSquare className="h-3 w-3" /> Done
+                                                </button>
+                                                <button
+                                                    onClick={() => handleSelectTask(null)}
+                                                    className={`text-xs transition-colors p-1 rounded hover:bg-black/10 ${hasCustomBg ? 'text-white/50 hover:text-white' : 'text-muted hover:text-primary'}`}
+                                                    title="Deselect task"
+                                                >
+                                                    <X className="h-4 w-4" />
+                                                </button>
+                                            </div>
+                                            <div className={`flex items-center gap-3 text-xs font-mono ${hasCustomBg ? 'text-white/50' : 'text-muted'}`}>
+                                                {t.course_code && (
+                                                    <span className="bg-accent/10 text-accent px-1.5 py-0.5 rounded border border-accent/20">
+                                                        {t.course_code}
+                                                    </span>
+                                                )}
+                                                <span>Time: {formatMinutesAsHours(t.actual_minutes || 0)}</span>
+                                            </div>
+                                        </>
+                                    )
+                                })()}
+                            </div>
+                        ) : (
+                            <div className={`${hasCustomBg ? 'bg-white/5 border-white/10 border-dashed text-white/40' : 'bg-base border-border border-dashed text-muted'} border rounded-xl p-6 mb-6 text-center font-sm items-center flex flex-col justify-center min-h-[100px]`}>
+                                <p className="mb-2 text-sm">Select a task below to start tracking time</p>
+                            </div>
+                        )}
+
+                        <div className="flex-1 overflow-y-auto min-h-0 border-t border-border-subtle pt-4 -mx-2 px-2">
+                            <h3 className={`text-xs font-mono uppercase tracking-wider mb-2 ${hasCustomBg ? 'text-white/40' : 'text-muted'}`}>Up Next</h3>
+                            <div className="space-y-1">
+                                {tasks.length === 0 ? (
+                                    <p className={`text-sm italic ${hasCustomBg ? 'text-white/30' : 'text-muted'}`}>No tasks available. Add some in the Tasks tab!</p>
+                                ) : (
+                                    tasks.sort((a, b) => (b.id - a.id)).map(t => (
+                                        <button
+                                            key={t.id}
+                                            onClick={() => handleSelectTask(t.id)}
+                                            className={`w-full text-left px-3 py-2.5 rounded-lg flex items-start gap-3 transition-colors ${timer.selectedTaskId === t.id
+                                                ? 'bg-accent-subtle border-accent ring-1 ring-accent/20'
+                                                : (hasCustomBg ? 'hover:bg-white/10' : 'hover:bg-surface-hover')
+                                                }`}
+                                        >
+                                            <div className={`mt-0.5 shrink-0 ${hasCustomBg ? 'text-white/40' : 'text-muted'}`}>
+                                                {timer.selectedTaskId === t.id ? <CheckCircle2 className="h-4 w-4 text-accent" /> : <Circle className="h-4 w-4" />}
+                                            </div>
+                                            <div className="min-w-0 flex-1">
+                                                <div className={`text-sm leading-tight truncate ${timer.selectedTaskId === t.id ? 'text-primary' : (hasCustomBg ? 'text-white/80' : 'text-secondary')}`}>
+                                                    {t.title}
+                                                </div>
+                                                <div className={`flex items-center gap-2 mt-1 font-mono text-[10px] ${hasCustomBg ? 'text-white/30' : 'text-muted'}`}>
+                                                    {t.course_code && <span>{t.course_code}</span>}
+                                                    {t.course_code && <span>•</span>}
+                                                    <span>{formatMinutesAsHours(t.actual_minutes || 0)}</span>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    ))
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Ambient Sound Controls */}
+                        {ambientSound && (() => {
+                            const sound = AMBIENT_SOUNDS.find(s => s.id === ambientSound)
+                            if (!sound) return null
+                            return (
+                                <div className="shrink-0 mt-4 pt-4 border-t border-border-subtle">
+                                    <div className={`w-full rounded-2xl px-4 py-3 flex items-center gap-4 border backdrop-blur-md transition-all ${hasCustomBg ? 'bg-black/40 border-white/10 hover:bg-black/60 shadow-xl' : 'bg-surface border-border hover:border-border-hover shadow-sm'}`}>
+                                        <button onClick={toggleAmbientPlayback} className={`shrink-0 transition-colors ${hasCustomBg ? 'text-white/70 hover:text-white' : 'text-muted hover:text-primary'}`}>
+                                            {isPlayingAmbient ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+                                        </button>
+                                        <div className="flex-1 flex flex-col justify-center">
+                                            <div className="flex justify-between items-center mb-1">
+                                                <span className={`text-[10px] uppercase font-mono tracking-wider ${hasCustomBg ? 'text-white/50' : 'text-muted'}`}>{sound.label}</span>
+                                            </div>
+                                            <input
+                                                type="range" min="0" max="1" step="0.01"
+                                                value={ambientVolume}
+                                                onChange={(e) => setAmbientVolume(parseFloat(e.target.value))}
+                                                className="w-full h-1 bg-white/20 rounded-full appearance-none flex-1 cursor-pointer"
+                                            />
+                                        </div>
+                                        <button onClick={() => setAmbientSound(null)} className={`shrink-0 p-1.5 transition-colors rounded-full ${hasCustomBg ? 'text-white/50 hover:bg-white/10 hover:text-white' : 'text-muted hover:bg-black/5 hover:text-primary'}`}>
+                                            <X className="h-3.5 w-3.5" />
+                                        </button>
+                                    </div>
+                                </div>
+                            )
+                        })()}
+
+                    </div>
+                </div>
+            </div>
+
+            {/* ─── Customise Modal ─── */}
+            {showCustomiseModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                    <div className="bg-surface border border-border rounded-2xl shadow-xl w-full max-w-lg overflow-hidden relative max-h-[85vh] flex flex-col">
+                        <div className="flex items-center justify-between p-4 border-b border-border shrink-0">
+                            <h2 className="font-semibold text-primary font-mono text-sm uppercase">Customise Focus</h2>
+                            <button onClick={() => setShowCustomiseModal(false)} className="text-muted hover:text-primary transition-colors">
+                                <X className="h-5 w-5" />
+                            </button>
+                        </div>
+
+                        {/* Tab switcher */}
+                        <div className="flex border-b border-border px-4 shrink-0">
+                            {[
+                                { id: 'backgrounds' as const, label: 'Backgrounds' },
+                                { id: 'clock' as const, label: 'Clock' },
+                                { id: 'durations' as const, label: 'Durations' },
+                                { id: 'sounds' as const, label: 'Sounds' },
+                            ].map(tab => (
+                                <button
+                                    key={tab.id}
+                                    onClick={() => setCustomiseTab(tab.id)}
+                                    className={`px-4 py-2.5 text-xs font-medium border-b-2 transition-colors ${customiseTab === tab.id
+                                        ? 'text-accent border-accent'
+                                        : 'text-muted hover:text-primary border-transparent'
+                                        }`}
+                                >
+                                    {tab.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="p-6 overflow-y-auto flex-1">
+                            {customiseTab === 'backgrounds' && (
+                                <div className="space-y-6">
+                                    {/* Default */}
+                                    <div>
+                                        <h3 className="text-xs font-medium text-secondary mb-3">Default</h3>
+                                        <button
+                                            onClick={() => { handleSelectPreset(null); setAnimatedBg(null); setGradientBg(null); }}
+                                            className={`w-full h-16 rounded-lg flex items-center justify-center border-2 transition-all ${!backgroundUrl && !animatedBg && !gradientBg ? 'border-accent bg-accent/5' : 'border-border bg-base hover:border-muted'}`}
+                                        >
+                                            <span className="text-xs font-mono text-muted">Dynamic Colors</span>
+                                        </button>
+                                    </div>
+
+                                    {/* Gradients */}
+                                    <div>
+                                        <h3 className="text-xs font-medium text-secondary mb-3">Rich Gradients</h3>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {GRADIENT_PRESETS.map(p => (
+                                                <button
+                                                    key={p.id}
+                                                    onClick={() => handleSelectGradient(p.value)}
+                                                    className={`h-20 rounded-lg border-2 transition-all relative overflow-hidden group ${gradientBg === p.value ? 'border-accent shadow-[0_0_15px_rgba(240,168,74,0.3)]' : 'border-transparent hover:ring-2 ring-muted/50'}`}
+                                                    style={{ background: p.value }}
+                                                >
+                                                    <div className="absolute inset-x-0 bottom-0 py-1 px-2 border-t border-white/5 bg-black/20">
+                                                        <span className="text-[10px] text-white/90 font-mono tracking-wide">{p.label}</span>
+                                                    </div>
+                                                    {gradientBg === p.value && (
+                                                        <div className="absolute top-1.5 right-1.5 bg-black/40 rounded-full p-0.5">
+                                                            <CheckCircle2 className="h-3 w-3 text-accent" />
+                                                        </div>
+                                                    )}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Photo Presets */}
+                                    <div>
+                                        <h3 className="text-xs font-medium text-secondary mb-3">Photos</h3>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {IMAGE_PRESETS.map(p => (
+                                                <button
+                                                    key={p.id}
+                                                    onClick={() => handleSelectPreset(p.url)}
+                                                    className={`h-20 rounded-lg bg-cover bg-center border-2 transition-all relative overflow-hidden group ${backgroundUrl === p.url ? 'border-accent shadow-md' : 'border-transparent hover:ring-2 ring-muted/50'}`}
+                                                    style={{ backgroundImage: `url('${p.thumb}')` }}
+                                                >
+                                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent py-1 px-2">
+                                                        <span className="text-[10px] text-white/80 font-medium">{p.label}</span>
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Animated / Fun Presets */}
+                                    <div>
+                                        <h3 className="text-xs font-medium text-secondary mb-3 flex items-center gap-1.5">
+                                            <Sparkles className="h-3.5 w-3.5 text-accent" />
+                                            Animated
+                                        </h3>
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                            {ANIMATED_PRESETS.map(p => (
+                                                <button
+                                                    key={p.id}
+                                                    onClick={() => handleSelectAnimated(p.id)}
+                                                    className={`h-20 rounded-lg border-2 transition-all flex items-center justify-center relative overflow-hidden ${animatedBg === p.id ? 'border-accent shadow-md bg-accent/10' : 'border-border hover:border-muted'}`}
+                                                    style={{
+                                                        background: p.id === 'matrix' ? '#0a0a0a'
+                                                            : p.id === 'stars' ? 'radial-gradient(ellipse at center, #0d1117, #000)'
+                                                                : p.id === 'pixels' ? '#1a1a2e'
+                                                                    : p.id === 'aurora' ? '#050510'
+                                                                        : p.id === 'mesh' ? '#0a0a0c'
+                                                                            : p.id === 'particles' ? 'linear-gradient(to bottom, #111, #1a1a24)'
+                                                                                : 'linear-gradient(180deg, #0f0c29, #302b63, #24243e)',
+                                                    }}
+                                                >
+                                                    {/* Inject static pseudo-preview for complex backgrounds */}
+                                                    {p.id === 'aurora' && <div className="absolute inset-0 bg-gradient-to-tr from-emerald-900/50 via-indigo-900/30 to-purple-900/40"></div>}
+                                                    {p.id === 'mesh' && <div className="absolute top-1 right-1 w-10 h-10 rounded-full bg-amber/20 blur-xl"></div>}
+                                                    {p.id === 'particles' && <div className="absolute w-1 h-1 bg-white/50 rounded-full top-4 left-4"></div>}
+
+                                                    <span className="text-[10px] font-mono whitespace-nowrap text-white/80 relative z-10 px-2 py-1 bg-black/40 rounded border border-white/10 backdrop-blur-sm">{p.label}</span>
+                                                    {animatedBg === p.id && (
+                                                        <div className="absolute top-1.5 right-1.5">
+                                                            <CheckCircle2 className="h-3 w-3 text-accent" />
+                                                        </div>
+                                                    )}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Upload */}
+                                    <div className="pt-2">
+                                        <h3 className="text-xs font-medium text-secondary mb-3">Upload your own</h3>
+                                        <p className="text-[10px] text-muted mb-2">Supports images, GIFs, and short videos (.mp4, .webm)</p>
+                                        <input
+                                            type="file"
+                                            ref={fileInputRef}
+                                            className="hidden"
+                                            accept="image/*,video/mp4,video/webm,.gif"
+                                            onChange={handleUpload}
+                                        />
+                                        <button
+                                            onClick={() => fileInputRef.current?.click()}
+                                            disabled={uploading}
+                                            className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-muted rounded-xl text-sm font-medium text-secondary hover:text-primary hover:border-primary hover:bg-surface-hover transition-colors disabled:opacity-50"
+                                        >
+                                            {uploading ? (
+                                                <span className="animate-pulse">Uploading...</span>
+                                            ) : (
+                                                <>
+                                                    <Upload className="h-4 w-4" />
+                                                    Choose File
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {customiseTab === 'clock' && (
+                                <div className="space-y-4">
+                                    <p className="text-xs text-muted">Choose how your timer looks.</p>
+                                    <div className="space-y-3">
+                                        {CLOCK_STYLES.map(style => {
+                                            const Preview = ClockRenderers[style.id]
+                                            return (
+                                                <button
+                                                    key={style.id}
+                                                    onClick={() => handleSelectClockStyle(style.id)}
+                                                    className={`w-full rounded-xl border-2 transition-all p-4 flex items-center justify-between ${clockStyle === style.id
+                                                        ? 'border-accent bg-accent/5'
+                                                        : 'border-border bg-base hover:border-muted'
+                                                        }`}
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        {clockStyle === style.id ? (
+                                                            <CheckCircle2 className="h-5 w-5 text-accent shrink-0" />
+                                                        ) : (
+                                                            <Circle className="h-5 w-5 text-muted shrink-0" />
+                                                        )}
+                                                        <span className="text-xs font-mono tracking-wide text-primary uppercase">{style.label}</span>
+                                                    </div>
+                                                    <div className="shrink-0 flex items-center justify-end scale-75 origin-right pointer-events-none">
+                                                        <Preview time="25:00" preview={true} />
+                                                    </div>
+                                                </button>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+
+                            {customiseTab === 'durations' && (
+                                <form onSubmit={handleSaveDurations} className="space-y-6">
+                                    <p className="text-xs text-muted mb-4">Set your preferred timer lengths in minutes.</p>
+
+                                    <div className="space-y-4">
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-sm font-medium text-primary">Focus Duration</label>
+                                            <input
+                                                title="Focus Duration in Minutes"
+                                                type="number" min="1" max="120"
+                                                value={durationsForm.focus}
+                                                onChange={(e) => setDurationsForm(p => ({ ...p, focus: parseInt(e.target.value) || 25 }))}
+                                                className="w-20 bg-raised border border-border rounded-md px-3 py-1.5 text-sm text-center font-mono focus:border-accent outline-none"
+                                            />
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-sm font-medium text-primary">Short Break</label>
+                                            <input
+                                                title="Short Break Duration in Minutes"
+                                                type="number" min="1" max="60"
+                                                value={durationsForm.short_break}
+                                                onChange={(e) => setDurationsForm(p => ({ ...p, short_break: parseInt(e.target.value) || 5 }))}
+                                                className="w-20 bg-raised border border-border rounded-md px-3 py-1.5 text-sm text-center font-mono focus:border-accent outline-none"
+                                            />
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-sm font-medium text-primary">Long Break</label>
+                                            <input
+                                                title="Long Break Duration in Minutes"
+                                                type="number" min="1" max="60"
+                                                value={durationsForm.long_break}
+                                                onChange={(e) => setDurationsForm(p => ({ ...p, long_break: parseInt(e.target.value) || 15 }))}
+                                                className="w-20 bg-raised border border-border rounded-md px-3 py-1.5 text-sm text-center font-mono focus:border-accent outline-none"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="pt-4 border-t border-border mt-6">
+                                        <button type="submit" className="w-full py-2.5 bg-amber/10 border border-amber text-amber rounded-lg text-xs font-mono uppercase tracking-wider hover:bg-amber hover:text-base transition-colors">
+                                            Save Durations
+                                        </button>
+                                    </div>
+                                </form>
+                            )}
+
+                            {customiseTab === 'sounds' && (
+                                <div className="space-y-4">
+                                    <p className="text-xs text-muted mb-4">Add some background ambience to stay focused.</p>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {AMBIENT_SOUNDS.map(sound => (
+                                            <button
+                                                key={sound.id}
+                                                onClick={() => {
+                                                    setAmbientSound(sound.id)
+                                                    setIsPlayingAmbient(true)
+                                                    // Trigger play immediately if audio ref matches later
+                                                    setTimeout(() => {
+                                                        if (audioRef.current && audioRef.current.paused) {
+                                                            audioRef.current.play()
+                                                        }
+                                                    }, 50)
+                                                }}
+                                                className={`h-16 rounded-xl border-2 transition-all p-4 flex items-center justify-between ${ambientSound === sound.id
+                                                    ? 'border-accent bg-accent/5'
+                                                    : 'border-border bg-base hover:border-muted'
+                                                    }`}
+                                            >
+                                                <div className="flex items-center gap-2">
+                                                    {ambientSound === sound.id ? (
+                                                        <Volume2 className="h-4 w-4 text-accent shrink-0" />
+                                                    ) : (
+                                                        <VolumeX className="h-4 w-4 text-muted shrink-0" />
+                                                    )}
+                                                    <span className="text-xs font-medium text-primary">{sound.label}</span>
+                                                </div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                    {ambientSound && (
+                                        <div className="mt-8 p-4 bg-raised rounded-xl border border-border flex items-center gap-4">
+                                            <span className="text-xs text-muted font-mono whitespace-nowrap">Volume</span>
+                                            <input
+                                                title="Ambient Volume"
+                                                type="range" min="0" max="1" step="0.01"
+                                                value={ambientVolume}
+                                                onChange={(e) => setAmbientVolume(parseFloat(e.target.value))}
+                                                className="w-full h-1.5 bg-border rounded-full appearance-none cursor-pointer"
+                                            />
+                                            <button onClick={() => setAmbientSound(null)} className="text-xs text-red hover:bg-red/10 px-2 py-1 rounded transition-colors uppercase font-mono tracking-wide">
+                                                Turn Off
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    <div className="pt-8 border-t border-border mt-8">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <h4 className="text-sm font-medium text-primary flex items-center gap-2">
+                                                    <Music className="w-4 h-4 text-[#1DB954]" />
+                                                    Spotify Integration
+                                                </h4>
+                                                <p className="text-xs text-muted mt-1 leading-relaxed max-w-[200px]">
+                                                    Show a spinning vinyl player for your Spotify music.
+                                                </p>
+                                            </div>
+                                            <button
+                                                onClick={toggleSpotifySetting}
+                                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${enableSpotify ? 'bg-accent' : 'bg-surface-hover border border-border'}`}
+                                            >
+                                                <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${enableSpotify ? 'translate-x-6' : 'translate-x-1'}`} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Global Audio Player for Ambient Sounds */}
+            {ambientSound && (
+                <audio
+                    ref={audioRef}
+                    src={AMBIENT_SOUNDS.find(s => s.id === ambientSound)?.url}
+                    loop
+                    onPlay={() => setIsPlayingAmbient(true)}
+                    onPause={() => setIsPlayingAmbient(false)}
+                />
+            )}
+        </div>
+    )
+}
+```
+
+## Verification
+
+| Check | Result |
+|---|---|
+| TypeScript build (`next build`) | ✅ Compiled successfully, zero errors |
+| Focus page layout (browser) | ✅ Timer on left, tasks on right, no visual regressions |
+| Spotify player conditional rendering | ✅ Only appears when `enableSpotify` setting is toggled on |
+
+> [!NOTE]
+> Full interactive verification (spinning, tone arm, playback toggling) requires a Spotify Premium session. The component gracefully handles all three states: not connected → connected/idle → actively playing.

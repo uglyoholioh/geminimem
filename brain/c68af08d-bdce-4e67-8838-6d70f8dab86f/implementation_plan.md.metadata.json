@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Detailed implementation plan for 9 new dashboard widgets organized by component groupings. Covers: (1) Widget registry + layout manager wiring for all 9 widgets, (2) 5 pure frontend widgets (NowNextClass, SpotifyMini, QuickLinks, SemesterCountdown, TaskProgress), (3) 2 multi-API frontend widgets (WeekAtAGlance, WorkloadHeatmap), (4) 1 widget using existing backend (SyncStatus), (5) 1 widget needing a new backend endpoint (AIStudyTip). Each widget includes file path, what it renders, data sources, and key implementation notes. Verification via TypeScript build and browser testing.",
+  "updatedAt":  "2026-03-04T04:12:20.530246Z"
+}

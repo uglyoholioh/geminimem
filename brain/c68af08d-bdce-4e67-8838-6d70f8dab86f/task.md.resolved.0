@@ -1,0 +1,52 @@
+# Dashboard Widgets — Task Checklist
+
+## Shared Infrastructure
+- [ ] Update [widgetRegistry.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/widgetRegistry.ts) — add 9 new widget definitions
+- [ ] Update [DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx) — add imports + renderWidget cases for all 9
+
+---
+
+## Pure Frontend Widgets
+
+### Now / Next Class
+- [ ] Create `widgets/NowNextClass.tsx`
+
+### Spotify Mini Player
+- [ ] Create `widgets/SpotifyMini.tsx`
+
+### Quick Links
+- [ ] Create `widgets/QuickLinks.tsx`
+
+### Semester Countdown
+- [ ] Create `widgets/SemesterCountdown.tsx`
+
+### Task Progress
+- [ ] Create `widgets/TaskProgress.tsx`
+
+---
+
+## Frontend Widgets (Multi-API)
+
+### Week-at-a-Glance
+- [ ] Create `widgets/WeekAtAGlance.tsx`
+
+### Workload Heatmap
+- [ ] Create `widgets/WorkloadHeatmap.tsx`
+
+---
+
+## Backend-Dependent Widgets
+
+### Canvas Sync Status
+- [ ] Create `widgets/SyncStatus.tsx` (uses existing `GET /sync/freshness` + `POST /sync/canvas`)
+
+### AI Study Tip
+- [ ] Create `GET /api/v1/dashboard/study-tip` backend endpoint
+- [ ] Create `widgets/AIStudyTip.tsx`
+
+---
+
+## Verification
+- [ ] Run `npm run build` — check for type/compile errors
+- [ ] Visual browser test — add each widget via widget picker, verify renders
+- [ ] Test AI Study Tip endpoint returns valid response

@@ -1,0 +1,25 @@
+# Dashboard Widgets — Task Checklist
+
+## Shared Infrastructure
+- [x] Update [widgetRegistry.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/widgetRegistry.ts) — add 9 new widget definitions
+- [x] Update [DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx) — add imports + renderWidget cases for all 9
+
+## Pure Frontend Widgets
+- [x] [NowNextClass.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/NowNextClass.tsx) — current/next class with progress bar
+- [x] [SpotifyMini.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/SpotifyMini.tsx) — compact Spotify player wrapper
+- [x] [QuickLinks.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/QuickLinks.tsx) — localStorage bookmarks with edit mode
+- [x] [SemesterCountdown.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/SemesterCountdown.tsx) — exam date countdown per module
+- [x] [TaskProgress.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/TaskProgress.tsx) — in-progress tasks with progress bars
+
+## Frontend Widgets (Multi-API)
+- [x] [WeekAtAGlance.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/WeekAtAGlance.tsx) — 7-column mini calendar with density dots
+- [x] [WorkloadHeatmap.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/WorkloadHeatmap.tsx) — 4-week busyness grid
+
+## Backend-Dependent Widgets
+- [x] [SyncStatus.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/SyncStatus.tsx) — uses existing `GET /sync/freshness` + `POST /sync/canvas`
+- [x] [study_tip.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/study_tip.py) — `GET /api/v1/dashboard/study-tip` backend endpoint
+- [x] [AIStudyTip.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/AIStudyTip.tsx) — AI-generated tip with refresh
+
+## Verification
+- [x] `npm run build` — zero TypeScript errors
+- [ ] Visual browser test — add each widget via picker

@@ -1,0 +1,122 @@
+# Dashboard Widget Recommendations
+
+## Current State
+
+Your dashboard has **8 widgets** today:
+
+| Widget | Purpose |
+|---|---|
+| Agenda Timeline | Unified timeline of classes + tasks + assignments |
+| Module Hub | Quick access to active modules |
+| Grades Snapshot | Grade progress bars per module |
+| Pinned Notes | Links to pinned notes |
+| Focus Timer | Pomodoro start/pause/reset |
+| Announcements | Unread Canvas announcements |
+| Upcoming Deadlines | Countdown list to due dates |
+| Quick Add | Inline task/note/meeting creation |
+
+---
+
+## Recommended New Widgets
+
+### 1. 📊 Weekly Pulse (Study Stats)
+
+> The "Fitbit for studying" — the most motivating widget you don't have yet.
+
+**What it shows:**
+- Tasks completed this week (e.g. `12 / 18 done`)
+- Total focus minutes this week (from Pomodoro + task `actual_minutes`)
+- Current streak: consecutive days with ≥1 task completed
+- Mini sparkline or bar chart of daily activity (Mon–Sun)
+
+**Why students want it:** Gamification drives engagement. Seeing "🔥 5 day streak" or "8.5 hrs focused this week" is a powerful motivator. Every modern productivity app has this.
+
+**Feasibility:** ⭐⭐⭐ All data exists — `tasks.completed_at`, `tasks.actual_minutes`, focus timer `accumulatedSeconds`. Needs one new backend endpoint: `GET /stats/weekly`.
+
+---
+
+### 2. 🎵 Spotify Mini Player
+
+> Control your study music without leaving the dashboard.
+
+**What it shows:**
+- Current track name + artist (marquee if long)
+- Play/pause, skip buttons
+- Compact album art thumbnail
+
+**Why students want it:** Students universally study with music. Your [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx) component and [spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py) backend **already exist** — this is just a compact dashboard-sized version of what you already have.
+
+**Feasibility:** ⭐⭐⭐⭐ Infrastructure fully built. Mostly a UI resize job.
+
+---
+
+### 3. 🕐 Now / Next Class Card
+
+> "Where do I need to be in 30 minutes?"
+
+**What it shows:**
+- If currently in class: module code, venue, progress bar showing how far through the class you are, time remaining
+- If between classes: next class module code, venue, countdown ("starts in 47 min"), walking directions hint
+- If no more classes today: "No more classes today ✨"
+
+**Why students want it:** The Agenda Timeline mixes everything together. This answers the single most common question during the day — "where am I supposed to be next?" — at a glance with zero scrolling. Especially useful when rushing between buildings at NUS.
+
+**Feasibility:** ⭐⭐⭐⭐ Uses existing `timetable/today` data. Pure frontend logic to find current/next slot based on current time.
+
+---
+
+### 4. 📈 Weekly Progress Rings
+
+> A visual snapshot of how your week is going.
+
+**What it shows:**
+- Two concentric donut/ring charts:
+  - **Outer ring:** Assignments submitted vs total due this week (e.g. `3/5`)
+  - **Inner ring:** Tasks completed vs total open (e.g. `9/14`)
+- Percentage label in center
+- Color shifts from amber → green as you approach 100%
+
+**Why students want it:** The Upcoming Deadlines widget is a _list_. This is a _feeling_ — a motivational visual that makes you want to close those rings (à la Apple Watch). Different data presentation, different psychological effect.
+
+**Feasibility:** ⭐⭐⭐ All data exists. Frontend-only — compute from tasks + assignments already fetched on dashboard load. Needs a small SVG ring component.
+
+---
+
+### 5. 🔗 Quick Links
+
+> Your personal launchpad to university tools.
+
+**What it shows:**
+- A 2×3 or 2×4 grid of customizable bookmark tiles:
+  - Canvas, NUSMods, NUS Library, Webmail, LumiNUS, Gradescope, etc.
+- Each tile: icon/favicon + label + opens in new tab
+- Edit mode to add/remove/reorder links
+
+**Why students want it:** Students context-switch between 5–8 web tools constantly. Having them one click away on the dashboard saves real time.
+
+**Feasibility:** ⭐⭐⭐⭐⭐ No backend needed at all. Store in localStorage or the existing settings key-value store. Simplest widget to build.
+
+---
+
+## Honorable Mentions
+
+| Idea | Notes |
+|---|---|
+| **Canvas Sync Badge** | Last sync time + re-sync button. Could be a tiny status bar rather than a full widget — maybe integrate into the dashboard header instead. |
+| **Study Hours by Module** | Weekly bar chart of time per module. Great idea but needs students to actually log `actual_minutes` on tasks, which many won't. |
+| **Exam Countdown** | Prominent countdown to next exam. Would need exam date entry UI (Canvas doesn't always have this). Could be a future addition to the timetable. |
+
+---
+
+## My Recommendation
+
+Build them in this order based on impact-to-effort ratio:
+
+1. **Quick Links** — 1 hour, pure frontend, instant utility
+2. **Now/Next Class Card** — 2 hours, pure frontend, high daily value
+3. **Spotify Mini** — 2 hours, reuses existing infra, delightful
+4. **Weekly Progress Rings** — 3 hours, visually impressive, motivating
+5. **Weekly Pulse** — 4 hours, needs new backend endpoint, most ambitious
+
+> [!TIP]
+> Widgets 1–3 can be shipped with **zero backend changes** since all the data and APIs already exist.

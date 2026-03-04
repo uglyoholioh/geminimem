@@ -1,0 +1,6 @@
+# Immersive Vinyl Player in Focus Tab
+
+- [/] Plan the immersive vinyl player redesign
+- [ ] Implement the new `VinylPlayer` component
+- [ ] Integrate the vinyl player into the Focus page layout
+- [ ] Verify the changes visually in the browser
