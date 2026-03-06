@@ -1,0 +1,26 @@
+# Walkthrough: Adding Media Retrieval and Subtitling to AI Tools
+
+I have successfully added the two requested AI Tools that enhance the capabilities of the assistant when working with user documents.
+
+## Changes Made
+
+### 1. [get_media_link](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#873-908)
+We introduced a tool that allows the assistant to quickly grab a formatted download or view link for any file (e.g. `slides.pdf` or `lecture.mp4`) previously synced from Canvas or uploaded manually to a module. 
+- It uses the local search algorithm matching filename and course filters.
+- Instructs the AI to give the user a clickable download element like: `[Download lecture.mp4](/api/v1/...)`.
+
+### 2. [generate_video_subtitles](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#910-974)
+We added a new processing action that:
+- Locates the local downloaded video file.
+- Checks if the user's Google GenAI API key is configured.
+- Uploads the video securely to the Gemini File API.
+- Polls for the `PROCESSING` state until the video is ready to be transcribed.
+- Prompts the `gemini-2.5-pro` model to output a chronological transcript or subtitle (.srt) format natively from the video's audio.
+- Trashes the file on Gemini's servers immediately after generation to ensure privacy.
+- Returns the full generated transcript to the AI to present to the user.
+
+### 3. Context & Instruction Updates
+We updated [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py) to mention both [get_media_link](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#873-908) and [generate_video_subtitles](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#910-974). This is injected into the AI system prompt dynamically, so it now intrinsically knows *when* to seamlessly trigger these tasks based on user requests (e.g., "Give me a transcript for the week 3 video" or "Link me the syllabus pdf").
+
+## Validation Results
+We added mocks and test cases for both [get_media_link](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#873-908) and [generate_video_subtitles](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#910-974) to [test_ai_tools_documents.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_services/test_ai_tools_documents.py). All 26 backend test cases currently pass without regressions, ensuring that the tool schemas return properly and interact effectively with the `google.genai.Client`.

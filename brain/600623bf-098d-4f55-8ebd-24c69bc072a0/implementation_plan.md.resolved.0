@@ -1,0 +1,38 @@
+# Adding media retrieval and video subtitling AI Tools
+
+This implements the user's request to "add more tools for the AI to be able to use, e.g. retrieving specific videos and pdfs or materials in the app and linking it to the user. Also stuff like taking a video and subtitling it."
+
+## Proposed Changes
+
+### [backend/services/ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+We will add two new functions to the tools registry, and register them in `TOOL_DEFINITIONS`:
+
+#### [MODIFY] [backend/services/ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- Add `get_media_link(filename: str, course_code: Optional[str] = None, **kwargs) -> Dict[str, Any]`
+  - Uses [_find_file_by_name](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#45-86) to locate the file (ModuleFile or CanvasFile).
+  - Returns a payload with the filename, source type, and a markdown-friendly `download_url` depending on the file source (e.g., `/api/v1/courses/{course_id}/files/{file_id}/download` for ModuleFiles, and similar for CanvasFiles based on standard Canvas file structure or syncing).
+  - Include instructions for the LLM to provide the link to the user formatted nicely like `[Download {filename}]({download_url})`.
+
+- Add `generate_video_subtitles(filename: str, course_code: Optional[str] = None, **kwargs) -> Dict[str, Any]`
+  - Uses [_find_file_by_name](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#45-86) to locate the file.
+  - Checks if the file has a valid `local_path` and if it is an acceptable video format (e.g. mp4).
+  - Imports the `google.genai` client using the app's credentials.
+  - Uploads the video using `client.files.upload`.
+  - Waits briefly if the file is in a `PROCESSING` state.
+  - Generates a transcript/subtitles using `client.models.generate_content` with the video file representation.
+  - Cleans up the remote uploaded file if possible (or leaves it to auto-expire on Gemini's servers).
+  - Returns the generated text or `.srt` equivalent.
+
+- Append these to `TOOL_DEFINITIONS`.
+
+### [backend/services/context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)
+#### [MODIFY] [backend/services/context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)
+- Update the [_action_instructions](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py#88-112) section for "Document Intelligence Tools" to mention `get_media_link` and `generate_video_subtitles` so the LLM intuitively knows when to use them.
+
+## Verification Plan
+### Automated Tests
+- While there are existing tests in [backend/tests/test_services/test_ai_tools_documents.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_services/test_ai_tools_documents.py), doing actual video upload in test takes time and is an external request. I will add mock tests for `get_media_link` inside [test_ai_tools_documents.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_services/test_ai_tools_documents.py) to ensure it returns the correct URLs.
+- Note: `generate_video_subtitles` will also be mock-tested to ensure the API requests are constructed correctly without actually uploading files.
+
+### Manual Verification
+- Manually run the test suite `pytest backend/tests/test_services/test_ai_tools_documents.py` to confirm the logic succeeds.
