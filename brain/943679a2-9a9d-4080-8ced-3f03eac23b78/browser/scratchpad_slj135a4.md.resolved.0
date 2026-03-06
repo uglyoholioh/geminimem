@@ -1,0 +1,14 @@
+# Test Plan: Activity Finder
+
+- [ ] Navigate to http://localhost:3000/meetings
+- [ ] Check if "Activity Finder" heading is visible
+- [ ] Create "New Meeting"
+    - [ ] Click "New Meeting" button
+    - [ ] Fill Title "Test Event"
+    - [ ] Select dates
+    - [ ] Set hours
+    - [ ] Click "Generate Link"
+- [ ] Verify meeting appears in list
+- [ ] Test "Copy Link" & Success Toast
+- [ ] Click meeting card to navigate to detail page
+- [ ] Final report

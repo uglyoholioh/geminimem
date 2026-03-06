@@ -1,0 +1,41 @@
+# Advanced Interactive AI Tools
+
+This implements the user's request to add the Smart Scheduling & Free-Time Finder, and the Interactive Quizzing tools to the AI's capabilities.
+
+## User Review Required
+> [!NOTE]
+> No new database models are needed. This relies on the new Canvas sync data and existing Timetable data.
+
+## Proposed Changes
+
+### 1. Smart Scheduling & Free-Time Finder
+- #### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+  - Create `find_available_slots(duration_minutes: int, before_date: str)`
+  - **Logic:** 
+      - Parse `before_date` to get the timeframe (from tomorrow up to `before_date`).
+      - Query [TimetableSlot](file:///Users/oli/Desktop/CraftCanvas/backend/models/timetable.py#8-40) (weekly recurring academic events) and [TimetableEvent](file:///Users/oli/Desktop/CraftCanvas/backend/models/event.py#6-28) (one-off personal/study events) for the user.
+      - Restrict working hours to a reasonable window (e.g. 08:00 - 22:00).
+      - Scan for open windows of continuous free time >= `duration_minutes`.
+      - Return the top 3-5 best time slots (e.g. `["2025-03-08 14:00 - 16:30", ...]`) formatted nicely for the AI.
+
+### 2. Interactive Quizzing
+- #### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+  - Create `generate_practice_quiz(course_code: str, topic_or_week: str)`
+  - **Logic:**
+      - Uses `google.genai` client directly within the tool (similar to [generate_video_subtitles](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#912-976) or [brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)).
+      - First, pulls text from `rag_service` (via [search_module_materials](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#308-378)) based on the `topic_or_week`.
+      - Calls Gemini via the API to generate a strict JSON payload: `[{"question": "...", "options": ["..."], "correct_answer": "...", "explanation": "..."}]`.
+      - Returns the JSON to the main conversational AI, wrapped in instructions: *"Do not reveal the correct answers yet. Ask the user Question 1, wait for their reply, then grade it and ask Question 2."*
+
+### 3. Context & Instructions
+- #### [MODIFY] [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)
+  - Add `find_available_slots` and `generate_practice_quiz` to the AI's system prompt so it knows how and when to use them.
+
+## Verification Plan
+### Automated Tests
+- Add mocks and tests to [tests/test_services/test_ai_tools_documents.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_services/test_ai_tools_documents.py) to ensure `find_available_slots` properly respects existing events and returns empty lists if no slots are found.
+- Add mock tests for `generate_practice_quiz` to ensure it parses RAG responses and returns valid JSON.
+
+### Manual Verification
+- Ask the AI "Do I have 2 hours to study tomorrow?" and verify it returns a valid gap in my timetable.
+- Ask the AI "Quiz me on CS2103T Week 1" and verify it generates a quiz and administers it interactively.

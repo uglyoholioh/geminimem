@@ -1,0 +1,23 @@
+# Adding AI Tools
+
+- [x] Analyze how tools are currently exposed to the AI ([context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py) and [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py))
+- [x] Implement tool for retrieving specific videos/pdfs/materials and linking it for the user
+- [x] Implement tool for taking a video and subtitling it
+- [x] Ensure AI has permissions and tools injected correctly
+- [x] Test the new tools
+
+# Enhancing Canvas Data Access
+
+- [x] Add `syllabus_body` to [Course](file:///Users/oli/Desktop/CraftCanvas/backend/models/course.py#38-66) model
+- [x] Create [CanvasPage](file:///Users/oli/Desktop/CraftCanvas/backend/models/canvas_page.py#9-30) and [CanvasModule](file:///Users/oli/Desktop/CraftCanvas/backend/models/canvas_module.py#9-29) models
+- [x] Update [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py) to fetch syllabus, pages, and modules
+- [x] Create AI tools for syllabus, modules outline, and page content
+- [x] Update AI context instructions
+- [x] Test the new tools internally
+
+# Advanced Interactive AI Tools
+
+- [x] Implement [find_available_slots](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#1093-1199) AI tool (Timetable/Events querying)
+- [x] Implement [generate_practice_quiz](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#1201-1297) AI tool (RAG + Gemini processing)
+- [x] Add both tools to [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py) instructions
+- [x] Test the exact JSON quiz generation and slot formatting limits internally

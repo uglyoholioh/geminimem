@@ -1,0 +1,6 @@
+# Task: Fix Focus Page Layout
+
+- [/] Analyze Focus page layout and identify cropping cause
+- [ ] Create implementation plan to fix layout
+- [ ] Apply CSS fixes to [frontend/app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
+- [ ] Verify the fix in the browser

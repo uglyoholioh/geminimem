@@ -1,0 +1,20 @@
+# Spotify Player Vinyl Default Implementation Plan
+
+The user wants the Spotify player to default to the vinyl view even when no music is playing, and to display a suggestion to connect if Spotify is not linked.
+
+## Proposed Changes
+
+### [Component] [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
+
+#### [MODIFY] [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
+
+- Update the fallback logic in [SpotifyPlayer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#68-240) to render [MDVinylPlayer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#247-538) with a "dummy" or "placeholder" track if no `currentTrack` is active, but a token exists.
+- Modify the [MDVinylPlayer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#247-538) component to handle a `null` or placeholder `currentTrack` gracefully.
+- Update the "Not connected" state to be more prominent or styled as a suggestion if desired, though the current state already provides a "Link Account" button. I will refine the "Not connected" UI to feel more like a "suggestion" as requested.
+
+## Verification Plan
+
+### Manual Verification
+- Load the dashboard without playing any music; the vinyl player should be visible.
+- If not logged in to Spotify, the "Connect Spotify" suggestion should be visible.
+- Verify that clicking "Play Here" or starting music updates the vinyl player correctly.

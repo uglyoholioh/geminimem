@@ -1,0 +1,19 @@
+# Test Plan: Activity Finder
+
+- [x] Navigate to http://localhost:3000/meetings (Redirected to /login)
+- [x] Log in or Register (Registered with test_browser_agent@example.com / password123)
+- [ ] Check if "Activity Finder" heading is visible (Blocked by /setup redirect)
+
+## Findings
+- **Bug**: Email field is pre-filled with `https://connect.craft.do/links/4MBkXoq25FW/api/v1` on Login and Register pages.
+- **Redirect loop**: Attempting to navigate to `/meetings` redirects to `/setup` or `/login`.
+- [ ] Create "New Meeting"
+    - [ ] Click "New Meeting" button
+    - [ ] Fill Title "Test Event"
+    - [ ] Select dates
+    - [ ] Set hours
+    - [ ] Click "Generate Link"
+- [ ] Verify meeting appears in list
+- [ ] Test "Copy Link" & Success Toast
+- [ ] Click meeting card to navigate to detail page
+- [ ] Final report

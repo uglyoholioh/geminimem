@@ -1,0 +1,22 @@
+# Test Plan: Activity Finder
+
+- [x] Navigate to http://localhost:3000/meetings (Redirected to /login)
+- [x] Log in or Register (Registered with test_browser_agent@example.com / password123)
+- [ ] Check if "Activity Finder" heading is visible (Redirected to /setup or /login)
+- [ ] Create "New Meeting" (Blocked)
+
+## Bugs Found
+1.  **Pre-filled Email**: The email field on `/login` and `/register` is pre-filled with `https://connect.craft.do/links/4MBkXoq25FW/api/v1`.
+2.  **Authentication Persistence**: After registering or logging in, the user is redirected to `/setup`, but subsequent API calls like `/api/v1/auth/me` return 401 Unauthorized. The session does not seem to persist.
+3.  **Missing API Endpoint**: `/api/v1/meetings` returns 404 Not Found. This is likely why the Activity Finder page stays on "Loading..." or breaks.
+4.  **Setup Loop**: The application constantly redirects to `/setup` and won't allow navigation to `/meetings` even after "completing" the setup step (clicking Standard).
+- [ ] Create "New Meeting"
+    - [ ] Click "New Meeting" button
+    - [ ] Fill Title "Test Event"
+    - [ ] Select dates
+    - [ ] Set hours
+    - [ ] Click "Generate Link"
+- [ ] Verify meeting appears in list
+- [ ] Test "Copy Link" & Success Toast
+- [ ] Click meeting card to navigate to detail page
+- [ ] Final report
