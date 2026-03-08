@@ -12,37 +12,37 @@ The goal is to resolve the issue where clicking "Connect Spotify" does nothing a
 
 ## Proposed Changes
 
-### Backend
+### [Component] Backend Spotify Router
 
-#### [MODIFY] [.env](file:///Users/oli/Desktop/CraftCanvas/backend/.env)
-- Added placeholders for Spotify and Google Calendar credentials.
+Fix the OAuth 2.0 flow to correctly handle user-provided credentials and add profile information.
 
-#### [MODIFY] [routers/spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py)
-- Improve error handling in `/login` and `/token` endpoints to return clearer error messages if credentials are missing.
+#### [MODIFY] [spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py)
+- Update `spotify_callback` to use database-stored `client_id` and `client_secret` based on the `state` (user_id) parameter.
+- Add `/me` endpoint to fetch user's Spotify display name, image, and account status (Premium).
+- Improve error handling for missing/invalid credentials.
 
-### Frontend
+---
 
-#### [MODIFY] [components/SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
-- Add error state handling for the `fetchToken` logic.
-- Display a toast or alert if the backend reports missing configuration.
-#### [MODIFY] [app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
-- Remove Google and Apple Calendar sections from the Integrations tab.
-- Remove Spotify Client ID and Client Secret input fields.
-- Simplify Spotify Integration to a single "Connect" button.
+### [Component] Frontend Spotify Components
 
-### Backend
+Improve the user experience and feedback during and after authentication.
 
-#### [MODIFY] [routers/spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py)
-- Revert the logic that prioritized database-stored credentials.
-- Use global environment variables for Spotify authentication.
+#### [MODIFY] [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
+- Update error messages to direct users to the "Integrations" tab in Settings.
+- Add a "Connected User" status to show the Spotify display name once authenticated.
+- Improve the "Connect" button state and loading feedback.
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)
+- Ensure the "Connect Spotify Account" button correctly triggers the OAuth flow.
+- Show the connected Spotify account name if available.
 
 ## Verification Plan
 
 ### Automated Tests
-- Run `npm run test` (if available) to ensure no regressions.
-- Use `curl` to verify backend `/login` endpoint behavior with/without credentials.
+- Mock the Spotify token exchange to verify the database fallback logic in `spotify_callback`.
 
 ### Manual Verification
-- User to provide `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` in `.env`.
-- Click "Connect Spotify" and verify redirect to Spotify login page.
-- Verify "Connect Google Calendar" flow once implemented.
+1. Enter custom Spotify Client ID/Secret in the Settings > Integrations tab.
+2. Click "Connect Spotify Account".
+3. Verify successful redirect and token storage in the database.
+4. Verify the Focus page shows "Connected as [Name]" and the vinyl player initializes.

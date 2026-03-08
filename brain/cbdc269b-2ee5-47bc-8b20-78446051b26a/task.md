@@ -13,5 +13,10 @@
     - [x] Fix `NameError` (undefined `start_time`)
     - [x] Fix `TypeError` (naive vs aware datetimes in SQLite)
     - [x] Fix `Logging` collision (reserved `created` attribute)
+- [x] Fix Spotify OAuth 2.0 callback for user-provided credentials
+- [x] Add Spotify `/me` endpoint for profile fetching
+- [x] Update `SpotifyPlayer.tsx` with profile status and better error handling
+- [x] Add "Disconnect" functionality to clear Spotify tokens
+- [ ] Final verification with custom credentials
 - [x] Implement Google/Apple Calendar Integrations <!-- id: 13 -->
 - [x] Update walkthrough <!-- id: 12 -->

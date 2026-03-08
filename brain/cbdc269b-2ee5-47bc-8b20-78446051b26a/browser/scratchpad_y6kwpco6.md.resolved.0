@@ -1,0 +1,9 @@
+# Spotify Integration Verification Checklist
+
+- [ ] Navigate to `http://localhost:3000/settings`
+- [ ] Click on the "Integrations" tab
+- [ ] Verify Spotify section UI (better UI, "Connect" button)
+- [ ] Capture screenshot of `Settings > Integrations`
+- [ ] Navigate to `http://localhost:3000/focus`
+- [ ] Capture screenshot of vinyl player area
+- [ ] Summarize findings

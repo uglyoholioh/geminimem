@@ -1,0 +1,38 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,430)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[10] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[11] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+TU
+Focus
+[12] (959,140)<button class='absolute top-6 right-6 z-30 p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-lg text-white/80 hover:text-white hover:bg-white/20 transition-all hover:scale-105 active:scale-95' title='Customise Focus Settings' />
+[13] (268,511)<div  />
+	[14] (268,511)<div  />
+		[15] (268,511)<div  />
+Irridescent Mountains
+[16] (238,755)<button class='transition-all hover:scale-110 active:scale-90' title='Previous' />
+[17] (268,755)<button class='flex items-center justify-center transition-all hover:scale-105 active:scale-95' title='Pause' />
+[18] (297,755)<button class='transition-all hover:scale-110 active:scale-90' title='Next' />
+[19] (486,380)<button class='px-4 py-1.5 rounded-full text-xs font-medium transition-colors bg-primary text-base shadow-sm'>Focus />
+[20] (533,380)<button class='px-4 py-1.5 rounded-full text-xs font-medium transition-colors text-muted hover:text-primary hover:bg-surface-hover'>Short Break />
+[21] (588,380)<button class='px-4 py-1.5 rounded-full text-xs font-medium transition-colors text-muted hover:text-primary hover:bg-surface-hover'>Long Break />
+25:00
+[22] (524,673)<button aria-label='Start Timer' class='flex items-center justify-center h-16 w-16 md:h-20 md:w-20 rounded-full text-white shadow-lg transition-transform hover:scale-105 active:scale-95 bg-accent hover:bg-accent-hover' />
+[23] (566,673)<button class='flex items-center justify-center h-12 w-12 rounded-full bg-base border-border text-muted hover:text-primary hover:bg-surface-hover border transition-colors' title='Reset Timer' />
+0
+Sessions today
+Focusing On
+Select a task to focus on
+
+</current_dom>

@@ -1,0 +1,11 @@
+# Task Checklist
+- [x] Navigate to http://localhost:3000/settings
+- [x] Click on the "Integrations" tab.
+- [x] Verify Spotify Client ID and Client Secret fields are present.
+- [x] Verify "Connect Spotify Account" button is visible.
+- [x] Capture a screenshot of the Settings > Integrations tab.
+- [x] Navigate to http://localhost:3000/focus
+- [x] Open the customize (gear) icon and check the "Integrations" tab.
+- [x] Verify simplified state (only Spotify toggle and Connect button).
+- [x] Capture a screenshot of the Focus > Integrations tab.
+- [x] Return the results.

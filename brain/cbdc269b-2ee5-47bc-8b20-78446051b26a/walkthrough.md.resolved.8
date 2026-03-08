@@ -6,18 +6,17 @@ In this session, I completed the refinement of the Spotify Vinyl Player and reso
 
 The Spotify player now provides a more seamless and premium experience:
 
-- **Default Vinyl View:** The [MDVinylPlayer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#226-546) is now the default view when a Spotify token is available, even if nothing is currently playing.
+- **Default Vinyl View:** The [MDVinylPlayer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#211-524) is now the default view when a Spotify token is available, even if nothing is currently playing.
 - **Improved Idle State:** When idle, the player shows a static vinyl with a "Ready to Play" status.
 - **Simplified Focus Integration:** The Focus settings modal is now stripped of technical setup. It only contains a "Connect" button and a show/hide toggle for Spotify.
-- **Improved Player UI:** The player now shows your Spotify profile tag (Name and Premium status) and handles reconnection more gracefully.
-- **Dedicated Integrations Settings:** A new **Integrations** tab in the main Settings page handles all configuration (Spotify API keys, Calendars, ICS imports).
-- **OAuth 2.0 Refinements:** The backend correctly handles user-specific API keys and provides a "Disconnect" option to clear all tokens.
+- **Dedicated Integrations Settings:** A new **Integrations** tab in the main Settings page handles all advanced configuration (Spotify API keys, Calendars, ICS imports).
+- **Backend Persistence:** Spotify credentials saved in the UI are now persisted in the database, allowing for a standard authorization flow without needing to touch [.env](file:///Users/oli/Desktop/CraftCanvas/backend/.env) files.
 
-### Enhanced Spotify Player
-![Spotify Player Profile](/Users/oli/.gemini/antigravity/brain/cbdc269b-2ee5-47bc-8b20-78446051b26a/focus_vinyl_player_state_1772985537295.png)
+### Simplified Focus UI
+![Simplified Focus Integrations](/Users/oli/.gemini/antigravity/brain/cbdc269b-2ee5-47bc-8b20-78446051b26a/focus_integrations_tab_1772985066941.png)
 
 ### Advanced Integrations Settings
-![Settings Integrations Tab](/Users/oli/.gemini/antigravity/brain/cbdc269b-2ee5-47bc-8b20-78446051b26a/settings_integrations_spotify_ui_1772985523370.png)
+![Settings Integrations Tab](/Users/oli/.gemini/antigravity/brain/cbdc269b-2ee5-47bc-8b20-78446051b26a/settings_integrations_tab_1772985046418.png)
 
 ## Backend Stability & API Fixes
 
@@ -25,7 +24,7 @@ I fixed a variety of 500 Internal Server Errors that were affecting the dashboar
 
 - **Missing Dependencies:** Installed the `caldav` library which was missing in the backend environment.
 - **Namespace Collisions:** Resolved an import conflict in [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) by renaming the [settings](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py#30-60) import to `app_settings`.
-- **Database Schema Updates:** Added missing `syllabus_body` column to the [courses](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#82-152) table and sync-related columns (`google_tasks_id`, `apple_reminders_id`) to the [tasks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#22-66) table.
+- **Database Schema Updates:** Added missing `syllabus_body` column to the [courses](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py#26-67) table and sync-related columns (`google_tasks_id`, `apple_reminders_id`) to the [tasks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#22-66) table.
 - **API Key Configuration:** Matched the backend `API_SECRET_KEY` with the frontend settings to resolve authentication failures.
 
 ## Canvas Sync Debugging

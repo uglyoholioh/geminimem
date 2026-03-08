@@ -8,9 +8,16 @@ The Spotify player now provides a more seamless and premium experience:
 
 - **Default Vinyl View:** The `MDVinylPlayer` is now the default view when a Spotify token is available, even if nothing is currently playing.
 - **Improved Idle State:** When idle, the player shows a static vinyl with a "Ready to Play" status.
-- **Simplified Focus Integration:** Reverted the Integrations tab to a clean layout with a single "Connect" button for Spotify. Calendars and manual API key fields have been removed from the Focus view for a better user experience.
+- **Simplified Focus Integration:** The Focus settings modal is now stripped of technical setup. It only contains a "Connect" button and a show/hide toggle for Spotify.
+- **Improved Player UI:** The player now shows your Spotify profile tag (Name and Premium status) and handles reconnection more gracefully.
+- **Dedicated Integrations Settings:** A new **Integrations** tab in the main Settings page handles all configuration (Spotify API keys, Calendars, ICS imports).
+- **OAuth 2.0 Refinements:** The backend correctly handles user-specific API keys and provides a "Disconnect" option to clear all tokens.
 
-![Simplified Focus Integrations](/Users/oli/.gemini/antigravity/brain/cbdc269b-2ee5-47bc-8b20-78446051b26a/focus_integrations_tab_1772984677626.png)
+### Enhanced Spotify Player
+![Spotify Player Profile](/Users/oli/.gemini/antigravity/brain/cbdc269b-2ee5-47bc-8b20-78446051b26a/focus_vinyl_player_state_1772985537295.png)
+
+### Advanced Integrations Settings
+![Settings Integrations Tab](/Users/oli/.gemini/antigravity/brain/cbdc269b-2ee5-47bc-8b20-78446051b26a/settings_integrations_spotify_ui_1772985523370.png)
 
 ## Backend Stability & API Fixes
 
