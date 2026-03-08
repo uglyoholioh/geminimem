@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_TASK",
-  "summary":  "Expanded the task list to include missing backend router tests (meetings, settings, study_tip), E2E coverage for focus and AI chat, and a cleanup task for deprecation warnings.",
-  "updatedAt":  "2026-03-08T12:22:03.680389Z",
-  "version":  "12"
+  "summary":  "Finalized backend test coverage for core routers. Replaced all deprecated `utcnow()` and `default_factory=datetime.utcnow` calls with `now_utc` across the backend. Updated `task.md` to reflect backend completion. Now proceeding to frontend E2E test expansion.",
+  "updatedAt":  "2026-03-08T12:30:22.844576Z",
+  "version":  "13"
 }
