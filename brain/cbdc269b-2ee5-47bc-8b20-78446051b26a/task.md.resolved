@@ -4,8 +4,8 @@
     - [x] Make vinyl view default (even when no song playing)
     - [x] Show "Connect Spotify" suggestion with premium UI if not connected
     - [x] Add "Play Here" button for manual sync
-- [/] Debug API 500 errors
-    - [/] Investigate backend logs and error source
-    - [ ] Resolve key mismatch or server state issues
-    - [ ] Verify functionality across dashboard/focus pagesefault and active playback states <!-- id: 11 -->
+- [x] Debug API 500 errors
+    - [x] Investigate backend logs and error source
+    - [x] Resolve key mismatch and server state issues (fixed missing caldav, name shadowing, and schema)
+    - [x] Verify functionality across dashboard/focus pages
 - [x] Update walkthrough <!-- id: 12 -->

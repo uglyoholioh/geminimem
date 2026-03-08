@@ -1,0 +1,22 @@
+# Codebase Audit Task List
+
+- [x] Phase 1: Initial Assessment and Planning
+    - [x] Explore file structure and tech stack
+    - [x] Analyze core configuration and entry points
+- [/] Phase 2: Backend Audit
+    - [x] Review Models and Database Schema (`backend/models`, `backend/database.py`)
+    - [x] Review API Routes and Middleware (`backend/routers`, `backend/main.py`)
+    - [/] Analyze Core Services (`backend/services`)
+    - [x] Audit Security and Authentication (`backend/lib/jwt_utils.py`, `backend/routers/auth.py`)
+    - [/] Check Background Jobs and Scheduler (`backend/jobs`)
+- [ ] Phase 3: Frontend Audit
+    - [ ] Review App Structure and Routing (`frontend/app`)
+    - [ ] Audit Core Components and Providers (`frontend/components`)
+    - [ ] Verify Design System and Styling (`frontend/tailwind.config.ts`, `docs/DESIGN_SYSTEM.md`)
+    - [ ] Check API Client and State Management (`frontend/lib/api.ts`, `frontend/hooks`)
+- [ ] Phase 4: Documentation and Best Practices
+    - [ ] Compare implementation with `docs/`
+    - [ ] Check for inconsistencies with `MEMORY[GEMINI.md]`
+- [ ] Phase 5: Final Report Generation
+    - [ ] Compile findings into `audit_report.md`
+    - [ ] provide actionable recommendations

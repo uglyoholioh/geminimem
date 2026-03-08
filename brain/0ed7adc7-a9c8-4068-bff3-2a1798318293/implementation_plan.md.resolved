@@ -1,0 +1,71 @@
+# Implementation Plan - Robust Error Logging and Full Test Suite
+
+This plan outlines the enhancements to the application's error logging infrastructure and the expansion of the test suite to ensure full feature coverage and reliability.
+
+## Proposed Changes
+
+### Backend: Enhanced Logging
+
+#### [MODIFY] [logging_utils.py](file:///Users/oli/Desktop/CraftCanvas/backend/lib/logging_utils.py)
+- Transition to structured logging (JSON format) for better machine readability in production.
+- Add context-aware logging (e.g., request IDs, user IDs) using `contextvars`.
+- Implement separate handlers for different log levels (e.g., `error.log` for ERROR/CRITICAL).
+
+#### [MODIFY] [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py)
+- Integrate a middleware or dependency to inject request-scoped context (Request ID) into the logger.
+
+---
+
+### Frontend: Error Logging & Boundaries
+
+#### [NEW] [ErrorBoundary.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ErrorBoundary.tsx)
+- Create a reusable React Error Boundary component to catch rendering errors and display a fallback UI.
+
+#### [MODIFY] [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx)
+- Wrap the application in the `ErrorBoundary`.
+
+#### [MODIFY] [api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts)
+- Enhance [apiFetch](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts#7-35) to log errors to a centralized "frontend logs" endpoint or local console in a more structured way.
+
+---
+
+### Backend: Test Suite Expansion
+
+#### [NEW] [test_canvas_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_services/test_canvas_service.py)
+- Add comprehensive tests for [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py) including edge cases like token expiry and large course loads.
+
+#### [NEW] [test_telegram_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_services/test_telegram_service.py)
+- Add unit tests for bot logic and user linking.
+
+#### [MODIFY] [test_tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_routers/test_tasks.py)
+- Expand coverage for the new `task_sync` features.
+
+---
+
+### Frontend: Test Suite Expansion
+
+#### [NEW] [Dashboard.test.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/__tests__/Dashboard.test.tsx)
+- Add Vitest component tests for the main Dashboard widgets.
+
+#### [MODIFY] [tasks.spec.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/e2e/tasks.spec.ts)
+- Expand Playwright E2E tests to cover complex task interactions (drag-and-drop, external sync).
+
+## Verification Plan
+
+### Automated Tests
+- **Backend**: Run `pytest` from the `/backend` directory.
+  ```bash
+  cd backend && pytest
+  ```
+- **Frontend Unit/Component**: Run `vitest` from the `/frontend` directory.
+  ```bash
+  cd frontend && npm run test
+  ```
+- **Frontend E2E**: Run Playwright tests.
+  ```bash
+  cd frontend && npx playwright test
+  ```
+
+### Manual Verification
+- Trigger a backend error (e.g., invalid data submission) and verify it appears in `backend/logs/backend.log` with structured context.
+- Trigger a frontend crash and verify the `ErrorBoundary` displays the fallback UI.
