@@ -1,0 +1,17 @@
+# Spotify Player Playback Debugging
+
+- [x] Refine Spotify Player View
+    - [x] Make vinyl view default (even when no song playing)
+    - [x] Show "Connect Spotify" suggestion with premium UI if not connected
+    - [x] Add "Play Here" button for manual sync
+- [x] Debug API 500 errors
+    - [x] Investigate backend logs and error source
+    - [x] Resolve key mismatch and server state issues (fixed missing caldav, name shadowing, and schema)
+    - [x] Verify functionality across dashboard/focus pages
+- [x] Resolve Canvas sync issues
+    - [x] Fix `TypeError` (unexpected `background_tasks` argument)
+    - [x] Fix `NameError` (undefined `start_time`)
+    - [x] Fix `TypeError` (naive vs aware datetimes in SQLite)
+    - [x] Fix `Logging` collision (reserved `created` attribute)
+- [ ] Implement Google/Apple Calendar Integrations <!-- id: 13 -->
+- [x] Update walkthrough <!-- id: 12 -->

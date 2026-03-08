@@ -1,0 +1,45 @@
+# Walkthrough - Spotify & Calendar Integrations
+
+In this session, I completed the refinement of the Spotify Vinyl Player and resolved critical backend stability issues that were causing API failures and synchronization errors.
+
+## Spotify Player Enhancements
+
+The Spotify player now provides a more seamless and premium experience:
+
+- **Default Vinyl View:** The [MDVinylPlayer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#211-524) is now the default view when a Spotify token is available, even if nothing is currently playing.
+- **Improved Idle State:** When idle, the player shows a static vinyl with a "Ready to Play" status.
+- **Connection Debug:** Enhanced the "Connect" logic for Spotify to handle missing credentials gracefully and provided clear feedback when configuration is required.
+
+![Spotify Focus Player](/Users/oli/.gemini/antigravity/brain/cbdc269b-2ee5-47bc-8b20-78446051b26a/spotify_connect_debug_1772981881247.webp)
+
+## Backend Stability & API Fixes
+
+I fixed a variety of 500 Internal Server Errors that were affecting the dashboard and focus pages:
+
+- **Missing Dependencies:** Installed the `caldav` library which was missing in the backend environment.
+- **Namespace Collisions:** Resolved an import conflict in [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py) by renaming the `settings` import to `app_settings`.
+- **Database Schema Updates:** Added missing `syllabus_body` column to the [courses](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py#26-67) table and sync-related columns (`google_tasks_id`, `apple_reminders_id`) to the [tasks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#22-66) table.
+- **API Key Configuration:** Matched the backend `API_SECRET_KEY` with the frontend settings to resolve authentication failures.
+
+## Canvas Sync Debugging
+
+I resolved a series of critical backend issues that were causing Canvas synchronization to fail:
+
+1.  **Fixed [sync_all](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#685-795) Signature:** Resolved a `TypeError` where the scheduler was passing `background_tasks=None` to a function that supposedly didn't accept it.
+2.  **Resolved `NameError`:** Fixed several instances in [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py) where `start_time` was used without being defined in the local scope.
+3.  **Standardized Datetimes:** Converted [now_utc()](file:///Users/oli/Desktop/CraftCanvas/backend/lib/timezone.py#11-14) to return naive datetimes to avoid "can't subtract offset-naive and offset-aware datetimes" errors when interacting with SQLite.
+4.  **Avoided Logging Collisions:** Renamed the `created` key in sync statistics to `created_count` to avoid conflicts with the reserved `LogRecord.created` attribute in the Python logging module.
+
+## Calendar Integrations
+
+I implemented the user interface and backend logic for connecting external calendar services:
+
+- **Focus Settings Integration:** Added a new "Integrations" tab to the Focus page settings modal, allowing users to connect Google and Apple Calendars without leaving Focus mode.
+- **Google Calendar OAuth:** Implemented the flow to connect Google Calendar, including handling redirect URIs and token storage.
+- **Apple Calendar CalDAV:** Added support for Apple Calendar (iCloud) using app-specific passwords.
+- **Sync Logic Fixes:** Corrected a bug in the [CalendarSyncService](file:///Users/oli/Desktop/CraftCanvas/backend/services/calendar_sync.py#19-208) where event end times were being incorrectly set to match the start times.
+
+![Integrations Tab](/Users/oli/.gemini/antigravity/brain/cbdc269b-2ee5-47bc-8b20-78446051b26a/focus_integrations_tab_1772982725921.png)
+
+---
+*Verified Spotify error handling and Calendar tab visibility.*

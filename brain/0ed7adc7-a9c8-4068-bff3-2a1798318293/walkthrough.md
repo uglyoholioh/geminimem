@@ -1,44 +1,38 @@
-# Walkthrough - Enhanced Logging and Test Suite
+# Walkthrough - E2E Test Suite Expansion
 
-I have successfully expanded the test coverage and enhanced the logging infrastructure for both the backend and frontend.
+I have successfully expanded the E2E test suite for CraftCanvas, focusing on previously untested areas such as the Module Detail page, Focus Flow, and User Settings. This ensures that critical user journeys are verified and that the frontend remains robust.
 
-## Changes Made
+## Key Accomplishments
 
-### 1. Robust Error Logging
-- **Backend Structured Logging**: Transitioned to JSON-formatted logs in `backend/logs/backend.json.log` for easier analysis.
-- **Context-Aware Logging**: Implemented request tracing using `X-Request-ID` across all logs.
-- **Granular Operation Logging**: Added detailed timing and metadata to:
-    - `brief_generator.py`: Tracks context retrieval duration and estimated AI token usage.
-    - `canvas_sync.py`: Tracks step-by-step synchronization progress and counts.
-- **Frontend Error Boundaries**: Added a global `ErrorBoundary` component to catch and display graceful fallback UIs for rendering crashes.
+### 1. Expanded E2E Coverage
+- **[module_detail.spec.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/e2e/module_detail.spec.ts)**: Verifies navigation between tabs (Overview, Files, Assignments) and simulates file downloads.
+- **[focus_flow.spec.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/e2e/focus_flow.spec.ts)**: Verifies Pomodoro timer logic, mode switching, and session stats.
+- **[settings_profile.spec.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/e2e/settings_profile.spec.ts)**: Verifies user profile updates and the visibility of integration options.
 
-### 2. Expanded Backend Test Suite
-Implemented 11 new granular router tests covering:
-- **AI Router**: Chat responses and error handling.
-- **Brief Router**: Daily brief generation, regeneration, and chat history.
-- **Task Sync Router**: Google Tasks and Apple Reminders integration triggers.
-- **Verified 35/35 backend tests passing.**
+### 2. Improved Component Testability
+- Added `aria-label` to the Pomodoro toggle button on the **Focus** page.
+- Added `aria-label` to file download links on the **Module Detail** page.
+- These changes improve accessibility while providing stable hooks for E2E selectors.
 
-### 3. Frontend Component Testing
-Established a Vitest-based component testing suite in `frontend/components/dashboard/__tests__/`:
-- **DashboardWidgets.test.tsx**: Verifies `TaskProgress`, `AgendaTimeline`, `AIStudyTip`, and `FocusMini`.
-- **Responsive Layouts**: Verified that widgets correctly adapt their UI based on the `size` prop.
-- **Verified 8/8 frontend tests passing.**
+### 3. Developed Robust Mocking Strategy
+- Implemented nested mocks for `CourseDetail` to ensure all tabs (Files, Assignments) render correctly in isolation.
+- Mocked authentication and settings APIs to prevent external dependencies during testing.
 
 ## Verification Results
 
-### Backend Tests
+### Automated E2E Tests
+I ran the new test suite using Playwright, and all tests passed:
+
 ```bash
-pytest tests/test_routers/
-# Output: 35 passed, 0 failed
+npx playwright test e2e/module_detail.spec.ts e2e/focus_flow.spec.ts e2e/settings_profile.spec.ts
 ```
 
-### Frontend Tests
-```bash
-npx vitest run components/dashboard/__tests__/ api.test.ts
-# Output: 8 passed, 0 failed
-```
+**Results:**
+- `e2e/module_detail.spec.ts`: 2 passed
+- `e2e/focus_flow.spec.ts`: 2 passed
+- `e2e/settings_profile.spec.ts`: 2 passed
+- **Total**: 6 passed (100% success)
 
-## How to Verify
-1. **Logs**: Check `backend/logs/backend.json.log` while interacting with the app.
-2. **Tests**: Run `pytest` in `backend/` and `npm run test` in `frontend/`.
+## Next Steps
+- Continue adding E2E coverage for the AI Chat interface and Daily Brief page.
+- Integrate these tests into the CI/CD pipeline.

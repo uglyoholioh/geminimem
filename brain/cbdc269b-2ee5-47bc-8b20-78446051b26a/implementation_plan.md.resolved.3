@@ -1,0 +1,48 @@
+# Spotify & Calendar Integration Fixes
+
+The goal is to resolve the issue where clicking "Connect Spotify" does nothing and to proceed with the planned Google/Apple Calendar integrations.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Missing Credentials**: Spotify integration requires `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET`. I've added placeholders to the backend [.env](file:///Users/oli/Desktop/CraftCanvas/backend/.env). You will need to provide these for the connection to work.
+
+> [!WARNING]
+> **Popup Blockers**: The Spotify login flow uses a direct redirect or window change. Ensure popups are not blocked if the flow involves a new window.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [.env](file:///Users/oli/Desktop/CraftCanvas/backend/.env)
+- Added placeholders for Spotify and Google Calendar credentials.
+
+#### [MODIFY] [routers/spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py)
+- Improve error handling in `/login` and `/token` endpoints to return clearer error messages if credentials are missing.
+
+### Frontend
+
+#### [MODIFY] [components/SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
+- Add error state handling for the [fetchToken](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#83-99) logic.
+- Display a toast or alert if the backend reports missing configuration.
+- Ensure the "Connect Spotify" button fallback (`loginUrl || '#'`) doesn't silently fail.
+
+#### [MODIFY] [app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
+- Add input fields for `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` in the Integrations tab.
+- Implement logic to save these credentials to the backend settings.
+
+### Backend
+
+#### [MODIFY] [routers/settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/settings.py)
+- Ensure settings for Spotify credentials can be saved and retrieved.
+
+## Verification Plan
+
+### Automated Tests
+- Run `npm run test` (if available) to ensure no regressions.
+- Use `curl` to verify backend `/login` endpoint behavior with/without credentials.
+
+### Manual Verification
+- User to provide `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` in [.env](file:///Users/oli/Desktop/CraftCanvas/backend/.env).
+- Click "Connect Spotify" and verify redirect to Spotify login page.
+- Verify "Connect Google Calendar" flow once implemented.

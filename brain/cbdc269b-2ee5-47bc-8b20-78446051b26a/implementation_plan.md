@@ -1,23 +1,48 @@
-# Refined Spotify Player Vinyl View Implementation Plan
+# Spotify & Calendar Integration Fixes
 
-The user wants the Spotify player to default to the vinyl view (not playing) even when no music is playing, instead of the original behavior which might have been showing a simplified "ready" state or nothing at all.
+The goal is to resolve the issue where clicking "Connect Spotify" does nothing and to proceed with the planned Google/Apple Calendar integrations.
 
 ## User Review Required
+
 > [!IMPORTANT]
-> I will ensure that if a token exists but no track is active, the `MDVinylPlayer` displays a "placeholder" record that doesn't spin, allowing for immediate visual feedback without requiring the user to press play first to see the vinyl.
+> **Missing Credentials**: Spotify integration requires `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET`. I've added placeholders to the backend `.env`. You will need to provide these for the connection to work.
+
+> [!WARNING]
+> **Popup Blockers**: The Spotify login flow uses a direct redirect or window change. Ensure popups are not blocked if the flow involves a new window.
 
 ## Proposed Changes
 
-### [Component] [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
+### Backend
 
-#### [MODIFY] [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
-- Ensure `isPaused` defaults to `true` or is correctly handled when `currentTrack` is null.
-- Double-check the conditional rendering logic in `SpotifyPlayer` to make sure it doesn't bypass the vinyl view when a token is present.
-- Refine `MDVinylPlayer` to ensure animations (spinning, tonearm position) are strictly tied to the `!isPaused && !!currentTrack` state.
+#### [MODIFY] [.env](file:///Users/oli/Desktop/CraftCanvas/backend/.env)
+- Added placeholders for Spotify and Google Calendar credentials.
+
+#### [MODIFY] [routers/spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py)
+- Improve error handling in `/login` and `/token` endpoints to return clearer error messages if credentials are missing.
+
+### Frontend
+
+#### [MODIFY] [components/SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
+- Add error state handling for the `fetchToken` logic.
+- Display a toast or alert if the backend reports missing configuration.
+#### [MODIFY] [app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
+- Remove Google and Apple Calendar sections from the Integrations tab.
+- Remove Spotify Client ID and Client Secret input fields.
+- Simplify Spotify Integration to a single "Connect" button.
+
+### Backend
+
+#### [MODIFY] [routers/spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py)
+- Revert the logic that prioritized database-stored credentials.
+- Use global environment variables for Spotify authentication.
 
 ## Verification Plan
 
+### Automated Tests
+- Run `npm run test` (if available) to ensure no regressions.
+- Use `curl` to verify backend `/login` endpoint behavior with/without credentials.
+
 ### Manual Verification
-- Load the dashboard with Spotify connected but no music playing.
-- Observe the static vinyl record.
-- Start playing music from Spotify and verify the record begins to spin and the tonearm moves.
+- User to provide `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` in `.env`.
+- Click "Connect Spotify" and verify redirect to Spotify login page.
+- Verify "Connect Google Calendar" flow once implemented.

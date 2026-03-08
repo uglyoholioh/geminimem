@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Refined implementation plan to fix the Spotify player vinyl view and ensure it displays a non-playing state by default.",
-  "updatedAt":  "2026-03-08T08:17:06.330680Z",
-  "version":  "1"
+  "summary":  "Implementation plan for fixing Spotify connection issues and implementing Google/Apple Calendar integrations.",
+  "updatedAt":  "2026-03-08T15:07:19.383401Z",
+  "version":  "2"
 }

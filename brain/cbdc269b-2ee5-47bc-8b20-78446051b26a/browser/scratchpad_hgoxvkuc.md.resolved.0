@@ -1,0 +1,7 @@
+# Task Checklist
+- [ ] Navigate to http://localhost:3000/focus
+- [ ] Open the Settings (gear icon)
+- [ ] Go to the "Integrations" tab
+- [ ] Verify "App Credentials" section under Spotify Integration
+- [ ] Take a screenshot of the updated Integrations tab
+- [ ] Return the screenshot path

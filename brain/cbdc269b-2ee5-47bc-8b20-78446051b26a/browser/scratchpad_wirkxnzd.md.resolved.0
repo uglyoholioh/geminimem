@@ -1,0 +1,9 @@
+# Task Checklist
+- [ ] Navigate to http://localhost:3000/focus
+- [ ] Open the Settings (gear icon)
+- [ ] Go to the "Integrations" tab
+- [ ] Verify Google/Apple Calendar sections are GONE
+- [ ] Verify Spotify Client ID/Secret input fields are GONE
+- [ ] Verify single "Connect" button for Spotify (when toggled)
+- [ ] Take screenshot of simplified Integrations tab
+- [ ] Return screenshot path

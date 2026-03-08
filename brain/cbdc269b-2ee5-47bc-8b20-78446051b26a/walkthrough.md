@@ -1,33 +1,45 @@
-# Walkthrough - Spotify Player & API Debugging
+# Walkthrough - Spotify & Calendar Integrations
 
-## Changes Made
+In this session, I completed the refinement of the Spotify Vinyl Player and resolved critical backend stability issues that were causing API failures and synchronization errors.
 
-### 1. Spotify Player Enhancements
-- **Default Vinyl View**: The vinyl player is now the default view when Spotify is connected, even if no music is playing.
-- **Static Vinyl State**: When idle, the vinyl remains static (no spinning or tonearm movement) and displays a "Ready to Play" status.
-- **"Play Here" Button**: Added a dedicated button to the vinyl view to manually transfer playback to the CraftCanvas player, improving SDK sync reliability.
-- **Premium Connection UI**: Completely redesigned the "Connect Spotify" suggestion with glassmorphic styling, animations, and a clearer call to action.
+## Spotify Player Enhancements
 
-### 2. Backend API Fixes (500 Internal Server Error)
-- **Resolved Dependency Issues**: Installed the missing `caldav` library required for the new Calendar Integration.
-- **Fixed Namespace Collision**: Renamed `settings` import in `main.py` to `app_settings` to prevent shadowing by the `settings` router module.
-- **Cleaned Up Broken Imports**: Removed the `modules` router import from `main.py` as the actual file was missing/redundant.
-- **Database Schema Alignment**: 
-    - Added missing `syllabus_body` column to the `courses` table.
-    - Added missing `google_tasks_id` and `apple_reminders_id` columns to the `tasks` table.
-- **Key Configuration**: Created a backend `.env` file with the correct `API_SECRET_KEY` to match the frontend configuration.
+The Spotify player now provides a more seamless and premium experience:
 
-## Verification Results
+- **Default Vinyl View:** The `MDVinylPlayer` is now the default view when a Spotify token is available, even if nothing is currently playing.
+- **Improved Idle State:** When idle, the player shows a static vinyl with a "Ready to Play" status.
+- **Simplified Focus Integration:** Reverted the Integrations tab to a clean layout with a single "Connect" button for Spotify. Calendars and manual API key fields have been removed from the Focus view for a better user experience.
 
-### Backend Health & API
-- **Server Startup**: Verified that the uvicorn server now starts cleanly without tracebacks.
-- **API Connectivity**: Tested `/api/v1/courses`, `/api/v1/tasks`, and `/api/v1/spotify/token` with a valid `X-API-Key`. All returned `200 OK`.
-- **System Stability**: Confirmed that the dashboard and focus pages no longer encounter 500 errors during data loading.
+![Simplified Focus Integrations](/Users/oli/.gemini/antigravity/brain/cbdc269b-2ee5-47bc-8b20-78446051b26a/focus_integrations_tab_1772984677626.png)
 
-### Spotify Player
-- **Default State**: Verified the static vinyl view is shown by default.
-- **Playback Sync**: Verified that clicking "Play Here" correctly initializes the player and begins spinning the vinyl once music starts.
-- **Connection Flow**: Verified the new premium "Connect Spotify" UI appears correctly when logged out.
+## Backend Stability & API Fixes
 
-## Next Steps
-- Continue with the Calendar Integration as per the updated implementation plan.
+I fixed a variety of 500 Internal Server Errors that were affecting the dashboard and focus pages:
+
+- **Missing Dependencies:** Installed the `caldav` library which was missing in the backend environment.
+- **Namespace Collisions:** Resolved an import conflict in `main.py` by renaming the `settings` import to `app_settings`.
+- **Database Schema Updates:** Added missing `syllabus_body` column to the `courses` table and sync-related columns (`google_tasks_id`, `apple_reminders_id`) to the `tasks` table.
+- **API Key Configuration:** Matched the backend `API_SECRET_KEY` with the frontend settings to resolve authentication failures.
+
+## Canvas Sync Debugging
+
+I resolved a series of critical backend issues that were causing Canvas synchronization to fail:
+
+1.  **Fixed `sync_all` Signature:** Resolved a `TypeError` where the scheduler was passing `background_tasks=None` to a function that supposedly didn't accept it.
+2.  **Resolved `NameError`:** Fixed several instances in `canvas_sync.py` where `start_time` was used without being defined in the local scope.
+3.  **Standardized Datetimes:** Converted `now_utc()` to return naive datetimes to avoid "can't subtract offset-naive and offset-aware datetimes" errors when interacting with SQLite.
+4.  **Avoided Logging Collisions:** Renamed the `created` key in sync statistics to `created_count` to avoid conflicts with the reserved `LogRecord.created` attribute in the Python logging module.
+
+## Calendar Integrations
+
+I implemented the user interface and backend logic for connecting external calendar services:
+
+- **Focus Settings Integration:** Added a new "Integrations" tab to the Focus page settings modal, allowing users to connect Google and Apple Calendars without leaving Focus mode.
+- **Google Calendar OAuth:** Implemented the flow to connect Google Calendar, including handling redirect URIs and token storage.
+- **Apple Calendar CalDAV:** Added support for Apple Calendar (iCloud) using app-specific passwords.
+- **Sync Logic Fixes:** Corrected a bug in the `CalendarSyncService` where event end times were being incorrectly set to match the start times.
+
+![Integrations Tab](/Users/oli/.gemini/antigravity/brain/cbdc269b-2ee5-47bc-8b20-78446051b26a/focus_integrations_tab_1772982725921.png)
+
+---
+*Verified Spotify error handling and Calendar tab visibility.*

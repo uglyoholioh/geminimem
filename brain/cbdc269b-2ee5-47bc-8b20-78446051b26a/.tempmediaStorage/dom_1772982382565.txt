@@ -1,0 +1,105 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[3] (14,217)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[7] (14,430)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[10] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[11] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+TU
+Good evening
+, Test User
+Sunday, March 8
+[12] (228,74)<button class='
+                            flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-mono text-[10px] font-bold uppercase tracking-wider transition-all active:scale-95
+                            bg-surface/40 border-border/40 text-muted hover:border-accent/30 hover:text-accent
+                        '>Customise />
+0
+tasks
+0
+classes
+0
+min
+3
+due
+[13] (895,74)<button class='relative group transition-transform active:scale-95' />
+	10
+	new
+[14] (506,540)<div class='flex-1 min-0 overflow-y-auto pr-1' scrollable='true' />
+	Command Center
+	[15] (409,140)<select class='bg-base border border-border/50 rounded px-2 py-0.5 text-xs font-mono text-muted focus:outline-none focus:border-accent' />
+	[16] (453,140)<button class='flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-surface-hover transition-colors text-[10px] font-mono text-green-500'>1m ago />
+		1m ago
+	[17] (482,140)<a class='h-7 w-7 rounded-lg flex items-center justify-center text-muted hover:text-accent hover:bg-accent-subtle/30 transition-all' href='/brief' />
+	How can I help you today?
+	Ask about your schedule, assignments, module materials, or get study advice.
+	[18] (130,878)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📝
+Exam Prep />
+		📝
+		Exam Prep
+	[19] (181,878)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📋
+Syllabus />
+		📋
+		Syllabus
+	[20] (243,878)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>✂️
+Break Down Tasks />
+		✂️
+		Break Down Tasks
+	[21] (313,878)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📊
+Weekly Recap />
+		📊
+		Weekly Recap
+	[22] (286,927)<textarea class='chat-textarea w-full px-3.5 py-2.5 text-sm text-primary placeholder:text-muted/60 bg-transparent focus:outline-none disabled:opacity-50' placeholder='Ask anything…' />
+	Upcoming Agenda
+	Nothing scheduled in your lookahead
+	Module Hub
+	[23] (610,456)<a class='group relative flex flex-col justify-between p-3 rounded-xl border border-border/40 bg-base/30 hover:bg-surface/50 hover:border-border transition-all min-h-[72px]' href='/courses/9' />
+		[24] (610,421)<div  />
+		[25] (610,443)<span >BT1101 />
+		[26] (610,471)<div  />
+			[27] (538,471)<span >Overdue />
+	[28] (806,456)<a class='group relative flex flex-col justify-between p-3 rounded-xl border border-border/40 bg-base/30 hover:bg-surface/50 hover:border-border transition-all min-h-[72px]' href='/courses/10' />
+		[29] (806,421)<div  />
+		[30] (806,443)<span >CS2030 />
+		[31] (806,471)<div  />
+			[32] (720,471)<span >— />
+	[33] (610,539)<a class='group relative flex flex-col justify-between p-3 rounded-xl border border-border/40 bg-base/30 hover:bg-surface/50 hover:border-border transition-all min-h-[72px]' href='/courses/11' />
+		[34] (610,504)<div  />
+		[35] (610,526)<span >GES1035/GESS1025 />
+		[36] (610,555)<div  />
+			[37] (524,555)<span >— />
+	[38] (806,539)<a class='group relative flex flex-col justify-between p-3 rounded-xl border border-border/40 bg-base/30 hover:bg-surface/50 hover:border-border transition-all min-h-[72px]' href='/courses/12' />
+		[39] (806,504)<div  />
+		[40] (806,526)<span >GEX1015/GET1029 />
+		[41] (806,555)<div  />
+			[42] (720,555)<span >— />
+	[43] (610,622)<a class='group relative flex flex-col justify-between p-3 rounded-xl border border-border/40 bg-base/30 hover:bg-surface/50 hover:border-border transition-all min-h-[72px]' href='/courses/13' />
+		[44] (610,587)<div  />
+		[45] (610,609)<span >MA1522 />
+		[46] (610,638)<div  />
+			[47] (524,638)<span >— />
+	[48] (806,622)<a class='group relative flex flex-col justify-between p-3 rounded-xl border border-border/40 bg-base/30 hover:bg-surface/50 hover:border-border transition-all min-h-[72px]' href='/courses/14' />
+		[49] (806,587)<div  />
+		[50] (806,609)<span >THE1001/RC1000A />
+		[51] (806,638)<div  />
+			[52] (720,638)<span >— />
+	[53] (610,705)<a class='group relative flex flex-col justify-between p-3 rounded-xl border border-border/40 bg-base/30 hover:bg-surface/50 hover:border-border transition-all min-h-[72px]' href='/courses/15' />
+		[54] (610,670)<div  />
+		[55] (610,692)<span >THE1002/SE1000 />
+		[56] (610,721)<div  />
+			[57] (524,721)<span >— />
+	[58] (806,705)<a class='group relative flex flex-col justify-between p-3 rounded-xl border border-border/40 bg-base/30 hover:bg-surface/50 hover:border-border transition-all min-h-[72px]' href='/courses/16' />
+		[59] (806,670)<div  />
+		[60] (806,692)<span >TPC />
+		[61] (806,721)<div  />
+			[62] (720,721)<span >— />
+
+</current_dom>
