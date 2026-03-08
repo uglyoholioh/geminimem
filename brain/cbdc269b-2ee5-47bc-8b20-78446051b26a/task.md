@@ -17,6 +17,7 @@
 - [x] Add Spotify `/me` endpoint for profile fetching
 - [x] Update `SpotifyPlayer.tsx` with profile status and better error handling
 - [x] Add "Disconnect" functionality to clear Spotify tokens
-- [ ] Final verification with custom credentials
+- [x] Unify playback transfer and play button interaction
+- [x] Final verification with custom credentials
 - [x] Implement Google/Apple Calendar Integrations <!-- id: 13 -->
 - [x] Update walkthrough <!-- id: 12 -->

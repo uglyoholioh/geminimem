@@ -1,0 +1,8 @@
+# Task: Verify Spotify Vinyl Player Changes
+
+- [ ] Navigate to http://localhost:3000/focus
+- [ ] Hover over the vinyl record
+- [ ] Verify "Play Here" text is gone
+- [ ] Verify Play/Pause icons are visible
+- [ ] Verify main play button hover effect and console errors
+- [ ] Capture screenshot of the vinyl player
