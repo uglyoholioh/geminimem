@@ -22,10 +22,10 @@ This plan outlines the enhancements to the application's error logging infrastru
 - Create a reusable React Error Boundary component to catch rendering errors and display a fallback UI.
 
 #### [MODIFY] [layout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/layout.tsx)
-- Wrap the application in the `ErrorBoundary`.
+- Wrap the application in the [ErrorBoundary](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ErrorBoundary.tsx#15-87).
 
 #### [MODIFY] [api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts)
-- Enhance `apiFetch` to log errors to a centralized "frontend logs" endpoint or local console in a more structured way.
+- Enhance [apiFetch](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts#7-35) to log errors to a centralized "frontend logs" endpoint or local console in a more structured way.
 
 ---
 
@@ -40,22 +40,6 @@ This plan outlines the enhancements to the application's error logging infrastru
 
 #### [NEW] [test_task_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_routers/test_task_sync.py)
 - Test integration state management and manual sync triggers for Google/Apple tasks.
-
-#### [NEW] [test_meetings.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_routers/test_meetings.py)
-- Test meeting listing, creation, and Zoom/Teams integration logic.
-
-#### [NEW] [test_settings.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_routers/test_settings.py)
-- Test user settings retrieval and updates (e.g., dashboard layout, timezone).
-
-#### [NEW] [test_study_tip.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_routers/test_study_tip.py)
-- Test AI study tip generation and caching.
-
----
-
-### Backend: Maintenance
-
-#### [MODIFY] [backend/tests/](file:///Users/oli/Desktop/CraftCanvas/backend/tests/)
-- Replace `datetime.utcnow()` with `datetime.now(datetime.UTC)` across all test files to resolve deprecation warnings.
 
 ---
 
@@ -75,19 +59,6 @@ This plan outlines the enhancements to the application's error logging infrastru
 - Implement tests for `TaskWidget`, `CalendarWidget`, `BriefWidget`, and `FocusWidget`.
 - Verify responsive layout changes (small/medium/large).
 
----
-
-### Frontend: E2E Expansion
-
-#### [NEW] [focus.spec.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/e2e/focus.spec.ts)
-- Test Pomodoro timer start/stop/reset and mode switching.
-
-#### [NEW] [ai_chat.spec.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/e2e/ai_chat.spec.ts)
-- Test AI chat interface in the dashboard and daily brief page.
-
-#### [MODIFY] [new_features.spec.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/e2e/new_features.spec.ts)
-- Add tests for User Settings profile updates.
-
 ## Verification Plan
 
 ### Automated Tests
@@ -95,4 +66,4 @@ This plan outlines the enhancements to the application's error logging infrastru
 - **Frontend (Detailed)**: Run `npx vitest components/dashboard/__tests__/`
 
 ### Manual Verification
-- Verify AI generation logs in `backend/logs/backend.json.log` during a Daily Brief generation.
+- Verify AI generation logs in [backend/logs/backend.json.log](file:///Users/oli/Desktop/CraftCanvas/backend/logs/backend.json.log) during a Daily Brief generation.

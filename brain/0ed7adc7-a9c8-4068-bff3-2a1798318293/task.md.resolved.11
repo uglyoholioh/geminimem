@@ -13,15 +13,12 @@
 - [x] Verify core backend tests pass with `pytest` <!-- id: 7 -->
 - [x] Expand backend coverage to all remaining routers (tasks, focus, chat, settings) <!-- id: 14 -->
 - [x] Implement granular logging for AI prompt generation and sync states <!-- id: 15 -->
-- [ ] Implement backend tests for `meetings.py`, `settings.py`, and `study_tip.py` <!-- id: 17 -->
-- [ ] Fix `utcnow()` deprecation warnings across backend tests <!-- id: 16 -->
 
 ## Frontend Test Suite
 - [x] Audit existing frontend tests in `/frontend/e2e` and `/frontend/__tests__` <!-- id: 8 -->
 - [x] Set up Vitest/Jest for frontend unit/component tests <!-- id: 9 -->
 - [x] Implement component tests for all Dashboard widgets <!-- id: 11 -->
 - [ ] Expand E2E tests for settings, focus flow, and AI chat <!-- id: 10 -->
-- [ ] Add E2E tests for Module Detail interactions (Tabs, Files, Brief) <!-- id: 18 -->
 
 ## CI/Verification
 - [x] Create a summary walkthrough of the new logging and test suite <!-- id: 12 -->

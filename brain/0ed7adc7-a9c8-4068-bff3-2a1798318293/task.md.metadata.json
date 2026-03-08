@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_TASK",
-  "summary":  "Initial task list for developing robust error logging and a full test suite. Includes research, backend/frontend implementation, and verification steps.",
-  "updatedAt":  "2026-03-08T08:41:36.250224Z"
+  "summary":  "Expanded the task list to include missing backend router tests (meetings, settings, study_tip), E2E coverage for focus and AI chat, and a cleanup task for deprecation warnings.",
+  "updatedAt":  "2026-03-08T12:22:03.680389Z",
+  "version":  "12"
 }
