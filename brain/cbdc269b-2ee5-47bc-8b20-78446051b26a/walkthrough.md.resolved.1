@@ -1,0 +1,20 @@
+# Spotify Player Refined Vinyl View Walkthrough
+
+I have refined the Spotify player to ensure it defaults to a **static** vinyl view when no music is playing.
+
+## Changes Made
+
+### Static Vinyl Default
+- Introduced `effectivelyPaused` logic in [MDVinylPlayer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#195-488) which considers the record "paused" if either `isPaused` is true OR no `currentTrack` exists.
+- This ensures that the record is visible but **not spinning**, and the tonearm remains in the **parked position** until music actually starts.
+- Once music is detected from Spotify, the record will automatically begin to spin and the tonearm will move to the playing position.
+
+### Connection Suggestion
+- Maintained the improved "Connect Spotify" suggestion UI for users who have not yet linked their accounts.
+
+## Verification
+
+### Visual Verification
+- [ ] Load the dashboard: The vinyl player should be visible but static.
+- [ ] Start music in Spotify: The vinyl player should start spinning and show track info.
+- [ ] Pause music in Spotify: The vinyl player should stop spinning.

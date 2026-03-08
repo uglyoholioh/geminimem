@@ -1,0 +1,53 @@
+# Course Data Drill-down Implementation Plan
+
+The goal is to allow users to "drill down" into all Canvas data for a module, specifically Modules, Pages, Files, and the Syllabus.
+
+## Proposed Changes
+
+### Backend
+
+#### [MODIFY] [schemas/course.py](file:///Users/oli/Desktop/CraftCanvas/backend/schemas/course.py)
+Add new nested schemas for:
+- `CanvasModuleNested`
+- `CanvasModuleItemNested`
+- `CanvasPageNested`
+- `CanvasFileNested`
+Update [CourseDetail](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/%5Bid%5D/page.tsx#61-81) to include:
+- `modules: List[CanvasModuleNested]`
+- `pages: List[CanvasPageNested]`
+- `files: List[CanvasFileNested]`
+- `syllabus_body: Optional[str]`
+
+#### [MODIFY] [routers/courses.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py)
+Update [get_course](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py#73-129) endpoint to:
+- Fetch [CanvasModule](file:///Users/oli/Desktop/CraftCanvas/backend/models/canvas_module.py#9-29) and related [CanvasModuleItem](file:///Users/oli/Desktop/CraftCanvas/backend/models/canvas_module.py#31-53)s.
+- Fetch [CanvasPage](file:///Users/oli/Desktop/CraftCanvas/backend/models/canvas_page.py#9-30)s for the course.
+- Fetch [CanvasFile](file:///Users/oli/Desktop/CraftCanvas/backend/models/canvas_file.py#8-30)s for the course.
+- Include `syllabus_body` in the response (it's already in the model).
+
+### Frontend
+
+#### [MODIFY] [[id]/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/[id]/page.tsx)
+- Update [CourseDetail](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/%5Bid%5D/page.tsx#61-81) interface.
+- Add new [TabId](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses/%5Bid%5D/page.tsx#37-38) types: [modules](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#507-596), [pages](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#598-678), [files](file:///Users/oli/Desktop/CraftCanvas/backend/data/canvas_files), `syllabus`.
+- Implement new tabs in the navigation and main content area.
+- Create components for:
+  - `ModulesTab`: Collapsible module list with items.
+  - `PagesTab`: List of wiki pages with a simple text viewer.
+  - `FilesTab`: List of files organized by folder path.
+  - `SyllabusTab`: HTML renderer for the syllabus body.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- Run backend tests to ensure [get_course](file:///Users/oli/Desktop/CraftCanvas/backend/routers/courses.py#73-129) returns the new data correctly.
+- `pytest backend/tests/test_routers/test_courses.py` (if it exists, otherwise I'll check [test_canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_services/test_canvas_sync.py) and potentially add a router test).
+
+### Manual Verification
+1.  Navigate to a course detail page.
+2.  Switch to the "Modules" tab and verify the structure matches Canvas.
+3.  Switch to "Pages" and view a wiki page's content.
+4.  Switch to "Files" and verify folder paths and file metadata.
+5.  Switch to "Syllabus" and verify the syllabus text is displayed.

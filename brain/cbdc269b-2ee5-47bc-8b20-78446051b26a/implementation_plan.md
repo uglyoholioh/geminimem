@@ -1,20 +1,23 @@
-# Spotify Player Vinyl Default Implementation Plan
+# Refined Spotify Player Vinyl View Implementation Plan
 
-The user wants the Spotify player to default to the vinyl view even when no music is playing, and to display a suggestion to connect if Spotify is not linked.
+The user wants the Spotify player to default to the vinyl view (not playing) even when no music is playing, instead of the original behavior which might have been showing a simplified "ready" state or nothing at all.
+
+## User Review Required
+> [!IMPORTANT]
+> I will ensure that if a token exists but no track is active, the `MDVinylPlayer` displays a "placeholder" record that doesn't spin, allowing for immediate visual feedback without requiring the user to press play first to see the vinyl.
 
 ## Proposed Changes
 
 ### [Component] [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
 
 #### [MODIFY] [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
-
-- Update the fallback logic in `SpotifyPlayer` to render `MDVinylPlayer` with a "dummy" or "placeholder" track if no `currentTrack` is active, but a token exists.
-- Modify the `MDVinylPlayer` component to handle a `null` or placeholder `currentTrack` gracefully.
-- Update the "Not connected" state to be more prominent or styled as a suggestion if desired, though the current state already provides a "Link Account" button. I will refine the "Not connected" UI to feel more like a "suggestion" as requested.
+- Ensure `isPaused` defaults to `true` or is correctly handled when `currentTrack` is null.
+- Double-check the conditional rendering logic in `SpotifyPlayer` to make sure it doesn't bypass the vinyl view when a token is present.
+- Refine `MDVinylPlayer` to ensure animations (spinning, tonearm position) are strictly tied to the `!isPaused && !!currentTrack` state.
 
 ## Verification Plan
 
 ### Manual Verification
-- Load the dashboard without playing any music; the vinyl player should be visible.
-- If not logged in to Spotify, the "Connect Spotify" suggestion should be visible.
-- Verify that clicking "Play Here" or starting music updates the vinyl player correctly.
+- Load the dashboard with Spotify connected but no music playing.
+- Observe the static vinyl record.
+- Start playing music from Spotify and verify the record begins to spin and the tonearm moves.

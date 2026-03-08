@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Walkthrough of the changes made to the Spotify player to default it to the vinyl view and improve the connection suggestion.",
-  "updatedAt":  "2026-03-06T14:40:29.411778Z"
+  "summary":  "Walkthrough of the Spotify playback fix and 'Play Here' button addition.",
+  "updatedAt":  "2026-03-08T08:18:37.866711Z",
+  "version":  "2"
 }

@@ -1,0 +1,42 @@
+# Walkthrough: Phase 1 Improvements (Robustness & Performance)
+
+I have successfully implemented the first phase of improvements for the `CraftCanvas` codebase, focusing on security, performance, and code quality.
+
+## Changes Made
+
+### 1. Robustness: Centralized Logging
+- **[NEW] [lib/logging_utils.py](file:///Users/oli/Desktop/CraftCanvas/backend/lib/logging_utils.py)**: Created a centralized logging configuration that supports both console output and rotating file logs.
+- **[MODIFY] [backend/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)**: Initialized the logging system on startup.
+- **[MODIFY] [backend/services/canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)**: Replaced `logging.getLogger(__name__)` with the shared utility and removed several `print` statements in favor of structured logging.
+
+### 2. Performance: Background RAG Indexing
+- **[MODIFY] [backend/services/canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)**: 
+    - Moved the synchronous `index_files` logic into a background-ready function [index_file_background](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#467-504).
+    - Integrated with FastAPI's `BackgroundTasks` to ensure that RAG indexing (downloading and embedding files) doesn't block the main sync response or the scheduler loop.
+- **[MODIFY] [backend/routers/sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/sync.py)**: Updated the `/canvas` sync endpoint to accept and pass `BackgroundTasks`.
+
+### 3. Code Quality: Frontend Component Refactoring
+- **[NEW] [components/dashboard/CommandCenter.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/CommandCenter.tsx)**: Extracted the monolithic chat and brief section from the dashboard into a standalone, reusable component.
+- **[MODIFY] [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)**: Simplified the main dashboard page by using the new [CommandCenter](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/CommandCenter.tsx#35-96) component, significantly reducing file size and improving maintainability.
+
+---
+
+### Phase 2: Security and Configuration Hardening
+- **Centralized Secrets**: Moved `JWT_SECRET` and cookie security flags to [config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py).
+- **Harden Session Cookies**: The `Secure` flag for session cookies is now controlled via environment variables (`COOKIE_SECURE`).
+- **Masked PI**: The [api_key](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#12-26) field in the `/me` endpoint is now masked to prevent exposure in logs or UI screenshots.
+- **Unified Authentication**: Refactored [auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py) and [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py) to use a single authentication code path, reducing redundancy and improving security consistency.
+- **Secure Logging**: Replaced insecure `print` statements (used for password reset tokens in development) with structured logging calls.
+
+---
+
+## Verification Results
+
+### Backend Stability
+- Ran `pytest backend/tests/test_services/test_canvas_sync.py` (Phase 1).
+- Ran `pytest backend/tests/test_routers/test_auth.py` (Phase 2) to ensure authentication and registration flows are intact.
+
+### Security Check
+- Verified that [api_key](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#12-26) is masked in `/me` responses.
+- Confirmed that `JWT_SECRET` is now pulled from [Settings](file:///Users/oli/Desktop/CraftCanvas/backend/config.py#13-70).
+- Confirmed that password reset tokens are no longer printed to stdout.

@@ -1,0 +1,10 @@
+# Task: Enable Detailed Canvas Data Drill-down in Courses Page
+
+- [ ] Research existing Courses page implementation [/]
+- [ ] Research Canvas API integration in backend [/]
+- [ ] Identify missing data from Canvas API (Modules, Pages, Files, Announcements, etc.) [ ]
+- [ ] Design API endpoints for detailed course data [ ]
+- [ ] Implement backend services for fetching detailed data [ ]
+- [ ] Update frontend Courses page with drill-down navigation [ ]
+- [ ] Implement detailed views for Modules, Pages, Files, etc. [ ]
+- [ ] Verify functionality and data accuracy [ ]

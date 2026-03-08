@@ -1,0 +1,39 @@
+# Fix Activity Finder and Login Bugs
+
+This plan addresses the bugs found during the testing of the "Activity Finder" (Meetings) feature and the login page.
+
+## Proposed Changes
+
+### Backend API Routing Fix
+The `/api/v1/meetings` endpoint currently returns a 404 Not Found error because FastAPI's `redirect_slashes=False` prevents the `/api/v1/meetings` route from matching `@router.post("/")` which translates to `/api/v1/meetings/`.
+
+#### [MODIFY] [meetings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/meetings.py)
+- Change `@router.post("/")` to `@router.post("")` (and similarly for `GET /`)
+- This ensures the route is registered precisely as `/api/v1/meetings` instead of `/api/v1/meetings/`.
+
+### Frontend Email Autofill Bug
+The email field on the login page autofills with a Craft.do connection URL. This is fixed by renaming the field and adding a hidden honeypot.
+
+#### [MODIFY] [login/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/login/page.tsx)
+- Add a hidden honeypot email input.
+- Rename the real email input `id` to `login-identifier` and `name` to `identifier`.
+- Set `autoComplete="username"` to clarify its role to the browser.
+
+#### [MODIFY] [setup/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/setup/page.tsx)
+- Add `autoComplete="off"` and specific non-standard name to the Craft API URL input field.
+
+### Frontend Settings Icon Fix
+#### [MODIFY] [settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)
+- Change icon type to `any` to avoid shadowing/type errors.
+
+## Verification Plan
+
+### Automated Tests
+- Run backend tests: `pytest backend/tests/test_routers/test_meetings.py`
+
+### Manual Verification
+- Use the provided browser tool to:
+  1. Navigate to `http://localhost:3000/login`.
+  2. Verify no Craft link autofill.
+  3. Log in and verify dashboard access (bypassing setup via manual onboarding).
+  4. Navigate to Activity Finder and create a meeting.

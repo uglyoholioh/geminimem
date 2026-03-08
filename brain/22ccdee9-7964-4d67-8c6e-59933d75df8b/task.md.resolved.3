@@ -1,0 +1,19 @@
+# Telegram AI Interaction Implementation
+
+- [x] Research and Planning <!-- id: 0 -->
+    - [x] Explore codebase for existing AI tools and services <!-- id: 1 -->
+    - [x] Review [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#14-50) model for Telegram integration fields <!-- id: 2 -->
+    - [x] Design Telegram bot architecture and interaction flow <!-- id: 3 -->
+- [/] Backend Implementation <!-- id: 4 -->
+    - [x] Update [User](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py#14-50) model to include `telegram_chat_id` and `telegram_username` <!-- id: 5 -->
+    - [x] Create [telegram_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/telegram_service.py) to handle bot logic and polling/webhooks <!-- id: 6 -->
+    - [x] Implement AI interaction logic in [telegram_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/telegram_service.py) using [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) and [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py) <!-- id: 7 -->
+    - [ ] Add API routes for Telegram webhook (if using webhooks) <!-- id: 8 -->
+    - [x] Implement user linking flow (e.g., via a unique code or command) <!-- id: 9 -->
+- [ ] Integration and UI <!-- id: 10 -->
+    - [ ] Add Telegram bot token to [config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py) <!-- id: 11 -->
+    - [ ] Update Settings page in frontend to show Telegram linking instructions <!-- id: 12 -->
+- [ ] Verification <!-- id: 13 -->
+    - [ ] Test bot commands (/start, /tasks, /assignments) <!-- id: 14 -->
+    - [ ] Test natural language query via Telegram <!-- id: 15 -->
+    - [ ] Verify smart scheduling and material retrieval via Telegram <!-- id: 16 -->

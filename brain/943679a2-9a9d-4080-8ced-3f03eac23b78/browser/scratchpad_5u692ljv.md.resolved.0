@@ -1,0 +1,16 @@
+# Task: Test and Fix Activity Finder
+
+## Checklist
+- [ ] Navigate to http://localhost:3000/login
+- [ ] Verify email field is empty
+- [ ] Log in with test_browser_agent@example.com / password123
+- [ ] Verify redirection or navigate to /meetings
+- [ ] Navigate to http://localhost:3000/meetings
+- [ ] Verify "Activity Finder" page loads
+- [ ] Click "New Meeting"
+- [ ] Fill in: Title "Final Verification Event", Start Date "2026-03-10", End Date "2026-03-15", Start Hour "9", End Hour "18"
+- [ ] Click "Generate Link"
+- [ ] Verify new meeting card appears
+- [ ] Click "Copy Link" and verify toast
+- [ ] Click meeting card and verify navigation to shared meeting page
+- [ ] Report success or issues

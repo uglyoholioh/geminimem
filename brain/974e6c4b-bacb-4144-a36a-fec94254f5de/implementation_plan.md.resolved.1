@@ -1,0 +1,44 @@
+# Phase 2: Security and Configuration Improvements
+
+This phase focuses on hardening the application's configuration and authentication mechanisms.
+
+## Proposed Changes
+
+### 1. Hardened Configuration
+We will improve how secrets are managed and ensure production readiness.
+
+#### [MODIFY] [backend/config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py)
+- Introduce a `cookie_secure` setting (defaulting to `False` but recommended `True` for production).
+- Add a check to warn if `api_secret_key` is still the default value.
+
+### 2. Session Integrity and Security
+Enhance the security of browser-based authentication.
+
+#### [MODIFY] [backend/routers/auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)
+- Update [_set_session](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py#76-89) to use `settings.cookie_secure`.
+- Replace insecure `print` for password reset tokens with structured logging (already implemented utility).
+- Mask [api_key](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#12-26) in the `/me` endpoint response to prevent accidental exposure.
+
+### 3. Authentication Refactoring
+Consolidate authentication logic to reduce redundancy and improve auditability.
+
+#### [MODIFY] [backend/dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py)
+- Clarify the hierarchy of auth methods (JWT -> Session -> API Key).
+- Use a single source of truth for user retrieval across [auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py) and other routers.
+
+#### [MODIFY] [backend/routers/auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py)
+- Use [get_current_user](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#28-70) dependency from [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py) instead of the local [get_current_user_from_cookie](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py#55-74) where appropriate.
+
+## Verification Plan
+
+### Automated Tests
+- **Config**: Verify that settings are loaded correctly from [.env](file:///Users/oli/Desktop/CraftCanvas/.env).
+- **Auth**: Run existing auth tests to ensure no regressions in login/profile flows.
+  ```bash
+  pytest backend/tests/test_routers/test_auth.py
+  ```
+
+### Manual Verification
+1. **Cookie Security**: Inspect the browser's developer tools after logging in to verify the `Secure` and `HttpOnly` flags on the `session_token` cookie.
+2. **API Response**: Verify that the `/me` endpoint no longer includes the [api_key](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#12-26) by default (or is masked).
+3. **Password Reset**: Trigger a password reset and verify the token appears in the backend logs rather than stdout (if monitoring logs).

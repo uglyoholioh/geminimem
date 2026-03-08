@@ -1,0 +1,23 @@
+# Task: Test and Fix Activity Finder
+
+## Plan
+- [/] Navigate to http://localhost:3000/login
+- [ ] Check email field for 'https://connect.craft.do/links/' autofill issue
+- [ ] Login with test_browser_agent@example.com / password123
+- [ ] Navigate to Activity Finder (/meetings)
+- [ ] Verify page loads
+- [ ] Create a trial meeting (POST /api/v1/meetings)
+- [ ] Report results
+
+## Progress
+- [x] Navigate to http://localhost:3000/login
+- [x] Check email field for 'https://connect.craft.do/links/' autofill issue
+  - Findings: The email field IS autofilled with 'https://connect.craft.do/links/4MBkXoq25FW/api/v1'.
+- [!] Login with test_browser_agent@example.com / password123
+  - Status: Persistent 500 Internal Server Error.
+  - Findings: Manual fetch with correct fields also returns 500. Registration of new users also returns 500. This confirms a global backend issue affecting all auth-related endpoints.
+- [x] Navigate to Activity Finder (/meetings)
+- [x] Verify page loads
+  - Findings: The page loads briefly but immediately redirects to login due to 401/500 on auth status check.
+- [ ] Create a trial meeting (POST /api/v1/meetings)
+- [ ] Report results

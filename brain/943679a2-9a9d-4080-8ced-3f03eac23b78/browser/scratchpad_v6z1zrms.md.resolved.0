@@ -1,0 +1,9 @@
+# Task Checklist
+- [ ] Navigate to `http://localhost:3000/login`
+- [ ] Verify if the email field is empty (no Craft.do link autofilled)
+- [ ] Log in with `test_browser_agent@example.com` / `password123`
+- [ ] Navigate to `http://localhost:3000/meetings`
+- [ ] Check if "Loading..." disappears and meetings list is shown (not 404)
+- [ ] Attempt to create a meeting: "New Meeting" -> Title: "Verified Event" -> Dates: next week -> Generate Link.
+- [ ] Verify the meeting is created and shows up in the list.
+- [ ] Monitor for `/setup` loops and 401 errors.

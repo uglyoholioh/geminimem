@@ -1,0 +1,21 @@
+# Task: Test and Fix Activity Finder
+
+## Plan
+- [/] Navigate to http://localhost:3000/login
+- [ ] Check email field for 'https://connect.craft.do/links/' autofill issue
+- [ ] Login with test_browser_agent@example.com / password123
+- [ ] Navigate to Activity Finder (/meetings)
+- [ ] Verify page loads
+- [ ] Create a trial meeting (POST /api/v1/meetings)
+- [ ] Report results
+
+## Progress
+- [x] Navigate to http://localhost:3000/login
+- [x] Check email field for 'https://connect.craft.do/links/' autofill issue
+  - Findings: The email field IS autofilled with 'https://connect.craft.do/links/4MBkXoq25FW/api/v1'.
+- [!] Login with test_browser_agent@example.com / password123
+  - Status: Failed with "API error 500: Internal Server Error".
+- [ ] Navigate to Activity Finder (/meetings)
+- [ ] Verify page loads
+- [ ] Create a trial meeting (POST /api/v1/meetings)
+- [ ] Report results

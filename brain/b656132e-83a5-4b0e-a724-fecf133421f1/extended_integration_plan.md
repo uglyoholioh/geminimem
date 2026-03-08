@@ -1,0 +1,52 @@
+# Implementation Plan - Extended Ecosystem Integrations (Tasks & Reminders)
+
+This plan extends the ecosystem integration to include task management synchronization for Google (Google Tasks) and Apple (Apple Reminders).
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Google Tasks** will reuse the existing Google OAuth setup. Users will need to grant the `tasks.readonly` or `tasks` scope.
+> **Apple Reminders** uses CalDAV. While it works for iCloud accounts, modern Apple Reminders (post-iOS 13) features like sub-tasks or certain lists may not sync perfectly due to Apple's private database architecture.
+
+## Proposed Changes
+
+### Backend - Services
+
+#### [MODIFY] [calendar_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/calendar_sync.py)
+ - Rename to `ecosystem_sync.py` or create a new `task_sync.py`.
+ - Implement `GoogleTasksService`:
+   - Fetch/Push tasks between local `Task` model and Google Tasks.
+ - Implement `AppleRemindersService`:
+   - CalDAV `VTODO` synchronization.
+
+### Backend - API Routers
+
+#### [MODIFY] [google_calendar.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/google_calendar.py)
+ - Update `SCOPES` to include `https://www.googleapis.com/auth/tasks`.
+
+#### [NEW] [task_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/task_sync.py)
+ - `/api/v1/sync/tasks/google`: Trigger Google Tasks sync.
+ - `/api/v1/sync/tasks/apple`: Trigger Apple Reminders sync.
+
+### Frontend - UI
+
+#### [MODIFY] [SettingsPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)
+ - Add toggles for "Sync Tasks to Google Tasks" and "Sync Tasks to Apple Reminders".
+
+---
+
+## Technical Considerations - Bi-directional Sync
+To avoid duplication and infinite loops, we will:
+1. Store a `remote_id` for each task mapping.
+2. Use `updated_at` timestamps to determine the "latest" version.
+3. Only sync tasks with a `due_date` to external providers to keep lists manageable.
+
+## Verification Plan
+
+### Automated Tests
+- Mock Google Tasks and CalDAV responses.
+- Verify that creating a local task triggers a remote creation (and vice-versa).
+
+### Manual Verification
+- Create a task in CraftCanvas -> check Google Tasks.
+- Mark a task as done in Apple Reminders -> check CraftCanvas.

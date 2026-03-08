@@ -1,0 +1,62 @@
+# Implementation Plan - Google and Apple Calendar Integration
+
+This plan outlines the integration of Google Calendar and Apple Calendar (iCloud) into the CraftCanvas ecosystem. This will allow users to sync their external schedules, view them in the timetable, and potentially use them for AI-driven task scheduling and daily briefs.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Google Calendar** requires an OAuth 2.0 application setup in Google Cloud Console. The user will need to provide `GOOGLE_CALENDAR_CLIENT_ID` and `GOOGLE_CALENDAR_CLIENT_SECRET`.
+> **Apple Calendar** (iCloud) typically requires "App-Specific Passwords" for CalDAV access if 2FA is enabled. The user will need to provide their iCloud email and an app-specific password.
+
+## Proposed Changes
+
+### Backend - Infrastructure & Models
+
+We will reuse the [Settings](file:///Users/oli/Desktop/CraftCanvas/backend/config.py#13-70) model to store OAuth tokens and credentials.
+
+#### [MODIFY] [config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py)
+- Add environment variables for Google OAuth:
+  - `GOOGLE_CALENDAR_CLIENT_ID`
+  - `GOOGLE_CALENDAR_CLIENT_SECRET`
+  - `GOOGLE_CALENDAR_REDIRECT_URI`
+
+#### [NEW] [calendar_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/calendar_sync.py)
+- Implement `GoogleCalendarService`:
+  - OAuth flow (similar to [spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py)).
+  - Fetching events using Google Calendar API.
+- Implement `AppleCalendarService`:
+  - CalDAV client to fetch events from iCloud.
+- Implement a generic `sync_external_calendars` function that updates/replaces [TimetableEvent](file:///Users/oli/Desktop/CraftCanvas/backend/models/event.py#6-28) records.
+
+### Backend - API Routers
+
+#### [NEW] [google_calendar.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/google_calendar.py)
+- `/api/v1/google-calendar/login`: Initial OAuth redirect.
+- `/api/v1/google-calendar/callback`: Handle OAuth code and store tokens.
+- `/api/v1/google-calendar/sync`: Trigger manual sync.
+
+#### [NEW] [apple_calendar.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/apple_calendar.py)
+- `/api/v1/apple-calendar/setup`: Endpoint to save iCloud credentials (email + app-specific password).
+- `/api/v1/apple-calendar/sync`: Trigger manual sync.
+
+#### [MODIFY] [sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/sync.py)
+- Add "google_calendar" and "apple_calendar" to the `/freshness` endpoint.
+
+### Frontend - Integration UI
+
+#### [NEW] [CalendarSettings.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/CalendarSettings.tsx)
+- UI for connecting/disconnecting Google Calendar.
+- Form for entering iCloud credentials.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- **Unit Tests**: Create `backend/tests/test_calendar_sync.py` to mock API responses from Google and CalDAV and verify [TimetableEvent](file:///Users/oli/Desktop/CraftCanvas/backend/models/event.py#6-28) creation.
+  - Run: `pytest backend/tests/test_calendar_sync.py`
+
+### Manual Verification
+1. **Google OAuth**: Navigate to settings, click "Connect Google Calendar", verify redirect to Google, and successful return to CraftCanvas.
+2. **Apple Sync**: Enter iCloud credentials, click "Sync", and verify events appear in the Timetable.
+3. **Data Freshness**: Check the sync status/freshness indicator on the dashboard.

@@ -1,21 +1,24 @@
-# Spotify Player Vinyl View Walkthrough
+# Spotify Playback Fix Walkthrough
 
-I have updated the Spotify player to default to the vinyl view and improved the "Connect Spotify" suggestion UI.
+I have addressed the issue where the Spotify player wasn't updating even when music was playing.
 
 ## Changes Made
 
-### Spotify Player Default View
-- The [SpotifyPlayer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#68-188) component now always returns the [MDVinylPlayer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#195-487) when a token exists, regardless of whether a track is currently playing.
-- [MDVinylPlayer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx#195-487) has been updated to handle a `null` `currentTrack` by displaying "No Track Playing" and "Select a playlist in Spotify".
+### 'Play Here' Integration
+- Added a **"Play Here"** button directly onto the vinyl record when the player is connected but idle.
+- Clicking this button (or the record itself) will trigger a **playback transfer** to the CraftCanvas player. This is a crucial step for the Spotify Web Playback SDK to take control and start reporting the playback state.
+- Once clicked, Spotify will move its active session to the browser, the record will start spinning, and the track info will appear.
 
-### Connection Suggestion
-- The "Not connected" state has been redesigned to be more visually appealing and feel like a proactive suggestion.
-- Added a spinning `Disc3` icon and a slight gradient glow to the "Connect Spotify" card.
-- Updated the button text and added a play icon to make it more inviting.
+### Improved Status Messaging
+- Updated the placeholder text:
+  - **"Connecting..."** while the SDK initializes.
+  - **"Ready to Play"** once the device is registered but idle.
+  - **"Press 'Play Here' or start music on Spotify"** as a helpful instruction for the user.
 
 ## Verification
 
-### Visual Verification
-- [ ] Verify that the vinyl player is visible on the dashboard even when no music is playing.
-- [ ] Verify that the "Connect Spotify" suggestion looks premium and inviting when not logged in.
-- [ ] Verify that track information updates correctly when music starts playing.
+### Manual Verification Steps
+- [ ] Load the dashboard: See "Ready to Play" on the static vinyl.
+- [ ] Hover over the record and click **"Play Here"**.
+- [ ] Verify that music starts playing (if a session was active) or that the player becomes the active Spotify device.
+- [ ] Observe the vinyl spinning and track details appearing once playback is active.

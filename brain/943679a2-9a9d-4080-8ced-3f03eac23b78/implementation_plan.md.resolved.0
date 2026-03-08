@@ -1,0 +1,35 @@
+# Fix Activity Finder and Login Bugs
+
+This plan addresses the bugs found during the testing of the "Activity Finder" (Meetings) feature and the login page.
+
+## Proposed Changes
+
+### Backend API Routing Fix
+The `/api/v1/meetings` endpoint currently returns a 404 Not Found error because FastAPI's `redirect_slashes=False` prevents the `/api/v1/meetings` route from matching `@router.post("/")` which translates to `/api/v1/meetings/`.
+
+#### [MODIFY] backend/routers/meetings.py
+- Change `@router.post("/")` to `@router.post("")` (and similarly for `GET /`)
+- This ensures the route is registered precisely as `/api/v1/meetings` instead of `/api/v1/meetings/`.
+
+### Frontend Email Autofill Bug
+The email field on the login page autofills with a Craft.do connection URL (`https://connect.craft.do/links/...`). This is likely due to the browser or password manager inappropriately autofilling the email field because another field in the application (specifically the Craft API URL field in the setup flow) might share the same `name` or [id](file:///Users/oli/Desktop/CraftCanvas/backend/routers/setup.py#89-159), or because the browser misinterprets the setup flow's inputs.
+
+#### [MODIFY] frontend/app/setup/page.tsx
+- Add `autoComplete="off"` or a specific non-email `autoComplete` attribute to the Craft API URL input field to prevent it from saving and polluting the user's saved email addresses.
+
+#### [MODIFY] frontend/app/login/page.tsx
+- Explicitly set `autoComplete="email"` on the email input to clarify its purpose.
+
+## Verification Plan
+
+### Automated Tests
+- Run backend tests: `pytest backend/tests/test_routers/test_meetings.py` to ensure the meetings router still functions.
+
+### Manual Verification
+- Use the provided browser tool to:
+  1. Navigate to `http://localhost:3000/login`.
+  2. Verify the email field is empty and does not autofill with a Craft.do link.
+  3. Log in with the test account.
+  4. Navigate to the Activity Finder (`http://localhost:3000/meetings`).
+  5. Verify the page loads without a 404 error for the `/api/v1/meetings` endpoint.
+  6. Successfully create a new meeting.

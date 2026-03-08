@@ -1,0 +1,14 @@
+# Task: Google / Apple Calendar and Ecosystem Integrations
+
+- [ ] Research existing codebase for calendar/sync logic [/]
+    - [ ] Audit [backend/routers/meetings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/meetings.py)
+    - [ ] Audit [backend/routers/sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/sync.py)
+    - [ ] Audit [backend/services/ics_parser.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ics_parser.py)
+    - [ ] Audit [backend/services/canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+- [ ] Research Google Calendar API integration
+- [ ] Research Apple Calendar (iCloud/CalDAV) integration
+- [ ] Design integration architecture
+- [ ] Create implementation plan
+- [ ] Implement Google Calendar integration
+- [ ] Implement Apple Calendar integration
+- [ ] Verify integrations

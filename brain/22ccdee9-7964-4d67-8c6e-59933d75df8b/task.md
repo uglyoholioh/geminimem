@@ -1,0 +1,19 @@
+# Telegram AI Interaction Implementation
+
+- [x] Research and Planning <!-- id: 0 -->
+    - [x] Explore codebase for existing AI tools and services <!-- id: 1 -->
+    - [x] Review `User` model for Telegram integration fields <!-- id: 2 -->
+    - [x] Design Telegram bot architecture and interaction flow <!-- id: 3 -->
+- [x] Backend Implementation <!-- id: 4 -->
+    - [x] Update `User` model to include `telegram_chat_id` and `telegram_username` <!-- id: 5 -->
+    - [x] Create `telegram_service.py` to handle bot logic and polling/webhooks <!-- id: 6 -->
+    - [x] Implement AI interaction logic in `telegram_service.py` using `ai_service.py` and `ai_tools.py` <!-- id: 7 -->
+    - [x] Add API routes for Telegram webhook (if using webhooks) <!-- id: 8 -->
+    - [x] Implement user linking flow (e.g., via a unique code or command) <!-- id: 9 -->
+- [x] Integration and UI <!-- id: 10 -->
+    - [x] Add Telegram bot token to `config.py` <!-- id: 11 -->
+    - [x] Update Settings page in frontend to show Telegram linking instructions <!-- id: 12 -->
+- [x] Verification <!-- id: 13 -->
+    - [x] Test bot commands (/start, /tasks, /assignments) <!-- id: 14 -->
+    - [x] Test natural language query via Telegram <!-- id: 15 -->
+    - [x] Verify smart scheduling and material retrieval via Telegram <!-- id: 16 -->

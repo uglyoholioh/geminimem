@@ -1,0 +1,53 @@
+# CraftCanvas Codebase Analysis
+
+## Executive Summary
+CraftCanvas is a robust academic management system with a well-structured FastAPI backend and a modern Next.js 16 frontend. The use of `SQLModel` for database interactions and the implementation of a RAG pipeline for academic materials are strong architectural choices for a local-first application. However, there are significant opportunities for improvement in security, error handling, and asynchronous processing.
+
+---
+
+## 🏗️ Architectural Strengths
+- **Tech Stack**: Modern and appropriate for the use case (FastAPI, Next.js, ChromaDB, Ollama/Gemini).
+- **Data Modeling**: `SQLModel` provides excellent type safety and integrates well with FastAPI.
+- **AI Integration**: The `AIService` is flexible, supporting both local (Ollama) and cloud (Gemini) providers with tool-use capabilities.
+- **Frontend Organization**: Clear separation of concerns with a dedicated component-based architecture and a clean `api.ts` client.
+
+---
+
+## ⚠️ Identified Weaknesses
+
+### 1. Security & Configuration
+- **Hardcoded Secrets**: `config.py` contains several hardcoded default values (e.g., `api_secret_key = "change-me-in-production"`).
+- **Auth Complexity**: `dependencies.py` and `auth.py` have slightly overlapping/redundant auth logic (session cookie vs JWT vs API key). The `secure=False` flag in cookies is set by default.
+- **API Key Leakage Risk**: While the `.env` file is gitignored, the `User` model generates an API key by default that is exposed via the `/me` endpoint.
+
+### 2. Error Handling & Robustness
+- **Silent Failures**: Many service methods (e.g., in `canvas_sync.py`) catch general `Exception`s and only log them, which might lead to inconsistent state without user feedback.
+- **Inconsistent Logging**: Logging is present but inconsistent across modules. Some use `print`, some use `logger`.
+
+### 3. Performance & Resource Management
+- **Blocking Sync Tasks**: The `index_files` function in `canvas_sync.py` is called synchronously within the main sync loop. For large PDFs, this could block the sync process significantly.
+- **Database Session Management**: `get_session_sync()` is used in background tasks but manually managed (opened/closed), which is error-prone compared to context managers or dependency injection.
+- **Frontend Fetching Logic**: The dashboard `page.tsx` uses `Promise.allSettled` for a massive batch of requests on mount. While good for speed, it lacks granular loading states for individual widgets.
+
+### 4. Code Quality & Modularity
+- **Large Component Files**: `page.tsx` in the frontend and `canvas_sync.py` in the backend are growing quite large (600-700+ lines), making them harder to maintain.
+- **Duplicate Logic**: Task sorting and status mapping are partially duplicated between backend models and frontend utility functions.
+
+---
+
+## 🚀 Potential Improvements
+
+### Phase 1: Security & Stability (High Priority)
+- **[MODIFY] [config.py](file:///Users/oli/Desktop/CraftCanvas/backend/config.py)**: Remove hardcoded secrets; enforce mandatory environment variables for production-sensitive keys.
+- **[MODIFY] [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)**: Refactor indexing to be a background task (e.g., using a queue or `BackgroundTasks`) to prevent blocking the primary sync logic.
+- **[MODIFY] [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py)**: Implement a more robust context manager for sync sessions to ensure safe closing.
+
+### Phase 2: Refactoring & DX (Medium Priority)
+- **[MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)**: Extract sub-components (e.g., `Agenda`, `ChatPanel`) into separate files to improve maintainability.
+- **[NEW] [services/logging_service.py]**: Create a centralized logging configuration to unify `print` and `logger` calls.
+- **[MODIFY] [models/user.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/user.py)**: Add a `last_login` field and potentially more granular permission types.
+
+### Phase 3: Feature Enhancements (Low Priority)
+- **Webhooks**: Implement support for Canvas webhooks (if available on the target instance) to reduce polling sync frequency.
+- **PWA Support**: Add a manifest and service worker to the frontend for a more "app-like" experience on desktop.
+- **Enhanced RAG**: Implement better chunking strategies (e.g., semantic chunking) in `rag_service.py`.

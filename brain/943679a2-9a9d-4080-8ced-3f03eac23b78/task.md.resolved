@@ -1,7 +1,7 @@
 # Task: Test and Fix Activity Finder
 
 ## Status
-- [/] Research Activity Finder location
-- [ ] Identify issues in Activity Finder
-- [ ] Implement fixes
-- [ ] Verify fixes
+- [x] Research Activity Finder location
+- [x] Identify issues in Activity Finder
+- [x] Implement fixes
+- [x] Verify fixes

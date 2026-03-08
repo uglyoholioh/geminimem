@@ -1,0 +1,43 @@
+# Phase 3: Calendar Integrations, Modularity, and Refinement
+
+This phase focuses on finalizing the Google and Apple Calendar integrations, refactoring the brief generator for better maintainability, and optimizing the frontend user experience.
+
+## Proposed Changes
+
+### 1. Calendar Integration Finalization
+The user has added the initial routing and service placeholders. We need to ensure these are robust, handle deduplication, and are integrated into the background sync cycle.
+
+#### [MODIFY] [backend/services/calendar_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/calendar_sync.py)
+- Implement deduplication logic using event UIDs (Google ID for GCal, iCalUID for iCloud).
+- Ensure events are correctly updated if they already exist rather than always adding new ones.
+- Add support for different calendar colors/categories.
+
+#### [MODIFY] [backend/jobs/scheduler.py](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py)
+- Integrate [sync_google_calendar](file:///Users/oli/Desktop/CraftCanvas/backend/services/calendar_sync.py#37-110) and [sync_apple_calendar](file:///Users/oli/Desktop/CraftCanvas/backend/services/calendar_sync.py#111-171) into the [canvas_sync_job](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py#47-75) or create a new `calendar_sync_job` to run periodically (e.g., every 30 minutes).
+
+### 2. Brief Generator Refactoring
+The [brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py) is currently a large file with mixed responsibilities. We will improve its modularity.
+
+#### [MODIFY] [backend/services/brief_generator.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/brief_generator.py)
+- Extract data gathering logic (context fetching) from the formatting and AI prompt engineering logic.
+- Implement a template-based approach for the final brief output to allow for easier customization.
+
+### 3. Frontend Refinement
+Improve the UX of the new features and address monolithic components.
+
+#### [MODIFY] [frontend/app/settings/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx)
+- Add UI sections for connecting Google and Apple calendars, including status indicators and manual sync buttons.
+
+#### [MODIFY] [frontend/components/dashboard/DashboardAgenda.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardAgenda.tsx)
+- Ensure calendar events from external providers are visually distinguished from local classes or tasks.
+
+## Verification Plan
+
+### Automated Tests
+- **Calendar Sync**: Add unit tests for deduplication logic in [CalendarSyncService](file:///Users/oli/Desktop/CraftCanvas/backend/services/calendar_sync.py#19-171).
+- **Brief Generator**: Mock database responses and verify that the brief generator correctly compiles context into the final prompt.
+
+### Manual Verification
+1. **OAuth Flow**: Verify the Google Calendar OAuth flow from the settings page.
+2. **Caldav Setup**: Test the Apple Calendar setup with an app-specific password.
+3. **Background Sync**: Verify that external events appear on the dashboard after a background sync cycle.

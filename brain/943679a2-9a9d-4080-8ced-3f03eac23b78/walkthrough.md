@@ -1,0 +1,49 @@
+# Walkthrough — Activity Finder & Login Fixes
+
+I have successfully resolved the issues with the **Activity Finder** (Meetings) and the persistent **Login Autofill** bug. Below is a summary of the fixes and verification results.
+
+## Changes Made
+
+### 1. Activity Finder 404 Fix
+- **Problem**: The `/api/v1/meetings` endpoint returned a 404 because of a trailing slash mismatch in FastAPI (`redirect_slashes=False`).
+- **Fix**: Modified [meetings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/meetings.py) to use `@router.post("")` and `@router.get("")` instead of `@router.post("/")`.
+
+### 2. Backend Auth 500 Fix (Critical)
+- **Problem**: All authentication endpoints (`/status`, `/login`, `/register`) were failing with a 500 error due to a database schema mismatch. The `users` table was missing `telegram_chat_id` and `telegram_username` columns.
+- **Fix**: Reconciled the database schema by manually adding the missing columns to [db.sqlite](file:///Users/oli/Desktop/CraftCanvas/backend/data/db.sqlite) via `ALTER TABLE`.
+
+### 3. Login Email Autofill Bug
+- **Problem**: The browser was incorrectly autofilling the email field with a Craft.do connection URL.
+- **Fix**: 
+    - Renamed the email field's `id` and `name` to `user_academic_email` to break the browser's persistent link.
+    - Implemented a **top-of-form honeypot** (a hidden field with `name="email"`) to catch and intercept the browser's aggressive autofill attempts.
+    - Set `autoComplete="off"` on both the login and setup URL fields.
+
+### 4. Settings Page Syntax Fix
+- **Problem**: A shadowing/type error in `frontend/app/settings/page.tsx` was reported as a potential runtime issue.
+- **Fix**: Changed the icon type from `typeof User` to `any` to prevent name collisions.
+
+---
+
+## Verification Results
+
+### Activity Finder Functionality
+The Activity Finder is now fully functional. I verified the end-to-end flow using the browser subagent:
+1.  **Login**: Successfully logged into the test account after the schema fix.
+2.  **Navigation**: Loaded `/meetings` without 404 errors.
+3.  **Meeting Creation**: Created a new meeting titled "Test Meeting (Singapore)".
+4.  **Verification**: Confirmed the meeting appeared in the list.
+
+![Meeting Creation Success](file:///Users/oli/.gemini/antigravity/brain/943679a2-9a9d-4080-8ced-3f03eac23b78/final_verification_success_fixed_schema_autofill_meetings_1772901819149.webp)
+
+### Backend Stability
+- Ran `pytest backend/tests/test_routers/test_meetings.py` and it **PASSED**.
+- Verified backend responsiveness with manual `curl` and import tests.
+
+---
+
+## Final Status
+- [x] Activity Finder 404 Resolved
+- [x] Backend Auth 500 Errors Fixed
+- [x] Login Autofill Collision Mitigated
+- [x] Meeting Creation Verified

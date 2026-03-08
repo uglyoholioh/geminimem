@@ -1,0 +1,49 @@
+# Phase 1: Robustness, Performance, and Code Quality Improvements
+
+This plan outlines the first phase of improvements for the `CraftCanvas` codebase, focusing on three core areas requested by the user: robustness, performance management, and code modularity.
+
+## Proposed Changes
+
+### 1. Robustness: Centralized Logging and Error Handling
+We will unify logging and introduce a more structured approach to catching exceptions in critical sync services.
+
+#### [NEW] [lib/logging_utils.py](file:///Users/oli/Desktop/CraftCanvas/backend/lib/logging_utils.py)
+Create a centralized logging configuration to replace ad-hoc `print` statements and inconsistent logger usage.
+
+#### [MODIFY] [backend/services/canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+Refine `try-except` blocks to handle specific exceptions more gracefully and ensure that sync logs are always updated with meaningful error messages.
+
+### 2. Performance: Asynchronous RAG Indexing
+Currently, RAG indexing happens synchronously during the Canvas sync process, which can block the main loop. We will move this to a background process.
+
+#### [MODIFY] [backend/services/canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+Modify [index_files](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#458-505) and [sync_pages](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#598-678) to return a list of pending indexing tasks rather than executing them immediately if called in a request context, or use `BackgroundTasks` if appropriate.
+
+#### [MODIFY] [backend/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+Ensure that background tasks are correctly initialized and that the scheduler doesn't block the start-up sequence.
+
+### 3. Code Quality: Frontend Component Refactoring
+The dashboard page is currently monolithic. We will extract key functional blocks into a more modular structure.
+
+#### [MODIFY] [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+Extract the following into separate components:
+- `CommandCenter.tsx`: The chat and brief summary panel.
+- `DashboardAgenda.tsx`: The timeline and lookahead view.
+- `DashboardWidgets.tsx`: The grid of widgets managed by `DashboardLayoutManager`.
+
+## Verification Plan
+
+### Automated Tests
+- **Backend**: Run existing tests to ensure no regressions in sync logic.
+  ```bash
+  cd backend && pytest tests/test_services/test_canvas_sync.py
+  ```
+- **Logging**: Verify that the new logging utility correctly writes to the expected log files.
+  ```bash
+  cd backend && python -c "from lib.logging_utils import get_logger; logger = get_logger(__name__); logger.info('Test log')"
+  ```
+
+### Manual Verification
+1. **Sync Performance**: Trigger a manual Canvas sync from the UI and verify that it returns quickly while files continue to index in the background (check server logs).
+2. **Dashboard UI**: Verify that the dashboard remains visually identical and fully functional after refactoring components.
+3. **Error Resilience**: Temporarily disconnect the network or provide an invalid Canvas token to verify that the system logs the error correctly without crashing.

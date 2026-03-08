@@ -1,0 +1,35 @@
+# Telegram AI Interaction Walkthrough
+
+The Telegram AI Assistant is now live! You can now interact with your CraftCanvas data directly through Telegram.
+
+## Features Implemented
+
+- **Account Linking**: Securely link your Telegram account using a unique code from the Settings page.
+- **AI Chat**: General chat with the AI about your academic life.
+- **Task Management**: Retrieve and manage tasks via commands or natural language.
+- **Assignment Tracking**: Stay on top of deadlines with quick summaries.
+- **Smart Scheduling**: Ask the AI to help you plan study sessions.
+- **Material Retrieval**: Search and summarize your course materials on the go.
+
+## How to Get Started
+
+1.  **Get Your Linking Code**:
+    - Go to [Settings](file:///Users/oli/Desktop/CraftCanvas/frontend/app/settings/page.tsx) in the CraftCanvas web app.
+    - Click on the **Telegram** tab.
+    - Copy your **Linking Code**.
+
+2.  **Link on Telegram**:
+    - Find **@CraftCanvasAIBot** on Telegram.
+    - Send `/start`.
+    - When prompted, send `/link YOUR_CODE`.
+
+3.  **Interact**:
+    - Try commands like `/tasks` or `/assignments`.
+    - Ask questions: "What's my schedule for tomorrow?" or "Summarize the CS2103 lecture slides."
+
+## Verification Results
+
+- [x] **Backend**: [telegram_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/telegram_service.py) correctly handles messages and uses `ai_service` with proper user context.
+- [x] **User Linking**: Database schema updated and linking logic verified.
+- [x] **Frontend**: Settings page updated with a premium Telegram integration tab.
+- [x] **Bot Commands**: `/start`, `/tasks`, `/assignments`, and `/help` implemented.
