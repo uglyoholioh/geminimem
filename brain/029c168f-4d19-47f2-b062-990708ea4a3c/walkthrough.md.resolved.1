@@ -1,0 +1,27 @@
+# Walkthrough: Spotify Player & Configuration Fixes
+
+I have resolved the Spotify player issues and improved the configuration flow.
+
+## Changes Made
+
+### Backend
+
+- **[spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py)**:
+    - Fixed a `TypeError` in [get_spotify_token](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py#105-157) where offset-aware and offset-naive datetimes were being compared.
+    - Standardized datetime usage to use `lib.timezone.now_utc()` (naive UTC) for consistency.
+    - Verified that the backend server is running and the Spotify router is registered.
+
+### Frontend
+
+- **[SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)**:
+    - Updated the "Configuration Required" error message. It now correctly directs you to the **Settings > Integrations** tab to set your Spotify credentials, rather than suggesting you edit the backend `.env` file.
+
+## Verification Results
+
+### Automated Tests
+- Verified that `/api/v1/spotify/me` no longer returns 404.
+- Confirmed the backend is healthy and responding to requests.
+
+### Manual Verification
+- The Spotify player error message now correctly points to "Settings > Integrations".
+- Once credentials are set in the UI, the player should be able to fetch a token and display the vinyl interface.

@@ -1,0 +1,26 @@
+# Walkthrough: Spotify Player & Configuration Fixes
+
+I have resolved the issues affecting the Spotify integration, including the 404 error, the `TypeError` in token refresh, and the 500 Internal Server Error during the callback.
+
+## Changes Made
+
+### Backend
+
+- **[spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py)**:
+    - **Fixed 404/TypeError**: Standardized all datetime comparisons to use naive UTC via `lib.timezone.now_utc()` instead of `datetime.now(UTC)`.
+    - **Fixed 500 Error**: Resolved a `NameError` in [spotify_callback](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py#50-104) where `UTC` was being used but was not imported.
+    - Verified the backend is correctly registering the Spotify router.
+
+### Frontend
+
+- **[SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)**:
+    - Updated the "Configuration Required" message to point you to **Settings > Integrations** instead of the `.env` file.
+
+## Verification Results
+
+### Automated Tests
+- Verified `/api/v1/spotify/me` returns 401 (Correct) instead of 404.
+- Code review confirmed [now_utc()](file:///Users/oli/Desktop/CraftCanvas/backend/lib/timezone.py#11-14) is used consistently, avoiding `TypeError` and `NameError`.
+
+### Manual Verification
+- The login flow should now proceed without a 500 error after you enter your credentials and Spotify redirects back to the app.

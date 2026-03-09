@@ -1,0 +1,21 @@
+# Walkthrough: Spotify Player Fixes
+
+I have resolved the issues affecting the Spotify player, including the 404 error and a hidden `TypeError` in the backend.
+
+## Changes Made
+
+### Backend
+
+- **[spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py)**:
+    - Fixed a `TypeError` in [get_spotify_token](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py#105-157) where offset-aware and offset-naive datetimes were being compared.
+    - Standardized datetime usage to use `lib.timezone.now_utc()` (naive UTC) for consistency across the codebase.
+    - Verified that the backend server is running and the Spotify router is correctly registered.
+
+## Verification Results
+
+### Automated Tests
+- Verified that `/api/v1/spotify/me` no longer returns 404.
+- Confirmed the backend is healthy and responding to requests.
+
+### Manual Verification
+- The Spotify player should now load correctly in the frontend. If not authenticated, it will show the "Connect Spotify" button. If authenticated, it will show the vinyl player.

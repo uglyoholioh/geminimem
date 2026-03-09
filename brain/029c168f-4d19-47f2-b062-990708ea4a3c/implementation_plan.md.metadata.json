@@ -1,5 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Implementation plan to fix the Spotify player 404 error and a related TypeError in the backend.",
-  "updatedAt":  "2026-03-08T17:22:31.217297Z"
+  "summary":  "Implementation plan to fix the Spotify player 404 and TypeError, and to update the UI to support user-specific credentials without requiring .env file changes.",
+  "updatedAt":  "2026-03-09T02:55:44.534486Z",
+  "version":  "1"
 }

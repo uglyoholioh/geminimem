@@ -1,8 +1,10 @@
-# Task: Fix Spotify Player 404 Error
+# Task: Fix Spotify Player and Configuration Flow
 
-- [/] Research the 404 error [Task Id: 0]
-    - [x] Identify relevant files [Task Id: 1]
-    - [/] Examine `SpotifyPlayer.tsx` and `spotify.py` [Task Id: 2]
-- [ ] Fix the 404 error [Task Id: 3]
-    - [ ] Update frontend endpoint or backend router [Task Id: 4]
-- [ ] Verify the fix [Task Id: 5]
+- [x] Research the 404 error [Task Id: 0]
+- [x] Fix the initial issues [Task Id: 3]
+    - [x] Update backend router (Type/404) [Task Id: 4]
+    - [x] Update frontend error message for UI configuration [Task Id: 6]
+- [x] Debug Internal Server Error on Spotify Login [Task Id: 7]
+    - [x] Check backend logs for error details [Task Id: 8]
+    - [x] Fix the root cause (NameError: UTC) [Task Id: 9]
+- [x] Verify the fix [Task Id: 5]
