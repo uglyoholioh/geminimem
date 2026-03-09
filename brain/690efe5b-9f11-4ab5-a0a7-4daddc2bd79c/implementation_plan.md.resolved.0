@@ -1,0 +1,42 @@
+# Implementation Plan - New Music Visualizations for Focus Tab
+
+The goal is to enhance the Focus tab with more premium and engaging music-related visualizations. Currently, the tab has some background animations and a vinyl player. We will add new visualization modes that feel premium and help with focus.
+
+## Proposed Changes
+
+### [Frontend] Focus Page Enhancements
+
+We will introduce several new visualization presets and enhance the existing ones.
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
+- Add new `ANIMATED_PRESETS`:
+    - `cyber_pulse`: A HUD-like pulsing ring around the focus timer.
+    - `lava_lamp`: Smoothly moving organic blobs.
+    - `nebula`: A cosmic, moving gaseous cloud effect.
+    - `bokeh`: Out-of-focus light particles.
+- Implement new background components for these presets.
+- Update `AnimatedBGs` record to include these new components.
+
+#### [MODIFY] [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
+- Add a "Pulse" effect to the vinyl that can be toggled or enabled by default.
+- Enhance the ambient glow to be more dynamic.
+- Add a subtle "Vibe" meter or decorative elements that respond to the "status" of playback.
+
+## Verification Plan
+
+### Manual Verification
+1.  Navigate to the Focus tab.
+2.  Open the Customise Modal (Gear icon).
+3.  Test each new background preset:
+    - **Cyber Pulse**: Verify the HUD ring is pulsing and looks premium.
+    - **Lava Lamp**: Verify the blobs move smoothly and have a glassmorphic/organic feel.
+    - **Nebula**: Verify the cosmic effect is subtle and not distracting.
+    - **Bokeh**: Verify the light particles look high-quality.
+4.  Play music via Spotify and verify if the Vinyl player looks enhanced with the new glow/pulse.
+5.  Switch between different modes (Focus/Break) and ensure backgrounds handle the transition well (if applicable).
+
+### Automated Tests
+- Run existing E2E tests for the focus flow to ensure no regressions:
+  ```bash
+  cd frontend && npx playwright test e2e/focus_flow.spec.ts
+  ```

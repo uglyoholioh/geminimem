@@ -1,0 +1,28 @@
+# Implementation Plan - Enhancing AI Retrieval and Linking for Module Materials
+
+The user wants the AI to easily retrieve and link to module materials. Currently, RAG is disabled, and AI tool responses for materials don't include direct links.
+
+## Proposed Changes
+
+### UI Link Rendering Fix
+
+#### [MODIFY] [brief.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/brief.py)
+- Change system prompt to use relative URIs: `/api/v1/courses/{course_id}/files/{file_id}/download` (removing `file:///`).
+
+#### [MODIFY] [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)
+- Update linking instructions to use relative URIs.
+
+#### [MODIFY] [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx)
+- Configure `ReactMarkdown` with a custom `components` prop to render `a` tags as styled buttons.
+- Ensure the base URL is handled correctly for the proxy.
+
+## Verification Plan
+
+### Automated Tests
+- `pytest backend/tests/test_rag_retrieval.py` (if it exists or create one) to verify the RAG query returns expected files.
+- Verify that `ai_service` correctly calls the tools and includes links in its response using a mocked LLM response if possible.
+
+### Manual Verification
+- Ask the user to query the AI: "Show me my slides for week 3 of GEX1015".
+- Verify that the AI provides a response with a clickable link to the file.
+- Verify that clicking the link downloads/opens the correct file.

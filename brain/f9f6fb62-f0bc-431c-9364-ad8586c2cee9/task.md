@@ -10,3 +10,10 @@
 - [x] Verification Phase <!-- id: 7 -->
     - [x] Test retrieval with sample queries <!-- id: 8 -->
     - [x] Verify links are correctly formatted and functional in UI <!-- id: 9 -->
+- [x] UI Link Rendering Fix <!-- id: 10 -->
+    - [x] Update backend to use relative URIs instead of `file:///` <!-- id: 11 -->
+    - [x] Configure `react-markdown` in frontend to allow and style these links <!-- id: 12 -->
+- [x] Canvas Link Integration <!-- id: 13 -->
+    - [x] Update `CanvasFile` and `ModuleFile` models to store Canvas URLs if available <!-- id: 14 -->
+    - [x] Update AI tools to return Canvas URLs <!-- id: 15 -->
+    - [x] Update frontend to show "Open in Canvas" button alongside download <!-- id: 16 -->

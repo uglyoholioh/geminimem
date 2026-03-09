@@ -1,0 +1,8 @@
+# Task Checklist: Courses Page Organization
+
+- [x] Initial research into data structure and current implementation <!-- id: 0 -->
+- [/] Plan the organization logic and UI changes <!-- id: 1 -->
+- [ ] Implement backend changes (if needed for better grouping) <!-- id: 2 -->
+- [ ] Implement frontend organization (Modules, Files, Folders) <!-- id: 3 -->
+- [ ] Add user controls for switching views (Logical vs. Canvas structure) <!-- id: 4 -->
+- [ ] Verify changes and polish UI <!-- id: 5 -->

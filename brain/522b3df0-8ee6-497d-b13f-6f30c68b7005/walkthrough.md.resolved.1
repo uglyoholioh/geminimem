@@ -1,0 +1,25 @@
+# Walkthrough: Truly Full-Screen Focus Mode
+
+I have successfully updated the Focus page to be truly full-screen, removing all surrounding UI elements while restoring the elegant centered card design.
+
+## Changes Made
+
+### Global Layout Refinement
+- **Removed Global Padding & Sidebar**: Modified [ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx) to completely bypass the standard app shell when on the `/focus` route. This removes the "gray borders" and extra gaps.
+- **Hidden Internal Header**: Removed the local "FOCUS" title and header in [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx) for a cleaner look.
+
+### Restored Card Design
+- **Centered Glass Card**: Reverted the content layout to use the `glass-card` container. It is now perfectly centered in the absolute middle of your screen.
+- **Atmospheric Backgrounds**: Background presets now fill the *entire* browser window from edge to edge, creating a truly immersive environment behind the central card.
+
+## Verification Results
+
+### Visual Audit
+- [x] **No Gray Borders**: The content now touches the edges of the browser window.
+- [x] **No Header**: The "FOCUS" title and navigation area are gone.
+- [x] **Beautiful Card**: The timer and tools are back inside their premium glassmorphic card.
+- [x] **Immersive BG**: Animated and static backgrounds cover 100% of the viewport.
+
+### Functional Check
+- [x] All timer and Spotify controls remain fully functional.
+- [x] Navigating away from Focus restores the normal sidebar and header for the rest of the app.

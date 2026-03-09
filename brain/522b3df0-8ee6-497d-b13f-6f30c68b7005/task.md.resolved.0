@@ -1,0 +1,13 @@
+# Task: Full-Screen Focus Mode
+
+- [/] Planning Full-Screen Focus Mode
+    - [x] Identify focus page component (found at [frontend/app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx))
+    - [/] Analyze current layout and styling
+- [ ] Implement Full-Screen Layout
+    - [ ] Update [frontend/app/focus/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx) to use full viewport
+    - [ ] Remove or expand the centered "windowed" container
+    - [ ] Ensure background covers the entire screen
+    - [ ] Adjust positioning of UI elements (timer, player, tasks) for full screen
+- [ ] Verification
+    - [ ] Verify full-screen layout on different screen sizes
+    - [ ] Ensure all functional elements remain accessible

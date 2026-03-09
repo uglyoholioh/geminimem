@@ -1,0 +1,56 @@
+# Study Planner & Unified Schedule: Ideation
+
+This document outlines a conceptual structure for a unified **Study Planner & Schedule** page, designed to streamline student workflows by integrating academic commitments, tasks, and intelligent planning tools.
+
+## 1. Core Integrations
+Combining existing siloed features into a single source of truth:
+
+*   **Timetable Integration**: Direct overlay of NUSMods/Class schedules (lectures, tutorials, labs).
+*   **Unified Task Stream**: Merging manual tasks with Canvas assignments and deadlines.
+*   **Meeting/Calendar Sync**: Integration with Apple/Google calendars and the internal `meetings` router.
+*   **Progress Tracking**: Attendance logs (from [timetable](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable/main.py#70-121)) and task completion percentages.
+
+## 2. Key Features for Students
+
+### A. Dynamic Intelligent Planning
+*   **Smart Gaps**: Automatically identify "dead hours" between classes and suggest short study bursts or rest periods.
+*   **Deadline Proximity Alerts**: Visual heatmaps or urgent markers for days with multiple heavy deadlines.
+*   **Workload Balancing**: Suggested "AI Study Blocks" that adapt based on the complexity of the module (e.g., more blocks for Lab-heavy modules).
+
+### B. Contextual Study Modes
+*   **"Deep Work" Direct Trigger**: Click a scheduled study block to immediately enter the **Focus Mode** page with the relevant module's music visualizers and timer pre-set.
+*   **Resource Pinning**: Each study block can have pinned files (Lecture notes, PDFs) retrieved via the RAG pipeline.
+
+### C. Collaborative Scheduling
+*   **Meeting Finder**: Integration with the existing [meetings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/meetings.py) to view group project availability directly on the planner.
+
+## 3. Conceptual UI/UX Layout
+
+### **The "Command Center" View**
+A three-column layout or a flexible grid:
+
+1.  **Left Sidebar: The Backlog & Goals**
+    *   **Unscheduled Tasks**: Drag-and-drop tasks onto the schedule.
+    *   **Focus Goal**: A "North Star" goal for the week (e.g., "Complete CS2103T Milestone").
+
+2.  **Center: The Unified Timeline (Main View)**
+    *   **Switchable Views**: Day, Week (Horizontal/Vertical), and a new "Agenda" list view for mobile-first users.
+    *   **Layer Toggles**: Toggle visibility for Classes, Tasks, Personal Events, and AI Suggestions.
+    *   **Attendance Tracker**: One-click "Check-in" for classes.
+
+3.  **Right Sidebar: Insights & AI Assistant**
+    *   **Workload Gauge**: A visual indicator of how busy the day/week is.
+    *   **Daily Brief**: AI-generated summary like: *"You have a 3-hour gap after your lecture. Would you like to schedule 1.5 hours of Deep Work on Assignment 2?"*
+    *   **Quick Sync Status**: Status of Canvas and External Calendar connections.
+
+## 4. Proposed Technical Structure (Frontend)
+
+*   **`Layout`**: A shared shell that maintains sync status.
+*   **`TimelineGrid`**: The core interactive grid.
+*   **`TaskDrawer/Backlog`**: Collapsible drawer for task management.
+*   **`InsightPanel`**: Floating or sidebar panel for AI-driven recommendations.
+
+---
+
+> [!TIP]
+> **Focus Mode Handshake**: The most premium integration would be a "Start Session" button on any planner block that transitions the user into the immersive Focus page with a single click.

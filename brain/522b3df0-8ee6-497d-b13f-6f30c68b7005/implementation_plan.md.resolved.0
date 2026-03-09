@@ -1,0 +1,33 @@
+# Full-Screen Focus Mode
+
+The goal is to transition the Focus page from its current "windowed" design (a centered card with a border) to a full-screen, immersive experience. This will make the focus environment feel more atmospheric and less constrained.
+
+## Proposed Changes
+
+### Focus Page
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
+
+- **Remove the centered card container**: Modify the container div (around line 835) that currently has `max-w-5xl`, `border`, and `glass-card` classes.
+- **Expand layout to full viewport**:
+    - Make the main content area occupy the full width and height below the header.
+    - Implement a three-column grid for Large Mode (Spotify Enabled):
+        - Left: Spotify Player (immersive/minimal).
+        - Center: Large Clock and Timer Controls.
+        - Right: Task List.
+- **Background Layer refinement**: Ensure the background presets (Animated, Gradient, Image) remain as the bottom layer and cover the entire viewport without gaps.
+- **Overlay adjustment**: Keep the dark overlay (`bg-black/50`) but ensure it covers the whole screen to maintain readability of white text/icons over diverse backgrounds.
+- **Responsiveness**: Ensure the layout folds gracefully on smaller screens, potentially moving the task list to the bottom or a toggleable side panel.
+
+## Verification Plan
+
+### Manual Verification
+- **Visual Audit**: I will use the browser tool to navigate to `/focus` and verify:
+    - The "windowed" border is gone.
+    - The layout spans the full width of the screen.
+    - All background presets (Matrix, Starfield, etc.) scale correctly to the full screen.
+- **Functional Check**:
+    - Verify Spotify player still works and is positioned well.
+    - Verify timer controls (Start/Pause/Reset) are functional and centered.
+    - Verify task list is accessible and usable.
+    - Test responsive behavior by resizing the browser window.

@@ -1,0 +1,31 @@
+# Refined Full-Screen Focus Mode
+
+The goal is to make the Focus page truly full-screen by removing all surrounding UI elements (global header, sidebar padding, and internal header) while restoring the centered "card" design for the focus tools.
+
+## Proposed Changes
+
+### Global Layout
+
+#### [MODIFY] [ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx)
+
+- **Identify Focus page**: Add a check for `pathname === '/focus'`.
+- **Remove padding and sidebar**: If on the Focus page, render the `children` without the sidebar and without the default `main` padding/classes that create the "gray borders" effect.
+
+### Focus Page
+
+#### [MODIFY] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
+
+- **Restore the centered card**: Undo the change that made the content fill the whole screen. Return to the centered `glass-card` layout.
+- **Remove internal header**: Delete the `<header>` element (lines 788-793) that contains the "FOCUS" title.
+- **Full height fix**: Ensure the container takes up `100vh` without any gaps from the parent layout.
+
+## Verification Plan
+
+### Manual Verification
+- **Visual Audit**:
+    - Verify the gray borders and "FOCUS" header are completely gone.
+    - Verify the focus content is centered in a beautiful glass card.
+    - Verify the atmospheric background fills the *entire* browser window.
+- **Functional Check**:
+    - Verify all focus tools (timer, Spotify, tasks) are fully functional.
+    - Ensure navigating away from `/focus` restores the normal layout.

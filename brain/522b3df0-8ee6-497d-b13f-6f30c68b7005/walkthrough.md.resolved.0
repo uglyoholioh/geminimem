@@ -1,0 +1,33 @@
+# Walkthrough: Full-Screen Focus Mode
+
+I have successfully transitioned the Focus page from a constrained windowed layout to a full-screen immersive experience.
+
+## Changes Made
+
+### Focus Page Layout
+- **Removed the centered card container**: The "windowed" border and inner shadow have been removed, allowing the content to breathe.
+- **Expanded to Full Viewport**: The content area now fills the width and height of the screen below the header.
+- **Immersive Glassmorphism**: For the task list on the right, I've implemented a deeper glassmorphic look (`bg-black/20`, `backdrop-blur-xl`) that integrates beautifully with the atmospheric backgrounds.
+- **Centered Focus Area**: The timer and mode selectors are now perfectly centered in the middle column, creating a strong focal point.
+- **Improved Spacing**: Increased padding and gap sizes for a more premium, high-end feel.
+
+### Component Logic
+- **Spotify Integration**: Maintain high-quality Spotify player integration on the left side (when enabled), now with more breathing room.
+- **Task List**: Moved to a dedicated sidebar-style container on the right that persists in a visible state on larger screens.
+
+## Verification Results
+
+### Visual Audit
+- [x] The page occupies 100% of the width and height (below the header).
+- [x] Atmospheric backgrounds (Animated, Image, Gradient) cover the entire screen.
+- [x] The dark overlay ensures all white text and icons are perfectly legible.
+- [x] The "Focusing On" task list on the right feels premium and integrated.
+
+### Functional Check
+- [x] Timer start/pause/reset works correctly.
+- [x] Mode switching (Focus, Short Break, Long Break) is functional.
+- [x] Spotify player controls and visibility toggle correctly.
+- [x] Task selection and completion logic remains intact.
+
+> [!TIP]
+> Try switching between different **Animated Presets** (like Matrix or Starfield) in the Customise menu to see how they now fill your entire workspace!

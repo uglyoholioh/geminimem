@@ -1,0 +1,28 @@
+# Walkthrough - New Music Visualizations for Focus Tab
+
+I've added four new premium background visualizations and enhanced the Spotify player to create a more immersive and atmospheric focus experience.
+
+## New Visualization Presets
+
+You can now find these in the **Customise Focus Settings** (Gear icon) under **Backgrounds > Animated**:
+
+1.  **Cyber Pulse**: A tech-inspired HUD with pulsing neon rings and a radar scanner line.
+2.  **Lava Lamp**: Smooth, organic, glassmorphic blobs that float gracefully in the background.
+3.  **Cosmic Nebula**: A deep-space gaseous cloud effect with subtle drifting movement and twinkling stars.
+4.  **City Bokeh**: Out-of-focus light particles that shift and blur, mimicking the look of city lights at night.
+
+## Enhanced Spotify Player
+
+The Spotify Vinyl player now feels even more "alive" when music is playing:
+- **Dynamic Glow & Pulse**: The record now subtly pulses in size and glow, synchronized with a "heartbeat" rhythm.
+- **Vibe Status**: A new animated "Vibe Check Passed" status appears when music is active, indicating a steady focus state.
+
+## Verification Results
+
+- [x] **Cyber Pulse**: Verified pulsing rings and scanner line animation in [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx).
+- [x] **Lava Lamp**: Verified smooth blob movement and purple/pink gradient combinations.
+- [x] **Nebula**: Verified cosmic drift and radial gradient layering.
+- [x] **Bokeh**: Verified randomized light particle movement and colors.
+- [x] **Spotify Player**: Verified `vinyl-pulse` and `vibe-fade` animations in [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx).
+
+You can now switch to these new modes and enjoy a more personalized focus session!

@@ -19,9 +19,17 @@ Modified system prompts in [brief.py](file:///Users/oli/Desktop/CraftCanvas/back
 
 ## Verification Results
 
-- **RAG Retrieval**: Verified that searching for specific topics (e.g., "Quantum Computing") returns the relevant document chunks.
-- **Linking Metadata**: Confirmed that the AI tools return the necessary IDs to build functional download links.
-- **AI Formatting**: Updated the system instruction set to ensure the AI uses these links in its responses.
+- **RAG Retrieval**: Verified that searching for specific topics returns relevant document chunks with metadata.
+- **Linking Metadata**: AI tools successfully return `file_id` and `course_id`.
+- **UI Link Rendering Fix**: 
+    - Switched from `file:///` to relative `/api/v1/` URIs to avoid browser security blocks.
+    - Added a custom `ReactMarkdown` component in `DailyBriefChat.tsx` that transforms download links into premium styled buttons.
+    - **Dual Options**: If a Canvas web URL is available, both "Download" and "View on Canvas" buttons are displayed side-by-side.
+
+### 4. Canvas Page Linking
+- **Data Model**: Added `canvas_web_url` to the `CanvasFile` model.
+- **Synchronization**: Updated `canvas_sync.py` to link module item `html_url` back to the corresponding `CanvasFile`.
+- **Retrieval**: Enhanced AI tools and RAG metadata to return Canvas web URLs alongside download links.
 
 > [!TIP]
-> You can now ask the AI things like "Where can I find the slides for lecture 3?" or "Show me my GEX readings" and it will provide clickable links directly in the chat.
+> Material links now appear as sleek, button-like cards with a "Download" icon, making them much easier to see and interact with!

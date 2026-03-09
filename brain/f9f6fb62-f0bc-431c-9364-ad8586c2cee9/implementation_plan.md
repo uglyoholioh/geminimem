@@ -1,28 +1,19 @@
-# Implementation Plan - Enhancing AI Retrieval and Linking for Module Materials
+### Canvas Web Link Integration
 
-The user wants the AI to easily retrieve and link to module materials. Currently, RAG is disabled, and AI tool responses for materials don't include direct links.
+#### [MODIFY] [canvas_file.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/canvas_file.py)
+- Add `canvas_web_url: Optional[str] = None` to store the link to the file's page on Canvas (distinct from the download URL).
 
-## Proposed Changes
-
-### Backend
+#### [MODIFY] [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+- Update `sync_files` or `sync_modules` to populate `canvas_web_url` from the module item's `html_url`.
 
 #### [MODIFY] [rag_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py)
-- Re-enable RAG service logic (or implement a lightweight keyword-based version if ChromaDB is problematic).
-- Ensure `query` returns enough metadata to construct links (IDs, filenames, course codes).
+- Ensure `canvas_web_url` is stored in the metadata of embedded chunks.
 
 #### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
-- Update `search_module_materials` and `search_across_documents` to return structured results including file IDs and types.
-- Ensure the result format is consistent for the LLM to process.
+- Update `search_module_materials` to return both `file_id` and `canvas_web_url`.
 
-#### [MODIFY] [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py)
-- Update system prompt instructions to encourage the LLM to use the materials tools and provide markdown links in the format `[filename](file:///api/v1/courses/{course_id}/files/{file_id}/download)`.
-- *Note*: Even though the frontend uses these links, the AI should be instructed on the correct format.
-
-### Frontend
-
-#### [MODIFY] [BriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/brief/BriefChat.tsx) (Assuming this is the component)
-- Ensure the chat renderer correctly handles file download links.
-- Add a "Materials" tab or quick link section in the chat if appropriate.
+#### [MODIFY] [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx)
+- Add a second button labeled "View on Canvas" if a `canvas_web_url` is provided in the link metadata.
 
 ## Verification Plan
 
