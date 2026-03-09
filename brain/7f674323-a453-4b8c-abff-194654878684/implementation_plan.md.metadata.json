@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to restore missing Grade models or remove their usage to fix the backend startup error. Includes recreation of the missing models/grade.py file based on identified requirements.",
+  "updatedAt":  "2026-03-09T09:38:25.852480Z"
+}

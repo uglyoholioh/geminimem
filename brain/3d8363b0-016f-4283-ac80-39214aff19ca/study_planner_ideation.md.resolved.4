@@ -34,7 +34,7 @@ Combining existing siloed features into a single source of truth:
 *   **Timetable Integration**: Direct overlay of NUSMods/Class schedules (lectures, tutorials, labs).
 *   **Unified Task Stream**: Merging manual tasks with Canvas assignments and deadlines.
 *   **Meeting/Calendar Sync**: Integration with Apple/Google calendars and the internal `meetings` router.
-*   **Progress Tracking**: Attendance logs (from `timetable`) and task completion percentages.
+*   **Progress Tracking**: Attendance logs (from [timetable](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable/main.py#70-121)) and task completion percentages.
 
 ## 2. Low-Fatigue & "Playful" Mechanisms
 
@@ -59,7 +59,7 @@ A ludic (game-like) interface for the morning backlog:
 *   **Resource Pinning**: Each study block can have pinned files (Lecture notes, PDFs) retrieved via the RAG pipeline.
 
 ### C. Collaborative Scheduling
-*   **Meeting Finder**: Integration with the existing `meetings.py` to view group project availability directly on the planner.
+*   **Meeting Finder**: Integration with the existing [meetings.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/meetings.py) to view group project availability directly on the planner.
 
 ## 3. Conceptual UI/UX Layout
 
@@ -80,27 +80,17 @@ A three-column layout or a flexible grid:
     *   **Daily Brief**: AI-generated summary like: *"You have a 3-hour gap. I've prepared 2 Ghost Slots for your Assignment. Tap to commit."*
     *   **Quick Sync Status**: Status of Canvas and External Calendar connections.
 
-# The "Living Planner": 8-Bit AI Companions
+# The "Living Planner": AI Companion & Tamagotchi Mechanics
 
-To keep implementation simple yet high-impact, the companions use a **retro 8-bit / Pixel Art** aesthetic. This allows for clear "evolution" stages (just swapping sprites) and a cute, nostalgic feel that contrasts beautifully with the premium glassmorphism of the app.
+To transform the study planner from a tool into a "partner," we introduce a persistent AI character—let's call it **"The Guardian"** (or a name chosen by the user)—whose state reflects the user's productivity.
 
-## 1. Evolution & Mood States (Pixel Art Edition)
-*   **"Dormant"**: A small 16x16 pixel egg or pulsing square.
-*   **"Energetic"**: A 32x32 animated sprite with simple "jumping" or "sparkling" frames. 
-*   **"Tired/Wilted"**: The sprite's colors desaturate (grayscale) and it sits lower in the UI.
-*   **"Zen Mode"**: A glowing pixel aura appears around the character during focus.
+## 1. Evolution & Mood States
+The Guardian lives in the Corner of the Screen (and prominently in the Study Planner sidebar).
 
-## 2. Character Sprite Archetypes
-| Archetype | Sprite Mockup Concept | Color Palette |
-| :--- | :--- | :--- |
-| **The Architect** | A floating, rotating 8-bit cube or grid-bot. | Cyan / Neon White |
-| **The Scholar** | A tiny pixel owl with glasses. | Sepia / Deep Blue |
-| **The Muse** | A dancing, prismatic pixel cloud. | Pink / Purple Gradient |
-| **The Rival** | A small, spiky pixel flame or imp. | Red / Orange / Black |
-
-## 3. Implementation Path
-*   **CSS Pixel Art**: Many states can be achieved using `box-shadow` pixel art or simple `<canvas>` rendering.
-*   **Lottie/GIF**: Light-weight sprite sheets for animations (Idle, Happy, Tired).
+*   **"Dormant" (The Starting State)**: A simple geometric shape or egg-like form.
+*   **"Energetic" (Focus Multiplier)**: When the user completes a **Deep Work** session, the Guardian glows and gains "EXP." It might physically grow or gain features (e.g., wings, a more complex particle effect).
+*   **"Tired/Wilted" (The Nudge)**: If the user skips classes (tracked via Attendance) or ignores "Ghost Slots," the Guardian appears sluggish or dimmed. It doesn't "shame" the user, but its visual state subtly signals that the "system" is out of balance.
+*   **"Zen Mode"**: Triggered during Focus sessions. The Guardian pulses in sync with the user's timer or music visualizer.
 
 ## 2. Nurturing Through Organization
 "Sorting" is no longer just moving data; it's "feeding" the Guardian:

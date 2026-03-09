@@ -1,27 +1,31 @@
-# Walkthrough: Focus UI Refinements
+# Walkthrough: Gen Z Trend-Focused Backgrounds
 
-I've implemented the requested fixes and features to perfect the Focus mode experience.
+I've added a new set of premium backgrounds to the Focus mode, specifically tailored to current design trends seen on TikTok and Pinterest.
 
-## Improvements Made
+## New Background Presets
 
-### 🛠 Fix: Settings Modal Cropping
-- **Unbounded Modals**: Moved the "Customise Focus" modal outside the main glass card container.
-- **Result**: The settings menu is now fully visible and no longer clipped by the card's rounded corners or overflow constraints.
+### 🍃 Mid-Century Modern
+A sophisticated, warm interior with Eames-style furniture and soft cinematic sunlight. Perfect for a cozy, "clean girl" or "quiet luxury" study vibe.
 
-### 🌓 Feature: Sidebar Toggle
-- **Toggle Button**: Added a new "Layout" icon button in the top-right corner of the Focus page.
-- **Immersive Control**: You can now toggle the main application sidebar on and off with a single click.
-- **Smart Layout**: When the sidebar is hidden, the Focus background fills the entire screen for maximum immersion. When shown, it slides in without adding extra gray borders or gaps.
+### 🌧 Lofi Rainy Window
+A dreamy, immersive view of a rainy cyberpunk city at night. Ideal for lofi-beats-to-study-to sessions, complete with a warm lamp and coffee-shop aesthetics.
 
-## Verification Results
+### 🎨 Abstract Clay
+Smooth liquid gradients in organic earth tones (terracotta, peach, and forest green) with frosted glass textures. A sleek, modern aesthetic popular in minimalist tech trends.
 
-### 🧪 Visual & Functional Audit
-- [x] **Settings Menu**: Opening the customise modal shows the full menu without any cropping.
-- [x] **Sidebar Toggle**: Clicking the toggle button correctly hides/shows the sidebar.
-- [x] **Full-Screen Background**: The atmospheric background remains edge-to-edge behind the card and sidebar.
-- [x] **Persistence**: The layout remains clean and distraction-free.
+### 🌈 Modern Gradients
+- **Terracotta Dream**: Warm, earthy sunset tones.
+- **Cyber Glitch**: Vibrant green-to-blue neon energy.
+
+## How to access
+1. Open the **Focus** page.
+2. Click the **Settings (Gear)** icon in the top right.
+3. Select the **Backgrounds** tab.
+4. Choose your new favorite vibe!
 
 ---
 
-### How to use the Sidebar Toggle
-Look for the **Dashboard/Layout** icon next to the Settings gear icon in the top right of your Focus screen!
+### Verification Results
+- [x] All new image assets successfully generated and moved to `/public/backgrounds/`.
+- [x] `IMAGE_PRESETS` and `GRADIENT_PRESETS` updated in `page.tsx`.
+- [x] Modal cropping fix and Sidebar toggle remain fully functional.

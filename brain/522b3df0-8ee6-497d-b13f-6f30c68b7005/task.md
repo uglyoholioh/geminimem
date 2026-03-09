@@ -1,8 +1,9 @@
 - [x] Planning Focus UI Refinement
 - [x] Implement UI Fixes
-- [/] Add Gen Z Trend Backgrounds
-    - [/] Generate high-quality assets (Mid-Century Modern, Lofi, Abstract)
-    - [ ] Update `IMAGE_PRESETS` in `page.tsx` with new assets
-    - [ ] Add new gradient presets for modern aesthetic
-- [ ] Verification
-    - [ ] Verify new backgrounds load and scale correctly
+- [x] Add Gen Z Trend Backgrounds
+- [x] Fix Spotify Tonearm Animation
+    - [x] Locate and analyze `SpotifyPlayer.tsx`
+    - [x] Debug tonearm rotation logic and CSS
+    - [x] Verify fix by testing play/pause transitions
+- [x] Verification
+    - [x] Verify tonearm moves smoothly between 0 and active rotation
