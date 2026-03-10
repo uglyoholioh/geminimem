@@ -1,37 +1,44 @@
-# Fluid Triage Refinements Implementation Plan
+# Ecosystem Synergy Implementation Plan
 
-We are refining the Fluid Triage system to remove legacy UI fat and add powerful, frictionless enhancements.
+This plan outlines the steps to interconnect CraftCanvas features, focusing on Contextual Execution (Canvas), Reality-Correction (Focus), and Ambient Ingestion (Triage).
+
+## Goal Description
+Transform CraftCanvas from a collection of isolated tools into a unified ecosystem where user actions in one area seamlessly accelerate their workflows in others. 
 
 ## Proposed Changes
 
-### 1. Removing UI Fat (A, B, D)
-- **[A] Planner Backlog Removal**: Delete the backlog sidebar in `/planner/page.tsx`. Add a prominent floating or top-bar button `Inbox (X)` to trigger the Triage Inbox.
-- **[B] Invisible Rebalance**: Remove the manual `Rebalance` button from the Planner. We will trigger the `rebalance_schedule` logic implicitly on the backend whenever a triage session completes or when a user logs in (fetches the `next` task).
-- **[D] Ghost Slots Removal**: Delete the `GhostSlot` integration from the Planner timeline. The calendar will *only* show concrete classes and concrete scheduled tasks (`is_fluid` included).
+### 1. The Contextual Execution Loop (Tasks ↔ Canvas)
+*Goal: Dynamically attach relevant Canvas files to the "Up Next" task.*
+- **Backend (`routers/fluid.py`)**: 
+  - Enhance the `get_next_task` endpoint. When a task is selected, use its `course_code` and `title` to query the `canvas_files` table for highly relevant resources (e.g., matching keywords like "Lecture 5").
+  - Return these as `suggested_resources` in the API response.
+- **Frontend (`Dashboard`)**:
+  - Update the "Up Next" hero card to accept and render a "Resources" drawer or inline chips.
+  - Clicking a resource chip directly opens the Canvas Web URL or downloads the file.
 
-### 2. Task Decay & Companion Interventions (H, I)
-- **Backend Model**: Add an integer field `reschedule_count` to the `Task` model (default 0).
-- **Rebalance Engine**: Every time the AI auto-reschedules a fluid task to a different day because it was missed, increment `reschedule_count`.
-- **Frontend UI**: If `reschedule_count >= 2`, visually indicate "Stale" (e.g., a cobweb icon or bold text) on the task cards.
-- **Companion AI**: If a highly stale task exists, overrule the default Companion greeting on the Dashboard/Planner with a specific contextual nudge (e.g., "We keep pushing this back. Want to just do 15 mins?").
+### 2. The Reality-Correction Loop (Focus ↔ Fluid Schedule)
+*Goal: Focus Timer overtime automatically rebalances the schedule.*
+- **Frontend (`Focus Mode`)**:
+  - When the focus timer reaches `00:00`, intercept the completion state. Instead of just stopping, present an interactive modal: "Are you done, or do you need more time? [+15m] [+30m]".
+  - If the user adds time, append it to the current focus session.
+- **Backend (`routers/tasks.py` / `routers/fluid.py`)**:
+  - Create or update an endpoint to handle "Overtime Extension". 
+  - Extending the time of a scheduled task pushes back subsequent fluid tasks for the day by calling the `rebalance_schedule` logic automatically.
 
-### 3. Universal Quick-Add `Cmd+K` (E)
-- **Frontend**: Create a `GlobalCommandPalette.tsx` component mounted in the `Layout` or `Dashboard`/`Planner`. It listens for `Cmd+K`.
-- **Backend**: Create a new endpoint `POST /fluid/parse-natural` that takes a raw string (e.g., "Read Bio Chapter 4 by Sunday"), uses the LLM to extract title, due date, course code, and priority safely, and pushes the new task directly into the Triage Inbox without a massive form.
-
-### 4. Smart Priorities with Keyboard Tweaks (C)
-- **Smart Inference**: The `Cmd+K` natural language parser will assign a default priority based on the LLM's understanding of urgency.
-- **Keyboard Tweak**: During the `TriageInbox` flow, users can tap `P` to instantly cycle priorities (Urgent -> High -> Medium -> Low) or holding `Shift + [Number]` for priority while using regular numbers for scheduling. We will use `P` to cycle to avoid hand contortions.
-
-### 5. "Reshuffle" & Explainability (F, J)
-- **Backend `fluid/next`**: Enhance the response to return a `reasoning` string (e.g., "High priority and due tomorrow") and allow passing an `exclude_task_ids` list.
-- **Frontend Dashboard Hero**: 
-  - Show the `reasoning` text below the task as an "Explainable AI" micro-tag.
-  - Add a **"Reshuffle 🎲"** button next to "Start Focus". Clicking it fetches the next-best task, excluding the currently shown one.
+### 3. The Ingestion-Action Loop (External Sources ↔ Triage)
+*Goal: Ambiently extract tasks from Canvas and Telegram directly into the Triage Inbox.*
+- **Backend (`services/canvas_sync.py`)**:
+  - When a new Canvas Announcement is synced, pass its content through an LLM prompt to detect action items (e.g., "Assignment 3 deadline extended"). 
+  - If an actionable item is found, automatically create a `Task` with `status="inbox"` so it appears in Triage.
+- **Backend (`services/telegram_service.py` or equivalent webhooks)**:
+  - If the user replies to the Telegram bot or sends a voice note/forwarded message via `lectvideoanalyser`, route that text through the `parse-natural` LLM pipeline to directly spawn Triage tasks.
 
 ## Verification Plan
-1. Check that Planner has no sidebar and no ghost slots, but triage still opens via a dedicated button.
-2. Hit `Cmd+K`, type a natural phrase, and verify a properly parsed task appears in the Triage Inbox.
-3. Rapidly triage the task, press `P` to cycle its priority mid-triage, and assign it.
-4. Go to Dashboard, view the "Up Next" reasoning tag, and click "Reshuffle" to see the next suggestion.
-5. Simulate missing a task (rescheduling it manually via API or time travel) to trigger the `reschedule_count` increase, and verify the Companion comments on it.
+### Automated & API Tests
+- Use `sqlite3` to insert a dummy "Lecture 5" file into `canvas_files`. Verify that querying the `fluid/next` endpoint for a "Review Lecture 5" task successfully returns the file in `suggested_resources`.
+- Run the Canvas syncer on an announcement containing a deadline and verify a new task appears in the database with status `inbox`.
+
+### Manual Testing
+- Go to the Dashboard, view an "Up Next" task, and verify the Canvas resource chip is clickable.
+- Start a Focus session, scrub the timer to 0, select "+15 minutes", and verify the Planner timeline shifts subsequent fluid tasks down by 15 minutes.
+- Send a natural language message to the connected Telegram bot and verify it instantly pops into the Triage Inbox queue on the web dashboard.

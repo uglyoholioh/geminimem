@@ -1,0 +1,46 @@
+# CraftCanvas Ecosystem Synergy Proposals
+
+Currently, CraftCanvas has powerful features (Canvas Sync, Fluid Triage, Focus Mode, AI Companions), but they operate in silos. To make the app feel like a unified "OS," we need **Compounding Value**: where progress in one feature makes another feature smarter or easier to use. 
+
+Here are proposals to interconnect the ecosystem, categorized by the loops they create.
+
+---
+
+## 1. The Contextual Execution Loop (Tasks ↔ Knowledge)
+*Problem:* You see "Read Lecture 5" in your Up Next, but you still have to manually hunt down the PDF in Canvas or your notes in Craft to actually do it.
+*Synergy:* **The app brings the work to you.**
+*   **Smart Resource Attachment:** When the AI parses a task via `Cmd+K` (e.g., "Review Bio Chapter 4"), it automatically searches the `canvas_files` and `craft_doc_map` databases. 
+*   **The UX:** When "Review Bio Chapter 4" appears in the "Up Next" hero, the card includes a **"Resources" drawer**. 1-click opens the Canvas PDF or your Craft note right next to the timer. Your progress in syncing Canvas now directly speeds up your study workflow.
+
+## 2. The Execution-Intelligence Loop (Focus ↔ Companion)
+*Problem:* The companion is a cute widget, but it doesn't genuinely help you work better. Earning EXP feels detached from practical utility.
+*Synergy:* **Focus time buys AI labor.**
+*   **Utility Unlocks:** As you log actual `Focus` minutes, your Companion gains EXP and Levels. Instead of just cosmetic changes, gaining levels unlocks **active AI skills**.
+    *   *Level 1:* Nudges you when tasks go stale.
+    *   *Level 5:* Can auto-generate a 3-question mini-quiz based on the Canvas module you are about to study.
+    *   *Level 10:* Can read your messy Craft notes and extract Action Items directly into your Triage Inbox.
+*   **The UX:** Sweating through a 2-hour Pomodoro session feels rewarding because you know it's "leveling up" your AI assistant's ability to do your busywork for you later.
+
+## 3. The Reality-Correction Loop (Focus ↔ Fluid Schedule)
+*Problem:* The planner assumes tasks take exactly as long as estimated. If you take longer, the schedule breaks.
+*Synergy:* **The Focus Timer drives the timeline.**
+*   **Dynamic Overtime:** If the Focus timer for a 60-minute task hits 0, but you aren't done, a modal asks: "Need more time?" 
+*   If you add +30 mins, the AI instantly **rebalances the rest of your day** in the background, pushing a lower-priority task to tomorrow to make room. 
+*   **Estimation Learning:** Over time, the AI notices that "CS2030 Labs" always take you 20% longer than you estimate. The `fluid/next` AI starts automatically padding these tasks in the planner. Your actual work history trains the scheduler to be realistic.
+
+## 4. The Ingestion-Action Loop (External Sources ↔ Triage)
+*Problem:* Triage is still manual input, even with `Cmd+K`.
+*Synergy:* **Everything flows to the Inbox.**
+*   **Ambient Task Extraction:** When your `lectvideoanalyser` Telegram bot processes a lecture, or when a new Canvas Announcement arrives ("Assignment 3 extended!"), the AI parses these events.
+*   **The UX:** You open CraftCanvas and there are 3 items in the Triage Inbox waiting for your approval: "Add Assignment 3 to Schedule?", "Review lecture notes from today?". Progress outside the app (like chatting on Telegram or your professor updating Canvas) feeds your daily agenda without you doing data entry.
+
+## 5. Course Mastery System (Canvas ↔ Gamification)
+*Problem:* Doing tasks is an endless treadmill. 
+*Synergy:* **Tasks build visual Course Mastery.**
+*   Instead of just checking off a task, every task is tied to a `Course`. Completing tasks fills a "Course Mastery" progress bar for that module on the Dashboard.
+*   If you fall behind in BT1101, the AI sees the Mastery dipping and prioritizes BT1101 tasks in the "Up Next" reasoning ("Your BT1101 mastery is slipping").
+
+---
+
+### Which synergies feel the most exciting to you?
+We can prioritize one or two of these loops to implement next, turning the disparate features into a tightly woven engine.

@@ -1,49 +1,25 @@
-# Task: Living Planner Feature
+# Phase 4: Ecosystem Synergy Implementation
 
-- [x] Research existing timetable and task implementations [id: 0]
-- [x] Brainstorm features and integrations [id: 1]
-- [x] Design structural layout (UI/UX) [id: 2]
-- [x] Create initial ideation artifact [id: 3]
-- [x] Refine for Low-Fatigue & Incentivized Sorting [id: 4]
-- [x] Design 'Tamagotchi' AI Companion mechanics [id: 6]
-- [x] Design Character Archetypes [id: 8]
-- [x] Deepen Character Interactions & 'Life' Milestones [id: 9]
-- [x] Pivot to 8-Bit/Pixel Art visual style [id: 10]
-- [x] Refined ideation & drafted implementation plan [id: 12]
-- [x] Create Companion backend model and router [id: 13]
-- [x] Implement unified Planner page & GhostSlots [id: 14]
-- [x] Create 8-bit CompanionSprite and Panel [id: 15]
-- [x] Implement Sorting Gauntlet & Evening Reflection [id: 16]
-- [x] Finalize Phase 1 & 2 MVP [id: 7]
-- [x] Generate pixel art sprites for all 4 archetypes [id: 20]
-- [x] Replace CSS sprites with real images + mood filters [id: 21]
-- [x] Build static dialogue JSON pool [id: 22]
-- [x] Add LLM personality endpoint [id: 23]
-- [x] Add CompanionMini dashboard widget [id: 24]
-- [x] Add companion to Focus page [id: 25]
-- [x] Add companion avatar to Sidebar [id: 26]
-- [x] Update CompanionPanel with dialogue + chat [id: 27]
-- [x] Final verification and build checks [id: 28]
+We are interconnecting isolated features to create compounding value loops across the app. This phase focuses on connecting Tasks with Canvas Resources, Focus time with Fluid Scheduling, and External Data with the Triage Inbox.
 
-## Phase 3: Fluid Triage Refinements & Frictionless UX
-- [x] **1. UI Cleanup & Trimming Fat**
-  - [x] Remove legacy Planner Backlog sidebar (A)
-  - [x] Add floating 'Inbox' button to trigger Triage (A)
-  - [x] Hide manual Rebalance button; automate implicitly (B)
-  - [x] Rip out GhostSlots from Planner timeline & endpoints (D)
-- [x] **2. Task Decay & Companion Accountability**
-  - [x] Add `reschedule_count` to Task model (H)
-  - [x] Increment `reschedule_count` inside `rebalance_schedule` logic (H)
-  - [x] UI: Render "Stale" indicator if highly rescheduled (H)
-  - [x] Companion: Override greeting if stale tasks exist (I)
-- [x] **3. Frictionless Task Creation (Cmd+K)**
-  - [x] Backend: Build `POST /fluid/parse-natural` LLM parser (E, C)
-  - [x] Frontend: Build `GlobalCommandPalette.tsx` to listen for Cmd+K (E)
-  - [x] Remove manual priority dropdowns from traditional creation (C)
-- [x] **4. Triage & Dashboard Tweaks**
-  - [x] Triage Inbox: Add `P` shortcut to cycle priority (C)
-  - [x] Dashboard: Add Explainable AI reasoning tag to Up Next (J)
-  - [x] Dashboard: Add "Reshuffle 🎲" button next to Focus (F)
-- [x] **5. Critical Stability & Backend Health**
-  - [x] Debug and Fix SQLite schema out-of-sync issues (500 errors)
-  - [x] Verify end-to-end API health for Triage, Next, and Search
+## 1. Contextual Execution Loop (Tasks ↔ Canvas)
+- [ ] Connect `fluid/next` backend to query `canvas_files` based on task title/course_code
+- [ ] Update `Up Next` hero card frontend to render a "Resources" drawer or chips
+- [ ] Implement click handler to download/view the Canvas file directly from the Dashboard
+
+## 2. Reality-Correction Loop (Focus ↔ Fluid Schedule)
+- [ ] Update frontend Timer completion state to present an "Overtime / Need More Time?" modal (+15m, +30m)
+- [ ] Implement backend `add_overtime` API endpoint
+- [ ] Ensure adding overtime triggers the `rebalance_schedule` logic to push back subsequent fluid tasks
+- [ ] *Optional:* Update AI inference `parse-natural` to adjust time estimates based on historical overtime
+
+## 3. Ingestion-Action Loop (External Sources ↔ Triage)
+- [ ] Update Canvas Syncer: Pass new announcements to LLM to extract action items
+- [ ] Automatically create tasks from these action items with `status="inbox"`
+- [ ] Update `lectvideoanalyser` Telegram Bot: Ensure any action items generated via voice notes or chats are pushed to the CraftCanvas database via the new `/fluid/parse-natural` endpoint
+
+## 4. Verification & UI Updates
+- [ ] Test the Canvas resource attachment on a dummy task
+- [ ] Test the Overtime modal in Focus mode and confirm the scheduler pushes back later tasks
+- [ ] Test sending an email update/announcement and verifying the task lands in the Triage Inbox
+- [ ] Update `walkthrough.md` with new features

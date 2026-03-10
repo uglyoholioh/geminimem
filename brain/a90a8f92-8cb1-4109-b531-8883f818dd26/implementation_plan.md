@@ -1,0 +1,32 @@
+# Goal Description
+
+The objective is to replace the current static `.png` images for companion characters in `CompanionSprite.tsx` with dynamic, simplistic, and cute SVG-based pixel art characters. These new characters will feature animations that visually display different emotions (e.g., happy, sleepy, zen) and actions (e.g., blinking, bouncing, floating).
+
+## Proposed Changes
+
+### Companion Components
+
+#### [MODIFY] CompanionSprite.tsx
+* **Drop Static PNG Support**: Remove the `next/image` imports and the usage of static image paths (e.g., `/companions/byte.png`).
+* **Implement Inline SVGs**: Create small, reusable inline SVG React components within the file for each of the four current archetypes:
+  * `byte`: A squarish, monitor-like little robot.
+  * `sage`: A small, round, owl-like minimalist creature.
+  * `luma`: A star or lightbulb shaped sprite.
+  * `flint`: A little teardrop/flame sprite.
+* **Add Dynamic Expressions**: Implement an `<Expression />` subcomponent inside the SVGs that changes its path data (eyes, mouth) based on the `mood` prop (e.g., `^ ^` for happy, closed eyes for sleepy, wide eyes for energized).
+* **CSS Animations**: Integrate new CSS `@keyframes` tailored for SVG parts (e.g., `blink`, `bounce`, `float`, `breathe`) and apply them based on mood and archetype.
+
+## Verification Plan
+
+### Automated Tests
+There are no existing automated tests for specific UI visual rendering of the companion sprite, as it relies on CSS and SVG layout.
+
+### Manual Verification
+1. Start the Next.js development server from the `frontend` folder using `npm run dev`.
+2. Navigate to the main application in a browser.
+3. Open the Companion Panel (or wherever the companion is currently rendered).
+4. Verify visually that:
+    - The character matches the expected cute pixel art style.
+    - The correct archetype design renders (Byte, Sage, Luma, Flint).
+    - The facial expression updates appropriately when the character changes mood.
+    - Continuous animations (e.g., blinking, floating, Zzzs for sleeping) are working smoothly without jarring layouts.
