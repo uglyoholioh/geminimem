@@ -1,0 +1,146 @@
+# Living Planner: UX & UI Improvement Suggestions
+
+After auditing every component, here are targeted improvements organized by theme. The guiding principle: **understated confidence, not performative enthusiasm.**
+
+---
+
+## 🚩 Tone & Copy — Kill the Cheese
+
+The single biggest improvement. Gen Z can smell forced enthusiasm from a mile away. The current copy reads like a LinkedIn motivational post. It should read like a chill friend who happens to be organized.
+
+| Location | Current (Cheesy) | Suggested (Understated) |
+|:---|:---|:---|
+| [CompanionPanel](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionPanel.tsx#24-134) mood: happy | *"I'm feeling great! Let's crush those goals."* | *"good day. keep going."* |
+| [CompanionPanel](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionPanel.tsx#24-134) mood: neutral | *"Stable systems. Ready for the next task."* | *"standing by."* |
+| [CompanionPanel](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionPanel.tsx#24-134) mood: sleepy | *"A bit quiet today... shall we start small?"* | *"...still here."* |
+| [CompanionPanel](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionPanel.tsx#24-134) mood: zen | *"Absolute focus. You're doing amazing."* | *"locked in."* |
+| [CompanionPanel](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionPanel.tsx#24-134) mood: energized | *"Power levels rising! You're on a roll."* | *"on a streak. don't stop."* |
+| [SortingGauntlet](file:///Users/oli/Desktop/CraftCanvas/frontend/components/planner/SortingGauntlet.tsx#20-150) card body | *"Where shall we slot this? Your guardian is watching..."* | Remove entirely. Let the task title speak for itself. |
+| [SortingGauntlet](file:///Users/oli/Desktop/CraftCanvas/frontend/components/planner/SortingGauntlet.tsx#20-150) completion | *"Stack Cleared!"* + *"You earned +50 EXP for your companion."* | *"inbox zero."* + show EXP as a subtle counter animation, no text. |
+| [EveningReflection](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/EveningReflection.tsx#14-104) architect | *"Your structures were tested today..."* | *"what broke today?"* |
+| [EveningReflection](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/EveningReflection.tsx#14-104) scholar | *"Wisdom comes from review..."* | *"one thing you'll remember from today."* |
+| [EveningReflection](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/EveningReflection.tsx#14-104) muse | *"The rhythm of your work was unique..."* | *"did it feel right today?"* |
+| [EveningReflection](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/EveningReflection.tsx#14-104) rival | *"You pushed hard, but did you push enough?"* | *"what are you beating tomorrow?"* |
+| [EveningReflection](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/EveningReflection.tsx#14-104) success | *"Guardian Restored"* | *"noted. see you tomorrow."* |
+| [CompanionPanel](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionPanel.tsx#24-134) header | *"Living Planner"* | Consider just the companion's name, no section title needed. |
+| Daily Goal text | *"Complete 3 tasks to feed your guardian."* | *"3 done = streak kept"* |
+| Evening Reflection button | *"Evening Reflection"* | *"end of day"* or just a moon icon 🌙 |
+
+> [!TIP]
+> **The vibe**: Think iOS notification copy or Discord bot responses — terse, lowercase, slightly dry. Not a life coach. A co-pilot who respects your time.
+
+---
+
+## 🎨 Companion Visuals — From CSS Shapes to Real Sprites
+
+The current [CompanionSprite](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx#15-106) uses CSS divs/borders to approximate pixel art. This works as a prototype but looks more like a broken layout than a character. Suggestions:
+
+1. **Use actual pixel art SVGs or PNGs.** Create 4 small sprite sheets (one per archetype) at 32×32 or 64×64. Tools like Aseprite or Piskel can export these in minutes. CSS shapes will never feel "alive."
+
+2. **Idle animation via sprite sheets, not CSS classes.** The current `animate-bounce-slow` is generic. A proper 2–4 frame idle loop (e.g., the owl blinking, the flame flickering) using a CSS `steps()` animation on a sprite sheet would feel massively more polished.
+
+3. **Kill the emoji mood overlays.** The ✨ and "Zzz..." text are the most visually jarring elements. Instead, encode mood into the sprite itself (desaturated colors for sleepy, a subtle glow ring for zen, sparkle particles for happy) via CSS filters:
+   - **Sleepy**: `filter: saturate(0.3) brightness(0.7)`
+   - **Zen**: Add a `box-shadow: 0 0 20px rgba(accent)` glow
+   - **Happy**: Normal + a single subtle CSS particle
+
+4. **Consider a "habitat" background.** Instead of floating in the panel, the companion sits on a tiny "shelf" or in a small diorama. This grounds it visually and creates space for the environmental storytelling (weather effects, artifact shelf) we designed.
+
+---
+
+## 🏗️ Layout & Interaction Issues
+
+### Three-Column Squeeze
+The current layout uses `w-80 | flex-1 | w-80`, meaning on a 1440px screen (common for students), the timeline only gets ~680px. That's tight for a 5-day grid.
+
+**Suggestion**: Make the right panel (Companion) **collapsible** — default to collapsed on smaller screens, showing just the sprite icon. Tap to expand. The backlog panel could also be a **slide-out drawer** rather than a fixed column.
+
+### Ghost Slots Need More Context
+Currently Ghost Slots just say "Suggested Study Block." They should show:
+- **Which assignment** they're preparing for (e.g., "CS2103T — Milestone 2 prep")
+- **Why this time** (e.g., "3hr gap before your lab")
+- **Estimated duration** visually (height should scale with duration)
+
+### Sorting Gauntlet — Add Swipe Gestures
+The current implementation uses button taps. For a card-stack metaphor to feel native, it needs **drag-to-dismiss** (swipe left = later, swipe right = today, swipe up = auto). `framer-motion`'s `drag` prop makes this straightforward. The tap buttons should remain as a fallback.
+
+### Sorting Gauntlet — Show Context on Cards
+Each card is just a title. Users can't make a decision without context. Add:
+- **Due date** (if any): "Due in 3 days" or "No deadline"
+- **Priority pill**: `urgent` / `high` / `medium` / [low](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx#491-502)
+- **Estimated time**: "~30 min" or "~2 hrs"
+- **Course color stripe** on the left edge
+
+### Backlog Panel — Task Priorities Missing
+All backlog cards look identical. Add a left-edge color stripe (red = urgent, amber = high, grey = medium, transparent = low) and sort by priority by default.
+
+---
+
+## 📱 Responsiveness & Accessibility
+
+### No mobile layout
+The three-column layout will completely break on mobile. For a student app, mobile is likely 40–60% of traffic.
+
+**Suggestion**: On `< 768px`:
+- Default to **Agenda/List view** (single column, chronological)
+- Companion lives as a **floating avatar** in the corner (like a chat head)
+- Backlog accessible via **bottom sheet** (swipe up)
+- Sorting Gauntlet is already modal, so it works
+
+### Keyboard Navigation
+The Sorting Gauntlet should support keyboard shortcuts:
+- `←` = Later, `→` = Today, `↑` or `Space` = Auto
+- `Esc` = Close
+
+### Focus Indicators
+Ghost Slot "Commit" action has no visible focus ring. Add `focus-visible:ring-2` for keyboard users.
+
+---
+
+## 🌊 Advanced "Vibe" Suggestions
+
+### 1. Time-of-Day Awareness
+The planner header/background should subtly shift based on time:
+- **Morning (6am–12pm)**: Warm amber tint on the header
+- **Afternoon (12pm–6pm)**: Neutral
+- **Evening (6pm–10pm)**: Cool blue-purple wash. This is when the "Evening Reflection" button should pulse gently.
+- **Night (10pm+)**: Dark mode intensifies, companion goes to sleep automatically
+
+### 2. "Today" Column Highlight
+The current day's column should have a subtle vertical accent stripe or a slightly different background, so the user's eye is immediately drawn to "what's happening now."
+
+### 3. Current Time Indicator
+A thin horizontal red/accent line that shows the current time position on the grid (like Google Calendar's "now" indicator). This grounds the user in the present.
+
+### 4. Haptic-Style Micro-Feedback
+When solidifying a Ghost Slot:
+- The slot should "snap" into place with a spring animation
+- A quiet "click" sound effect (optional, togglable in settings)
+- The companion does a quick 1-frame reaction (happy blink)
+
+### 5. Streak Fire — Not a Number
+The current streak is displayed as a number. Instead, show it as a **visual intensity**:
+- Days 1–3: Single dot
+- Days 4–7: Small ember glow behind the companion
+- Days 7–14: Visible flame particles around the sprite
+- Days 14+: The companion's color palette shifts warmer
+
+This way the user *feels* the streak rather than being told about it.
+
+### 6. "Ghost Slot" → Rename to "Draft"
+"Ghost Slot" is a developer term. Students would understand **"Drafts"** or **"Suggestions"** more intuitively. The visual language (transparent, dashed) already communicates "not final."
+
+### 7. Undo on Sorting Gauntlet
+There's no way to undo a decision. Add a small "↩ Undo" link that appears for 3 seconds after each swipe, reverting the last card.
+
+---
+
+## Priority Ranking
+
+If I had to pick the **5 highest-impact changes**:
+
+1. **Rewrite all copy** to be terse and lowercase (biggest vibe shift, zero code complexity)
+2. **Use real pixel art sprites** instead of CSS shapes (biggest visual improvement)
+3. **Make right panel collapsible** (fixes layout squeeze)
+4. **Add swipe gestures to Sorting Gauntlet** (makes the interaction feel native)
+5. **Add current-time indicator + today column highlight** (grounds the user in reality)
