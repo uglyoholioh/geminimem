@@ -24,3 +24,26 @@
 - [x] Add companion avatar to Sidebar [id: 26]
 - [x] Update CompanionPanel with dialogue + chat [id: 27]
 - [x] Final verification and build checks [id: 28]
+
+## Phase 3: Fluid Triage Refinements & Frictionless UX
+- [x] **1. UI Cleanup & Trimming Fat**
+  - [x] Remove legacy Planner Backlog sidebar (A)
+  - [x] Add floating 'Inbox' button to trigger Triage (A)
+  - [x] Hide manual Rebalance button; automate implicitly (B)
+  - [x] Rip out GhostSlots from Planner timeline & endpoints (D)
+- [x] **2. Task Decay & Companion Accountability**
+  - [x] Add `reschedule_count` to Task model (H)
+  - [x] Increment `reschedule_count` inside `rebalance_schedule` logic (H)
+  - [x] UI: Render "Stale" indicator if highly rescheduled (H)
+  - [x] Companion: Override greeting if stale tasks exist (I)
+- [x] **3. Frictionless Task Creation (Cmd+K)**
+  - [x] Backend: Build `POST /fluid/parse-natural` LLM parser (E, C)
+  - [x] Frontend: Build `GlobalCommandPalette.tsx` to listen for Cmd+K (E)
+  - [x] Remove manual priority dropdowns from traditional creation (C)
+- [x] **4. Triage & Dashboard Tweaks**
+  - [x] Triage Inbox: Add `P` shortcut to cycle priority (C)
+  - [x] Dashboard: Add Explainable AI reasoning tag to Up Next (J)
+  - [x] Dashboard: Add "Reshuffle 🎲" button next to Focus (F)
+- [x] **5. Critical Stability & Backend Health**
+  - [x] Debug and Fix SQLite schema out-of-sync issues (500 errors)
+  - [x] Verify end-to-end API health for Triage, Next, and Search

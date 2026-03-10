@@ -1,45 +1,62 @@
-# Character Integration Walkthrough
+# Walkthrough: Fluid Triage System
 
-I have successfully integrated the AI study companions into the CraftCanvas application, focusing on a Gen Z-friendly, non-cheesy aesthetic with a balance of simplistic pixel art and sophisticated LLM-driven interactions.
+I have successfully implemented the **Fluid Triage System**, transforming the organizational experience from a "manual chore" into an AI-guided, frictionless flow.
 
-## 🎨 Visual Identity: Pixel Art Sprites
-Each of the four archetypes—**Byte**, **Sage**, **Luma**, and **Flint**—now has a unique, custom-generated pixel art sprite. These sprites are used throughout the app to represent the companion's presence.
+## 🚀 Key Features
 
-| Archetype | Personality | Visual Vibe |
-| :------- | :---------- | :---------- |
-| **Byte** | The Architect | Minimalist, robotic, precise. |
-| **Sage** | The Scholar | Scholarly owl, warm but pretentious. |
-| **Luma** | The Muse | Chaotic, empathetic cloud creature. |
-| **Flint** | The Rival | Sharp-edged, competitive fireball. |
+### 1. Rapid Triage Inbox
+The "Sorting Gauntlet" has been replaced with a high-speed, keyboard-driven triage interface.
+- **Shortcuts**: Use `1` (Today), `2` (Tomorrow), `3` (Weekend), `Space` (AI Auto-Schedule), or `S` (Snooze).
+- **Goal**: Clear 20+ tasks in under 30 seconds.
+- **Location**: Access via the "Sort Inbox" button on the Dashboard or the "Rapid Triage" button in the Planner.
 
-## 💬 Dialogue System: Hybrid Approach
-To ensure responses feel snappy yet personalized, I implemented a hybrid dialogue system:
+### 2. "Up Next" Hero Section
+The Dashboard now features a high-impact hero section that tells you exactly what to do next.
+- **Smart Prioritization**: Automatically surfaces the most relevant task.
+- **Momentum**: One-click "Start Focus" to jump straight into work.
 
-1.  **Static Pool**: A collection of terse, lowercase, non-cheesy one-liners for common contexts (greetings, focus sessions, streaks).
-2.  **LLM Chat**: A dedicated backend endpoint (`POST /companion/chat`) that uses archetype-specific system prompts to generate in-character responses for deeper interactions.
+### 3. Self-Healing Fluid Schedule
+Fluid tasks now "flow" around your rigid timetable events.
+- **Auto-Rebalance**: If you miss a task, it automatically shifts to the next available slot.
+- **Visual Distinction**: Fluid tasks appear with a dashed border and a "Fluid" badge on the Planner timeline.
 
-## 🚀 Key Integrations
+## 🛠️ Technical Implementation
 
-### 1. Dashboard (Companion Widget)
-A new "Companion" widget has been added to the dashboard. It displays the companion's current mood, a contextual one-liner, and a streak indicator.
-![Companion Dashboard Widget](file:///Users/oli/.gemini/antigravity/brain/3d8363b0-016f-4283-ac80-39214aff19ca/8bit_study_companions_mockup_1773049057349.png)
+### Backend
+- **`models/task.py`**: Added persistence for scheduled dates and fluid intent.
+- **`routers/fluid.py`**: Implements the rebalancing algorithm and next-task selection.
+- **`routers/timetable/main.py`**: Unified the weekly view to serve classes, events, and tasks in a single stream.
 
-### 2. Focus Page (Floating Avatar)
-A small, floating companion avatar now accompanies the user during focus sessions. 
-- **Zen Mode**: The sprite enters a "zen" state when the timer is running.
-- **Micro-Interactions**: Hovering over the companion reveals a encouraging (or snarky, depending on the archetype) one-liner.
+### Frontend
+- **`components/planner/TriageInbox.tsx`**: A new, highly responsive React component with `framer-motion` animations and global keyboard listeners.
+- **`app/page.tsx`**: Overhauled the Dashboard header to prioritize the "Up Next" momentum.
+- **`app/planner/page.tsx`**: Updated the timeline grid to render multi-type events with dynamic styling.
 
-### 3. Evening Reflection
-The reflection modal has been updated to use the LLM chat system. Instead of generic messages, your companion now gives a personality-driven response to your end-of-day thoughts, awarding experience points for the interaction.
+---
 
-### 4. App-Wide Presence
-- **Sidebar**: A tiny companion avatar is now visible next to the "Planner" navigation link.
-- **Planner Panel**: The companion panel has been fully refactored to include the real sprite and a mini-chat interface for direct direct dialogue.
+## 🌟 Phase 3: Frictionless Triage & Dashboard Tweaks
 
-## 🛠️ Technical Details
-- **Backend**: Added `PERSONALITY_PROMPTS` and `/chat` endpoint to `companion.py`.
-- **Frontend**: Created `CompanionSprite`, `CompanionMini`, and `companion-dialogue.ts`.
-- **Optimization**: All components are build-verified and handle dynamic state changes (moods, archetypes) smoothly.
+### 1. Zero-Friction Navigation & Cleanup
+- Removed the massive Planner Backlog sidebar and "Rebalance" buttons.
+- Replaced with a unified floating `Inbox` button to instantly trigger the Triage Modal.
+- Eliminated "Ghost Slots"—the Planner calendar strictly shows what's locked in, reducing clutter.
 
-> [!TIP]
-> Each character responds differently to your streak data and time of day. Try switching archetypes in the `CompanionPanel` to explore their unique voices!
+### 2. Universal Quick-Add (`Cmd+K`)
+- Added a seamless `Cmd+K` global command palette powered by the Gemini LLM.
+- **Natural Language Parsing**: Just type "Read Biology Chapter 4 tomorrow" and the system automatically extracts the due date, sets priority, and drops it into the Triage stack. 
+
+### 3. Triage Velocity Upgrades
+- **Priority Cycling**: During the `TriageInbox` flow, tap `P` to instantly cycle priorities (Low -> Medium -> High -> Urgent) mid-flow without losing momentum.
+- **Smart Keys**: Keys `1`, `2`, `3`, `Space` (AI), and `S` (Snooze) sort backlog tasks cleanly.
+
+### 4. Explainable AI & Reshuffling
+- **Up Next Widget**: Now displays why the task was suggested (e.g., "✨ AI-Scheduled: Overdue and Urgent priority").
+- **Reshuffle Button 🎲**: Disagree with the AI? Instantly cycle through top-priority tasks until you find the perfect one to tackle right now.
+
+### 5. Task Decay & Companion Interactions
+- Tasks that are continually snoozed or missed increment a `reschedule_count`.
+- Once highly stale, tasks get a distinctive "Stale" timeline badge.
+- **Companion AI Checks In**: If your task pipeline gets too stale, your chosen archetype companion provides a custom, intervention-style nudge instead of their usual generic greeting.
+
+---
+*Ready to reclaim your time? Hit `Cmd+K` anywhere or open the Dashboard and click **Sort Inbox** to begin.*

@@ -1,0 +1,6 @@
+# Verification Checklist
+
+- [ ] 1. Use Cmd+K to add a task "Review lecture 5 tonight". Verify it appears.
+- [ ] 2. Open Triage Inbox (Sort Inbox button) and press 'P' to cycle priority.
+- [ ] 3. On Dashboard hero, verify "Explainable AI" reasoning tag is visible.
+- [ ] 4. Click "Reshuffle" and ensure task cycles.

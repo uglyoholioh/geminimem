@@ -1,0 +1,46 @@
+# Task: Living Planner Feature
+
+- [x] Research existing timetable and task implementations [id: 0]
+- [x] Brainstorm features and integrations [id: 1]
+- [x] Design structural layout (UI/UX) [id: 2]
+- [x] Create initial ideation artifact [id: 3]
+- [x] Refine for Low-Fatigue & Incentivized Sorting [id: 4]
+- [x] Design 'Tamagotchi' AI Companion mechanics [id: 6]
+- [x] Design Character Archetypes [id: 8]
+- [x] Deepen Character Interactions & 'Life' Milestones [id: 9]
+- [x] Pivot to 8-Bit/Pixel Art visual style [id: 10]
+- [x] Refined ideation & drafted implementation plan [id: 12]
+- [x] Create Companion backend model and router [id: 13]
+- [x] Implement unified Planner page & GhostSlots [id: 14]
+- [x] Create 8-bit CompanionSprite and Panel [id: 15]
+- [x] Implement Sorting Gauntlet & Evening Reflection [id: 16]
+- [x] Finalize Phase 1 & 2 MVP [id: 7]
+- [x] Generate pixel art sprites for all 4 archetypes [id: 20]
+- [x] Replace CSS sprites with real images + mood filters [id: 21]
+- [x] Build static dialogue JSON pool [id: 22]
+- [x] Add LLM personality endpoint [id: 23]
+- [x] Add CompanionMini dashboard widget [id: 24]
+- [x] Add companion to Focus page [id: 25]
+- [x] Add companion avatar to Sidebar [id: 26]
+- [x] Update CompanionPanel with dialogue + chat [id: 27]
+- [x] Final verification and build checks [id: 28]
+
+## Phase 3: Fluid Triage Refinements & Frictionless UX
+- [x] **1. UI Cleanup & Trimming Fat**
+  - [x] Remove legacy Planner Backlog sidebar (A)
+  - [x] Add floating 'Inbox' button to trigger Triage (A)
+  - [x] Hide manual Rebalance button; automate implicitly (B)
+  - [x] Rip out GhostSlots from Planner timeline & endpoints (D)
+- [x] **2. Task Decay & Companion Accountability**
+  - [x] Add `reschedule_count` to Task model (H)
+  - [x] Increment `reschedule_count` inside [rebalance_schedule](file:///Users/oli/Desktop/CraftCanvas/backend/routers/fluid.py#69-129) logic (H)
+  - [x] UI: Render "Stale" indicator if highly rescheduled (H)
+  - [x] Companion: Override greeting if stale tasks exist (I)
+- [ ] **3. Frictionless Task Creation (Cmd+K)**
+  - [ ] Backend: Build `POST /fluid/parse-natural` LLM parser (E, C)
+  - [ ] Frontend: Build `GlobalCommandPalette.tsx` to listen for Cmd+K (E)
+  - [ ] Remove manual priority dropdowns from traditional creation (C)
+- [ ] **4. Triage & Dashboard Tweaks**
+  - [ ] Triage Inbox: Add `P` shortcut to cycle priority (C)
+  - [ ] Dashboard: Add Explainable AI reasoning tag to Up Next (J)
+  - [ ] Dashboard: Add "Reshuffle 🎲" button next to Focus (F)

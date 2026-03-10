@@ -1,58 +1,37 @@
-# Implementation Plan: Fluid Triage System
+# Fluid Triage Refinements Implementation Plan
 
-Shift the app from manual planning to a frictionless "Fluid Triage" workflow. 
+We are refining the Fluid Triage system to remove legacy UI fat and add powerful, frictionless enhancements.
 
 ## Proposed Changes
 
-### [Component] Backend: Fluid Scheduling Logic
+### 1. Removing UI Fat (A, B, D)
+- **[A] Planner Backlog Removal**: Delete the backlog sidebar in `/planner/page.tsx`. Add a prominent floating or top-bar button `Inbox (X)` to trigger the Triage Inbox.
+- **[B] Invisible Rebalance**: Remove the manual `Rebalance` button from the Planner. We will trigger the `rebalance_schedule` logic implicitly on the backend whenever a triage session completes or when a user logs in (fetches the `next` task).
+- **[D] Ghost Slots Removal**: Delete the `GhostSlot` integration from the Planner timeline. The calendar will *only* show concrete classes and concrete scheduled tasks (`is_fluid` included).
 
-We need to add metadata to tasks to support AI-driven auto-scheduling and "fluidity".
+### 2. Task Decay & Companion Interventions (H, I)
+- **Backend Model**: Add an integer field `reschedule_count` to the `Task` model (default 0).
+- **Rebalance Engine**: Every time the AI auto-reschedules a fluid task to a different day because it was missed, increment `reschedule_count`.
+- **Frontend UI**: If `reschedule_count >= 2`, visually indicate "Stale" (e.g., a cobweb icon or bold text) on the task cards.
+- **Companion AI**: If a highly stale task exists, overrule the default Companion greeting on the Dashboard/Planner with a specific contextual nudge (e.g., "We keep pushing this back. Want to just do 15 mins?").
 
-#### [MODIFY] [task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py)
-- Add `scheduled_date` and `scheduled_time` fields to separate "Intent" (user's scheduled time) from "Deadline" (`due_date`).
-- Add `is_fluid` boolean (default `True`). Fluid tasks can be moved by the AI if a block is missed.
-- Add `auto_scheduled` boolean to track if the AI placed it.
+### 3. Universal Quick-Add `Cmd+K` (E)
+- **Frontend**: Create a `GlobalCommandPalette.tsx` component mounted in the `Layout` or `Dashboard`/`Planner`. It listens for `Cmd+K`.
+- **Backend**: Create a new endpoint `POST /fluid/parse-natural` that takes a raw string (e.g., "Read Bio Chapter 4 by Sunday"), uses the LLM to extract title, due date, course code, and priority safely, and pushes the new task directly into the Triage Inbox without a massive form.
 
-#### [NEW] [fluid.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/fluid.py)
-- **`POST /fluid/triage`**: Bulk update tasks based on triage decisions (Today, Tomorrow, Weekend, Auto).
-- **`POST /fluid/rebalance`**: The "Self-Healing" logic. 
-    - Finds all "missed" fluid blocks (scheduled in the past but not completed).
-    - Re-calculates placement for these blocks in the next available free slots, avoiding classes (`TimetableSlot`).
-- **`GET /fluid/next`**: Returns the single most important task to do RIGHT NOW for the Dashboard's "One-Button Start".
+### 4. Smart Priorities with Keyboard Tweaks (C)
+- **Smart Inference**: The `Cmd+K` natural language parser will assign a default priority based on the LLM's understanding of urgency.
+- **Keyboard Tweak**: During the `TriageInbox` flow, users can tap `P` to instantly cycle priorities (Urgent -> High -> Medium -> Low) or holding `Shift + [Number]` for priority while using regular numbers for scheduling. We will use `P` to cycle to avoid hand contortions.
 
----
-
-### [Component] Frontend: Rapid Triage UI
-
-Replace the high-friction drag-and-drop intake with a keyboard-driven triage inbox.
-
-#### [NEW] [TriageInbox.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/planner/TriageInbox.tsx)
-- A "Tinder-style" or "Inbox Zero" interface showing one task at a time.
-- Keyboard listeners for:
-    - `1`: Today
-    - `2`: Tomorrow
-    - `3`: Weekend
-    - `Space`: Auto-Schedule
-    - `S`: Snooze
-- Visual feedback (confetti/animations) as the user clears the inbox.
-
-#### [MODIFY] [Dashboard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/dashboard/page.tsx)
-- Update the layout to feature an "Up Next" hero section powered by `/fluid/next`.
-- Add a "Triage Needed" indicator if the inbox is not empty.
-
-#### [MODIFY] [Planner.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/page.tsx)
-- Integrate the Triage Inbox as a top-level overlay or a prominent side panel.
-- Implement "Fluid" visual markers on the calendar (e.g., subtle wave animation on blocks that are liquid and can move).
-
----
+### 5. "Reshuffle" & Explainability (F, J)
+- **Backend `fluid/next`**: Enhance the response to return a `reasoning` string (e.g., "High priority and due tomorrow") and allow passing an `exclude_task_ids` list.
+- **Frontend Dashboard Hero**: 
+  - Show the `reasoning` text below the task as an "Explainable AI" micro-tag.
+  - Add a **"Reshuffle 🎲"** button next to "Start Focus". Clicking it fetches the next-best task, excluding the currently shown one.
 
 ## Verification Plan
-
-### Automated Tests
-- `pytest backend/tests/test_fluid.py`: Verify that `rebalance` correctly moves a missed task block to the next available slot without overlapping a class.
-- Verify `triage` endpoint updates multiple task dates/statuses correctly.
-
-### Manual Verification
-1.  **Triage Flow**: Sync Canvas tasks, enter Triage Mode, and use keyboard shortcuts to clear 5 tasks in under 10 seconds. Verify they appear on the calendar.
-2.  **Fluid Test**: Schedule a task for "now". Wait for the time to pass without starting the timer. Refresh or wait for auto-rebalance; verify the task block has moved to the next free hour.
-3.  **One-Button Start**: Click "Start Focus" from the Dashboard hero and ensure it correctly picks the task at the top of the fluid schedule.
+1. Check that Planner has no sidebar and no ghost slots, but triage still opens via a dedicated button.
+2. Hit `Cmd+K`, type a natural phrase, and verify a properly parsed task appears in the Triage Inbox.
+3. Rapidly triage the task, press `P` to cycle its priority mid-triage, and assign it.
+4. Go to Dashboard, view the "Up Next" reasoning tag, and click "Reshuffle" to see the next suggestion.
+5. Simulate missing a task (rescheduling it manually via API or time travel) to trigger the `reschedule_count` increase, and verify the Companion comments on it.

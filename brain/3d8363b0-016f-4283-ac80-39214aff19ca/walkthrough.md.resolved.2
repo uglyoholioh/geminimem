@@ -1,0 +1,41 @@
+# Walkthrough: Fluid Triage System
+
+I have successfully implemented the **Fluid Triage System**, transforming the organizational experience from a "manual chore" into an AI-guided, frictionless flow.
+
+## 🚀 Key Features
+
+### 1. Rapid Triage Inbox
+The "Sorting Gauntlet" has been replaced with a high-speed, keyboard-driven triage interface.
+- **Shortcuts**: Use `1` (Today), `2` (Tomorrow), `3` (Weekend), `Space` (AI Auto-Schedule), or `S` (Snooze).
+- **Goal**: Clear 20+ tasks in under 30 seconds.
+- **Location**: Access via the "Sort Inbox" button on the Dashboard or the "Rapid Triage" button in the Planner.
+
+### 2. "Up Next" Hero Section
+The Dashboard now features a high-impact hero section that tells you exactly what to do next.
+- **Smart Prioritization**: Automatically surfaces the most relevant task.
+- **Momentum**: One-click "Start Focus" to jump straight into work.
+
+### 3. Self-Healing Fluid Schedule
+Fluid tasks now "flow" around your rigid timetable events.
+- **Auto-Rebalance**: If you miss a task, it automatically shifts to the next available slot.
+- **Visual Distinction**: Fluid tasks appear with a dashed border and a "Fluid" badge on the Planner timeline.
+
+## 🛠️ Technical Implementation
+
+### Backend
+- **[models/task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py)**: Added persistence for scheduled dates and fluid intent.
+- **[routers/fluid.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/fluid.py)**: Implements the rebalancing algorithm and next-task selection.
+- **[routers/timetable/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable/main.py)**: Unified the weekly view to serve classes, events, and tasks in a single stream.
+
+### Frontend
+- **[components/planner/TriageInbox.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/planner/TriageInbox.tsx)**: A new, highly responsive React component with `framer-motion` animations and global keyboard listeners.
+- **[app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)**: Overhauled the Dashboard header to prioritize the "Up Next" momentum.
+- **[app/planner/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/page.tsx)**: Updated the timeline grid to render multi-type events with dynamic styling.
+
+## ✅ Verification Results
+- **Build**: Successfully completed `npm run build` with 0 errors.
+- **Logic**: Verified rebalancing logic correctly avoids timetable slots and respects weekend triage.
+- **Aesthetics**: Followed the "Gen Z / Premium" design language with glassmorphism and subtle micro-animations.
+
+---
+*Ready to reclaim your time? Head to the Dashboard and click **Sort Inbox** to begin.*

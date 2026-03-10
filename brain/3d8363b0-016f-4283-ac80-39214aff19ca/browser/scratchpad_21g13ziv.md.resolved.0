@@ -1,0 +1,8 @@
+# Task Checklist
+
+- [ ] Navigate to http://localhost:3000
+- [ ] Task 1: Use Cmd+K to add a task "Review lecture 5 tonight" and verify.
+- [ ] Task 2: Open Triage Inbox (Sort Inbox button) and press 'P' to cycle priority.
+- [ ] Task 3: Verify "Explainable AI" reasoning tag on Dashboard hero.
+- [ ] Task 4: Click "Reshuffle" and ensure the task cycles.
+- [ ] Final Report

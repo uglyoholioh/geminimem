@@ -1,0 +1,20 @@
+# Task Checklist
+
+- [ ] Add task "Review lecture 5 tonight" using Cmd+K
+    - [x] Focus page
+    - [x] Press Meta+K
+    - [x] Type "Review lecture 5 tonight"
+    - [ ] Press Enter
+    - [ ] Verify toast/update (FAILED: Search API returns 500)
+- [ ] Open Triage Inbox and cycle priority
+    - [ ] Click "Sort Inbox" button
+    - [ ] Press 'P' to cycle priority
+    - [ ] Verify change
+- [ ] Verify "Explainable AI" reasoning tag on Dashboard hero
+- [ ] Click "Reshuffle" and ensure task cycles
+- [ ] Provide final report with screenshots/logs if needed
+
+*Notes:*
+- Command palette opens with Meta+K.
+- Typing in the command palette triggers search requests to `/api/v1/search?q=...` which are returning 500 Internal Server Error.
+- Consequently, "No results found" is displayed and task addition via Cmd+K is not working as expected.
