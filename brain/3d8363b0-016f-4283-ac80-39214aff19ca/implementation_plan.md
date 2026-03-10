@@ -1,139 +1,58 @@
-# Character Visuals & Dialogue System — Implementation Plan
+# Implementation Plan: Fluid Triage System
 
-## Goal
-
-Replace CSS-based placeholder sprites with real pixel art, integrate companion presence across the app (not just the planner), and build a hybrid dialogue engine: static JSON for quick one-liners + LLM-generated for rich interactions.
-
-## Generated Sprites
-
-````carousel
-![Byte — The Architect](/Users/oli/.gemini/antigravity/brain/3d8363b0-016f-4283-ac80-39214aff19ca/byte_companion_1773140309407.png)
-<!-- slide -->
-![Sage — The Scholar](/Users/oli/.gemini/antigravity/brain/3d8363b0-016f-4283-ac80-39214aff19ca/sage_companion_1773140325163.png)
-<!-- slide -->
-![Luma — The Muse](/Users/oli/.gemini/antigravity/brain/3d8363b0-016f-4283-ac80-39214aff19ca/luma_companion_1773140338373.png)
-<!-- slide -->
-![Flint — The Rival](/Users/oli/.gemini/antigravity/brain/3d8363b0-016f-4283-ac80-39214aff19ca/flint_companion_1773140357119.png)
-````
-
-Sprites are already copied to `frontend/public/companions/`.
-
----
+Shift the app from manual planning to a frictionless "Fluid Triage" workflow. 
 
 ## Proposed Changes
 
-### 1. Frontend — Replace CSS Sprites with Real Images
+### [Component] Backend: Fluid Scheduling Logic
 
-#### [MODIFY] [CompanionSprite.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx)
+We need to add metadata to tasks to support AI-driven auto-scheduling and "fluidity".
 
-Strip out all the CSS div-based rendering. Replace with `<img>` tags pointing to `/companions/{archetype}.png`. Keep mood-based CSS filters:
-- **Sleepy**: `filter: saturate(0.3) brightness(0.7)`
-- **Zen**: Accent glow `box-shadow` ring
-- **Happy**: Normal + subtle sparkle CSS particle
-- **Energized**: Slight `scale(1.05)` pulse
+#### [MODIFY] [task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py)
+- Add `scheduled_date` and `scheduled_time` fields to separate "Intent" (user's scheduled time) from "Deadline" (`due_date`).
+- Add `is_fluid` boolean (default `True`). Fluid tasks can be moved by the AI if a block is missed.
+- Add `auto_scheduled` boolean to track if the AI placed it.
 
----
-
-### 2. Frontend — Companion Presence Across the App
-
-#### [NEW] [CompanionMini.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/CompanionMini.tsx)
-
-New dashboard widget. Small card showing:
-- Companion sprite (48px)
-- Current mood one-liner (from static dialogue)
-- EXP bar (thin)
-- Streak indicator (visual dots, not numbers)
-
-#### [MODIFY] [DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx)
-
-Register `CompanionMini` in the widget picker.
-
-#### [MODIFY] [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx)
-
-Add a tiny 24px companion avatar next to the "Planner" nav item. Fetches archetype once on mount.
-
-#### [MODIFY] [Focus page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx)
-
-Add a small floating companion avatar (40px) in the bottom-right corner during focus sessions. Companion enters "zen" state. Shows a single short quote when focus session completes.
+#### [NEW] [fluid.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/fluid.py)
+- **`POST /fluid/triage`**: Bulk update tasks based on triage decisions (Today, Tomorrow, Weekend, Auto).
+- **`POST /fluid/rebalance`**: The "Self-Healing" logic. 
+    - Finds all "missed" fluid blocks (scheduled in the past but not completed).
+    - Re-calculates placement for these blocks in the next available free slots, avoiding classes (`TimetableSlot`).
+- **`GET /fluid/next`**: Returns the single most important task to do RIGHT NOW for the Dashboard's "One-Button Start".
 
 ---
 
-### 3. Frontend — Static Dialogue System
+### [Component] Frontend: Rapid Triage UI
 
-#### [NEW] [companion-dialogue.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/companion-dialogue.ts)
+Replace the high-friction drag-and-drop intake with a keyboard-driven triage inbox.
 
-A TypeScript module exporting a typed JSON dialogue pool:
+#### [NEW] [TriageInbox.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/planner/TriageInbox.tsx)
+- A "Tinder-style" or "Inbox Zero" interface showing one task at a time.
+- Keyboard listeners for:
+    - `1`: Today
+    - `2`: Tomorrow
+    - `3`: Weekend
+    - `Space`: Auto-Schedule
+    - `S`: Snooze
+- Visual feedback (confetti/animations) as the user clears the inbox.
 
-```ts
-type DialogueKey = 
-  | 'morning_low' | 'morning_heavy' 
-  | 'task_done' | 'focus_done' 
-  | 'streak_7' | 'streak_broken'
-  | 'late_night' | 'idle' | 'level_up'
+#### [MODIFY] [Dashboard.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/dashboard/page.tsx)
+- Update the layout to feature an "Up Next" hero section powered by `/fluid/next`.
+- Add a "Triage Needed" indicator if the inbox is not empty.
 
-type Archetype = 'byte' | 'sage' | 'luma' | 'flint'
-
-const DIALOGUE: Record<Archetype, Record<DialogueKey, string[]>>
-```
-
-Multiple options per key — frontend picks randomly each session. All copy follows the terse, lowercase, Gen Z style from the character design doc.
-
----
-
-### 4. Backend — LLM Personality Endpoint
-
-#### [MODIFY] [companion.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/companion.py)
-
-New endpoint `POST /companion/chat` that:
-1. Loads the companion's archetype
-2. Builds a system prompt with personality instructions (from a `PERSONALITY_PROMPTS` dict)
-3. Injects user context (tasks completed, streak, backlog, time of day)
-4. Calls `ai_service.chat()` with the personality-infused prompt
-5. Returns the response
-
-The personality prompts will be detailed character sheets:
-
-```python
-PERSONALITY_PROMPTS = {
-    "byte": """You are Byte, a precise, slightly condescending floating cube AI.
-    You speak in terse, lowercase fragments. You call tasks "nodes" and schedules "the grid".
-    You never use exclamation marks. You find comfort in order.
-    When the user is doing well: dry acknowledgment. When struggling: matter-of-fact suggestions, no pity.
-    At high relationship levels, you occasionally show vulnerability about needing routine.""",
-    ...
-}
-```
-
-#### [MODIFY] [CompanionPanel.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionPanel.tsx)
-
-Replace hardcoded `moodMessages` with calls to the static dialogue system. Add a small chat input at the bottom for direct companion interaction (calls the LLM endpoint).
-
-#### [MODIFY] [EveningReflection.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/EveningReflection.tsx)
-
-After the user submits their reflection, call the LLM endpoint to get a personality-appropriate response instead of the generic "Guardian Restored" message.
-
----
-
-### 5. Backend — Dialogue State Endpoint
-
-#### [MODIFY] [companion.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/companion.py)
-
-Add `GET /companion/state` response enrichment:
-- Include `relationship_level` (derived from companion level: 1-2=stranger, 3-4=acquaintance, 5-7=familiar, 8-9=trusted, 10+=bonded)
-- Include `time_context` (morning/afternoon/evening/night based on SG timezone)
-- Include `dialogue_key` suggestion based on current state
+#### [MODIFY] [Planner.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/page.tsx)
+- Integrate the Triage Inbox as a top-level overlay or a prominent side panel.
+- Implement "Fluid" visual markers on the calendar (e.g., subtle wave animation on blocks that are liquid and can move).
 
 ---
 
 ## Verification Plan
 
-### Automated
-- Backend: Test the `/companion/chat` endpoint with each archetype
-- Frontend: Run `npm run build` to verify no type errors
+### Automated Tests
+- `pytest backend/tests/test_fluid.py`: Verify that `rebalance` correctly moves a missed task block to the next available slot without overlapping a class.
+- Verify `triage` endpoint updates multiple task dates/statuses correctly.
 
-### Manual
-- Visit Dashboard → Verify CompanionMini widget renders with correct sprite
-- Visit Planner → Verify real sprite image renders, mood dialogue changes
-- Visit Focus → Start a session, verify companion enters zen state
-- Test Evening Reflection → Verify LLM response matches archetype personality
-- Test all 4 archetypes via `PUT /companion/` archetype switch
+### Manual Verification
+1.  **Triage Flow**: Sync Canvas tasks, enter Triage Mode, and use keyboard shortcuts to clear 5 tasks in under 10 seconds. Verify they appear on the calendar.
+2.  **Fluid Test**: Schedule a task for "now". Wait for the time to pass without starting the timer. Refresh or wait for auto-rebalance; verify the task block has moved to the next free hour.
+3.  **One-Button Start**: Click "Start Focus" from the Dashboard hero and ensure it correctly picks the task at the top of the fluid schedule.

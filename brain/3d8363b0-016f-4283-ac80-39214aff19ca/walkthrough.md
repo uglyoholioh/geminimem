@@ -1,47 +1,45 @@
-# Walkthrough: The Living Planner 🎨🤖
+# Character Integration Walkthrough
 
-I have successfully implemented the **Living Planner**, a unified organization experience featuring an 8-bit AI companion that nurtures your productivity habits.
+I have successfully integrated the AI study companions into the CraftCanvas application, focusing on a Gen Z-friendly, non-cheesy aesthetic with a balance of simplistic pixel art and sophisticated LLM-driven interactions.
 
----
+## 🎨 Visual Identity: Pixel Art Sprites
+Each of the four archetypes—**Byte**, **Sage**, **Luma**, and **Flint**—now has a unique, custom-generated pixel art sprite. These sprites are used throughout the app to represent the companion's presence.
 
-## 1. Unified Planner Dashboard
-A new page located at `/planner` that merges your entire academic life into one view.
-- **Backlog (Left)**: All your unsorted tasks in one place.
-- **Timeline (Center)**: A unified grid of classes, tasks, and **Ghost Slots** (AI-suggested study sessions).
-- **Guardian (Right)**: Your 8-bit companion reflecting your mood and progress.
+| Archetype | Personality | Visual Vibe |
+| :------- | :---------- | :---------- |
+| **Byte** | The Architect | Minimalist, robotic, precise. |
+| **Sage** | The Scholar | Scholarly owl, warm but pretentious. |
+| **Luma** | The Muse | Chaotic, empathetic cloud creature. |
+| **Flint** | The Rival | Sharp-edged, competitive fireball. |
 
----
+## 💬 Dialogue System: Hybrid Approach
+To ensure responses feel snappy yet personalized, I implemented a hybrid dialogue system:
 
-## 2. Low-Fatigue Gamification
+1.  **Static Pool**: A collection of terse, lowercase, non-cheesy one-liners for common contexts (greetings, focus sessions, streaks).
+2.  **LLM Chat**: A dedicated backend endpoint (`POST /companion/chat`) that uses archetype-specific system prompts to generate in-character responses for deeper interactions.
 
-### A. The Sorting Gauntlet
-No more dragging and dropping. Clean your backlog with a card-stack interface:
-- Swipe through your tasks and decide: **Today**, **Later**, or let the AI **Auto-Schedule**.
-- Awards **+50 EXP** to your Guardian upon completion.
+## 🚀 Key Integrations
 
-### B. Ghost Slots
-The AI pre-fills your gaps with suggested study blocks based on your deadlines.
-- **One-tap Solidify**: Tapping a Ghost Slot confirms the session and awards EXP.
-- Maintains the premium glassmorphic aesthetic with subtle "dashed" borders.
+### 1. Dashboard (Companion Widget)
+A new "Companion" widget has been added to the dashboard. It displays the companion's current mood, a contextual one-liner, and a streak indicator.
+![Companion Dashboard Widget](file:///Users/oli/.gemini/antigravity/brain/3d8363b0-016f-4283-ac80-39214aff19ca/8bit_study_companions_mockup_1773049057349.png)
 
-### C. 8-Bit Companion (The Guardian)
-A pixel-art partner that lives in the sidebar:
-- **Archetypes**: Choose between **Architect (Cube)**, **Scholar (Owl)**, **Muse (Cloud)**, or **Rival (Flame)**.
-- **Moods**: It reflects your state—Happy, Neutral, Zen (during focus), or Sleepy (when backlog is heavy).
-- **Progression**: Level up as you complete tasks.
+### 2. Focus Page (Floating Avatar)
+A small, floating companion avatar now accompanies the user during focus sessions. 
+- **Zen Mode**: The sprite enters a "zen" state when the timer is running.
+- **Micro-Interactions**: Hovering over the companion reveals a encouraging (or snarky, depending on the archetype) one-liner.
 
----
+### 3. Evening Reflection
+The reflection modal has been updated to use the LLM chat system. Instead of generic messages, your companion now gives a personality-driven response to your end-of-day thoughts, awarding experience points for the interaction.
 
-## 3. Evening Reflection
-A 30-second closure chat at the end of the day.
-- Answer one simple question tailored to your archetype.
-- Awards **+30 EXP** and restores your companion's energy for the next day.
+### 4. App-Wide Presence
+- **Sidebar**: A tiny companion avatar is now visible next to the "Planner" navigation link.
+- **Planner Panel**: The companion panel has been fully refactored to include the real sprite and a mini-chat interface for direct direct dialogue.
 
----
-
-## Technical Highlights
-- **Backend**: New `CompanionProfile` model and a state-computation router that derives mood from real-time productivity data.
-- **Frontend**: Lightweight CSS-based pixel art renderer for sprites and framer-motion animations for the card-swipe interface.
+## 🛠️ Technical Details
+- **Backend**: Added `PERSONALITY_PROMPTS` and `/chat` endpoint to `companion.py`.
+- **Frontend**: Created `CompanionSprite`, `CompanionMini`, and `companion-dialogue.ts`.
+- **Optimization**: All components are build-verified and handle dynamic state changes (moods, archetypes) smoothly.
 
 > [!TIP]
-> **Check it out**: Click the new **Sparkles** ✨ icon in your sidebar to meet your Guardian!
+> Each character responds differently to your streak data and time of day. Try switching archetypes in the `CompanionPanel` to explore their unique voices!

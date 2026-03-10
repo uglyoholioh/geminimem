@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Implementation plan for integrating companion character visuals across the app and building a hybrid dialogue system (static JSON + LLM personality prompts). Covers: replacing CSS sprites with real pixel art images, creating a CompanionMini dashboard widget, adding companion presence to Focus page, implementing a dialogue JSON pool, and adding an LLM personality endpoint.",
-  "updatedAt":  "2026-03-10T11:00:10.189526Z",
-  "version":  "1"
+  "summary":  "Implementation plan for the Fluid Triage system. Includes backend updates to the Task model for auto-scheduling support, a new Fluid Router for self-healing calendar logic, and a frontend Triage Inbox component with keyboard shortcuts.",
+  "updatedAt":  "2026-03-10T11:29:07.123612Z",
+  "version":  "2"
 }

@@ -1,6 +1,4 @@
-# Task: Ideating Study Planner Structure
-
-- [x] Research existing timetable and# Task: Living Planner Feature
+# Task: Living Planner Feature
 
 - [x] Research existing timetable and task implementations [id: 0]
 - [x] Brainstorm features and integrations [id: 1]
@@ -18,10 +16,11 @@
 - [x] Implement Sorting Gauntlet & Evening Reflection [id: 16]
 - [x] Finalize Phase 1 & 2 MVP [id: 7]
 - [x] Generate pixel art sprites for all 4 archetypes [id: 20]
-- [/] Replace CSS sprites with real images + mood filters [id: 21]
-- [ ] Build static dialogue JSON pool [id: 22]
-- [ ] Add LLM personality endpoint [id: 23]
-- [ ] Add CompanionMini dashboard widget [id: 24]
-- [ ] Add companion to Focus page [id: 25]
-- [ ] Add companion avatar to Sidebar [id: 26]
-- [ ] Update CompanionPanel with dialogue + chat [id: 27]
+- [x] Replace CSS sprites with real images + mood filters [id: 21]
+- [x] Build static dialogue JSON pool [id: 22]
+- [x] Add LLM personality endpoint [id: 23]
+- [x] Add CompanionMini dashboard widget [id: 24]
+- [x] Add companion to Focus page [id: 25]
+- [x] Add companion avatar to Sidebar [id: 26]
+- [x] Update CompanionPanel with dialogue + chat [id: 27]
+- [x] Final verification and build checks [id: 28]
