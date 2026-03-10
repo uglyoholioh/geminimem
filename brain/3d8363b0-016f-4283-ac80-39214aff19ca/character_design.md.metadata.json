@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_OTHER",
+  "summary":  "Stardew Valley-inspired character design for 4 AI companions (Byte, Sage, Luma, Flint). Each has a surface personality, hidden depth, visual description, personality quirks, context-aware dialogue tables, time-of-day personality shifts, and a 5-level relationship/heart system with unique heart events. Implementation uses static JSON dialogue pools, no LLM calls. Core design pillar: characters have contradictions and opinions, not just vibes.",
+  "updatedAt":  "2026-03-10T10:48:13.745622Z"
+}

@@ -1,0 +1,25 @@
+# Walkthrough - Fix Backlog Type Error
+
+I have resolved the `TypeError: backlog.map is not a function` error in the Study Planner and fixed the extraction of AI-suggested study blocks (ghost slots).
+
+## Changes Made
+
+### Frontend - Study Planner
+
+#### [PlannerPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/page.tsx)
+- Updated `fetchPlannerData` to correctly access the `tasks` array from the `/tasks` response object (`tasksRes.tasks`).
+- Fixed `ghostSlots` state update to handle the AI plan response correctly, supporting both direct array responses and object-wrapped responses.
+- Resolved a prop mismatch and missing `mood` prop for the `EveningReflection` component.
+
+#### [EveningReflection](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/EveningReflection.tsx)
+- Simplified the component by removing the unnecessary `isOpen` prop (now handled via conditional rendering in the parent).
+- Added an `onComplete` callback to allow the parent (`PlannerPage`) to refresh data after a reflection is submitted.
+- Ensured the component correctly uses the `mood` prop for the companion sprite.
+
+## Verification Results
+
+### Manual Verification
+- **Backlog Display**: The "Backlog" sidebar now correctly iterates over and displays tasks without crashing.
+- **Ghost Slots**: AI-suggested study blocks now correctly appear in the timetable grid if available.
+- **Evening Reflection**: The reflection modal correctly receives props and can signal completion to the parent.
+- **Build Health**: Resolved lint errors specifically related to the modified components to ensure a clean integration.
