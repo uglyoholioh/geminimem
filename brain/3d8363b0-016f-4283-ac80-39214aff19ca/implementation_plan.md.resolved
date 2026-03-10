@@ -1,0 +1,135 @@
+# Living Planner: Implementation Plan
+
+Build a unified study planner page with an 8-bit AI companion. Delivered in two phases: MVP (functional planner + companion) then Polish (gamification + animations).
+
+## User Review Required
+
+> [!IMPORTANT]
+> **New route `/planner`**: This creates a brand new page rather than modifying the existing `/timetable` page. The timetable page remains untouched as a focused "class schedule" view, while `/planner` is the "life organizer" that unifies classes + tasks + companion. Is this the right call, or should we replace `/timetable` entirely?
+
+> [!WARNING]
+> **Companion data is ephemeral**: The companion's mood is computed on-the-fly from existing data (tasks, focus minutes, attendance). Only archetype choice, name, level, EXP, and streak are persisted. If the user switches archetypes, EXP resets. Should we allow archetype switching without penalty?
+
+---
+
+## Phase 1: MVP — Backend + Core UI
+
+### Backend: Companion System
+
+#### [NEW] [companion.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/companion.py)
+New SQLModel for the companion profile:
+- Fields: [id](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx#52-172), `user_id` (FK), `archetype` (architect|scholar|muse|rival), `name` (user-chosen, defaults to archetype name), `level` (int, default 1), `exp` (int, default 0), `streak_days` (int, default 0), `streak_last_date` (date, nullable), `created_at`, `updated_at`
+
+#### [NEW] [companion.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/companion.py)
+New FastAPI router with endpoints:
+- `GET /companion` → Get or auto-create companion profile for current user
+- `PUT /companion` → Update archetype/name
+- `GET /companion/state` → Computed state: mood (from today's tasks/focus/attendance), level, EXP, streak, next-level EXP threshold
+- `POST /companion/exp` → Award EXP (called by frontend after actions like solidifying ghost slots, completing gauntlet)
+- `POST /companion/streak` → Check-in streak (called once per day when user opens planner)
+
+**Mood computation logic** (in `/companion/state`):
+```
+tasks_done_today = count(Task.status == "completed" AND Task.completed_at == today)
+focus_minutes = sum(Task.actual_minutes) for today's sessions
+skipped_classes = count(TimetableSlot.is_attended == False) for today
+backlog_size = count(Task.status == "inbox")
+
+if focus_active: mood = "zen"
+elif tasks_done_today >= 3 or focus_minutes >= 30: mood = "happy"  
+elif streak >= 5: mood = "energized"
+elif tasks_done_today == 0 and backlog_size > 10: mood = "sleepy"
+else: mood = "neutral"
+```
+
+#### [MODIFY] [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py)
+Add `from models.companion import CompanionProfile` to [init_db()](file:///Users/oli/Desktop/CraftCanvas/backend/database.py#15-42) so the table is auto-created.
+
+#### [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+- Import `companion` router
+- Register: `app.include_router(companion.router, prefix=f"{API_PREFIX}/companion", tags=["companion"], dependencies=auth_dep)`
+
+---
+
+### Frontend: Planner Page
+
+#### [NEW] [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/page.tsx)
+Main planner page with three-panel layout:
+- **Left panel (Backlog)**: Fetches `GET /tasks?status=inbox`, displays as a draggable card list. Includes "Sort Stack" button to open Gauntlet (Phase 2, placeholder button for now).
+- **Center panel (Timeline)**: Reuses timetable fetch logic (`GET /timetable/week`). Renders class slots (solid), task chips (colored dots on due dates), and Ghost Slots (semi-transparent, from `GET /timetable/ai-plan`). Ghost Slots have a "Solidify" button that calls `POST /timetable/events` + `POST /companion/exp`.
+- **Right panel (Companion)**: Displays the 8-bit sprite, mood, level, streak, and a one-line "brief" from the companion.
+
+#### [NEW] [CompanionSprite.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx)
+Pure presentational component. Renders a CSS pixel art sprite based on `archetype` and `mood` props.
+- Uses a `canvas` element or CSS `box-shadow` technique for the 8-bit look.
+- Each archetype has 4 mood frames: happy, neutral, sleepy, zen.
+- Small idle animation (gentle bob) via CSS keyframes.
+
+#### [NEW] [CompanionPanel.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionPanel.tsx)
+Right sidebar component:
+- Fetches `GET /companion/state` on mount.
+- Displays: sprite, mood label, level, EXP bar, streak counter.
+- One-line contextual message based on mood (e.g., "Ready to study!" / "The backlog is growing...").
+
+#### [NEW] [GhostSlot.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/planner/GhostSlot.tsx)
+A timetable cell variant rendered at `opacity: 0.4` with a dashed border and a "✓ Commit" button overlay. On commit, calls the API and transitions to a solid block.
+
+#### [MODIFY] [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx)
+Add a new nav item in the `planning` group:
+```tsx
+{ href: '/planner', icon: Sparkles, label: 'Planner' }
+```
+
+---
+
+## Phase 2: Polish — Gamification & Delight
+
+*(Not implemented in Phase 1, but designed for follow-up)*
+
+### Sorting Gauntlet
+- New component `SortingGauntlet.tsx`: A modal with a card stack. User taps "Today" / "Later" / "Auto" per card.
+- Backend: `POST /companion/gauntlet` endpoint that batch-processes decisions.
+
+### Streak Tracking
+- Auto check-in on page load via `POST /companion/streak`.
+- Visual "flame" CSS animation at streak milestones (7, 14, 30 days).
+
+### Evening Reflection
+- New component `EveningReflection.tsx`: A modal with a single AI-generated question.
+- Backend: `POST /companion/reflection` stores response and awards EXP.
+
+### Environmental Storytelling
+- CSS weather filter overlay on the timeline (golden glow at high streak, subtle rain at low).
+
+---
+
+## Verification Plan
+
+### Automated Tests
+
+#### Backend: pytest
+**Run command**: `cd /Users/oli/Desktop/CraftCanvas/backend && source .venv/bin/activate && python -m pytest tests/test_routers/test_companion.py -v`
+
+New test file `tests/test_routers/test_companion.py`:
+- `test_get_companion_creates_default` — First GET creates a companion with default archetype
+- `test_update_companion_archetype` — PUT changes archetype and resets EXP
+- `test_companion_state_mood` — Verify mood computation returns correct mood based on mock task data
+- `test_award_exp_levels_up` — POST EXP with enough points triggers level-up
+- `test_streak_increments` — POST streak on consecutive days increments counter
+- `test_streak_resets_on_gap` — POST streak after missing a day resets to 1
+
+#### Frontend: Playwright E2E
+**Run command**: `cd /Users/oli/Desktop/CraftCanvas/frontend && npx playwright test e2e/planner.spec.ts --headed`
+
+New test file `e2e/planner.spec.ts`:
+- `test_planner_page_loads` — Navigate to `/planner`, verify timeline and companion panel render
+- `test_ghost_slot_solidify` — Click "Commit" on a ghost slot, verify it becomes solid
+- `test_companion_displays_mood` — Verify companion sprite and mood label appear
+
+### Manual Verification
+1. **Navigate** to `/planner` in the browser
+2. **Verify** left panel shows inbox tasks, center shows timetable, right shows companion
+3. **Click** "AI Plan" to generate Ghost Slots → verify they appear as transparent blocks
+4. **Click** "Commit" on a Ghost Slot → verify it solidifies and companion gets EXP
+5. **Complete** a task → refresh → verify companion mood changes
+6. **Check** all 4 archetypes render correctly via Settings

@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Phased implementation plan for the Living Planner feature. Phase 1 (MVP): Backend Companion model/router, frontend /planner page with unified timeline, 8-bit companion widget, and Ghost Slot rendering. Phase 2 (Polish): Sorting Gauntlet modal, streak tracking, evening reflection. Includes file-by-file change list, verification plan with pytest and Playwright commands.",
+  "updatedAt":  "2026-03-10T08:34:40.308384Z"
+}

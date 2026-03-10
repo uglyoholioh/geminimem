@@ -1,15 +1,19 @@
 # Task: Ideating Study Planner Structure
 
-- [x] Research existing timetable and task implementations [id: 0]
+- [x] Research existing timetable and# Task: Living Planner Feature
+
 - [x] Research existing timetable and task implementations [id: 0]
 - [x] Brainstorm features and integrations [id: 1]
 - [x] Design structural layout (UI/UX) [id: 2]
 - [x] Create initial ideation artifact [id: 3]
 - [x] Refine for Low-Fatigue & Incentivized Sorting [id: 4]
-- [x] Finalize refined proposal [id: 5]
 - [x] Design 'Tamagotchi' AI Companion mechanics [id: 6]
 - [x] Design Character Archetypes [id: 8]
 - [x] Deepen Character Interactions & 'Life' Milestones [id: 9]
-- [/] Pivot to 8-Bit/Pixel Art visual style [id: 10]
-- [ ] Generate 8-bit character mockups [id: 11]
-- [ ] Finalize 'Living Planner' proposal for user review [id: 7]
+- [x] Pivot to 8-Bit/Pixel Art visual style [id: 10]
+- [x] Refined ideation & drafted implementation plan [id: 12]
+- [x] Create Companion backend model and router [id: 13]
+- [x] Implement unified Planner page & GhostSlots [id: 14]
+- [x] Create 8-bit CompanionSprite and Panel [id: 15]
+- [x] Implement Sorting Gauntlet & Evening Reflection [id: 16]
+- [x] Finalize Phase 1 & 2 MVP [id: 7]

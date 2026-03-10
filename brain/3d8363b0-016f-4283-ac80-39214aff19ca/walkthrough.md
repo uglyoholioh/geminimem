@@ -1,0 +1,47 @@
+# Walkthrough: The Living Planner 🎨🤖
+
+I have successfully implemented the **Living Planner**, a unified organization experience featuring an 8-bit AI companion that nurtures your productivity habits.
+
+---
+
+## 1. Unified Planner Dashboard
+A new page located at `/planner` that merges your entire academic life into one view.
+- **Backlog (Left)**: All your unsorted tasks in one place.
+- **Timeline (Center)**: A unified grid of classes, tasks, and **Ghost Slots** (AI-suggested study sessions).
+- **Guardian (Right)**: Your 8-bit companion reflecting your mood and progress.
+
+---
+
+## 2. Low-Fatigue Gamification
+
+### A. The Sorting Gauntlet
+No more dragging and dropping. Clean your backlog with a card-stack interface:
+- Swipe through your tasks and decide: **Today**, **Later**, or let the AI **Auto-Schedule**.
+- Awards **+50 EXP** to your Guardian upon completion.
+
+### B. Ghost Slots
+The AI pre-fills your gaps with suggested study blocks based on your deadlines.
+- **One-tap Solidify**: Tapping a Ghost Slot confirms the session and awards EXP.
+- Maintains the premium glassmorphic aesthetic with subtle "dashed" borders.
+
+### C. 8-Bit Companion (The Guardian)
+A pixel-art partner that lives in the sidebar:
+- **Archetypes**: Choose between **Architect (Cube)**, **Scholar (Owl)**, **Muse (Cloud)**, or **Rival (Flame)**.
+- **Moods**: It reflects your state—Happy, Neutral, Zen (during focus), or Sleepy (when backlog is heavy).
+- **Progression**: Level up as you complete tasks.
+
+---
+
+## 3. Evening Reflection
+A 30-second closure chat at the end of the day.
+- Answer one simple question tailored to your archetype.
+- Awards **+30 EXP** and restores your companion's energy for the next day.
+
+---
+
+## Technical Highlights
+- **Backend**: New `CompanionProfile` model and a state-computation router that derives mood from real-time productivity data.
+- **Frontend**: Lightweight CSS-based pixel art renderer for sprites and framer-motion animations for the card-swipe interface.
+
+> [!TIP]
+> **Check it out**: Click the new **Sparkles** ✨ icon in your sidebar to meet your Guardian!

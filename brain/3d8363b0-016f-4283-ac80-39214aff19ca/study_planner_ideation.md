@@ -1,129 +1,116 @@
-# Study Planner & Unified Schedule: Ideation
+# The Living Planner: Refined Concept
 
-This document outlines a conceptual structure for a unified **Study Planner & Schedule** page, designed to streamline student workflows by integrating academic commitments, tasks, and intelligent planning tools.
-
-# Interaction Layers: Bringing the Companion to Life
-
-Beyond simple moods, the Companion interacts with the *space* around your planner to create a sense of history and progress.
-
-## 1. Environmental Storytelling
-The "Nest" (sidebar area) changes based on your actual study habits:
-*   **The Artifact Shelf**: When you finish a major course project or hit a high grade in a module, a small 3D icon appears in the background. *Aurelius* might have a miniature scroll, while *Nexus* gets a crystalline lattice representing the module code.
-*   **The Weather Filter**: Your organization streak controls the "weather" of your planner.
-    *   **High Streak**: Golden "mid-morning" sunlight casts shadows over your schedule.
-    *   **Skipped Classes**: A gentle, melancholic rain falls over the "Ghost Slots," suggesting it's time to find shelter in focus.
-
-## 2. The "Evening Reflection" (Low-Fatigue Review)
-At the end of the day, instead of just checking off boxes, you have a 30-second "Chat Reflection":
-*   **The Prompt**: The Companion asks one simple, low-stakes question based on your day.
-    *   *Koda (The Rival)*: "You crushed that tutorial, but you lagged on the lab. What's the plan to beat your time tomorrow?"
-    *   *Lyra (The Muse)*: "Your focus sessions were very rhythmic today. How did that playlist feel for the Deep Work?"
-*   **The Reward**: Completing this reflection gives the Guardian "Energy" to survive the night, ensuring it wakes up in a "Positive" state the next morning.
-
-## 3. "Life" Milestones & Prestige
-*   **Graduation / Ascension**: When a semester ends, your Companion "ascends" or evolves into a permanent honorary trophy in your dashboard, and you start a "new life" (new companion) for the next semester.
-*   **Legacy Visualizers**: Ascended companions unlock unique "Legendary" themes for your Focus Mode visualizers.
+A unified study planner page with an 8-bit AI companion that makes organization feel like nurturing a pet rather than managing a spreadsheet.
 
 ---
 
-## 4. Proposed Technical Structure (Frontend)
+## Core Philosophy
 
-## 1. Core Integrations
-Combining existing siloed features into a single source of truth:
+> **Zero decision fatigue.** The AI fills your schedule. You just confirm or dismiss.
 
-*   **Timetable Integration**: Direct overlay of NUSMods/Class schedules (lectures, tutorials, labs).
-*   **Unified Task Stream**: Merging manual tasks with Canvas assignments and deadlines.
-*   **Meeting/Calendar Sync**: Integration with Apple/Google calendars and the internal `meetings` router.
-*   **Progress Tracking**: Attendance logs (from `timetable`) and task completion percentages.
-
-## 2. Low-Fatigue & "Playful" Mechanisms
-
-To minimize decision fatigue while keeping organization interesting, we propose two primary interaction models:
-
-### A. The "Sorting Gauntlet" (Incentivized Sorting)
-A ludic (game-like) interface for the morning backlog:
-*   **The Interface**: Tapping the "Organize" button triggers a Tinder-style swipe interface or a rapid-fire cards view.
-*   **The Action**: For each unscheduled task, the user quickly chooses:
-    *   **"Do Today" (Swipe Right)**: AI immediately finds the first open slot and drops it in.
-    *   **"De-prioritize" (Swipe Left)**: Moves it to a "Later" bin.
-    *   **"Auto-Schedule" (Center)**: AI tries to fit it into a "Smart Gap" based on historical performance.
-*   **Incentive**: A "Streak" counter for consecutive days of cleaning the backlog. Visual "bloom" effects when a task is slotted.
-
-### B. The "Ghost Schedule" (Auto-Filling)
-*   **Concept**: Instead of a blank grid, the AI populates the schedule with **"Ghost Slots"**—transparent, suggested study blocks based on deadlines.
-*   **One-Tap Commit**: User just taps a Ghost Slot to "Solidify" it (turn it into a real commitment). No dragging, no typing, no thinking about "when".
-*   **Conflict Resolution**: If the user moves a ghost block, others shift automatically like a magnet system to maintain balance.
-
-## 3. Contextual Study Modes
-*   **"Deep Work" Direct Trigger**: Click a scheduled study block to immediately enter the **Focus Mode** page with the relevant module's music visualizers and timer pre-set.
-*   **Resource Pinning**: Each study block can have pinned files (Lecture notes, PDFs) retrieved via the RAG pipeline.
-
-### C. Collaborative Scheduling
-*   **Meeting Finder**: Integration with the existing `meetings.py` to view group project availability directly on the planner.
-
-## 3. Conceptual UI/UX Layout
-
-### **The "Command Center" View**
-A three-column layout or a flexible grid:
-
-1.  **Left Sidebar: The Backlog & Goals**
-    *   **Unscheduled Tasks**: Drag-and-drop tasks onto the schedule.
-    *   **Focus Goal**: A "North Star" goal for the week (e.g., "Complete CS2103T Milestone").
-
-2.  **Center: The Unified Timeline (Main View)**
-    *   **Switchable Views**: Day, Week (Horizontal/Vertical), and a new "Agenda" list view for mobile-first users.
-    *   **Layer Toggles**: Toggle visibility for Classes, Tasks, Personal Events, and AI Suggestions.
-    *   **Attendance Tracker**: One-click "Check-in" for classes.
-
-3.  **Right Sidebar: Performance & Streaks**
-    *   **Organization Streak**: Counter for daily backlog management.
-    *   **Daily Brief**: AI-generated summary like: *"You have a 3-hour gap. I've prepared 2 Ghost Slots for your Assignment. Tap to commit."*
-    *   **Quick Sync Status**: Status of Canvas and External Calendar connections.
-
-# The "Living Planner": 8-Bit AI Companions
-
-To keep implementation simple yet high-impact, the companions use a **retro 8-bit / Pixel Art** aesthetic. This allows for clear "evolution" stages (just swapping sprites) and a cute, nostalgic feel that contrasts beautifully with the premium glassmorphism of the app.
-
-## 1. Evolution & Mood States (Pixel Art Edition)
-*   **"Dormant"**: A small 16x16 pixel egg or pulsing square.
-*   **"Energetic"**: A 32x32 animated sprite with simple "jumping" or "sparkling" frames. 
-*   **"Tired/Wilted"**: The sprite's colors desaturate (grayscale) and it sits lower in the UI.
-*   **"Zen Mode"**: A glowing pixel aura appears around the character during focus.
-
-## 2. Character Sprite Archetypes
-| Archetype | Sprite Mockup Concept | Color Palette |
-| :--- | :--- | :--- |
-| **The Architect** | A floating, rotating 8-bit cube or grid-bot. | Cyan / Neon White |
-| **The Scholar** | A tiny pixel owl with glasses. | Sepia / Deep Blue |
-| **The Muse** | A dancing, prismatic pixel cloud. | Pink / Purple Gradient |
-| **The Rival** | A small, spiky pixel flame or imp. | Red / Orange / Black |
-
-## 3. Implementation Path
-*   **CSS Pixel Art**: Many states can be achieved using `box-shadow` pixel art or simple `<canvas>` rendering.
-*   **Lottie/GIF**: Light-weight sprite sheets for animations (Idle, Happy, Tired).
-
-## 2. Nurturing Through Organization
-"Sorting" is no longer just moving data; it's "feeding" the Guardian:
-*   **The Sorting Gauntlet = "Daily Treats"**: Each task cleared through the swipe interface is a "morsel" of data that keeps the character happy.
-*   **Solidifying Ghost Slots = "Building the Nest"**: Finalizing the week's schedule creates a "structured environment" for the character, unlocking unique visual themes (e.g., a "Cozy Library" background for the Guardian).
-
-## 3. Rewards & Incentives
-*   **Cosmetic Evolution**: Higher level Guardians unlock premium music visualizer skins (e.g., a "Golden Record" in the Spotify player).
-*   **AI Personality**: 
-    *   **High Org Score**: The AI's messages are proactive and cheerful ("I've set up your nest for the day!").
-    *   **Low Org Score**: The AI becomes slightly more "worried" but helpful ("The backlog is looking a bit heavy... shall we clear just three items together?").
+Instead of presenting a blank grid, the planner pre-populates with **Ghost Slots** (transparent AI suggestions) and lets you solidify them with a single tap. An 8-bit companion reacts to your habits, turning productivity into a quiet, ambient game.
 
 ---
 
-> [!IMPORTANT]
-> **Minimalism is Key**: The "Tamagotchi" aspect should stay subtle and elegant (glassmorphism icons, smooth animations) to avoid feeling like a "kids' game," maintaining the **premium** feel of CraftCanvas.
+## 1. The Unified Timeline
 
-*   **`Layout`**: A shared shell that maintains sync status.
-*   **`TimelineGrid`**: The core interactive grid.
-*   **`TaskDrawer/Backlog`**: Collapsible drawer for task management.
-*   **`InsightPanel`**: Floating or sidebar panel for AI-driven recommendations.
+Replaces the current `/timetable` page with a richer view. Merges three existing data streams:
+
+| Layer | Source | Already Exists |
+|:---|:---|:---|
+| **Classes** | NUSMods/ICS slots | ✅ `TimetableSlot` model |
+| **Tasks & Deadlines** | Manual + Canvas assignments | ✅ `Task` model |
+| **Events** | Personal + AI study blocks | ✅ `TimetableEvent` model |
+| **Ghost Slots** | AI-suggested study blocks | ✅ `/timetable/ai-plan` endpoint |
+
+**New behavior:** Ghost Slots render as semi-transparent blocks on the grid. Tapping one calls `POST /timetable/events` to solidify it.
+
+---
+
+## 2. The Sorting Gauntlet
+
+A rapid **card-stack** modal for clearing unscheduled tasks each morning:
+
+- **Cards**: Each unscheduled task (no `due_date` or status `inbox`) appears as a card.
+- **Actions per card**:
+  - ✅ **"Today"** → AI auto-slots it into the first free gap
+  - ⏭️ **"Later"** → Moves to bottom of backlog, no schedule change
+  - 🤖 **"Auto"** → AI picks the best day/time based on deadline proximity
+- **Reward**: Each card cleared gives the companion EXP. Clearing the full stack triggers a "bloom" animation.
+
+---
+
+## 3. The 8-Bit Companion
+
+A small pixel-art character that lives in the planner sidebar. Its mood and evolution are derived from **existing data**—no new tracking burden on the user.
+
+### Archetypes (user selects during onboarding or settings)
+
+| Archetype | Visual | Personality |
+|:---|:---|:---|
+| **Nexus** (Architect) | Floating 8-bit cube | Stoic, data-driven |
+| **Aurelius** (Scholar) | Pixel owl with glasses | Warm, reflective |
+| **Lyra** (Muse) | Dancing pixel cloud | Energetic, creative |
+| **Koda** (Rival) | Spiky pixel flame | Competitive, blunt |
+
+### Mood States (computed from real data)
+- **😊 Happy**: ≥3 tasks completed today OR ≥ 30 min focus time
+- **😐 Neutral**: Default state, some activity
+- **😴 Sleepy**: No tasks completed, no focus sessions, backlog growing
+- **🔥 Energized**: Active focus session OR streak ≥ 5 days
+- **🧘 Zen**: Currently in Focus Mode
+
+### Evolution
+- **Level 1–5**: Egg → Hatchling → Juvenile → Adult → Ascended
+- **EXP Sources**: Task completion (+10), Focus session (+20), Gauntlet clear (+15), Ghost Slot solidified (+5), Streak day (+10)
+- **Ascension**: At end of semester, companion becomes a trophy; user picks a new one.
+
+### Streaks
+- **Counter**: Consecutive days where user either completes ≥1 task OR clears the Gauntlet.
+- **Visual**: Streak number displayed below companion. At 7-day milestones, companion gets a temporary "glow" effect.
+
+---
+
+## 4. UI Layout: The "Command Center"
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Header: Week Nav + Academic Label + View Toggles           │
+├────────────┬──────────────────────────────┬──────────────────┤
+│            │                              │                  │
+│  BACKLOG   │     UNIFIED TIMELINE         │   COMPANION      │
+│            │                              │                  │
+│  Unsorted  │  Classes (solid)             │  [8-bit Sprite]  │
+│  tasks     │  Tasks (colored chips)       │                  │
+│  draggable │  Ghost Slots (transparent)   │  Mood: Happy     │
+│            │  Events (bordered)           │  Level: 3        │
+│  ───────   │                              │  Streak: 7 🔥    │
+│  "Sort     │                              │                  │
+│   Stack"   │                              │  ─────────────   │
+│  button    │                              │  Quick Brief:    │
+│            │                              │  "2 ghost slots  │
+│            │                              │   ready to go"   │
+│            │                              │                  │
+├────────────┴──────────────────────────────┴──────────────────┤
+│  Focus Mode Handshake: Click any study block → /focus        │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 5. Web App Integrations
+
+| Integration | How It Feeds the Companion | User Intent |
+|:---|:---|:---|
+| **Canvas Sync** | New assignments create Ghost Slots automatically | "I don't want to manually add deadlines" |
+| **Focus Mode** | Focus minutes → companion EXP + mood boost | "Reward me for deep work" |
+| **Spotify** | Companion enters "Zen" state during music playback | "Make focus feel immersive" |
+| **Attendance** | Skipped classes → companion mood drops slightly | "Gentle accountability" |
+| **Task Completion** | Each completed task → EXP + mood boost | "Make checking things off feel good" |
+| **Timetable AI Plan** | Ghost Slots auto-generated from deadlines | "Fill my schedule for me" |
+| **Evening Reflection** | 30s chat → companion "survives the night" | "End my day with closure" |
 
 ---
 
 > [!TIP]
-> **Focus Mode Handshake**: The most premium integration would be a "Start Session" button on any planner block that transitions the user into the immersive Focus page with a single click.
+> **The key insight**: The companion's mood is a *mirror*, not a *judge*. It reflects the user's habits back to them through a cute character, making self-awareness feel safe and playful rather than stressful.
