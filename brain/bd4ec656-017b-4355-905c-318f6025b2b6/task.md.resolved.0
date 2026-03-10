@@ -1,0 +1,15 @@
+# Task: Codebase Audit
+
+- [/] Audit Codebase
+    - [/] Project Structure & High-Level Overview
+    - [ ] Backend Audit
+        - [ ] API Architecture & Endpoints
+        - [ ] Models & Database (SQLModel)
+        - [ ] RAG Pipeline & AI Logic
+        - [ ] Security & Middleware
+    - [ ] Frontend Audit
+        - [ ] Design System & Aesthetics
+        - [ ] Component Architecture
+        - [ ] State Management
+    - [ ] Documentation & Setup
+    - [ ] Final Audit Report & Recommendations
