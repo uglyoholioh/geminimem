@@ -1,0 +1,29 @@
+# Floating Tamagotchi Companion Widget
+
+The goal is to redesign the AI companion to be a Tamagotchi-style widget that is available throughout the app (but not intrusive), instead of being confined to the planner or just a static dashboard widget.
+
+## Proposed Changes
+
+### `frontend/components/companion/FloatingCompanion.tsx`
+[NEW] Create a new component that renders a floating widget in the bottom-right corner of the screen.
+- **Visuals**: Will have a Tamagotchi-like aesthetic (egg shape, inner LCD-style screen, physical-looking buttons).
+- **Behavior**: Can be toggled open/closed. When closed, it's just a small discrete icon or the companion's face. When open, it shows the companion sprite, stats (Level, EXP), and allows interaction (Chat).
+- **Positioning**: Fixed to the bottom right.
+
+### [frontend/components/ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx)
+[MODIFY] Add the `<FloatingCompanion />` to the global layout, conditionally rendering it only when the user is not on the `/login` or `/focus` pages (similar to [FloatingTimer](file:///Users/oli/Desktop/CraftCanvas/frontend/components/FloatingTimer.tsx#7-112)).
+
+### [frontend/components/dashboard/DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx)
+[MODIFY] Remove or replace the `companion_mini` dashboard widget if it's redundant, or keep it as an option but don't force it since we have the floating one. (I will leave [CompanionMini](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/CompanionMini.tsx#26-108) available in the picker but remove it from the default UI emphasis if needed, or just let them coexist).
+
+## Verification Plan
+
+### Automated Tests
+- Build verification: Run `npm run build` in `frontend` to ensure there are no type errors with the new component.
+- The dev server is already running, so I will check the frontend logs for any runtime errors.
+
+### Manual Verification
+- Check the UI via browser to ensure the floating companion appears in the bottom right corner (e.g. on Dashboard, Tasks, Notes pages).
+- Verify the toggle behavior (opening and closing the Tamagotchi shell).
+- Ensure the UI looks like a premium, fun Tamagotchi (using gradients, shadows, and the existing [CompanionSprite](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx#23-239)).
+- Test chat and stat visibility.

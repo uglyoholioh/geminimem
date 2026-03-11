@@ -1,0 +1,155 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/planner' title='Planner' />
+[3] (14,187)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Good evening
+, Oli
+Wednesday, March 11
+[13] (196,74)<button class='
+                            flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-mono text-[10px] font-bold uppercase tracking-wider transition-all active:scale-95
+                            bg-accent text-white border-accent shadow-lg shadow-accent/20
+                        '>Save />
+2
+tasks
+1
+classes
+0
+min
+3
+due
+[14] (897,74)<button class='relative group transition-transform active:scale-95' />
+	0
+	new
+Up Next
+Review lecture 5
+✨ AI-Scheduled: Scheduled for today
+[15] (161,318)<a class='px-8 py-3 rounded-2xl bg-accent text-black font-bold flex items-center gap-2 hover:scale-105 transition-transform' href='/focus'>Start Focus />
+[16] (255,318)<button class='px-6 py-3 rounded-2xl bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-colors disabled:opacity-50 flex items-center gap-2'>🎲
+Reshuffle />
+	🎲
+[17] (342,318)<button class='px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-primary font-medium hover:bg-white/10 transition-colors'>Sort Inbox (
+1
+) />
+Mindset
+"Organization isn't about perfection. It's about momentum."
++12
+[18] (506,686)<div class='flex-1 min-0 overflow-y-auto pr-1' scrollable='true' />
+	Command Center
+	1m ago
+	How can I help you today?
+	Ask about your schedule, assignments, module materials, or get study advice.
+	[19] (130,855)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📝
+Exam Prep />
+		📝
+		Exam Prep
+	[20] (181,855)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📋
+Syllabus />
+		📋
+		Syllabus
+	[21] (243,855)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>✂️
+Break Down Tasks />
+		✂️
+		Break Down Tasks
+	[22] (313,855)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📊
+Weekly Recap />
+		📊
+		Weekly Recap
+	[23] (286,906)<textarea class='chat-textarea w-full px-4 py-3 text-sm text-primary placeholder:text-muted/50 bg-transparent focus:outline-none disabled:opacity-50' placeholder='Ask anything…' />
+	[24] (709,523)<div class='lg:h-[calc(100vh-140px)] min-w-0 overflow-y-auto pr-1 pb-4' scrollable='true' />
+		Upcoming Agenda
+		MD
+		LG
+		Today
+		13:00
+		CS2030
+		CS2030 Recitation
+		COM3-01-21
+		[25] (606,509)<div  />
+			Now / Next Class
+			SM
+			MD
+			[26] (606,468)<div  />
+				[27] (606,468)<div  />
+					[28] (606,470)<p >No more classes today />
+					[29] (606,495)<p >Enjoy the free time! />
+		[30] (807,509)<div  />
+			Spotify
+			SM
+			MD
+			[31] (807,530)<div  />
+				[32] (807,530)<div  />
+					[33] (807,530)<div  />
+						[34] (807,476)<div  />
+							[35] (807,476)<div  />
+						[36] (807,571)<div  />
+							[37] (807,538)<h3 >Configuration Required />
+							[38] (807,587)<p >Spotify credentials are not configured. Please set them in the Settings > Integrations tab. />
+		[39] (606,770)<div  />
+			[40] (606,692)<div  />
+				[41] (552,693)<h2 >Exam Countdown />
+				[42] (673,693)<div  />
+					[43] (665,693)<div  />
+						[44] (659,693)<button class='px-1.5 py-[1px] text-[8px] font-mono font-bold transition-colors
+                                        bg-accent/30 text-accent
+                                    '>SM />
+						[45] (670,693)<button class='px-1.5 py-[1px] text-[8px] font-mono font-bold transition-colors
+                                        text-muted hover:bg-surface-hover hover:text-primary
+                                    '>MD />
+					[46] (687,693)<button aria-label='Remove Exam Countdown' class='h-6 w-6 rounded-full flex items-center justify-center text-muted/60 hover:text-urgency hover:bg-urgency-subtle/50 transition-all active:scale-95 hover:rotate-90' />
+			[47] (606,778)<div  />
+				[48] (606,778)<div  />
+					[49] (606,784)<p >No exam dates set. />
+					[50] (606,803)<p >Add them in module settings. />
+		[51] (807,770)<div  />
+			[52] (807,692)<div  />
+				[53] (746,693)<h2 >Quick Add />
+				[54] (875,693)<div  />
+					[55] (866,693)<div  />
+						[56] (861,693)<button class='px-1.5 py-[1px] text-[8px] font-mono font-bold transition-colors
+                                        bg-accent/30 text-accent
+                                    '>SM />
+						[57] (872,693)<button class='px-1.5 py-[1px] text-[8px] font-mono font-bold transition-colors
+                                        text-muted hover:bg-surface-hover hover:text-primary
+                                    '>MD />
+					[58] (889,693)<button aria-label='Remove Quick Add' class='h-6 w-6 rounded-full flex items-center justify-center text-muted/60 hover:text-urgency hover:bg-urgency-subtle/50 transition-all active:scale-95 hover:rotate-90' />
+			[59] (807,792)<div  />
+				[60] (807,792)<div  />
+					[61] (807,792)<form  />
+						[62] (807,743)<div  />
+							[63] (764,743)<button class='flex-1 py-1 text-[9px] font-mono font-bold uppercase rounded-md transition-all bg-base text-accent shadow-sm'>New Task />
+							[64] (851,743)<button class='flex-1 py-1 text-[9px] font-mono font-bold uppercase rounded-md transition-all text-muted hover:text-primary'>New Note />
+						[65] (807,788)<div  />
+							[66] (807,788)<input class='w-full bg-base/50 border border-border/30 rounded-xl px-4 py-2.5 text-xs text-primary focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/10 transition-all' placeholder='Write a paper...' />
+						[67] (807,837)<div  />
+							[68] (777,837)<div  />
+								[69] (777,837)<select class='w-full h-8 bg-surface-hover border-none rounded-lg px-2.5 text-[10px] font-mono font-bold text-muted focus:outline-none focus:ring-1 focus:ring-accent-subtle/50 appearance-none pr-7' />
+							Quick Add
+		[70] (606,910)<div  />
+			[71] (544,912)<h2 >Companion />
+			[72] (673,912)<div  />
+				[73] (665,912)<div  />
+					[74] (659,912)<button class='px-1.5 py-[1px] text-[8px] font-mono font-bold transition-colors
+                                        bg-accent/30 text-accent
+                                    '>SM />
+					[75] (670,912)<button class='px-1.5 py-[1px] text-[8px] font-mono font-bold transition-colors
+                                        text-muted hover:bg-surface-hover hover:text-primary
+                                    '>MD />
+				[76] (687,912)<button aria-label='Remove Companion' class='h-6 w-6 rounded-full flex items-center justify-center text-muted/60 hover:text-urgency hover:bg-urgency-subtle/50 transition-all active:scale-95 hover:rotate-90' />
+		CRAFT
+		PET
+
+</current_dom>

@@ -1,0 +1,6 @@
+# UI Adjustments
+
+- [ ] Analyze the current layout and positioning issues
+- [ ] Inspect and adjust `CommandCenter.tsx` layout
+- [ ] Inspect and adjust [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) grid sizes if necessary
+- [ ] Inspect and adjust [DashboardLayoutManager](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx#55-278) and widgets if necessary

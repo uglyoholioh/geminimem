@@ -1,0 +1,42 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/planner' title='Planner' />
+[3] (14,187)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors bg-accent-subtle text-accent' href='/settings' title='Settings' />
+O
+Settings
+Manage your account and app configuration
+[13] (335,172)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all bg-accent-subtle text-accent font-medium'>Profile />
+[14] (335,214)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Canvas />
+[15] (335,255)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Craft />
+[16] (335,297)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Integrations />
+[17] (335,339)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Telegram />
+[18] (335,380)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Notifications />
+[19] (335,422)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>Appearance />
+[20] (335,463)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all text-secondary hover:bg-surface-hover hover:text-primary'>AI Context />
+Profile
+Your personal information
+[21] (563,259)<label class='text-xs text-secondary block mb-1.5 font-medium'>Display Name />
+[22] (563,295)<input class='w-full rounded-xl border border-border bg-base px-4 py-2.5 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all' />
+[23] (563,346)<label class='text-xs text-secondary block mb-1.5 font-medium'>Email />
+Email cannot be changed
+Change Password
+[24] (563,499)<label class='text-xs text-secondary block mb-1.5 font-medium'>Current Password />
+[25] (563,536)<input class='w-full rounded-xl border border-border bg-base px-4 py-2.5 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all' placeholder='••••••••' />
+[26] (563,578)<label class='text-xs text-secondary block mb-1.5 font-medium'>New Password />
+[27] (563,615)<input class='w-full rounded-xl border border-border bg-base px-4 py-2.5 text-sm text-primary placeholder:text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all' placeholder='Min 6 characters' />
+[28] (450,676)<button class='flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-white text-sm font-medium hover:bg-accent-hover transition-colors'>Update Profile />
+
+</current_dom>

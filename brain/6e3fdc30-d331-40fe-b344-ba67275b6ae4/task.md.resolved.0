@@ -1,0 +1,6 @@
+# Tasks
+
+- [ ] Create `FloatingCompanion.tsx` (the Tamagotchi widget)
+- [ ] Add `<FloatingCompanion />` to [ClientLayout.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/ClientLayout.tsx)
+- [ ] (Optional) Update [DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx) to reflect changes
+- [ ] Verify the UI builds and works correctly

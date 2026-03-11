@@ -4,10 +4,11 @@
 - [x] Start Backend server
 - [x] Start Frontend server
 - [x] Verify both are running
-- [x] Debug "cant load into the app" error
-  - [x] Check backend logs
-  - [x] Check frontend logs
-  - [x] Verify frontend terminal status
-  - [x] Killing zombie processes
-  - [x] Removing lock file and restarting frontend server
-  - [x] Verify both are running and accessible
+- [x] Debug startup issues (zombie processes)
+- [x] Debug Next.js errors on login/settings
+  - [x] Login and inspect `/settings` (identified 500 errors on API)
+  - [x] Investigate backend logs for Tracebacks
+  - [x] Fix 500 errors in `/announcements` (database migration)
+  - [x] Fix 500 error in `/spotify` (NameError UTC and datetime fix)
+  - [x] Fix 404 for `/companion` (Proxy path fix and redirect_slashes)
+  - [x] Verify all fixes

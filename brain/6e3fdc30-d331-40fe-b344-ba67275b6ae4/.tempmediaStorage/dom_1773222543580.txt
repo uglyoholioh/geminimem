@@ -1,0 +1,95 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+O
+Good evening
+, Oli
+Wednesday, March 11
+Save
+2
+tasks
+1
+classes
+0
+min
+3
+due
+0
+new
+Up Next
+Review lecture 5
+✨ AI-Scheduled: Scheduled for today
+Start Focus
+🎲
+Reshuffle
+Sort Inbox (
+1
+)
+Mindset
+"Organization isn't about perfection. It's about momentum."
++12
+[0] (506,686)<div class='flex-1 min-0 overflow-y-auto pr-1' scrollable='true' />
+	Command Center
+	1m ago
+	How can I help you today?
+	Ask about your schedule, assignments, module materials, or get study advice.
+	📝
+	Exam Prep
+	📋
+	Syllabus
+	✂️
+	Break Down Tasks
+	📊
+	Weekly Recap
+	[1] (709,523)<div class='lg:h-[calc(100vh-140px)] min-w-0 overflow-y-auto pr-1 pb-4' scrollable='true' />
+		Upcoming Agenda
+		MD
+		LG
+		Today
+		13:00
+		CS2030
+		CS2030 Recitation
+		COM3-01-21
+		Now / Next Class
+		SM
+		MD
+		No more classes today
+		Enjoy the free time!
+		Spotify
+		SM
+		MD
+		Configuration Required
+		Spotify credentials are not configured. Please set them in the Settings > Integrations tab.
+		Exam Countdown
+		SM
+		MD
+		No exam dates set.
+		Add them in module settings.
+		Quick Add
+		SM
+		MD
+		New Task
+		New Note
+		Quick Add
+		Companion
+		SM
+		MD
+		CRAFT
+		PET
+		[2] (648,450)<button class='h-7 w-7 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface-hover transition-all' />
+		[3] (500,727)<div class='p-4 grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto' scrollable='true' />
+			[4] (393,493)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+			[5] (498,493)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+			[6] (604,493)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+			[7] (393,629)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+			[8] (498,629)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+			[9] (604,629)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+			[10] (393,764)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+			[11] (498,764)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+			[12] (604,764)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+			[13] (393,900)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+			[14] (498,900)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+			[15] (604,900)<button class='group flex flex-col items-center gap-2 p-4 rounded-xl border border-border/30 bg-base/50 hover:border-accent/50 hover:bg-accent-subtle/20 hover:shadow-md transition-all duration-200 active:scale-95' />
+
+</current_dom>

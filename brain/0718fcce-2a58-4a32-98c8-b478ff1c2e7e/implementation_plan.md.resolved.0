@@ -1,0 +1,31 @@
+# Dashboard Layout Adjustments
+
+The Dashboard layout seems slightly broken:
+* [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx): The grid is using `lg:grid-cols-2` which allocates 50% width to the Command Center and 50% width to the layout manager widgets. This might be squeezing the widgets too much, considering the layout manager itself has a 2-column grid. We should adjust this to `lg:grid-cols-3` or `lg:grid-cols-5` (with Command Center spanning fewer columns than the Widgets area).
+Let's see: Command Center (left) and Layout Manager (right).
+If we use `grid-cols-1 lg:grid-cols-3` and make Command Center `col-span-1` and Layout Manager `col-span-2`, that gives the widgets more space.
+Or if [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx) is left as `lg:grid-cols-2`, maybe the [CommandCenter](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/CommandCenter.tsx#35-96) height is wrong due to `lg:h-[calc(100vh-140px)]`.
+The fluid hero row (Up Next and Mindset) uses `grid-cols-1 lg:grid-cols-3`, where Up Next is `lg:col-span-2` and Mindset is `lg:col-span-1`. This is correct.
+For the content area below it (Command Center + Layout Manager), it's currently `grid-cols-1 lg:grid-cols-2`. Let's test `lg:grid-cols-12` where CommandCenter spans 5 and LayoutManager spans 7.
+
+Let's also look at the [DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx).
+Currently, the grid is `grid-cols-2 gap-4 auto-rows-max`. This is fine, but the widths of [WidgetShell](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/WidgetShell.tsx#20-104)s might be constrained by their container.
+Wait, let's examine the crop/height issue.
+In [page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx), [CommandCenter](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/CommandCenter.tsx#35-96) has `lg:h-[calc(100vh-140px)]`. But the whole page has `h-[calc(100vh-56px)]` and is a flex col. The Hero takes some height, leaving less for the bottom section. If the bottom section uses a fixed height `calc(100vh-140px)`, it will overflow the parent flex container, causing scrollbars or cropping.
+Instead, [CommandCenter](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/CommandCenter.tsx#35-96) and the Layout Manager container should just use `h-full` to fill the remaining space of their parent `flex-1 min-h-0` container.
+
+## Proposed Changes
+
+### [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)
+* Update grid to `grid-cols-1 lg:grid-cols-12` or similar ratio for better widget space. (e.g., Command Center gets `col-span-5`, layout manager gets `col-span-7`).
+* Remove fixed heights like `lg:h-[calc(100vh-140px)]` on the Layout Manager container, using `h-full` so it fills the `flex-1` parent properly.
+
+### [frontend/components/dashboard/CommandCenter.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/CommandCenter.tsx)
+* Update container `section` classes. Remove `lg:h-[calc(100vh-140px)]` and replace with `h-full` to avoid overflow and match the parent container flex logic. Keep `min-h-[500px]` for smaller screens.
+
+## Verification Plan
+
+### Manual Verification
+1. Open the dashboard.
+2. Verify that the Command Center and Widget Area fit nicely on the screen without unnecessary nested scrollbars or clipping.
+3. Verify that the Widget Area has enough horizontal space and doesn't look cramped compared to the screenshot.

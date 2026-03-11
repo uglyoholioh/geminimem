@@ -1,0 +1,14 @@
+# Task: Start the Application
+
+- [x] Check environment variables and prerequisites
+- [x] Start Backend server
+- [x] Start Frontend server
+- [x] Verify both are running
+- [x] Debug startup issues (zombie processes)
+- [/] Debug Next.js errors on login/settings
+  - [x] Login and inspect `/settings` (identified 500 errors on API)
+  - [x] Investigate backend logs for Tracebacks
+  - [x] Fix 500 errors in `/announcements` (database migration)
+  - [x] Fix 500 error in `/spotify` (NameError UTC)
+  - [x] Fix 404 for `/companion` (Proxy path fix)
+  - [/] Verify all fixes
