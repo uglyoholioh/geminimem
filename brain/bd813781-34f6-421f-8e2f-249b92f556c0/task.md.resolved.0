@@ -1,0 +1,6 @@
+# Task: Start the Application
+
+- [/] Check environment variables and prerequisites
+- [ ] Start Backend server
+- [ ] Start Frontend server
+- [ ] Verify both are running

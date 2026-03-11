@@ -59,4 +59,26 @@ Fluid tasks now "flow" around your rigid timetable events.
 - **Companion AI Checks In**: If your task pipeline gets too stale, your chosen archetype companion provides a custom, intervention-style nudge instead of their usual generic greeting.
 
 ---
-*Ready to reclaim your time? Hit `Cmd+K` anywhere or open the Dashboard and click **Sort Inbox** to begin.*
+## 🌿 Phase 4: Ecosystem Synergy
+
+I have integrated the once-separate parts of CraftCanvas into a cohesive ecosystem where every action feeds into the next.
+
+### 1. Contextual Execution Loop (Tasks ↔ Canvas)
+Work smarter by having your materials ready before you start the task.
+- **Resource Surfacing**: When viewing your "Up Next" task, the AI automatically identifies and surfaces relevant Canvas files (slides, readings, tutorials) based on the task title and course code.
+- **Instant Access**: Clickable chips in the hero section let you jump directly into the material you need, eliminating the "Where was that file?" friction.
+
+### 2. Reality-Correction Loop (Focus ↔ Fluid Schedule)
+The schedule now respects the reality of how long things actually take.
+- **Overtime Options**: If a focus session ends but you aren't done, choose **+15m** or **+30m** to extend your session instantly.
+- **Self-Healing Flow**: Adding overtime automatically triggers a schedule rebalance. Subsequent tasks are pushed back to the next available free slots, keeping your day realistic without manual rearranging.
+
+### 3. Ingestion-Action Loop (External Sources ↔ Triage)
+Ambient task tracking that captures everything from your academic world.
+- **Announcement Parsing**: The system now background-scans Canvas course announcements. AI extracts concrete "Action Items" (e.g., "Bring calculator for Friday lab") and drops them directly into your Triage Inbox.
+- **Multimodal Telegram Bot**: The upgraded @CraftCanvasBot now uses the full unified AI stack.
+    - **Voice Notes**: Send a quick voice note like "Remind me to submit the internship form on Monday" and the AI transcribes and schedules it.
+    - **Proactive Linking**: The bot understands your timetable and task list, providing context-aware responses when you're away from your desk.
+
+---
+*The ecosystem is now live. Your data doesn't just sit there—it actively helps you stay ahead.*

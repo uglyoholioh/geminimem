@@ -1,0 +1,84 @@
+# Walkthrough: Fluid Triage System
+
+I have successfully implemented the **Fluid Triage System**, transforming the organizational experience from a "manual chore" into an AI-guided, frictionless flow.
+
+## 🚀 Key Features
+
+### 1. Rapid Triage Inbox
+The "Sorting Gauntlet" has been replaced with a high-speed, keyboard-driven triage interface.
+- **Shortcuts**: Use `1` (Today), `2` (Tomorrow), `3` (Weekend), `Space` (AI Auto-Schedule), or `S` (Snooze).
+- **Goal**: Clear 20+ tasks in under 30 seconds.
+- **Location**: Access via the "Sort Inbox" button on the Dashboard or the "Rapid Triage" button in the Planner.
+
+### 2. "Up Next" Hero Section
+The Dashboard now features a high-impact hero section that tells you exactly what to do next.
+- **Smart Prioritization**: Automatically surfaces the most relevant task.
+- **Momentum**: One-click "Start Focus" to jump straight into work.
+
+### 3. Self-Healing Fluid Schedule
+Fluid tasks now "flow" around your rigid timetable events.
+- **Auto-Rebalance**: If you miss a task, it automatically shifts to the next available slot.
+- **Visual Distinction**: Fluid tasks appear with a dashed border and a "Fluid" badge on the Planner timeline.
+
+## 🛠️ Technical Implementation
+
+### Backend
+- **[models/task.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py)**: Added persistence for scheduled dates and fluid intent.
+- **[routers/fluid.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/fluid.py)**: Implements the rebalancing algorithm and next-task selection.
+- **[routers/timetable/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/timetable/main.py)**: Unified the weekly view to serve classes, events, and tasks in a single stream.
+
+### Frontend
+- **[components/planner/TriageInbox.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/planner/TriageInbox.tsx)**: A new, highly responsive React component with `framer-motion` animations and global keyboard listeners.
+- **[app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx)**: Overhauled the Dashboard header to prioritize the "Up Next" momentum.
+- **[app/planner/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/page.tsx)**: Updated the timeline grid to render multi-type events with dynamic styling.
+
+---
+
+## 🌟 Phase 3: Frictionless Triage & Dashboard Tweaks
+
+### 1. Zero-Friction Navigation & Cleanup
+- Removed the massive Planner Backlog sidebar and "Rebalance" buttons.
+- Replaced with a unified floating [Inbox](file:///Users/oli/Desktop/CraftCanvas/frontend/components/planner/TriageInbox.tsx#44-294) button to instantly trigger the Triage Modal.
+- Eliminated "Ghost Slots"—the Planner calendar strictly shows what's locked in, reducing clutter.
+
+### 2. Universal Quick-Add (`Cmd+K`)
+- Added a seamless `Cmd+K` global command palette powered by the Gemini LLM.
+- **Natural Language Parsing**: Just type "Read Biology Chapter 4 tomorrow" and the system automatically extracts the due date, sets priority, and drops it into the Triage stack. 
+
+### 3. Triage Velocity Upgrades
+- **Priority Cycling**: During the [TriageInbox](file:///Users/oli/Desktop/CraftCanvas/frontend/components/planner/TriageInbox.tsx#44-294) flow, tap `P` to instantly cycle priorities (Low -> Medium -> High -> Urgent) mid-flow without losing momentum.
+- **Smart Keys**: Keys `1`, `2`, `3`, `Space` (AI), and `S` (Snooze) sort backlog tasks cleanly.
+
+### 4. Explainable AI & Reshuffling
+- **Up Next Widget**: Now displays why the task was suggested (e.g., "✨ AI-Scheduled: Overdue and Urgent priority").
+- **Reshuffle Button 🎲**: Disagree with the AI? Instantly cycle through top-priority tasks until you find the perfect one to tackle right now.
+
+### 5. Task Decay & Companion Interactions
+- Tasks that are continually snoozed or missed increment a `reschedule_count`.
+- Once highly stale, tasks get a distinctive "Stale" timeline badge.
+- **Companion AI Checks In**: If your task pipeline gets too stale, your chosen archetype companion provides a custom, intervention-style nudge instead of their usual generic greeting.
+
+---
+## 🌿 Phase 4: Ecosystem Synergy
+
+I have integrated the once-separate parts of CraftCanvas into a cohesive ecosystem where every action feeds into the next.
+
+### 1. Contextual Execution Loop (Tasks ↔ Canvas)
+Work smarter by having your materials ready before you start the task.
+- **Resource Surfacing**: When viewing your "Up Next" task, the AI automatically identifies and surfaces relevant Canvas files (slides, readings, tutorials) based on the task title and course code.
+- **Instant Access**: Clickable chips in the hero section let you jump directly into the material you need, eliminating the "Where was that file?" friction.
+
+### 2. Reality-Correction Loop (Focus ↔ Fluid Schedule)
+The schedule now respects the reality of how long things actually take.
+- **Overtime Options**: If a focus session ends but you aren't done, choose **+15m** or **+30m** to extend your session instantly.
+- **Self-Healing Flow**: Adding overtime automatically triggers a schedule rebalance. Subsequent tasks are pushed back to the next available free slots, keeping your day realistic without manual rearranging.
+
+### 3. Ingestion-Action Loop (External Sources ↔ Triage)
+Ambient task tracking that captures everything from your academic world.
+- **Announcement Parsing**: The system now background-scans Canvas course announcements. AI extracts concrete "Action Items" (e.g., "Bring calculator for Friday lab") and drops them directly into your Triage Inbox.
+- **Multimodal Telegram Bot**: The upgraded @CraftCanvasBot now uses the full unified AI stack.
+    - **Voice Notes**: Send a quick voice note like "Remind me to submit the internship form on Monday" and the AI transcribes and schedules it.
+    - **Proactive Linking**: The bot understands your timetable and task list, providing context-aware responses when you're away from your desk.
+
+---
+*The ecosystem is now live. Your data doesn't just sit there—it actively helps you stay ahead.*
