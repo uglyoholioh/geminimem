@@ -4,7 +4,9 @@ I have successfully started the backend and frontend servers for CraftCanvas.
 
 ## Actions Taken
 - Started the FastAPI backend server on port 8000.
-- Started the Next.js frontend server on port 3000.
+- Identified and killed zombie `next dev` processes (PIDs 28387, 28388) that were blocking port 3000.
+- Force removed the `.next/dev/lock` file which prevented the frontend from starting.
+- Restarted the Next.js frontend server on port 3000.
 
 ## Verification Results
 
@@ -14,7 +16,7 @@ I have successfully started the backend and frontend servers for CraftCanvas.
 
 ### Frontend
 - **Endpoint**: `http://localhost:3000`
-- **Status**: Starting up/Running.
+- **Status**: Running and responsive.
 
 ## Media
 

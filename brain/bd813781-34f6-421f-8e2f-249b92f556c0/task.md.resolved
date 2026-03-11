@@ -4,3 +4,10 @@
 - [x] Start Backend server
 - [x] Start Frontend server
 - [x] Verify both are running
+- [x] Debug "cant load into the app" error
+  - [x] Check backend logs
+  - [x] Check frontend logs
+  - [x] Verify frontend terminal status
+  - [x] Killing zombie processes
+  - [x] Removing lock file and restarting frontend server
+  - [x] Verify both are running and accessible
