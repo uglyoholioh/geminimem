@@ -1,0 +1,30 @@
+# Walkthrough - Enhanced Task AI & Proactive Upgrades
+
+I have upgraded the AI context and toolset to be more proactive and insightful.
+
+## New Proactive Capabilities
+
+### 1. Smart Study Scheduling (`suggest_study_blocks`)
+The AI now proactively analyzes your workload and finds free time in your schedule.
+- **How it works**: When it detects urgent tasks or upcoming deadlines, it calls this tool to find 2-hour free blocks.
+- **Example**: "I see you have 3 high-priority tasks. I've found free time on Wednesday and Thursday evening—would you like to schedule these as study sessions?"
+
+### 2. Grade Projection (`project_module_grade`)
+The AI can now help you track your academic standing and plan for your target grades.
+- **How it works**: Analyzes your scored components (e.g., midterms) and projects your current standing.
+- **Example**: "Your current standing in CS2103T is 85%. To get an A, you'll need at least 80% on the final project."
+
+### 3. Advanced Task Filtering
+Upgraded existing tools to handle relative date queries like "this week" or "overdue" more reliably.
+
+## Verification Results
+
+### Automated Tests
+Verified all new tools with dedicated unit tests:
+- **`test_suggest_study_blocks`**: Successfully identifies busy periods and proposes slots.
+- **`test_project_module_grade`**: Correctly calculates standings from sample component weights.
+
+## How to Test
+1. **Scheduling**: Ask "When's a good time to work on my urgent tasks?" or "Find me study time for this week."
+2. **Grades**: Ask "What's my standing in CS2103T?" or "How am I doing in my courses?"
+3. **Proactive Check**: Try asking "What should I focus on today?"—the AI should naturally use these tools to give a comprehensive answer.

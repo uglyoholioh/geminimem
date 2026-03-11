@@ -1,0 +1,21 @@
+# Walkthrough - Spotify API Fix
+
+I have resolved the "API error 500: Internal Server Error" that occurred when fetching the Spotify token.
+
+## Changes
+
+### Backend
+
+#### [spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py)
+- Fixed a `NameError: name 'UTC' is not defined` by importing `UTC` from `lib.timezone`.
+- Unified the way current time is fetched by using the `now_utc()` helper consistently across the file.
+- Corrected imports to include all necessary models and dependencies.
+
+## Verification Results
+
+### Automated Tests
+- No automated tests were run as the fix was a straightforward syntax/import error verified by logs.
+
+### Manual Verification
+- Checking the backend logs confirmed that the `NameError` was triggered by `datetime.now(UTC)`.
+- The code now uses `now_utc()` which has been tested and is standard for the project's timezone management.

@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "Walkthrough of the fix for Spotify API 500 error. The root cause was a NameError in the backend's timezone handling.",
+  "updatedAt": "2026-03-11T14:19:18.704994Z"
+}

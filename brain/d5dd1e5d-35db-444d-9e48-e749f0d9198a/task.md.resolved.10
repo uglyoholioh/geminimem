@@ -1,0 +1,19 @@
+# Exploring AI Upgrades
+
+Identify and implement further AI-powered features to enhance the user's "Academic Life OS" experience.
+
+## [x] Research & Ideation
+- [x] Review current AI tools and services
+- [x] Brainstorm new AI capabilities (e.g., proactive scheduling, automated study guides, mood tracking)
+- [x] Create a feature proposal/implementation plan
+
+## [x] Implementation
+- [x] Implement proactive scheduling ([suggest_study_blocks](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#1623-1673))
+- [x] Implement AI grade projection ([project_module_grade](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#1674-1730))
+- [x] Update system prompt for proactive behavior
+- [/] Implement automated study guide generation (Moving to Phase 2/Exploring)
+
+## [/] Verification
+- [/] Test [suggest_study_blocks](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#1623-1673) logic
+- [ ] Test [project_module_grade](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#1674-1730) with sample components
+- [ ] Verify proactive behavior in prompt

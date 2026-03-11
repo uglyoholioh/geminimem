@@ -1,0 +1,10 @@
+# Task: Debug Spotify API 500 Error
+
+- [ ] Investigation [/]
+    - [ ] Analyze [backend/routers/spotify.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/spotify.py) to understand the endpoints and error handling. [/]
+    - [ ] Examine [frontend/components/SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx) and [frontend/lib/api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts) to see how the request is made.
+    - [ ] Check backend logs for the specific error details.
+- [ ] Implementation [ ]
+    - [ ] Fix the root cause in the backend or frontend.
+- [ ] Verification [ ]
+    - [ ] Verify the fix by testing the Spotify integration in the dashboard.

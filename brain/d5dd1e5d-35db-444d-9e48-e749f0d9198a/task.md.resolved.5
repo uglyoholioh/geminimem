@@ -1,0 +1,19 @@
+# Enhancing Task AI Capabilities
+
+The user wants to enhance the filtering and capabilities of the task system, particularly for AI interactions. Currently, the AI can only filter by status, priority, or course.
+
+## [ ] Planning & Research
+- [x] Analyze current [search_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#89-157) implementation in [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- [x] Analyze current [list_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#22-75) router in [tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py)
+- [x] Define date-based filtering logic (this week, today, tomorrow)
+- [x] Create implementation plan
+
+## [x] Implementation
+- [x] Update [search_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#89-157) in [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py) with date-based filters and sorting
+- [x] Update [list_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#22-75) in [tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py) to support similar filters if missing
+- [x] Enhance AI system prompt or tools to better handle date-relative queries (Already covered by tool description updates)
+
+## [x] Verification
+- [x] Test "tasks for this week" query logic
+- [x] Test "tasks due today" query logic
+- [x] Verify sorting by due date and priority

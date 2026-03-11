@@ -1,0 +1,38 @@
+# Proposal: Advanced AI Features for Academic Life OS
+
+Based on the current system capabilities, I propose several key AI upgrades to transform the assistant from a reactive tool to a proactive companion.
+
+## Proposed AI Upgrades
+
+### 1. Proactive "Smart Schedule" Assistant
+**Goal**: Help the user find time for tasks based on their workload and deadlines.
+- **New Tool**: `suggest_study_blocks`. Analyzes pending high-priority tasks and upcoming deadlines, then calls [find_available_slots](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#1160-1266) to propose a specific study schedule for the next 48 hours.
+- **Capability**: The AI can say: "I noticed you have a CSC3100 midterm on Friday and 3 pending tasks. I've found 2-hour blocks on Wednesday and Thursday evening where you're free. Would you like me to schedule these as study sessions?"
+
+### 2. AI Grade Projection & Goal Setting
+**Goal**: Provide insight into academic performance and help with goal setting.
+- **New Tool**: `project_module_grade`. Uses the existing `grade_components` and `grade_entries` to calculate current standings and then uses AI to project the final grade based on different scenarios (e.g., "What if I get an A on the final?").
+- **Capability**: "Based on your midterm score and project weight, if you target 75% on the final exam, you are projected to receive an A-."
+
+### 3. Automated Study Guide Generation (from RAG)
+**Goal**: Turn course materials into actionable revision tools.
+- **New Tool**: `generate_comprehensive_study_guide`. Aggregates RAG chunks for a specific module or week and generates a structured revision guide with key formulas, concepts, and a summary.
+- **Capability**: "I've compiled a study guide for Week 4 of CS2103T based on the lecture slides and announcements. It focuses on the Observer and Strategy patterns."
+
+### 4. Course Enrollment Context
+**Goal**: Allow the AI to handle queries about the user's broad academic path.
+- **New Tool**: `get_academic_progress`. Summarizes total credits earned, current semester workload, and highlights "heavy" vs "light" weeks based on assignment clusters.
+
+## Implementation Path
+
+### Phase 1: Proactive Scheduling (High Priority)
+1. Implement `suggest_study_blocks` in [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py).
+2. Enhance system prompt to encourage proactive scheduling suggestions.
+
+### Phase 2: Academic Intelligence
+1. Implement `project_module_grade` and `generate_comprehensive_study_guide`.
+2. Add these to `TOOL_DEFINITIONS`.
+
+## User Feedback Requested
+> [!IMPORTANT]
+> Which of these features would be most valuable to you right now? Or is there a specific "pain point" in your academic workflow you'd like the AI to solve?

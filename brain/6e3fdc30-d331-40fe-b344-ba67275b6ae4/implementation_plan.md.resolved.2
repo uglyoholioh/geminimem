@@ -1,0 +1,35 @@
+# AI Chat Companion Integration
+
+The user prefers the companion to be integrated directly into the AI chat interface (Command Center) with simple pixel art on a digital background, rather than acting as a standalone Tamagotchi dashboard widget. We will also add new NUS-faculty-inspired mascot archetypes (e.g., Soccat).
+
+## Proposed Changes
+
+### [frontend/components/companion/CompanionSprite.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx)
+[MODIFY] Add new NUS mascot archetypes:
+- **soccat**: School of Computing mascot (cat).
+- **lihsa**: Faculty of Arts and Social Sciences mascot (lion/sun).
+- Update [CompanionArchetype](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx#5-6) type and color palettes. Provide simple SVG representations.
+
+### [frontend/components/chat/DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx)
+[MODIFY] Integrate the [CompanionSprite](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx#23-239) directly into the chat:
+- **Empty State**: Replace the `Sparkles` icon header with the large [CompanionSprite](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx#23-239) on a subtle digital background.
+- **Message Avatars**: Replace the `Zap` icon for assistant messages with a very small [CompanionSprite](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx#23-239) or just the face.
+
+### [frontend/components/dashboard/CommandCenter.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/CommandCenter.tsx)
+[MODIFY] Fetch the `companionState` (if not already passed) and pass it down to [DailyBriefChat](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx#25-225) so the chat knows which archetype to render.
+
+### [frontend/components/dashboard/widgets/CompanionMini.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/CompanionMini.tsx)
+[DELETE] Remove the standalone widget entirely.
+
+### [frontend/components/dashboard/DashboardLayoutManager.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardLayoutManager.tsx) & [frontend/lib/widgetRegistry.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/widgetRegistry.ts)
+[MODIFY] Remove references to `companion_mini` to clean up the dashboard.
+
+## Verification Plan
+
+### Automated Tests
+- Run `npm run build` to verify typings (especially the new archetypes).
+
+### Manual Verification
+- Verify the widget is no longer in the Customize Dashboard menu.
+- Open the Command Center (AI Chat) and verify the character appears in the welcome screen.
+- Send a message and verify the assistant responds with the character avatar.

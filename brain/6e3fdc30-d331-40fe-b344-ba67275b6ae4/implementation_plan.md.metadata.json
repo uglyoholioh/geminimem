@@ -1,5 +1,6 @@
 {
   "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary": "Implementation plan for the global Tamagotchi-style floating companion widget",
-  "updatedAt": "2026-03-11T09:42:55.614622Z"
+  "summary": "Implementation plan for persistent Companion UI and extended Soccat animations.",
+  "updatedAt": "2026-03-11T14:22:36.130654Z",
+  "version": "3"
 }

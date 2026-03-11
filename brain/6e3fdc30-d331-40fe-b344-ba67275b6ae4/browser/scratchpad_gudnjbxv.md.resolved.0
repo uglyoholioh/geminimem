@@ -1,0 +1,10 @@
+# Verification Plan: Soccat Sprite Interactions
+
+- [ ] Navigate to http://localhost:3000
+- [ ] Open/Locate Command Center chat
+- [ ] Click on large white Soccat sprite in empty state
+- [ ] Verify floating hearts animation
+- [ ] Type "What is my schedule for today?" into chat input
+- [ ] Verify "zen/thinking" mood change while typing
+- [ ] Submit the question
+- [ ] Verify assistant avatar/working state

@@ -1,0 +1,38 @@
+# Walkthrough - Enhanced Task AI Capabilities
+
+I have upgraded the task system to support advanced date-based filtering and deeper AI intelligence for workload management.
+
+## Key Enhancements
+
+### 1. Advanced AI Task Filtering
+The [search_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#89-157) AI tool now supports much more granular queries. The AI can now accurately resolve requests like:
+- "Show me tasks due this week"
+- "Are there any overdue tasks?"
+- "What's due next Monday?"
+- "Show me high priority tasks due before Friday"
+
+### 2. Workload Intelligence
+Added a new [get_task_stats](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#158-186) tool that allows the AI to provide a high-level summary of your current workload, including:
+- Total pending tasks
+- Count of overdue items
+- Tasks due today and this week
+- Priority breakdown
+
+### 3. API Consistency
+Updated the `/api/v1/tasks` endpoint with new [upcoming](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_services/test_ai_task_tools.py#28-35) and [overdue](file:///Users/oli/Desktop/CraftCanvas/backend/tests/test_services/test_ai_task_tools.py#23-27) filters, ensuring the UI has access to the same powerful filtering logic as the AI.
+
+## Verification Results
+
+### Automated Tests
+Ran comprehensive unit tests for both the router and the AI tools:
+- **Router Tests**: Verified CRUD and new filter parity.
+- **AI Tool Tests**: Verified date-range logic, overdue detection, and stats calculation.
+
+```bash
+# Results: 8 passed, 0 failed
+```
+
+## How to Test
+1. **Chat**: Ask "How many tasks do I have left?" or "What's my workload looking like?"
+2. **Filtering**: Ask "Show me my overdue tasks" or "What's on for this week?"
+3. **Task View**: The dashboard and task lists now support smarter overdue/upcoming views.

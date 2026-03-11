@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Implementation plan to fix the Spotify API 500 error by resolving the `NameError: UTC` in the backend.",
+  "updatedAt": "2026-03-11T11:03:12.500966Z"
+}

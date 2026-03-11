@@ -1,0 +1,8 @@
+# Task: Verify Companion sprite in Command Center
+
+## Checklist
+- [ ] Navigate to http://localhost:3000
+- [ ] Locate Command Center block on the left
+- [ ] Verify "soccat" sprite is visible in empty chat state
+- [ ] Capture screenshot of the cat in the empty chat state
+- [ ] Confirm visual features: pixel white cat, orange blush, plug tail

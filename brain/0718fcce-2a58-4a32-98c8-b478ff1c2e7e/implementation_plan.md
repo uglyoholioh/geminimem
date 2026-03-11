@@ -1,31 +1,23 @@
-# Dashboard Layout Adjustments
-
-The Dashboard layout seems slightly broken:
-* `page.tsx`: The grid is using `lg:grid-cols-2` which allocates 50% width to the Command Center and 50% width to the layout manager widgets. This might be squeezing the widgets too much, considering the layout manager itself has a 2-column grid. We should adjust this to `lg:grid-cols-3` or `lg:grid-cols-5` (with Command Center spanning fewer columns than the Widgets area).
-Let's see: Command Center (left) and Layout Manager (right).
-If we use `grid-cols-1 lg:grid-cols-3` and make Command Center `col-span-1` and Layout Manager `col-span-2`, that gives the widgets more space.
-Or if `page.tsx` is left as `lg:grid-cols-2`, maybe the `CommandCenter` height is wrong due to `lg:h-[calc(100vh-140px)]`.
-The fluid hero row (Up Next and Mindset) uses `grid-cols-1 lg:grid-cols-3`, where Up Next is `lg:col-span-2` and Mindset is `lg:col-span-1`. This is correct.
-For the content area below it (Command Center + Layout Manager), it's currently `grid-cols-1 lg:grid-cols-2`. Let's test `lg:grid-cols-12` where CommandCenter spans 5 and LayoutManager spans 7.
-
-Let's also look at the `DashboardLayoutManager.tsx`.
-Currently, the grid is `grid-cols-2 gap-4 auto-rows-max`. This is fine, but the widths of `WidgetShell`s might be constrained by their container.
-Wait, let's examine the crop/height issue.
-In `page.tsx`, `CommandCenter` has `lg:h-[calc(100vh-140px)]`. But the whole page has `h-[calc(100vh-56px)]` and is a flex col. The Hero takes some height, leaving less for the bottom section. If the bottom section uses a fixed height `calc(100vh-140px)`, it will overflow the parent flex container, causing scrollbars or cropping.
-Instead, `CommandCenter` and the Layout Manager container should just use `h-full` to fill the remaining space of their parent `flex-1 min-h-0` container.
+# UI Sizing Adjustments
 
 ## Proposed Changes
 
-### `frontend/app/page.tsx`
-* Update grid to `grid-cols-1 lg:grid-cols-12` or similar ratio for better widget space. (e.g., Command Center gets `col-span-5`, layout manager gets `col-span-7`).
-* Remove fixed heights like `lg:h-[calc(100vh-140px)]` on the Layout Manager container, using `h-full` so it fills the `flex-1` parent properly.
+### 2. Ultra-Compact "Up Next" Bar (Round 3)
+In `frontend/app/page.tsx`:
+* Transition from a card layout to a horizontal bar layout.
+* Set `min-h-0` and remove `flex-col` to use a single line or tight two-line flex layout.
+* Move action buttons inline with the task title.
+* Reduce font sizes further and use a thin border/glass effect.
+* This will shrink vertical height from 110px+ to roughly 50-60px.
 
-### `frontend/components/dashboard/CommandCenter.tsx`
-* Update container `section` classes. Remove `lg:h-[calc(100vh-140px)]` and replace with `h-full` to avoid overflow and match the parent container flex logic. Keep `min-h-[500px]` for smaller screens.
+### 3. Fix AI Chat Extending (Scrolling)
+In `frontend/app/page.tsx`:
+* The primary content wrapper currently has `overflow-y-auto`, which allows the entire bottom half of the dashboard to scroll infinitely as the chat grows.
+* Change the wrapper's classes to `flex-1 min-h-0 overflow-y-auto lg:overflow-hidden pr-1`. This allows scrolling on mobile but strictly bounds the height on desktop.
+* Ensure the right sidebar column also has `overflow-y-auto` (it already does for `custom-scrollbar`).
+* This will force the `CommandCenter` to fit the remaining window height on desktop and enable its internal scrolling for the chat. 
 
-## Verification Plan
-
-### Manual Verification
+## Verification
 1. Open the dashboard.
-2. Verify that the Command Center and Widget Area fit nicely on the screen without unnecessary nested scrollbars or clipping.
-3. Verify that the Widget Area has enough horizontal space and doesn't look cramped compared to the screenshot.
+2. Confirm the "Up Next" hero is noticeably smaller.
+3. Send multiple messages to the AI chat to ensure it scrolls internally rather than pushing the entire page down on desktop.

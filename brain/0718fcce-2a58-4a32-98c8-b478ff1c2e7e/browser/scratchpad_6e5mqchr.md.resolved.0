@@ -1,0 +1,10 @@
+# Task: Verify UI adjustments on localhost:3000
+
+## Checklist
+- [ ] Log in with oliverkoh96@gmail.com / password123
+- [ ] Verify "Up Next" widget size
+- [ ] Verify AI chat scroll behavior (internal scroll, fixed size)
+- [ ] Confirm layout boolean
+
+## Observations
+- 

@@ -7,4 +7,9 @@
 - [x] Edit `CommandCenter.tsx` to restore intended heights.
 - [ ] Edit `DashboardLayoutManager.tsx` to fix grid.
 - [x] Edit `page.tsx` to restore intended grid layouts.
-- [/] Verify layout in browser
+- [x] Verify layout in browser
+
+## Refinements
+
+- [x] Decrease `Up Next` hero padding and minimum height.
+- [x] Fix AI chat vertical scrolling on desktop by setting `lg:overflow-hidden` on main content wrapper.

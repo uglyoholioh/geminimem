@@ -1,18 +1,42 @@
-# Tamagotchi Dashboard Widget
+# AI Chat Companion
 
-We have successfully overhauled the `CompanionMini` dashboard widget into a Tamagotchi-inspired digital pet device! 
+We have successfully overhauled the `CompanionMini` dashboard widget and instead integrated the AI companion characters directly into the Command Center (AI Chat)!
 
 ## Video Demonstration
-The browser subagent recorded the implementation in action, running tests from the Customise menu down to clicking buttons on the device:
-![Tamagotchi Widget Functionality Verification](/Users/oli/.gemini/antigravity/brain/6e3fdc30-d331-40fe-b344-ba67275b6ae4/tamagotchi_widget_verification_1773222441293.webp)
+The browser subagent recorded the implementation in action:
+![Chat Mascot Integration](/Users/oli/.gemini/antigravity/brain/6e3fdc30-d331-40fe-b344-ba67275b6ae4/ai_chat_companion_verification_1773224722343.webp)
 
 ## Verification Render
-Here's what the device looks like in its resting state on the dashboard alongside the rest of the application:
-![Final Tamagotchi Render](/Users/oli/.gemini/antigravity/brain/6e3fdc30-d331-40fe-b344-ba67275b6ae4/.system_generated/click_feedback/click_feedback_1773222792586.png)
+Here's what the AI bot looks like when replying to you in the dashboard:
+![Chat Avatar Render](/Users/oli/.gemini/antigravity/brain/6e3fdc30-d331-40fe-b344-ba67275b6ae4/companion_chat_reply_1773224800599.png)
 
 ## What was Changed
-1. **Redesigned `CompanionMini.tsx`**: Completely threw out the standard "flat" UI component in favor of a 3D-styled pill/egg design using CSS perspective, inner shadows, and a bright gradient casing. 
-2. **LCD Screen Simulation**: Embedded an "LCD screen" area with a pixel-grid overlay, retro fonts, and slightly de-saturated/contrast-boosted sprite colors to resemble an older handheld device.
-3. **Interactive Buttons**: Added pseudo-tactile buttons to "Feed" and "Chat" with the companion.
-4. **Heart Animation**: Tapping the "Feed" button spawns cute ascending heart SVG particles and grants a bit of invisible EXP to the companion profile.
-5. **Mini-Chat Screen**: Tapping "Chat" brings up a slide-up LCD chat overlay inside the Tamagotchi screen to directly converse with the character from the dashboard.
+1. **Removed `CompanionMini`**: The standalone Tamagotchi widget and all its references in the layout have been cleanly removed.
+2. **New NUS Mascot Archetypes**: Added new, cute SVG pixel art representations for `soccat` (School of Computing, Pink/Blue cat) and `lihsa` (Faculty of Arts and Social Sciences, Orange/Yellow lion).
+3. **Empty Chat State Redesign**: When you first open the Command Center, you are greeted by a larger companion sprite floating over a subtle digital grid layer, replacing the old static `Sparkles` icon.
+4. **Chat Avatars**: Adjusted the `DailyBriefChat` so that any AI response now features a mini-version of your specific Companion sprite reacting to you inline with the text.
+
+## Follow-up Iteration: Soccat Redesign
+We completely redesigned the `soccat` character within `CompanionSprite.tsx` to match a specified pixel-art illustration. The old pink/blue rounded cat has been replaced by a sharper white pixel cat featuring:
+- Orange blush patches.
+- Black pixel eyes and mouth.
+- An animated electrical plug tail (`animate-[wiggle]`).
+
+## Follow-up Iteration: Companion Interactivity
+To make the companion feel more alive and responsive natively within the chat, we added new interaction layers:
+
+### 1. Click Interaction (Petting)
+You can now click the large Companion sprite in the empty chat state! Clicking will:
+- Temporarily change its mood to `happy`.
+- Spawn animated floating hearts.
+- Send an invisible `POST /companion/exp` API request to slowly level it up.
+
+![Petting Interaction](/Users/oli/.gemini/antigravity/brain/6e3fdc30-d331-40fe-b344-ba67275b6ae4/soccat_clicked_hearts_1773226048594.png)
+
+### 2. Prompt Reactivity
+The Companion now actively reads what you're typing and reacts in real-time before you even press send:
+- **Typing characters**: Changes mood to `happy`.
+- **Typing a question (`?`)**: Changes mood to `zen` indicating it's thinking.
+- **Waiting for a response**: Changes mood to `energized` while the AI processes its answer.
+
+![Zen Mood while typing a question](/Users/oli/.gemini/antigravity/brain/6e3fdc30-d331-40fe-b344-ba67275b6ae4/typing_zen_mood_1773226068761.png)

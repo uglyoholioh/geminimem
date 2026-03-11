@@ -1,0 +1,26 @@
+# AI Chat Companion
+
+We have successfully overhauled the `CompanionMini` dashboard widget and instead integrated the AI companion characters directly into the Command Center (AI Chat)!
+
+## Video Demonstration
+The browser subagent recorded the implementation in action:
+![Chat Mascot Integration](/Users/oli/.gemini/antigravity/brain/6e3fdc30-d331-40fe-b344-ba67275b6ae4/ai_chat_companion_verification_1773224722343.webp)
+
+## Verification Render
+Here's what the AI bot looks like when replying to you in the dashboard:
+![Chat Avatar Render](/Users/oli/.gemini/antigravity/brain/6e3fdc30-d331-40fe-b344-ba67275b6ae4/companion_chat_reply_1773224800599.png)
+
+## What was Changed
+1. **Removed `CompanionMini`**: The standalone Tamagotchi widget and all its references in the layout have been cleanly removed.
+2. **New NUS Mascot Archetypes**: Added new, cute SVG pixel art representations for `soccat` (School of Computing, Pink/Blue cat) and `lihsa` (Faculty of Arts and Social Sciences, Orange/Yellow lion).
+3. **Empty Chat State Redesign**: When you first open the Command Center, you are greeted by a larger companion sprite floating over a subtle digital grid layer, replacing the old static `Sparkles` icon.
+4. **Chat Avatars**: Adjusted the [DailyBriefChat](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx#37-256) so that any AI response now features a mini-version of your specific Companion sprite reacting to you inline with the text.
+
+## Follow-up Iteration: Soccat Redesign
+We completely redesigned the `soccat` character within [CompanionSprite.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx) to match a specified pixel-art illustration. The old pink/blue rounded cat has been replaced by a sharper white pixel cat featuring:
+- Orange blush patches.
+- Black pixel eyes and mouth.
+- An animated electrical plug tail (`animate-[wiggle]`).
+
+Here is a shot of the new `soccat` character living natively within the AI chat:
+![Updated Soccat Design](/Users/oli/.gemini/antigravity/brain/6e3fdc30-d331-40fe-b344-ba67275b6ae4/companion_soccat_empty_chat_1773225661356.png)

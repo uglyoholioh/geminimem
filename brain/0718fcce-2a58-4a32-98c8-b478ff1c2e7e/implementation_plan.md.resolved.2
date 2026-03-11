@@ -1,0 +1,23 @@
+# UI Sizing Adjustments
+
+## Proposed Changes
+
+### 2. Further Reduce "Up Next" Hero Size (Round 2)
+In [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx):
+* Decrease padding from `p-5` to `p-4`.
+* Decrease `min-h-[140px]` to `min-h-[110px]`.
+* Decrease title font size from `text-2xl` to `text-xl`.
+* Reduce `Zap` background icon size to `h-16 w-16`.
+* Reduce overall container margin `mb-4` to `mb-3`.
+
+### 3. Fix AI Chat Extending (Scrolling)
+In [frontend/app/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx):
+* The primary content wrapper currently has `overflow-y-auto`, which allows the entire bottom half of the dashboard to scroll infinitely as the chat grows.
+* Change the wrapper's classes to `flex-1 min-h-0 overflow-y-auto lg:overflow-hidden pr-1`. This allows scrolling on mobile but strictly bounds the height on desktop.
+* Ensure the right sidebar column also has `overflow-y-auto` (it already does for `custom-scrollbar`).
+* This will force the [CommandCenter](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/CommandCenter.tsx#47-110) to fit the remaining window height on desktop and enable its internal scrolling for the chat. 
+
+## Verification
+1. Open the dashboard.
+2. Confirm the "Up Next" hero is noticeably smaller.
+3. Send multiple messages to the AI chat to ensure it scrolls internally rather than pushing the entire page down on desktop.

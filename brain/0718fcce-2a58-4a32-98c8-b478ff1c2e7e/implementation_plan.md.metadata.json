@@ -1,5 +1,6 @@
 {
   "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary": "Implementation plan for Dashboard layout adjustments.",
-  "updatedAt": "2026-03-11T09:49:51.413685Z"
+  "summary": "Implementing an ultra-compact 'bar' style for the Up Next widget to maximize vertical space.",
+  "updatedAt": "2026-03-11T10:55:20.641728Z",
+  "version": "3"
 }

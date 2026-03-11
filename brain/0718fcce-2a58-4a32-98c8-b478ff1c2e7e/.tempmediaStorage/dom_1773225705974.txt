@@ -1,0 +1,118 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (14,33)<a class='mb-6 flex items-center justify-center transition-transform hover:scale-110 active:scale-95' href='/' />
+[1] (14,96)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 bg-accent-subtle text-accent shadow-sm' href='/' title='Dashboard' />
+[2] (14,141)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/planner' title='Planner' />
+[3] (14,187)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/focus' title='Focus' />
+[4] (14,263)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/tasks' title='Tasks' />
+[5] (14,308)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/assignments' title='Assignments' />
+[6] (14,354)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/courses' title='Courses' />
+[7] (14,400)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/notes' title='Notes' />
+[8] (14,476)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/timetable' title='Timetable' />
+[9] (14,521)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/meetings' title='Activity Finder' />
+[10] (14,567)<a class='group relative flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 text-muted hover:bg-surface-hover hover:text-secondary' href='/history' title='History' />
+[11] (14,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[12] (14,921)<a class='flex h-10 w-10 items-center justify-center rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-secondary' href='/settings' title='Settings' />
+O
+Good evening
+, Oli
+Wednesday, March 11
+[13] (205,65)<button class='
+                            flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-mono text-[10px] font-bold uppercase tracking-wider transition-all active:scale-95
+                            bg-surface/40 border-border/40 text-muted hover:border-accent/30 hover:text-accent
+                        '>Customise />
+10
+tasks
+1
+classes
+0
+min
+3
+due
+[14] (895,65)<button class='relative group transition-transform active:scale-95' />
+	10
+	new
+Up Next
+Review lecture 5
+✨ AI-Scheduled: Scheduled for today
+[15] (144,254)<a class='px-5 py-2 rounded-xl bg-accent text-black font-bold flex items-center gap-2 hover:scale-105 transition-transform text-[13px]' href='/focus'>Start Focus />
+[16] (217,254)<button class='px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-colors disabled:opacity-50 flex items-center gap-2 text-[13px]'>🎲
+Reshuffle />
+	🎲
+[17] (288,254)<button class='px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-primary font-medium hover:bg-white/10 transition-colors text-[13px]'>Sort Inbox (
+131
+) />
+Command Center
+[18] (276,336)<select class='bg-surface/50 border border-border/40 rounded-lg px-2.5 py-1 text-[10px] font-mono font-bold text-muted hover:border-accent/40 hover:text-accent transition-all focus:outline-none focus:ring-1 focus:ring-accent/20 appearance-none cursor-pointer' />
+[19] (315,336)<button class='flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-surface-hover transition-colors text-[10px] font-mono text-yellow-500'>11m ago />
+	11m ago
+[20] (346,336)<a class='h-7 w-7 rounded-lg flex items-center justify-center text-muted hover:text-accent hover:bg-accent-subtle/30 transition-all' href='/brief' />
+[21] (230,597)<div class='flex-1 overflow-y-auto px-4 py-3 space-y-3 min-h-0' scrollable='true' />
+	Tell me about my schedule for tomorrow. What assignments are due? Also, can you summarize the lecture on Linear Regression for BT1101? And what is my schedule for next week?
+	06:41 PM
+	Here's your schedule and assignments for tomorrow, Thursday, March 12, 2026:
+	Tomorrow's Schedule:
+	10:00–12:00 GESS1025 Tutorial @ UTSRC-SR5
+	16:00–18:00 BT1101 Lecture @ I3-LT38
+	Assignments Due Tomorrow:
+	[BT1101] ID=21 Online Video: More on Linear Regression & Classification — due 2026-03-12 16:00, status: not_started
+	Summary of BT1101 Linear Regression Lecture:
+	The lecture on Linear Regression (from "7 - Linear Regression Online Handout.pdf") introduces predictive analytics and the basic function of Simple Linear Regression. Key takeaways include:
+	Predictive Model:
+	A mathematical function describing how one variable changes in response to another. The process involves visualizing data (trends, patterns, outliers), choosing the right function (linear, logarithmic, exponential, polynomial), building the model (e.g., 𝑌𝑌̂=b0 + b1𝑋𝑋), making predictions, and evaluating the model against actual values.
+[22] (211,844)<div class='flex gap-1.5 overflow-x-auto pb-1 scrollbar-hide no-scrollbar' scrollable='true' />
+	[23] (130,839)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📝
+Exam Prep />
+		📝
+		Exam Prep
+	[24] (181,839)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📋
+Syllabus />
+		📋
+		Syllabus
+	[25] (243,839)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>✂️
+Break Down Tasks />
+		✂️
+		Break Down Tasks
+	[26] (313,839)<button class='whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium border border-border/60 bg-surface/60 text-secondary hover:text-accent hover:border-accent/40 hover:bg-accent-subtle/20 transition-all rounded-lg'>📊
+Weekly Recap />
+		📊
+		Weekly Recap
+[27] (338,844)<button class='flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] font-mono uppercase text-muted hover:text-urgency transition-colors shrink-0 ml-2' title='Clear conversation'>Clear />
+	Clear
+[28] (218,896)<textarea class='chat-textarea w-full px-4 py-3 text-sm text-primary placeholder:text-muted/50 bg-transparent focus:outline-none disabled:opacity-50' placeholder='Ask anything…' />
+[29] (643,627)<div class='lg:col-span-8 h-full min-w-0 min-h-0 overflow-y-auto pr-1 pb-4 custom-scrollbar' scrollable='true' />
+	Upcoming Agenda
+	Today
+	13:00
+	CS2030
+	CS2030 Recitation
+	COM3-01-21
+	Now / Next Class
+	No more classes today
+	Enjoy the free time!
+	Spotify
+	Configuration Required
+	Spotify credentials are not configured. Please set them in the Settings > Integrations tab.
+	Exam Countdown
+	GE
+	GEX1015/GET1029
+	27 Apr
+	47d
+	BT
+	BT1101
+	29 Apr
+	49d
+	CS
+	CS2030
+	29 Apr
+	49d
+	Quick Add
+	[30] (716,847)<button class='flex-1 py-1 text-[9px] font-mono font-bold uppercase rounded-md transition-all bg-base text-accent shadow-sm'>New Task />
+	[31] (838,847)<button class='flex-1 py-1 text-[9px] font-mono font-bold uppercase rounded-md transition-all text-muted hover:text-primary'>New Note />
+	[32] (777,892)<input class='w-full bg-base/50 border border-border/30 rounded-xl px-4 py-2.5 text-xs text-primary focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/10 transition-all' placeholder='Write a paper...' />
+	[33] (746,941)<select class='w-full h-8 bg-surface-hover border-none rounded-lg px-2.5 text-[10px] font-mono font-bold text-muted focus:outline-none focus:ring-1 focus:ring-accent-subtle/50 appearance-none pr-7' />
+	Quick Add
+
+</current_dom>

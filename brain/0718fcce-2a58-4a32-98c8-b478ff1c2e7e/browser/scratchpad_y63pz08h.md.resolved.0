@@ -1,0 +1,7 @@
+# Task: Verify UI Adjustments on Localhost:3000
+
+## Checklist
+- [ ] Log in to localhost:3000 with oliverkoh96@gmail.com / password123
+- [ ] Verify 'Up Next' hero widget vertical space (should be reduced)
+- [ ] Verify AI Chat internally scrolls (fixed window size, no dashboard growth)
+- [ ] Report final status

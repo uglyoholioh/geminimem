@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Initial task list for debugging Spotify 500 error. The goal is to identify the root cause of the Internal Server Error when fetching the Spotify token and implement a fix.",
+  "updatedAt": "2026-03-11T10:51:32.491488Z"
+}

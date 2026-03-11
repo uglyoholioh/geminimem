@@ -1,0 +1,12 @@
+# Tasks
+
+- [x] Add `soccat` and other NUS mascots to [CompanionSprite.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx)
+- [x] Update [CommandCenter.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/CommandCenter.tsx) to fetch companion state
+- [x] Update [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx) to replace icons with the [CompanionSprite](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx#25-344)
+- [x] Remove `CompanionMini` component and references from dashboard registry
+- [x] Verify UI builds and looks native to the chat
+
+## Follow-up Iterations
+- [x] Update `soccat` design to match the provided white cat with a plug tail illustration
+- [x] Add click/pet interaction to the Companion sprite in the empty state
+- [x] Make the Companion react to the user's input or chat messages

@@ -1,0 +1,12 @@
+# Task: Verify Nano Bar on localhost:3000
+
+## Checklist
+- [ ] Open localhost:3000 (Current status: Connection refused)
+- [ ] Login (if needed)
+- [ ] Verify Nano Bar appearance
+    - [ ] Compact horizontal bar
+    - [ ] Aesthetically pleasing
+- [ ] Verify Nano Bar functionality
+    - [ ] Action buttons accessible
+    - [ ] Action buttons functional (e.g., reshuffle, focus, inbox)
+- [ ] Final verdict (boolean)

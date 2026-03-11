@@ -1,0 +1,46 @@
+# Implementation Plan - Enhancing Task AI Capabilities
+
+The user wants to add "more filtering and ability" to the task system, specifically in the AI interaction. Currently, the AI can only filter by status, priority, or course. This plan adds date-based filtering (specific dates, this week, today, tomorrow) and enhances the task tools to provide a more premium and capable experience.
+
+## Proposed Changes
+
+### AI Service & Tools
+
+#### [MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)
+- Update [search_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#89-124) to support date-related filters:
+    - `due_date`: Specific ISO date.
+    - `due_before` / `due_after`: Range filters.
+    - `is_overdue`: Boolean filter.
+    - `is_upcoming`: Boolean filter (this week).
+- Improve sorting logic in [search_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#89-124) to prioritize overdue and high-priority tasks.
+- Enhance [create_task](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#89-195) and [update_task](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#532-560) with better validation and error handling.
+- Add a new tool `get_task_stats` to give the AI an overview of the user's workload (e.g., "how many tasks do I have left?").
+
+#### [MODIFY] [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)
+- Update the system prompt instructions to emphasize date-based query capabilities.
+- Add examples of relative date resolution (e.g., "this week", "next Monday").
+
+### Backend API
+
+#### [MODIFY] [tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py)
+- Ensure the [list_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py#22-66) endpoint supports the same new date-based filters to maintain parity between AI tools and the UI.
+- Add `overdue` and `upcoming` filters to the router.
+
+## Verification Plan
+
+### Automated Tests
+- Run existing task tests:
+  ```bash
+  cd backend && .venv/bin/pytest tests/test_routers/test_tasks.py
+  ```
+- Create a new test file `tests/test_services/test_ai_task_tools.py` to specifically test the updated [search_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#89-124) tool with various date scenarios.
+  ```bash
+  cd backend && .venv/bin/pytest tests/test_services/test_ai_task_tools.py
+  ```
+
+### Manual Verification
+1. Open the Chat interface.
+2. Ask: "What are my tasks for this week?"
+3. Ask: "Show me any overdue tasks."
+4. Ask: "Do I have any high priority tasks due tomorrow?"
+5. Verify the AI calls the [search_tasks](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#89-124) tool with the correct date parameters and responds accurately.
