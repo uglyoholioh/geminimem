@@ -1,0 +1,13 @@
+# Task: Verify Dashboard and Nano Bar
+
+## Plan
+- [x] Navigate to http://localhost:3000
+- [ ] Login with oliverkoh96@gmail.com / password123
+- [ ] Verify Dashboard loads
+- [ ] Verify 'Up Next' widget is a compact horizontal bar (Nano Bar)
+- [ ] Test buttons: 'Focus', 'Reshuffle', 'Inbox'
+- [ ] Document vertical space saved
+
+## Notes
+- Encountered a build error initially, but it seems to have resolved after a refresh/wait.
+- Currently on the login page.

@@ -1,0 +1,7 @@
+# Task: Remove Auto-Task Creation
+
+- [ ] Remove auto-task creation from [sync_assignments](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#157-298) in [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+- [ ] Remove AI task extraction from [sync_announcements](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#300-391) in [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+- [ ] Delete [extract_tasks_from_announcement](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#393-477) function in [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+- [ ] Clean up unused imports in [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+- [ ] Verify changes

@@ -1,0 +1,81 @@
+O
+Good afternoon
+, Oli
+Thursday, March 12
+Customise
+10
+tasks
+1
+classes
+0
+min
+3
+due
+10
+new
+[0] (500,500)<div  />
+Notifications
+[1] (976,39)<button class='text-muted hover:text-primary'>Close />
+Push Notifications
+Sync this device to receive instant alerts on your mobile.
+[2] (900,197)<button class='w-full py-2 bg-accent text-white text-xs font-bold rounded-lg hover:bg-accent-hover transition-all disabled:opacity-50'>Sync Push with iOS />
+No new alerts
+Review lecture 5
+✨ AI-Scheduled: Scheduled for today
+Focus
+🎲
+Inbox (
+131
+)
+Command Center
+16h ago
+Soccat
+Lv.
+1
+How can I help you today?
+Ask about your schedule, assignments, module materials, or get study advice.
+📝
+Exam Prep
+📋
+Syllabus
+✂️
+Break Down Tasks
+📊
+Weekly Recap
+Upcoming Agenda
+Today
+16:00
+BT1101
+BT1101 Lecture
+I3-LT38
+Now / Next Class
+Next Class
+BT1101
+Lecture
+·
+I3-LT38
+3h 6m
+until start
+Spotify
+Configuration Required
+Spotify credentials are not configured. Please set them in the Settings > Integrations tab.
+Exam Countdown
+GE
+GEX1015/GET1029
+27 Apr
+46d
+BT
+BT1101
+29 Apr
+48d
+CS
+CS2030
+29 Apr
+48d
++
+1
+more
+Quick Add
+New Task
+New Note
+Quick Add

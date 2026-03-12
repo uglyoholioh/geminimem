@@ -1,0 +1,19 @@
+# Removing Auto-Task Creation
+
+The user reported that the auto-creation of tasks from Canvas assignments and announcements is creating too many tasks and wants it removed.
+
+## Proposed Changes
+
+### Backend Services
+
+#### [MODIFY] [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+- Remove the block in [sync_assignments](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#157-298) that auto-creates tasks based on the `auto_tasks_from_assignments` setting.
+- Remove the call to [extract_tasks_from_announcement](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#393-477) in [sync_announcements](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#300-391).
+- Remove the [extract_tasks_from_announcement](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#393-477) function entirely.
+- Remove unused imports (`ai_service`, `json`, `BeautifulSoup` if only used here).
+
+## Verification Plan
+
+### Manual Verification
+- Trigger a Canvas sync for assignments and verify no new tasks are created.
+- Trigger a Canvas sync for announcements and verify no tasks are extracted.

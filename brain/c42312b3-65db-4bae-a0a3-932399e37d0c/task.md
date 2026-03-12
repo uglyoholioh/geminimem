@@ -1,13 +1,19 @@
-# Task: Debug Spotify API 500 Error
+# Task: Debug API and Schema Errors
 
-- [x] Spotify Fix [x]
-    - [x] Analyze `backend/routers/spotify.py`. [x]
-    - [x] Apply unified timezone fix. [x]
-- [ ] Database Schema Fixes [/]
-    - [ ] Add `canvas_web_url` column to `canvas_files` table. [/]
-    - [ ] Add `is_processed` column to `announcements` table.
-- [ ] Announcements & Courses API Investigation [ ]
-    - [ ] Analyze `backend/routers/announcements.py` for 500 errors.
-    - [ ] Analyze `backend/routers/courses.py` for 500 errors.
-- [ ] Companion API Investigation [ ]
-    - [ ] Resolve 404 error for `/api/v1/companion`.
+- [x] Spotify API Fix
+    - [x] Resolved `NameError: name 'UTC' is not defined`
+    - [x] Unified timezone handling to use `now_utc()`
+- [x] Google Calendar API Fix
+    - [x] Resolved same `UTC` NameError in `google_calendar.py`
+- [x] Meetings API Fix
+    - [x] Unified timezone handling using `now_sg()`
+- [x] Database Schema Verification
+    - [x] Confirmed `backend/data/db.sqlite` has correct columns (`canvas_web_url`, `is_processed`)
+    - [x] Validated schema against application logs
+- [x] Companion API (404 Error) Fix
+    - [x] Resolved trailing slash inconsistency in `app/page.tsx`
+- [x] Frontend Quality Assurance
+    - [x] Fixed major structural and scoping bugs in `CompanionSprite.tsx`
+    - [x] Resolved lint errors in `CompanionSprite.tsx`
+- [x] Final Verification
+    - [x] Audited all routers for similar NameErrors or timezone issues

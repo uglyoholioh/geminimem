@@ -11,5 +11,8 @@
 
 ## Refinements
 
-- [x] Decrease `Up Next` hero padding and minimum height.
-- [x] Fix AI chat vertical scrolling on desktop by setting `lg:overflow-hidden` on main content wrapper.
+- [x] Shrink "Up Next" hero widget (Round 1)
+- [x] Further reduce "Up Next" hero size (Round 2)
+- [x] Transition "Up Next" to ultra-compact Nano Bar (Round 3)
+- [x] Fix AI chat causes page overflow (Infinite scrolling)
+- [x] Restore corrupted `page.tsx` and stabilize servers

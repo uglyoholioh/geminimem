@@ -1,0 +1,124 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+O
+Good afternoon
+, Oli
+Thursday, March 12
+Customise
+10
+tasks
+1
+classes
+0
+min
+3
+due
+10
+new
+Submit Lab 2 programs on CodeCrunch
+CS2030
+Urgent priority task
+Focus
+🎲
+Inbox (
+131
+)
+Rapid Triage
+Where does this fit?
+0
+/
+131
+Sorted
+CS2030
+URGENT
+Complete graded exercise during lab session
+Due
+30/01/2026
+Use keyboard for speed
+[0] (311,714)<div  />
+	[1] (311,686)<div  />
+	[2] (311,744)<div  />
+		[3] (311,732)<span >Today />
+		[4] (311,756)<div >1 />
+[5] (405,714)<div  />
+	[6] (405,686)<div  />
+	[7] (405,744)<div  />
+		[8] (405,732)<span >Tomorrow />
+		[9] (405,756)<div >2 />
+[10] (500,714)<div  />
+	[11] (500,686)<div  />
+	[12] (500,744)<div  />
+		[13] (500,732)<span >Weekend />
+		[14] (500,756)<div >3 />
+[15] (595,714)<div  />
+	[16] (595,686)<div  />
+	[17] (595,744)<div  />
+		[18] (595,732)<span >Auto-Schedule />
+		[19] (595,756)<div >Space />
+[20] (689,714)<div  />
+	[21] (689,686)<div  />
+	[22] (689,744)<div  />
+		[23] (689,732)<span >Snooze />
+		[24] (689,756)<div >S />
+[25] (311,865)<div  />
+	[26] (311,836)<div  />
+	[27] (311,894)<div  />
+		[28] (311,882)<span >Priority />
+		[29] (311,907)<div >P />
+[30] (942,67)<button class='absolute top-10 right-10 p-3 rounded-full bg-white/10 border border-white/20 text-white/50 hover:text-white transition-colors'>ESC TO FINISH />
+Command Center
+16h ago
+Soccat
+Lv.
+1
+How can I help you today?
+Ask about your schedule, assignments, module materials, or get study advice.
+📝
+Exam Prep
+📋
+Syllabus
+✂️
+Break Down Tasks
+📊
+Weekly Recap
+Upcoming Agenda
+Today
+16:00
+BT1101
+BT1101 Lecture
+I3-LT38
+Now / Next Class
+Next Class
+BT1101
+Lecture
+·
+I3-LT38
+3h 9m
+until start
+Spotify
+Configuration Required
+Spotify credentials are not configured. Please set them in the Settings > Integrations tab.
+Exam Countdown
+GE
+GEX1015/GET1029
+27 Apr
+46d
+BT
+BT1101
+29 Apr
+48d
+CS
+CS2030
+29 Apr
+48d
++
+1
+more
+Quick Add
+New Task
+New Note
+Quick Add
+
+</current_dom>

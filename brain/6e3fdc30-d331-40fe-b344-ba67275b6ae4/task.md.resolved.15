@@ -1,0 +1,18 @@
+# Tasks
+
+- [x] Add `soccat` and other NUS mascots to [CompanionSprite.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx)
+- [x] Update [CommandCenter.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/CommandCenter.tsx) to fetch companion state
+- [x] Update [DailyBriefChat.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx) to replace icons with the [CompanionSprite](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx#25-344)
+- [x] Remove `CompanionMini` component and references from dashboard registry
+- [x] Verify UI builds and looks native to the chat
+
+## Follow-up Iterations
+- [x] Update `soccat` design to match the provided white cat with a plug tail illustration
+- [x] Add click/pet interaction to the Companion sprite in the empty state
+- [x] Make the Companion react to the user's input or chat messages
+
+## Interactive Expansion
+- [/] Refactor [DailyBriefChat](file:///Users/oli/Desktop/CraftCanvas/frontend/components/chat/DailyBriefChat.tsx#38-307) layout so the Companion remains visible (persistent) during the chat.
+- [/] Expand [CompanionMood](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx#6-7) in [CompanionSprite](file:///Users/oli/Desktop/CraftCanvas/frontend/components/companion/CompanionSprite.tsx#25-344) to include: surprised, winking, angry, sad, confused, playing, waving, running.
+- [/] Implement SVG details for the new moods/animations for `soccat`.
+- [ ] Add more interactive triggers (e.g. random click animations like playing yarn, or mood driven by chat sentiment/suggestions).

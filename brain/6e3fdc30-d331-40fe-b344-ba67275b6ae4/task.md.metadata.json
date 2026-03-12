@@ -1,6 +1,6 @@
 {
   "artifactType": "ARTIFACT_TYPE_TASK",
-  "summary": "Adding tasks for expanded companion animations and persistent UI",
-  "updatedAt": "2026-03-11T14:21:55.899437Z",
-  "version": "14"
+  "summary": "Marking companion expansion tasks as completed.",
+  "updatedAt": "2026-03-12T04:34:51.145639Z",
+  "version": "16"
 }

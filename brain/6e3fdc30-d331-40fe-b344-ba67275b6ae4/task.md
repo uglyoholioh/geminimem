@@ -12,7 +12,7 @@
 - [x] Make the Companion react to the user's input or chat messages
 
 ## Interactive Expansion
-- [ ] Refactor `DailyBriefChat` layout so the Companion remains visible (persistent) during the chat.
-- [ ] Expand `CompanionMood` in `CompanionSprite` to include: surprised, winking, angry, sad, confused, playing, waving, running.
-- [ ] Implement SVG details for the new moods/animations for `soccat`.
-- [ ] Add more interactive triggers (e.g. random click animations like playing yarn, or mood driven by chat sentiment/suggestions).
+- [x] Refactor `DailyBriefChat` layout so the Companion remains visible (persistent) during the chat.
+- [x] Expand `CompanionMood` in `CompanionSprite` to include: surprised, winking, angry, sad, confused, playing, waving, running.
+- [x] Implement SVG details for the new moods/animations for `soccat`.
+- [x] Add more interactive triggers (e.g. random click animations like playing yarn, or mood driven by chat sentiment/suggestions).

@@ -1,0 +1,15 @@
+# Soccat Companion Testing Checklist
+
+- [ ] Open http://localhost:3000
+- [ ] Navigate to dashboard/chat
+    - [x] Encountered login page
+    - [ ] Registration failed (API error 500)
+    - [ ] Trying default credentials
+- [ ] Click Soccat multiple times:
+    - [ ] Verify floating hearts
+    - [ ] Capture 'playing' / 'waving' / 'winking' actions
+- [ ] Test moods:
+    - [ ] Type "What is 2+2?" -> Capture 'confused' mood
+    - [ ] Type "Good job!" -> Verify 'happy' mood
+- [ ] Capture chat history with persistent header
+- [ ] Final report
