@@ -1,0 +1,64 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+O
+Focus
+Short Break
+Long Break
+25:00
+0
+Sessions today
+Focusing On
+[0] (773,519)<div class='flex-1 overflow-y-auto pr-2 custom-scrollbar' scrollable='true'>Select a task to focus on />
+	Select a task to focus on
+	Complete graded exercise during lab session
+	CS2030
+	0m
+	Register for 'Bouncing Back' webinar
+	GES1035/GESS1025
+	0m
+	Register for webinar
+	GES1035/GESS1025
+	0m
+	Download Midterm Exam via Examplify (check announcement on Thursday evening)
+	GEX1015/GET1029
+	0m
+	Prepare for Practical Assessment 1
+	CS2030
+	0m
+Customise Focus
+[1] (648,120)<button class='p-2 rounded-full hover:bg-white/5 text-muted hover:text-primary transition-all' />
+[2] (364,186)<button class='px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all border-b-2 border-accent text-accent'>backgrounds />
+[3] (427,186)<button class='px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all border-b-2 border-transparent text-muted hover:text-primary'>clock />
+[4] (484,186)<button class='px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all border-b-2 border-transparent text-muted hover:text-primary'>durations />
+[5] (543,186)<button class='px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all border-b-2 border-transparent text-muted hover:text-primary'>sounds />
+[6] (608,186)<button class='px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all border-b-2 border-transparent text-muted hover:text-primary'>integrations />
+[7] (500,566)<div class='flex-1 overflow-y-auto p-6' scrollable='true' />
+	Custom Background
+	[8] (498,317)<button class='w-full h-24 border-2 border-dashed border-border rounded-xl flex flex-col items-center justify-center gap-2 hover:border-accent hover:bg-accent/5 transition-all text-muted hover:text-accent group'>Upload Image or Video />
+		Upload Image or Video
+	Animated Presets
+	[9] (389,455)<button class='p-3 rounded-xl border text-xs font-medium text-center transition-all border-border bg-base hover:border-accent/50'>Matrix Rain />
+	[10] (498,455)<button class='p-3 rounded-xl border text-xs font-medium text-center transition-all border-border bg-base hover:border-accent/50'>Starfield />
+	[11] (607,455)<button class='p-3 rounded-xl border text-xs font-medium text-center transition-all border-border bg-base hover:border-accent/50'>Pixel Grid />
+	[12] (389,511)<button class='p-3 rounded-xl border text-xs font-medium text-center transition-all border-border bg-base hover:border-accent/50'>Synthwave />
+	[13] (498,511)<button class='p-3 rounded-xl border text-xs font-medium text-center transition-all border-border bg-base hover:border-accent/50'>Aurora />
+	[14] (607,511)<button class='p-3 rounded-xl border text-xs font-medium text-center transition-all border-accent bg-accent/10 text-accent ring-1 ring-accent'>Gradient Mesh />
+	[15] (389,567)<button class='p-3 rounded-xl border text-xs font-medium text-center transition-all border-border bg-base hover:border-accent/50'>Dust Particles />
+	[16] (498,567)<button class='p-3 rounded-xl border text-xs font-medium text-center transition-all border-border bg-base hover:border-accent/50'>Cyber Pulse />
+	[17] (607,567)<button class='p-3 rounded-xl border text-xs font-medium text-center transition-all border-border bg-base hover:border-accent/50'>Lava Lamp />
+	[18] (389,623)<button class='p-3 rounded-xl border text-xs font-medium text-center transition-all border-border bg-base hover:border-accent/50'>Cosmic Nebula />
+	[19] (498,623)<button class='p-3 rounded-xl border text-xs font-medium text-center transition-all border-border bg-base hover:border-accent/50'>City Bokeh />
+	Gradients
+	[20] (376,736)<button class='h-12 rounded-xl border-2 transition-all overflow-hidden border-transparent' title='Terracotta Dream' />
+	[21] (458,736)<button class='h-12 rounded-xl border-2 transition-all overflow-hidden border-transparent' title='Cyber Glitch' />
+	[22] (539,736)<button class='h-12 rounded-xl border-2 transition-all overflow-hidden border-transparent' title='Midnight Space' />
+	[23] (621,736)<button class='h-12 rounded-xl border-2 transition-all overflow-hidden border-transparent' title='Obsidian Fire' />
+	Atmospheric Landscapes
+	[24] (376,870)<button class='relative aspect-video rounded-xl border-2 overflow-hidden transition-all group border-transparent hover:scale-105' />
+	[25] (458,870)<button class='relative aspect-video rounded-xl border-2 overflow-hidden transition-all group border-transparent hover:scale-105' />
+	[26] (539,870)<button class='relative aspect-video rounded-xl border-2 overflow-hidden transition-all group border-transparent hover:scale-105' />
+	[27] (621,870)<button class='relative aspect-video rounded-xl border-2 overflow-hidden transition-all group border-transparent hover:scale-105' />
+
+</current_dom>

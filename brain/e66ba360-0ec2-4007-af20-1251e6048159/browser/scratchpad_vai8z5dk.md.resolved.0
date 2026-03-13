@@ -1,0 +1,11 @@
+# Verification Checklist
+
+- [ ] Open http://localhost:3000/planner
+- [ ] Check for login screen and bypass if necessary
+- [ ] Locate task in Vortex sidebar on `/planner`
+- [ ] Click 'Focus' or 'Start Focus' on a task/item
+- [ ] Verify redirection to `/focus` with URL parameters
+- [ ] Verify timer functionality (play/pause) on `/focus`
+- [ ] Test Zen Mode (Sparkles icon) on `/focus`
+- [ ] Check for console errors
+- [ ] Final report

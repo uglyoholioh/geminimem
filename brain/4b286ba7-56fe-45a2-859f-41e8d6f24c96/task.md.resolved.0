@@ -1,0 +1,9 @@
+# Task Checklist
+
+- [ ] Investigate Spotify connection logic <!-- id: 0 -->
+    - [ ] Locate the "Connect Spotify" button in the frontend <!-- id: 1 -->
+    - [ ] Identify the API endpoint responsible for Spotify authentication <!-- id: 2 -->
+    - [ ] Check for existing errors or logs related to Spotify <!-- id: 3 -->
+- [ ] Fix Spotify connection issue <!-- id: 4 -->
+    - [ ] Correct frontend/backend mismatch or logic error <!-- id: 5 -->
+    - [ ] Verify fix with browser/logs <!-- id: 6 -->

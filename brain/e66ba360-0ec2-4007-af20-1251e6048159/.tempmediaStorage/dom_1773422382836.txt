@@ -1,0 +1,186 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (16,44)<a class='mb-8 flex items-center justify-center transition-all hover:scale-110 active:scale-95 group' href='/' />
+[1] (16,118)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/' title='Dashboard' />
+[2] (16,172)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/planner' title='Planner' />
+[3] (16,226)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/focus' title='Focus' />
+[4] (16,323)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 bg-accent/15 text-accent shadow-glow border border-accent/20' href='/tasks' title='Tasks' />
+[5] (16,377)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/assignments' title='Assignments' />
+[6] (16,431)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/courses' title='Courses' />
+[7] (16,485)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/notes' title='Notes' />
+[8] (16,582)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/timetable' title='Timetable' />
+[9] (16,636)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/meetings' title='Activity Finder' />
+[10] (16,690)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/history' title='History' />
+[11] (16,875)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[12] (16,936)<a class='flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 text-muted/60 hover:bg-surface-hover/80 hover:text-primary' href='/settings' title='Settings' />
+Tasks
+[13] (83,114)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors bg-accent-subtle text-accent font-medium'>Inbox
+132 />
+	Inbox
+	132
+[14] (83,154)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Today
+5 />
+	Today
+	5
+[15] (83,193)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Upcoming />
+	Upcoming
+[16] (83,233)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>By Module />
+	By Module
+[17] (83,272)<button class='w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-secondary hover:bg-surface-hover'>Completed
+3 />
+	Completed
+	3
+48
+overdue
+132
+open
+3
+completed
+[18] (83,998)<button class='mt-4 flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all text-secondary hover:bg-surface-hover'>AI Filter />
+Inbox
+· 132
+[19] (618,60)<input class='w-full pl-8 pr-3 py-1.5 rounded-lg border border-border bg-base/50 focus:bg-base focus:border-accent transition-all text-xs text-primary placeholder:text-muted focus:outline-none' placeholder='Search tasks...' />
+[20] (727,60)<button class='px-2 py-1 rounded-md text-[10px] font-mono font-medium transition-colors border text-muted border-border hover:text-secondary hover:bg-surface-hover'>Low />
+[21] (749,60)<button class='px-2 py-1 rounded-md text-[10px] font-mono font-medium transition-colors border text-muted border-border hover:text-secondary hover:bg-surface-hover'>Med />
+[22] (772,60)<button class='px-2 py-1 rounded-md text-[10px] font-mono font-medium transition-colors border text-muted border-border hover:text-secondary hover:bg-surface-hover'>High />
+[23] (796,60)<button class='px-2 py-1 rounded-md text-[10px] font-mono font-medium transition-colors border text-muted border-border hover:text-secondary hover:bg-surface-hover'>!!! />
+[24] (840,60)<button class='px-2.5 py-1 text-xs rounded-md transition-colors flex items-center gap-1.5 bg-surface shadow-sm text-primary font-medium border border-border/50'>List />
+[25] (874,60)<button class='px-2.5 py-1 text-xs rounded-md transition-colors flex items-center gap-1.5 text-muted hover:text-secondary'>Board />
+[26] (916,60)<button class='px-2.5 py-1 text-xs rounded-md transition-colors flex items-center gap-1.5 text-muted hover:text-secondary'>Calendar />
+[27] (960,60)<button class='px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all border border-border text-muted hover:text-secondary hover:bg-surface-hover'>ZEN />
+[28] (570,131)<input class='flex-1 bg-transparent text-primary text-sm placeholder:text-muted focus:outline-none' placeholder='Add a new task...' />
+[29] (560,597)<div class='flex-1 overflow-y-auto px-4 py-2' scrollable='true' />
+	[30] (559,198)<div  />
+		[31] (159,198)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[32] (180,198)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[33] (204,198)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5' />
+		[34] (222,198)<div  />
+		[35] (558,198)<span >Complete graded exercise during lab session />
+		[36] (905,198)<span >CS2030 />
+		[37] (937,198)<span >Jan 30 />
+	[38] (559,257)<div  />
+		[39] (159,257)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[40] (180,257)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[41] (210,257)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5'>10
+m />
+			10
+			m
+		[42] (235,257)<div  />
+		[43] (549,257)<span >Register for 'Bouncing Back' webinar />
+		[44] (891,257)<span >GES1035/GESS1025 />
+		[45] (938,257)<span >Feb 6 />
+	[46] (559,315)<div  />
+		[47] (159,315)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[48] (180,315)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[49] (210,315)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5'>10
+m />
+			10
+			m
+		[50] (235,315)<div  />
+		[51] (548,315)<span >Register for webinar />
+		[52] (888,315)<span >GES1035/GESS1025 />
+		[53] (937,315)<span >Feb 10 />
+	[54] (559,373)<div  />
+		[55] (159,373)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[56] (180,373)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[57] (210,373)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5'>10
+m />
+			10
+			m
+		[58] (235,373)<div  />
+		[59] (551,373)<span >Download Midterm Exam via Examplify (check announcement on Thursday evening) />
+		[60] (893,373)<span >GEX1015/GET1029 />
+		[61] (938,373)<span >Mar 5 />
+	[62] (559,431)<div  />
+		[63] (159,431)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[64] (180,431)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[65] (204,431)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5' />
+		[66] (222,431)<div  />
+		[67] (560,431)<span >Prepare for Practical Assessment 1 />
+		[68] (908,431)<span >CS2030 />
+		[69] (938,431)<span >Mar 6 />
+	[70] (559,489)<div  />
+		[71] (159,489)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[72] (180,489)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[73] (210,489)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5'>90
+m />
+			90
+			m
+		[74] (235,489)<div  />
+		[75] (551,489)<span >Attend Midterm Exam />
+		[76] (893,489)<span >GEX1015/GET1029 />
+		[77] (938,489)<span >Mar 6 />
+	[78] (559,547)<div  />
+		[79] (159,547)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[80] (180,547)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[81] (210,547)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5'>30
+m />
+			30
+			m
+		[82] (235,547)<div  />
+		[83] (551,547)<span >Install Examplify on Laptop />
+		[84] (893,547)<span >GEX1015/GET1029 />
+		[85] (938,547)<span >Mar 6 />
+	[86] (559,605)<div  />
+		[87] (159,605)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[88] (180,605)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[89] (208,605)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5'>5
+m />
+			5
+			m
+		[90] (232,605)<div  />
+		[91] (549,605)<span >Fully charge laptop for Midterm Exam and bring charger />
+		[92] (893,605)<span >GEX1015/GET1029 />
+		[93] (938,605)<span >Mar 6 />
+	[94] (559,664)<div  />
+		[95] (159,664)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[96] (180,664)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[97] (204,664)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5' />
+		[98] (222,664)<div  />
+		[99] (545,664)<span >Download midterm exam from Examplify />
+		[100] (893,664)<span >GEX1015/GET1029 />
+		[101] (938,664)<span >Mar 6 />
+	[102] (559,722)<div  />
+		[103] (159,722)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[104] (180,722)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[105] (204,722)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5' />
+		[106] (222,722)<div  />
+		[107] (545,722)<span >Ensure Examplify is installed and functional on laptop />
+		[108] (893,722)<span >GEX1015/GET1029 />
+		[109] (938,722)<span >Mar 6 />
+	[110] (559,780)<div  />
+		[111] (159,780)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[112] (180,780)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[113] (204,780)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5' />
+		[114] (222,780)<div  />
+		[115] (545,780)<span >Email instructor if you do not have a laptop for the exam />
+		[116] (893,780)<span >GEX1015/GET1029 />
+		[117] (938,780)<span >Mar 6 />
+	[118] (559,838)<div  />
+		[119] (159,838)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[120] (180,838)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[121] (204,838)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5' />
+		[122] (222,838)<div  />
+		[123] (545,838)<span >Fully charge laptop before the exam />
+		[124] (893,838)<span >GEX1015/GET1029 />
+		[125] (938,838)<span >Mar 6 />
+	[126] (559,896)<div  />
+		[127] (159,896)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[128] (180,896)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[129] (204,896)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5' />
+		[130] (222,896)<div  />
+		[131] (558,896)<span >Complete Quiz 8 />
+		[132] (905,896)<span >BT1101 />
+		[133] (937,896)<span >Mar 11 />
+	[134] (559,954)<div  />
+		[135] (159,954)<button class='h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors border-border hover:border-accent' />
+		[136] (180,954)<button class='h-7 w-7 flex items-center justify-center rounded-lg transition-all text-muted hover:text-yellow-500 hover:bg-yellow-500/5' title='Focus for Today' />
+		[137] (204,954)<button class='h-7 px-2 flex items-center gap-1.5 rounded-lg border transition-all border-border text-muted hover:text-accent hover:border-accent hover:bg-accent/5' />
+		[138] (222,954)<div  />
+		[139] (558,954)<span >Complete Online Video Assignment 'Overview and Data For Business Analytics' />
+		[140] (905,954)<span >BT1101 />
+		[141] (937,954)<span >Mar 12 />
+
+</current_dom>

@@ -1,0 +1,17 @@
+# Task: Codebase Simplification and Error Reduction
+
+## Backend Simplification
+- [ ] Consolidate database session functions in [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py) [/]
+- [ ] Refactor [get_current_user](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#29-77) in [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py) to be more robust and less redundant [/]
+- [ ] Analyze `routers/` for overlapping functionality and consolidate where possible
+- [ ] Review `services/` for duplicate logic, especially in sync services
+
+## Frontend Simplification
+- [ ] Review [lib/api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts) for unified error handling and request logic [/]
+- [ ] Audit `components/` for duplicate UI patterns and extract common components
+- [ ] Check `hooks/` and `lib/` for redundant utility functions
+
+## Reliability Improvements
+- [ ] Standardize error response format across backend routers
+- [ ] Improve logging for background tasks in [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+- [ ] Add basic validation schemas where missing

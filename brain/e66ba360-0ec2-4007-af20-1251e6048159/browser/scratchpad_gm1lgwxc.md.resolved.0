@@ -1,0 +1,12 @@
+# Verification Plan for Trinity Planner Design
+
+- [ ] Login to localhost:3000/login
+- [ ] Navigate to /planner
+- [ ] Verify Vortex (sidebar) tasks
+- [ ] Schedule a task and click 'Focus'
+- [ ] Verify Focus page redirection and UI
+- [ ] Capture screenshot of Focus page
+- [ ] Toggle Zen Mode and capture screenshot
+- [ ] Change background settings and capture screenshot
+- [ ] Verify timer functionality
+- [ ] Check console for errors

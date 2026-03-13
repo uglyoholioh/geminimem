@@ -1,0 +1,69 @@
+O
+Study Planner
+March 09
+-
+Mar 15, 2026
+[0] (822,87)<button class='p-1.5 rounded-md transition-all flex items-center gap-2 px-2 hover:bg-surface text-secondary' title='Grid' />
+[1] (840,87)<button class='p-1.5 rounded-md transition-all flex items-center gap-2 px-2 hover:bg-surface text-secondary' title='Linear' />
+[2] (857,87)<button class='p-1.5 rounded-md transition-all flex items-center gap-2 px-2 hover:bg-surface text-secondary' title='Focus' />
+[3] (883,87)<button class='p-1.5 rounded-md transition-all flex items-center gap-2 px-2 bg-accent text-white shadow-sm' title='List'>List />
+	List
+[4] (939,87)<button class='px-4 py-2 border rounded-lg font-bold text-xs flex items-center gap-2 transition-all active:scale-95 bg-accent text-white border-accent'>The Vortex />
+[5] (346,201)<button class='flex flex-col items-center gap-2 p-3 rounded-2xl transition-all w-14 hover:bg-surface text-secondary'>Mon
+9 />
+	Mon
+	9
+[6] (399,201)<button class='flex flex-col items-center gap-2 p-3 rounded-2xl transition-all w-14 hover:bg-surface text-secondary'>Tue
+10 />
+	Tue
+	10
+[7] (453,201)<button class='flex flex-col items-center gap-2 p-3 rounded-2xl transition-all w-14 hover:bg-surface text-secondary'>Wed
+11 />
+	Wed
+	11
+[8] (506,201)<button class='flex flex-col items-center gap-2 p-3 rounded-2xl transition-all w-14 hover:bg-surface text-secondary'>Thu
+12 />
+	Thu
+	12
+[9] (560,201)<button class='flex flex-col items-center gap-2 p-3 rounded-2xl transition-all w-14 hover:bg-surface text-secondary'>Fri
+13 />
+	Fri
+	13
+[10] (613,201)<button class='flex flex-col items-center gap-2 p-3 rounded-2xl transition-all w-14 bg-accent text-white shadow-lg shadow-accent/25'>Sat
+14 />
+	Sat
+	14
+[11] (667,201)<button class='flex flex-col items-center gap-2 p-3 rounded-2xl transition-all w-14 hover:bg-surface text-secondary'>Sun
+15 />
+	Sun
+	15
+Nothing for this day
+The Vortex
+Today's Focus
+[12] (127,47)<button class='p-2 text-muted hover:text-accent transition-colors rounded-lg hover:bg-accent/5' title='Refresh' />
+[13] (145,47)<button class='p-2 text-muted hover:text-urgency transition-colors rounded-lg hover:bg-urgency/5' />
+[14] (83,181)<div class='group relative bg-surface border border-border/50 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-accent/30 transition-all cursor-grab active:cursor-grabbing' role='button' />
+	[15] (21,181)<div  />
+	[16] (83,181)<div  />
+		[17] (87,147)<div  />
+			[18] (43,147)<span >CS2030 />
+		[19] (87,183)<h4 >Complete graded exercise during lab session />
+		[20] (87,217)<div  />
+			[21] (48,217)<span >30 Jan />
+[22] (83,311)<div class='group relative bg-surface border border-border/50 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-accent/30 transition-all cursor-grab active:cursor-grabbing' role='button' />
+	[23] (21,311)<div  />
+	[24] (83,311)<div  />
+		[25] (87,286)<div  />
+			[26] (58,286)<span >GES1035/GESS1025 />
+		[27] (87,312)<h4 >Register for webinar />
+		[28] (87,337)<div  />
+			[29] (47,337)<span >10 Feb />
+[30] (83,441)<div class='group relative bg-surface border border-border/50 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-accent/30 transition-all cursor-grab active:cursor-grabbing' role='button' />
+	[31] (21,441)<div  />
+	[32] (83,441)<div  />
+		[33] (87,406)<div  />
+			[34] (58,406)<span >GES1035/GESS1025 />
+		[35] (87,442)<h4 >Register for 'Bouncing Back' webinar />
+		[36] (87,476)<div  />
+			[37] (46,476)<span >6 Feb />
+Drag items onto your timeline to commit to them.

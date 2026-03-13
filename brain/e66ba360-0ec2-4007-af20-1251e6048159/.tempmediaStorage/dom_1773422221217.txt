@@ -1,0 +1,30 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (16,44)<a class='mb-8 flex items-center justify-center transition-all hover:scale-110 active:scale-95 group' href='/' />
+[1] (16,118)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/' title='Dashboard' />
+[2] (16,172)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/planner' title='Planner' />
+[3] (16,226)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/focus' title='Focus' />
+[4] (16,323)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/tasks' title='Tasks' />
+[5] (16,377)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/assignments' title='Assignments' />
+[6] (16,431)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/courses' title='Courses' />
+[7] (16,485)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/notes' title='Notes' />
+[8] (16,582)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/timetable' title='Timetable' />
+[9] (16,636)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/meetings' title='Activity Finder' />
+[10] (16,690)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/history' title='History' />
+[11] (16,813)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to light mode' />
+[12] (16,873)<a class='flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 text-muted/60 hover:bg-surface-hover/80 hover:text-primary' href='/settings' title='Settings' />
+[13] (16,940)<button class='flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-accent to-purple-500 text-white text-[11px] font-black transition-all hover:scale-110 shadow-lg active:scale-95 ring-2 ring-sidebar ring-offset-2 ring-offset-accent/20 ' title='Test User'>TU />
+Connect Canvas
+Required to sync your timetable, courses and assignments.
+[14] (506,520)<label class='text-xs font-semibold text-secondary uppercase tracking-wider block mb-2'>Base URL />
+[15] (506,560)<input class='w-full rounded-xl border border-border bg-base/50 px-4 py-3 text-sm focus:border-accent focus:ring-1 focus:ring-accent outline-none' />
+[16] (506,609)<label class='text-xs font-semibold text-secondary uppercase block mb-2 flex justify-between'>API Token />
+	API Token
+	[17] (590,609)<a class='text-accent hover:underline lowercase normal-case tracking-normal' href='https://canvas.nus.edu.sg/profile/settings'>Where to find this? />
+[18] (506,650)<input class='w-full rounded-xl border border-border bg-base/50 px-4 py-3 text-sm focus:border-accent font-mono focus:ring-1 focus:ring-accent outline-none' placeholder='Enter your token...' />
+[19] (409,732)<button class='px-5 py-3.5 rounded-xl border border-border text-sm font-medium hover:bg-base/80 transition-all flex items-center justify-center' />
+[20] (524,732)<button class='flex-1 py-3.5 rounded-xl bg-primary text-base text-sm font-medium hover:opacity-90 transition-all flex justify-center items-center gap-2'>Validate & Sync />
+
+</current_dom>
