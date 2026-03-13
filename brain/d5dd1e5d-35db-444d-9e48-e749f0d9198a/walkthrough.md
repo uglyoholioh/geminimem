@@ -1,30 +1,31 @@
-# Walkthrough - Enhanced Task AI & Proactive Upgrades
+# Walkthrough - Enhanced Canvas Data Processing
 
-I have upgraded the AI context and toolset to be more proactive and insightful.
+I have upgraded the Canvas integration to ensure the AI has deep access to all course materials, news, and requirements.
 
-## New Proactive Capabilities
+## Key Upgrades
 
-### 1. Smart Study Scheduling (`suggest_study_blocks`)
-The AI now proactively analyzes your workload and finds free time in your schedule.
-- **How it works**: When it detects urgent tasks or upcoming deadlines, it calls this tool to find 2-hour free blocks.
-- **Example**: "I see you have 3 high-priority tasks. I've found free time on Wednesday and Thursday evening—would you like to schedule these as study sessions?"
+### 1. Multi-Source RAG Indexing
+The AI's "Deep Search" (`search_module_materials`) now indexes and retrieves content from:
+- **PDFs & Course Files**: Improved text extraction with better status tracking.
+- **Announcements**: Full indexing of announcement bodies, allowing specific questions about recent news.
+- **Assignments**: Detailed descriptions are now indexed, helping the AI understand project requirements.
+- **Course Syllabi**: The full syllabus body is now part of the RAG context.
 
-### 2. Grade Projection (`project_module_grade`)
-The AI can now help you track your academic standing and plan for your target grades.
-- **How it works**: Analyzes your scored components (e.g., midterms) and projects your current standing.
-- **Example**: "Your current standing in CS2103T is 85%. To get an A, you'll need at least 80% on the final project."
+### 2. Improved Indexing Reliability
+- **Status Tracking**: New `indexing_status` field on `CanvasFile` tracks `pending`, `success`, `failed`, or `skipped` (for non-text files).
+- **Automated Sync**: The background sync process now automatically queues all unindexed materials (including old announcements and assignments) for processing.
 
-### 3. Advanced Task Filtering
-Upgraded existing tools to handle relative date queries like "this week" or "overdue" more reliably.
+### 3. Smarter AI Tools
+- Updated the `search_module_materials` tool definition to explicitly guide the AI to use it for deep dives into announcements and assignments.
 
 ## Verification Results
 
-### Automated Tests
-Verified all new tools with dedicated unit tests:
-- **`test_suggest_study_blocks`**: Successfully identifies busy periods and proposes slots.
-- **`test_project_module_grade`**: Correctly calculates standings from sample component weights.
+- ✅ **SQL Integration**: Confirmed that `is_indexed` flags and `RagChunk` records are correctly created for all new data types.
+- ✅ **Database Migration**: Successfully applied schema changes to support tracking.
+- ✅ **Prompt Engineering**: AI tool descriptions now reflect the expanded RAG coverage.
 
-## How to Test
-1. **Scheduling**: Ask "When's a good time to work on my urgent tasks?" or "Find me study time for this week."
-2. **Grades**: Ask "What's my standing in CS2103T?" or "How am I doing in my courses?"
-3. **Proactive Check**: Try asking "What should I focus on today?"—the AI should naturally use these tools to give a comprehensive answer.
+---
+**Try asking:**
+- *"Check the midterm announcements for any room changes."*
+- *"What are the specific requirements for the first project milestone?"*
+- *"Summarize the grading policy from the CS2103T syllabus."*
