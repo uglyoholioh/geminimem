@@ -1,0 +1,63 @@
+# PROPOSAL: AI Suggestion Tweaking Mechanism
+
+This proposal outlines a system to allow users to correct and fine-tune AI suggestions generated from Canvas data. This addresses the issue of irrelevant content (like materials placeholder assignments) being surfaced as actionable items.
+
+## User Review Required
+
+> [!IMPORTANT]
+> This plan focuses on **design and architecture**. No implementation will be performed in this step.
+
+> [!NOTE]
+> The proposal introduces a persistent "Feedback" layer that sits between the raw database/RAG index and the AI context assembly.
+
+## Proposed Changes
+
+### [Backend] Data Persistence layer
+
+#### [NEW] [ai_feedback.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/ai_feedback.py)
+A new model to store user corrections.
+- [id](file:///Users/oli/Desktop/CraftCanvas/backend/services/task_parser.py#149-155): Primary Key
+- `user_id`: Foreign Key to User
+- `source_type`: Literal['assignment', 'announcement', 'file', 'task']
+- `source_id`: The ID of the original object
+- `action`: Literal['ignore', 're-categorize', 'update_metadata']
+- `override_data`: JSON field for manual title/description overrides
+- `reason`: User-provided reason (optional)
+
+### [Backend] Logic Updates
+
+#### [MODIFY] [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)
+- Update `build_system_prompt` to fetch relevant `AIFeedback` records for the user.
+- Filter out items marked as `ignore`.
+- Apply `override_data` to items before passing them to the AI.
+
+#### [MODIFY] [rag_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py)
+- Update [query](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py#159-194) to accept an `excluded_source_ids` list.
+- In the ChromaDB query, add a filter to exclude chunks belonging to ignored sources.
+
+### [Frontend] UI/UX Components
+
+#### [NEW] AIFeedbackButton.tsx
+A reusable button/dropdown for items in the dashboard widgets.
+
+#### [NEW] AIFeedbackModal.tsx
+A modal that allows users to:
+1.  **Mark as irrelevant**: "Hide this from my dashboard and briefs."
+2.  **Edit details**: "It's an assignment, but the title should be X."
+3.  **Ignore source**: "Stop indexing this specific file."
+
+#### [MODIFY] UpcomingDeadlines.tsx / AnnouncementsFeed.tsx
+- Integrate the `AIFeedbackButton` into each item's list/card view.
+
+## Verification Plan (Conceptual)
+
+### Automated Tests
+- **Unit Tests**: Verify that `context_assembler` correctly filters out ignored items based on the `ai_feedback` table.
+- **Integration Tests**: Verify that RAG queries do not return chunks from "ignored" files.
+
+### Manual Verification
+1.  User identifies a "fake" assignment in the "Upcoming Deadlines" widget.
+2.  User clicks "..." -> "Mark as irrelevant".
+3.  User refreshes the dashboard (or triggers a new brief generation).
+4.  The "fake" assignment is gone.
+5.  User goes to Settings -> AI Feedback and sees the rule, with an option to "Restore".

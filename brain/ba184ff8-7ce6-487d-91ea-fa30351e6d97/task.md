@@ -1,0 +1,21 @@
+# Task: Implement AI Suggestion Tweaking Mechanism
+
+- [x] Research current AI processing logic <!-- id: 0 -->
+    - [x] Analyze `canvas_sync.py` for data ingestion <!-- id: 1 -->
+    - [x] Analyze `ai_service.py` for categorization logic <!-- id: 2 -->
+    - [x] Review `models/` to see how items are stored and indexed <!-- id: 3 -->
+- [x] Design Feedback Mechanism <!-- id: 4 -->
+    - [x] Define user actions (Mark as Irrelevant, Re-categorize, Ignore File) <!-- id: 5 -->
+    - [x] Plan backend updates for persisting user preferences <!-- id: 6 -->
+- [x] Implement Backend Feedback Layer <!-- id: 13 -->
+    - [x] Create `AIFeedback` model <!-- id: 14 -->
+    - [x] Create feedback CRUD router <!-- id: 15 -->
+    - [x] Update `context_assembler.py` to filter items <!-- id: 16 -->
+    - [x] Update `rag_service.py` to exclude ignored sources <!-- id: 17 -->
+- [x] Implement Frontend UI Components <!-- id: 18 -->
+    - [x] Build `AIFeedbackModal.tsx` <!-- id: 19 -->
+    - [x] Build `AIFeedbackButton.tsx` <!-- id: 20 -->
+    - [x] Integrate into `UpcomingDeadlines.tsx` and `AnnouncementsFeed.tsx` <!-- id: 21 -->
+- [x] Verification and Polish <!-- id: 22 -->
+    - [x] Manual test: Hide an assignment and verify disappearance <!-- id: 23 -->
+    - [x] Review implementation with walkthrough <!-- id: 24 -->

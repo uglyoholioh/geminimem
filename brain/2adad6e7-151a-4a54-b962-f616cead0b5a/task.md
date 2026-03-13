@@ -1,16 +1,17 @@
 # Visual Style Audit & Polish
 
-- [x] Audit existing visual style <!-- id: 0 -->
-    - [x] Inspect `globals.css` for core design tokens <!-- id: 1 -->
-    - [x] Refining core design system <!-- id: 11 -->
-    - [x] Standardizing widget layout and appearance <!-- id: 12 -->
-    - [x] Refining Dashboard Aesthetics (Header & Stats) <!-- id: 13 -->
-    - [x] Review main dashboard page (`page.tsx`) <!-- id: 2 -->
-    - [x] Examine UI components in `components/ui` and other component folders <!-- id: 3 -->
-    - [x] Check Spotify Visualizer reactivity and styles <!-- id: 4 -->
-- [x] Research modern design inspirations (Glassmorphism, Bento Grid, etc.) <!-- id: 5 -->
-- [x] Create Implementation Plan for premium polish <!-- id: 6 -->
-    - [x] Define consistent color palette and typography <!-- id: 7 -->
-    - [x] Propose layout improvements (e.g., Bento Grid dashboard) <!-- id: 8 -->
-    - [x] Design micro-animations and transitions <!-- id: 9 -->
-- [x] Present observations and plans to the user <!-- id: 10 -->
+- [x] Initial Audit & Dashboard Polish <!-- id: 0 -->
+- [/] Deep Visual Audit (Rest of App) <!-- id: 14 -->
+    - [x] Audit Sidebar and Global Navigation <!-- id: 15 -->
+    - [x] Review Focus Mode (`app/focus/page.tsx`) <!-- id: 16 -->
+    - [x] Review Planner page (`app/planner/page.tsx`) <!-- id: 17 -->
+    - [x] Audit Spotify Visualizer & Player aesthetics <!-- id: 18 -->
+    - [x] Check Consistency of UI components (`components/ui`) <!-- id: 19 -->
+    - [x] Audit Typography & Spacing across all modules <!-- id: 20 -->
+- [x] Phase 2: Global Polish Implementation <!-- id: 21 -->
+    - [x] Upgrade Sidebar & Navigation Aesthetics <!-- id: 24 -->
+    - [x] Implement Global Route Transitions <!-- id: 25 -->
+    - [x] Polish Focus Mode Clock & Task List <!-- id: 26 -->
+    - [x] Refine Planner Grid & Side Panel <!-- id: 27 -->
+    - [x] Optimize Spotify Visualizers & Typography <!-- id: 28 -->
+- [/] Verification and Final Walkthrough <!-- id: 22 -->

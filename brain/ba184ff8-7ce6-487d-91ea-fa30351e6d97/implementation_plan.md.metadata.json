@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Technical proposal for implementing a feedback mechanism to tweak AI suggestions. This plan outlines database changes, backend filtering logic, and UI components for user corrections.",
+  "updatedAt": "2026-03-13T08:39:33.561138Z"
+}

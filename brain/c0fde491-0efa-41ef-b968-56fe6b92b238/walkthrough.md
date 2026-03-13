@@ -1,0 +1,33 @@
+# Walkthrough - Dashboard Widget Improvements
+
+I have audited and improved the dashboard widgets to ensure they behave appropriately to their size and offer a premium, visually consistent experience.
+
+## Key Improvements
+
+### 1. Standardized Widget Shell
+- **Consistent Header**: Updated `WidgetShell.tsx` to use more generous padding (`py-2.5`), larger icons, and bold monochromatic typography.
+- **Improved Glassmorphism**: Enhanced the `glass-card` appearance and added subtle transitions for hover states and resizing.
+- **Refined Controls**: Standardized the size and style of remove and resize buttons.
+
+### 2. Size-Aware Layouts
+- **Upcoming Deadlines**: Implemented a compact layout for 'sm' widgets, reducing icon sizes and hiding auxiliary details while maintaining readability.
+- **Quick Add**: Standardized input padding and added a vertical layout for the course selector in 'sm' mode to prevent horizontal crowding.
+- **Now / Next Class**: Redesigned the compact view with a focus on immediate clarity, adding a pulsing glow to the active class indicator.
+
+### 3. Integrated Micro-Player
+- **Spotify Micro-Player**: Created a dedicated Micro mode for `SpotifyPlayer.tsx` that fits perfectly into a 1x1 dashboard slot, featuring a spinning mini-vinyl and essential playback controls.
+
+### 4. Visual Polish
+- **Animations**: Refined the sync rotation in `SyncStatus` and added success/failure icons for better feedback.
+- **Shadows & Glows**: Applied subtle glow effects to active statuses and progress bars to create a more premium, "alive" feel.
+
+## Verification Results
+
+### Visual Audit
+- Verified spacing consistency across all modified widgets.
+- Confirmed that 'sm' widgets now show essential information clearly without layout breaking.
+- Tested resizing transitions in `WidgetShell`.
+
+### Code Quality
+- Addressed scoping issues in `SpotifyPlayer.tsx` that were causing lint errors.
+- Verified that all components correctly consume the `size` prop from the registry.

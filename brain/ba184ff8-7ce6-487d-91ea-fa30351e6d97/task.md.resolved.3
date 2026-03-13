@@ -1,0 +1,21 @@
+# Task: Implement AI Suggestion Tweaking Mechanism
+
+- [x] Research current AI processing logic <!-- id: 0 -->
+    - [x] Analyze [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py) for data ingestion <!-- id: 1 -->
+    - [x] Analyze [ai_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_service.py) for categorization logic <!-- id: 2 -->
+    - [x] Review `models/` to see how items are stored and indexed <!-- id: 3 -->
+- [x] Design Feedback Mechanism <!-- id: 4 -->
+    - [x] Define user actions (Mark as Irrelevant, Re-categorize, Ignore File) <!-- id: 5 -->
+    - [x] Plan backend updates for persisting user preferences <!-- id: 6 -->
+- [x] Implement Backend Feedback Layer <!-- id: 13 -->
+    - [x] Create [AIFeedback](file:///Users/oli/Desktop/CraftCanvas/backend/models/ai_feedback.py#9-33) model <!-- id: 14 -->
+    - [x] Create feedback CRUD router <!-- id: 15 -->
+    - [x] Update [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py) to filter items <!-- id: 16 -->
+    - [x] Update [rag_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py) to exclude ignored sources <!-- id: 17 -->
+- [/] Implement Frontend UI Components <!-- id: 18 -->
+    - [/] Build `AIFeedbackModal.tsx` <!-- id: 19 -->
+    - [/] Build `AIFeedbackButton.tsx` <!-- id: 20 -->
+    - [ ] Integrate into [UpcomingDeadlines.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/UpcomingDeadlines.tsx) and [AnnouncementsFeed.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/AnnouncementsFeed.tsx) <!-- id: 21 -->
+- [ ] Verification and Polish <!-- id: 22 -->
+    - [ ] Manual test: Hide an assignment and verify disappearance <!-- id: 23 -->
+    - [ ] Review implementation with walkthrough <!-- id: 24 -->
