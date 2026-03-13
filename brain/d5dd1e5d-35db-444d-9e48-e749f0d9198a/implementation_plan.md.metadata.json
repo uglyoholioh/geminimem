@@ -1,5 +1,6 @@
 {
   "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary": "Implementation plan for enhancing AI task capabilities with date-based filtering and improved tool use.",
-  "updatedAt": "2026-03-11T10:54:14.152743Z"
+  "summary": "Implementation plan for enhancing Canvas data processing by indexing syllabi, announcements, and assignments into RAG, and improving file indexing reliability.",
+  "updatedAt": "2026-03-13T06:01:42.501729Z",
+  "version": "1"
 }

@@ -1,19 +1,24 @@
-# Exploring AI Upgrades
+# Enhancing Canvas Data Processing
 
-Identify and implement further AI-powered features to enhance the user's "Academic Life OS" experience.
+Ensure the AI can retrieve and process Canvas data, including PDFs and other course materials.
 
-## [x] Research & Ideation
-- [x] Review current AI tools and services
-- [x] Brainstorm new AI capabilities (e.g., proactive scheduling, automated study guides, mood tracking)
-- [x] Create a feature proposal/implementation plan
+## [ ] Research & Analysis
+- [/] Review `canvas_sync.py` for file handling logic
+- [ ] Review `rag_service.py` for PDF/content indexing logic
+- [ ] Identify gaps in processing "other" materials (pages, modules, files)
 
 ## [x] Implementation
-- [x] Implement proactive scheduling (`suggest_study_blocks`)
-- [x] Implement AI grade projection (`project_module_grade`)
-- [x] Update system prompt for proactive behavior
-- [ ] Implement automated study guide generation (Exploring for Phase 2)
+- [x] Update DB models with `is_indexed` and `indexing_status`
+- [x] Implement background indexing for announcements/assignments/syllabi in `canvas_sync.py`
+- [x] Improve `index_file_background` with better status tracking
+- [x] Update RAG indexing to include all relevant course data
 
-## [x] Verification
-- [x] Test `suggest_study_blocks` logic
-- [x] Test `project_module_grade` with sample components
-- [x] Verify proactive behavior in prompt
+## [/] Verification
+- [/] Test indexing logic for all entities (files, anns, assigns, syllabi)
+- [ ] Verify AI can search and retrieve data from multi-source RAG
+- [ ] Create walkthrough
+
+## [ ] Verification
+- [ ] Test AI's ability to answer questions from a Canvas PDF
+- [ ] Test AI's ability to summarize a Canvas page
+- [ ] Create walkthrough

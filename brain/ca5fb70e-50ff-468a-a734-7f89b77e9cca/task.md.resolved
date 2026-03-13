@@ -1,0 +1,6 @@
+# Task: Add Smaller Widget Size for Upcoming Agenda
+
+- [x] Analyze current implementation of [AgendaTimeline](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx#24-197) widget sizes <!-- id: 0 -->
+- [x] Update `WIDGET_REGISTRY` to include `sm` size for agenda <!-- id: 1 -->
+- [x] Implement `sm` size rendering in [AgendaTimeline](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/AgendaTimeline.tsx#24-197) <!-- id: 2 -->
+- [/] Verify the changes in the dashboard <!-- id: 3 -->

@@ -1,0 +1,6 @@
+# Task: Add Smaller Widget Size for Upcoming Agenda
+
+- [/] Analyze current implementation of `AgendaTimeline` widget sizes <!-- id: 0 -->
+- [ ] Update `WIDGET_REGISTRY` to include `sm` size for agenda <!-- id: 1 -->
+- [ ] Implement `sm` size rendering in `AgendaTimeline` <!-- id: 2 -->
+- [ ] Verify the changes in the dashboard <!-- id: 3 -->

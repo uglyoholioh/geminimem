@@ -1,0 +1,31 @@
+# Now/Next Class Widget Enhancements
+
+The goal is to improve the "Now/Next Class" widget by showing upcoming classes for the day and adding a smaller, more compact widget size option.
+
+## Proposed Changes
+
+### [Component] frontend/lib/widgetRegistry.ts
+#### [MODIFY] [widgetRegistry.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/widgetRegistry.ts)
+- Add `lg` to `supportedSizes` for the `now_next_class` widget.
+- Update description to reflect that it now shows upcoming classes.
+
+### [Component] frontend/components/dashboard/widgets
+#### [MODIFY] [NowNextClass.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/NowNextClass.tsx)
+- Add support for `lg` size.
+- Refactor the component to handle three distinct views:
+    - **Small (`sm`)**: Ultra-compact view. If in class, show module code + time left. If next class, show module code + countdown.
+    - **Medium (`md`)**: Current view (Now or Next) plus a "Coming up" section with the next 1-2 classes.
+    - **Large (`lg`)**: Detailed daily schedule. Show "Now/Next" prominently, followed by a list of all remaining classes for today.
+- Improve the "No more classes" view to be more aesthetic.
+
+## Verification Plan
+
+### Manual Verification
+1. Open the dashboard.
+2. Enter "Edit Mode" and add the "Now / Next Class" widget if not present.
+3. Test resizing the widget to `SM`, `MD`, and `LG` sizes.
+4. Verify that:
+    - `SM` shows a compact single-line or stacked mini view.
+    - `MD` shows the current/next class and a peek at the next ones.
+    - `LG` shows the full list of remaining classes for the day.
+5. If possible, mock class data to see "In Class Now" vs "Next Class" states.

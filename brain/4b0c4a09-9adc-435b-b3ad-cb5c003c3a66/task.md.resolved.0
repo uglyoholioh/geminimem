@@ -1,0 +1,7 @@
+# Spotify Visualizer Reactivity Tasks
+
+- [ ] Research Spotify Audio Analysis API integration
+- [ ] Implement audio analysis fetching in [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
+- [ ] Connect analysis data to visualizer components (Bars, Rings, Waveform)
+- [ ] Add smooth transitions between reactive states
+- [ ] Verify reactivity across different track types

@@ -7,16 +7,11 @@ Ensure the AI can retrieve and process Canvas data, including PDFs and other cou
 - [ ] Review [rag_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py) for PDF/content indexing logic
 - [ ] Identify gaps in processing "other" materials (pages, modules, files)
 
-## [x] Implementation
-- [x] Update DB models with `is_indexed` and `indexing_status`
-- [x] Implement background indexing for announcements/assignments/syllabi in [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
-- [x] Improve [index_file_background](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#436-488) with better status tracking
-- [x] Update RAG indexing to include all relevant course data
-
-## [/] Verification
-- [/] Test indexing logic for all entities (files, anns, assigns, syllabi)
-- [ ] Verify AI can search and retrieve data from multi-source RAG
-- [ ] Create walkthrough
+## [ ] Implementation
+- [ ] Implement/Improve PDF text extraction
+- [ ] Implement/Improve processing for other Canvas content
+- [ ] Update RAG indexing to include all relevant course data
+- [ ] Verify AI tools have access to processed data
 
 ## [ ] Verification
 - [ ] Test AI's ability to answer questions from a Canvas PDF

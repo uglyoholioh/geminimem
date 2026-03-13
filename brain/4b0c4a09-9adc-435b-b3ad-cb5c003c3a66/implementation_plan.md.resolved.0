@@ -1,0 +1,19 @@
+# Reactive Spotify Visualizers Implementation Plan
+
+The user reported that Spotify visualizers (other than the vinyl spin) are not truly reactive. Currently, the [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx) uses basic CSS animations (`bar-grow`, `ring-pulse`) with random or time-based variations, but they don't respond to the actual audio data from Spotify.
+
+## Proposed Changes
+
+### [Frontend Components]
+
+#### [MODIFY] [SpotifyPlayer.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/SpotifyPlayer.tsx)
+- Implement a mechanism to fetch audio analysis data from Spotify for the current track.
+- Create a reactive loop that updates the visualizers based on the track's tempo (BPM) or sections.
+- Ensure visualizers reflect the "energy" of the track.
+
+## Verification Plan
+
+### Manual Verification
+- Play music and switch between visualizer modes.
+- Observe if the bars/rings/waveform pulse in sync with the beat.
+- Pause music and verify animations stop or settle.

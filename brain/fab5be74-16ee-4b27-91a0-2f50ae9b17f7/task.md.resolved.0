@@ -1,0 +1,9 @@
+# Task: Update Now/Next Class Widget
+
+- [ ] Create implementation plan [/]
+- [ ] Update `WIDGET_REGISTRY` in [frontend/lib/widgetRegistry.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/widgetRegistry.ts) [ ]
+- [ ] Update [NowNextClass.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/widgets/NowNextClass.tsx) to handle different sizes [ ]
+    - [ ] Implement compact `sm` view [ ]
+    - [ ] Implement `md` view with upcoming classes [ ]
+    - [ ] Implement `lg` view with full daily schedule [ ]
+- [ ] Verify changes on dashboard [ ]
