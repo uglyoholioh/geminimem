@@ -8,9 +8,16 @@
 
 ## Fix
 - [x] Implement fix based on findings <!-- id: 4 -->
+- [x] Fix NameError and typos in auth router
 
 ## Verification
 - [x] Test login flow (Initial verification) <!-- id: 5 -->
+- [x] Phase 1: Fix 500 Internal Server Error & Session Persistence
+- [x] Phase 2: Resolve Redirect Typo & Dependency Issues
+- [x] Phase 3: Debug Post-Login Loading Issues
+    - [x] Investigate hardcoded `localhost:8000` calls
+    - [x] Fix absolute redirects in frontend proxy
+    - [x] Verify dashboard data population
 
 ## Phase 2: Deeper Investigation
 - [ ] Check `backend/uvicorn.log` and `backend/latest_server.log` for recent 401s <!-- id: 6 -->

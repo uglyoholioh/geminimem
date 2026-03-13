@@ -1,0 +1,21 @@
+# Task: Investigate login/dashboard loading issues
+
+## Checklist
+- [x] Go to http://localhost:3000/login
+- [ ] Log in as test@example.com / password123
+- [ ] Wait for dashboard to load
+- [x] Open browser console and check for 401 errors
+- [x] Find the initiator of the 401 error on /api/v1/companion/
+- [x] Check for console logs mentioning http://localhost:8000
+- [ ] Report initiator file and line number
+
+## Findings
+- Login page: http://localhost:3000/login
+- Login attempt: `test@example.com` / `password123` -> Failed with "Invalid email or password."
+- Registration attempt: `test@example.com` -> Failed with "Invalid email address." (likely a bug or validation issue)
+- 401 Errors: `http://localhost:8000/api/v1/companion/` is returning 401 even on the login page.
+- Initiator: The request starts as `http://localhost:3000/api/v1/companion` (GET), then 307 redirects to `http://localhost:3000/api/v1/companion/` (GET), then 308 redirects to `http://localhost:8000/api/v1/companion/`.
+- Console shows: `API Error [401] /companion/: Not authenticated or session expired {}`
+- Stack trace points to `_next/static/chunks/node_modules_next_dist_f3530cac._.js:3127:31`.
+- The source file in the trajectory summary is `frontend/lib/api.ts`, which likely contains the fetch logic.
+- Looking at the trajectory, `frontend/components/companion/CompanionPanel.tsx` is likely the component triggering this.

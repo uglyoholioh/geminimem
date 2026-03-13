@@ -1,0 +1,22 @@
+# Full Codebase Audit
+
+- [x] Preliminary Research and Setup
+    - [x] Explore directory structure
+    - [x] Read core documentation ([README.md](file:///Users/oli/Desktop/CraftCanvas/README.md), [CLAUDE.md](file:///Users/oli/Desktop/CraftCanvas/CLAUDE.md), [SETUP.md](file:///Users/oli/Desktop/CraftCanvas/SETUP.md))
+    - [x] Read detailed docs ([ARCHITECTURE.md](file:///Users/oli/Desktop/CraftCanvas/docs/ARCHITECTURE.md), [DATA_SCHEMA.md](file:///Users/oli/Desktop/CraftCanvas/docs/DATA_SCHEMA.md), etc.)
+- [x] Backend Audit
+    - [x] Review architecture and main entry point
+    - [x] Analyze database schema and models
+    - [x] Audit core services (Telegram, AI, etc.)
+    - [x] Check security and authentication
+- [x] Frontend Audit
+    - [x] Review project setup and dependencies
+    - [x] Analyze component structure and state management
+    - [x] Evaluate UI/UX and design system
+    - [x] Check API integration
+- [x] Overall System Assessment
+    - [x] Identify bottlenecks and technical debt
+    - [x] Check documentation completeness
+- [x] Final Audit Report
+    - [x] Consolidate findings
+    - [x] Provide recommendations [x]

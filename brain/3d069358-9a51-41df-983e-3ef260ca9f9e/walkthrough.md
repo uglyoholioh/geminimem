@@ -30,6 +30,31 @@ After the initial session fix, users were still experiencing a 500 Internal Serv
 
 ---
 
+## Phase 3: Post-Login Loading & Proxy Fixes
+
+After fixing the 500 error, we discovered that some dashboard data (like companion state) was still failing to load with a 401 error. 
+
+### Key Findings
+1. **Absolute Redirects**: The backend (FastAPI) was issuing "Trailing Slash" redirects (e.g., `/path` -> `/path/`) with absolute URLs pointing directly to `localhost:8000`. This caused the browser to bypass the frontend proxy and drop the session cookie.
+2. **Transparent Proxy Limitations**: The default Next.js `rewrites` were not modifying the `Location` header in backend responses, allowing these absolute redirects to leak to the browser.
+3. **Hardcoded URLs**: Several components (like `FocusPage`) had hardcoded `localhost:8000` URLs for background assets.
+
+### Implementation
+- **Smart Proxy Route**: Improved [route.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/app/api/%5B...path%5D/route.ts) to intercept and rewrite `Location` headers, ensuring all redirects remain relative to the frontend origin.
+- **Removed Dumb Rewrites**: Removed redundant `rewrites` in [next.config.js](file:///Users/oli/Desktop/CraftCanvas/frontend/next.config.js) to ensure all traffic goes through the smarter proxy.
+- **Asset Fixes**: Updated [FocusPage](file:///Users/oli/Desktop/CraftCanvas/frontend/app/focus/page.tsx) to use relative paths for background images and videos.
+
+## Final Verification
+The application now successfully authenticates users and loads all dashboard data.
+
+![Fully Loaded Dashboard with Protected Data Content](/Users/oli/.gemini/antigravity/brain/3d069358-9a51-41df-983e-3ef260ca9f9e/focus_page_attempt_1773434197593.png)
+
+### Verified Features:
+- [x] **Auth Status**: Persistent across refreshes.
+- [x] **Companion State**: Successfully fetched via proxy.
+- [x] **Daily Brief / Tasks**: Loading authenticated data.
+- [x] **Focus View**: Backgrounds and timer fully functional.
+
 ## Verification Results
 
 ### Final Login Success

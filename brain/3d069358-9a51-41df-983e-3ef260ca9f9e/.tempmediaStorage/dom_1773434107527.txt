@@ -1,0 +1,35 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (16,44)<a class='mb-8 flex items-center justify-center transition-all hover:scale-110 active:scale-95 group' href='/' />
+[1] (16,118)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/' title='Dashboard' />
+[2] (16,172)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/planner' title='Planner' />
+	[3] (26,154)<div  />
+		[4] (26,156)<img  />
+[5] (16,226)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/focus' title='Focus' />
+[6] (16,323)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/tasks' title='Tasks' />
+[7] (16,377)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/assignments' title='Assignments' />
+[8] (16,431)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/courses' title='Courses' />
+[9] (16,485)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/notes' title='Notes' />
+[10] (16,582)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/timetable' title='Timetable' />
+[11] (16,636)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/meetings' title='Activity Finder' />
+[12] (16,690)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/history' title='History' />
+[13] (16,813)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[14] (16,873)<a class='flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 text-muted/60 hover:bg-surface-hover/80 hover:text-primary' href='/settings' title='Settings' />
+[15] (16,940)<button class='flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-accent to-purple-500 text-white text-[11px] font-black transition-all hover:scale-110 shadow-lg active:scale-95 ring-2 ring-sidebar ring-offset-2 ring-offset-accent/20 scale-110 ring-accent' title='Test'>T />
+T
+Test
+test@example.com
+[16] (92,870)<a class='flex items-center gap-2.5 w-full px-2.5 py-2 text-xs text-secondary font-medium rounded-xl hover:bg-white/5 transition-colors' href='/settings'>Profile & Settings />
+[17] (92,908)<button class='flex items-center gap-2.5 w-full px-2.5 py-2 text-xs text-urgency font-medium rounded-xl hover:bg-urgency/10 transition-colors'>Sign Out />
+Welcome to CraftCanvas
+How would you like to use the app?
+[18] (506,532)<button class='w-full group flex items-start gap-4 p-5 rounded-2xl border border-border bg-base/30 hover:border-accent/50 hover:bg-accent/5 transition-all text-left' />
+	Standard
+	Sync your courses \u0026 assignments from Canvas. Quick and simple setup.
+[19] (506,653)<button class='w-full group flex items-start gap-4 p-5 rounded-2xl border border-border bg-base/30 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all text-left' />
+	Power User
+	Canvas + Craft Docs sync, Telegram notifications, and all integrations.
+
+</current_dom>

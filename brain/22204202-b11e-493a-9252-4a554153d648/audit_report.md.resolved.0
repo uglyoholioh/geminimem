@@ -1,0 +1,28 @@
+# Codebase Audit Report: Academic Life OS
+
+## executive Summary
+The Academic Life OS is a well-structured, self-hosted management system designed for NUS students. It utilizes a modern tech stack (FastAPI, Next.js, SQLModel) and follows a clear "Three-Layer Model" (Web App, Craft, Telegram). The codebase is highly modular and well-documented.
+
+## Backend Audit Findings
+
+### Architecture & Design
+- **Core Framework:** FastAPI is used effectively with asynchronous lifespan management.
+- **Modularity:** High. Routers, services, models, and background jobs are clearly separated.
+- **State Management:** SQLite is the single source of truth, managed via SQLModel (SQLAlchemy + Pydantic).
+- **Concurrency:** Uses `asyncio` for background tasks like the Telegram bot and APScheduler for cron jobs.
+
+### Data Layer
+- **Schema:** Comprehensive schema covering courses, assignments, announcements, tasks, and AI-related data.
+- **Consistency:** Use of foreign keys and unique constraints (e.g., `canvas_id` in `courses` and `assignments`) ensures data integrity.
+
+### Integrations (Preliminary)
+- **Canvas:** Sync worker implemented for syncing assignments and announcements.
+- **Telegram:** Bot framework integrated for quick interactions.
+- **Craft:** Pushes content via API for mobile accessibility.
+
+## Frontend Audit Findings
+- (To be completed)
+
+## Recommendations (Initial)
+- Ensure robust error handling for external API failures (Canvas, Craft, Telegram) to prevent whole-system instability (already mentioned in [CLAUDE.md](file:///Users/oli/Desktop/CraftCanvas/CLAUDE.md)).
+- Monitor SQLite performance as the dataset (announcements, files) grows, though for personal use it should be sufficient.

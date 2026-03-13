@@ -1,0 +1,14 @@
+# Task: Debug Login and Cookie Issues
+
+## Checklist
+- [x] Go to http://localhost:3000/login
+- [x] Log in with test@example.com / password123
+- [ ] Check if "session" cookie is present (Application tab / document.cookie)
+- [ ] Check network request to /api/v1/auth/me for "session" cookie header
+- [ ] Report status of /api/v1/auth/me
+
+## Findings
+- Login POST to `/api/v1/auth/login` returned 200.
+- Redirected to `/setup` and then back to `/login`.
+- `document.cookie` returned no output (possibly HttpOnly).
+- Requests to `http://localhost:8000/api/v1/companion/` failing with 401.

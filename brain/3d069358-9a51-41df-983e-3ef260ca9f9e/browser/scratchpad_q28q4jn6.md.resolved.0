@@ -1,0 +1,8 @@
+# Task Checklist
+- [ ] Go to http://localhost:3000/login
+- [ ] Log in as test@example.com / password123
+- [ ] Wait for dashboard to load
+- [ ] Verify dashboard content loads (companion state, tasks)
+- [ ] Check console for 401 errors
+- [ ] Confirm /api/v1/companion/state network request
+- [ ] Take screenshot of dashboard

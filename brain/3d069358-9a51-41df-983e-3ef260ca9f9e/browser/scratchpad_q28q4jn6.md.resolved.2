@@ -1,0 +1,15 @@
+# Task Checklist
+- [x] Go to http://localhost:3000/login
+- [/] Log in as test@example.com / password123 (Attempted, but received "Invalid email or password.")
+- [ ] Wait for dashboard to load
+- [ ] Verify dashboard content loads (companion state, tasks)
+- [ ] Check console for 401 errors
+- [ ] Confirm /api/v1/companion/state network request
+- [ ] Take screenshot of dashboard
+
+## Observations
+- Attempted login with `test@example.com` / `password123` using JS injection.
+- Received "Invalid email or password." error message on the UI.
+- Attempted registration with `test2@example.com` and `test3@example.com`.
+- Received "Invalid email address." error message on the UI for both new registrations.
+- Suspect frontend validation or registration API issue.

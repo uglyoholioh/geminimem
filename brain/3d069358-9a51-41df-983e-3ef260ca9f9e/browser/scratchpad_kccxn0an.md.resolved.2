@@ -1,0 +1,17 @@
+# Task: Debug Login and Cookie Issues
+
+## Checklist
+- [x] Go to http://localhost:3000/login
+- [x] Log in with test@example.com / password123
+- [x] Check if "session" cookie is present (Application tab / document.cookie)
+- [x] Check network request to /api/v1/auth/me for "session" cookie header
+- [ ] Report status of /api/v1/auth/me
+
+## Findings
+- Login POST to `/api/v1/auth/login` (reqid 48) returned 200.
+- Response set a cookie named `session_token`, NOT `session`.
+- `document.cookie` is empty (cookie is `HttpOnly`).
+- Pre-login request to `/api/v1/auth/me` (reqid 30) included `session_token` and returned 200.
+- Post-login requests to `http://localhost:8000/api/v1/companion/` (reqid 55) failed with 401 because no cookie was sent (cross-origin to port 8000).
+- The app redirected back to `/login` after these failures.
+- Need to verify if `/api/v1/auth/me` is called after login and if it uses `session` or `session_token`.
