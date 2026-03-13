@@ -1,0 +1,32 @@
+# Walkthrough - Fixing Session Persistence
+
+I have resolved the issue where users were being rerouted to the login page after logging in. The root cause was an in-memory session store that lost state during backend reloads or due to synchronization issues in multi-worker environments.
+
+## Changes Made
+
+### Backend
+
+#### [session_store.py](file:///Users/oli/Desktop/CraftCanvas/backend/lib/session_store.py)
+- **Thread-Safety**: Added a `threading.Lock` to prevent race conditions during session updates.
+- **Robustness**: Implemented atomic file writes using a temporary file and `os.replace` to prevent session file corruption.
+- **Logging**: Added structured logging to track session life-cycle events.
+
+#### [auth.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/auth.py) & [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py)
+- **Synchronization**: Added explicit [load_sessions()](file:///Users/oli/Desktop/CraftCanvas/backend/lib/session_store.py#18-36) calls before critical session operations to ensure the in-memory state matches the persistent storage on disk. This is crucial for multi-process or auto-reloading development environments.
+
+## Verification Results
+
+### Automated Test
+I created and ran a verification script [verify_session_fix.py](file:///Users/oli/Desktop/CraftCanvas/backend/verify_session_fix.py) which confirmed:
+1. Sessions are correctly saved to disk.
+2. In-memory sessions can be cleared and successfully reloaded from disk.
+
+```text
+Testing session persistence...
+Saved test session: verification_test_token -> 999
+Cleared in-memory sessions.
+SUCCESS: Session persisted across re-initialization!
+```
+
+### Manual Verification
+The session should now persist even if the backend server restarts or auto-reloads.

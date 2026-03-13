@@ -1,0 +1,12 @@
+# Task: Verify Login Fix
+
+## Checklist
+- [x] Go to http://localhost:3000/login
+- [ ] Log in with test@example.com / password123
+- [ ] Verify redirection to / (Dashboard)
+- [ ] Take screenshot of Dashboard
+- [ ] Verify 500 error is gone
+
+## Findings
+- Login page shows error: `Login session error: name 'load_sessions' is not defined`.
+- This suggests a backend regression or incomplete fix in `session_store.py`.

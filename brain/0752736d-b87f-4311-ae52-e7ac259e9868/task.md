@@ -15,3 +15,9 @@
 - [x] Standardize error response format across backend routers
 - [x] Improve logging for background tasks in `main.py`
 - [x] Add basic validation schemas where missing
+
+## Error Logging & Handling Improvements
+- [x] Refactor `backend/lib/logging_utils.py` for better structured logging
+- [x] Implement global exception handler in `backend/main.py`
+- [x] Standardize `HTTPException` across routers
+- [x] Enhance frontend error feedback in `frontend/lib/api.ts`

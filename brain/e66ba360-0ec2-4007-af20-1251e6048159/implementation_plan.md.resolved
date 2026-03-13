@@ -1,44 +1,37 @@
-# Detailed Procedural Implementation Plan: Trinity Planner
+# Zero-Maintenance Planner: The "Index" Redesign
 
-This document outlines the step-by-step technical implementation of the Trinity Planner. We will proceed procedurally, ensuring each phase is verified before moving to the next.
+A complete UI/UX overhaul to eliminate maintenance burden and focus purely on action.
 
-## Phase 1: Refining 'Capture' (The Inbox)
-**Goal:** Create a high-clarity, distraction-free task management experience.
+## Design Philosophy: "The 60-Second Pass"
+The planner is no longer a "schedule" you manage. It is a **Daily Index** you consume.
+- **Zero Vortex**: No "holding area" for tasks. If it's not today, it's either "Coming Up" or "Behind".
+- **Dynamic Priority**: Content is ranked by time-sensitive relevance.
+- **Micro-Interactions**: Inline "Handle" buttons instead of modals.
 
-1.  **Backend Enhancements**:
-    - Update [Task](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py#9-57) model to include an `is_starred` boolean field.
-    - Create an API endpoint `PATCH /tasks/{id}/star` to toggle the focus state.
-2.  **Frontend: Minimalist Inbox**:
-    - Add a "Focus Toggle" (star icon) to task rows in `/tasks`.
-    - Create a "Zen Mode" toggle for the task list that hides all non-essential metadata (tags, dates, etc.) to show only the title and course code.
-    - Implement a visual indicator for "Today's Limit" (warning if more than 3 items are starred).
+## Proposed Changes
 
-## Phase 2: Building 'Strategy' (The Flow)
-**Goal:** Implement the drag-and-drop handshake between the Inbox and the Schedule.
+### [Frontend] The Daily Index UI
 
-1.  **Backend: Unified Planner API**:
-    - Implement `GET /planner/items` that returns a mix of starred tasks, assignments, and timetable slots (re-implementing the unified schema approach conceptualized earlier).
-2.  **Frontend: The Staging Area**:
-    - Modify `/planner` to include a side drawer ("The Vortex") containing only the user's **Starred** tasks.
-    - Implement `dnd-kit` or equivalent to allow dragging from the drawer into time slots.
-3.  **Frontend: The Zen Timeline**:
-    - Refine the `/planner` vertical timeline to be more sparse.
-    - Add a "Start Focus" button to each scheduled block.
+#### [MODIFY] [PlannerPage.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/page.tsx)
+- **Primary View**: A single, scrollable stream partitioned into the three core questions.
+- **Today's Arc**: A vertical "line of sight" for today's classes and committed tasks.
+- **The Warning Zone**: A red, urgent area for items that require a "decision" (Sweep trigger).
+- **The Horizon**: A small, clean preview of upcoming deadlines.
 
-## Phase 3: Perfecting 'Execution' (The Focus Hub)
-**Goal:** Seamless transition into deep work.
+#### [MODIFY] [EndOfDaySweep.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/planner/EndOfDaySweep.tsx)
+- Enhance card stack with "haptic" feedback (animations).
+- Simplified logic: Only "Done" or "Tomorrow".
 
-1.  **Handshake Logic**:
-    - Update `/planner` to pass the `taskId` or `eventId` to the `/focus` page via query params.
-2.  **Focus Page Refinement**:
-    - Ensure `/focus` can auto-load a task passed via the URL.
-    - Add a "Back to Plan" button that returns the user to the specific time-slot they came from in the Flow view.
+### [Backend] Automation Layer
 
-## Phase 4: Verification & Polish
-- End-to-end testing of the Star → Drag → Focus flow.
-- Visual polish: Glassmorphism, smooth transitions, and typography refinements.
+#### [MODIFY] [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+- Refine auto-completion logic to be more aggressive with different Canvas submission states.
 
----
+## Verification Plan
 
-> [!IMPORTANT]
-> We will start with **Phase 1: Backend Stars** to establish the data foundation.
+### Automated Tests
+- Test time-based filtering to ensure "Behind" items populate correctly as clock strikes midnight.
+
+### Manual Verification
+- Verify the "Index" feels like a single-screen dashboard on mobile.
+- Test the "60-second pass" flow: Open -> Mark Done/Carry -> Close.

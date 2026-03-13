@@ -1,18 +1,26 @@
-# Trinity Planner Implementation Walkthrough
+# Zero-Maintenance Planner: The "Index" Final
 
-## Phase 2: Building Strategy (The Flow)
-- **Vortex Integration**: Tasks and assignments appearing in the planner sidebar for easy scheduling.
-- **Drag-and-Drop Scheduling**: Users can drag items from the Vortex directly into the planner grid.
-- **Assignment Support**: Assignments are now treated as primary scheduleable items in all views (Grid, Linear, Focus, List).
-- **Focus Transition**: "Start Focus" buttons on scheduled items for seamless navigation.
+The Trinity Planner has been completely rebuilt as a high-fidelity **Daily Index**. It follows a "60-second pass" philosophy, providing maximum clarity with zero maintenance burden.
 
-## Phase 3: Execution (The Focus)
-- **URL-Based Loading**: Navigation to `/focus?id=123&type=task` auto-selects the item for focus.
-- **Universal Focus**: Support for both Tasks and Assignments in the focus mode.
-- **Zen Focus Mode**: A distraction-free "bubble" that hides UI clutter (sidebar, task list) with a single click.
+## 1. The Dynamic Index (New Planner)
+We've replaced the cluttered, multi-view calendar with a sleek, minimalist news-feed for your life:
+
+- **The Arc (Today)**: A vertical timeline of your classes and tasks. No tabs, no sorting — just a direct line of sight from the moment you wake up.
+- **Micro-Interactions**: Integrated "Focus" and "Done" buttons directly in the feed. Start work with a single tap.
+- **The Warning Zone**: A high-contrast alert section for overdue items. It forces a decision so your system never gets stale.
+
+## 2. The Daily Sweep (End-of-Day)
+A new, focused card-stack experience at `/planner/sweep`:
+- **Card-Deck UI**: Interactive stack that lets you swipe or click through decisions.
+- **Binary Logic**: Either it's "Done" or it moves to "Tomorrow". No complex date picking.
+- **Flow State**: Designed to clear an entire day's backlog in under 30 seconds.
+
+## 3. Passive Automation
+- **Canvas Persistence**: The system now monitors your Canvas submissions in the background. If you submit on Canvas, the assignment marks itself as done here automatically.
+- **Clean Slate**: The "Vortex" and all legacy grid/list toggles have been removed to eliminate clutter and decision fatigue.
 
 ### Verification Results
-- [x] Grid view rendering correctly with mixed types.
-- [x] /focus page successfully loads items via URL params.
-- [x] Zen Mode toggle hide/shows distractions as intended.
-- [x] Assignment completion updates the correct backend status (`submitted`).
+- [x] **Index Logic**: Items correctly partition into Today, Upcoming, and Overdue without overlap.
+- [x] **Sweep Flow**: Successfully carries forward or completes items in the card-stack UI.
+- [x] **Canvas Sync**: Backend promotion of `user_status` is verified for a "one-way sync" toward completion.
+- [x] **Aesthetics**: Dark-mode optimized with glassmorphism, accent-glow highlights, and silky animations.

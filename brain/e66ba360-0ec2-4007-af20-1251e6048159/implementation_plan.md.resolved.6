@@ -1,0 +1,40 @@
+# Zero-Maintenance Planner Redesign
+
+A complete strategic shift for the Trinity Planner, prioritizing passive utility over manual logging.
+
+## Proposed Changes
+
+### [Frontend] Planner Redesign
+**Goal**: Answer the three core questions with near-zero cognitive load.
+
+#### [MODIFY] [PlannerPage.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/page.tsx)
+- Replace multi-view toggle (Grid/Linear/Focus/List) with a single, unified "Command Index".
+- **Section 1: "Doing Today"**: A focused list of today's schedule, tasks, and assignments.
+- **Section 2: "Coming Up"**: A slim preview of the next 2-3 days of high-priority deadlines.
+- **Section 3: "Fall behind"**: Red-alert items that are overdue.
+- Remove redundant sidebar/Vortex complexity.
+
+#### [NEW] [EndOfDaySweep.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/planner/EndOfDaySweep.tsx)
+- A minimalist "Fast Pass" UI for handling expired tasks.
+- Stack-based cards: Swipe left for "Carry Forward" (automagically moves to tomorrow), Swipe right for "Done".
+- No modals, no date pickers.
+
+### [Backend] Passive Sync & Sweep Logic
+**Goal**: Automate as much as possible.
+
+#### [MODIFY] [canvas_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py)
+- Enhancement: During assignment sync, check for `submission_status` or `is_submitted` via Canvas API.
+- Automatically mark existing app assignments as `submitted` if the API confirms a submission exists.
+
+#### [NEW] [sweep_router.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/sweep.py)
+- Endpoint `POST /sweep/carry-forward`: Bulk update a list of task IDs to the next day's date.
+
+## Verification Plan
+
+### Automated Tests
+- Mock Canvas API responses to test auto-completion logic.
+- Verify `POST /sweep/carry-forward` correctly updates the `scheduled_date`.
+
+### Manual Verification
+- Test the "End-of-Day Sweep" UI with dummy overdue tasks.
+- Verify the "Today/Coming Up/Behind" layout on different screen sizes.

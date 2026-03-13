@@ -1,0 +1,15 @@
+# Task: Verify Login Fix
+
+## Checklist
+- [x] Go to http://localhost:3000/login
+- [ ] Log in with test@example.com / password123
+- [ ] Verify redirection to / (Dashboard)
+- [ ] Take screenshot of Dashboard
+- [ ] Verify 500 error is gone
+
+## Findings
+- Initial login page showed `Login session error: name 'load_sessions' is not defined`.
+- After reload, the NameError disappeared.
+- Attempted login with `test@example.com` / `password123`.
+- Result: "Invalid email or password."
+- This suggests the user might not exist or the password hashing is still broken (though 500 is gone).

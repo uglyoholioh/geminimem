@@ -1,29 +1,39 @@
-# Codebase Simplification and Error Reduction
+# Error Logging and Handling Improvements
 
-This plan aims to simplify the codebase by removing redundancy and consolidating logic. This will reduce the surface area for errors and make the project easier to maintain.
+This plan aims to standardize and enhance the error logging and handling mechanisms across the application to improve observability, debugging, and user feedback.
+
+## User Review Required
+
+> [!IMPORTANT]
+> This plan introduces a global exception handler in the backend, which will ensure all unhandled exceptions are logged with a request ID and returned to the client in a consistent format.
 
 ## Proposed Changes
 
 ### Backend Core
-- [MODIFY] [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py): Consolidate `get_session` and `get_session_sync` into a single, robust generator.
-- [MODIFY] [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py): Refactor `get_current_user` to reduce duplication in auth methods and improve error reporting.
+- [MODIFY] [logging_utils.py](file:///Users/oli/Desktop/CraftCanvas/backend/lib/logging_utils.py):
+    - Add a `log_exception` helper to log exceptions with full traceback and context.
+    - Enhance `JsonFormatter` to include more relevant metadata (e.g., source file, line number).
+- [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py):
+    - Register a global exception handler for `Exception` to catch and log all unhandled errors.
+    - Standardize the response format for unhandled errors.
 
-### Routers & Consolidation
-- [MODIFY] [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py): Reorganize router includes and simplify middleware if possible.
-- [DELETE] [task_sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/task_sync.py): Move task sync endpoints to `sync.py`.
-- [MODIFY] [sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/sync.py): Incorporate Google/Apple task sync endpoints from `task_sync.py`.
+### Backend Routers & Services
+- [MODIFY] [assignments.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/assignments.py), [sync.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/sync.py):
+    - Ensure all `HTTPException` calls provide meaningful detail.
+    - Use `logger.exception()` for internal errors to capture tracebacks.
 
 ### Frontend
-- [MODIFY] [api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts): Standardize error handling and ensure timeouts are handled gracefully.
+- [MODIFY] [api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts):
+    - Improve error parsing to handle cases where the response might not be JSON.
+    - Include the request ID in error messages if available for easier cross-referencing with backend logs.
 
 ## Verification Plan
 
 ### Automated Tests
-- Run existing router tests: `pytest backend/tests/test_routers/`
-- Run existing service tests: `pytest backend/tests/test_services/`
-- Specifically verify auth changes with `pytest backend/tests/test_routers/test_auth.py`
+- Run `pytest backend/tests/test_routers/test_health.py` to ensure health check still works.
+- Create a temporary test route that raises an exception to verify the global handler.
 
 ### Manual Verification
-1. **Login Flow**: Verify that login/session handling still works correctly after `get_current_user` refactor.
-2. **Sync Operations**: Trigger Canvas, Google, and Apple syncs via the UI to ensure consolidation hasn't broken functionality.
-3. **Error Feedback**: Simulate a backend error (e.g., stop the database) and verify that the frontend `api.ts` handles it gracefully with a clear error message.
+1. **Trigger Error**: Manually trigger an error in a router and verify that it's logged to `logs/error.json.log` with a unique request ID.
+2. **Frontend Feedback**: Verify that the frontend displays a user-friendly error message, including the connection error message where applicable.
+3. **Log Audit**: Check `backend.json.log` to confirm that request IDs and user IDs (when available) are being correctly associated with log entries.

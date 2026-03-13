@@ -1,0 +1,26 @@
+# Zero-Maintenance Planner Redesign Walkthrough
+
+The Trinity Planner has been completely reimagined for the user who wants maximum utility with minimum maintenance.
+
+## 1. The Command Index (New Planner)
+We've replaced the multi-view complexity with a single, high-signal page that answers the only three questions that matter:
+
+- **Doing Today**: A unified timeline of your classes, tasks, and assignments. One-click "Focus" button to start work immediately.
+- **Coming Up**: A predictive look at the next 3 days of deadlines.
+- **Falling Behind**: A high-contrast "Red Zone" for overdue tasks that need immediate attention.
+
+## 2. The Daily Sweep UI
+A new dedicated experience at `/planner/sweep` for the end of the day:
+- **Card-Stack Interface**: Rapid-fire decision making.
+- **Zero Typing**: Swipe or click "Tomorrow" to carry forward or "Done" to clear.
+- **Cognitive Ease**: Designed to clear a day's worth of expired items in under 30 seconds.
+
+## 3. Passive Automation
+- **Canvas Auto-Sync**: The backend now checks your submission status directly from Canvas. If you submit an assignment there, it marks itself as done here automatically. No manual logging required.
+- **Bulk Sweep Logic**: New backend `/sweep/carry-forward` endpoint handles task rescheduling in batches to keep the system fast.
+
+### Verification Results
+- [x] Unified index correctly filters today/upcoming/overdue items.
+- [x] Sweep UI successfully processes both tasks and assignments.
+- [x] Canvas sync logic correctly promotes `user_status` to `submitted`.
+- [x] Simplified UI removes all legacy sidebar/Vortex clutter for a 60-second usage goal.

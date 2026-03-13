@@ -1,0 +1,23 @@
+# Task: Codebase Simplification and Error Reduction
+
+## Backend Simplification
+- [x] Consolidate database session functions in [database.py](file:///Users/oli/Desktop/CraftCanvas/backend/database.py)
+- [x] Refactor [get_current_user](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py#29-71) in [dependencies.py](file:///Users/oli/Desktop/CraftCanvas/backend/dependencies.py) to be more robust and less redundant
+- [x] Analyze `routers/` for overlapping functionality and consolidate where possible
+- [x] Review `services/` for duplicate logic, especially in sync services
+
+## Frontend Simplification
+- [x] Review [lib/api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts) for unified error handling and request logic
+- [x] Audit `components/` for duplicate UI patterns and extract common components
+- [x] Check `hooks/` and `lib/` for redundant utility functions
+
+## Reliability Improvements
+- [x] Standardize error response format across backend routers
+- [x] Improve logging for background tasks in [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+- [x] Add basic validation schemas where missing
+
+## Error Logging & Handling Improvements
+- [ ] Refactor [backend/lib/logging_utils.py](file:///Users/oli/Desktop/CraftCanvas/backend/lib/logging_utils.py) for better structured logging
+- [ ] Implement global exception handler in [backend/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py)
+- [ ] Standardize `HTTPException` across routers
+- [ ] Enhance frontend error feedback in [frontend/lib/api.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/api.ts)

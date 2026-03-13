@@ -1,22 +1,19 @@
-# Task: Procedural Implementation of Trinity Planner
+# Task: Zero-Maintenance Planner Redesign
 
-## Phase 1: Capture (The Inbox)
-- [x] Add `is_starred` to Task model and run migration
-- [x] Implement `PATCH /tasks/{id}/star` endpoint
-- [x] Add star toggle functionality to frontend task list
-- [x] Implement "Zen Mode" minimalist view for tasks
+## Phase 1: Foundational Simplification [x]
+- [x] Create Backend `/sweep` endpoints
+- [x] Implement Passive Canvas Auto-completion in `canvas_sync.py`
+- [x] Scaffold new `PlannerPage.tsx` layout
 
-## Phase 2: Strategy (The Flow)
-- [x] Implement unified `PlannerItem` API (aggregated vortex)
-- [x] Create "Vortex" staging area in `/planner`
-- [x] Implement drag-and-drop from staging into timeline
-- [x] Refine timeline UI for lower visual density & add Focus buttons
+## Phase 2: The Three Questions [x]
+- [x] Implement "Doing Today" section (Unified view of classes, tasks, assignments)
+- [x] Implement "Coming Up" section (Deadlines & Events)
+- [x] Implement "Fall Behind" section (Overdue items)
 
-## Phase 3: Execution (Focus)
-- [x] Implement URL-based task/assignment loading in `/focus`
-- [x] Add Zen Mode (distraction-free) to focus view
-- [x] Integrate assignments into unified focus list
+## Phase 3: The End-of-Day Sweep [x]
+- [x] Design and implement `EndOfDaySweep.tsx`
+- [x] Add logic to trigger Sweep in the evening or upon first open of a new day
 
-## Phase 4: Polish
-- [ ] Smooth transitions between Inbox/Flow/Focus
-- [ ] Final visual and accessibility audit
+## Phase 4: Polish & Performance [/]
+- [ ] Ensure mobile-first responsiveness (60-second usage goal)
+- [ ] Remove legacy Planner components/views

@@ -1,0 +1,19 @@
+# Task: Goal-Oriented Planner Redesign
+
+## Phase 1: Foundational Simplification
+- [ ] Create Backend `/sweep` endpoints
+- [ ] Implement Passive Canvas Auto-completion in `canvas_sync.py`
+- [ ] Scaffold new `PlannerPage.tsx` layout
+
+## Phase 2: The Three Questions
+- [ ] Implement "Doing Today" section (Unified view of classes, tasks, assignments)
+- [ ] Implement "Coming Up" section (Deadlines & Events)
+- [ ] Implement "Fall Behind" section (Overdue items)
+
+## Phase 3: The End-of-Day Sweep
+- [ ] Design and implement `EndOfDaySweep.tsx`
+- [ ] Add logic to trigger Sweep in the evening or upon first open of a new day
+
+## Phase 4: Polish & Performance
+- [ ] Ensure mobile-first responsiveness (60-second usage goal)
+- [ ] Remove legacy Planner components/views

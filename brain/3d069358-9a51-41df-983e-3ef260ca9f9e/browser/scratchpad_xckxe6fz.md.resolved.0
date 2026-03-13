@@ -1,0 +1,8 @@
+# Task: Verify Login Fix
+
+## Checklist
+- [ ] Go to http://localhost:3000/login
+- [ ] Log in with test@example.com / password123
+- [ ] Verify redirection to / (Dashboard)
+- [ ] Take screenshot of Dashboard
+- [ ] Verify 500 error is gone

@@ -1,0 +1,17 @@
+# Task: Verify Login Fix
+
+## Checklist
+- [x] Go to http://localhost:3000/login
+- [ ] Log in with test@example.com / password123
+- [ ] Verify redirection to / (Dashboard)
+- [ ] Take screenshot of Dashboard
+- [ ] Verify 500 error is gone
+
+## Findings
+- Initial login page showed `Login session error: name 'load_sessions' is not defined`.
+- After reload, the NameError disappeared.
+- Attempted login with `test@example.com` / `password123`.
+- Result: "Invalid email or password."
+- Attempted registration with the same credentials.
+- Result: "Invalid email address." on the registration form (likely a front-end or back-end validation issue).
+- Redirection to `/` is still not happening.

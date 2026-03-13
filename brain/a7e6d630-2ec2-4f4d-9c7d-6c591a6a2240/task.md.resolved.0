@@ -1,0 +1,8 @@
+# Task: Debugging 401 Unauthorized Error in Planner
+
+## Status
+- [/] Investigate frontend `apiFetch` in `lib/api.ts`
+- [ ] Investigate `fetchPlannerData` in `app/planner/page.tsx`
+- [ ] Check backend authentication logic for `/timetable/week`
+- [ ] Implement fix for missing or expired authentication
+- [ ] Verify fix

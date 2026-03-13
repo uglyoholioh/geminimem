@@ -1,0 +1,19 @@
+# Debugging Login Issue
+
+## Investigation
+- [x] Check backend logs for authentication errors (`latest_server.log`) <!-- id: 0 -->
+- [x] Examine `backend/main.py` and `backend/routers` for auth logic <!-- id: 1 -->
+- [x] Examine `frontend/src/middleware.ts` or similar for client-side redirects <!-- id: 2 -->
+- [x] Verify session/cookie handling <!-- id: 3 -->
+
+## Fix
+- [x] Implement fix based on findings <!-- id: 4 -->
+
+## Verification
+- [x] Test login flow (Initial verification) <!-- id: 5 -->
+
+## Phase 2: Deeper Investigation
+- [ ] Check `backend/uvicorn.log` and `backend/latest_server.log` for recent 401s <!-- id: 6 -->
+- [ ] Verify database user exists and password hashing is consistent <!-- id: 7 -->
+- [ ] Use browser tool to observe network requests during login <!-- id: 8 -->
+- [ ] Check for CORS or domain mismatches in `backend/config.py` <!-- id: 9 -->
