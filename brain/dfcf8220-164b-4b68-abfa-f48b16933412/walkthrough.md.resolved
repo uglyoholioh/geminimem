@@ -6,6 +6,17 @@ I have implemented three new simplistic views for the Study Planner to reduce vi
 
 ### 1. View Switcher UI
 Added a sleek switcher in the Study Planner header that allows toggling between four modes:
+
+````carousel
+![Grid View](/Users/oli/.gemini/antigravity/brain/dfcf8220-164b-4b68-abfa-f48b16933412/planner_grid_view_1773418554368.png)
+<!-- slide -->
+![Linear Flow View](/Users/oli/.gemini/antigravity/brain/dfcf8220-164b-4b68-abfa-f48b16933412/planner_linear_view_1773418568600.png)
+<!-- slide -->
+![Focus Cards View](/Users/oli/.gemini/antigravity/brain/dfcf8220-164b-4b68-abfa-f48b16933412/planner_focus_view_1773418582145.png)
+<!-- slide -->
+![Dynamic List View](/Users/oli/.gemini/antigravity/brain/dfcf8220-164b-4b68-abfa-f48b16933412/planner_list_view_1773418595196.png)
+````
+
 - **Grid**: The original hourly view.
 - **Linear**: A streamlined vertical timeline for the current day.
 - **Focus**: A bento-style layout grouping activities into Morning, Afternoon, and Evening.

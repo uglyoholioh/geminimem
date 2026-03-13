@@ -1,0 +1,42 @@
+# Minimalist 'Zen' Planner Design
+
+This proposal focuses on a **low-friction, high-clarity** system for managing personal and academic life without visual clutter or a steep learning curve.
+
+## The "Zen Timeline" Concept
+
+Instead of a complex calendar grid, we use a single vertical **Daily Flow** timeline.
+
+### 1. Unified Daily Flow
+- **Locked Items**: Classes and deadlines (synced from Canvas/NUSMods) appear as fixed blocks.
+- **Fluid Items**: Personal to-dos are "vessels" that the user can drag-and-drop into open time slots.
+- **Visual hierarchy**: Academic items have subtle borders; personal tasks are clean, solid-colored cards.
+
+### 2. "The Scratchpad" (Quick Capture)
+- A simple, translucent text area at the top of the planner.
+- **Usage**: Type anything here (e.g., "Review CS2103 notes"). 
+- **Action**: Pressing 'Enter' converts it into a "floating task" badge that sits in an "Unscheduled" area, ready to be dragged onto the timeline.
+
+### 3. Minimalist Interactions
+- **One-Click Planning**: Click an empty hour on the timeline to instantly open a small, focused input field.
+- **Micro-Progress**: Hovering over a task shows a simple "Done" checkmark or "Reschedule" icon. No hidden menus.
+- **Visual Breath**: Plenty of whitespace between hours to reduce the feeling of being "overwhelmed" by a packed schedule.
+
+## Suggested Components
+
+### [NEW] `DailyTimeline.tsx`
+A clean vertical list using CSS Grid for time slots.
+- **Minimal Grid**: Only show hour markers (8 AM, 9 AM, etc.).
+- **Smart Snap**: Tasks snap to 15-minute increments when dragged.
+
+### [NEW] `ZenCapture.tsx`
+A single line input that uses basic NLP (e.g., "at 2pm") to auto-position tasks if specified, otherwise keeps them in the "vortex" (inbox).
+
+## Why this works for you:
+- **No Learning Curve**: If you can drag a card, you can use it.
+- **Zero Clutter**: Items only appear when they are relevant. Past events dim out; future events stay clean and simple.
+- **Clean Dev**: Backend remains the same; we simply change the frontend projection to be more focused.
+
+---
+
+> [!TIP]
+> Focus on "High Contrast, Low Density". Use a monochrome palette with a single accent color for "active" items to keep the UI calm.

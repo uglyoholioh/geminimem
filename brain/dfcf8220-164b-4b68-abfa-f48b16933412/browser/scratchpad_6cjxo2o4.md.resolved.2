@@ -1,0 +1,22 @@
+# Task Plan: Verify Study Planner Views
+
+- [x] Log in to `http://localhost:3000/login`
+- [x] Navigate to `http://localhost:3000/planner`
+- [x] Test Grid View
+    - [x] Click Grid view button (default active)
+    - [x] Take screenshot
+    - [x] Verify layout (empty grid)
+- [x] Test Linear View
+    - [x] Click Linear view button
+    - [x] Take screenshot
+    - [x] Verify layout (vertical timeline container)
+- [x] Test Focus View
+    - [x] Click Focus view button
+    - [x] Take screenshot
+    - [x] Verify layout (bento buckets)
+- [x] Test List View
+    - [x] Click List view button
+    - [x] Take screenshot
+    - [x] Verify layout (date picker)
+- [x] Check for console errors (found 500 error for timetable API)
+- [x] Provide final report

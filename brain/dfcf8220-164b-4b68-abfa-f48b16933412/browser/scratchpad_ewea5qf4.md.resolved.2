@@ -1,0 +1,17 @@
+# Task: Verify Study Planner Functionality
+
+## Checklist
+- [x] Navigate to http://localhost:3000/planner (Logged in as oliverkoh96@gmail.com)
+- [x] Verify Grid view shows data (Checked: Empty grid, 500 error on API)
+- [x] Toggle through Linear, Focus, and List views (Checked: All show no data/clear skies)
+- [/] Observe if "Clear Skies" / "Nothing for this day" messages are gone (Still present, likely due to 500 error)
+- [ ] Take final screenshot of Focus or Linear view with data
+- [x] Check for 500 errors in console (Confirmed: 500 error for /api/v1/timetable/week?date=2026-03-09)
+- [ ] Report findings
+
+## Findings
+- Successfully logged in as oliverkoh96@gmail.com.
+- Planner (Grid, Linear, Focus, List) shows NO data for the week of Mar 9-15.
+- Console shows `API error 500: Internal Server Error` for `GET /api/v1/timetable/week?date=2026-03-09`.
+- Dashboard shows classes for Mar 16, but no obvious way to navigate to next week in the current planner UI.
+- "Clear Skies" and "Nothing for this day" messages persist.

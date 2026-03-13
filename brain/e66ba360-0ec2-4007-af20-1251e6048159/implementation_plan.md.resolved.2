@@ -1,0 +1,40 @@
+# Split-Focus 'Zen' Planner Design
+
+This refined proposal introduces **distinct mental modes** to prevent information overload. Instead of one dense screen, we partition the app into two primary views: **Capture** and **Execute**.
+
+## 1. The 'Inbox' View (Capture & Organize)
+*Focus: What do I need to do?*
+
+This is a clean, list-based interface dedicated to managing the backlog.
+- **Minimalist Lists**: Unified cards for Assignments, Tasks, and To-Dos.
+- **Auto-Categorization**: Subtle badges for Course vs. Personal to keep things tidy without clutter.
+- **Focus Mode**: A "Star" or "Flag" system for the top 3 items you want to focus on for the day.
+- **Zero Clutter**: This view **hides** the timeline and class schedule to let you focus purely on the "What".
+
+## 2. The 'Flow' View (Schedule & Execute)
+*Focus: How does my day look?*
+
+Once you know your tasks, switch to the vertical timeline to block out your time.
+- **The Staging Area**: A side-drawer or sidebar containing your "Starred" tasks from the Inbox.
+- **Time-Blocking**: Drag tasks from the drawer onto the open slots between your classes.
+- **Visual Calm**: Only shows the next 4-6 hours by default, with an "Expand" option for the full day.
+
+## 3. The 'Pulse' Switcher
+A simple, high-quality toggle at the bottom or top center (e.g., `[ Inbox | Flow ]`).
+- **Smooth Transitions**: Use subtle opacity fades or slide animations to switch mental modes.
+- **Shared State**: Changes made in Inbox (like marking a task "Done") reflect instantly in Flow, and vice versa.
+
+## Implementation Details
+
+### Views
+- `/planner/inbox`: The distraction-free list view.
+- `/planner/flow`: The vertical schedule view.
+
+### Interactions
+- **Contextual 'Plan' Button**: Hovering a list item in Inbox shows a "Plan This" button that jumps you to the Flow view with that item selected for dragging.
+- **Minimalist UI**: Use a sparse, typography-driven design (Inter or Outfit font) with plenty of padding to maintain the "Zen" feel.
+
+---
+
+> [!IMPORTANT]
+> By separating "Thinking" (Inbox) from "Doing" (Flow), we reduce the cognitive load significantly. You never have to look at your whole list while you are in the middle of a focused work block.

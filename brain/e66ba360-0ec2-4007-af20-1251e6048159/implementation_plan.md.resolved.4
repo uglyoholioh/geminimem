@@ -1,0 +1,36 @@
+# Refined Planner Ecosystem Design
+
+I have analyzed your existing system and refined the proposal to build directly onto your current infrastructure (`/tasks`, `/planner`, and `/focus`) while strictly adhering to your goal of "low clutter" and "no learning curve."
+
+## The "Unified Workflow" (Modes of Work)
+
+Instead of new features, we simply formalize the path from "Empty Mind" to "Work Done" using three existing/refined pages.
+
+### 1. Mode: Capture (Refining `/tasks`)
+*Mental State: "What needs to get done?"*
+- **The Idea**: Use your existing `/tasks` page but introduce a "Priority Inbox" view that defaults to the simplest list possible.
+- **Refinement**: A "Star for Today" button on each task. Starred items are automatically added to the queue for the next mode.
+- **Clutter Reduction**: Hide the Kanban/Calendar visualizations by default in this mode to keep the list clean.
+
+### 2. Mode: Strategy (Refining `/planner`)
+*Mental State: "How does my day fit together?"*
+- **The Idea**: This is your "Scheduling View."
+- **Refinement**: Enhance the existing `/planner` (Grid/Linear) to include a "Staging Area" containing only your **Starred** items from the Capture mode.
+- **Workflow**: You don't see 50 tasks here; you only see the 3-5 you chose. You drag them into the gaps between your existing Canvas classes.
+- **Clutter Reduction**: Limit this view to "Today" or "The next 24 hours" unless the user explicitly expands it.
+
+### 3. Mode: Execution (Leveraging `/focus`)
+*Mental State: "Just this one thing."*
+- **The Idea**: Your current `/focus` page already accomplishes the "Focus Hub" goal perfectly.
+- **Integration**: On the `/planner` view, each scheduled block should have a small "Start Focus" icon that jumps you directly into the `/focus` page with that specific task/class pre-selected.
+- **Workflow**: No setup required. You click a block on your schedule, and you are immediately in your deep-work environment.
+
+## Visual Considerations for Low Clutter
+- **Shared Navigation**: Use a subtle "Mode Indicator" (e.g., `Capture · Schedule · Focus`) at the top of these three pages to help you navigate between them as a single cohesive process.
+- **Contextual Colors**: Use the existing module colors consistently across all three modes so your brain recognizes "CS2103" instantly without reading.
+- **Whitespace First**: Ensure the `/tasks` and `/planner` views maintain high contrast and sparse density to follow your "Zen" request.
+
+---
+
+> [!NOTE]
+> Since Solution 3 (Focus Hub) is already implemented as your `/focus` page, we will focus the "clean design" efforts on perfecting the **handshake** between the Task List (Mode 1) and the Schedule Grid (Mode 2).

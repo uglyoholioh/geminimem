@@ -1,0 +1,22 @@
+# Task: Procedural Implementation of Trinity Planner
+
+## Phase 1: Capture (The Inbox)
+- [ ] Add `is_starred` to Task model and run migration
+- [ ] Implement `PATCH /tasks/{id}/star` endpoint
+- [ ] Add star toggle functionality to frontend task list
+- [ ] Implement "Zen Mode" minimalist view for tasks
+
+## Phase 2: Strategy (The Flow)
+- [ ] Implement unified `PlannerItem` API
+- [ ] Create "Vortex" staging area in `/planner`
+- [ ] Implement drag-and-drop from staging into timeline
+- [ ] Refine timeline UI for lower visual density
+
+## Phase 3: Execution (Focus)
+- [ ] Implement URL-based task loading in `/focus`
+- [ ] Add "Focus" entry points to scheduled planner blocks
+- [ ] Implement "Back to Plan" navigation
+
+## Phase 4: Polish
+- [ ] Smooth transitions between Inbox/Flow/Focus
+- [ ] Final visual and accessibility audit

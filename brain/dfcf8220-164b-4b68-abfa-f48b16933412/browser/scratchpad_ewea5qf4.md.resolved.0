@@ -1,0 +1,10 @@
+# Task: Verify Study Planner Functionality
+
+## Checklist
+- [ ] Navigate to http://localhost:3000/planner (login if needed)
+- [ ] Verify Grid view shows data (slots, classes, etc.)
+- [ ] Toggle through Linear, Focus, and List views
+- [ ] Observe if "Clear Skies" / "Nothing for this day" messages are gone
+- [ ] Take final screenshot of Focus or Linear view with data
+- [ ] Check for 500 errors in console
+- [ ] Report findings

@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Removed Living Planner sidebar and Evening Reflection features. Cleared associated state and logic.",
+  "updatedAt": "2026-03-13T16:22:00.998534Z",
+  "version": "1"
+}

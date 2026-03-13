@@ -1,0 +1,27 @@
+# Walkthrough: Clean Planner Implementation
+
+I have implemented a unified planner architecture that gracefully merges academic data (Canvas assignments, NUSMods timetable) with personal tasks.
+
+## Key Accomplishments
+
+### 1. Unified Schema ([planner.py](file:///Users/oli/Desktop/CraftCanvas/backend/schemas/planner.py))
+Created a [PlannerItem](file:///Users/oli/Desktop/CraftCanvas/backend/schemas/planner.py#12-37) schema that abstracts different event types into a consistent format for the frontend.
+- [planner.py](file:///Users/oli/Desktop/CraftCanvas/backend/schemas/planner.py)
+
+### 2. Aggregation Service ([planner_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/planner_service.py))
+Developed a service that polls multiple data models (Tasks, Assignments, Timetable Slots) and combines them into a single chronological stream.
+- [planner_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/planner_service.py)
+
+### 3. Clean API Router ([planner.py](file:///Users/oli/Desktop/CraftCanvas/backend/schemas/planner.py))
+Exposed a single endpoint `/api/v1/planner/grid` to simplify frontend state management.
+- [planner.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/planner.py)
+
+### 4. Application Integration
+Registered the new planner module in the main entry point.
+- [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py#L86)
+- [main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py#L130)
+
+## How to Test
+1. Restart the backend server.
+2. Query `GET /api/v1/planner/grid?start_date=2026-03-14&end_date=2026-03-21`.
+3. Verify that the response includes a mix of `task` and `assignment` types with unified fields.
