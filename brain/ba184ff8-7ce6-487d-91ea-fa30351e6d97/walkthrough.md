@@ -6,13 +6,13 @@ I have implemented the AI Feedback mechanism to allow users to correct or ignore
 
 ### Backend
 - **[AIFeedback Model](file:///Users/oli/Desktop/CraftCanvas/backend/models/ai_feedback.py)**: A new model to store user feedback (ignore, re-categorize, override) for specific Canvas items.
-- **[API Router](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai_feedback.py)**: Implemented CRUD operations for feedback.
+- **[API Router](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai_feedback.py)**: Implemented CRUD operations and **Re-categorization logic** (converting misidentified assignments into tasks).
 - **Context Filtering**: Updated [context_providers.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_providers.py) to exclude items marked as 'ignore'.
 - **RAG Filtering**: Modified [rag_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py) to exclude chunks from ignored documents during vector search.
 
 ### Frontend
-- **[AIFeedbackModal](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/feedback/AIFeedbackModal.tsx)**: A new dialog for users to provide feedback.
-- **[AIFeedbackButton](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/feedback/AIFeedbackButton.tsx)**: A reusable button to trigger the feedback modal.
+- **[AIFeedbackModal](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/feedback/AIFeedbackModal.tsx)**: Enabled "Re-categorize as Task" with automatic conversion.
+- **[SyncStatusIndicator](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/SyncStatusIndicator.tsx)**: A new sidebar widget showing real-time Canvas sync health and error details.
 - **Integration**: Added the feedback button to **Upcoming Deadlines** and **Announcements Feed** widgets.
 
 ## Verification Results

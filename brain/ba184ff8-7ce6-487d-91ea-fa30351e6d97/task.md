@@ -19,3 +19,18 @@
 - [x] Verification and Polish <!-- id: 22 -->
     - [x] Manual test: Hide an assignment and verify disappearance <!-- id: 23 -->
     - [x] Review implementation with walkthrough <!-- id: 24 -->
+- [x] System Reliability & Intelligence Improvements <!-- id: 25 -->
+    - [x] Fix `courses` table schema (add `syllabus_body`) <!-- id: 26 -->
+    - [x] Complete 'Re-categorize' logic in `AIFeedback` <!-- id: 27 -->
+    - [x] Update `AIFeedbackModal.tsx` for re-categorization <!-- id: 28 -->
+    - [x] Implement `SyncStatusIndicator.tsx` widget <!-- id: 29 -->
+- [x] AI Material Linking Improvements <!-- id: 30 -->
+    - [x] Standardize tool outputs in `ai_tools.py` <!-- id: 31 -->
+    - [x] Update `ContextAssembler` instructions <!-- id: 32 -->
+    - [x] Unify download endpoint in `module_files.py` (added `canvas_id` fallback) <!-- id: 33 -->
+    - [x] Fix "CS2030" vs "CS2030S" hallucination/filtering <!-- id: 34 -->
+    - [x] Standardize all tools to return internal database IDs <!-- id: 35 -->
+- [/] Final Verification & User Walkthrough <!-- id: 36 -->
+    - [ ] Verify specific file search for "GEX1015/GET1029" <!-- id: 37 -->
+    - [x] Unify download endpoint in `module_files.py` <!-- id: 33 -->
+    - [x] Fix "CS2030" vs "CS2030S" hallucination/filtering <!-- id: 34 -->

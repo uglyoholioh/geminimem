@@ -1,63 +1,42 @@
-# PROPOSAL: AI Suggestion Tweaking Mechanism
+# PROPOSAL: System Reliability & Intelligence Improvements
 
-This proposal outlines a system to allow users to correct and fine-tune AI suggestions generated from Canvas data. This addresses the issue of irrelevant content (like materials placeholder assignments) being surfaced as actionable items.
+Following the implementation of the AI Feedback mechanism, I've identified several critical areas for improvement to ensure system stability and enhance AI utility.
 
 ## User Review Required
 
-> [!IMPORTANT]
-> This plan focuses on **design and architecture**. No implementation will be performed in this step.
-
-> [!NOTE]
-> The proposal introduces a persistent "Feedback" layer that sits between the raw database/RAG index and the AI context assembly.
+> [!WARNING]
+> **Database Migration**: The `courses` table is missing the `syllabus_body` column, which is crashing background syncs. I will perform a manual migration (ALTER TABLE) to fix this.
 
 ## Proposed Changes
 
-### [Backend] Data Persistence layer
+### 1. Sync Reliability (Backend)
+- **Database Migration**: Run a SQL script to add `syllabus_body` to the `courses` table.
+- **Error Handling**: Update `canvas_sync.py` to better handle missing tokens and provide actionable error messages in `sync_logs`.
 
-#### [NEW] [ai_feedback.py](file:///Users/oli/Desktop/CraftCanvas/backend/models/ai_feedback.py)
-A new model to store user corrections.
-- `id`: Primary Key
-- `user_id`: Foreign Key to User
-- `source_type`: Literal['assignment', 'announcement', 'file', 'task']
-- `source_id`: The ID of the original object
-- `action`: Literal['ignore', 're-categorize', 'update_metadata']
-- `override_data`: JSON field for manual title/description overrides
-- `reason`: User-provided reason (optional)
+### 2. AI Feedback: Re-categorization (Backend & Frontend)
+- **[MODIFY] [ai_feedback.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai_feedback.py)**: Add logic to handle `re_categorize` action.
+- **Task Conversion**: When an assignment is re-categorized as a task, the system will:
+    1. Create a corresponding `Task` object.
+    2. Add an `AIFeedback` record with `action='ignore'` for the original assignment.
+- **[MODIFY] [AIFeedbackModal.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/feedback/AIFeedbackModal.tsx)**: Enable the "Re-categorize" button and add a target type selector (Task/Event).
 
-### [Backend] Logic Updates
+### 3. Sync Health Indicator (Frontend)
+- **[NEW] SyncStatusIndicator.tsx**: A small component for the Sidebar or Dashboard showing the status of the last Canvas sync.
+- **Integration**: Show a "Warning" icon if the last sync failed, with a tooltip explaining the error (e.g., "API Token Missing").
 
-#### [MODIFY] [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)
-- Update `build_system_prompt` to fetch relevant `AIFeedback` records for the user.
-- Filter out items marked as `ignore`.
-- Apply `override_data` to items before passing them to the AI.
+### 4. AI Material Linking & Hallucination Fixes (Backend)
+- **ID Ambiguity (Backend)**: Update `module_files.py` to handle both database `id` and `canvas_id` in the download path, or standardized on database `id` while ensuring all tools provide it.
+- **Strict Course Filtering (Backend)**: In `ai_tools.py`, if a `course_code` is provided but no course is found, **return an error** instead of falling back to a global search. This prevents "CS2030S" hallucinations from finding "CS2030" materials.
+- **Improved Course Matching**: Use exact matching (case-insensitive) for course codes to avoid prefix confusion.
+- **Tool Output Standardisation**: Audit all tools (`search_module_materials`, `summarize_document`, etc.) to ensure both `course_id` and `file_id` are the internal database IDs, and clearly label them as such for the AI.
+- **System Prompt Reinforcement**: Update `ContextAssembler` to warn the AI about the difference between internal IDs and Canvas IDs.
 
-#### [MODIFY] [rag_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py)
-- Update `query` to accept an `excluded_source_ids` list.
-- In the ChromaDB query, add a filter to exclude chunks belonging to ignored sources.
-
-### [Frontend] UI/UX Components
-
-#### [NEW] AIFeedbackButton.tsx
-A reusable button/dropdown for items in the dashboard widgets.
-
-#### [NEW] AIFeedbackModal.tsx
-A modal that allows users to:
-1.  **Mark as irrelevant**: "Hide this from my dashboard and briefs."
-2.  **Edit details**: "It's an assignment, but the title should be X."
-3.  **Ignore source**: "Stop indexing this specific file."
-
-#### [MODIFY] UpcomingDeadlines.tsx / AnnouncementsFeed.tsx
-- Integrate the `AIFeedbackButton` into each item's list/card view.
-
-## Verification Plan (Conceptual)
+## Verification Plan
 
 ### Automated Tests
-- **Unit Tests**: Verify that `context_assembler` correctly filters out ignored items based on the `ai_feedback` table.
-- **Integration Tests**: Verify that RAG queries do not return chunks from "ignored" files.
+- **Migration Check**: Verify `syllabus_body` exists in SQLite after migration.
+- **Logic Check**: Verify that re-categorizing an assignment creates a task and hides the source.
 
 ### Manual Verification
-1.  User identifies a "fake" assignment in the "Upcoming Deadlines" widget.
-2.  User clicks "..." -> "Mark as irrelevant".
-3.  User refreshes the dashboard (or triggers a new brief generation).
-4.  The "fake" assignment is gone.
-5.  User goes to Settings -> AI Feedback and sees the rule, with an option to "Restore".
+1. Trigger a manual sync from Settings and verify it succeeds without `OperationalError`.
+2. Use the feedback button to re-categorize a "fake" assignment as a "Task" and verify it appears in the Task list.

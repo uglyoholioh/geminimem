@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "Walkthrough of the changes made to the Canvas sync status indicator. It has been moved from the sidebar to the dashboard header and restyled for a more subtle, badge-like look.",
+  "updatedAt": "2026-03-13T14:46:01.096444Z"
+}

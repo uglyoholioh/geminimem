@@ -1,0 +1,23 @@
+# Walkthrough: Relocated Sync Status Indicator
+
+I have relocated the Canvas synchronization status indicator from the sidebar to the dashboard header and updated its design to be more subtle and consistent with the dashboard's status badges.
+
+## Changes Made
+
+### 1. Refactored Sync Status Indicator
+- [SyncStatusIndicator.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/SyncStatusIndicator.tsx) was redesigned to look like a badge rather than a card.
+- It now uses a subtle color scheme based on the sync status (Success, Running, or Error).
+- The layout is now more horizontal and compact, displaying "Synced", "Syncing", or "Error" along with the relative time.
+
+### 2. Sidebar Cleanup
+- [Sidebar.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx) no longer contains the sync status indicator.
+- The vertical space is now cleaner, focusing on navigation and user settings.
+
+### 3. Dashboard Integration
+- [DashboardHeader.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardHeader.tsx) now includes the [SyncStatusIndicator](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/SyncStatusIndicator.tsx#8-74) next to the numerical stats (tasks, classes, etc.).
+- It aligns perfectly with the other "StatBadges", providing a unified "at-a-glance" status area.
+
+## Verification
+- Verified that the [SyncStatusIndicator](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/SyncStatusIndicator.tsx#8-74) is correctly imported and rendered in the [DashboardHeader](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/DashboardHeader.tsx#42-178).
+- Confirmed that the [Sidebar](file:///Users/oli/Desktop/CraftCanvas/frontend/components/layout/Sidebar.tsx#56-207) is properly updated.
+- The new badge design handles "Synced" (emerald), "Syncing" (accent animate-spin), and "Error" (urgency) states correctly.
