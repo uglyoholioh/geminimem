@@ -1,5 +1,6 @@
 {
   "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary": "Walkthrough of the AI Feedback Mechanism implementation, covering backend storage, API, and frontend UI integration.",
-  "updatedAt": "2026-03-13T09:01:43.584633Z"
+  "summary": "Walkthrough of the Phase 1 AI Tooling expansion and material link fixes. Covers strict course matching, atomic file verification, and unified download endpoints.",
+  "updatedAt": "2026-03-13T15:03:06.272052Z",
+  "version": "2"
 }

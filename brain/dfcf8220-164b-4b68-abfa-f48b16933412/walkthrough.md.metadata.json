@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "Walkthrough of the new multiple planner views feature. Users can now switch between Grid, Linear Flow, Focus Cards, and Dynamic List views in the Study Planner. Features include persistent view state in localStorage and optimized layout for each view.",
+  "updatedAt": "2026-03-13T15:11:59.548Z"
+}

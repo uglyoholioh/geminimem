@@ -1,0 +1,12 @@
+# Task: Implement Multiple Planner Views
+
+- [x] Research current study planner implementation
+- [x] Brainstorm simplified planner models
+- [x] Propose simplified models to user
+- [/] Plan implementation of "A, B, and C" as switchable options
+- [x] Create implementation plan for multiple views
+- [x] Implement View Switcher UI
+- [x] Implement "Linear Flow" view (Option A)
+- [x] Implement "Focus Cards" view (Option B)
+- [x] Implement "Dynamic List" view (Option C)
+- [x] Integrate with existing data and triage

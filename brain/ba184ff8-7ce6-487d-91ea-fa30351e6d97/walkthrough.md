@@ -1,35 +1,28 @@
-# AI Feedback Mechanism - Walkthrough
+# Walkthrough: AI Precision & Material Linking Fixes
 
-I have implemented the AI Feedback mechanism to allow users to correct or ignore AI suggestions on the dashboard. This ensures that misidentified Canvas content (e.g., materials listed as assignments) can be filtered out from future AI-generated contexts.
+I have implemented a series of backend improvements to ensure the AI correctly identifies, links, and navigates your course materials.
 
-## Key Changes
+## Key Improvements
 
-### Backend
-- **[AIFeedback Model](file:///Users/oli/Desktop/CraftCanvas/backend/models/ai_feedback.py)**: A new model to store user feedback (ignore, re-categorize, override) for specific Canvas items.
-- **[API Router](file:///Users/oli/Desktop/CraftCanvas/backend/routers/ai_feedback.py)**: Implemented CRUD operations and **Re-categorization logic** (converting misidentified assignments into tasks).
-- **Context Filtering**: Updated [context_providers.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_providers.py) to exclude items marked as 'ignore'.
-- **RAG Filtering**: Modified [rag_service.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/rag_service.py) to exclude chunks from ignored documents during vector search.
+### 1. Atomic Knowledge Exploration (Phase 1)
+New specialized tools allow the AI to move beyond "fuzzy" RAG search:
+- **`list_course_folders`**: The AI can now browse the actual Canvas folder structure, preventing it from guessing where a file is.
+- **`verify_file_exists`**: A quick check tool to confirm local or remote availability before referencing a file.
+- **`get_file_metadata`**: Precise retrieval of file sizes, types, and modified dates.
 
-### Frontend
-- **[AIFeedbackModal](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/feedback/AIFeedbackModal.tsx)**: Enabled "Re-categorize as Task" with automatic conversion.
-- **[SyncStatusIndicator](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/SyncStatusIndicator.tsx)**: A new sidebar widget showing real-time Canvas sync health and error details.
-- **Integration**: Added the feedback button to **Upcoming Deadlines** and **Announcements Feed** widgets.
+### 2. Strict Course Matching & Hallucination Prevention
+- **Exact Filtering**: The AI is now explicitly instructed to distinguish between similar courses (e.g., `CS2030` vs `CS2030S`).
+- **Error Fallback**: If the AI attempts to search a non-existent course code, the system now returns a hard error instead of falling back to a global search, preventing cross-course "leaks."
+- **Fuzzy Keyword Search**: Updated the internal file locator to use a multi-word "AND" logic, making it much more resilient to minor naming variations (e.g., finding "Week 8 ... .pdf" even if the user query is slightly different).
 
-## Verification Results
+### 3. Link Reliability & Unified Downloads
+- **Standardized IDs**: All tools now explicitly return `internal_database_id` and `canvas_external_id`. The system instructs the AI to use the internal ID for all generated links.
+- **Redirection Logic**: The `/download` endpoint now handles both manual and Canvas synced files. If a file isn't found on the local server, it automatically redirects you to the live Canvas URL.
 
-### End-to-End Flow
-1. **Identify**: User sees an irrelevant item in the "Upcoming Deadlines" widget.
-2. **Action**: User clicks the "Message" icon on the item.
-3. **Feedback**: The `AIFeedbackModal` opens, allowing the user to select "Ignore & Hide" and provide an optional reason.
-4. **Persistence**: The feedback is saved to the database.
-5. **Effect**: The item immediately disappears from the widget (local state update) and will be excluded from all future AI contexts (Briefs, RAG queries, Chat context).
+## How to Test
+1. **Browse Hierarchy**: Ask "What are the folders in [Course Code]?".
+2. **Specific Search**: Ask for a specific file by a partial name (e.g., the "Week 8" PDF for GEX1015).
+3. **Download**: Click the generated link to verify it either downloads locally or redirects to Canvas.
 
-## Screenshots / Evidence
-
-*(Conceptual screenshots based on implementation)*
-
-- **Feedback Interface**: Visible on hover in widgets.
-- **Modal**: Simple, high-contrast dialog with clear action options.
-
-> [!TIP]
-> This system is designed to be extensible. Future updates can enable the "Re-categorize" feature to help the AI learn from user corrections more directly.
+---
+Phase 1 of the Tooling Expansion is now fully operational.

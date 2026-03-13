@@ -1,0 +1,48 @@
+# Simplistic Study Planner Proposals
+
+The current triage system is powerful but offers many choices (Today, Tomorrow, Weekend, Auto, Snooze, Priority). For a more "simplistic" experience, we can reduce the decision surface and focus on momentum.
+
+Here are four proposed systems:
+
+---
+
+## 1. The "Now vs. Later" Binary
+**Concept**: Replaces the multi-date triage with a single binary choice. Focuses purely on the immediate 24-hour window.
+
+- **Triage Action**: Every item in your inbox is marked as either **"Now"** (Today) or **"Later"** (Backlog).
+- **Simplification**: No scheduling for "Tomorrow" or "Weekend" during the triage phase. Decisions are fast and binary.
+- **Workflow**: Your dashboard only shows the "Now" list. Once the "Now" list is empty, you can "Refill" from the "Later" stack.
+
+## 2. The "Energy Triage"
+**Concept**: Instead of scheduling by *time*, you categorize by the *effort* required.
+
+- **Triage Action**: Sort tasks into **"Quick Hits"** (<15 mins), **"Deep Work"** (Focus needed), or **"Admin"** (Email/Canvas).
+- **Simplification**: Removes the "When" stress.
+- **Workflow**: The planner asks: "How much energy do you have right now?" 
+  - Choosing "Low Energy" shows your Quick Hits. 
+  - Choosing "High Energy" unlocks your Deep Work tasks.
+
+## 3. The "Power of Three" (Ivy Lee)
+**Concept**: Extreme constraint to prevent overwhelm.
+
+- **Triage Action**: From your inbox, you must select exactly **3 items** for today. All other items are hidden until tomorrow or until those 3 are done.
+- **Simplification**: You don't manage a list; you manage 3 cards.
+- **Workflow**: If you finish your 3, you can "Pull" 3 more. If not, the remaining stay on your "active" list for tomorrow morning's review.
+
+## 4. The "Fluid Swipe"
+**Concept**: A Tinder-like interaction for your to-do list, focusing on one task at a time.
+
+- **Triage Action**: Swipe Right (Commit to Today), Swipe Left (Snooze to Backlog), Swipe Up (Mark Complete/Done - for those quick things you did but didn't track).
+- **Simplification**: You never see a "List View" during triage. You only see one task card. It removes the anxiety of seeing 20 items at once.
+- **Workflow**: A "Daily Reset" where you swipe through your newly synced Canvas items and any rollover tasks.
+
+---
+
+### Comparison Matrix
+
+| System | Focus | Best For... |
+| :--- | :--- | :--- |
+| **Now/Later** | Execution | People who over-schedule their calendars. |
+| **Energy** | Flow State | People whose motivation fluctuates throughout the day. |
+| **Power of Three** | Focus | People who get overwhelmed by large lists. |
+| **Fluid Swipe** | Speed | People who want to clear their inbox in <30 seconds. |

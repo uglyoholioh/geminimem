@@ -26,15 +26,15 @@
     - [x] Implement [SyncStatusIndicator.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/components/dashboard/SyncStatusIndicator.tsx) widget <!-- id: 29 -->
 - [x] AI Material Linking Improvements <!-- id: 30 -->
     - [x] Standardize tool outputs in [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py) <!-- id: 31 -->
-    - [x] Update [ContextAssembler](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py#9-141) instructions <!-- id: 32 -->
+    - [x] Update [ContextAssembler](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py#9-138) instructions <!-- id: 32 -->
     - [x] Unify download endpoint in [module_files.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/module_files.py) (added `canvas_id` fallback) <!-- id: 33 -->
     - [x] Fix "CS2030" vs "CS2030S" hallucination/filtering <!-- id: 34 -->
     - [x] Standardize all tools to return internal database IDs <!-- id: 35 -->
 - [x] Final Verification & User Walkthrough <!-- id: 36 -->
-- [x] AI Tooling Expansion: Phase 1 <!-- id: 39 -->
-    - [x] Implement [list_course_folders](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#563-593) <!-- id: 40 -->
-    - [x] Implement [get_file_metadata](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#595-627) <!-- id: 41 -->
-    - [x] Implement [verify_file_exists](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#629-652) <!-- id: 42 -->
-    - [x] Update [ContextAssembler](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py#9-141) instructions <!-- id: 43 -->
+- [ ] AI Tooling Expansion: Phase 1 <!-- id: 39 -->
+    - [/] Implement `list_course_folders` <!-- id: 40 -->
+    - [ ] Implement `get_file_metadata` <!-- id: 41 -->
+    - [ ] Implement `verify_file_exists` <!-- id: 42 -->
+    - [ ] Update [ContextAssembler](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py#9-138) instructions <!-- id: 43 -->
     - [x] Unify download endpoint in [module_files.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/module_files.py) <!-- id: 33 -->
     - [x] Fix "CS2030" vs "CS2030S" hallucination/filtering <!-- id: 34 -->

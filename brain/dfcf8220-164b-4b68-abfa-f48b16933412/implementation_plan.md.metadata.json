@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Implementation plan for adding three switchable simplified views to the study planner: Linear Flow, Focus Cards, and Dynamic List. Includes state management using localStorage and new UI components.",
+  "updatedAt": "2026-03-13T15:10:19.445314Z"
+}

@@ -30,7 +30,11 @@
     - [x] Unify download endpoint in `module_files.py` (added `canvas_id` fallback) <!-- id: 33 -->
     - [x] Fix "CS2030" vs "CS2030S" hallucination/filtering <!-- id: 34 -->
     - [x] Standardize all tools to return internal database IDs <!-- id: 35 -->
-- [/] Final Verification & User Walkthrough <!-- id: 36 -->
-    - [ ] Verify specific file search for "GEX1015/GET1029" <!-- id: 37 -->
+- [x] Final Verification & User Walkthrough <!-- id: 36 -->
+- [x] AI Tooling Expansion: Phase 1 <!-- id: 39 -->
+    - [x] Implement `list_course_folders` <!-- id: 40 -->
+    - [x] Implement `get_file_metadata` <!-- id: 41 -->
+    - [x] Implement `verify_file_exists` <!-- id: 42 -->
+    - [x] Update `ContextAssembler` instructions <!-- id: 43 -->
     - [x] Unify download endpoint in `module_files.py` <!-- id: 33 -->
     - [x] Fix "CS2030" vs "CS2030S" hallucination/filtering <!-- id: 34 -->

@@ -25,11 +25,17 @@ Following the implementation of the AI Feedback mechanism, I've identified sever
 - **Integration**: Show a "Warning" icon if the last sync failed, with a tooltip explaining the error (e.g., "API Token Missing").
 
 ### 4. AI Material Linking & Hallucination Fixes (Backend)
-- **ID Ambiguity (Backend)**: Update `module_files.py` to handle both database `id` and `canvas_id` in the download path, or standardized on database `id` while ensuring all tools provide it.
-- **Strict Course Filtering (Backend)**: In `ai_tools.py`, if a `course_code` is provided but no course is found, **return an error** instead of falling back to a global search. This prevents "CS2030S" hallucinations from finding "CS2030" materials.
-- **Improved Course Matching**: Use exact matching (case-insensitive) for course codes to avoid prefix confusion.
-- **Tool Output Standardisation**: Audit all tools (`search_module_materials`, `summarize_document`, etc.) to ensure both `course_id` and `file_id` are the internal database IDs, and clearly label them as such for the AI.
-- **System Prompt Reinforcement**: Update `ContextAssembler` to warn the AI about the difference between internal IDs and Canvas IDs.
+- [COMPLETE] ID Ambiguity (Backend)
+- [COMPLETE] Strict Course Filtering (Backend)
+- [COMPLETE] Improved Course Matching
+- [COMPLETE] Tool Output Standardisation
+
+### 5. AI Tooling Expansion: Phase 1 (Backend) [NEW]
+- **[MODIFY] [ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py)**: Implement Phase 1 specialized tools.
+    - **`list_course_folders`**: Query `CanvasFile.folder_path` to show the real hierarchy.
+    - **`get_file_metadata`**: Return exact size, type, and modified date for a specific file ID.
+    - **`verify_file_exists`**: Lightweight check for local vs remote availability.
+- **[MODIFY] [context_assembler.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/context_assembler.py)**: Add descriptions for new Phase 1 tools to the system prompt.
 
 ## Verification Plan
 
