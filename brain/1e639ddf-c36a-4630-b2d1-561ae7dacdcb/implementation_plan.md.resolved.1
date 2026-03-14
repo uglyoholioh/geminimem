@@ -1,0 +1,46 @@
+# Redesigned Video Compacter: Semantic Extraction
+
+This plan scraps the previous formatting-only approach in favor of an integrated "Compacter" extraction strategy. This strategy optimizes the extraction process itself to produce a high-density AI context buffer.
+
+## Architecture
+
+We will implement a new `CompacterExtractor` that identifies "Information Events" rather than fixed time segments.
+
+### [NEW] [compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py)
+A new extractor class that:
+1. **Initial Transcription**: Transcribes the entire video first.
+2. **Semantic Clustering**: Groups transcript segments into topical clusters using temporal proximity and keyword analysis.
+3. **Visual Deduplication**:
+   - Extracts frames at the start of each semantic cluster.
+   - Uses a string similarity check (e.g., Levenshtein) on OCR results to skip "duplicate" slides.
+4. **Digest Synthesis**:
+   - Removes common speech fillers (um, ah, like, you know).
+   - Generates a "Compressed Context Block" formatted for LLM prompts.
+
+## Proposed Changes
+
+### [extractors] [compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py)
+#### [NEW] [compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py)
+- Implement `CompacterExtractor` inheriting from [BaseExtractor](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/base.py#20-299).
+- Add `clean_transcript(text)` helper.
+- Add `is_significant_visual_change(ocr_a, ocr_b)` helper.
+
+### [processing] [worker.py](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/worker.py)
+#### [MODIFY] [worker.py](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/worker.py)
+- Register the `compacter` method in [get_extractor](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/worker.py#159-195).
+
+### [services] [output_formatter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py)
+#### [MODIFY] [output_formatter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py)
+- REMOVE the previous [format_compacted](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py#96-135) method (it will be replaced by the extractor's output).
+- Add support for the new `compacter` result format.
+
+## Verification Plan
+
+### Automated Tests
+- Unit test `CompacterExtractor.clean_transcript` with sample messy dialogue.
+- Unit test `CompacterExtractor._is_visual_delta` with similar and different OCR strings.
+
+### Manual Verification
+1. Run the new `compacter` extraction on a sample video.
+2. Compare the resulting context block to a traditional segment-based output.
+3. Verify token efficiency (subjective eye-test for density).

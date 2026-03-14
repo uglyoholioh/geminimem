@@ -1,0 +1,29 @@
+# Walkthrough: Bug Fixes and Performance Polishing
+
+I have addressed the key errors identified in the system audit.
+
+## Changes Made
+
+### 1. Authentication Stability
+- Fixed a critical bug where passwords exceeding 72 *bytes* (e.g., using multi-byte characters like emojis or long strings) caused registration and login to crash due to `bcrypt` constraints.
+- Standardized password validation across registration, login, profile updates, and password resets.
+
+### 2. Canvas Sync & Database
+- Added the missing `canvas_web_url` column to the `canvas_files` table to prevent sync crashes.
+- Fixed an attribute error in [Announcement](file:///Users/oli/Desktop/CraftCanvas/backend/models/announcement.py#9-34) where `course_code` was missing during AI brief generation.
+- Corrected the [sync_all](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#766-903) function signature in the scheduler to prevent recurring background task failures.
+
+### 3. UI & Visuals
+- Restored the missing 'Architect' companion icon in the frontend.
+- Verified and fixed setup endpoint routing to ensure smooth onboarding.
+
+## Proof of Work
+
+### Premium Icon Restored
+I generated and implemented a new premium 'Architect' icon for the companion interface:
+![Architect Companion Icon](file:///Users/oli/.gemini/antigravity/brain/0843cbf8-33ef-48dd-9aa8-4ac686bd0ec6/architect_companion_icon_1773473065730.png)
+
+### Automated Verification
+I ran a series of manual check commands to verify database schema updates and model integrity.
+- `sqlite3` verified the presence of the `canvas_web_url` column.
+- Backend logs show the scheduler successfully starting with the corrected [sync_all](file:///Users/oli/Desktop/CraftCanvas/backend/services/canvas_sync.py#766-903) signature.

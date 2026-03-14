@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Implementation plan to fix multiple errors across the Academic Life OS backend and frontend, including authentication bugs, model attribute mismatches, and missing assets.",
+  "updatedAt": "2026-03-14T07:24:11.815966Z"
+}

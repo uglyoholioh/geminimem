@@ -1,8 +1,13 @@
 # Task: Check for newly introduced errors
 
-- [/] Survey project structure and identify log locations
-- [ ] Check frontend build/dev logs
-- [ ] Check backend server logs
-- [ ] Verify browser environment for runtime errors
-- [ ] Investigate recent file changes for potential issues
-- [ ] Summary of findings
+- [x] Survey project structure and identify log locations
+- [x] Check frontend build/dev logs
+- [x] Check backend server logs
+- [x] Verify browser environment for runtime errors
+- [x] Investigate recent file changes and log entries for potential issues
+- [x] Summary of findings and Fix Plan
+    - [x] Investigation 1: Bcrypt password length constraint in `auth.py`
+    - [x] Investigation 2: Missing setup endpoints (404)
+    - [x] Investigation 3: 'Announcement' object 'course_code' missing
+    - [x] Investigation 4: Database schema mismatch (canvas_files.canvas_web_url)
+    - [x] Investigation 5: missing/misnamed architect.png asset

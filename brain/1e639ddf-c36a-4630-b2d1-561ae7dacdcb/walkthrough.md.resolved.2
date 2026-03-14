@@ -1,0 +1,34 @@
+# Walkthrough: Synchronized Video Context
+
+I have finalized the video compacter with a new **Synchronized Context** mode. This mode ensures that the video visuals (slides) and the transcript are perfectly aligned and presented in a way that AI can easily understand without losing the connection between what is being said and what is being shown.
+
+## Final Improvements
+
+### 1. Visual Anchoring
+The compacter now identifies "Visual Anchors" (major slide/visual changes). Every transcript segment is then "anchored" to the specific visual that was on screen when the words were spoken.
+
+### 2. Unified Context Structure
+Instead of separate sections for visuals and text, the output is now structured by **Visual Events**:
+- **Headers**: Clearly mark transitions with `[SLIDE: <Topic>]`.
+- **Nesting**: The dialogue that occurs while a slide is visible is grouped directly under that slide's header.
+- **Visual Summaries**: A concise summary of the visual context is provided immediately after the header, preceding the transcript.
+
+### 3. AI-Optimized Format
+The result is a hierarchical Markdown document that mimics how a human would take notes on a slide deck, making it extremely easy for AI to answer questions like "What was the speaker saying when they showed the math formula on slide 2?".
+
+## Verification Proof
+
+I've verified the system with a synchronization test:
+- ✅ **Dynamic Mapping**: Confirmed that transcript segments from different time ranges are correctly assigned to their respective visual anchors.
+- ✅ **Header Formatting**: Verified that the new `[SLIDE: ...]` headers are correctly generated and include OCR-derived titles.
+- ✅ **Context Continuity**: Confirmed that clean transcripts flow seamlessly under their visual anchors.
+
+## Example Output Structure
+```markdown
+## 0:01:24 - 0:02:45 [SLIDE: Introduction to Derivatives]
+> **Visual Summary:** Slide showing the definition of a derivative as a limit.
+
+The speaker explains the fundamental idea of the rate of change and how it relates to the tangent line on a graph.
+```
+
+This ensures zero confusion for the AI regarding which part of the lecture refers to which visual.

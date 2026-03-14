@@ -1,0 +1,35 @@
+# Synchronized Video Context: Visual Anchoring
+
+This plan enhances the [CompacterExtractor](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py#13-180) with a mode that anchors transcript segments to their corresponding visual slides, creating a unified context that is easier for AI to digest without confusion.
+
+## Proposed Changes
+
+### [extractors] [compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py)
+
+#### [MODIFY] [compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py)
+- Update `CompacterExtractor.extract` to support a `visual_anchoring` mode.
+- Change the extraction loop to:
+  1. Identify "Visual Landmarks" (major slide changes) via OCR/Scene detection.
+  2. Map every transcript segment to the *most relevant* visual landmark.
+  3. Structure the output as:
+     ```markdown
+     ## [SLIDE: <Title/OCR Snippet>]
+     - [0:00-1:20] Transcript talking about this specific slide.
+     - [1:20-2:15] Further explanation of the same slide.
+     ```
+- Enhance [_is_visual_delta](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py#150-159) to be more robust in identifying slide transitions.
+
+### [services] [output_formatter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py)
+
+#### [MODIFY] [output_formatter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py)
+- Update [format_markdown](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py#29-95) to support the "Anchored" structure if the extractor provides it.
+
+## Verification Plan
+
+### Automated Tests
+- Test the "mapping" logic: ensure transcript segments from 1:00-2:00 are correctly assigned to the slide identified at 0:55.
+- Verify the output string contains the new anchored headers.
+
+### Manual Verification
+1. Run a test extraction on a video with clear slide changes.
+2. Verify that the transcript flows naturally under the correct slide headers.

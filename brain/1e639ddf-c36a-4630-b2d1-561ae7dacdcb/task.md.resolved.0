@@ -1,0 +1,15 @@
+# Tasks
+
+- [ ] Research existing implementation <!-- id: 0 -->
+    - [ ] Explore `src/extractors` <!-- id: 1 -->
+    - [ ] Explore `src/processing` <!-- id: 2 -->
+    - [ ] Understand current output format <!-- id: 3 -->
+- [ ] Design "Compacter" feature <!-- id: 4 -->
+    - [ ] Define the "compacted" format for AI context <!-- id: 5 -->
+    - [ ] Plan integration with existing extractors <!-- id: 6 -->
+- [ ] Implement "Compacter" logic <!-- id: 7 -->
+    - [ ] Create/Modify extractors to support compaction <!-- id: 8 -->
+    - [ ] Add a "Compacted Context" output generator <!-- id: 9 -->
+- [ ] Verify implementation <!-- id: 10 -->
+    - [ ] Test with a sample video <!-- id: 11 -->
+    - [ ] Verify AI-readiness of the output <!-- id: 12 -->

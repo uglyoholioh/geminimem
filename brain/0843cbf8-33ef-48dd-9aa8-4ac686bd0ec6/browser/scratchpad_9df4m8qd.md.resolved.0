@@ -1,0 +1,10 @@
+# Task: Check for errors on http://localhost:3000/setup
+
+## Plan
+- [ ] Navigate to http://localhost:3000/setup
+- [ ] Capture console logs (errors and warnings)
+- [ ] Read the page content and take a screenshot
+- [ ] Summarize and report findings
+
+## Findings
+- 

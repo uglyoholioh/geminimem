@@ -1,0 +1,30 @@
+# Walkthrough: The New Semantic Video Compacter
+
+As requested, I have scrapped the old formatting-based approach and implemented an entirely new, integrated **Semantic Compacter**. This new system achieves "Claude-like" compaction by optimizing the data extraction process itself.
+
+## Key Features of the New Approach
+
+### 1. Semantic Checkpointing & Clustering
+The system no longer uses fixed time slices. It analyzes the transcript in real-time to group segments into topical clusters (contextual events). This keeps related ideas together in the context window.
+
+### 2. Intelligent Visual Deduplication
+The compacter uses OCR to compare the text content of frames. It only Includes a "checkpoint" visual if the content has changed significantly (e.g., a new slide or new blackboard formula). If the speaker stays on the same slide for 5 minutes, only one visual entry is kept, saving significant context space.
+
+### 3. Automated Transcript Cleaning
+To maximize "information density," the compacter automatically strips common speech fillers ([um](file:///Users/oli/Desktop/lectvideoanalyser/src/services/video_processor.py#573-630), `ah`, `basically`, `you know`, etc.) and cleans up punctuation. What remains is a lean, AI-ready stream of knowledge.
+
+## Technical Implementation
+
+- **New Extractor**: [src/extractors/compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py) contains the core logic for clustering and deduplication.
+- **Worker Integration**: [src/processing/worker.py](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/worker.py) now recognizes [compacter](file:///tmp/verify_compacter_v2.py#13-58) as a first-class extraction method.
+- **Clean Output**: The result is a unified Context Buffer that presents information in a lean, hierarchical format.
+
+## Verification Results
+
+I've verified the core logic with a custom test suite:
+- ✅ **Transcript Cleaning**: Confirmed fillers are stripped without leaving stray punctuation.
+- ✅ **Visual Delta**: Confirmed OCR comparison correctly identifies new vs. duplicate slides.
+- ✅ **Clustering**: Verified that segments are intelligently grouped based on temporal and semantic proximity.
+
+## How to Use
+When sending a video to the bot, you can now select the [compacter](file:///tmp/verify_compacter_v2.py#13-58) approach (or it can be set as default in [config/bot_config.yaml](file:///Users/oli/Desktop/lectvideoanalyser/config/bot_config.yaml)). The output will be a highly efficient Markdown file perfect for feeding into any LLM.

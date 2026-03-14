@@ -1,0 +1,43 @@
+# Walkthrough: Compacted Video Context for AI
+
+I have implemented a new "Compacted Context" output format that allows you to "compress" lecture videos into a high-density Markdown format. This format is optimized for AI context windows, ensuring that both visual information and transcripts are preserved in a concise manner.
+
+## Changes Made
+
+### Output Formatter
+Updated [src/services/output_formatter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py) to include:
+- [format_compacted](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py#96-135): A new method that generates a dense Markdown string.
+- Updated [save_outputs](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py#136-186): Now automatically saves a `.compact.md` file alongside the standard JSON and Markdown outputs.
+
+## Format Overview
+
+The compacted format uses a dense structure:
+- **Header**: Contains the lecture title, job ID, and extraction method.
+- **Topics**: Lists detected topics for quick context.
+- **Segments**:
+  - Timestamps in `[START-END]` format.
+  - Visual summaries integrated into the header.
+  - Full transcripts for the segment.
+  - OCR text (if it provides additional info beyond the visual summary) as blockquotes.
+
+## Verification Results
+
+I verified the implementation using a test script with mock video processing data.
+
+### Test Output Preview
+
+```markdown
+# COMPACTED CONTEXT: lecture_video.mp4
+## ID: test_job_123 | METHOD: multimodal
+## TOPICS: Mathematics, Calculus
+## CONTENT
+### [0:00:00-0:00:20] | VISUALS: Slide showing 'Welcome to Calculus 101'
+Hello everyone, today we will start with the basics of derivatives.
+```
+
+The verification script confirmed:
+- ✅ Correct generation of the compacted Markdown string.
+- ✅ Correct saving of the `.compact.md` file in the output directory.
+- ✅ Inclusion of transcripts, visual summaries, and OCR data.
+
+You can now use these `.compact.md` files as a highly efficient way to provide lecture context to AI!

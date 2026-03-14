@@ -1,0 +1,33 @@
+# Add Compacted Context Output Format
+
+This plan describes how to add a "Compacted Context" output format to the Lecture Video Analyser. This format is designed to be highly dense and optimized for AI context windows, keeping both visuals (via summaries/OCR) and transcripts.
+
+## Proposed Changes
+
+### [service] [output_formatter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py)
+
+#### [MODIFY] [output_formatter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py)
+- Add `format_compacted(self, result: ProcessingResult) -> str` method.
+- This method will generate a high-density Markdown representation of the video content.
+- Update [save_outputs](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py#96-138) to include the compacted format if requested or by default.
+
+### [processing] [worker.py](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/worker.py)
+
+#### [MODIFY] [worker.py](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/worker.py)
+- Ensure the [save_outputs](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py#96-138) call remains correct and potentially handles the new file path if returned.
+
+### [processing] [models.py](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/models.py)
+
+#### [MODIFY] [models.py](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/models.py)
+- (Optional) Update [ExtractionApproach](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/models.py#33-41) or [JobStatus](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/models.py#9-31) if needed, but likely not necessary if we just add it to the default output.
+
+## Verification Plan
+
+### Automated Tests
+- Create a unit test for `OutputFormatter.format_compacted` using mock [ProcessingResult](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/models.py#126-147) data.
+- Run `pytest tests/test_output_formatter.py` (if it exists, or create a new one).
+
+### Manual Verification
+1. Run a sample video processing job (using a small dummy video if possible).
+2. Check the [output/](file:///Users/oli/Desktop/lectvideoanalyser/src/services/output_formatter.py#96-138) directory for the new `.compact.md` file.
+3. Verify that the content is concise and contains transcripts + visual summaries.

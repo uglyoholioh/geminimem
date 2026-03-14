@@ -1,0 +1,27 @@
+# Video Compacter: Robustness and Compatibility
+
+This plan ensures that the redesigned compacter works reliably across different video formats (.mp4, .mkv, .mov, etc.) and various resolutions (4K to 360p).
+
+## Proposed Changes
+
+### [extractors] [compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py)
+
+#### [MODIFY] [compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py)
+- **Scaling**: Ensure frames extracted for OCR are normalized in size (e.g., 1080p equivalent) to maintain OCR performance consistency regardless of source resolution.
+- **Robustness**: Add error handling for corrupted frames or unsupported streams within container formats.
+
+### [services] [video_processor.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/video_processor.py)
+
+#### [AUDIT] [video_processor.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/video_processor.py)
+- Confirm that the [extract_frame](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/base.py#157-188) method handles various pixel formats and colorspaces correctly via FFmpeg.
+- Ensure that [ffprobe](file:///Users/oli/Desktop/lectvideoanalyser/src/services/video_processor.py#69-82) calls are robust to unusual metadata.
+
+## Verification Plan
+
+### Automated Tests
+- Mock [VideoInfo](file:///Users/oli/Desktop/lectvideoanalyser/src/services/video_processor.py#18-31) with various resolutions (4K, Ultra-wide, 4:3) and verify that the extractor adapts its interval or scaling logic if necessary.
+- Verify extension handling: Ensure the system accepts .mkv and .mov appropriately.
+
+### Manual Verification
+1. Run the compacter on a high-res (4K) video and a low-res (360p) video.
+2. Verify that the output quality and synchronization remain consistent.
