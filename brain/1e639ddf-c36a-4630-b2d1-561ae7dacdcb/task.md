@@ -8,13 +8,9 @@
     - [x] Implement OCR-based slide identification and segment linking <!-- id: 24 -->
     - [x] Create a unified output format where transcript segments are "anchored" to slides <!-- id: 25 -->
 - [x] Ensure Robustness across Formats and Sizes <!-- id: 28 -->
-- [x] Implement Intelligent "Jump Points" in Chat <!-- id: 45 -->
-    - [x] Update Chat API to identify and return timestamp suggestions <!-- id: 46 -->
-    - [x] Enhance UI to render clickable video jump points <!-- id: 47 -->
-- [x] Implement Automated Metadata Enrichment <!-- id: 48 -->
-    - [x] Add URL extraction from transcripts and visuals <!-- id: 49 -->
-    - [x] Add local PDF/resource association logic <!-- id: 50 -->
-- [x] Migrate to GPU-Accelerated OCR (EasyOCR) <!-- id: 51 -->
-    - [x] Integrate `easyocr` with CUDA support <!-- id: 52 -->
-    - [x] Implement fallback to Tesseract for compatibility <!-- id: 53 -->
+- [x] Enhance UX and User Freedom <!-- id: 54 -->
+    - [x] Redesign Dashboard for Intuitive Navigation <!-- id: 55 -->
+    - [x] Implement Video Upload & Processing from UI <!-- id: 56 -->
+    - [x] Add Settings Panel (Model selection, thresholds) <!-- id: 57 -->
+    - [x] Implement Export Options (Markdown, Obsidian, PDF) <!-- id: 58 -->
 - [x] Verify the new visual-contextual alignment <!-- id: 27 -->

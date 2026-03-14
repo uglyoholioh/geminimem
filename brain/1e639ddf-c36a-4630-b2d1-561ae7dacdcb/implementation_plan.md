@@ -16,27 +16,28 @@ We will implement a local vector store to make the "Compacted Context" searchabl
 - **[NEW] [indexing_service.py]**: Integration with ChromaDB.
 - **[processing/worker]**: Automatically index segments upon completion.
 
-## Phase 4: Intelligent "Jump Points"
-We will enhance the AI assistant to identify specific timestamps that answer the user's question or provide prerequisite context.
+## Phase 7: Intuitive Dashboard Redesign
+A more cohesive UI with "Drag & Drop" support and real-time processing feedback.
 
 ### Proposed Changes
-- **[web/api/main.py]**: Update the `/api/chat` prompt to return a JSON structure containing the answer and a list of `jump_points` (timestamp + reason).
-- **[web/static/app.js]**: Render jump points as interactive buttons in the chat bubble.
+- **[web/static/index.html]**: Add a "Library" view vs "Active Processing" view.
+- **[web/static/app.js]**: Implement polling for processing status and interactive segment seeking.
 
-## Phase 5: Automated Metadata Enrichment
-Extracting external links and local resources to create a more comprehensive knowledge index.
-
-### Proposed Changes
-- **[indexing_service.py]**: Add fields for external URLs and linked resource filenames.
-- **[CompacterExtractor]**: Regex scan for URLs in transcript and OCR text.
-
-## Phase 6: GPU-Accelerated OCR
-Migrating to EasyOCR to leverage the user's RTX 4070 Super for faster frame analysis.
+## Phase 8: User Freedom & Settings
+Give users control over the underlying AI engines.
 
 ### Proposed Changes
-- **[ocr_service.py]**: Implement `EasyOCRProvider` with CUDA detection.
+- **[web/api/main.py]**: Endpoints to update `config/processing_config.yaml`.
+- **[web/static]**: Add a Settings modal for selecting Gemini models (Flash/Pro) and Whisper sizes.
+
+## Phase 9: Export Ecosystem
+One-click export to study tools.
+
+### Proposed Changes
+- **[web/api/main.py]**: Generate downloadable Markdown and Obsidian-ready bundles.
+- **[web/static]**: Add export buttons to the Context tab.
 
 ## Verification Plan
-1. **Jump Point Test**: Ask "What happens at the 5-minute mark?" and verify it provides a clickable link.
-2. **Metadata Test**: Include a URL in a mock transcript and verify it appears in the segment metadata.
-3. **OCR Performance**: Compare processing time of EasyOCR (GPU) vs Tesseract (CPU).
+1. **Processing Flow**: Upload a video via UI and verify it processes and appears in the library.
+2. **Settings**: Change the Gemini model in UI and verify the Chat API reflects the change.
+3. **Export**: Export a lecture and verify it imports correctly into Obsidian.

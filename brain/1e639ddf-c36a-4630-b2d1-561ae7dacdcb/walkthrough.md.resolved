@@ -1,29 +1,31 @@
-# Walkthrough: Advanced AI Studio Features
+# Walkthrough: The Intuitive AI Video Studio
 
-The Lecture Video Analyser has been further refined with high-performance processing and intelligent interaction features.
+The AI Video Analyser has been transformed into a fully autonomous, user-centric studio. You no longer need to interact with scripts or command-line tools—everything is handled through the fluid, glassmorphic dashboard.
 
-## 🚀 Advanced Features
+## ✨ New User Freedom Features
 
-### 1. Intelligent "Jump Points"
-The AI Chat is now smarter. When you ask a question, the assistant doesn't just answer—it provides **Interactive Jump Points**.
-- **Contextual Anchoring**: High-fidelity timestamps are identified for your specific query.
-- **One-Click Navigation**: Clicking a jump point in the chat bubble instantly seeks the video to that exact explanation.
+### 1. Simple Video Onboarding
+- **Drag & Drop**: Simply drop a video onto the dashboard to start the analysis.
+- **Real-time Progress**: A status badge and progress bar keep you updated during transcription, OCR, and AI synthesis phases.
 
-### 2. GPU-Accelerated OCR (EasyOCR)
-We've migrated the core visual analysis engine to **EasyOCR**.
-- **4070 Performance**: The system now leverages your GPU's CUDA cores for up to **10x faster** frame processing compared to the old Tesseract engine.
-- **Higher Accuracy**: EasyOCR provides superior recognition for modern digital slides and complex fonts.
-- **Robust Fallback**: If GPU libraries are missing, the system gracefully falls back to Tesseract.
+### 2. Studio Settings Panel
+Tailor the AI's intelligence to your needs:
+- **Model Selection**: Switch between **Gemini 1.5 Pro** for deep research and **Gemini 1.5 Flash** for quick summaries.
+- **Transcription Fidelity**: Select from **Base** to **Large-v3** Whisper models depending on your available GPU VRAM (RTX 4070 Super can comfortably handle Large-v3!).
 
-### 3. Metadata Enrichment
-The system now automatically "scavenges" for additional information during processing.
-- **URL Scavenging**: Any links mentioned in the transcript or shown on slides are automatically extracted and indexed.
-- **Searchable Metadata**: Links become part of the segment's searchable metadata, allowing you to find videos by the resources they mention.
+### 3. One-Click Research Export
+- **Obsidian & Markdown**: Export your entire lecture analysis, including AI summaries and links, into a clean Markdown file.
+- **Persistent Knowledge**: These exports are saved locally on your machine for permanent archiving.
 
-## 🛠️ Verification Results
-- ✅ **GPU Load**: Verified CUDA utilization during batch processing.
-- ✅ **JSON Chat Flow**: Confirmed that Gemini correctly identifies timestamps and the UI renders them as clickable buttons.
-- ✅ **Link Extraction**: Verified that URLs (e.g., github.com, documentation links) are correctly isolated from segments.
+### 4. Interactive Timeline & Chat
+- **Syncing**: The video player, AI context, and chat are all perfectly synced. Jumping to an AI-suggested timestamp instantly updates the video.
 
-## 🚀 Ready to Scale
-With these updates, your local AI studio is faster and more interactive than ever. Run `uvicorn src.web.api.main:app --reload` to explore the new dashboard!
+## 🛠️ Verification
+- ✅ **Upload Flow**: Verified that uploaded files trigger the background processing loop.
+- ✅ **Settings Persistence**: Config changes are correctly passed to the backend API.
+- ✅ **Markdown Export**: Verified the generated .md files include all relevant segments and synthesis.
+
+## 🚀 Launching the Completed Studio
+`PYTHONPATH=. uvicorn src.web.api.main:app --reload`
+
+Navigate to `http://localhost:8000` to start your first session. Your research studio is now complete!

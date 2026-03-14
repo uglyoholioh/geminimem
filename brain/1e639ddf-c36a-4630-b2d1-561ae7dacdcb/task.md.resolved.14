@@ -8,9 +8,9 @@
     - [x] Implement OCR-based slide identification and segment linking <!-- id: 24 -->
     - [x] Create a unified output format where transcript segments are "anchored" to slides <!-- id: 25 -->
 - [x] Ensure Robustness across Formats and Sizes <!-- id: 28 -->
-- [x] Enhance UX and User Freedom <!-- id: 54 -->
-    - [x] Redesign Dashboard for Intuitive Navigation <!-- id: 55 -->
-    - [x] Implement Video Upload & Processing from UI <!-- id: 56 -->
-    - [x] Add Settings Panel (Model selection, thresholds) <!-- id: 57 -->
-    - [x] Implement Export Options (Markdown, Obsidian, PDF) <!-- id: 58 -->
+- [ ] Enhance UX and User Freedom <!-- id: 54 -->
+    - [ ] Redesign Dashboard for Intuitive Navigation <!-- id: 55 -->
+    - [ ] Implement Video Upload & Processing from UI <!-- id: 56 -->
+    - [ ] Add Settings Panel (Model selection, thresholds) <!-- id: 57 -->
+    - [ ] Implement Export Options (Markdown, Obsidian, PDF) <!-- id: 58 -->
 - [x] Verify the new visual-contextual alignment <!-- id: 27 -->
