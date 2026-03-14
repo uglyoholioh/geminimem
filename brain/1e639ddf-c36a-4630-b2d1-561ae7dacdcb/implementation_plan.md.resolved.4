@@ -1,0 +1,36 @@
+# Intelligent Video Compaction: Gemini AI Integration
+
+This plan elevates the "Compacter" by using the Gemini API to perform intelligent semantic analysis and synthesis. This replaces simple string cleaning with a true AI-driven digest.
+
+## Architecture: Recursive Chunking & Synthesis
+
+1.  **Stage 1: Local Pre-processing**: Continue using local Whisper and OCR for baseline extraction.
+2.  **Stage 2: Semantic Chunking**: Group anchored segments into larger "Semantic Blocks" (e.g., 10-15 minute chapters).
+3.  **Stage 3: Gemini Analysis**:
+    *   For each block, send the transcript + visual summaries to Gemini.
+    *   Prompt Gemini to "Identify key concepts, remove redundancies, and align visual context."
+4.  **Stage 4: Unified Synthesis**:
+    *   Gemini combines the chapter-level digests into a single, high-accuracy context block.
+    *   Recursive synthesis will be used for extremely long videos to ensure they stay within token limits while retaining critical details.
+
+## Proposed Changes
+
+### [services] [gemini_service.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/gemini_service.py)
+#### [NEW] [gemini_service.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/gemini_service.py)
+- Implement `GeminiService` using `google-generativeai`.
+- Add methods for `synthesize_chapter` and `finalize_digest`.
+
+### [extractors] [compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py)
+#### [MODIFY] [compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py)
+- Integrate `GeminiService`.
+- Implement `_summarize_with_ai` logic to perform chunked processing.
+
+## Verification Plan
+
+### Automated Tests
+- Mock Gemini responses and verify the "Recursive Synthesis" logic works for multiple chunks.
+- Verify that API errors are handled gracefully (falling back to local compaction).
+
+### Manual Verification
+1. Run a 1-hour lecture through the Gemini-compacter.
+2. Verify the output is significantly more intelligent and structured than previous local-only iterations.

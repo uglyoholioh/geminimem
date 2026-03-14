@@ -1,0 +1,20 @@
+# Tasks
+
+- [x] Explore a new architecture for "Compacted Extraction" <!-- id: 13 -->
+    - [x] Research intelligent content selection (semantic summarization) <!-- id: 14 -->
+    - [x] Design a "CompacterExtractor" class <!-- id: 15 -->
+- [x] Implement Synchronized Context Mode <!-- id: 22 -->
+    - [x] Modify [CompacterExtractor](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py#14-240) to support "Visual Anchoring" <!-- id: 23 -->
+    - [x] Implement OCR-based slide identification and segment linking <!-- id: 24 -->
+    - [x] Create a unified output format where transcript segments are "anchored" to slides <!-- id: 25 -->
+- [x] Ensure Robustness across Formats and Sizes <!-- id: 28 -->
+- [ ] Implement Intelligent "Jump Points" in Chat <!-- id: 45 -->
+    - [ ] Update Chat API to identify and return timestamp suggestions <!-- id: 46 -->
+    - [ ] Enhance UI to render clickable video jump points <!-- id: 47 -->
+- [ ] Implement Automated Metadata Enrichment <!-- id: 48 -->
+    - [ ] Add URL extraction from transcripts and visuals <!-- id: 49 -->
+    - [ ] Add local PDF/resource association logic <!-- id: 50 -->
+- [ ] Migrate to GPU-Accelerated OCR (EasyOCR) <!-- id: 51 -->
+    - [ ] Integrate `easyocr` with CUDA support <!-- id: 52 -->
+    - [ ] Implement fallback to Tesseract for compatibility <!-- id: 53 -->
+- [x] Verify the new visual-contextual alignment <!-- id: 27 -->

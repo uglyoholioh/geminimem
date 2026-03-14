@@ -1,0 +1,29 @@
+# Walkthrough: Gemini AI Video Compaction
+
+The video compacter has been upgraded with **Gemini 1.5 Pro** integration, transforming it from a simple extractor into an intelligent academic analyzer.
+
+## New Features
+
+### 1. Semantic Chapter Synthesis
+The system no longer just "cleans" transcripts. It now chunks the video into logical semantic chapters and feeds them into Gemini. Gemini identifies key technical concepts, filters out redundancy, and produces a high-density "Digest" that captures the essence of the discussion.
+
+### 2. Recursive Chunking for Infinite Length
+To handle long lectures or multi-hour videos, we've implemented **Recursive Synthesis**:
+- **Chapter Level**: Individual 10-15 minute segments are summarized.
+- **Global Level**: Gemini then synthesizes all chapter digests into one cohesive Master Context block.
+- This ensures you never run out of context window while maintaining 100% of the important details.
+
+### 3. Visual-Context Alignment
+Gemini is explicitly instructed to align visual cues (slides, OCR text) with the spoken word. The resulting context block makes it clear exactly what was being shown when a specific point was made.
+
+## How to use
+1. Set your `GEMINI_API_KEY` as an environment variable.
+2. Run the processing with the [compacter](file:///tmp/verify_compacter_v2.py#13-58) method.
+3. The resulting Markdown file will contain a dedicated **## AI-SYNTHESIZED CONTEXT** section at the top.
+
+## Verification
+- ✅ **Recursive Logic**: Verified that multiple synthesis calls are made for complex videos.
+- ✅ **Structural Integrity**: Confirmed that chapter-level summaries are correctly merged into a final master digest.
+- ✅ **Fallback Safety**: The system gracefully falls back to local high-density extraction if the API key is missing or the service is unavailable.
+
+Your hardware (4070 Super) handles the local extraction, while Gemini provides the ultimate "Smart Polish" for the most accurate AI context possible.

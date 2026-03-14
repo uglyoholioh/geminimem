@@ -1,0 +1,44 @@
+# Walkthrough: The AI Lecture Studio
+
+The Lecture Video Analyser has evolved into a professional, local-first research studio. It combines high-fidelity local processing with the creative intelligence of Gemini 1.5 Pro.
+
+## 🚀 Key Achievements
+
+### 1. Interactive Video Dashboard
+A premium, dark-mode web application (FastAPI + Vanilla JS/CSS) that allows you to:
+- **Watch & Sync**: Jump to specific lecture segments by clicking on AI-generated summaries.
+- **AI Sidebar**: View the "Compacted Context" in a clean, readable format directly alongside the video.
+- **Interconnectedness**: Visuals, transcripts, and summaries are all synced in one glassmorphic workspace.
+
+### 2. "Chat with your Video" (RAG)
+We've integrated a local **ChromaDB** vector store. When you ask a question in the dashboard's chat:
+- The system performs a **semantic search** across all video segments.
+- It provides the most relevant snippets to **Gemini 1.5 Pro**.
+- Gemini provides a cited, technical answer based on the video's specific content.
+
+### 3. Multimodal Vision
+The 'Compacter' now uses **computer vision**. It feeds slide images directly into Gemini, allowing the AI to understand complex diagrams, charts, and equations that simple text-based OCR might struggle with.
+
+## 🛠️ How to Launch the Studio
+
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Run the Dashboard
+```bash
+# Set your API Key
+export GEMINI_API_KEY="your_key_here"
+
+# Start the local server
+PYTHONPATH=. uvicorn src.web.api.main:app --reload
+```
+Navigate to `http://localhost:8000` to start interacting with your lectures.
+
+## ✅ Verification
+- ✅ **End-to-End Flow**: Verified that processed videos are automatically indexed and show up in the web gallery.
+- ✅ **Semantic Search**: Confirmed that the chat correctly retrieves segments based on topical queries.
+- ✅ **Visual Reasoning**: Gemini multimodal logic tested and confirmed for image-based synthesis.
+
+Your **RTX 4070 Super** is now the heart of a powerful, private AI learning environment.

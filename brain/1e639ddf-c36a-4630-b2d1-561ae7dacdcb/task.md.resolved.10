@@ -1,0 +1,21 @@
+# Tasks
+
+- [x] Explore a new architecture for "Compacted Extraction" <!-- id: 13 -->
+    - [x] Research intelligent content selection (semantic summarization) <!-- id: 14 -->
+    - [x] Design a "CompacterExtractor" class <!-- id: 15 -->
+- [x] Implement Synchronized Context Mode <!-- id: 22 -->
+    - [x] Modify [CompacterExtractor](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py#14-231) to support "Visual Anchoring" <!-- id: 23 -->
+    - [x] Implement OCR-based slide identification and segment linking <!-- id: 24 -->
+    - [x] Create a unified output format where transcript segments are "anchored" to slides <!-- id: 25 -->
+- [x] Ensure Robustness across Formats and Sizes <!-- id: 28 -->
+- [x] Implement Gemini-Powered AI Compaction <!-- id: 32 -->
+- [ ] Upgrade to Multimodal Visual Reasoning <!-- id: 36 -->
+    - [ ] Update [GeminiService](file:///Users/oli/Desktop/lectvideoanalyser/src/services/gemini_service.py#11-108) to handle image-based vision inputs <!-- id: 37 -->
+    - [ ] Modify [CompacterExtractor](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py#14-231) to pass keyframe images to Gemini <!-- id: 38 -->
+- [ ] Implement Searchable Vector Indexing <!-- id: 39 -->
+    - [ ] Integrate local vector DB (ChromaDB/FAISS) <!-- id: 40 -->
+    - [ ] Add embedding generation for segments <!-- id: 41 -->
+- [ ] Build Interactive Chat & Video UI <!-- id: 42 -->
+    - [ ] Create a modern web interface for viewing results <!-- id: 43 -->
+    - [ ] Implement "Chat with Video" functionality <!-- id: 44 -->
+- [x] Verify the new visual-contextual alignment <!-- id: 27 -->

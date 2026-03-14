@@ -1,27 +1,42 @@
-# Video Compacter: Robustness and Compatibility
+# Expansion Plan: Multimodal, Indexed & Interactive Video Context
 
-This plan ensures that the redesigned compacter works reliably across different video formats (.mp4, .mkv, .mov, etc.) and various resolutions (4K to 360p).
+This plan outlines the major expansion of the Lecture Video Analyser into an end-to-end "AI Memory" tool.
 
-## Proposed Changes
+## Phase 1: Multimodal Visual Reasoning
+Instead of relying solely on OCR, we will feed keyframe images directly into Gemini 1.5 Pro. This allows the AI to "see" diagrams, tables, and visual emphasis.
 
-### [extractors] [compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py)
+### Proposed Changes
+- **[GeminiService]**: Update `synthesize_chapter` to accept list of image paths and use them in model generation.
+- **[CompacterExtractor]**: Pass actual keyframe files to the Gemini synthesis loop.
 
-#### [MODIFY] [compacter.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/compacter.py)
-- **Scaling**: Ensure frames extracted for OCR are normalized in size (e.g., 1080p equivalent) to maintain OCR performance consistency regardless of source resolution.
-- **Robustness**: Add error handling for corrupted frames or unsupported streams within container formats.
+## Phase 2: Searchable Vector Indexing
+We will implement a local vector store to make the "Compacted Context" searchable.
 
-### [services] [video_processor.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/video_processor.py)
+### Proposed Changes
+- **[NEW] [indexing_service.py]**: Integration with ChromaDB.
+- **[processing/worker]**: Automatically index segments upon completion.
 
-#### [AUDIT] [video_processor.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/video_processor.py)
-- Confirm that the `extract_frame` method handles various pixel formats and colorspaces correctly via FFmpeg.
-- Ensure that `ffprobe` calls are robust to unusual metadata.
+## Phase 4: Intelligent "Jump Points"
+We will enhance the AI assistant to identify specific timestamps that answer the user's question or provide prerequisite context.
+
+### Proposed Changes
+- **[web/api/main.py]**: Update the `/api/chat` prompt to return a JSON structure containing the answer and a list of `jump_points` (timestamp + reason).
+- **[web/static/app.js]**: Render jump points as interactive buttons in the chat bubble.
+
+## Phase 5: Automated Metadata Enrichment
+Extracting external links and local resources to create a more comprehensive knowledge index.
+
+### Proposed Changes
+- **[indexing_service.py]**: Add fields for external URLs and linked resource filenames.
+- **[CompacterExtractor]**: Regex scan for URLs in transcript and OCR text.
+
+## Phase 6: GPU-Accelerated OCR
+Migrating to EasyOCR to leverage the user's RTX 4070 Super for faster frame analysis.
+
+### Proposed Changes
+- **[ocr_service.py]**: Implement `EasyOCRProvider` with CUDA detection.
 
 ## Verification Plan
-
-### Automated Tests
-- Mock `VideoInfo` with various resolutions (4K, Ultra-wide, 4:3) and verify that the extractor adapts its interval or scaling logic if necessary.
-- Verify extension handling: Ensure the system accepts .mkv and .mov appropriately.
-
-### Manual Verification
-1. Run the compacter on a high-res (4K) video and a low-res (360p) video.
-2. Verify that the output quality and synchronization remain consistent.
+1. **Jump Point Test**: Ask "What happens at the 5-minute mark?" and verify it provides a clickable link.
+2. **Metadata Test**: Include a URL in a mock transcript and verify it appears in the segment metadata.
+3. **OCR Performance**: Compare processing time of EasyOCR (GPU) vs Tesseract (CPU).

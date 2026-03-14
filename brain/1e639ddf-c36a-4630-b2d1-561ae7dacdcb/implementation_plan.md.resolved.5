@@ -1,0 +1,29 @@
+# Expansion Plan: Multimodal, Indexed & Interactive Video Context
+
+This plan outlines the major expansion of the Lecture Video Analyser into an end-to-end "AI Memory" tool.
+
+## Phase 1: Multimodal Visual Reasoning
+Instead of relying solely on OCR, we will feed keyframe images directly into Gemini 1.5 Pro. This allows the AI to "see" diagrams, tables, and visual emphasis.
+
+### Proposed Changes
+- **[GeminiService]**: Update [synthesize_chapter](file:///Users/oli/Desktop/lectvideoanalyser/src/services/gemini_service.py#38-78) to accept list of image paths and use them in model generation.
+- **[CompacterExtractor]**: Pass actual keyframe files to the Gemini synthesis loop.
+
+## Phase 2: Searchable Vector Indexing
+We will implement a local vector store to make the "Compacted Context" searchable.
+
+### Proposed Changes
+- **[NEW] [indexing_service.py]**: Integration with ChromaDB.
+- **[processing/worker]**: Automatically index segments upon completion.
+
+## Phase 3: Interactive Web UI
+A premium React/Next.js dashboard for interacting with videos and the AI buffer.
+
+### Proposed Changes
+- **[NEW] [web_app]**: A local web server to serve the frontend.
+- **[web_app/api]**: Endpoints for querying the vector store and chat history.
+
+## Verification Plan
+1. **Multimodal Test**: Verify Gemini correctly describes a diagram from an image without OCR help.
+2. **Search Test**: Verify that a semantic query (e.g., "thermodynamics") returns the correct timestamp.
+3. **UI Test**: Verify the web app renders and connects to the backend.
