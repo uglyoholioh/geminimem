@@ -1,0 +1,12 @@
+# Task: Start the application
+
+- [x] Prepare environments <!-- id: 0 -->
+    - [x] Check backend virtual environment <!-- id: 1 -->
+    - [x] Check frontend node_modules <!-- id: 2 -->
+    - [x] Install missing dependencies if any <!-- id: 3 -->
+- [x] Create and review implementation plan <!-- id: 7 -->
+- [x] Start frontend <!-- id: 5 -->
+- [x] Start backend <!-- id: 4 -->
+- [x] Fix database schema mismatch (`announcements.course_code`) <!-- id: 8 -->
+- [x] Verify application is running <!-- id: 6 -->
+- [x] Create walkthrough <!-- id: 9 -->

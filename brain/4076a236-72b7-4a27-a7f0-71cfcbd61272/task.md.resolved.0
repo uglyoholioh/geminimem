@@ -1,0 +1,9 @@
+# Task: Start the application
+
+- [/] Prepare environments <!-- id: 0 -->
+    - [ ] Check backend virtual environment <!-- id: 1 -->
+    - [ ] Check frontend node_modules <!-- id: 2 -->
+    - [ ] Install missing dependencies if any <!-- id: 3 -->
+- [ ] Start backend <!-- id: 4 -->
+- [ ] Start frontend <!-- id: 5 -->
+- [ ] Verify application is running <!-- id: 6 -->
