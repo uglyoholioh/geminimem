@@ -1,0 +1,19 @@
+# Document and PDF Support Implementation
+
+Implement support for processing PDF, DOCX, and other document formats in addition to video files. This involves creating new extractors for documents, updating the processing pipeline to handle multiple file types, and adding a document processing service.
+
+## Todo List
+- [x] Research and Design
+    - [x] Identify necessary libraries (e.g., PyMuPDF, python-docx)
+    - [x] Design [DocumentProcessor](file:///Users/oli/Desktop/lectvideoanalyser/src/services/document_processor.py#11-138) service
+    - [x] Design [DocumentExtractor](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/document.py#8-99) classes
+- [ ] Implementation [/]
+    - [x] Install document processing dependencies
+    - [x] Create [DocumentProcessor](file:///Users/oli/Desktop/lectvideoanalyser/src/services/document_processor.py#11-138) service in `src/services/`
+    - [/] Create `DocumentExtractor` in `src/extractors/`
+    - [ ] Update `Worker` to dispatch based on file type [ ]
+    - [ ] Update `Main` and `API` to accept document uploads [ ]
+- [ ] Verification [/]
+    - [ ] Create test PDFs and DOCX files [ ]
+    - [ ] Verify content extraction from documents [ ]
+    - [ ] Verify integrated pipeline for documents [ ]

@@ -1,0 +1,46 @@
+# Implementation Plan - Document and PDF Support
+
+This plan outlines the changes needed to support PDF, DOCX, and other document formats in the lecture analyzer.
+
+## Proposed Changes
+
+### [Component: Services]
+
+#### [NEW] [document_processor.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/document_processor.py)
+- Create a `DocumentProcessor` class that can handle different document formats.
+- Implementation for PDF using `PyMuPDF` (fitz).
+- Implementation for DOCX using `python-docx`.
+- Add a method to extract text and images from documents.
+
+### [Component: Extractors]
+
+#### [NEW] [document.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/document.py)
+- Create a `DocumentExtractor` class inheriting from `BaseExtractor`.
+- Implement the `extract` method to use `DocumentProcessor`.
+- Should generate a result structure compatible with the current `Compacter`.
+
+### [Component: Processing]
+
+#### [MODIFY] [worker.py](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/worker.py)
+- Update the worker to identify the file type (video vs document).
+- Use `DocumentExtractor` for document files.
+- Update the workflow to handle document-specific output.
+
+### [Component: Infrastructure]
+
+#### [MODIFY] [requirements.txt](file:///Users/oli/Desktop/lectvideoanalyser/requirements.txt)
+- Add `pymupdf` and `python-docx`.
+
+## Verification Plan
+
+### Automated Tests
+- Create a test script `tests/test_document_processing.py` to:
+    - Verify PDF text extraction.
+    - Verify DOCX text extraction.
+    - Run `python -m pytest tests/test_document_processing.py`
+
+### Manual Verification
+1. Upload a sample PDF via the bot or API.
+2. Verify that the system correctly identifies it as a document.
+3. Verify that the generated digest accurately reflects the document's content.
+4. Repeat for a DOCX file.

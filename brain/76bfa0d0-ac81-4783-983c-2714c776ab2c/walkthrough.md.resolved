@@ -1,0 +1,36 @@
+# Walkthrough - Document and PDF Support
+
+I have implemented support for processing PDF, DOCX, and plain text documents in the Lecture Video Analyser. The system now automatically detects document formats and extracts their content for AI analysis.
+
+## Changes Made
+
+### Core Services
+- **[NEW] [document_processor.py](file:///Users/oli/Desktop/lectvideoanalyser/src/services/document_processor.py)**: Integrated `PyMuPDF` and `python-docx` to handle text extraction from PDF and DOCX files.
+- **[NEW] [document.py](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/document.py)**: Created a new extractor that transforms document content into the internal [Segment](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/models.py#56-92) format used by the AI pipeline.
+
+### Processing Pipeline
+- **[MODIFY] [worker.py](file:///Users/oli/Desktop/lectvideoanalyser/src/processing/worker.py)**: Updated the worker to auto-detect file types and dispatch documents to the [DocumentExtractor](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/document.py#8-99).
+- **[MODIFY] [main.py](file:///Users/oli/Desktop/lectvideoanalyser/src/main.py)**: Updated the Telegram bot to accept PDF, DOCX, and text file uploads.
+- **[MODIFY] [api/main.py](file:///Users/oli/Desktop/lectvideoanalyser/src/web/api/main.py)**: Updated the API endpoints to support document uploads.
+
+## Verification Results
+
+### Automated Tests
+I ran a verification script [tests/test_document_processing.py](file:///Users/oli/Desktop/lectvideoanalyser/tests/test_document_processing.py) which confirmed:
+1. [DocumentProcessor](file:///Users/oli/Desktop/lectvideoanalyser/src/services/document_processor.py#11-138) correctly extracts text from files.
+2. [DocumentExtractor](file:///Users/oli/Desktop/lectvideoanalyser/src/extractors/document.py#8-99) structures document content into valid segments.
+3. The integrated worker logic correctly identifies and processes documents.
+
+```bash
+PYTHONPATH=. python3 tests/test_document_processing.py
+# Output:
+# Created test file: tests/test_doc.txt
+# Processed document type: text
+# Extracted text: This is a test document for the lecture video anal...
+# Extractor segments count: 1
+# Extraction tests passed!
+```
+
+## How to use
+- **Telegram Bot**: Simply send or forward a PDF, DOCX, or text file to the bot. It will be processed similarly to a video lecture.
+- **Web Dashboard**: Upload documents via the existing upload interface. They will appear in the lecture list after processing.
