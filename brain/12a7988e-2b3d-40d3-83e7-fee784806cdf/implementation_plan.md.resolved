@@ -1,0 +1,48 @@
+# Implementation Plan: Better Canvas Feature Adaptations
+
+This document outlines the architecture and execution plan for adapting features 2-5 from the Better Canvas analysis into CraftCanvas (Academic Life OS).
+
+## Proposed Changes
+
+### Feature 2: Enhanced To-Do Lists (Inline descriptions & sorting)
+**Goal:** Richer task lists with inline Canvas descriptions, priority toggles, and weight-based sorting.
+- **Backend ([backend/routers/tasks.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/tasks.py) / [assignments.py](file:///Users/oli/Desktop/CraftCanvas/backend/routers/assignments.py)):** Update task hydration logic to eagerly load related Canvas `Assignment.description` and `points_possible` into the Task response if an `assignment_id` link is present.
+- **Frontend (`frontend/components/`):** 
+  - Modify `PlannerIndex` task cards to accept the rich description.
+  - Implement a `HoverCard` or expanding accordion in the task item that renders the `description` HTML.
+  - Add a sort toggle in the UI to order Canvas tasks by their point weight.
+
+### Feature 3: Smart Telegram Reminders
+**Goal:** High-priority Telegram alerts exactly 24 hours before major Canvas assignments.
+- **Backend (`backend/jobs/scheduler.py` & `backend/services/telegram.py`):**
+  - Create a new background cron job `check_imminent_deadlines` running hourly.
+  - Query the `assignments` table for items where `due_at` is exactly ~24 hours from now and `has_submitted == False`.
+  - Push an async message via Telegram: "🚨 **Deadline Alert:** {Assignment Name} for {Course Code} is due in 24 hours!"
+
+### Feature 4: Module Visual Customization
+**Goal:** Allow users to personalize course card colors.
+- **Backend (`backend/routers/courses.py`):** The `models/course.py` already includes a `colour` field. Add or verify a `PATCH /api/v1/courses/{id}` endpoint to allow updating this field.
+- **Frontend (`frontend/components/dashboard/ModuleHub.tsx`):**
+  - Add a Color Picker component to the Module/Course settings view.
+  - Ensure the saved `colour` hex code maps to inline styles dynamically used across Timetable blocks and Course cards.
+
+### Feature 5: Instant "Quick Views" for Announcements
+**Goal:** Hovering over a module displays its latest announcement instantly.
+- **Backend (`backend/routers/announcements.py`):** Ensure an optimized endpoint like `GET /api/v1/courses/{course_id}/announcements?limit=1` exists to fetch the absolute latest update.
+- **Frontend (`frontend/components/dashboard/`):**
+  - Wrap Course cards and `AgendaTimeline` blocks with a `HoverCard` (`shadcn/ui`).
+  - On hover, trigger a `useQuery` fetch to the latest announcement endpoint and render it inside the popup.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- Run existing Task API tests (e.g. `pytest backend/tests/test_routers/test_tasks.py`) to ensure injected assignment data complies with the response schema.
+- Write/update unit tests for the `check_imminent_deadlines` logic by mocking the current time (UTC) and checking if the correct assignments are returned from the DB.
+
+### Manual Verification
+1. **Feature 2:** Navigate to the Planner Index, hover over or click a Canvas assignment task, and verify the rich HTML description displays correctly.
+2. **Feature 3:** Temporarily update an assignment's due date in the DB to be 24h from now, manually trigger the scheduled job via an admin script, and verify a Telegram notification is sent to the phone.
+3. **Feature 4:** Change a module's color via the frontend UI and ensure the backend saves it, and the timetable/dashboard visually reflects it immediately.
+4. **Feature 5:** Hover over a module card on the web app and verify the tooltip loads the announcement text cleanly without breaking the layout.

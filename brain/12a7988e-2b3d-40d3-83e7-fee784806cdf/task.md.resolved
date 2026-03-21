@@ -1,5 +1,14 @@
-# BetterCampus Feature Ideas
+# Better Canvas Extensions Implementation
 
-- [/] Search web for "BetterCampus Canvas extension"
-- [ ] Analyze BetterCampus features (UI, Grade Calculation, Dark Mode, etc.)
-- [ ] Propose ideas for integrating similar or better features into CraftCanvas
+- **Feature 2: Enhanced To-Do Lists**
+  - [x] Backend: Eagerly load rich Canvas descriptions in Tasks/Assignments API
+  - [x] Frontend: Modify `PlannerIndex` to accept and display descriptions and add sorting toggle
+- **Feature 3: Smart Telegram Reminders**
+  - [x] Backend: Scheduler job for 24h imminent deadlines
+  - [x] Backend: Integrate Telegram sending logic for alert
+- **Feature 4: Module Visual Customization**
+  - [x] Backend: PATCH endpoint for course colour
+  - [x] Frontend: Course colour picker in dashboard
+- **Feature 5: Quick Views for Announcements**
+  - [x] Backend: Endpoint for latest announcement
+  - [x] Frontend: Dashboard module card quick view

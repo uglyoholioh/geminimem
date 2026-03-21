@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "Added a new section documenting the frontend build fixes (React Suspense boundary) and backend integration test fixes.",
+  "updatedAt": "2026-03-21T15:38:40.870345Z",
+  "version": "1"
+}
