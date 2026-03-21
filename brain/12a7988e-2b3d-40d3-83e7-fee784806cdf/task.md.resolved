@@ -1,5 +1,10 @@
 # Better Canvas Extensions Implementation
 
+- **Feature 1: "What-If" Grade Simulator**
+  - [ ] Backend: Sync Assignment Groups (weights) from Canvas
+  - [ ] Backend: Grade simulation endpoint
+  - [ ] Frontend: Grade Simulator component in Course page
+
 - **Feature 2: Enhanced To-Do Lists**
   - [x] Backend: Eagerly load rich Canvas descriptions in Tasks/Assignments API
   - [x] Frontend: Modify `PlannerIndex` to accept and display descriptions and add sorting toggle

@@ -3,6 +3,15 @@
 This document outlines the architecture and execution plan for adapting features 2-5 from the Better Canvas analysis into CraftCanvas (Academic Life OS).
 
 ## Proposed Changes
+### Feature 1: "What-If" Grade Simulator
+**Goal:** Interactive grade calculation based on Canvas assignment weights.
+- **Backend:**
+  - Create `AssignmentGroup` model to store group names and weights.
+  - Update `canvas_sync.py` to fetch `/api/v1/courses/{id}/assignment_groups`.
+  - Add `GET /api/v1/courses/{id}/grade-simulation` to return current weights and ungraded assignments.
+- **Frontend:**
+  - Build a `GradeSimulator` widget with sliders for each pending assignment.
+  - Real-time GPA/Grade calculation logic in-browser.
 
 ### Feature 2: Enhanced To-Do Lists (Inline descriptions & sorting)
 **Goal:** Richer task lists with inline Canvas descriptions, priority toggles, and weight-based sorting.
