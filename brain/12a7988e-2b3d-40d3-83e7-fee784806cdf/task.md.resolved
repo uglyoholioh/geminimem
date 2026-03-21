@@ -1,6 +1,5 @@
-# App Evaluation
+# BetterCampus Feature Ideas
 
-- [x] Review documentation (README, CLAUDE.md)
-- [x] Inspect backend architecture and dependencies
-- [x] Inspect frontend architecture and dependencies
-- [/] Summarize findings for the user
+- [/] Search web for "BetterCampus Canvas extension"
+- [ ] Analyze BetterCampus features (UI, Grade Calculation, Dark Mode, etc.)
+- [ ] Propose ideas for integrating similar or better features into CraftCanvas
