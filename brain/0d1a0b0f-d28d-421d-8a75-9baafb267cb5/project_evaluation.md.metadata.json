@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_OTHER",
+  "summary": "Comprehensive evaluation of the CraftCanvas full-stack application, split into 11 sections: Backend Core, Services, Models, Routers, Scheduler, Frontend Pages, Frontend Components, Frontend Lib/State, Testing, Documentation, and DevOps. Each section is evaluated with ratings, key strengths, key concerns, and specific file references. Includes a summary scorecard and top 5 actionable improvements.",
+  "updatedAt": "2026-03-22T15:21:46.881614Z"
+}

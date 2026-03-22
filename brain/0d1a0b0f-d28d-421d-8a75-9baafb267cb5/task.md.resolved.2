@@ -1,0 +1,31 @@
+# CraftCanvas Improvement Tasks
+
+## 1. Fix Priority Bugs
+- [/] Fix request-ID middleware scoping in [backend/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py).
+- [/] Fix undefined `statement` variable in `get_courses` within [backend/services/ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py).
+- [/] Register [calendar_sync_job](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py#75-118) in [backend/jobs/scheduler.py](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py).
+
+## 2. Backend Refactoring ([ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py))
+- [x] Create `backend/services/ai_tools/` package.
+- [x] Extract course and module-related tools into `ai_tools/courses.py`.
+- [x] Extract task and assignment tools into `ai_tools/tasks.py`.
+- [x] Extract file logic and RAG search into `ai_tools/materials.py`.
+- [x] Extract miscellaneous tools (notes, timetable, UI) into `ai_tools/misc.py`.
+- [x] Update `TOOL_DEFINITIONS` registry to aggregate tools from the new package.
+
+## 3. Frontend Refactoring (`page.tsx`)
+- [/] Extract data fetching and core state into a custom hook `useDashboardData` in `frontend/hooks/`.
+- [/] Extract chat functionality into a custom hook `useDashboardChat` in `frontend/hooks/`.
+- [/] Extract timetable lookahead logic into a custom hook `useDashboardTimetable` in `frontend/hooks/`.
+- [/] Simplify `frontend/app/page.tsx` to compose these hooks and the existing UI components.
+
+## 4. Database Migrations Configuration
+- [ ] Initialize Alembic in the backend (`alembic init alembic`).
+- [ ] Configure `alembic/env.py` to use SQLModel metadata.
+- [ ] Create a migration automation script or generate the first baseline migration.
+
+## 5. DevOps & CI/CD Setup
+- [ ] Create a multi-stage `Dockerfile` and `.dockerignore` for the backend.
+- [ ] Create a multi-stage `Dockerfile` and `.dockerignore` for the frontend.
+- [ ] Add `.github/workflows/ci.yml` for building and testing.
+- [ ] Update `.gitignore` to ignore `.bak` files.

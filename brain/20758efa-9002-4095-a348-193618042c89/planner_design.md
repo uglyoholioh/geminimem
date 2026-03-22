@@ -1,0 +1,257 @@
+# Planner Page — Design Document
+
+## Design Philosophy
+
+**Zero-maintenance, maximum signal.** The planner should passively answer three questions every time you open it — no manual sorting, dragging, or organising. All data is already in the system via Canvas sync, timetable parsing, and the fluid scheduler. The planner's job is *surfacing* what matters, not *collecting* it.
+
+---
+
+## The Three Questions (Inherited & Preserved)
+
+The current planner already nails the correct mental model:
+
+| # | Question | Section Name | Purpose |
+|---|----------|-------------|---------|
+| 1 | Am I falling behind? | **Overdue** | Surface broken promises — things past their date |
+| 2 | What do I need to do today? | **Today** | The day's agenda in one scroll |
+| 3 | What's coming up? | **Horizon** | Lookahead so nothing surprises you |
+
+This is the right structure. The redesign is about **how each section delivers its answer** — not about adding new sections.
+
+---
+
+## Problems With the Current Implementation
+
+| Problem | Impact |
+|---------|--------|
+| Today mixes classes, tasks, and assignments into one flat timeline — classes aren't actionable the same way tasks are | Cognitive noise |
+| "On the Horizon" only shows assignments, ignores tasks with future due dates | Blind spots |
+| No quick-add from the planner itself — you have to navigate away | Friction to capture |
+| Overdue items can only be "Resolved" (marked done) — no "push to tomorrow" inline | Forces you into the sweep page for 1-2 items |
+| Timetable slots take up visual space but have no actions | Wasted real estate |
+| No sense of "how loaded is today" at a glance | Hard to judge capacity |
+| Assignments show raw HTML descriptions inline — fragile and noisy | Visual clutter |
+
+---
+
+## Proposed Design
+
+### Layout: Single-Column, Scroll-Native
+
+Keep the existing `max-w-2xl` centered layout. It works. No sidebars, no tabs, no mode switching. One page, one scroll. Sections appear/disappear based on whether they have content (already the case for Overdue).
+
+---
+
+### Section 0: Header
+
+```
+┌─────────────────────────────────────────────────┐
+│  Today                           [+ Quick Add]  │
+│  SUNDAY, 23 MARCH                    [↻ Sync]   │
+│                                                  │
+│  ████████░░░░░░░  5 of 8 items · ~3.5h left     │
+└─────────────────────────────────────────────────┘
+```
+
+**What's new:**
+- **Micro progress bar**: shows items completed today vs total (tasks + assignments only, not classes). Auto-calculated, zero maintenance.
+- **Time estimate**: sum of `estimated_minutes` for remaining items. Gives an instant capacity read: "can I take on more?" or "I'm overloaded."
+- **Quick Add button**: opens an inline text field that uses the existing `/fluid/parse-natural` endpoint. Type "Read chapter 5 for CS2103T by Friday" → task created and triaged. No modals, no forms.
+- **Sync button**: same as current, triggers Canvas sync.
+
+---
+
+### Section 1: Overdue — "Needs Decision"
+
+> Only appears if there are overdue items. Same red-tinted cards.
+
+```
+┌── NEEDS DECISION ─────────────────────────────────
+│
+│  🔴  Tutorial 4 Submission           CS2103T
+│      Was due 2 days ago
+│      [ Done ✓ ]  [ → Tomorrow ]  [ ··· ]
+│
+│  🔴  Read Week 8 Notes               ST2334
+│      Was due yesterday
+│      [ Done ✓ ]  [ → Tomorrow ]  [ ··· ]
+│
+│  ─── or ───
+│  [ Start Daily Sweep → ]   (if > 3 overdue items)
+│
+└───────────────────────────────────────────────────
+```
+
+**What's new:**
+- **Inline "→ Tomorrow" action**: uses the existing `/sweep/carry-forward` endpoint. Resolves the most common case (I'll do it tomorrow) without navigating to sweep.
+- **"···" overflow menu**: cancel task, reschedule to specific date, snooze (remove schedule). Uses existing `/fluid/triage` endpoint.
+- **Sweep CTA only shows for 4+ items**: when you have 1–3 overdue items, the inline actions are faster. The sweep card-swipe UX is reserved for when you have a real backlog.
+- **"Was due X days ago" timestamp**: more useful than just a red dot. Tells you how stale it is.
+
+---
+
+### Section 2: Today — "Line of Sight"
+
+```
+┌── LINE OF SIGHT ──────────────────────────────────
+│
+│  ┌─ NOW ─────────────────────────────────────┐
+│  │  09:00  CS2103T Lecture        COM1-B103   │  ← class block
+│  │  10:00                                     │
+│  └───────────────────────────────────────────┘
+│
+│  ── 10:00 ──
+│  □  Finish Lab 5 Writeup            CS2103T
+│     ~45 min · high priority
+│     [ ✓ ]  [ → Focus ]
+│
+│  ── 14:00 ──
+│  □  Tutorial 8 Prep                 ST2334
+│     ~30 min
+│     [ ✓ ]  [ → Focus ]
+│
+│  ┌─────────────────────────────────────────────┐
+│  │  14:00  ST2334 Tutorial          S17-0404   │  ← class block
+│  │  15:00                                      │
+│  └─────────────────────────────────────────────┘
+│
+│  ── no time ──
+│  □  Reply to group chat                         ← unscheduled-time task
+│     ~10 min · low priority
+│     [ ✓ ]
+│
+└───────────────────────────────────────────────────
+```
+
+**Key design decisions:**
+
+1. **Classes are displayed as compact "block" cards** — visually distinct from tasks (background fill, no checkbox, venue shown). They're context, not actions. They don't have a "done" button because attending class isn't a completable item.
+
+2. **Tasks and assignments get checkboxes** — the core action. One tap to complete (same API calls as current).
+
+3. **"→ Focus" button** on tasks/assignments — deep-links to the existing `/focus?id=X&type=Y` page. Only appears on hover (like current design). This is the "I'm sitting down to work on this" action.
+
+4. **Time estimates shown inline** — from `estimated_minutes`. Zero cost to maintain if set during task creation (the natural language parser already infers this).
+
+5. **Interleaving, not separating** — classes appear in chronological position among tasks. This matches reality: "I have a lecture at 9, then I need to do Lab 5, then tutorial at 2." Separating them into different sections forces mental stitching.
+
+6. **"Now" indicator** — the currently-active class (if any) gets a subtle highlight. Implemented by comparing current time against `start_time`/`end_time`.
+
+7. **Unscheduled-time tasks at the bottom** — tasks scheduled for today but without a specific time sink to the bottom of the timeline, under a "no time" divider. They're things to do today, but not at a particular hour.
+
+---
+
+### Section 3: Horizon — "Coming Up"
+
+```
+┌── ON THE HORIZON ─────────────────────────────────
+│
+│  ── Tomorrow, Mon 24 Mar ──
+│
+│  □  Assignment 3                     CS2103T
+│     Due 23:59 · 15% of grade
+│     [ ✓ ]
+│
+│  ── Wednesday, 26 Mar ──
+│
+│  □  Quiz 4                          ST2334
+│     Due 14:00 · 5% of grade
+│
+│  □  Read Chapter 9                   (task)
+│     Due Wed
+│
+│  ── Next Week ──
+│
+│  ◇  Final Report                     CS2103T
+│     Due 2 Apr · 30% of grade
+│
+└───────────────────────────────────────────────────
+```
+
+**What's new vs. current:**
+
+1. **Includes both assignments AND tasks with future due dates** — current version only shows assignments. Tasks with `due_date` in the next 7 days should appear here too.
+
+2. **Grouped by day, not flat** — items are clustered under date headers ("Tomorrow", "Wednesday", "Next Week"). Much easier to scan than a flat grid.
+
+3. **Grade weight shown** — assignments display `points_possible` or grade percentage from `AssignmentGroup.group_weight`. This is free data from Canvas sync. Tells you at a glance which deadlines actually matter.
+
+4. **Wider lookahead: 7 days + "Next Week" bucket** — current version only looks 3 days ahead. 7 days catches weekly assignments. Anything 8–14 days out goes into a collapsed "Next Week" group (expandable).
+
+5. **No "Details" button** — if the user wants details, tapping the title navigates to the assignment page or opens the Canvas URL. The planner is for overview, not deep-diving.
+
+---
+
+### Section 4: Quick Add (Inline, Expandable)
+
+```
+┌─────────────────────────────────────────────────┐
+│  + "Read chapter 5 for CS2103T by Friday"       │
+│    [Enter to add]                                │
+└─────────────────────────────────────────────────┘
+```
+
+Not a separate section — lives in the header. Uses the existing `POST /fluid/parse-natural` endpoint which:
+- Parses natural language into structured task fields
+- Infers priority, course_code, due_date, estimated_minutes
+- Falls back to a simple inbox task if parsing fails
+
+This means you can capture a thought without leaving the planner. Zero friction.
+
+---
+
+## What This Design Removes
+
+| Removed | Why |
+|---------|-----|
+| "Sort by Grade %" toggle | Grade weight is now shown inline on each horizon item — sorting is less needed |
+| Inline HTML description expansion | Noisy and fragile. Assignment details live on their own page. The planner shows title + metadata only |
+| Points badge on today items | Replaced by the cleaner grade % display in horizon |
+| Separate grid layout for horizon items | Replaced by grouped-by-day list — more scannable |
+
+---
+
+## Data Sources (All Existing — No New APIs Needed)
+
+| Data | Source | Maintenance |
+|------|--------|-------------|
+| Today's classes | `GET /timetable/today` | Auto (ICS parse) |
+| Tasks | `GET /tasks` | User creates; AI triages |
+| Assignments | `GET /assignments` | Auto (Canvas sync every 15min) |
+| Grade weights | `AssignmentGroup.group_weight` via course_id | Auto (Canvas sync) |
+| Overdue detection | Compare `scheduled_date` / `due_at` < today | Computed client-side |
+| Time estimates | `Task.estimated_minutes` | Set on creation (AI-inferred) |
+| Quick add parsing | `POST /fluid/parse-natural` | Existing endpoint |
+| Mark done | `PUT /tasks/{id}`, `PUT /assignments/{id}` | Existing endpoints |
+| Carry forward | `POST /sweep/carry-forward` | Existing endpoint |
+| Sync | `POST /sync/all` | Existing endpoint |
+
+**Total new backend work: zero.** Everything is either a client-side computation or an existing API call.
+
+---
+
+## Interaction Summary
+
+| Action | Gesture | Backend Call |
+|--------|---------|-------------|
+| Mark task done | Tap checkbox | `PUT /tasks/{id}` with `status: "completed"` |
+| Mark assignment done | Tap checkbox | `PUT /assignments/{id}` with `user_status: "submitted"` |
+| Push overdue to tomorrow | Tap "→ Tomorrow" | `POST /sweep/carry-forward` |
+| Cancel overdue | Overflow menu → Cancel | `PUT /tasks/{id}` with `status: "cancelled"` |
+| Snooze overdue | Overflow menu → Snooze | `POST /fluid/triage` with `action: "snooze"` |
+| Quick add task | Type in header field + Enter | `POST /fluid/parse-natural` |
+| Enter focus mode | Tap "→ Focus" | Navigate to `/focus?id=X&type=Y` |
+| Start sweep | Tap "Start Daily Sweep" | Navigate to `/planner/sweep` |
+| Sync with Canvas | Tap sync icon | `POST /sync/all` |
+
+---
+
+## Visual Design Notes
+
+- **Keep the ultra-dark `#050505` background** — it's the app's signature.
+- **Class blocks**: subtle filled background (e.g., course colour at 5% opacity), no border radius on the timeline side (visually "attached" to the timeline). Venue in small monospace.
+- **Task/assignment items**: transparent background, left-aligned checkbox, title + metadata on the right. Hover reveals "Focus" button.
+- **Overdue section**: keep the red-tinted treatment. It should feel like a warning, not decoration.
+- **Progress bar in header**: thin, accent-coloured, fills left-to-right as items are completed throughout the day.
+- **Typography**: keep the serif heading for "Today", uppercase tracking labels for section dividers, monospace for times.
+- **Animations**: fade-in on load, slide-out when marking done (item collapses), progress bar animates on completion.

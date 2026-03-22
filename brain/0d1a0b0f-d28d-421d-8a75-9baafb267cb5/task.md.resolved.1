@@ -1,0 +1,31 @@
+# CraftCanvas Improvement Tasks
+
+## 1. Fix Priority Bugs
+- [/] Fix request-ID middleware scoping in [backend/main.py](file:///Users/oli/Desktop/CraftCanvas/backend/main.py).
+- [/] Fix undefined `statement` variable in [get_courses](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py#485-498) within [backend/services/ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py).
+- [/] Register [calendar_sync_job](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py#75-118) in [backend/jobs/scheduler.py](file:///Users/oli/Desktop/CraftCanvas/backend/jobs/scheduler.py).
+
+## 2. Backend Refactoring ([ai_tools.py](file:///Users/oli/Desktop/CraftCanvas/backend/services/ai_tools.py))
+- [ ] Create `backend/services/ai_tools/` package.
+- [ ] Extract course and module-related tools into `ai_tools/courses.py`.
+- [ ] Extract task and assignment tools into `ai_tools/tasks.py`.
+- [ ] Extract file logic and RAG search into `ai_tools/materials.py`.
+- [ ] Extract miscellaneous tools (notes, timetable, UI) into `ai_tools/misc.py`.
+- [ ] Update `TOOL_DEFINITIONS` registry to aggregate tools from the new package.
+
+## 3. Frontend Refactoring ([page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/page.tsx))
+- [ ] Extract data fetching and core state into a custom hook `useDashboardData` in `frontend/hooks/`.
+- [ ] Extract chat functionality into a custom hook `useDashboardChat` in `frontend/hooks/`.
+- [ ] Extract timetable lookahead logic into a custom hook `useDashboardTimetable` in `frontend/hooks/`.
+- [ ] Simplify `frontend/app/page.tsx` to compose these hooks and the existing UI components.
+
+## 4. Database Migrations Configuration
+- [ ] Initialize Alembic in the backend (`alembic init alembic`).
+- [ ] Configure `alembic/env.py` to use SQLModel metadata.
+- [ ] Create a migration automation script or generate the first baseline migration.
+
+## 5. DevOps & CI/CD Setup
+- [ ] Create a multi-stage `Dockerfile` and `.dockerignore` for the backend.
+- [ ] Create a multi-stage `Dockerfile` and `.dockerignore` for the frontend.
+- [ ] Add `.github/workflows/ci.yml` for building and testing.
+- [ ] Update `.gitignore` to ignore `.bak` files.

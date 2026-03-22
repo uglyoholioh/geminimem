@@ -1,19 +1,10 @@
 # Better Canvas Extensions Implementation
 
-- **Feature 1: "What-If" Grade Simulator**
-  - [ ] Backend: Sync Assignment Groups (weights) from Canvas
-  - [ ] Backend: Grade simulation endpoint
-  - [ ] Frontend: Grade Simulator component in Course page
-
-- **Feature 2: Enhanced To-Do Lists**
-  - [x] Backend: Eagerly load rich Canvas descriptions in Tasks/Assignments API
-  - [x] Frontend: Modify `PlannerIndex` to accept and display descriptions and add sorting toggle
-- **Feature 3: Smart Telegram Reminders**
-  - [x] Backend: Scheduler job for 24h imminent deadlines
-  - [x] Backend: Integrate Telegram sending logic for alert
-- **Feature 4: Module Visual Customization**
-  - [x] Backend: PATCH endpoint for course colour
-  - [x] Frontend: Course colour picker in dashboard
-- **Feature 5: Quick Views for Announcements**
-  - [x] Backend: Endpoint for latest announcement
-  - [x] Frontend: Dashboard module card quick view
+- [x] Feature 1: "What-If" Grade Simulator
+    - [x] Backend: Sync assignment groups and weights from Canvas
+    - [x] Backend: New endpoint for grade simulation data
+    - [x] Frontend: Interactive simulation component with sliders
+- [x] Feature 2: Enhanced To-Do (Canvas Descriptions + Weights)
+- [x] Feature 3: Smart Reminders (Telegram 24h Alerts)
+- [x] Feature 4: Visual Customization (Module Colors)
+- [x] Feature 5: Instant Quick Views (Announcement HoverCards)

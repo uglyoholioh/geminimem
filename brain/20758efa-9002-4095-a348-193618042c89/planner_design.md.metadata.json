@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_OTHER",
+  "summary": "Design document for the CraftCanvas planner page. Proposes a single-scroll, three-section layout (Overdue → Today → Horizon) with inline actions, class/task interleaving, capacity indicators, natural-language quick-add, and zero new backend endpoints. Includes wireframes, interaction maps, data source tables, and visual design notes.",
+  "updatedAt": "2026-03-22T15:28:20.003798Z"
+}

@@ -1,0 +1,15 @@
+# Planner Page Verification Plan
+
+- [ ] Log in at http://localhost:3000/login
+- [ ] Navigate to http://localhost:3000/planner
+- [ ] Verify Layout:
+    - [ ] "Today" header and Quick Add (+) button
+    - [ ] "Needs Decision" (Overdue) section
+    - [ ] "Line of Sight" (Today's timeline) section
+    - [ ] "On the Horizon" section
+- [ ] Test Quick Add:
+    - [ ] Add "Test quick add task for tomorrow"
+    - [ ] Verify it appears in the planner (might be in "On the Horizon")
+- [ ] Test Interactions:
+    - [ ] Hover over tasks to see Done checkbox and Focus button
+- [ ] Report Findings

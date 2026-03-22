@@ -1,0 +1,5 @@
+# Better Canvas Extensions Implementation
+
+- **Feature 5: Quick Views for Announcements**
+  - [x] Backend: Endpoint for latest announcement
+  - [x] Frontend: Dashboard module card quick view
