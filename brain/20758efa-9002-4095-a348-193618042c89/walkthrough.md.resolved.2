@@ -20,11 +20,7 @@ The Planner page has been completely rewritten to follow the "zero-maintenance, 
 6. **Backend Schema Fix**:
    - Identified a `sqlalchemy.exc.OperationalError` (missing column `assignment_group_id`) that was causing 500 errors on [/assignments](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments) and [/courses](file:///Users/oli/Desktop/CraftCanvas/frontend/app/courses).
    - Applied a database migration to add the missing column to the [assignments](file:///Users/oli/Desktop/CraftCanvas/frontend/app/assignments) table.
-7. **Compact Layout Redesign**:
-   - Significantly reduced the padding, border radius, and font sizes of the [ActionableItem](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/page.tsx#50-95), [ClassBlock](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/page.tsx#26-49), and [Overdue](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/sweep/page.tsx#20-27) item cards.
-   - Refactored items to be inline rather than stacked, allowing far more items to be visible on screen at once (~32px height per item).
-   - Removed excessive inner gap and margin spacing within lists.
-8. **Testing & Verification**:
+7. **Testing & Verification**:
    - Confirmed frontend build currently succeeds.
    - Confirmed all existing Vitest tests still pass.
    - Confirmed login via `test@example.com` and visual layout correctness in the browser with real data.
@@ -43,4 +39,3 @@ Here is the browser recording of the final checkout where we logged in and previ
 
 ![Planner Page Verification](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/planner_final_check_1774194075235.webp)
 ![Planner Quick Add and Timeline](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/planner_real_data_check_1774196807911.webp)
-![Compact Tasks Redesign](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/compact_planner_check_1774202574160.webp)

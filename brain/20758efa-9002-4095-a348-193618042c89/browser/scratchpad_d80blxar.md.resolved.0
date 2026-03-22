@@ -1,0 +1,6 @@
+# Planner Redesign Verification Checklist
+- [ ] Open http://localhost:3000/planner
+- [ ] Login if needed (test@example.com / password123)
+- [ ] Observe "Needs Decision" and "Line of Sight" lists
+- [ ] Verify task bars are slimmer/tighter
+- [ ] Summarize compact UI appearance

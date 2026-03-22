@@ -17,10 +17,18 @@ The Planner page has been completely rewritten to follow the "zero-maintenance, 
    - Fully adopted the custom CSS variable theme system (e.g. `bg-base`, `text-primary`, `bg-surface`), ensuring perfect Light/Dark mode and color scheme compatibility without hardcoded hex colors.
 5. **Codebase Cleanup**:
    - Deleted 6 legacy planner components that are no longer needed (e.g., `Vortex`, `SortingGauntlet`, `DynamicListView`).
-6. **Testing & Verification**:
-   - Confirmed frontend build succeeds.
+6. **Backend Schema Fix**:
+   - Identified a `sqlalchemy.exc.OperationalError` (missing column `assignment_group_id`) that was causing 500 errors on `/assignments` and `/courses`.
+   - Applied a database migration to add the missing column to the `assignments` table.
+7. **Compact Layout Redesign**:
+   - Significantly reduced the padding, border radius, and font sizes of the `ActionableItem`, `ClassBlock`, and `Overdue` item cards.
+   - Refactored items to be inline rather than stacked, allowing far more items to be visible on screen at once (~32px height per item).
+   - Removed excessive inner gap and margin spacing within lists.
+8. **Testing & Verification**:
+   - Confirmed frontend build currently succeeds.
    - Confirmed all existing Vitest tests still pass.
-   - Confirmed login via `test@example.com` and visual layout correctness in the browser.
+   - Confirmed login via `test@example.com` and visual layout correctness in the browser with real data.
+   - Verified that total actionable items and estimated time are correctly calculated and displayed in the header.
 
 ## Visual Verification Highlights
 
@@ -33,4 +41,6 @@ The Planner page has been completely rewritten to follow the "zero-maintenance, 
 
 Here is the browser recording of the final checkout where we logged in and previewed the layout:
 
-![Planner Page Verification](file:///Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/planner_final_check_1774194075235.webp)
+![Planner Page Verification](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/planner_final_check_1774194075235.webp)
+![Planner Quick Add and Timeline](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/planner_real_data_check_1774196807911.webp)
+![Compact Tasks Redesign](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/compact_planner_check_1774202574160.webp)

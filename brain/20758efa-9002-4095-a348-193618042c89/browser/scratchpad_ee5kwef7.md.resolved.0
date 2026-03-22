@@ -1,0 +1,15 @@
+# Task Checklist
+
+- [ ] Go to http://localhost:3000/login
+- [ ] Log in with `test@example.com` / `password123`
+- [ ] Navigate to http://localhost:3000/planner
+- [ ] Verify page loads without 500 errors in console
+- [ ] Check "Needs Decision" or "Line of Sight" sections
+- [ ] Verify Quick Add (+) button works
+- [ ] Report status
+
+# Findings
+
+- **Console Errors:** To be checked
+- **Sections Population:** To be checked
+- **Quick Add Status:** To be checked
