@@ -1,5 +1,6 @@
 {
   "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary": "Detailed implementation plan for the planner page redesign, targeting Gemini Flash execution. Covers the full rewrite of the frontend planner page into 4 sections (header, overdue, today timeline, horizon), with no backend changes. Includes precise file paths, exact API calls, type definitions, styling patterns, and step-by-step instructions for each component. Verification via frontend build + browser testing.",
-  "updatedAt": "2026-03-22T15:34:08.767661Z"
+  "summary": "Implementation plan for enhancing the Planner page with automatic categorization and improving the Daily Sweep with more bins and keyboard shortcuts.",
+  "updatedAt": "2026-03-23T07:34:33.608658Z",
+  "version": "1"
 }

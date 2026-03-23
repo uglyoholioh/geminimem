@@ -13,3 +13,9 @@
   - [x] Frontend build check
   - [x] Existing vitest tests pass
   - [x] Browser visual verification
+- [/] Enhance Planner Features
+  - [ ] Implement "Group By" (Module/Type/None) on Planner page
+  - [ ] Implement/Enhance Daily Sweep page (`/planner/sweep`)
+    - [ ] Add keyboard shortcuts (1, 2, 3, etc.)
+    - [ ] Add more bins (Tomorrow, Next Week, Someday, Delete)
+  - [ ] Verify functionality and responsiveness

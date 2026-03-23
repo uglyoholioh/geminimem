@@ -22,9 +22,11 @@ The Planner page has been completely rewritten to follow the "zero-maintenance, 
    - Applied a database migration to add the missing column to the `assignments` table.
 7. **Compact Layout Redesign**:
    - Significantly reduced the padding, border radius, and font sizes of the `ActionableItem`, `ClassBlock`, and `Overdue` item cards.
-   - Refactored items to be inline rather than stacked, allowing far more items to be visible on screen at once (~32px height per item).
-   - Removed excessive inner gap and margin spacing within lists.
-8. **Testing & Verification**:
+8. **Desktop Grid Layout**:
+   - Responded to space-efficiency feedback by upgrading the `max-w-2xl` single-column layout into a `max-w-7xl` responsive grid.
+   - On large screens, "Today & Needs Decision" now occupies the left column (spanning 8 grid units), while "On the Horizon" occupies the right column (spanning 4 grid units) side-by-side. 
+   - This eliminates wasted horizontal space and presents both current priorities and upcoming context efficiently at a glance.
+9. **Testing & Verification**:
    - Confirmed frontend build currently succeeds.
    - Confirmed all existing Vitest tests still pass.
    - Confirmed login via `test@example.com` and visual layout correctness in the browser with real data.

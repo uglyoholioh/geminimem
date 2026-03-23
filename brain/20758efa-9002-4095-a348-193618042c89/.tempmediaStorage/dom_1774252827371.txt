@@ -1,0 +1,102 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (21,50)<a class='mb-8 flex items-center justify-center transition-all hover:scale-110 active:scale-95 group' href='/' />
+[1] (21,136)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/' title='Dashboard' />
+[2] (21,199)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 bg-accent/15 text-accent shadow-glow border border-accent/20' href='/planner' title='Planner' />
+	[3] (33,178)<div  />
+		[4] (33,178)<img  />
+[5] (21,261)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/focus' title='Focus' />
+[6] (21,372)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/tasks' title='Tasks' />
+[7] (21,434)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/assignments' title='Assignments' />
+[8] (21,496)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/courses' title='Courses' />
+[9] (21,559)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/notes' title='Notes' />
+[10] (21,670)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/timetable' title='Timetable' />
+[11] (21,732)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/meetings' title='Activity Finder' />
+[12] (21,794)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/history' title='History' />
+[13] (21,844)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+[14] (21,914)<a class='flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 text-muted/60 hover:bg-surface-hover/80 hover:text-primary' href='/settings' title='Settings' />
+[15] (21,990)<button class='flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-accent to-purple-500 text-white text-[11px] font-black transition-all hover:scale-110 shadow-lg active:scale-95 ring-2 ring-sidebar ring-offset-2 ring-offset-accent/20 ' title='Oli'>O />
+Today
+Monday, 23 March
+18
+items · ~
+11.9
+h estimated
+[16] (506,176)<button class='p-1.5 rounded-lg transition-all hover:bg-accent/10 text-muted' title='No Grouping' />
+[17] (524,176)<button class='p-1.5 rounded-lg transition-all bg-accent text-white shadow-sm' title='Group by Module' />
+[18] (542,176)<button class='p-1.5 rounded-lg transition-all hover:bg-accent/10 text-muted' title='Group by Type' />
+[19] (578,176)<button class='p-2.5 rounded-xl bg-surface border border-border hover:border-accent hover:text-accent transition-all active:scale-95' />
+[20] (610,176)<button class='p-2.5 rounded-xl bg-surface border border-border hover:border-accent hover:text-accent transition-all active:scale-95' />
+Needs Decision
+Datacamp Assignment on dplyr
+BT1101
+[21] (594,386)<button class='text-[10px] font-bold uppercase tracking-widest text-urgency hover:text-primary transition-colors px-2 py-1'>Done />
+Online Video: Introduction to R
+BT1101
+[22] (594,444)<button class='text-[10px] font-bold uppercase tracking-widest text-urgency hover:text-primary transition-colors px-2 py-1'>Done />
+Online Video: Data Visualisation
+BT1101
+[23] (594,503)<button class='text-[10px] font-bold uppercase tracking-widest text-urgency hover:text-primary transition-colors px-2 py-1'>Done />
+Datacamp Assignment on RMarkdown
+BT1101
+[24] (594,562)<button class='text-[10px] font-bold uppercase tracking-widest text-urgency hover:text-primary transition-colors px-2 py-1'>Done />
+Online Video: Statistical Measures & Probability Distributions
+BT1101
+[25] (594,620)<button class='text-[10px] font-bold uppercase tracking-widest text-urgency hover:text-primary transition-colors px-2 py-1'>Done />
+Online Video: Statistical Inference
+BT1101
+[26] (594,679)<button class='text-[10px] font-bold uppercase tracking-widest text-urgency hover:text-primary transition-colors px-2 py-1'>Done />
+Online Video: Linear Regression
+BT1101
+[27] (594,737)<button class='text-[10px] font-bold uppercase tracking-widest text-urgency hover:text-primary transition-colors px-2 py-1'>Done />
+Online Video: More on Linear Regression & Classification
+BT1101
+[28] (594,796)<button class='text-[10px] font-bold uppercase tracking-widest text-urgency hover:text-primary transition-colors px-2 py-1'>Done />
+[29] (356,869)<button class='w-full py-3.5 rounded-2xl bg-surface border border-border text-urgency text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-surface-hover transition-all flex items-center justify-center gap-2'>Start Daily Sweep />
+Line of Sight
+On the Horizon
+Tomorrow
+MA1522
+24 Mar 2026
+MA1522
+1
+pts
+10:30
+[30] (907,285)<button class='h-6 w-6 rounded-full border border-border/60 flex items-center justify-center hover:border-accent hover:bg-accent/10 transition-all group' />
+Thursday, 26 Mar
+BT1101
+Online Video: Data Mining Basics
+BT1101
+08:00
+[31] (907,430)<button class='h-6 w-6 rounded-full border border-border/60 flex items-center justify-center hover:border-accent hover:bg-accent/10 transition-all group' />
+Friday, 27 Mar
+BT1101
+Tutorial 7 -  More on Linear Regression and Classification
+BT1101
+20
+pts
+01:00
+[32] (907,580)<button class='h-6 w-6 rounded-full border border-border/60 flex items-center justify-center hover:border-accent hover:bg-accent/10 transition-all group' />
+Quiz 9 - Data Mining Basics
+BT1101
+10
+pts
+08:00
+[33] (907,646)<button class='h-6 w-6 rounded-full border border-border/60 flex items-center justify-center hover:border-accent hover:bg-accent/10 transition-all group' />
+MA1522
+27 Mar 2026
+MA1522
+1
+pts
+10:30
+[34] (907,742)<button class='h-6 w-6 rounded-full border border-border/60 flex items-center justify-center hover:border-accent hover:bg-accent/10 transition-all group' />
+[35] (802,820)<button class='w-full flex items-center justify-between py-3 text-muted hover:text-primary transition-colors'>Next Week (
+2
+items) />
+	Next Week (
+	2
+	items)
+
+</current_dom>

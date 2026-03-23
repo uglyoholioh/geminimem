@@ -1,0 +1,12 @@
+# Progress Tracking
+
+- [ ] Login to http://localhost:3000/login
+- [ ] Test Group By on /planner
+    - [ ] None
+    - [ ] Module
+    - [ ] Type
+- [ ] Test /planner/sweep
+    - [ ] Verify bin buttons & shortcuts (1-6)
+    - [ ] Process items with shortcuts
+- [ ] Capture screenshots and recording
+- [ ] Summary of findings
