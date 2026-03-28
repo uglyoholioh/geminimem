@@ -1,0 +1,37 @@
+[0] (33,28)<button aria-label='Home' class='nav-link' id='btn-home'>MathViz />
+[1] (961,28)<button aria-label='Paste JSON' class='nav-btn' id='btn-load'>Load Spec />
+[2] (330,110)<button class='back-btn'>← Back />
+[3] (343,138)<button class='nav-btn'>Document />
+[4] (397,138)<button class='nav-btn active'>Presentation />
+Dynamic Graphing with Draggable Points
+f
+(
+x
+)
+=
+(
+x
+−
+2
+)
+2
++
+1
+f
+(
+x
+)
+=
+(
+x
+−
+2
+)
+2
++
+1
+[5] (501,453)<canvas  />
+We can use points to define a transformation. Drag the point P to change the horizontal and vertical shift of the parabola.
+[6] (337,990)<button class='nav-btn'>< Prev />
+Step 0 of 1
+[7] (656,990)<button class='nav-btn' id='pres-next-btn'>Next Step > />
