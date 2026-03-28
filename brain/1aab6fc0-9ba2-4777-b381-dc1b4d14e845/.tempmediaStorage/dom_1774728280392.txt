@@ -1,0 +1,33 @@
+[0] (33,28)<button aria-label='Home' class='nav-link' id='btn-home'>MathViz />
+[1] (961,28)<button aria-label='Paste JSON' class='nav-btn' id='btn-load'>Load Spec />
+[2] (330,110)<button class='back-btn'>← Back />
+[3] (343,138)<button class='nav-btn'>Document />
+[4] (397,138)<button class='nav-btn active'>Presentation />
+3D Projections in MathViz
+Welcome to the 3rd Dimension!
+We can now plot mathematical surfaces in 3D.
+z
+=
+sin
+(
+x
+)
+⋅
+cos
+(
+y
+)
+z
+=
+sin
+(
+x
+)
+⋅
+cos
+(
+y
+)
+[5] (337,303)<button class='nav-btn'>< Prev />
+Step 0 of 1
+[6] (417,303)<button class='nav-btn'>Next Step > />
