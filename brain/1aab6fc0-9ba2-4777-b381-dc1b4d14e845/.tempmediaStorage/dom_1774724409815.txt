@@ -1,0 +1,118 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (94,500)<nav class='sidebar' id='sidebar' scrollable='true' />
+	[1] (91,11)<button class='nav-item' />
+		[2] (26,11)<span >↗ />
+		[3] (61,11)<span >Vectors />
+	[4] (91,73)<button class='nav-item' />
+		[5] (26,73)<span >📈 />
+		[6] (60,73)<span >Graphs />
+	[7] (91,137)<button class='nav-item' />
+		[8] (26,137)<span >📝 />
+		[9] (56,137)<span >Steps />
+	[10] (91,198)<button class='nav-item active' />
+		[11] (26,198)<span >⊕ />
+		[12] (63,198)<span >Systems />
+	Examples
+	[13] (91,315)<button class='example-item'>RREF — 3×4 Augmented />
+		[14] (20,315)<span  />
+	[15] (91,361)<button class='example-item'>Matrix — 3×3 RREF />
+		[16] (20,361)<span  />
+	[17] (91,407)<button class='example-item'>Vector Addition />
+		[18] (20,407)<span  />
+	[19] (91,453)<button class='example-item'>Linear Combination />
+		[20] (20,453)<span  />
+	[21] (91,499)<button class='example-item'>Linear Transformation />
+		[22] (20,499)<span  />
+	[23] (91,545)<button class='example-item'>Projection />
+		[24] (20,545)<span  />
+	[25] (91,591)<button class='example-item'>Quadratic vs Linear />
+		[26] (20,591)<span  />
+	[27] (91,638)<button class='example-item'>Trigonometric />
+		[28] (20,638)<span  />
+	[29] (91,684)<button class='example-item'>Area Under Curve />
+		[30] (20,684)<span  />
+	[31] (91,730)<button class='example-item'>Quadratic Formula />
+		[32] (20,730)<span  />
+	[33] (91,776)<button class='example-item'>Eigenvalue Derivation />
+		[34] (20,776)<span  />
+	[35] (91,822)<button class='example-item'>Two Lines Intersecting />
+		[36] (20,822)<span  />
+	[37] (91,868)<button class='example-item'>Parallel Lines (No Solution) />
+		[38] (20,868)<span  />
+	[39] (91,954)<button class='nav-item input-btn' id='btn-input' />
+		[40] (27,954)<span >{ } />
+		[41] (72,954)<span >Paste JSON />
+System: Two Lines
+1
+x
+−
+y
+=
+1
+x
+−
+y
+=
+1
+2
+2
+x
++
+y
+=
+5
+2
+x
++
+y
+=
+5
+Augmented Matrix
+[
+1
+−
+1
+1
+2
+1
+5
+]
+[
+1
+2
+−
+1
+1
+1
+5
+]
+[42] (710,401)<canvas  />
+Solution
+Unique solution:
+(
+2.000
+,
+1.000
+)
+Unique solution:
+(
+2.000
+,
+1.000
+)
+[43] (220,954)<button class='tb-btn' id='btn-start' title='Jump to start'>⏮ />
+[44] (252,954)<button class='tb-btn' id='btn-prev' title='Previous step'>⏪ />
+[45] (288,954)<button class='tb-btn play-btn' id='btn-play' title='Play / Pause'>▶ />
+[46] (325,954)<button class='tb-btn' id='btn-next' title='Next step'>⏩ />
+[47] (356,954)<button class='tb-btn' id='btn-end' title='Jump to end'>⏭ />
+Step 3 / 3
+[48] (613,969)<div  />
+	[49] (613,969)<div  />
+[50] (870,954)<label class='speed-label'>Speed />
+[51] (920,954)<input class='speed-slider' id='speed-slider' />
+1×
+
+</current_dom>
