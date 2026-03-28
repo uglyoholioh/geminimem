@@ -1,0 +1,421 @@
+# MathViz v2 — Interactive Mathematical Document Engine
+
+A complete architectural pivot from "animation player" to **interactive mathematical document** — inspired by manim's object model, rendered with an editorial dark aesthetic, and usable from both web UI and CLI.
+
+## What Changed From v1
+
+| Aspect | v1 (current) | v2 (proposed) |
+|--------|-------------|---------------|
+| Paradigm | Animation player with timeline | Scrollable document with all steps visible |
+| Matrix animations | Interpolates cell values (bad) | Objects transform/highlight/appear (manim-style) |
+| Aesthetic | Modern glassmorphic, emoji icons | Editorial serif, minimal, no emojis |
+| Scope | Linear algebra focused | General-purpose mathematics |
+| AI Integration | JSON paste in web UI | CLI tool + programmatic API |
+| Interactivity | Playback controls | Drag vectors, zoom graphs, click steps |
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Serif Typography**: Planning to use **Crimson Pro** (body/headings) + **JetBrains Mono** (code/values). This gives a newsletter/textbook feel. Alternative serif options: Cormorant Garamond, Lora, or Libre Baskerville. Any preference?
+
+> [!IMPORTANT]
+> **CLI Approach**: The CLI will be a simple Node.js script — `npx mathviz spec.json` opens a browser with the visualization. For AI use, the AI generates a JSON spec file and calls the CLI. Is this sufficient, or do you need a Python CLI (closer to manim's ecosystem)?
+
+---
+
+## Core Architecture (Manim-Inspired)
+
+### MObject System
+
+Everything visible on screen is an **MObject** — a mathematical object with position, style, and animation capabilities.
+
+```
+MObject (base)
+├── MEquation      — KaTeX-rendered LaTeX
+├── MText          — plain text / labels
+├── MMatrix        — matrix with brackets, cells, augmented line
+├── MVector        — arrow with label on coordinate plane
+├── MGraph         — coordinate system + plotted functions
+├── MPoint         — labeled point
+├── MLine          — line/segment
+├── MCircle        — circle
+├── MPolygon       — polygon
+├── MNumberLine    — 1D number line
+├── MGroup         — container of MObjects
+└── MCoordinateSystem — axes + grid
+```
+
+### Animation System
+
+Animations describe **how objects change** — not value interpolation. Objects appear, move, highlight, transform, or vanish.
+
+| Animation | Description |
+|-----------|-------------|
+| `FadeIn` / `FadeOut` | Opacity transition |
+| `Write` | Progressive reveal (left to right) |
+| `Transform` | Morph object A into object B |
+| `Indicate` | Brief pulse/highlight |
+| `Highlight` | Persistent color emphasis |
+| `Shift` | Translate to new position |
+| `Scale` | Resize |
+| `SwapRows` | Matrix: rows visually slide past each other |
+| `HighlightRow` | Matrix: row glows |
+| `HighlightCell` | Matrix: specific cell glows |
+| `GrowArrow` | Vector: arrow extends from tail to tip |
+| `DrawCurve` | Graph: curve traces from left to right |
+
+### Scene Structure
+
+A scene is a **sequence of beats** (not a timeline). Each beat has:
+1. **Description** — what's happening (rendered as text)
+2. **Math** — LaTeX equation (optional)  
+3. **Actions** — create/animate/remove objects
+4. **Canvas State** — the visual state after all actions
+
+```json
+{
+  "title": "Row Reducing to RREF",
+  "scene": [
+    {
+      "narration": "We have the augmented matrix [A|b]:",
+      "add": [
+        { "type": "matrix", "id": "M", "values": [[2,1,-1,8],[-3,-1,2,-11],[-2,1,2,-3]], "augmented": 3 }
+      ]
+    },
+    {
+      "narration": "First, we scale R₁ to make the leading 1:",
+      "math": "R_1 \\to \\frac{1}{2}R_1",
+      "animate": [
+        { "type": "HighlightRow", "target": "M", "row": 0 },
+        { "type": "Transform", "target": "M", "values": [[1,0.5,-0.5,4],[-3,-1,2,-11],[-2,1,2,-3]] }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## UI Design: Interactive Mathematical Document
+
+### Layout
+
+```
+┌─────────────────────────────────────────────────┐
+│  MathViz                      [Load] [Paste]    │
+│  ─────                                          │
+│                                                 │
+│  ROW REDUCING TO RREF                           │
+│  ═══════════════════                            │
+│                                                 │
+│  We have the augmented matrix [A|b]:            │
+│                                                 │
+│   ┌                        ┐                    │
+│   │  2    1   −1  ┊  8     │                    │
+│   │ −3   −1    2  ┊ −11    │                    │
+│   │ −2    1    2  ┊ −3     │                    │
+│   └                        ┘                    │
+│                                                 │
+│  ────────────────────────                       │
+│                                                 │
+│  Step 1:  R₁ → ½R₁                             │
+│  Scale row 1 to make the leading entry 1.       │
+│                                                 │
+│   ┌                        ┐                    │
+│   │  1   ½   −½  ┊  4     │  ← R₁ highlighted  │
+│   │ −3   −1    2  ┊ −11    │                    │
+│   │ −2    1    2  ┊ −3     │                    │
+│   └                        ┘                    │
+│                                                 │
+│  ────────────────────────                       │
+│                                                 │
+│  Step 2:  R₂ → R₂ + 3R₁                        │
+│  Eliminate the entry below the first pivot.      │
+│                ⋮                                │
+└─────────────────────────────────────────────────┘
+```
+
+### Key UI Principles
+- **All steps visible** — scroll to see entireeprocess
+- **Each step = narration + math + visual** in a single card
+- **Interactive canvases** — vectors are draggable, graphs are zoomable
+- **Animated transitions** — when a step scrolls into view, the animation plays (intersection observer)
+- **Navigation** — thin minimal top bar, no sidebar clutter
+
+### Aesthetic Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| Background | `#08090d` | Page background |
+| Surface | `#0f1014` | Card background |
+| Border | `rgba(180, 164, 124, 0.08)` | Subtle separators |
+| Text Primary | `#d4cfc4` | Body text (warm off-white) |
+| Text Muted | `#8a8478` | Secondary text |
+| Accent Gold | `#b8a47c` | Highlights, links |
+| Accent Teal | `#5a8a7a` | Pivots, success states |
+| Accent Rose | `#a45a5a` | Errors, warnings |
+| Heading Font | Crimson Pro, serif | Titles, narration |
+| Body Font | Crimson Pro, serif | Body text |
+| Mono Font | JetBrains Mono | Values, code, matrix cells |
+| Radius | 3px | Minimal rounding |
+
+---
+
+## Proposed Changes
+
+### Phase 1: Foundation Overhaul
+
+#### [MODIFY] index.html
+- Strip to minimal shell: top bar + scrollable content area + modal
+- Remove sidebar, playback toolbar, welcome cards
+- Add thin top navigation with text-only logo
+
+#### [MODIFY] src/style.css
+- Complete rewrite with editorial serif aesthetic
+- New color tokens (dark warm palette)
+- Serif typography system
+- Step card layout (full-width, stacked)
+- Matrix rendering styles (clean typographic brackets)
+- Minimal icon set (SVG line icons)
+
+#### [MODIFY] src/main.ts
+- New initialization — document-based renderer
+
+---
+
+### Phase 2: Core Engine (Manim-Inspired)
+
+#### [NEW] src/core/mobject.ts
+Base MObject system:
+- `MObject` base class (id, position, style, visible, opacity)
+- `MEquation` — wraps KaTeX rendering
+- `MText` — plain text
+- `MMatrix` — 2D values array, bracket rendering, augmented column
+- `MVector` — components, color, label, origin
+- `MGraph` — axes config, function list
+- `MPoint`, `MLine`, `MCircle`, `MPolygon`
+- `MGroup` — container
+- `MCoordinateSystem` — axes + grid + interactive pan/zoom
+
+#### [NEW] src/core/animations.ts
+Animation definitions:
+- Each animation has: `target`, `duration`, `easing`, `onFrame(t)`
+- FadeIn, FadeOut, Write, Transform, Indicate
+- Highlight, HighlightRow, HighlightCell
+- Shift, Scale, SwapRows
+- GrowArrow, DrawCurve
+- Animation sequencer that chains animations within a beat
+
+#### [NEW] src/core/scene.ts
+Scene management:
+- Parse scene beats from spec
+- For each beat: create DOM section (narration + math + canvas)
+- Manage MObject state across beats
+- IntersectionObserver to trigger animations on scroll
+- State snapshots for each beat
+
+---
+
+### Phase 3: Renderers
+
+#### [NEW] src/renderers/matrix-renderer.ts
+- Render MMatrix as DOM grid with CSS brackets
+- Clean typographic display (fractions, not decimals)
+- Row/cell highlighting with subtle glow
+- Animated row swaps (CSS transform: translateY)
+- Animated cell value changes (crossfade old → new)
+
+#### [NEW] src/renderers/canvas-renderer.ts
+Shared Canvas2D utilities:
+- Coordinate grid drawing
+- Vector arrows with labels
+- Function curve plotting
+- Interactive pan/zoom/drag
+- Points, lines, shapes
+
+#### [NEW] src/renderers/equation-renderer.ts
+- KaTeX rendering with step highlighting
+- Wrap specific parts in colored spans
+- Progressive "Write" animation
+
+---
+
+### Phase 4: Rewrite App Shell
+
+#### [MODIFY] src/app.ts
+Complete rewrite:
+- `DocumentRenderer` — renders a scene as a scrollable document
+- Each beat becomes a `.beat-section` with:
+  - `.beat-narration` — description text
+  - `.beat-math` — KaTeX equation
+  - `.beat-canvas` — interactive canvas or DOM matrix
+- IntersectionObserver triggers beat animations
+- Manages object state continuity between beats
+
+#### [DELETE] src/visualizers/* (all files)
+#### [DELETE] src/components/* (all files)
+#### [DELETE] src/engine/animation.ts (replaced by core/animations.ts)
+#### [DELETE] src/engine/canvas-renderer.ts (replaced by renderers/canvas-renderer.ts)
+
+---
+
+### Phase 5: API + CLI
+
+#### [MODIFY] src/api/parser.ts
+Updated spec format:
+- Scene-based with beats
+- MObject definitions
+- Animation specifications
+- Flexible type detection
+
+#### [NEW] cli.ts
+Node.js CLI tool:
+```bash
+# Render a spec file (opens browser)
+npx tsx cli.ts render spec.json
+
+# Serve with hot-reload
+npx tsx cli.ts serve spec.json
+
+# From stdin (for AI piping)
+echo '{"title":"...","scene":[...]}' | npx tsx cli.ts render -
+```
+
+#### [MODIFY] AI_PROMPT.md
+Updated with new scene-based spec format
+
+---
+
+### Phase 6: Example Specs + Polish 
+
+#### [NEW] public/examples/*.json
+Updated examples using scene format:
+- `rref.json` — Row reduction step-by-step
+- `vectors.json` — Vector operations with draggable vectors
+- `transform.json` — Linear transformation with grid morphing
+- `quadratic.json` — Solving quadratic (general algebra)
+- `derivative.json` — Derivative visualization (calculus)
+- `system.json` — System of equations
+
+#### [KEEP] src/engine/math-engine.ts
+Matrix computation helpers (RREF, vector ops, etc.)
+
+#### [KEEP] src/utils/katex-helpers.ts
+KaTeX rendering utilities
+
+#### [MODIFY] src/utils/colors.ts
+New editorial color palette
+
+---
+
+## Spec Format v2 (Scene-Based)
+
+### Matrix RREF
+```json
+{
+  "title": "Row Reducing an Augmented Matrix to RREF",
+  "scene": [
+    {
+      "narration": "Consider the system of equations represented by the augmented matrix [A|b]:",
+      "add": [
+        { "type": "matrix", "id": "M", "values": [[2,1,-1,8],[-3,-1,2,-11],[-2,1,2,-3]], "augmented": 3 }
+      ]
+    },
+    {
+      "narration": "Scale row 1 to create a leading 1 in position (1,1).",
+      "math": "R_1 \\to \\tfrac{1}{2} R_1",
+      "animate": [
+        { "type": "HighlightRow", "target": "M", "row": 0, "color": "accent" },
+        { "type": "TransformMatrix", "target": "M", "values": [[1,0.5,-0.5,4],[-3,-1,2,-11],[-2,1,2,-3]], "changedRows": [0] }
+      ]
+    }
+  ]
+}
+```
+
+### 2D Vectors (Interactive)
+```json
+{
+  "title": "Vector Addition in ℝ²",
+  "scene": [
+    {
+      "narration": "Let v and w be two vectors in the plane.",
+      "add": [
+        { "type": "coordinateSystem", "id": "cs", "range": [-6, 6], "interactive": true },
+        { "type": "vector", "id": "v", "components": [3, 1], "label": "v", "color": "#5a8a7a", "draggable": true },
+        { "type": "vector", "id": "w", "components": [1, 3], "label": "w", "color": "#b8a47c", "draggable": true }
+      ]
+    },
+    {
+      "narration": "Their sum v + w is found by the parallelogram rule.",
+      "math": "\\vec{v} + \\vec{w} = \\begin{bmatrix} 4 \\\\ 4 \\end{bmatrix}",
+      "animate": [
+        { "type": "GrowArrow", "id": "sum", "components": [4, 4], "label": "v + w", "color": "#a45a5a" }
+      ]
+    }
+  ]
+}
+```
+
+### General Math: Quadratic Formula
+```json
+{
+  "title": "Solving 2x² + 5x − 3 = 0",
+  "scene": [
+    {
+      "narration": "Begin with the quadratic equation.",
+      "add": [
+        { "type": "equation", "id": "eq", "latex": "2x^2 + 5x - 3 = 0" }
+      ]
+    },
+    {
+      "narration": "Identify the coefficients a, b, and c.",
+      "math": "a = 2, \\quad b = 5, \\quad c = -3"
+    },
+    {
+      "narration": "Apply the quadratic formula.",
+      "math": "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} = \\frac{-5 \\pm \\sqrt{49}}{4}",
+      "animate": [
+        { "type": "Transform", "target": "eq", "latex": "x = \\frac{-5 \\pm 7}{4}" }
+      ]
+    },
+    {
+      "narration": "The two solutions are:",
+      "math": "x = \\frac{1}{2} \\quad \\text{or} \\quad x = -3",
+      "add": [
+        { "type": "graph", "id": "g", "functions": [{"expr": "2*x^2 + 5*x - 3", "label": "f(x)"}], "points": [{"x": 0.5, "y": 0, "label": "x₁"}, {"x": -3, "y": 0, "label": "x₂"}], "xRange": [-5, 3], "yRange": [-7, 10] }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## Open Questions
+
+> [!IMPORTANT]
+> **Home/Gallery Page**: Should there be a minimal landing page that lists available examples, or should the app always open directly to a specific visualization? 
+
+> [!IMPORTANT]
+> **Matrix Animation Style**: For the "transform" between matrix states — should changed cells crossfade (old value fades out, new fades in), or should the operation be shown visually (e.g., for "R₂ + 3R₁", show 3× row 1 values appearing next to row 2, then merging)?
+
+---
+
+## Verification Plan
+
+### Automated
+```bash
+npm run dev     # Dev server starts
+npm run build   # Production build succeeds
+```
+
+### Visual Testing via Browser
+- Load RREF example: verify all steps visible, matrices render with fractions
+- Load vectors example: verify draggable vectors, coordinate grid
+- Load graph example: verify zoomable/pannable, function curves
+- Verify scroll-triggered animations play
+- Verify editorial aesthetic (serif fonts, dark theme, no emojis)
+- Test CLI: `npx tsx cli.ts render examples/rref.json`
