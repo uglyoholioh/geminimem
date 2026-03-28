@@ -1,0 +1,46 @@
+# Goal: 3D Visualization & Text Animations
+
+**Phase:** Architecture Expansion
+**Goal:** Introduce basic 3D projections (Graphs & Vectors) onto our existing 2D web canvas, and implement DOM-based Text rendering with animated reveal primitives (Write, FadeIn, FadeOut) to enrich presentation capabilities.
+
+## User Review Required
+
+> [!IMPORTANT]
+> To keep MathViz fast and lightweight (without heavy dependencies like Three.js), I plan to implement **isometric orthographic projection** directly into the 2D canvas context. 
+> This approach allows us to draw responsive 3D surface grids (using the "Painter's Algorithm" for depth sorting) and 3D vectors without sacrificing performance. Are you comfortable with this lightweight 3D approach instead of a full WebGL engine?
+
+## Proposed Changes
+
+### `src/core/mobject.ts`
+- **[MODIFY]** Expand `MVector` to support optional 3rd components: `components: [number, number, number?]`.
+- **[NEW]** Add `MGraph3D` type interface (`expr: string`, `xRange`, `yRange`, `zRange`, `wireframe`).
+- **[MODIFY]** Update union types to include `graph3d`.
+
+### `src/renderers/canvas-renderer.ts`
+- **[MODIFY]** Add a `worldToIsometric` projection function that maps 3D coordinates $(x, y, z)$ into 2D canvas coordinates.
+- **[MODIFY]** Update `renderCanvas` to support drawing `graph3d`. 
+  - Evaluate the math expression over a dynamic grid.
+  - Generate 3D quads.
+  - Sort quads by depth ($z$-index).
+  - Fill and stroke polygons to render the 3D surface.
+- **[MODIFY]** Update vector drawing to route to isometric projection if a 3rd component is present.
+
+### `src/renderers/text-renderer.ts`
+- **[NEW]** Create a renderer specific for `MText` objects, allowing them to be styled typographically (using the newsletter aesthetic) and placed in the DOM.
+
+### `src/app.ts`
+- **[MODIFY]** Integrate `text-renderer` into the main `renderDocument` loop and `updatePresentationState` logic.
+- **[MODIFY]** Implement specific DOM animations in `updatePresentationState` (Presentation Mode):
+  - `FadeIn`: Smooth CSS opacity transition from `0` to `1`.
+  - `FadeOut`: Smooth CSS opacity transition from `1` to `0` followed by `display: none`.
+  - `Write`: A progressive "typewriter" effect or a smooth mask-reveal animation over the text or equation element.
+
+## Verification Plan
+
+### Automated/Renderer Tests
+- Load an example JSON spec containing a $z = \sin(x^2 + y^2)$ 3D surface plot and a 3D vector. Verify the painter's depth works properly.
+- Verify `Write` animation incrementally unveils characters or DOM elements for text blocks.
+
+### Manual Verification
+- Render the 3D grid in both Document mode and Presentation mode using the browser subagent.
+- Provide you with screenshots of the 3D render results.

@@ -1,0 +1,25 @@
+# Execution Plan: 3D Visualization & Text Animations
+
+## 1. Data Model Updates (`src/core/mobject.ts`)
+- [x] Expand `MVector` to accept 3-component arrays.
+- [x] Add `MGraph3D` type and interface.
+- [x] Add type to `MObject` union.
+
+## 2. Text Renderer & Animations (`src/renderers/text-renderer.ts` & `src/app.ts`)
+- [ ] Create `text-renderer.ts` to output standard text blocks.
+- [ ] Add rendering logic for `text` in `app.ts` (Document Mode).
+- [ ] Implement `FadeIn`, `FadeOut`, and `Write` animations in `updatePresentationState` (Presentation Mode).
+
+## 3. 3D Isometric Projection Engine (`src/renderers/canvas-renderer.ts`)
+- [ ] Implement `project3D(x, y, z)` helper (isometric/orthographic math).
+- [ ] Update `renderCanvas()` loop to check for 3D graphs and 3D vectors.
+- [ ] Draw 3D vectors (projected origin to projected tip).
+- [ ] Implement evaluating `f(x, y)` over an $N \times N$ grid.
+- [ ] Project and assemble grid polygons.
+- [ ] Sort polygons by depth (`Painter's Algorithm`) and render back-to-front.
+
+## 4. Verification & Documentation
+- [ ] Add an example 3D surface and animation to `EXAMPLES` in `app.ts`.
+- [ ] Run automated build and dev server.
+- [ ] Test Presentation Mode text animations with Browser Subagent.
+- [ ] Capture screenshots of 3D renderings to update the walkthrough.
