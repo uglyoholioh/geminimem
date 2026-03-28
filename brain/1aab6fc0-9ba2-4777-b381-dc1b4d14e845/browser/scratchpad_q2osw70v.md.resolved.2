@@ -1,0 +1,13 @@
+# MathViz V2 Testing Checklist
+- [x] Open http://localhost:5173/
+- [x] Capture landing page screenshot
+- [x] Test "Row Reduction (RREF)"
+    - [x] Click "Row Reduction (RREF)"
+    - [x] Wait 2s and capture screenshot
+    - [x] Scroll down and capture middle/lower steps screenshot
+- [x] Return to home (click "MathViz")
+- [x] Test "Quadratic Formula"
+    - [x] Click "Quadratic Formula"
+    - [x] Wait 2s and capture screenshot
+    - [x] Scroll to graph and capture screenshot
+- [x] Final report on visual appearance and issues
