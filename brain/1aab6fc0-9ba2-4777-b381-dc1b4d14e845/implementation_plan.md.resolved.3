@@ -1,0 +1,39 @@
+# Adding Presentation Mode & Detailed Animations
+
+Currently, MathViz renders scenes as a scrollable document. The user has requested a mode where steps animate in place (like a video player or slideshow), as well as **detailed math animations** for operations (e.g. showing a row sliding down to subtract from another row).
+
+## Proposed Changes
+
+### 1. Unified App State (`src/app.ts`)
+- Add a toggle UI in the header: `[ Document ] [ Presentation ]`.
+- When switching to **Presentation Mode**:
+  - Render a single fixed visualization area.
+  - Render a text area below it for the current step's narration and math.
+  - Render a control bar with `< Prev` and `Next >` buttons.
+
+### 2. Executing Animations In-Place
+Instead of scrolling, hitting "Next" will:
+- Parse `beat.animate` actions.
+- Execute them on the currently rendered DOM elements.
+- Cleanly fade in any new objects from `beat.add`, and fade out ones in `beat.remove`.
+
+### 3. Detailed Operation Animations (e.g. `AnimateRowOperation`)
+To make operations visceral, we will extend the matrix renderer. For a row addition operation (e.g., $R_3 \to R_3 - 2R_1$), the animation sequence triggered by clicking "Next" will be:
+1. **Highlighting**: Highlight both the source row ($R_1$) and target row ($R_3$).
+2. **Duplication & Slide (Ghost Elements)**: We will clone the DOM elements for $R_1$'s cells, multiply them visually by the scalar (e.g., $-2$), and use CSS `transform: translateY(...)` to smoothly slide these "ghost" cells down to hover directly next to or below the cells in $R_3$.
+3. **Combination**: The target cell briefly shows the mathematical expression (e.g. `2 - 2(1)`).
+4. **Resolution**: The expression fades into the final computed result, and the ghost elements are removed.
+
+For a scaling operation, we will briefly show `scalar * value` inside the cells before resolving to the final value.
+
+### 4. Implementation Details
+- Add an `AnimateRowMath` primitive to `src/core/animations.ts`.
+- Update `math-engine.ts` to emit this more detailed animation spec alongside `TransformMatrix`.
+- In `matrix-renderer.ts`, implement the orchestration logic for the ghost elements, timing, and cleanup using `requestAnimationFrame` or CSS transitions.
+
+## User Review Required
+
+> [!IMPORTANT]
+> This plan will implement the Presentation slideshow view, and significantly upgrade the matrix renderer to support "ghost" elements that slide and combine to explicitly show the arithmetic happening. 
+> 
+> Once implemented, your RREF example will have a "Next" button, and clicking it will visually slide the numbers to subtract them. Does this approach using floating DOM numbers sound good for your interactive goals?
