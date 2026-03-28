@@ -1,0 +1,11 @@
+# Task: Verify 3D Surface & Text Animations
+
+## Checklist
+- [ ] Open http://localhost:5173/
+- [ ] Click "3D Surface & Text Animations" example
+- [ ] Switch to Presentation mode
+- [ ] Verify 3D surface is centered
+- [ ] Verify "Welcome to the 3rd Dimension!" text animation
+- [ ] Click "Next Step"
+- [ ] Verify 3D vectors are rendered
+- [ ] Provide screenshots
