@@ -1,0 +1,40 @@
+# MathViz — Interactive Lesson Expansion
+
+We have successfully implemented **Equation Highlighting** and **Dynamic Color-Coding**, fulfilling the requirement for "dual coding" in mathematical lessons. The platform now supports real-time synchronization between interactive geometric objects and mathematical symbols.
+
+## Key Accomplishments
+
+### 1. Advanced Equation Highlighting
+Implemented a custom KaTeX-based highlighting system using template tags `{{id:content}}`. This allows specific variables or constants in an equation to be color-coded to match their corresponding visual representations (e.g., points, vectors).
+- **File**: [katex-helpers.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/utils/katex-helpers.ts)
+- **Features**: Mapping IDs to HEX colors, automatic `\color{...}{...}` injection.
+
+### 2. Dynamic Variable Substitution
+Equations and text now support `[[var]]` syntax, which automatically pulls real-time values from the global `mathScope`. 
+- **Example**: Moving point $P$ updates the values of $h$ and $k$ directly inside the equation $f(x) = (x - h)^2 + k$.
+- **Sync**: Updates happen at 60fps during canvas interactions.
+
+### 3. Integrated Draggable Geometries
+Refined the `draggablePoint` control type. Users can now manipulate variables by physically dragging points on the coordinate plane.
+- **Improved Hit Detection**: Optimized for easier grabbing.
+- **Visual Feedback**: Added shadow glows and pulse effects during dragging.
+
+### 4. New Animation: `Indicate`
+Added a pulse/scale animation type (`Indicate`) to draw user attention to specific equations or text blocks during lesson transitions.
+- **Example**: When the narrator says "Notice the shift," the relevant equation pulses.
+
+## Visual Verification
+
+````carousel
+![Draggable Point Highlighting](/Users/oli/.gemini/antigravity/brain/1aab6fc0-9ba2-4777-b381-dc1b4d14e845/mouse_on_p_1774730438307.png)
+<!-- slide -->
+![Equation Pulse Animation](/Users/oli/.gemini/antigravity/brain/1aab6fc0-9ba2-4777-b381-dc1b4d14e845/polynomial_animation_pulse_1774730736643.png)
+````
+
+> [!TIP]
+> Try out the **Polynomial Exploration** demo. You can drag point $P$ and watch the numbers in the equation change instantly, all while staying color-coordinated!
+
+## Technical Improvements
+- **Stable Layout**: Navigation controls are now anchored at a fixed bottom position, preventing UI jumpiness between steps.
+- **Persistent State**: Non-canvas objects (equations, text) now persist correctly across beats until explicitly removed.
+- **Robust Rendering**: Repaired the rendering loop to ensure added objects are in the DOM before animations start.

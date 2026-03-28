@@ -1,0 +1,39 @@
+# MathViz — Build Tracker
+
+## Phase 1: Foundation
+- [x] Initialize Vite project with dependencies
+- [x] Create index.html app shell
+- [x] Create src/style.css design system
+- [x] Create src/main.js entry point
+
+## Phase 2: Core Engine
+- [x] src/engine/animation.js — Timeline & playback
+- [x] src/engine/canvas-renderer.js — Canvas drawing utilities
+- [x] src/engine/math-engine.js — Matrix/vector computation
+
+## Phase 3: UI Components
+- [x] src/components/sidebar.js
+- [x] src/components/toolbar.js
+- [x] src/components/input-panel.js
+- [x] src/components/info-panel.js
+- [x] src/app.js — App shell & routing
+
+## Phase 4: Visualization Modules
+- [ ] src/visualizers/vector-viz.js
+- [ ] src/visualizers/graph-viz.js
+- [ ] src/visualizers/step-viz.js
+- [ ] src/visualizers/system-viz.js
+
+## Phase 5: API & Integration
+- [ ] src/api/schema.js
+- [ ] src/api/parser.js
+- [ ] src/utils/colors.js
+- [ ] src/utils/katex-helpers.js
+- [ ] AI_PROMPT.md
+- [ ] Built-in example specs
+
+## Phase 6: Verification
+- [ ] Dev server runs
+- [ ] Production build succeeds
+- [ ] All visualizers render correctly
+- [ ] Browser testing
