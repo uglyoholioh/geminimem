@@ -1,0 +1,17 @@
+# Task: Verify 3D Surface & Text Animations in MathViz - COMPLETED (with issues found)
+
+## Plan:
+- [x] Open http://localhost:5173
+- [x] Click "3D Surface & Text Animations" example
+- [x] Verify 3D surface rendering (FAIL: Step 0 has no canvas in both modes; surface missing)
+- [x] Verify "Welcome to the 3rd Dimension!" text animation (PASS: Visible in Presentation mode Step 0)
+- [x] Capture screenshots of 3D rendering (PASS for Step 1 Vectors in Document mode)
+- [x] Click "Next Step" and verify 3D vectors and text fading out (FAIL in Presentation mode: Canvas missing)
+- [x] Report findings
+
+## Findings:
+1. **3D Projection**: Working for vectors (Step 1) in Document mode. Isometric projection is visible.
+2. **Text Animations**: "Write" animation (assumed) for "Welcome to the 3rd Dimension!" works in Presentation mode.
+3. **Surface Rendering**: The $z = \sin(x) \cdot \cos(y)$ surface is NOT being rendered in either mode. Step 0 is missing a canvas entirely.
+4. **Presentation Mode (3D)**: Completely broken for 3D scenes - canvasses are not rendered/shown when switching steps. Works fine for matrices.
+5. **Fading**: Text animations appear to follow the "Presentation" flow, but 3D objects (canvasses) are lost.

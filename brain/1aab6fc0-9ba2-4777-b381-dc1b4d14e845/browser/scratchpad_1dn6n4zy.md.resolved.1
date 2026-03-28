@@ -1,0 +1,18 @@
+# Task: Verify 3D Surface & Text Animations in MathViz
+
+## Plan:
+- [x] Open http://localhost:5173
+- [x] Click "3D Surface & Text Animations" example
+- [ ] Verify 3D surface rendering (Found: Step 0 has no canvas in Document mode?)
+- [x] Verify "Welcome to the 3rd Dimension!" text animation (Found: Text is visible in Presentation mode)
+- [ ] Capture screenshots of 3D rendering
+- [ ] Click "Next Step" and verify 3D vectors and text fading out
+- [ ] Report success
+
+## Findings:
+- Document mode shows Step 0 (text only) and Step 1 (vectors + canvas).
+- Presentation mode shows "Welcome to the 3rd Dimension!" text but no initial surface canvas in Step 0.
+- Only one canvas element found on the page (`rect.top: 506`).
+- Step 0 narration: "We can now plot mathematical surfaces in 3D."
+- Step 1 narration: "We can also add 3D Vectors into this space."
+- Need to investigate if Step 0 surface rendering is failing or if it's supposed to be in Step 1.

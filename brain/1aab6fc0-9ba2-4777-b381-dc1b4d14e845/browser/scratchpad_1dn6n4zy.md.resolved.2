@@ -1,0 +1,20 @@
+# Task: Verify 3D Surface & Text Animations in MathViz
+
+## Plan:
+- [x] Open http://localhost:5173
+- [x] Click "3D Surface & Text Animations" example
+- [ ] Verify 3D surface rendering (ISSUE: Step 0 has no canvas in Document/Presentation mode)
+- [x] Verify "Welcome to the 3rd Dimension!" text animation (Found: Visible in Presentation mode Step 0)
+- [x] Capture screenshots of 3D rendering (Found: Step 1 Vectors work, Step 0 Surface missing)
+- [ ] Click "Next Step" and verify 3D vectors and text fading out
+- [ ] Report success
+
+## Findings:
+- Document mode: Step 0 (Text only), Step 1 (Vectors + Canvas).
+- Presentation mode: Step 0 (Text "Welcome..." at top left, "3D Projections..." centered, NO CANVAS).
+- Presentation mode: Step 1 (Text "Step 1 of 1", NO CANVAS).
+- Only one canvas found on page (initially in Step 1 section of Document mode).
+- 3D Projection (isometric) is WORKING at least for vectors in Step 1.
+- Step 0 surface $z = \sin(x) \cdot \cos(y)$ is NOT VISIBLE.
+- "Welcome to the 3rd Dimension!" text is visible in Presentation mode but missing in Document mode.
+- Need to check if the surface is supposed to be in Step 1 or if Step 0 rendering is broken.
