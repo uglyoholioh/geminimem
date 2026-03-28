@@ -1,0 +1,7 @@
+# Task Checklist
+- [ ] Open http://localhost:3000/planner/sweep
+- [ ] Login if necessary (use credentials for oliverkoh96@gmail.com)
+- [ ] Verify title and search input are not overlapping
+- [ ] Verify search input is centered below title and progress bar
+- [ ] Take screenshot of the new layout
+- [ ] Summary of the layout

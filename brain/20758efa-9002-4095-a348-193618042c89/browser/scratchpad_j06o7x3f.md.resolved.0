@@ -1,0 +1,14 @@
+# Task: Verify Planner and Sweep Features
+
+## Checklist:
+- [ ] Navigate to `/planner`
+- [ ] Login (if needed)
+- [ ] Verify keyword filtering ("Quiz")
+- [ ] Verify keyword exclusion ("-Quiz")
+- [ ] Verify "Hide Synced" (assignments hidden)
+- [ ] Navigate to `/planner/sweep`
+- [ ] Verify bulk actions (search -> bulk bar -> "Tmrw" -> toast)
+- [ ] Final summary of results
+
+## Observations:
+- To be added.

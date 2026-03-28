@@ -1,0 +1,21 @@
+# Planner Page Redesign
+
+- [x] Draft full implementation plan for Gemini Flash execution
+  - [x] Research existing patterns (types, API client, component conventions)
+  - [x] Write the implementation plan with explicit file-level instructions
+  - [x] Verified deleted components have no external imports
+  - [x] Submit for user review — Approved
+- [x] Implement the planner page rewrite
+  - [x] Add `scheduled_date` and `scheduled_time` to [Task](file:///Users/oli/Desktop/CraftCanvas/backend/models/task.py#9-58) type in [lib/types.ts](file:///Users/oli/Desktop/CraftCanvas/frontend/lib/types.ts)
+  - [x] Rewrite [app/planner/page.tsx](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/page.tsx)
+  - [x] Delete 6 legacy planner components
+- [x] Verify
+  - [x] Frontend build check
+  - [x] Existing vitest tests pass
+  - [x] Browser visual verification
+- [x] Enhance Planner Features
+  - [x] Implement "Group By" (Module/Type/None) on Planner page
+  - [x] Implement/Enhance Daily Sweep page ([/planner/sweep](file:///Users/oli/Desktop/CraftCanvas/frontend/app/planner/sweep))
+    - [x] Add keyboard shortcuts (1, 2, 3, etc.)
+    - [x] Add more bins (Tomorrow, Next Week, Someday, Delete)
+  - [x] Verify functionality and responsiveness

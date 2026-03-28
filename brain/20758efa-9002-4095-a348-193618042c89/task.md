@@ -13,9 +13,11 @@
   - [x] Frontend build check
   - [x] Existing vitest tests pass
   - [x] Browser visual verification
-- [/] Enhance Planner Features
-  - [ ] Implement "Group By" (Module/Type/None) on Planner page
-  - [ ] Implement/Enhance Daily Sweep page (`/planner/sweep`)
-    - [ ] Add keyboard shortcuts (1, 2, 3, etc.)
-    - [ ] Add more bins (Tomorrow, Next Week, Someday, Delete)
-  - [ ] Verify functionality and responsiveness
+- [x] Advanced Filtering & Bulk Actions
+  - [x] Implement Search bar with keyword and exclusion support (`-keyword`)
+  - [x] Add "Hide Synced" toggle to filter out automatically added assignments
+  - [x] Integrate filtering logic into Planner (Overdue, Today, Horizon)
+  - [x] Add Search/Filter to Daily Sweep
+  - [x] Implement Bulk Actions in Daily Sweep ("Process All Matches")
+  - [x] Verify sequential processing to avoid SQLite concurrency issues
+  - [x] Browser verification of end-to-end flow

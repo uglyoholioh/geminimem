@@ -1,0 +1,49 @@
+[0] (25,59)<a class='mb-8 flex items-center justify-center transition-all hover:scale-110 active:scale-95 group' href='/' />
+[1] (25,159)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/' title='Dashboard' />
+[2] (25,232)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 bg-accent/15 text-accent shadow-glow border border-accent/20' href='/planner' title='Planner' />
+	[3] (38,208)<div  />
+		[4] (38,208)<img  />
+[5] (25,304)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/focus' title='Focus' />
+[6] (25,434)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/tasks' title='Tasks' />
+[7] (25,507)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/assignments' title='Assignments' />
+[8] (25,580)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/courses' title='Courses' />
+[9] (25,652)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/notes' title='Notes' />
+[10] (25,782)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/timetable' title='Timetable' />
+[11] (25,855)<a class='group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 text-muted/60 hover:bg-surface-hover/80 hover:text-primary hover:scale-105' href='/meetings' title='Activity Finder' />
+[12] (25,986)<button class='flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-secondary transition-colors' title='Switch to dark mode' />
+Today
+Monday, 23 March
+1
+items · ~
+1
+h estimated
+[13] (353,205)<button class='p-1.5 rounded-lg transition-all bg-accent text-white shadow-sm' title='No Grouping' />
+[14] (374,205)<button class='p-1.5 rounded-lg transition-all hover:bg-accent/10 text-muted' title='Group by Module' />
+[15] (394,205)<button class='p-1.5 rounded-lg transition-all hover:bg-accent/10 text-muted' title='Group by Type' />
+[16] (435,205)<button class='p-1.5 rounded-lg transition-all bg-burgundy text-white shadow-sm' title='Show Synced' />
+[17] (503,205)<input class='bg-transparent text-[11px] pl-8 pr-3 py-1 w-32 focus:w-48 transition-all focus:outline-none placeholder:text-muted/60' placeholder='Filter tasks...' />
+[18] (578,205)<button class='p-2.5 rounded-xl bg-surface border border-border hover:border-accent hover:text-accent transition-all active:scale-95' />
+[19] (614,205)<button class='p-2.5 rounded-xl bg-surface border border-border hover:border-accent hover:text-accent transition-all active:scale-95' />
+Line of Sight
+10:00
+–
+12:00
+BT1101 Laboratory
+COM4-02-03
+12:00
+–
+14:00
+CS2030 Lecture
+LT19
+14:00
+–
+15:00
+GEX1015 Tutorial
+AS3-0212
+[20] (82,647)<button class='h-[18px] w-[18px] rounded-full border-2 border-border/80 shrink-0 flex items-center justify-center hover:border-accent hover:bg-accent/10 transition-all group-hover:border-accent/50' />
+16:59
+Review lecture 5
+~
+60
+min
+[21] (604,647)<button class='p-2 rounded-xl bg-accent text-white opacity-0 group-hover:opacity-100 transition-all hover:scale-105 active:scale-95 shrink-0' />

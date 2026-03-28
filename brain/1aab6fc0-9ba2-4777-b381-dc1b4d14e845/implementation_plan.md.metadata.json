@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Complete implementation plan for MathViz, a web-based mathematical visualization tool designed for AI-assisted learning. Covers architecture, five visualization modules (matrix operations, vectors, graphs, step-by-step solutions, systems of equations), animation engine, AI integration via JSON spec format, and phased implementation approach.",
+  "updatedAt": "2026-03-28T18:44:29.702413Z",
+  "requestFeedback": true
+}

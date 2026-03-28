@@ -46,3 +46,35 @@ Here is the browser recording of the final checkout where we logged in and previ
 ![Planner Page Verification](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/planner_final_check_1774194075235.webp)
 ![Planner Quick Add and Timeline](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/planner_real_data_check_1774196807911.webp)
 ![Compact Tasks Redesign](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/compact_planner_check_1774202574160.webp)
+
+## Phase 2: Categorization & Advanced Sweep
+
+10. **Optional Automatic Categorization**:
+    - Integrated a **Group By** toggle into the Planner header.
+    - Supports `None` (Inbox), `Module` (grouped by course code with colors), and `Type` (Tasks vs Assignments).
+    - Applied grouping logic to both the **Today Timeline** and **Line of Sight** views.
+11. **Enhanced Daily Sweep**:
+    - Expanded the sweep interface to include **6 distinct bins**: *Done, Today, Tomorrow, Next Week, Someday, and Delete*.
+    - Integrated **Keyboard Shortcuts (1-6)** for each bin to enable rapid-fire backlog clearing.
+    - Added visual shortcut hints and premium micro-animations for feedback.
+
+### Visual Verification (Phase 2)
+
+````carousel
+![Planner with Categorization Options](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/planner_page_1774253341257.png)
+<!-- slide -->
+![Daily Sweep with 6 Bins and Shortcuts](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/daily_sweep_layout_check_1774255396218.png)
+````
+
+## Phase 3: Advanced Filtering & Bulk Actions
+
+12. **High-Performance Search & Exclusion**:
+    - Implemented a unified Search Bar with support for **Keyword Exclusion** (e.g., `-Lab` to hide all labs).
+    - Added a **"Hide Synced" Toggle** to immediately filter out all Canvas-imported assignments, allowing focus on local tasks.
+13. **Bulk Action Processing**:
+    - Integrated pattern-based filtering into the **Daily Sweep** (`/planner/sweep`).
+    - When multiple items match a search, a **"Bulk Action" bar** appears at the bottom.
+    - Implemented **Sequential Processing** to ensure SQLite database integrity during bulk writes.
+
+### Final Visual Evidence
+![Filtering and Bulk Sweeping](/Users/oli/.gemini/antigravity/brain/20758efa-9002-4095-a348-193618042c89/final_verification_filtering_bulk_1774254780852.webp)
