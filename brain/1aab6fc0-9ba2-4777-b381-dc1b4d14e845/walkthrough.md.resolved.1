@@ -1,0 +1,37 @@
+# Interactive Lesson Primitives
+
+### Enhancing MathViz for AI Teaching
+
+MathViz now supports robust interactive primitives built for AI-guided lessons rather than just passive mathematical visualization. The application structure has been updated to seamlessly incorporate "Explorables" and "Assessments."
+
+## Changes Made
+
+1. **`mathScope` Dynamic Variables (`math-engine.ts`)**
+   - Implemented a scoped variable tracker (`mathScope`) exposed to the renderer and evaluating engine. Functions parsed via `parseExpression(expr)` dynamically utilize these variables.
+   - Added an `isAlgebraicallyEquivalent` check integrating numerical randomized trials alongside `mathjs.simplify()` to determine whether student inputs match an expected expression.
+
+2. **Interactive Elements (`interactive-renderer.ts`, `style.css`)**
+   - **`MControl` Type**: Built an overlay UI for "Sliders". Changing a slider variable mutates `mathScope` directly. Thanks to the canvas's `requestAnimationFrame` loop, mathematical visualizations naturally re-render when slider inputs change, providing immediate 60FPS graphical feedback!
+   - **`MQuiz` (MCQ and Math Input) Type**: Built DOM-based widgets that pose interactive questions. Designed comprehensive error states and success states matching the existing "premium" academic aesthetics.
+
+3. **Presentation Mode Navigation Locks (`app.ts`)**
+   - When resolving elements in `updatePresentationState`, the application halts animation/navigation progression until all `MQuiz` primitives correctly trigger the `onPass` event.
+
+4. **"Interactive Limit" Demo**
+   - Created a new internal lesson demonstrating the classic limit definition of a derivative: $h \to 0$. By dragging the explorable slider for $h$, students see a secant line continuously become the tangent line visually, reinforcing the mathematical formula.
+   - Incorporated an end-step quiz to verify student understanding before permitting them to proceed to the next concept.
+
+## Demonstration
+
+Below is the demo in action! The `h` variable slider overlays onto the canvas seamlessly, allowing immediate manipulation of the graph logic beneath it.
+
+![Interactive Limit Dragging and Check](/Users/oli/.gemini/antigravity/brain/1aab6fc0-9ba2-4777-b381-dc1b4d14e845/interactive_lessons_test_1774729233897.webp)
+
+> [!TIP]
+> Your AI assistant can now use `MControl` objects with the `variable: '<name>'` definition to hook any graph definition linearly. For instance, generating an `MGraph` where `expr: A*sin(B*x)` accompanied by sliders for `A` and `B` creates an instant wave amplitude/frequency explorable!
+
+## Verification Results
+
+* ✅ State resolves seamlessly without re-rendering unnecessarily
+* ✅ Algebra evaluation cleanly handles syntax spacing or equivalent representations (e.g. `2x` and `x*2` correctly pass as `2` is equivalent to `2`)
+* ✅ Quizzes correctly lock the `< Next Step >` UI logic

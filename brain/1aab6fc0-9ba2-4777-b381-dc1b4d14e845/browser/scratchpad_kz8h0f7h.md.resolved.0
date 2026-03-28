@@ -1,0 +1,15 @@
+# MathViz Interactive Limit Demo Test
+
+## Tasks
+- [ ] Open http://localhost:5173
+- [ ] Find and click 'Interactive Limit' demo button
+- [ ] Click 'Presentation View'
+- [ ] Drag the slider and observe visualization updates
+- [ ] Progress to the next step
+- [ ] Type answers into the math input box until '2' is accepted
+- [ ] Report findings and console errors
+
+## Notes
+- Smoothness of slider updates: 
+- Accepted limit value: 
+- Console errors: 

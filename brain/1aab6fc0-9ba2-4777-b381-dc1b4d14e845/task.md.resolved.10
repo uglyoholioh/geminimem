@@ -1,0 +1,17 @@
+# Interactive Lesson Integration Tasks
+
+- [x] Support `mathjs` expression equivalence and dynamic variables
+  - [x] Update `math-engine.ts` to manage variable scope dynamically and evaluate algebra equivalent expressions.
+- [x] Add `MControl` (Explorables) primitive
+  - [x] Define `MControl` interface in `mobject.ts`.
+  - [x] Implement `Slider` control rendering in a new `interactive-renderer.ts`.
+  - [x] Implement binding `Slider` changes to updating math scope and triggering re-renders without advancing steps.
+- [x] Add `MQuiz` (Assessments) primitive
+  - [x] Define `MQuiz` interface in `mobject.ts`.
+  - [x] Implement Multiple Choice (MCQ) UI in `interactive-renderer.ts`.
+  - [x] Implement Math Input (text box) UI in `interactive-renderer.ts`.
+- [x] Update Presentation Runner (`app.ts`)
+  - [x] Integrate and position interactive controls and quizzes.
+  - [x] Lock "Next" button in Presentation Mode until the step's `MQuiz` is passed.
+- [x] Create Demo
+  - [x] Add an "Interactive Calculus Lesson" to `app.ts` showcasing a slider changing a graph and a quiz checking understanding.
