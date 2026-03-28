@@ -1,0 +1,31 @@
+# Adding Presentation Mode
+
+Currently, MathViz renders scenes as a scrollable document where each step is laid out vertically. The user has requested a mode where steps animate in place, similar to a slideshow or video player experience.
+
+## Proposed Changes
+
+We will introduce a view toggle between **Document View** and **Presentation View**. 
+
+### 1. Unified App State (`src/app.ts`)
+- Add a toggle UI in the `doc-header`: `[ Document ] [ Presentation ]`
+- When switching to **Presentation Mode**:
+  - Render a single fixed visualization area.
+  - Render a text area below it for the current step's narration and math.
+  - Render a control bar with `< Prev` and `Next >` buttons.
+- Maintain a `currentBeatIndex`.
+
+### 2. Executing Animations In-Place
+- When moving from `Beat N` to `Beat N+1`:
+  - Run the animations defined in `beat.animate` (e.g. `animateMatrixTransform`, `animateRowSwap`, `animateWrite`).
+  - Add new objects from `beat.add`.
+  - Remove objects from `beat.remove`.
+  - Update narration and math text with a fade transition.
+- When jumping to a specific beat or going backward:
+  - We can simply clear the visualization area and do a direct render of `resolveStateAtBeat(index)`, skipping animations for instantaneous backward travel, or implement reverse animations (simpler to just snap to state for backwards for now).
+
+### 3. CSS Updates (`src/style.css`)
+- Add styles for the presentation layout (fixed height viz area, centered text, control buttons).
+
+## User Review Required
+
+Does this align with your expectations? You'll have a button to toggle between the full "Scrollable Document" (current) and the "Interactive Presentation" (new) where everything happens in one spot and you click "Next" to see the animations play out.

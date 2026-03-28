@@ -1,0 +1,46 @@
+# MathViz v2 — Implementation Task Tracker
+
+## Phase 1: Core Architecture
+- [x] MObject type system (`core/mobject.ts`)
+- [x] Animation primitives & runtime (`core/animations.ts`)
+- [x] Scene/Beat management & state resolution (`core/scene.ts`)
+- [x] Color palette & design tokens (`utils/colors.ts`)
+
+## Phase 2: Renderers
+- [x] Matrix renderer — DOM-based with brackets, highlighting, crossfade animations (`renderers/matrix-renderer.ts`)
+- [x] Canvas renderer — Interactive vectors, graphs, pan/zoom, dragging (`renderers/canvas-renderer.ts`)
+- [x] Equation renderer — KaTeX display with Write/FadeIn/Transform (`renderers/equation-renderer.ts`)
+
+## Phase 3: App Shell
+- [x] Document renderer — scrollable beat layout with IntersectionObserver (`app.ts`)
+- [x] Home page with categorized example gallery
+- [x] JSON input modal for loading specs
+- [x] Back navigation and state management
+
+## Phase 4: Content & Examples
+- [x] RREF scene builder (auto-generates from any matrix)
+- [x] Built-in examples: Row Reduction, 3×3 RREF, Vector Addition, Linear Transformation
+- [x] Built-in examples: Quadratic Formula, Derivative Visualization, Integration (Area)
+- [x] Built-in examples: System of Equations
+- [x] Fix fraction formatting in RREF labels
+
+## Phase 5: Integration
+- [x] Spec parser v2 — scene-based format with v1 backward compatibility (`api/parser.ts`)
+- [x] CLI entry point (`cli.ts`)
+- [x] URL hash-based spec loading (CLI → browser)
+- [x] AI_PROMPT.md — updated for v2 spec format
+- [x] Console API: `window.mathviz.loadJSON()`, `window.mathviz.load()`
+
+## Phase 6: Polish & Testing
+- [x] Editorial dark theme (Crimson Pro, warm palette, no emojis)
+- [x] Scroll-triggered beat animations
+- [x] Interactive canvas (pan, zoom, vector drag)
+- [x] Responsive layout
+- [x] Browser verification — landing, RREF, vectors, graphs all rendering correctly
+
+## Remaining / Future
+- [ ] Animated transitions between steps (triggered on scroll)
+- [ ] Matrix row swap visual animation (slide)
+- [ ] Geometry primitives (circle, polygon)
+- [ ] 3D support (Three.js integration)
+- [ ] Riemann sum visualization for integrals
