@@ -1,0 +1,63 @@
+# Interactive Lessons Expansion
+
+This plan outlines the implementation of interactive learning components for MathViz, allowing AI strictly to generate full, engaging lessons rather than just static animations. We will incorporate ideas from popular mathematical explorables (like JSXGraph, Desmos, and Mathigon) found in the `awesome-interactive-math` repository.
+
+## Logged Errors / Previous Fixes
+* **Presentation Mode 3D Fix**: The issue where 3D surfaces and vectors failed to render in Presentation Mode has been fixed by explicitly adding the `canvas-wrapper` class to `#pres-viz` and ensuring `graph3d` is checked during state resolution.
+
+## User Review Required
+
+> [!IMPORTANT]
+> Introducing interactivity changes the flow of Presentation Mode. If a Quiz is introduced in a step, should the "Next" button be disabled until the user answers correctly, or should it just be an optional widget? (My proposal: Disable "Next" until correct to enforce learning).
+> 
+> Please let me know your thoughts on this!
+
+## Proposed Changes
+
+We will introduce two major interactive primitives: **Explorables** and **Assessments**.
+
+### 1. Explorables (Sliders & Draggable Points)
+We want users to interact continuously with a visualization, seeing the math change in real-time.
+- **`MControl`**: A new generic control object type.
+    - **Slider**: A UI slider bound to a variable (e.g., `t`). Moving the slider updates `t` in the math-engine scope and triggers a fast re-render of the canvas and equations.
+    - **Draggable Point**: A point on the graph that users can drag, binding its Cartesian coordinates to variables like `x_1` and `y_1`. 
+
+### 2. Assessments (Quizzes & MCQs)
+To enable full lessons, we need knowledge checks.
+- **`MQuiz`**: A new object type to pose questions.
+    - **Multiple Choice (MCQ)**: Renders a question with $N$ clickable options.
+    - **Math Input**: Renders an input box where users type a math expression (e.g., "x^2 + 2x"). The `math-engine` will parse and compare it against the expected answer algebraically.
+
+### Component Updates
+
+#### [MODIFY] `src/core/mobject.ts`
+- Add `MControl` (type: `'slider' | 'draggablePoint'`) and `MQuiz` (type: `'mcq' | 'input'`).
+
+#### [MODIFY] `src/core/scene.ts`
+- Add logic to handle interactive objects. If a beat contains a quiz, flag it so the presentation runner knows to wait for user input.
+
+#### [MODIFY] `src/engine/math-engine.ts`
+- Expose a `setVariable(name: string, value: number)` method so UI sliders can mutate the current scope.
+- Add `compareExpressions(expr1: string, expr2: string)` using mathjs to verify user input algebraically.
+
+#### [MODIFY] `src/renderers/interactive-renderer.ts` (NEW)
+- Add a new renderer modularized specifically for DOM-based controls (sliders, quiz buttons, text inputs) that overlays the visualization area.
+
+#### [MODIFY] `src/app.ts`
+- Connect `interactive-renderer` to the render loop.
+- **Presentation Mode**: Hook up the validation logic to lock the "Next" button until the quiz on the current step is passed.
+
+## Open Questions
+
+1. **State Management**: When a user changes a slider (e.g., `t=5`), should this value persist into the next step of the presentation, or should each step reset to its defined spec? (My proposal: Reset to spec defaults to avoid breaking future steps).
+2. **Visual Overlay**: Where should the sliders/quizzes appear? Overlaid on the bottom of the canvas, or cleanly in the side/text area? (My proposal: Put quizzes in the text area beneath the math formulas, and sliders inside the canvas as overlay panels).
+
+## Verification Plan
+
+### Automated Tests
+- Parse a scene with `MControl` and `MQuiz` objects and ensure state resolves correctly.
+- Test `math-engine` expression equivalence (e.g. `2x + x` should equal `3x`).
+
+### Manual Verification
+- Create an "Interactive Calculus Limit" demo where dragging a slider `h` towards 0 dynamically moves a secant line to become a tangent line.
+- Present a quiz asking the user for the derivative, verifying that "Next" is locked until they enter the correct choice.
