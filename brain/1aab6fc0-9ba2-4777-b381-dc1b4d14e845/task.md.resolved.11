@@ -1,0 +1,15 @@
+# UI & Animation Improvement Tasks
+
+- [ ] Fix Presentation Controls Layout (`style.css`)
+  - [ ] Update `.pres-container` to vertical flexbox with fixed/full height.
+  - [ ] Set `.pres-text` to flex-grow to absorb remaining space.
+  - [ ] Ensure `.pres-controls` stays strictly at the bottom uniformly.
+- [ ] Fix Animation Desync (`app.ts`)
+  - [ ] In `updatePresentationState`, explicitly clear and re-render `vizArea` using `stateAtBeat` immediately after `await Promise.all(promises);` completes, ensuring perfectly synced visuals before the next click.
+- [ ] Implement `DraggablePoint` primitives (`awesome-interactive-math` inspiration)
+  - [ ] Add `draggablePoint` controlType to `MControl` in `mobject.ts`, accepting `varX` and `varY`.
+  - [ ] Update `interactive-renderer.ts` to skip rendering standard HTML sliders for `draggablePoint` (as they live on the canvas).
+  - [ ] Update `canvas-renderer.ts` to draw `draggablePoint` objects visually (e.g., a bright gold interactive dot).
+  - [ ] Expand the `mousedown` and `mousemove` interaction logic in `canvas-renderer.ts` to detect dragging on `draggablePoint` objects, automatically updating `mathScope[varX]` and `mathScope[varY]` and firing `onChange/requestAnimationFrame`.
+- [ ] Create Demo
+  - [ ] Add an example with a Draggable Point exploring quadratic curves or geometry, proving the connection between the canvas drag and the underlying algebraic equations.

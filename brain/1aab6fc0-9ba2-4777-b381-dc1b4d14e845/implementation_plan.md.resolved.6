@@ -1,0 +1,36 @@
+# UI & Animation Improvements Plan
+
+## Goals
+Address the three core user requests:
+1. **Reduce Animation Clutter & Sync States**: Fix the issue where transitioning too quickly hides intermediate math steps or completely ignores the rendering of newly added objects in a beat.
+2. **Uniform Control Positions**: Lock the presentation navigation buttons (Next/Prev) to the bottom of the container so they don't jump around when text height changes.
+3. **Interactive Geometry (`awesome-interactive-math`)**: Introduce a highly requested manipulable element from exploratory math tools—a freely draggable Point on the coordinate plane that directly updates algebraic equations in real-time.
+
+## Proposed Changes
+
+### Phase 1: Fixing Animation Desynchronization (`app.ts`)
+**Problem:** Currently, when an animation runs in Presentation Mode (like matrix numbers flying around), any newly `added` static math/graphs in the same step are completely skipped. Furthermore, the DOM is left in an un-synced "after-tween" state until the user clicks "Next", which looks cluttered and can miss critical information.
+**Solution:**
+- After `await Promise.all(promises);` completes all animations for the current beat, we will explicitly wipe and rigorously re-render the `vizArea` using the true computed `stateAtBeat`. 
+- This guarantees that exactly what should be on screen *is* on screen, fixing visual desyncs. The viewer will finally truly see the correct mathematical intermediate step cleanly.
+
+### Phase 2: Uniform UI Navigation (`style.css`)
+**Problem:** The height of the text area (`.pres-text`) dynamically adjusts based on paragraph size, pushing the `< Prev` and `Next Step >` buttons up and down.
+**Solution:**
+- Update `.pres-container` to be a vertical Flexbox container.
+- Update `.pres-text` to `flex-grow: 1`. 
+- Apply `margin-top: auto` or absolute bottom positioning to `.pres-controls` so the buttons remain anchored at a uniform bottom position, eliminating UI jumping.
+
+### Phase 3: GeoGebra-style Draggable Points (`awesome-interactive-math`)
+**Features to Add:**
+- **Draggable Points (`MControl` overlay):** Allow an `MControl` to specify `controlType: 'draggablePoint'` with variables `varX` and `varY`. 
+- **Modifications (`canvas-renderer.ts`):** We will augment the canvas interaction event listeners to detect clicks on Draggable Points. Dragging the point converts screen-coordinates to graph-coordinates, updates `mathScope[varX]` and `mathScope[varY]`, and triggers a native Canvas `requestAnimationFrame` loop redraw.
+- This empowers users to literally interact with polynomial curves, Bezier handles, or tangent roots directly on the graph (a hallmark of `JSXGraph` and `GeoGebra` manipulatives).
+
+## Open Questions
+
+1. **RREF Animations:** The Row Reduction (RREF) computes and generates very granular matrix calculation scenes. If they still feel too tedious after fixing the visual state-sync, we could group RREF steps. Do you want me to attempt grouping RREF steps later, or wait to see if the proposed sync fix naturally solves the clutter?
+2. **Draggable Point UI:** Should draggable points be colored bright gold to contrast heavily against normal static background points? 
+
+> [!IMPORTANT]
+> Please review the plan. Once approved, I will immediately execute these three UX upgrades!
