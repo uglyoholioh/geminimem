@@ -1,0 +1,11 @@
+[0] (33,28)<button aria-label='Home' class='nav-link' id='btn-home'>MathViz />
+[1] (961,28)<button aria-label='Paste JSON' class='nav-btn' id='btn-load'>Load Spec />
+[2] (330,110)<button class='back-btn'>← Back />
+[3] (343,138)<button class='nav-btn'>Document />
+[4] (397,138)<button class='nav-btn active'>Presentation />
+Dynamic Graphing with Draggable Points
+[5] (501,411)<canvas  />
+Notice how the equation updates as you move the point. This demonstrates how translations of graphs work in the plane.
+[6] (337,990)<button class='nav-btn'>< Prev />
+Step 1 of 1
+[7] (656,990)<button class='nav-btn' id='pres-next-btn'>Next Step > />

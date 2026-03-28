@@ -1,0 +1,29 @@
+# Equation Highlighting and Color-Matching Plan
+
+## Goals
+Enable the AI to teach more effectively by visually linking equation components to geometric objects.
+1. **Color-Coded Equations**: Support `\color` within `MEquation` LaTeX strings.
+2. **Dynamic Highlighting**: Add capability to "pulse" or "glow" specific parts of an equation during transitions or interactions.
+3. **Logic Sync**: Update the `Polynomial Exploration` demo to show $h$ and $k$ highlighted in colors matching the draggable point.
+
+## Proposed Changes
+
+### Phase 1: MObject & Utility Updates
+- **`mobject.ts`**: Update `MEquation` to include `highlights?: Record<string, string>`.
+- **`katex-helpers.ts`**: Enhance `renderMath` or provide a wrapper that can inject color based on a template system or explicit LaTeX tags. I will support a simple syntax like `{{id:content}}` which resolves to `\color{map[id]}{content}`.
+
+### Phase 2: Animation Engine (`app.ts` & `renderers`)
+- **`Indicate` Animation**: Add a new animation type `Indicate` for `equation` and `text` objects. It will cause the element to scale slightly or change color momentarily to draw attention to it.
+- **Color Consistency**: Ensure that colors used in `MGraph` (for `functions`) can be referenced and reused in the `MEquation` display area.
+
+### Phase 3: Enhanced Demo
+- **`Polynomial Exploration`**:
+    - The equation $f(x) = (x - h)^2 + k$ will have $h$ and $k$ color-coded to the point $P$.
+    - When the point is dragged, the corresponding value in the numerical display (under the narration) will also highlight.
+
+## Open Questions
+1. **Interactive Highlight**: Should clicking the point $P$ also make the corresponding letters in the equation "glow"?
+2. **Automatic Coloring**: Should I attempt to automatically color-code variables if they match an `MControl` variable name?
+
+> [!TIP]
+> This creates a "dual coding" effect where the student immediately sees the connection between the abstract symbol $h$ and the horizontal position of the vertex.

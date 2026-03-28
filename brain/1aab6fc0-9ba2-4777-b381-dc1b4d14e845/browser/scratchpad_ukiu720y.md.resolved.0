@@ -1,0 +1,8 @@
+# MathViz Testing Checklist
+
+- [ ] Navigate to http://localhost:5173
+- [ ] Select 'Polynomial Exploration' demo
+- [ ] Enter Presentation View
+- [ ] Drag point 'P' and observe parabola movement
+- [ ] Verify Next/Prev buttons are at a uniform bottom position between Step 0 and Step 1
+- [ ] Report findings to the user

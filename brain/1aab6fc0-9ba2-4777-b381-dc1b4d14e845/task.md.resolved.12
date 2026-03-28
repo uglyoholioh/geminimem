@@ -1,0 +1,14 @@
+# Highlighting & Color-Coding Tasks
+
+- [ ] Implement color templating in `renderMath` (`katex-helpers.ts`)
+  - [ ] Add support for `\color` or a template syntax like `[[id:text]]`.
+- [ ] Add `MEquation` highlight property and "Indicate" animation
+  - [ ] Update `mobject.ts` types.
+  - [ ] Update `app.ts` to handle the `Indicate` animation for equations and text.
+- [ ] Implement "Color Matching" logic in `app.ts`
+  - [ ] Update `resolveStateAtBeat`/`updatePresentationState` to allow `MControl` variable names to drive equation highlighting.
+- [ ] Update `Polynomial Exploration` Demo
+  - [ ] Link $h$ and $k$ in the equation to the point $P$'s color.
+- [ ] Final Verification
+  - [ ] Test that dragging the point highlights the correct equation terms.
+  - [ ] Ensure navigation flow remains solid.
