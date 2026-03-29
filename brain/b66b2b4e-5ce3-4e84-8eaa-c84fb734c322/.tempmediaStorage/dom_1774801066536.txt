@@ -1,0 +1,173 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (32,31)<a class='navbar__brand' href='/manim-web/' />
+	[1] (32,31)<b >manim-web />
+[2] (81,31)<a class='navbar__item navbar__link navbar__link--active' href='/manim-web/'>Docs />
+[3] (825,31)<a class='navbar__item navbar__link' href='https://github.com/maloyan/manim-web'>GitHub />
+[4] (858,31)<button aria-label='Switch between dark and light mode (currently system mode)' class='clean-btn toggleButton_gllP' title='system mode' />
+[5] (933,31)<input aria-label='Search' class='navbar__search-input searchInput_YFbd' placeholder='Search' />
+⌘
+K
+[6] (77,87)<a class='menu__link' href='/manim-web/' />
+	[7] (34,87)<span >Introduction />
+[8] (77,125)<a class='menu__link menu__link--active' href='/manim-web/getting-started' />
+	[9] (40,125)<span >Getting Started />
+[10] (77,162)<a class='menu__link' href='/manim-web/py2ts-converter' />
+	[11] (41,162)<span >py2ts Converter />
+[12] (77,199)<a class='categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret' href='#' role='button' />
+	[13] (71,199)<span >Examples />
+[14] (77,237)<a class='menu__link' href='/manim-web/api' />
+	[15] (38,237)<span >API Reference />
+await
+scene
+.
+wait
+(
+1
+)
+;
+await
+scene
+.
+play
+(
+new
+FadeOut
+(
+circle
+)
+)
+;
+You will need an HTML page with a container element:
+<
+div
+id
+=
+"
+container
+"
+>
+</
+div
+>
+<
+script
+type
+=
+"
+module
+"
+src
+=
+"
+./your-scene.ts
+"
+>
+</
+script
+>
+[16] (729,146)<button aria-label='Copy code to clipboard' class='clean-btn' title='Copy' />
+	[17] (729,146)<span  />
+Using with a bundler
+[18] (408,262)<a aria-label='Direct link to Using with a bundler' class='hash-link' href='#using-with-a-bundler' title='Direct link to Using with a bundler' />
+manim-web works with any modern bundler (Vite, webpack, esbuild, etc.). With Vite:
+npm create vite@latest my-animation -- --template vanilla-ts
+cd my-animation
+npm install manim-web
+[19] (729,377)<button aria-label='Copy code to clipboard' class='clean-btn' title='Copy' />
+	[20] (729,377)<span  />
+Then import and use
+manim-web
+in your TypeScript files.
+Framework integrations
+[21] (435,565)<a aria-label='Direct link to Framework integrations' class='hash-link' href='#framework-integrations' title='Direct link to Framework integrations' />
+React
+[22] (283,633)<a aria-label='Direct link to React' class='hash-link' href='#react' title='Direct link to React' />
+import
+{
+ManimScene
+}
+from
+'manim-web/react'
+;
+import
+{
+Circle
+,
+Create
+}
+from
+'manim-web'
+;
+function
+App
+(
+)
+{
+return
+(
+<
+ManimScene
+width
+=
+{
+800
+}
+height
+=
+{
+450
+}
+setup
+=
+{
+async
+(
+scene
+)
+=>
+{
+const
+circle
+=
+new
+Circle
+(
+{
+radius
+:
+1.5
+}
+)
+;
+await
+scene
+.
+play
+(
+new
+Create
+(
+circle
+)
+)
+;
+}
+}
+/>
+)
+;
+[23] (729,694)<button aria-label='Copy code to clipboard' class='clean-btn' title='Copy' />
+	[24] (729,694)<span  />
+[25] (838,106)<a class='table-of-contents__link toc-highlight' href='#installation'>Installation />
+[26] (838,137)<a class='table-of-contents__link toc-highlight' href='#basic-usage'>Basic Usage />
+[27] (838,167)<a class='table-of-contents__link toc-highlight table-of-contents__link--active' href='#using-with-a-bundler'>Using with a bundler />
+[28] (838,197)<a class='table-of-contents__link toc-highlight' href='#framework-integrations'>Framework integrations />
+[29] (840,227)<a class='table-of-contents__link toc-highlight' href='#react'>React />
+[30] (840,258)<a class='table-of-contents__link toc-highlight' href='#vue'>Vue />
+[31] (838,288)<a class='table-of-contents__link toc-highlight' href='#what-you-can-build'>What you can build />
+[32] (838,318)<a class='table-of-contents__link toc-highlight' href='#next-steps'>Next steps />
+
+</current_dom>

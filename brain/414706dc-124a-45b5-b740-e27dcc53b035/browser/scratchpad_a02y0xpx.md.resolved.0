@@ -1,0 +1,16 @@
+# MathViz Animation Verification Checklist
+
+- [ ] Navigate to the MathViz application (http://localhost:5173 or similar)
+- [ ] Locate the "Diagnostics" category on the home screen
+- [ ] Click on "Matrix Row Reduction" diagnostic test
+- [ ] Observe and verify 'Eliminate' animation:
+    - [ ] Rows 1 and 2 are highlighted correctly
+    - [ ] Ghost cells arc between rows
+    - [ ] Inline arithmetic is visible and crisp (no blur)
+- [ ] Observe and verify 'Swap' animation:
+    - [ ] Rows slide smoothly past each other
+    - [ ] No layout flicker or 'remount' flash
+- [ ] Observe and verify final transition to RREF:
+    - [ ] Value changes are sharp
+    - [ ] Scale-up transition used instead of blur
+- [ ] Compile final report on animation clarity and smoothness

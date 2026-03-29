@@ -1,7 +1,7 @@
 {
   "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary": "Implementation plan to fix the 'Infinite Expansion' bug, lag, and zoom issues in MathViz. Includes CSS stabilization, better resize handling, and a 'Reset View' feature.",
-  "updatedAt": "2026-03-29T15:46:01.882890Z",
-  "version": "1",
+  "summary": "Implementation plan to fix jarring matrix animations and remove the unwanted blur effect. Includes smoother row swaps and refined arithmetic display.",
+  "updatedAt": "2026-03-29T16:04:28.711041Z",
+  "version": "2",
   "requestFeedback": true
 }

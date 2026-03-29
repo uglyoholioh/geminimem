@@ -8,3 +8,7 @@
 - [x] Increase zoom speed and add safety scale clamping
 - [x] Add a "Reset View" floating button to the canvas UI
 - [x] Verify fix for lag and zoom speed
+- [ ] Remove blur effect and polish cell-value transitions in `src/style.css`
+- [ ] Refactor `animateRowSwap` in `MatrixRenderer` to use persistent DOM elements
+- [ ] Improve `animateElimination` timing and arithmetic visibility
+- [ ] Verify polished matrix animations in browser

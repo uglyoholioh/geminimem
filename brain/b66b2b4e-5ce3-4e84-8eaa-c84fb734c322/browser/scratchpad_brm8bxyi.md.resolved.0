@@ -1,0 +1,10 @@
+# Task: Find a simple TypeScript example for `manim-js`
+
+## Plan:
+1. Navigate to `https://maloyan.github.io/manim-js/`.
+2. Find a TypeScript example of initializing a scene and playing an animation.
+3. Look for documentation on using it in a web application (e.g. Vite).
+4. Return the code snippet and setup instructions.
+
+## Findings:
+- (To be updated)

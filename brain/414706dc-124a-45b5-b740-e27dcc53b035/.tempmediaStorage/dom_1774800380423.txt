@@ -1,0 +1,39 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (42,34)<button aria-label='Home' class='nav-link' id='btn-home'>MathViz />
+[1] (953,34)<button aria-label='Paste JSON' class='nav-btn' id='btn-load'>Load Spec />
+[2] (252,125)<button class='nav-btn'>← Back />
+[3] (677,125)<button class='nav-btn '>Document />
+[4] (741,125)<button class='nav-btn active'>Presentation />
+Matrix Rendering & Operations
+1
+1
+2
+2
+3
+3
+0
+0
+1
+1
+4
+4
+0
+0
+0
+0
+1
+1
+Verifying base matrix rendering with brackets and grid.
+[5] (241,940)<button class='scrub-nav' id='scrub-prev'>◀ />
+[6] (278,940)<button class='scrub-dot active' title='Verifying base matrix rendering with brackets and grid.' />
+	[7] (278,941)<span >· />
+[8] (500,940)<button class='scrub-dot' title='Testing row swap animation (R1 <-> R2).' />
+	[9] (500,940)<span >· />
+[10] (722,940)<button class='scrub-dot' title='Testing row scaling (R3 -> 5 * R3).' />
+	[11] (724,940)<span >[M] />
+[12] (759,940)<button class='scrub-nav' id='scrub-next'>▶ />
+
+</current_dom>

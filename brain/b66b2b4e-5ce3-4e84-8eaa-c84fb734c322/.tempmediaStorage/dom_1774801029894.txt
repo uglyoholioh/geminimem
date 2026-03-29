@@ -1,0 +1,151 @@
+Skip to main content
+Accessibility help
+Accessibility feedback
+[0] (63,55)<a aria-label='Go to Google Home' href='https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwigvs6FwcWTAxVMyjgGHZUFHjQQPAgJ' id='logo' title='Go to Google Home' />
+[1] (292,54)<textarea aria-label='Search' class='gLFyf' id='APjFqb' role='combobox' />
+[2] (477,54)<div  />
+	[3] (476,54)<div aria-label='Clear' class='vOY7J M2vV3' role='button' />
+		[4] (476,54)<span  />
+	[5] (488,54)<span  />
+[6] (501,54)<div aria-label='Search by voice' class='XDyW0e' role='button' />
+[7] (522,54)<div aria-label='Search by image' class='nDcEnd' role='button' />
+[8] (546,54)<button aria-label='Search' class='HZVG1b Tg7LZd' />
+	[9] (542,54)<div  />
+		[10] (542,54)<span  />
+[11] (909,54)<div aria-label='Settings' class='fLciMb' id='og-te' role='button' />
+	[12] (909,56)<div  />
+		[13] (909,54)<span  />
+[14] (933,54)<a aria-label='Google apps' class='gb_B' href='https://www.google.com.sg/intl/en/about/products?tab=wh' role='button' />
+[15] (967,54)<a aria-label='Sign in' class='gb_A' href='https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com/search%3Fq%3Dmanim-js%2Bgithub%2Bdocumentation&ec=futura_srp_og_si_72236_p'>Sign in />
+	Sign in
+[16] (133,118)<a class='XVMlrc C6AK7c' href='/search?q=manim-js+github+documentation&sca_esv=b2aed787d8e0833f&udm=50&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpFZYo9qIX3pM4_jubAu4b8NBd9PCsYkuy4_4AgqEfrYUgnKfbWLtUwduQ9Ce3SAEDD8vSv2nN5fxuhPdtDUbyXPFi81Ldi_icPZ5-2Vs9Kt2uM59quT2ViFDJlpKOZ-IzZENbkhYFErjuAbWrl76HrQDKtJ7LIh-Kbsvklobsl8Xp5267K1e35IE8pq8rtu89whVspg&aep=1&ntc=1&sa=X&ved=2ahUKEwigvs6FwcWTAxVMyjgGHZUFHjQQ2J8OegQIEBAE' />
+	[17] (133,118)<div  />
+		[18] (133,127)<div  />
+			[19] (133,121)<span >AI Mode />
+[20] (164,118)<a class='C6AK7c' role='link' />
+	All
+[21] (192,118)<a class='C6AK7c' href='/search?sca_esv=b2aed787d8e0833f&udm=18&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpFZYo9qIX3pM4_jubAu4b8NBd9PCsYkuy4_4AgqEfrYUgnKfbWLtUwduQ9Ce3SAEDD8vSv2nN5fxuhPdtDUbyXPFi81Ldi_icPZ5-2Vs9Kt2uM59quT2ViFDJlpKOZ-IzZENbkhYFErjuAbWrl76HrQDKtJ7LIh-Kbsvklobsl8Xp5267K1e35IE8pq8rtu89whVspg&q=manim-js+github+documentation&sa=X&ved=2ahUKEwigvs6FwcWTAxVMyjgGHZUFHjQQs6gLegQIFhAB' />
+	[22] (192,118)<div  />
+		[23] (192,127)<span >Forums />
+[24] (229,118)<a class='C6AK7c' href='/search?sca_esv=b2aed787d8e0833f&udm=2&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpFZYo9qIX3pM4_jubAu4b8NBd9PCsYkuy4_4AgqEfrYUgnKfbWLtUwduQ9Ce3SAEDD8vSv2nN5fxuhPdtDUbyXPFi81Ldi_icPZ5-2Vs9Kt2uM59quT2ViFDJlpKOZ-IzZENbkhYFErjuAbWrl76HrQDKtJ7LIh-Kbsvklobsl8Xp5267K1e35IE8pq8rtu89whVspg&q=manim-js+github+documentation&sa=X&ved=2ahUKEwigvs6FwcWTAxVMyjgGHZUFHjQQtKgLegQIFRAB' />
+	[25] (229,118)<div  />
+		[26] (229,127)<span >Images />
+[27] (269,118)<a class='C6AK7c' href='/search?sca_esv=b2aed787d8e0833f&udm=28&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpFZYo9qIX3pM4_jubAu4b8NBd9PCsYkuy4_4AgqEfrYUgnKfbWLtUwduQ9Ce3SAEDD8vSv2nN5fxuhPdtDUbyXPFi81Ldi_icPZ5-2Vs9Kt2uM59quT2ViFDJlpKOZ-IzZENbkhYFErjuAbWrl76HrQDKtJ7LIh-Kbsvklobsl8Xp5267K1e35IE8pq8rtu89whVspg&q=manim-js+github+documentation&ved=1t:220175&ictx=111' />
+	[28] (269,118)<div  />
+		[29] (269,127)<span >Shopping />
+[30] (308,118)<a class='C6AK7c' href='/search?sca_esv=b2aed787d8e0833f&udm=7&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpFZYo9qIX3pM4_jubAu4b8NBd9PCsYkuy4_4AgqEfrYUgnKfbWLtUwduQ9Ce3SAEDD8vSv2nN5fxuhPdtDUbyXPFi81Ldi_icPZ5-2Vs9Kt2uM59quT2ViFDJlpKOZ-IzZENbkhYFErjuAbWrl76HrQDKtJ7LIh-Kbsvklobsl8Xp5267K1e35IE8pq8rtu89whVspg&q=manim-js+github+documentation&sa=X&ved=2ahUKEwigvs6FwcWTAxVMyjgGHZUFHjQQtKgLegQIExAB' />
+	[31] (308,118)<div  />
+		[32] (308,127)<span >Videos />
+[33] (352,118)<a class='C6AK7c' href='/search?sca_esv=b2aed787d8e0833f&udm=39&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpFZYo9qIX3pM4_jubAu4b8NBd9PCsYkuy4_4AgqEfrYUgnKfbWLtUwduQ9Ce3SAEDD8vSv2nN5fxuhPdtDUbyXPFi81Ldi_icPZ5-2Vs9Kt2uM59quT2ViFDJlpKOZ-IzZENbkhYFErjuAbWrl76HrQDKtJ7LIh-Kbsvklobsl8Xp5267K1e35IE8pq8rtu89whVspg&q=manim-js+github+documentation&sa=X&ved=2ahUKEwigvs6FwcWTAxVMyjgGHZUFHjQQs6gLegQIEhAB' />
+	[34] (352,118)<div  />
+		[35] (352,127)<span >Short videos />
+[36] (398,118)<div class='mTpL7c' role='button' />
+	[37] (398,118)<div  />
+		[38] (398,127)<div  />
+			[39] (393,121)<span >More />
+			[40] (406,121)<span  />
+[41] (436,118)<div class='mOKdDc' id='hdtb-tls' role='button' />
+	[42] (436,118)<div  />
+		[43] (436,127)<div  />
+			[44] (432,121)<span >Tools />
+			[45] (445,121)<span  />
+Search Results
+AI Overview
+[46] (688,191)<div aria-label='About this result' class='Mtffrd' role='button' />
+JazonJiao/Manim.js
+and
+maloyan/manim-web
+(which has official documentation).
+Here is the documentation information for the main
+manim-js
+GitHub repositories:
+manim-web (by maloyan)
+This project allows you to create programmatic mathematical animations with a Python-like API directly in the browser using WebGL. It has a dedicated documentation site
+https://maloyan.github.io/manim-web/
+.
+GitHub Repository:
+https://github.com/maloyan/manim-web
+Documentation Site:
+https://maloyan.github.io/manim-web/
+Key features:
+Renders in real-time at 60fps, no server or video encoding needed.
+Supports geometry, text/LaTeX, graphing, 3D scenes, and core animations.
+Examples are available on the documentation site.
+Reddit
++2
+Manim.js (by JazonJiao)
+This project aims to emulate 3blue1brown-style animations using JavaScript with the p5.js library. The primary documentation is within the project's README file on GitHub.
+GitHub
+GitHub Repository:
+https://github.com/JazonJiao/Manim.js/
+Documentation:
+Located in the
+README.md
+file.
+Key features:
+[47] (406,528)<div aria-label='Show more AI Overview' class='Jzkafd' role='button' />
+	[48] (284,528)<div  />
+		[49] (284,528)<div >Show more />
+			Show more
+			[50] (305,528)<span  />
+Web results
+[51] (208,646)<a class='zReHs' href='https://github.com/JazonJiao/Manim.js/blob/master/README.md' />
+	[52] (176,668)<h3 >README.md - Manim.js />
+	[53] (208,632)<div  />
+		[54] (208,632)<div  />
+			[55] (127,632)<span  />
+				[56] (127,632)<div  />
+					[57] (127,632)<img  />
+			[58] (218,632)<div  />
+				[59] (218,623)<div  />
+					[60] (218,623)<span >GitHub />
+				[61] (218,643)<div  />
+					[62] (218,643)<cite class='qLRx3b tjvcx GvPZzd cHaqb' role='text'>https://github.com />
+						[63] (243,643)<span class='ylgVCe ob9lvb' role='text'>› JazonJiao › Manim.js › blob › master />
+[64] (308,642)<div aria-label='About this result' class='MJ8UF iTPLzd rNSxBe eY4mx lUn2nc' role='button' />
+	[65] (308,642)<span  />
+		[66] (308,643)<span  />
+The library is currently focused on
+visualizing linear algebra concepts and graph algorithms
+. All util classes are located in /src, with detailed documentation.
+[67] (322,722)<a class='vzmbzf' href='https://github.com/JazonJiao/Manim.js/blob/master/README.md#:~:text=The%20library%20is%20currently%20focused,in%20%2Fsrc%2C%20with%20detailed%20documentation.' />
+	[68] (322,722)<span >Read more />
+[69] (259,798)<a class='zReHs' href='https://github.com/isaacvr/manim-js' />
+	[70] (259,820)<h3 >isaacvr/manim-js: Manim-like animation framework for the ... />
+	[71] (183,784)<div  />
+		[72] (183,784)<div  />
+			[73] (127,784)<span  />
+				[74] (127,784)<div  />
+					[75] (127,784)<img  />
+			[76] (193,784)<div  />
+				[77] (193,775)<div  />
+					[78] (193,775)<span >GitHub />
+				[79] (193,794)<div  />
+					[80] (193,794)<cite class='qLRx3b tjvcx GvPZzd cHaqb' role='text'>https://github.com />
+						[81] (218,794)<span class='ylgVCe ob9lvb' role='text'>› isaacvr › manim-js />
+[82] (258,793)<div aria-label='About this result' class='MJ8UF iTPLzd rNSxBe eY4mx lUn2nc' role='button' />
+	[83] (258,793)<span  />
+		[84] (258,794)<span  />
+The center of this project is to
+bring the manim library (core) to the web
+, and to use it to create a nice set of animations to explain math (and other ...
+[85] (292,873)<a class='vzmbzf' href='https://github.com/isaacvr/manim-js#:~:text=The%20center%20of%20this%20project,math%20(and%20other%20contents)%20visually.' />
+	[86] (292,873)<span >Read more />
+[87] (178,949)<a class='zReHs' href='https://manim-x.github.io/manimx/' />
+	[88] (171,971)<h3 >manim documentation />
+	[89] (178,936)<div  />
+		[90] (178,936)<div  />
+			[91] (127,936)<span  />
+				[92] (127,936)<div  />
+					[93] (127,936)<span  />
+			[94] (188,936)<div  />
+				[95] (188,926)<div  />
+					[96] (188,926)<span >GitHub Pages documentation />
+				[97] (188,946)<div  />
+					[98] (188,946)<cite class='qLRx3b tjvcx GvPZzd cHaqb' role='text'>https://manim-x.github.io />
+						[99] (222,946)<span class='ylgVCe ob9lvb' role='text'>› manimx />
+[100] (248,945)<div aria-label='About this result' class='MJ8UF iTPLzd rNSxBe eY4mx lUn2nc' role='button' />
+	[101] (248,945)<span  />
+		[102] (248,946)<span  />
+Manim is an animation engine for explanatory math videos
+. It's used to create precise animations programmatically, as seen in the videos at 3Blue1Brown.

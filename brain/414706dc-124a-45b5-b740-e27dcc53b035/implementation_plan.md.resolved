@@ -1,38 +1,40 @@
-# Plan - Fix Infinite Zoom & Lag
+# Plan - Polish Matrix Animations
 
-The user is reporting that the graph is "infinitely expanding" and causing lag, and that manual zooming is too slow. This is a critical performance bug caused by a feedback loop between the canvas resolution and its parent's layout.
+The user found the matrix animations "jarring" and "blurry". We will remove the blur effect and overhaul the transitions to be smoother and more cinematic.
 
 ## User Review Required
 
-> [!CAUTION]
-> The lag is likely caused by the canvas buffer size growing unchecked, which can lead to high GPU memory consumption. I will be enforcing strict CSS constraints on the canvas.
+> [!IMPORTANT]
+> I will be removing the blur effect entirely as it interferes with readability during transitions. I will also be changing the row swap logic to avoid "remounting" the matrix, which should eliminate flickering.
 
 ## Proposed Changes
 
-### CSS Stabilization & UI
+### CSS Refinement
 #### [MODIFY] [style.css](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/style.css)
-- Add `.viz-canvas` styles: `position: absolute; width: 100%; height: 100%; top: 0; left: 0;`.
-- Ensure `.canvas-wrapper` has `position: relative` and `overflow: hidden`.
-- Add styles for a `.reset-view-btn` floating action button.
+- Remove `.matrix-cell.changing .cell-value { filter: blur(2px); }`.
+- Improve `.cell-value` transition timing with a custom quintic ease.
+- Increase `.row-op-badge` and `.row-op-label` font sizes for better visibility.
 
-### Canvas Optimization & Zoom Control
-#### [MODIFY] [canvas-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/canvas-renderer.ts)
-- **Fix Resize Loop**: Remove the resize check from the `requestAnimationFrame` loop. Instead, use a single `ResizeObserver` per canvas that handles buffer resizing reliably.
-- **Improved Zoom Speed**: Adjust the scroll `zoomFactor` from 0.92/1.08 to 0.8/1.25 for faster interaction.
-- **Safety Clamps**: Clamp the `state.scale` and `targetScale` to a reasonable range (e.g., 0.1 to 1000) to prevent memory-breaking resolutions or "infinite" zooming.
-- **Reset Feature**: Export a `resetView(csId)` function and wire it to a UI button.
+### Matrix Animation Overhaul
+#### [MODIFY] [matrix-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/matrix-renderer.ts)
+- **Transform Animation**: Increase the `translateY` distance and the duration slightly for a more "Manim-like" feel.
+- **Row Swap Logic**: Refactor `animateRowSwap` to update the existing DOM structure (moving `matrix-cell` elements or entire row wrappers) instead of re-mounting the whole matrix. This prevents layout jumps and flickers.
+- **Elimination Animation**: 
+  - Make the "ghost" elements more vibrant.
+  - Slow down the "Arithmetic" display phase so the user has time to read the operation.
+  - Use a clearer "scale-in" effect for the results.
 
-### Integration
-#### [MODIFY] [canvas-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/canvas-renderer.ts)
-- Add the "Reset" button to the `wrapper` in `createInteractiveCanvas`.
+### Engine Integration (if needed)
+- Ensure `math-engine.ts` isn't sending too many redundant updates that cause animation overlap.
 
 ## Verification Plan
 
 ### Automated Tests
-- I will use the `browser` tool to verify that:
-  - Resizing the browser window does not cause the canvas to grow indefinitely or trigger a CPU/GPU spike.
-  - Using the scroll wheel zooms in and out significantly faster.
-  - Clicking the "Reset View" button restores the coordinate system to its default scale and offset.
+- I will use the `browser` tool to:
+  - Play the "Matrix Row Reduction" diagnostic scene.
+  - Verify that row swaps look like actual rows sliding past each other without flickering.
+  - Verify that cell transformations are sharp (no blur) and use smooth easing.
+  - Check that the "Ghost" cells in elimination steps follow a clear arc.
 
 ### Manual Verification
-- Ask the user to confirm that the lag has disappeared and that the "Reset View" button helps manage the zoom level effectively.
+- Ask the user to confirm if the "blur" is gone and if the animations feel more fluid and less jarring.
