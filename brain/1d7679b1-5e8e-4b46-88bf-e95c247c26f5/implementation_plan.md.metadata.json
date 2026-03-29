@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Implementation plan to fix visualization issues in MathViz, including canvas duplication, hardcoded coordinate system IDs, and state synchronization bugs.",
+  "updatedAt": "2026-03-29T08:20:53.416757Z",
+  "requestFeedback": true
+}

@@ -1,0 +1,15 @@
+- [ ] **Canvas Engine Update**
+    - [ ] Add interpolation state to `CanvasState` in `canvas-renderer.ts`
+    - [ ] Update `updateCanvasObjects` for smooth value transitions (800ms)
+    - [ ] Update `drawVectorObj` and coordinate helper functions to use interpolated values
+- [ ] **UI Reconciliation in `app.ts`**
+    - [ ] Refactor `renderBaseState` to update existing DOM elements by `id`
+    - [ ] Add FadeIn/FadeOut animations for entering/exiting elements
+- [ ] **Matrix/Equation In-place Updates**
+    - [ ] Implement `updateMatrixValues` in `matrix-renderer.ts`
+    - [ ] Use `animateTransformEquation` for standard LaTeX updates
+- [ ] **Presentation Orchestration**
+    - [ ] Sequence narration "Write" animation with visual transitions
+    - [ ] Synchronize text highlights with graph highlights
+- [ ] **Verification**
+    - [ ] Test the "QR & Gram-Schmidt" lesson for smooth vector and formula flow

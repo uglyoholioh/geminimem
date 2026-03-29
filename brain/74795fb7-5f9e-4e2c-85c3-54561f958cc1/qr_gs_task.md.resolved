@@ -1,0 +1,4 @@
+- [ ] Draft the QR/Gram-Schmidt `SceneSpec` with synchronized highlights
+- [ ] Add the new example to the `EXAMPLES` array in `app.ts`
+- [ ] Verify the lesson in Presentation Mode in the browser
+- [ ] Confirm all synchronized highlights (v1, v2, proj, u2, q1, q2) are working

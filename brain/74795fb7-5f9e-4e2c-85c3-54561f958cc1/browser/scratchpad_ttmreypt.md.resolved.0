@@ -1,0 +1,16 @@
+# QR & GS Investigation Plan
+- [ ] Open http://localhost:5173/
+- [ ] Navigate to 'QR & Gram-Schmidt'
+- [ ] Check 'Document Mode'
+    - [ ] Scroll through all beats
+    - [ ] Look for missing text/equations
+    - [ ] Look for overlapping elements
+    - [ ] Look for clipping issues
+- [ ] Check 'Presentation Mode'
+    - [ ] Step through presentation
+    - [ ] Observe 'Write' animation
+    - [ ] Look for missing text/equations
+    - [ ] Look for overlapping elements
+    - [ ] Look for clipping issues
+- [ ] Check for console errors in both modes
+- [ ] Report findings

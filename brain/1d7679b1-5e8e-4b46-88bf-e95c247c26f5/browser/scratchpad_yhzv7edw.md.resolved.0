@@ -1,0 +1,8 @@
+# Visualization Verification Plan
+- [ ] Navigate to http://localhost:5175/
+- [ ] Click on "QR & Gram-Schmidt" or "Vector Addition" example.
+- [ ] Verify visualization renders correctly.
+- [ ] Switch to "Presentation" mode (if not already there).
+- [ ] Navigate through steps using scrubber/next button.
+- [ ] Check if only one `<canvas>` exists in `#pres-viz`.
+- [ ] Report findings.

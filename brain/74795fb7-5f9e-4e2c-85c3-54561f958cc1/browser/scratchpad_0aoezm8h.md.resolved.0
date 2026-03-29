@@ -1,0 +1,11 @@
+# QR & Gram-Schmidt Visualizer Verification
+
+## Checklist
+- [ ] Open http://localhost:5173/
+- [ ] Find and click 'QR & Gram-Schmidt' example
+- [ ] Verify Step 1: Original Vectors (Check highlights in text, math, and graph)
+- [ ] Verify Step 2: Projection (Check blue highlights and visualization)
+- [ ] Verify Step 3: Orthogonalization (Check highlights for u2)
+- [ ] Verify Step 4: Normalization (Check q1, q2 highlights)
+- [ ] Verify Step 5: Matrix Result (Check A = QR highlights)
+- [ ] Summary of findings
