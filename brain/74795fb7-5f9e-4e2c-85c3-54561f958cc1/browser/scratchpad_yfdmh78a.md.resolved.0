@@ -1,0 +1,14 @@
+# Task: Verify Synchronized Highlights Example
+
+## Plan
+- [ ] Open http://localhost:5173/ (if not already there)
+- [ ] Find and click "Synchronized Highlights" example
+- [ ] Verify narration text and math equation highlights match the graph area
+- [ ] Go through steps and check if highlights update
+- [ ] Summarize findings
+
+## Progress
+- Initialized plan.
+- Attempted to open http://localhost:5173/ but encountered ERR_CONNECTION_REFUSED.
+- Suspect server is down or crashed due to recent edits.
+- Plan to check `src/app.ts` or other edited files for syntax errors.

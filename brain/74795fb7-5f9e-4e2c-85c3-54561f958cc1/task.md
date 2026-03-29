@@ -1,0 +1,7 @@
+- [ ] Update core models in `mobject.ts`
+- [ ] Update scene logic in `scene.ts`
+- [ ] Implement highlighted text in `text-renderer.ts`
+- [ ] Update graph and vector rendering in `canvas-renderer.ts`
+- [ ] Update `app.ts` to coordinate highlights
+- [ ] Add "Synchronized Highlights" demo example
+- [ ] Verify functionality in both Document and Presentation modes
