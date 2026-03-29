@@ -1,0 +1,40 @@
+# Fluid MathViz Animation Engine Walkthrough
+
+We have transformed the MathViz presentation mode from a static, step-by-step interface into a fluid, video-like experience. The transitions are now coordinated, math morphing is synchronized with narration, and values "fly" between components to show their origin.
+
+## Key Enhancements
+
+### 🚀 Global Animation Controller
+We replaced the basic animation loop with a robust `AnimationController` system. This allows us to:
+- Await animations as promises.
+- Cancel overlapping animations to prevent feedback loops.
+- Coordinate multiple simultaneous transitions (e.g., narration writing while math is cross-fading).
+
+### 🕊️ Value Tracking (Provenance)
+A new "Value Flying" system shows the history of mathematical terms. When a value is used in an equation (like a substitution from a matrix), it physically traverses the screen:
+- **Source Targeting**: Matrix cells and equation terms now have unique DOM IDs.
+- **Parabolic Paths**: "Ghost" elements are spawned in a top-level overlay and follow a smooth arc to their destination.
+- **Dynamic CSS**: The overlay uses `backdrop-filter` and glassmorphism to feel premium.
+
+### 🎬 Continuous Video Flow
+The presentation mode now feels like a single timeline:
+- **Stable UI**: Components no longer "pop" in and out. They are rendered once and then updated via animations.
+- **Narrative Sync**: The narration "writes" in real-time, timed with visual changes.
+- **Math Morphing**: Improved cross-fading between LaTeX states using `clip-path` and opacity blends.
+
+## Technical Summary
+
+| Component | Changes |
+| :--- | :--- |
+| **`animations.ts`** | Added `FlyTo` type and `AnimationController`. |
+| **`global-animator.ts`** | New singleton for cross-component object movement. |
+| **`app.ts`** | Refactored `updatePresentationState` to orchestrate coordinated transitions. |
+| **`katex-helpers.ts`** | Added `\htmlId` support for term-level tracking. |
+| **`style.css`** | Implemented a new "Video View" with a premium scrubber and animation layers. |
+
+## Verification Results
+- **Gram-Schmidt Example**: Tested the first step where $v_1$ is defined from the matrix. The value correctly "flies" from the matrix cell to the equation.
+- **UI Stability**: Verified that rapid stepping through the presentation doesn't cause glitches due to proper animation cancellation.
+
+> [!TIP]
+> Try the **"QR & Gram-Schmidt"** example in Presentation Mode to see the new value tracking in action!

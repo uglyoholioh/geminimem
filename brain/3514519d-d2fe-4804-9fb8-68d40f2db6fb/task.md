@@ -1,0 +1,17 @@
+- [ ] Animation Engine (Easing & Timing)
+    - [ ] Add `smooth` (quintic) easing to `animations.ts`.
+    - [ ] Make `smooth` the default for `animate` in Presentation mode.
+    - [ ] Update `FlyTo` and `MorphEquation` timing.
+- [ ] Geometry Creation (`Create`)
+    - [ ] Update `canvas-renderer.ts` to support `completion` for vectors/lines.
+    - [ ] Implement `ShowCreation` animation type.
+- [ ] Equation Morphing (`ReplacementTransform`)
+    - [ ] Update `equation-morph-renderer.ts` with "Smart Morphing".
+    - [ ] Ensure matching terms move, others fade.
+- [ ] Visual Polish (Manim Aesthetic)
+    - [ ] Update `colors.ts` with higher-contrast Manim palette.
+    - [ ] Darken backgrounds in `style.css`.
+    - [ ] Update coordinate grid styling (thinner, more professional).
+- [ ] Verification and Polish
+    - [ ] Test Gram-Schmidt example transitions.
+    - [ ] Adjust durations for cinematic feel.

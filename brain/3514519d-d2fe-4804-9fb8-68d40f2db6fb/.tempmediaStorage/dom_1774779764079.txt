@@ -1,0 +1,258 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (192,121)<a class='sidebar-brand' href='../index.html' />
+	[1] (192,80)<div  />
+		[2] (192,80)<img  />
+	[3] (192,191)<span >Manim Community v0.20.1 />
+[4] (192,271)<input aria-label='Search' class='sidebar-search' placeholder='Search' />
+[5] (192,312)<a href='javascript:SphinxHighlight.hideSearchWords()'>Hide Search Matches />
+[6] (192,661)<div class='sidebar-scroll' scrollable='true' />
+	[7] (162,368)<a class='reference internal' href='../examples.html'>Example Gallery />
+	[8] (157,404)<a class='reference internal' href='../installation.html'>Installation />
+	[9] (246,404)<label  />
+		[10] (246,404)<span  />
+	[11] (171,441)<a class='reference internal' href='../tutorials_guides.html'>Tutorials & Guides />
+	[12] (246,441)<label  />
+		[13] (246,441)<span  />
+	[14] (170,477)<a class='reference internal' href='../reference.html'>Reference Manual />
+	[15] (246,477)<label  />
+		[16] (246,477)<span  />
+	[17] (167,514)<a class='reference internal' href='../reference_index/animations.html'>Animations />
+	[18] (246,514)<label  />
+		[19] (246,514)<span  />
+	[20] (163,550)<a class='reference internal' href='../reference_index/cameras.html'>Cameras />
+	[21] (246,550)<label  />
+		[22] (246,550)<span  />
+	[23] (171,587)<a class='reference internal' href='../reference_index/configuration.html'>Configuration />
+	[24] (246,587)<label  />
+		[25] (246,587)<span  />
+	[26] (163,623)<a class='reference internal' href='../reference_index/mobjects.html'>Mobjects />
+	[27] (246,623)<label  />
+		[28] (246,623)<span  />
+	[29] (166,660)<a class='reference internal' href='manim.mobject.frame.html'>frame />
+	[30] (246,660)<label  />
+		[31] (246,660)<span  />
+	[32] (173,696)<a class='reference internal' href='manim.mobject.geometry.html'>geometry />
+	[33] (246,696)<label  />
+		[34] (246,696)<span  />
+	[35] (166,733)<a class='reference internal' href='manim.mobject.graph.html'>graph />
+	[36] (246,733)<label  />
+		[37] (246,733)<span  />
+	[38] (172,769)<a class='reference internal' href='manim.mobject.graphing.html'>graphing />
+	[39] (246,769)<label  />
+		[40] (246,769)<span  />
+	[41] (202,806)<a class='reference internal' href='manim.mobject.graphing.coordinate_systems.html'>coordinate_systems />
+	[42] (246,806)<label  />
+		[43] (246,806)<span  />
+	[44] (179,843)<a class='current reference internal' href='#' />
+		[45] (179,842)<span >Axes />
+	[46] (196,879)<a class='reference internal' href='manim.mobject.graphing.coordinate_systems.ComplexPlane.html'>ComplexPlane />
+	[47] (203,916)<a class='reference internal' href='manim.mobject.graphing.coordinate_systems.CoordinateSystem.html'>CoordinateSystem />
+	NumberPlane
+	PolarPlane
+[48] (673,44)<a class='muted-link' href='https://github.com/ManimCommunity/manim/blob/main/docs/source/reference/manim.mobject.graphing.coordinate_systems.Axes.rst?plain=true' title='View this page'>View this page />
+	View this page
+[49] (689,44)<a class='muted-link' href='https://github.com/ManimCommunity/manim/edit/main/docs/source/reference/manim.mobject.graphing.coordinate_systems.Axes.rst' title='Edit this page'>Edit this page />
+	Edit this page
+[50] (705,41)<button aria-label='Toggle Light / Dark / Auto color theme' class='theme-toggle' />
+Axes
+Qualified name:
+manim.mobject.graphing.coordinate\_systems.
+Axes
+class
+Axes
+(
+x_range
+=
+None
+,
+y_range
+=
+None
+,
+x_length
+=
+12
+,
+y_length
+=
+6
+,
+axis_config
+=
+None
+,
+x_axis_config
+=
+None
+,
+y_axis_config
+=
+None
+,
+tips
+=
+True
+,
+**
+kwargs
+)
+[51] (689,194)<span  />
+	[52] (689,193)<span >[source] />
+Bases:
+[53] (352,225)<a class='reference internal' href='manim.mobject.types.vectorized_mobject.VGroup.html#manim.mobject.types.vectorized_mobject.VGroup' title='manim.mobject.types.vectorized_mobject.VGroup' />
+	[54] (352,227)<code  />
+		[55] (352,227)<span >VGroup />
+,
+[56] (411,225)<a class='reference internal' href='manim.mobject.graphing.coordinate_systems.CoordinateSystem.html#manim.mobject.graphing.coordinate_systems.CoordinateSystem' title='manim.mobject.graphing.coordinate_systems.CoordinateSystem' />
+	[57] (411,227)<code  />
+		[58] (411,227)<span >CoordinateSystem />
+Creates a set of
+axes
+.
+Parameters
+:
+x_range
+(
+Sequence
+[
+float
+]
+|
+None
+) – The
+(x_min,
+x_max,
+x_step)
+values of the x-axis.
+y_range
+(
+Sequence
+[
+float
+]
+|
+None
+) – The
+(y_min,
+y_max,
+y_step)
+values of the y-axis.
+x_length
+(
+float
+|
+None
+) – The length of the x-axis.
+y_length
+(
+float
+|
+None
+) – The length of the y-axis.
+axis_config
+(
+dict
+|
+None
+) – Arguments to be passed to
+[59] (577,464)<a class='reference internal' href='manim.mobject.graphing.number_line.NumberLine.html#manim.mobject.graphing.number_line.NumberLine' title='manim.mobject.graphing.number_line.NumberLine' />
+	[60] (577,466)<code  />
+		[61] (577,466)<span >NumberLine />
+that influences both
+axes
+.
+x_axis_config
+(
+dict
+|
+None
+) – Arguments to be passed to
+[62] (588,496)<a class='reference internal' href='manim.mobject.graphing.number_line.NumberLine.html#manim.mobject.graphing.number_line.NumberLine' title='manim.mobject.graphing.number_line.NumberLine' />
+	[63] (588,498)<code  />
+		[64] (588,498)<span >NumberLine />
+that influence the x-axis.
+y_axis_config
+(
+dict
+|
+None
+) – Arguments to be passed to
+[65] (587,555)<a class='reference internal' href='manim.mobject.graphing.number_line.NumberLine.html#manim.mobject.graphing.number_line.NumberLine' title='manim.mobject.graphing.number_line.NumberLine' />
+	[66] (587,557)<code  />
+		[67] (587,557)<span >NumberLine />
+that influence the y-axis.
+tips
+(
+bool
+) – Whether or not to include the tips on both
+axes
+.
+kwargs
+(
+Any
+) – Additional arguments to be passed to
+[68] (585,647)<a class='reference internal' href='manim.mobject.graphing.coordinate_systems.CoordinateSystem.html#manim.mobject.graphing.coordinate_systems.CoordinateSystem' title='manim.mobject.graphing.coordinate_systems.CoordinateSystem' />
+	[69] (585,648)<code  />
+		[70] (585,648)<span >CoordinateSystem />
+and
+[71] (658,647)<a class='reference internal' href='manim.mobject.types.vectorized_mobject.VGroup.html#manim.mobject.types.vectorized_mobject.VGroup' title='manim.mobject.types.vectorized_mobject.VGroup' />
+	[72] (658,648)<code  />
+		[73] (658,648)<span >VGroup />
+.
+Examples
+Example: LogScalingExample
+[74] (449,735)<a class='headerlink' href='#logscalingexample'>¶ />
+On this page
+[75] (760,69)<a class='reference internal' href='#manim.mobject.graphing.coordinate_systems.Axes' />
+	[76] (760,70)<code  />
+		[77] (760,70)<span  />
+			[78] (760,70)<span >Axes />
+[79] (795,94)<a class='reference internal' href='#manim.mobject.graphing.coordinate_systems.Axes._create_axis' />
+	[80] (795,95)<code  />
+		[81] (795,95)<span >._create_axis() />
+			[82] (770,95)<span >Axes />
+[83] (796,119)<a class='reference internal' href='#manim.mobject.graphing.coordinate_systems.Axes._origin_shift' />
+	[84] (796,120)<code  />
+		[85] (796,120)<span >._origin_shift() />
+			[86] (770,120)<span >Axes />
+[87] (803,144)<a class='reference internal' href='#manim.mobject.graphing.coordinate_systems.Axes._original__init__' />
+	[88] (803,145)<code  />
+		[89] (803,145)<span >._original__init__() />
+			[90] (770,145)<span >Axes />
+[91] (811,178)<a class='reference internal' href='#manim.mobject.graphing.coordinate_systems.Axes._update_default_configs' />
+	[92] (811,180)<code  />
+		[93] (811,180)<span >._update_default_configs() />
+			[94] (770,171)<span >Axes />
+[95] (800,212)<a class='reference internal' href='#manim.mobject.graphing.coordinate_systems.Axes.coords_to_point' />
+	[96] (800,214)<code  />
+		[97] (800,214)<span >.coords_to_point() />
+			[98] (770,214)<span >Axes />
+[99] (788,237)<a class='reference internal' href='#manim.mobject.graphing.coordinate_systems.Axes.get_axes' />
+	[100] (788,239)<code  />
+		[101] (788,239)<span >.get_
+() />
+			[102] (770,239)<span >Axes />
+			[103] (800,239)<span >axes />
+[104] (800,262)<a class='reference internal' href='#manim.mobject.graphing.coordinate_systems.Axes.get_axis_labels' />
+	[105] (800,264)<code  />
+		[106] (800,264)<span >.get_axis_labels() />
+			[107] (770,264)<span >Axes />
+[108] (800,287)<a class='reference internal' href='#manim.mobject.graphing.coordinate_systems.Axes.plot_line_graph' />
+	[109] (800,289)<code  />
+		[110] (800,289)<span >.plot_line_graph() />
+			[111] (770,289)<span >Axes />
+[112] (800,312)<a class='reference internal' href='#manim.mobject.graphing.coordinate_systems.Axes.point_to_coords' />
+	[113] (800,314)<code  />
+		[114] (800,314)<span >.point_to_coords() />
+			[115] (770,314)<span >Axes />
+[116] (166,974)<a href='https://server.ethicalads.io/proxy/click/10124/019d391d-af17-7752-a7ba-e72f0c405f3d/' />
+	[117] (32,974)<strong >Build and run />
+	[118] (191,974)<span >apps in over 115 regions with MongoDB Atlas, the database for every enterprise. />
+[119] (923,975)<a href='https://www.ethicalads.io/advertisers/topics/frontend-web/?ref=ea-text'>Ads by EthicalAds />
+[120] (978,975)<div  />
+	[121] (978,975)<span >Close Ad />
+
+</current_dom>

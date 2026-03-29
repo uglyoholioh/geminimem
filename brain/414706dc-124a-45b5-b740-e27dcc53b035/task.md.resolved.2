@@ -1,0 +1,10 @@
+- [x] Add missing matrix and animation CSS to `src/style.css`
+- [x] Improve `CanvasRenderer` initialization and resizing
+- [x] Create `src/tests.ts` with diagnostic test scenes
+- [x] Integrate diagnostics into `src/app.ts`
+- [x] Verify fix by running diagnostic scenes in browser
+- [x] Add strict `.viz-canvas` CSS constraints to stop "infinite expansion"
+- [x] Implement `ResizeObserver` for buffer resizing and remove per-frame checks
+- [x] Increase zoom speed and add safety scale clamping
+- [x] Add a "Reset View" floating button to the canvas UI
+- [x] Verify fix for lag and zoom speed

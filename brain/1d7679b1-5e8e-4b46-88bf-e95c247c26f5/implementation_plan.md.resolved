@@ -1,45 +1,51 @@
-# Fix Visualization and Canvas Rendering Issues
+# Implementation Plan: Fluid "Video-Like" Transitions and Auto-Play
 
-The project is currently experiencing several issues with mathematical visualizations:
-1. **Canvas Duplication**: Every time a step is rendered, a new canvas element is appended to the UI without properly cleaning up or updating the existing one.
-2. **Hardcoded IDs**: The presentation logic hardcodes the coordinate system ID as `'cs'`, which breaks visualizations that use custom IDs (like `sys`, `g1`, etc.).
-3. **State Synchronization**: Updates to the visualization state are not correctly reaching the active renderer because of the ID mismatch and redundant object creation.
+This plan outlines the steps to move MathViz from a "step-by-step" slide deck to a continuous, fluid storytelling experience.
 
 ## User Review Required
 
 > [!IMPORTANT]
-> This fix changes how canvases are managed and updated. Ensure that user-defined coordinate system IDs are consistent within a scene to allow smooth transitions.
+> - **Continuous Flow**: I will remove the "blackout" between steps. Elements will now transition simultaneously: new text will "write" itself while the old one fades, and math will morph directly into new forms.
+> - **Auto-Play**: A new "Play" button will be added to the presentation interface, allowing users to watch the entire lesson without manual clicking.
+> - **Implicit Morphing**: Any mathematical change between steps will now automatically animate, even if not explicitly defined as a "Morph" in the spec.
 
 ## Proposed Changes
 
-### Core Logic & App Management
-
+### Core Presentation Logic
 #### [MODIFY] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
-- Update `updatePresentationState` to dynamically find the correct `csId` from the current state instead of hardcoding `'cs'`.
-- Refactor `renderBaseState` to prevent appending duplicate canvases. It should check if a canvas wrapper already exists and either update it or clear it properly.
-- Ensure `updateCanvasObjects` is called with the correct `csId`.
+- **Auto-Play State**: Add `isPlaying: boolean` and a private `playTimeout`.
+- **Interface Update**: Add a "Play/Pause" button to the presentation header.
+- **`updatePresentationState` Refactor**:
+    - remove `narrationEl.style.opacity = '0'` delay.
+    - Start `animateWrite` for the narration *while* the old narration is still potentially visible (cross-dissolve).
+    - If an equation with the same ID changed its LaTeX, trigger an implicit `animateMorphEquation` step.
+    - Synchronize all transitions to a consistent 800ms-1200ms window.
+- **Auto-Play Loop**: Implement logic to advance to the next beat after a delay (e.g., 3-5 seconds after the previous animations finish).
 
-### Renderers
-
+### Rendering Engine Polish
 #### [MODIFY] [canvas-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/canvas-renderer.ts)
-- Update `createInteractiveCanvas` to check for an existing canvas in the container. If it exists and has the same `csId`, update its state instead of creating a new one.
-- Improve the cleanup logic in `destroyCanvas`.
-- Ensure the render loop correctly interpolates between states even when the canvas is reused.
+- **Continuous Interpolation**: Ensure that every object property (position, color, scale) is interpolated inside the `startRenderLoop` using the `beatStartTime`.
+- **Camera Smoothing**: When the `range` of a coordinate system changes, the camera will smoothly pan and zoom to the new `targetScale` and `targetOffset`.
+
+### Mathematics & LaTeX
+#### [MODIFY] [equation-morph-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/equation-morph-renderer.ts)
+- **Implicit Transitions**: Add a `quickCrossfade` method used by `app.ts` when a math object changes but no complex morphing steps are provided.
+- **LaTeX Consistency**: Ensure all elements use the unified `renderMath` helper for high-quality KaTeX output.
 
 ---
 
 ## Open Questions
-
-- Should I implement a global "current active CS" to simplify the ID tracking, or should I continue supporting multiple coordinate systems in the same view (though currently only one is typically used per beat)?
+- **Auto-Play Pacing**: Should the delay between steps be fixed (e.g., 3s) or proportional to the amount of text in the narration?
+- **Manual Overrides**: Should clicking "Next" while an animation is playing jump to the end of that animation, or just advance to the next step immediately?
 
 ## Verification Plan
 
-### Automated Tests
-- I will use the browser tool to verify that:
-    1. Only one canvas element exists in the DOM at any time during presentation.
-    2. Visualizations with custom IDs (like the "System of Equations" example) render correctly.
-    3. Transitions between steps remain smooth and animate the objects as expected.
+### Automated Testing
+- Use the browser subagent to:
+    1. Open the "Gram-Schmidt" lesson.
+    2. Click the new "Play" button.
+    3. Verify that transitions occur without a "blackout" period.
+    4. Confirm that the scrubber updates continuously.
 
 ### Manual Verification
-- Verify that dragging vectors and sliders still works correctly after the refactoring.
-- Check that 3D visualizations still function and don't conflict with 2D ones.
+- Visual check of the "Video-like" feel: do the vectors slide while the text is writing? Is the math morphing smoothly?

@@ -1,0 +1,43 @@
+# Implementation Plan: Fix Broken Math Rendering & Navigation
+
+The recent overhaul of the Gram-Schmidt lesson introduced some visual regressions. We will fix the math parsing engine and ensure the "Presentation Mode" toggle is always accessible.
+
+## User Review Required
+
+> [!IMPORTANT]
+> To support nested LaTeX structures (like matrices) inside our custom tags, I'm updating the parsing engine to be more robust. I'm also mapping "CSS Variable" colors back to hex codes so the KaTeX engine can understand them.
+
+## Proposed Changes
+
+### 🧪 Math Rendering Fixes
+
+#### [MODIFY] [katex-helpers.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/utils/katex-helpers.ts)
+- Update `renderMath` to use a more robust regex or loop-based parser that handles nested braces `}` (specifically for `bmatrix`).
+- Add a `resolveKaTeXColor(color: string)` function that maps `var(--teal)` to `#5a8a7a`, etc., as KaTeX `\color` does not support CSS variables.
+
+### 🧭 Navigation & UI Fixes
+
+#### [MODIFY] [style.css](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/style.css)
+- Ensure the `.doc-header` (used in Document view) is `position: sticky` and has a higher `z-index` so it doesn't get lost while scrolling.
+- Add styles to ensure the "Presentation" button is clearly visible and clickable.
+
+#### [MODIFY] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+- Audit `renderDocument` to ensure it always renders the header first.
+- Re-check the logic for the "Presentation" button `onclick` to ensure it correctly switches the view mode and triggers a re-render.
+
+## Open Questions
+
+> [!NOTE]
+> Are you seeing the "Presentation" button at the very top of the page if you scroll all the way up? I'll make it sticky so you don't have to scroll.
+
+## Verification Plan
+
+### Automated Tests
+- None.
+
+### Manual Verification
+- Open the Gram-Schmidt lesson.
+- Verify that the matrix $A$ in Step 0 renders perfectly without red text.
+- Verify that the equations in Step 1 (e.g., $u_1 = \dots$) don't show raw tag IDs.
+- Scroll down in Document mode and verify the top navigation bar remains visible.
+- Click "Presentation" and verify it enters the single-slide view.

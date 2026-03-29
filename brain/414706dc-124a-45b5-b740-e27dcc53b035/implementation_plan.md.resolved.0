@@ -1,0 +1,43 @@
+# Plan - Fix Visualisations and Animations
+
+The user reported that visualisations are not working. Based on code analysis and provided screenshots, the primary issues are missing CSS for the matrix renderer and potential sizing issues for the canvas renderer in presentation mode.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The matrices current appear as vertical lists because the CSS for the grid layout is missing from `src/style.css`. I will be adding a substantial amount of CSS to handle various math object layouts.
+
+## Proposed Changes
+
+### Styling & Layout
+#### [MODIFY] [style.css](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/style.css)
+- Add comprehensive styles for `.mo-matrix`, `.matrix-grid`, `.matrix-cell`, and `.matrix-bracket`.
+- Implement layout fixes for `.pres-viz` and `.pres-text` to ensure they share space correctly in presentation mode.
+- Add utility classes for animations (e.g., `.changing`, `.visible`, `.indicating`).
+
+### Canvas & Rendering
+#### [MODIFY] [canvas-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/canvas-renderer.ts)
+- Improve initialization logic to handle cases where the parent element's dimensions are initially zero (common during transitions).
+- Add a safety check for `resize` events to ensure the canvas always matches its container.
+
+### Diagnostics & Testing
+#### [NEW] [tests.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/tests.ts)
+- Create a collection of "stress test" scenes designed to verify:
+  - Complex matrix row operations.
+  - Vector projections and additions.
+  - 3D surface rendering.
+  - Multi-step equation morphing.
+#### [MODIFY] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+- Add a "Diagnostics" category to the home screen to allow easy access to these tests.
+
+## Verification Plan
+
+### Automated Tests
+- I will use the `browser` tool to navigate through the "Diagnostics" scenes and verify that:
+  - Matrices are rendered with square brackets and grid layout.
+  - The coordinate system grid is visible and correctly scaled.
+  - Vectors are drawn as arrows on the canvas.
+  - Navigating between beats triggers smooth animations instead of sudden snaps.
+
+### Manual Verification
+- Ask the user to load the "Diagnostics" scene from the Home screen and confirm the visual fidelity matches their requirements.

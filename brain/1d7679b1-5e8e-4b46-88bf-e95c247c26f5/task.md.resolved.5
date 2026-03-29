@@ -1,0 +1,10 @@
+# Task: Fix Visualization and Canvas Rendering Issues
+
+# Task: Professional Animation and Transition System
+
+- [ ] Refactor `interpolateObjects` to handle all MObject properties (origin, components, lines, polygons, points, colors)
+- [ ] Rename `transitionStartTime` to `beatStartTime` and `beatDuration` in `CanvasState`
+- [ ] Update `startRenderLoop` to separate global beat interpolation from specialized animations
+- [ ] Update `animateVectorOperation` to use `activeAnimations` without poisoning `beatDuration`
+- [ ] Verify smooth transitions for all objects in the browser
+- [ ] Confirm no regression in "QR & Gram-Schmidt" lesson animations

@@ -1,0 +1,238 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (192,121)<a class='sidebar-brand' href='../index.html' />
+	[1] (192,80)<div  />
+		[2] (192,80)<img  />
+	[3] (192,191)<span >Manim Community v0.20.1 />
+[4] (192,271)<input aria-label='Search' class='sidebar-search' placeholder='Search' />
+[5] (192,312)<a href='javascript:SphinxHighlight.hideSearchWords()'>Hide Search Matches />
+[6] (162,368)<a class='reference internal' href='../examples.html'>Example Gallery />
+[7] (157,404)<a class='reference internal' href='../installation.html'>Installation />
+[8] (252,404)<label  />
+	[9] (252,404)<span  />
+[10] (171,441)<a class='reference internal' href='../tutorials_guides.html'>Tutorials & Guides />
+[11] (252,441)<label  />
+	[12] (252,441)<span  />
+[13] (162,477)<a class='reference internal' href='index.html'>Tutorials />
+[14] (252,477)<label  />
+	[15] (252,477)<span  />
+[16] (172,514)<a class='current reference internal' href='#'>Quickstart />
+[17] (196,550)<a class='reference internal' href='output_and_config.html'>Manim’s Output Settings />
+[18] (195,587)<a class='reference internal' href='building_blocks.html'>Manim’s building blocks />
+[19] (177,623)<a class='reference internal' href='../guides/index.html'>Thematic Guides />
+[20] (252,623)<label  />
+	[21] (252,623)<span  />
+[22] (197,669)<a class='reference internal' href='../faq/index.html'>Frequently Asked Questions />
+[23] (252,660)<label  />
+	[24] (252,660)<span  />
+[25] (170,715)<a class='reference internal' href='../reference.html'>Reference Manual />
+[26] (252,715)<label  />
+	[27] (252,715)<span  />
+[28] (146,751)<a class='reference internal' href='../plugins.html'>Plugins />
+[29] (157,788)<a class='reference internal' href='../changelog.html'>Changelog />
+[30] (252,788)<label  />
+	[31] (252,788)<span  />
+[32] (160,824)<a class='reference internal' href='../contributing.html'>Contributing />
+[33] (252,824)<label  />
+	[34] (252,824)<span  />
+[35] (164,861)<a class='reference internal' href='../conduct.html'>Code of Conduct />
+class, you can observe this when the square rotates:
+the corners of the square appear to contract slightly as they move into the positions required
+for the first square to transform into the second one.
+In
+DifferentRotations
+, the difference between
+.animate
+’s interpretation of rotation and the
+Rotate
+method is far more apparent. The starting and ending states of a
+Mobject
+rotated 180 degrees
+are the same, so
+.animate
+tries to interpolate two identical objects and the result is the left square.
+If you find that your own usage of
+.animate
+is causing similar unwanted behavior, consider
+using conventional animation methods like the right square, which uses
+Rotate
+.
+Transform
+vs
+ReplacementTransform
+The difference between
+Transform
+and
+ReplacementTransform
+is that
+Transform(mob1,
+mob2)
+transforms the points
+(as well as other attributes like color) of
+mob1
+into the points/attributes of
+mob2
+.
+ReplacementTransform
+(mob1,
+mob2)
+on the other hand literally replaces
+mob1
+on the scene with
+mob2
+.
+The use of
+ReplacementTransform
+or
+Transform
+is mostly up to personal preference. They can be used to accomplish the same effect, as shown below.
+class
+TwoTransforms
+(
+Scene
+):
+def
+transform
+(
+self
+):
+a
+=
+Circle
+()
+b
+=
+Square
+()
+c
+=
+Triangle
+()
+self
+.
+play
+(
+Transform
+(
+a
+,
+b
+))
+self
+.
+play
+(
+Transform
+(
+a
+,
+c
+))
+self
+.
+play
+(
+FadeOut
+(
+a
+))
+def
+replacement_transform
+(
+self
+):
+a
+=
+Circle
+()
+b
+=
+Square
+()
+c
+=
+Triangle
+()
+self
+.
+play
+(
+ReplacementTransform
+(
+a
+,
+b
+))
+self
+.
+play
+(
+ReplacementTransform
+(
+b
+,
+c
+))
+self
+.
+play
+(
+FadeOut
+(
+c
+))
+def
+construct
+(
+self
+):
+self
+.
+transform
+()
+self
+.
+wait
+(
+0.5
+)
+# wait for 0.5 seconds
+self
+.
+replacement_transform
+()
+[36] (701,483)<button class='copybtn o-tooltip--left' />
+However, in some cases it is more beneficial to use
+Transform
+, like when you are transforming several mobjects one after the other.
+The code below avoids having to keep a reference to the last mobject that was transformed.
+On this page
+[37] (767,69)<a class='reference internal' href='#overview'>Overview />
+[38] (788,94)<a class='reference internal' href='#starting-a-new-project'>Starting a new project />
+[39] (781,119)<a class='reference internal' href='#animating-a-circle'>Animating a circle />
+[40] (780,144)<a class='reference internal' href='#explanation'>Explanation />
+[41] (798,178)<a class='reference internal' href='#transforming-a-square-into-a-circle'>Transforming a square into a circle />
+[42] (786,212)<a class='reference internal' href='#positioning-mobjects'>Positioning
+s />
+	[43] (803,214)<code  />
+		[44] (803,214)<span >Mobject />
+[45] (794,246)<a class='reference internal' href='#using-animate-syntax-to-animate-methods'>Using
+syntax to animate methods />
+	[46] (788,239)<code  />
+		[47] (788,239)<span >.animate />
+[48] (787,289)<a class='reference internal' href='#transform-vs-replacementtransform'>vs />
+	[49] (769,282)<code  />
+		[50] (769,282)<span >Transform />
+	[51] (787,299)<code  />
+		[52] (787,299)<span  />
+			[53] (787,299)<span >ReplacementTransform />
+[54] (782,323)<a class='reference internal' href='#you-re-done'>You’re done! />
+[55] (167,974)<a href='https://server.ethicalads.io/proxy/click/10208/019d391a-c9be-7e32-bcc5-004cdb35ee08/' />
+	[56] (167,974)<span >Integrate vector search directly with your operational data for real-time, RAG-powered insights. />
+[57] (923,975)<a href='https://www.ethicalads.io/advertisers/?ref=ea-text'>Ads by EthicalAds />
+[58] (978,975)<div  />
+	[59] (978,975)<span >Close Ad />
+
+</current_dom>

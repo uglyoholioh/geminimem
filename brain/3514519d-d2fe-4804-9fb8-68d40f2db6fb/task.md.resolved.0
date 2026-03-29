@@ -1,0 +1,15 @@
+- [ ] Core Animation System
+    - [ ] Update `animations.ts` with `FlyTo` and transition helpers
+    - [ ] Create `global-animator.ts` for cross-component "ghost" animations
+- [ ] UI & Styling
+    - [ ] Add animation overlay and premium presentation styles to `style.css`
+- [ ] Renderer Enhancements
+    - [ ] Update `matrix-renderer.ts` to expose cell coordinates
+    - [ ] Update `equation-renderer.ts` to expose term coordinates
+    - [ ] Refine `equation-morph-renderer.ts` for smoother transitions
+- [ ] Application Logic Refactor
+    - [ ] Update `app.ts` to use coordinated timelines in Presentation Mode
+    - [ ] Implement value tracking (provenance) logic in `app.ts`
+- [ ] Verification
+    - [ ] Test "QR & Gram-Schmidt" for value tracking
+    - [ ] Test "Row Reduction" for fluid flow

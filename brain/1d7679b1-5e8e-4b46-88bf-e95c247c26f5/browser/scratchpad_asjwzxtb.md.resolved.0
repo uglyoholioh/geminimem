@@ -1,0 +1,13 @@
+# QR & Gram-Schmidt Animation Verification
+
+## Checklist
+- [ ] Navigate to http://localhost:5175/
+- [ ] Select "QR & Gram-Schmidt" lesson
+- [ ] Switch to "Presentation" mode
+- [ ] Slow down animation speed (slider in bottom right)
+- [ ] Move from Step 1 to Step 2
+- [ ] Observe vector transition (slide vs jump)
+- [ ] Report findings
+
+## Observations
+- 

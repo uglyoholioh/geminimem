@@ -1,0 +1,185 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (192,121)<a class='sidebar-brand' href='index.html' />
+	[1] (192,80)<div  />
+		[2] (192,80)<img  />
+	[3] (192,191)<span >Manim Community v0.20.1 />
+[4] (192,271)<input aria-label='Search' class='sidebar-search' placeholder='Search' />
+[5] (164,337)<a class='current reference internal' href='#'>Example Gallery />
+[6] (157,374)<a class='reference internal' href='installation.html'>Installation />
+[7] (252,374)<label  />
+	[8] (252,374)<span  />
+[9] (171,411)<a class='reference internal' href='tutorials_guides.html'>Tutorials & Guides />
+[10] (252,411)<label  />
+	[11] (252,411)<span  />
+[12] (170,447)<a class='reference internal' href='reference.html'>Reference Manual />
+[13] (252,447)<label  />
+	[14] (252,447)<span  />
+[15] (146,484)<a class='reference internal' href='plugins.html'>Plugins />
+[16] (157,520)<a class='reference internal' href='changelog.html'>Changelog />
+[17] (252,520)<label  />
+	[18] (252,520)<span  />
+[19] (160,557)<a class='reference internal' href='contributing.html'>Contributing />
+[20] (252,557)<label  />
+	[21] (252,557)<span  />
+[22] (164,593)<a class='reference internal' href='conduct.html'>Code of Conduct />
+[23] (185,728)<a href='https://server.ethicalads.io/proxy/click/10123/019d3918-f0c3-7a83-aee0-50a4017cf6da/' />
+	[24] (185,687)<img  />
+[25] (185,790)<a href='https://server.ethicalads.io/proxy/click/10123/019d3918-f0c3-7a83-aee0-50a4017cf6da/' />
+	[26] (185,790)<span >Develop and launch modern apps with MongoDB Atlas, a resilient data platform. />
+www.mongodb.com
+[27] (207,888)<a href='https://www.ethicalads.io/advertisers/?ref=ea-image'>Ads by EthicalAds />
+from
+manim
+import
+*
+class
+BraceAnnotation
+(
+Scene
+):
+def
+construct
+(
+self
+):
+dot
+=
+Dot
+([
+-
+2
+,
+-
+1
+,
+0
+])
+dot2
+=
+Dot
+([
+2
+,
+1
+,
+0
+])
+line
+=
+Line
+(
+dot
+.
+get_center
+(),
+dot2
+.
+get_center
+())
+.
+set_color
+(
+ORANGE
+)
+b1
+=
+Brace
+(
+line
+)
+b1text
+=
+b1
+.
+get_text
+(
+"Horizontal distance"
+)
+b2
+=
+Brace
+(
+line
+,
+direction
+=
+line
+.
+copy
+()
+.
+rotate
+(
+PI
+/
+2
+)
+.
+get_unit_vector
+())
+b2text
+=
+b2
+.
+get_tex
+(
+"x-x_1"
+)
+self
+.
+add
+(
+line
+,
+dot
+,
+dot2
+,
+b1
+,
+b2
+,
+b1text
+,
+b2text
+)
+[28] (697,5)<button class='copybtn o-tooltip--left' />
+[29] (336,316)<button class='manim-binder-button'>Make interactive />
+References:
+[30] (351,359)<a class='reference internal' href='reference/manim.mobject.svg.brace.Brace.html#manim.mobject.svg.brace.Brace' title='manim.mobject.svg.brace.Brace' />
+	[31] (351,361)<code  />
+		[32] (351,361)<span >Brace />
+[33] (385,359)<a class='reference internal' href='reference/manim.mobject.svg.brace.Brace.html#manim.mobject.svg.brace.Brace.get_text' title='manim.mobject.svg.brace.Brace.get_text' />
+	[34] (385,361)<code  />
+		[35] (385,361)<span >get_text() />
+[36] (427,359)<a class='reference internal' href='reference/manim.mobject.svg.brace.Brace.html#manim.mobject.svg.brace.Brace.get_tex' title='manim.mobject.svg.brace.Brace.get_tex' />
+	[37] (427,361)<code  />
+		[38] (427,361)<span >get_tex() />
+Example: VectorArrow
+[39] (402,410)<a class='headerlink' href='#vectorarrow'>¶ />
+from
+manim
+import
+*
+class
+VectorArrow
+(
+Scene
+):
+def
+construct
+(
+self
+):
+[40] (697,923)<button class='copybtn o-tooltip--left' />
+On this page
+[41] (779,69)<a class='reference internal' href='#basic-concepts'>Basic Concepts />
+[42] (770,94)<a class='reference internal' href='#animations'>Animations />
+[43] (784,119)<a class='reference internal' href='#plotting-with-manim'>Plotting with Manim />
+[44] (792,144)<a class='reference internal' href='#special-camera-settings'>Special Camera Settings />
+[45] (782,169)<a class='reference internal' href='#advanced-projects'>Advanced Projects />
+
+</current_dom>

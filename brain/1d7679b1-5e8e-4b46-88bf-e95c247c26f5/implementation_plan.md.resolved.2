@@ -1,0 +1,43 @@
+# Enhance Gram-Schmidt Lesson with Advanced Animations
+
+The goal is to update the "QR & Gram-Schmidt" example in `app.ts` to utilize the newer, more sophisticated animation primitives available in the engine, such as `VectorOperation` and `MorphEquation`.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The updated lesson will feature more dynamic transitions. Ensure that the timing between narration and animations is appropriate for an "explainer video" experience.
+
+### Rendering Engine Fixes
+
+#### [MODIFY] [canvas-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/canvas-renderer.ts)
+- Refactor `animateVectorOperation` (specifically `normalize`, `scale`, and `project`) to use the `animate` helper for smooth property transitions instead of instant value changes followed by delays.
+- Ensure that `transitionStartTime` is correctly managed during these sub-animations to keep the canvas updating.
+
+## Proposed Changes
+
+### Example Update
+
+#### [MODIFY] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+- Update the `QR & Gram-Schmidt` spec in the `EXAMPLES` array:
+    - Use `VectorOperation` with `project` to show the projection of $v_2$ onto $u_1$.
+    - Use `VectorOperation` with `normalize` for the final step of creating $q_1$ and $q_2$.
+    - Incorporate `MorphEquation` for the mathematical derivations (projections and subtractions).
+    - Use `Indicate` or `FadeIn`/`Write` where appropriate for better focus.
+
+---
+
+## Open Questions
+
+- Should I add more intermediate mathematical steps (e.g., the expansion of the projection formula) using `MorphEquation`? I recommend doing so for better clarity.
+
+## Verification Plan
+
+### Automated Testing
+- Use the browser subagent to:
+    1. Navigate to the "QR & Gram-Schmidt" example.
+    2. Step through the presentation.
+    3. Verify that the dashed projection lines and normalization animations appear as expected in the canvas.
+    4. Verify that the equations transition smoothly using morphing.
+
+### Manual Verification
+- Check that the narration remains synchronized with the visual actions.

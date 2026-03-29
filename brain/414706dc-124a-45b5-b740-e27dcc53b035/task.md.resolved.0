@@ -1,0 +1,5 @@
+- [ ] Add missing matrix and animation CSS to `src/style.css`
+- [ ] Improve `CanvasRenderer` initialization and resizing
+- [ ] Create `src/tests.ts` with diagnostic test scenes
+- [ ] Integrate diagnostics into `src/app.ts`
+- [ ] Verify fix by running diagnostic scenes in browser

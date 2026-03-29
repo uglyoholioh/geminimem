@@ -1,0 +1,10 @@
+# Task: Fix Visualization and Canvas Rendering Issues
+
+# Task: Professional Animation and Transition System
+
+- [ ] Add `activeAnimations` to `CanvasState` in `canvas-renderer.ts`
+- [ ] Refactor `interpolateObjects` to handle all MObject properties (origin, components, lines, polygons, points, colors)
+- [ ] Update `animateVectorOperation` to register itself in `activeAnimations` to avoid render loop conflicts
+- [ ] Update `updateCanvasObjects` to properly handle transition start/end
+- [ ] Verify smooth transitions for all objects in the browser
+- [ ] Confirm no regression in "QR & Gram-Schmidt" lesson animations

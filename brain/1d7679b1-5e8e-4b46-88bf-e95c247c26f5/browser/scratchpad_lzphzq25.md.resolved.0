@@ -1,0 +1,10 @@
+# Verification Plan for Gram-Schmidt Animations
+
+- [ ] Navigate to http://localhost:5175/
+- [ ] Click on "QR & Gram-Schmidt" lesson
+- [ ] Switch to "Presentation" mode
+- [ ] Slow down animation speed (slider)
+- [ ] Click "Next" and observe u1, u2 transitions (should slide smoothly)
+- [ ] Verify projection animation (dashed line + growing vector)
+- [ ] Confirm "buttery smooth" transitions
+- [ ] Report results

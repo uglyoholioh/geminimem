@@ -1,0 +1,106 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (192,121)<a class='sidebar-brand' href='index.html' />
+	[1] (192,80)<div  />
+		[2] (192,80)<img  />
+	[3] (192,191)<span >Manim Community v0.20.1 />
+[4] (192,271)<input aria-label='Search' class='sidebar-search' placeholder='Search' />
+[5] (162,337)<a class='reference internal' href='examples.html'>Example Gallery />
+[6] (157,374)<a class='reference internal' href='installation.html'>Installation />
+[7] (252,374)<label  />
+	[8] (252,374)<span  />
+[9] (171,411)<a class='reference internal' href='tutorials_guides.html'>Tutorials & Guides />
+[10] (252,411)<label  />
+	[11] (252,411)<span  />
+[12] (170,447)<a class='reference internal' href='reference.html'>Reference Manual />
+[13] (252,447)<label  />
+	[14] (252,447)<span  />
+[15] (146,484)<a class='reference internal' href='plugins.html'>Plugins />
+[16] (157,520)<a class='reference internal' href='changelog.html'>Changelog />
+[17] (252,520)<label  />
+	[18] (252,520)<span  />
+[19] (160,557)<a class='reference internal' href='contributing.html'>Contributing />
+[20] (252,557)<label  />
+	[21] (252,557)<span  />
+[22] (164,593)<a class='reference internal' href='conduct.html'>Code of Conduct />
+[23] (185,728)<a href='https://server.ethicalads.io/proxy/click/10206/019d391c-b2e7-79b0-b008-694480325c60/' />
+	[24] (185,687)<img  />
+[25] (185,790)<a href='https://server.ethicalads.io/proxy/click/10206/019d391c-b2e7-79b0-b008-694480325c60/' />
+	[26] (185,790)<span >Stop mapping data to rigid tables. Use a document model that evolves with your AI models. />
+www.mongodb.com
+[27] (207,888)<a href='https://www.ethicalads.io/advertisers/topics/frontend-web/?ref=ea-image'>Ads by EthicalAds />
+[28] (705,39)<button aria-label='Toggle Light / Dark / Auto color theme' class='theme-toggle' />
+Search Results
+Search finished, found 93 pages matching the search query.
+[29] (352,164)<a href='reference/manim.scene.scene_file_writer.html#module-manim.scene.scene_file_writer'>manim.scene.scene_file_
+r />
+	[30] (402,164)<span >write />
+(Python module, in scene_file_
+write
+r)
+[31] (353,229)<a href='reference/manim.animation.creation.Write.html#manim.animation.creation.Write'>manim.animation.creation. />
+	[32] (407,229)<span >Write />
+(Python class, in
+Write
+)
+[33] (300,294)<a href='reference/manim.animation.creation.Write.html' />
+	[34] (300,294)<span >Write />
+Write
+Qualified name: manim.animation.creation.
+Write
+class
+Write
+(mobject=None, *args, use_override=True, **kwargs)[source]
+Bases: DrawBorderThenFill
+Simulate hand-writing a Text or hand-drawing a VMobject.
+Examples
+
+Example: S...
+[35] (324,459)<a href='contributing/docs/examples.html'>Adding Examples />
+...Adding Examples
+This is a page for adding examples to the documentation.
+Here are some guidelines you should follow before you publish your examples.
+
+Guidelines for examples
+Everybody is welcome to contribute examples to the do
+[36] (305,625)<a href='reference/manim.animation.creation.Unwrite.html'>Un />
+	[37] (311,625)<span >write />
+Un
+write
+Qualified name: manim.animation.creation.Un
+write
+class Un
+write
+(mobject=None, *args, use_override=True, **kwargs)[source]
+Bases:
+Write
+Simulate erasing by hand a Text or a VMobject.
+
+Parameters:
+
+reverse (bool) – Set Tr...
+[38] (375,790)<a href='reference/manim._config.utils.ManimConfig.html#manim._config.utils.ManimConfig.write_all'>manim._config.utils.ManimConfig.
+_all />
+	[39] (438,790)<span >write />
+(Python property, in ManimConfig)
+[40] (390,855)<a href='reference/manim._config.utils.ManimConfig.html#manim._config.utils.ManimConfig.write_to_movie'>manim._config.utils.ManimConfig.
+_to_movie />
+	[41] (438,855)<span >write />
+(Python property, in ManimConfig)
+[42] (359,920)<a href='reference/manim.animation.creation.Unwrite.html#manim.animation.creation.Unwrite'>manim.animation.creation.Un />
+	[43] (418,920)<span >write />
+(Python class, in Un
+write
+)
+[44] (385,985)<a href='reference/manim.scene.scene_file_writer.SceneFileWriter.html#manim.scene.scene_file_writer.SceneFileWriter'>manim.scene.scene_file_
+r.SceneFile
+r />
+	[45] (402,985)<span >write />
+	[46] (467,985)<span >Write />
+(Python class, in SceneFile
+Write
+r)
+
+</current_dom>

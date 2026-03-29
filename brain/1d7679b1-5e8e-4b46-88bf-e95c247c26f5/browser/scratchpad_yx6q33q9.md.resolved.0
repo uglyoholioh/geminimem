@@ -1,0 +1,9 @@
+# Gram-Schmidt Verification Plan
+- [ ] Navigate to http://localhost:5175/
+- [ ] Click on "QR & Gram-Schmidt"
+- [ ] Switch to "Presentation" mode
+- [ ] Step through the lesson:
+    - [ ] Step 3 (Projection): Verify dashed lines and vector 'p' growth.
+    - [ ] Step 4 (Subtraction): Verify equation morphing.
+    - [ ] Step 5 (Normalization): Verify vectors 'u1' and 'u2' scaling.
+- [ ] Report issues or success.

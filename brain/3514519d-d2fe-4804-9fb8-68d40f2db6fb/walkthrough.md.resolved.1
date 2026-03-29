@@ -1,0 +1,25 @@
+# Walkthrough: Math Rendering & Navigation Fixes
+
+I have resolved the rendering issues and usability hurdles in both the Document and Presentation views.
+
+## 🛠️ Key Improvements
+
+### 🧪 Robust Math Parsing
+The custom tag system (`{{id:content}}`) is now much more resilient.
+- **Nested Braces Support**: The parser previously failed on matrices (e.g., `\begin{bmatrix} ... \end{bmatrix}`) because of the internal `}`. It now correctly identifies the final `}}` closure.
+- **Color Resolution**: KaTeX's `\color` command does not natively support CSS variables like `var(--teal)`. I've added a resolver that maps these variable names to their hexadecimal counterparts before they reach the rendering engine, eliminating the "red text" parse errors.
+
+### 🧭 Sticky UI & Navigation
+- **Persistent Header**: The header in the Document view is now `position: sticky`. Whether you are at Step 1 or Step 11, the **Presentation** and **Document** toggle buttons will remain at the top of your screen.
+- **High Visibility**: Increased the `z-index` and added a backdrop-blur effect to ensure the navigation bar stays on top of all math and canvas elements.
+
+### 📚 Content Polish
+- **Typo Fix**: Corrected "Grame-Schmidt" to "Gram-Schmidt" in the lesson narration.
+- **Sync**: Verified that all 11 steps of the Gram-Schmidt derivation now render perfectly in the scrolled document view as well as the animated presentation view.
+
+## 🎬 Verification Result
+
+> [!TIP]
+> You can now see the "Presentation" button at the top of the Document view. Clicking it will transition you into the fluid, video-like animation mode we built.
+
+[walkthrough.md](file:///Users/oli/.gemini/antigravity/brain/3514519d-d2fe-4804-9fb8-68d40f2db6fb/walkthrough.md)

@@ -1,0 +1,12 @@
+# MathViz Fluidity Verification Task List
+
+- [ ] Navigate to `http://localhost:5173`
+- [ ] Select 'Gram-Schmidt Process' lesson
+- [ ] Start presentation
+- [ ] Click 'Play' (Auto-Play)
+- [ ] Observe 3-4 steps and verify:
+    - [ ] No 'blackout' period between steps
+    - [ ] Smooth text writing
+    - [ ] Matrices and equations morph/cross-fade
+    - [ ] Canvas vectors move smoothly
+- [ ] Report findings

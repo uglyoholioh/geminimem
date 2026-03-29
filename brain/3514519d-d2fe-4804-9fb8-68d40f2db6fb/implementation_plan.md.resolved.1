@@ -1,0 +1,48 @@
+# Implementation Plan: Fluid Gram-Schmidt Lesson & Animation Fix
+
+Based on user feedback, the Gram-Schmidt lesson is currently too complex to follow and lacks visible animations. We will fix the animation infrastructure and rebuild the lesson step-by-step.
+
+## User Review Required
+
+> [!IMPORTANT]
+> To make the lesson "make sense", the number of steps will increase significantly (from 7 to ~12). This allows us to show intermediate calculations (like dot products and norms) instead of jumping to results.
+
+## Proposed Changes
+
+### 🔧 Animation Infrastructure
+
+#### [MODIFY] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+- Refactor `renderBaseState` to return a `Promise<void>`, ensuring all entry animations (FadeIn, Write) are awaited.
+- Update `updatePresentationState` to `await` the result of `renderBaseState` before considering the transition "done".
+- Increase default transition durations to 1000ms-1200ms to ensure they are clearly visible.
+
+### 📚 Gram-Schmidt Lesson Re-design
+
+#### [MODIFY] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+Rebuild the `QR & Gram-Schmidt` example with the following logical beats:
+1.  **Introduction**: Show matrix $A = [v_1, v_2]$ and the 2D plane.
+2.  **Projection Intuition**: Show $v_1, v_2$ and explain that they are not orthogonal.
+3.  **$u_1$ Definition**: $u_1 = v_1$. Fly $v_1$ from the matrix to the equation.
+4.  **$u_1$ Normalization**: Calculate $\|u_1\|$ and $e_1 = u_1/\|u_1\|$.
+5.  **Dot Product**: Show the calculation of $v_2 \cdot u_1$ using flying values from both vectors.
+6.  **Projection**: Show $p = \text{proj}_{u1}(v_2)$. Fly the dot product result into the projection formula.
+7.  **Visual Projection**: Animate the projection vector appearing on the graph.
+8.  **Subtraction**: $u_2 = v_2 - p$. Morph the equation from projection to subtraction.
+9.  **Orthogonality Check**: Visually indicate that $u_2 \perp v_1$.
+10. **Normalization**: Normalize $u_2$ to get $e_2$.
+11. **Final Result**: Combine $e_1, e_2$ into the $Q$ matrix.
+
+## Open Questions
+
+> [!NOTE]
+> Are you okay with the lesson taking more "clicks" to finish if it means every mathematical term is clearly derived with an animation?
+
+## Verification Plan
+
+### Automated Tests
+- No automated tests available for visual timing; manual check required.
+
+### Manual Verification
+- Run the "QR & Gram-Schmidt" example in Presentation Mode.
+- Verify that every "Next" click triggers a smooth movement of numbers (flying values) or a transformation of the graph.
+- Check that the math updates are cross-faded rather than jumping instantly.

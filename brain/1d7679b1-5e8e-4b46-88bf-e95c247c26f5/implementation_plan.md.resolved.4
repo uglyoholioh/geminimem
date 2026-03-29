@@ -1,0 +1,48 @@
+# Professional Animation System Fix
+
+The "jumping" behavior is caused by specialized animations (like `VectorOperation`) overwriting the global `transitionDuration` with a very small value (16ms) to force frame updates. This makes all other objects in the scene snap to their final state instantly.
+
+## User Review Required
+
+> [!IMPORTANT]
+> I am splitting the transition state into "Beat Transitions" (global) and "Specialized Animations" (object-specific). This ensures that while a vector is growing, other elements still slide smoothly at their own intended speed.
+
+## Proposed Changes
+
+### Rendering Engine
+
+#### [MODIFY] [canvas-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/canvas-renderer.ts)
+- **State Refaming**:
+    - Rename `transitionStartTime` to `beatStartTime`.
+    - Rename `transitionDuration` to `beatDuration`.
+    - Add `lastFrameTime` to track frame-to-frame updates for specialized animators.
+- **Improved Render Loop**:
+    - The loop will now calculate `t` using `beatDuration` for all standard object state transitions.
+    - Specialized animators (like `animateVectorOperation`) will now simply add to `activeAnimations` to keep the loop alive, without poisoning the `beatDuration`.
+    - The loop will continue running as long as `(now - beatStartTime < beatDuration)` OR `activeAnimations.size > 0`.
+- **Refactor `animateVectorOperation` and friends**:
+    - Remove the code that sets `state.transitionDuration = 16`.
+    - Ensure they correctly cleanup `activeAnimations`.
+
+### Example Fixups
+
+#### [MODIFY] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+- Update calls to `updateCanvasObjects` if necessary (though the signature should remain compatible).
+- Ensure `MorphEquation` and global transitions are balanced.
+
+---
+
+## Open Questions
+
+- None at this stage; the conflict is clearly identified.
+
+## Verification Plan
+
+### Automated Testing
+- Use browser subagent to:
+    1. Click "Next" in Gram-Schmidt.
+    2. Verify that vectors $u_1, u_2$ slide smoothly while the projection animation is *also* occurring.
+    3. Confirm that nothing "snaps" at the start of a beat.
+
+### Manual Verification
+- Visual check of the "QR & Gram-Schmidt" lesson to ensure buttery smooth transitions.

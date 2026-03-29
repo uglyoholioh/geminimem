@@ -1,0 +1,20 @@
+[0] (33,28)<button aria-label='Home' class='nav-link' id='btn-home'>MathViz />
+[1] (961,28)<button aria-label='Paste JSON' class='nav-btn' id='btn-load'>Load Spec />
+MathViz
+Interactive mathematical visualization, inspired by manim.
+Choose an example below, or paste a JSON spec.
+Linear Algebra
+[2] (500,374)<button class='home-example'>QR & Gram-Schmidt />
+[3] (500,418)<button class='home-example'>Row Reduction (RREF) />
+[4] (500,462)<button class='home-example'>3×3 Matrix RREF />
+[5] (500,506)<button class='home-example'>Linear Transformation />
+[6] (500,549)<button class='home-example'>System of Equations />
+Features
+[7] (500,652)<button class='home-example'>Synchronized Highlights />
+3D Geometry
+[8] (500,754)<button class='home-example'>3D Surface & Text Animations />
+Vectors
+[9] (500,857)<button class='home-example'>Vector Addition />
+Algebra
+Quadratic Formula
+Polynomial Exploration

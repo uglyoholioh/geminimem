@@ -1,0 +1,49 @@
+# Professional Animation and Transition System
+
+The user is experiencing "jumping" states for canvas elements because the generic interpolation logic is too simplistic and conflicts with specialized animations. This plan will implement a robust transition system.
+
+## User Review Required
+
+> [!IMPORTANT]
+> I am refactoring the core render loop to ensure all property changes (position, components, origin, color) are smoothly interpolated by default.
+
+## Proposed Changes
+
+### Rendering Engine
+
+#### [MODIFY] [canvas-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/canvas-renderer.ts)
+- **Enhanced `interpolateObjects`**: Implement a comprehensive interpolation function that handles:
+    - `origin` and `components` for vectors.
+    - `x`, `y` for points.
+    - `from`, `to` for lines.
+    - `vertices` for polygons.
+    - `opacity` for all objects (fade in/out support).
+    - `color` (HSL/RGB interpolation).
+- **Animation Conflict Resolution**:
+    - Introduce an `activeAnimations` Map in `CanvasState` to track objects currently controlled by specialized animators.
+    - `interpolateObjects` will skip objects present in `activeAnimations`.
+    - Update `animateVectorOperation` (and others) to register themselves in `activeAnimations`.
+- **Render Loop Optimization**: Ensure the render loop correctly prioritizes interpolated states and manages the lifecycle of `activeAnimations`.
+
+### Core App Logic
+
+#### [MODIFY] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+- Ensure that `animateTransition` is called before `renderBaseState` to set up the target states.
+- Verify that `updatePresentationState` correctly triggers the transition window.
+
+---
+
+## Open Questions
+
+- Should I support non-linear easing for individual object properties, or is a global `ease.inOut` sufficient for now? (Global is simpler and usually looks more consistent).
+
+## Verification Plan
+
+### Automated Testing
+- Use the browser subagent to:
+    1. Verify that a vector moving from $[1,1]$ to $[3,3]$ between steps VISIBLY slides across the screen.
+    2. Verify that colors fade smoothly between beats.
+    3. Confirm that `VectorOperation` animations (like projection) still work and don't "stutter" due to render loop conflicts.
+
+### Manual Verification
+- Observe the "QR & Gram-Schmidt" lesson and ensure the vectors don't snap.

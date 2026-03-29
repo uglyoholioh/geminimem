@@ -1,0 +1,11 @@
+# Animation Verification Plan
+- [ ] Navigate to http://localhost:5175/
+- [ ] Click on "QR & Gram-Schmidt"
+- [ ] Switch to "Presentation" mode
+- [ ] Slow down animation speed
+- [ ] Move from Step 2 to Step 3
+- [ ] Verify dashed pink/rose line (Step 3)
+- [ ] Verify smoothly growing projection vector p (green/teal) (Step 3)
+- [ ] Move to normalization step
+- [ ] Verify smooth shrinking
+- [ ] Report success

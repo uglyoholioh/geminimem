@@ -1,0 +1,8 @@
+# Tasks
+- [ ] Navigate to http://localhost:5175/
+- [ ] Click on "QR & Gram-Schmidt"
+- [ ] Switch to "Presentation" mode
+- [ ] Step through the lesson to Step 5 (Normalization)
+- [ ] Verify vectors 'u1' and 'u2' smoothly shrink to unit length
+- [ ] Confirm 'Result' step shows correct orthonormal vectors
+- [ ] Report findings

@@ -1,0 +1,141 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (188,121)<a class='sidebar-brand' href='../index.html' />
+	[1] (188,80)<div  />
+		[2] (188,80)<img  />
+	[3] (188,191)<span >Manim Community v0.20.1 />
+[4] (188,271)<input aria-label='Search' class='sidebar-search' placeholder='Search' />
+[5] (188,646)<div class='sidebar-scroll' scrollable='true' />
+	[6] (158,337)<a class='reference internal' href='../examples.html'>Example Gallery />
+	[7] (153,374)<a class='reference internal' href='../installation.html'>Installation />
+	[8] (242,374)<label  />
+		[9] (242,374)<span  />
+	[10] (167,411)<a class='reference internal' href='../tutorials_guides.html'>Tutorials & Guides />
+	[11] (242,411)<label  />
+		[12] (242,411)<span  />
+	[13] (166,447)<a class='reference internal' href='../reference.html'>Reference Manual />
+	[14] (242,447)<label  />
+		[15] (242,447)<span  />
+	[16] (163,484)<a class='reference internal' href='../reference_index/animations.html'>Animations />
+	[17] (242,484)<label  />
+		[18] (242,484)<span  />
+	[19] (170,520)<a class='reference internal' href='manim.animation.animation.html'>animation />
+	[20] (242,520)<label  />
+		[21] (242,520)<span  />
+	[22] (169,557)<a class='reference internal' href='manim.animation.changing.html'>changing />
+	[23] (242,557)<label  />
+		[24] (242,557)<span  />
+	[25] (174,593)<a class='reference internal' href='manim.animation.composition.html'>composition />
+	[26] (242,593)<label  />
+		[27] (242,593)<span  />
+	[28] (167,630)<a class='reference internal' href='manim.animation.creation.html'>creation />
+	[29] (242,630)<label  />
+		[30] (242,630)<span  />
+	[31] (198,666)<a class='reference internal' href='manim.animation.creation.AddTextLetterByLetter.html'>AddTextLetterByLetter />
+	[32] (195,703)<a class='reference internal' href='manim.animation.creation.AddTextWordByWord.html'>AddTextWordByWord />
+	[33] (169,739)<a class='reference internal' href='manim.animation.creation.Create.html'>Create />
+	[34] (192,776)<a class='reference internal' href='manim.animation.creation.DrawBorderThenFill.html'>DrawBorderThenFill />
+	[35] (199,822)<a class='reference internal' href='manim.animation.creation.RemoveTextLetterByLetter.html'>RemoveTextLetterByLetter />
+	[36] (199,876)<a class='reference internal' href='manim.animation.creation.ShowIncreasingSubsets.html'>ShowIncreasingSubsets />
+	[37] (178,922)<a class='reference internal' href='manim.animation.creation.ShowPartial.html'>ShowPartial />
+	[38] (199,968)<a class='reference internal' href='manim.animation.creation.ShowSubmobjectsOneByOne.html'>ShowSubmobjectsOneByOne />
+[39] (685,44)<a class='muted-link' href='https://github.com/ManimCommunity/manim/blob/main/docs/source/reference/manim.animation.creation.Write.rst?plain=true' title='View this page'>View this page />
+	View this page
+[40] (701,44)<a class='muted-link' href='https://github.com/ManimCommunity/manim/edit/main/docs/source/reference/manim.animation.creation.Write.rst' title='Edit this page'>Edit this page />
+	Edit this page
+Write
+Qualified name:
+manim.animation.creation.Write
+class
+Write
+(
+mobject
+=
+None
+,
+*
+args
+,
+use_override
+=
+True
+,
+**
+kwargs
+)
+[41] (685,170)<span  />
+	[42] (685,169)<span >[source] />
+Bases:
+[43] (375,201)<a class='reference internal' href='manim.animation.creation.DrawBorderThenFill.html#manim.animation.creation.DrawBorderThenFill' title='manim.animation.creation.DrawBorderThenFill' />
+	[44] (375,203)<code  />
+		[45] (375,203)<span >DrawBorderThenFill />
+Simulate hand-writing a
+[46] (414,243)<a class='reference internal' href='manim.mobject.text.text_mobject.Text.html#manim.mobject.text.text_mobject.Text' title='manim.mobject.text.text_mobject.Text' />
+	[47] (414,244)<code  />
+		[48] (414,244)<span >Text />
+or hand-drawing a
+[49] (525,243)<a class='reference internal' href='manim.mobject.types.vectorized_mobject.VMobject.html#manim.mobject.types.vectorized_mobject.VMobject' title='manim.mobject.types.vectorized_mobject.VMobject' />
+	[50] (525,244)<code  />
+		[51] (525,244)<span >VMobject />
+.
+Examples
+Example: ShowWrite
+[52] (410,331)<a class='headerlink' href='#showwrite'>¶ />
+from
+manim
+import
+*
+class
+ShowWrite
+(
+Scene
+):
+def
+construct
+(
+self
+):
+self
+.
+play
+(
+Write
+(
+Text
+(
+"Hello"
+,
+font_size
+=
+144
+)))
+class ShowWrite(Scene):
+    def construct(self):
+        self.play(Write(Text("Hello", font_size=144)))
+Example: ShowWriteReversed
+[53] (447,770)<a class='headerlink' href='#showwritereversed'>¶ />
+[54] (506,1020)<pre scrollable='true'>from
+manim
+import
+* />
+	from
+	manim
+	import
+	*
+On this page
+[55] (758,69)<a class='reference internal' href='#manim.animation.creation.Write' />
+	[56] (758,70)<code  />
+		[57] (758,70)<span >Write />
+[58] (801,94)<a class='reference internal' href='#manim.animation.creation.Write._original__init__' />
+	[59] (801,95)<code  />
+		[60] (801,95)<span >Write._original__init__() />
+[61] (781,119)<a class='reference internal' href='#manim.animation.creation.Write.begin' />
+	[62] (781,120)<code  />
+		[63] (781,120)<span >Write.begin() />
+[64] (782,144)<a class='reference internal' href='#manim.animation.creation.Write.finish' />
+	[65] (782,145)<code  />
+		[66] (782,145)<span >Write.finish() />
+
+</current_dom>

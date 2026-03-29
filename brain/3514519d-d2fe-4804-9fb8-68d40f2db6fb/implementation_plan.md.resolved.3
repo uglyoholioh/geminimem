@@ -1,0 +1,56 @@
+# Implementation Plan: Manim-Style Animation Overhaul
+
+To match the Manim aesthetic, we will refine the animation engine with "organic" easing, add creation-based drawing effects for geometric objects, and implement higher-fidelity equation morphing.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The primary change is switching the default animation easing to a **Quintic (Smooth)** function. This will make all movements feel less mechanical and more like a produced math video.
+
+## Proposed Changes
+
+### 🧪 Animation Engine Overhaul
+
+#### [MODIFY] [animations.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/core/animations.ts)
+- Add `smooth` easing: `t => t*t*t * (t * (t * 6 - 15) + 10)`.
+- Update `animate` to use `smooth` as the default easing function.
+- Add `lagRatio` support for sequence animations (Manim's `LaggedStart`).
+
+### 🎨 Geometry Creation Effects
+
+#### [MODIFY] [canvas-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/canvas-renderer.ts)
+- Implement `ShowCreation` (aliased as `Create` in the spec).
+- Update `drawVectorObj` and `drawLineObj` to support a `completion` property ($0 \to 1$).
+- When `completion < 1`, the object will be drawn partially (e.g., as if it's being traced from origin to tip).
+
+### 🖋️ Advanced Equation Morphing
+
+#### [MODIFY] [equation-morph-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/equation-morph-renderer.ts)
+- Implement "Smart Morphing": Automatically identify common terms between two LaTeX strings.
+- Matching terms will animate their positions (`transform`), while new terms will `Write` or `FadeIn`.
+- This replicates Manim's `ReplacementTransform` behavior for equations.
+
+### ✨ Visual Polish
+
+#### [MODIFY] [colors.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/utils/colors.ts)
+- Update the palette with high-contrast Manim colors (Pure Teal, Deep Blue, Bright Gold).
+- Darken the background to a deep slate (`#1b1b1b` equivalent) for more "premium" contrast.
+
+#### [MODIFY] [style.css](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/style.css)
+- Update typography for a more "mathematical paper" look (using Latin Modern or similar Serif subsets).
+
+## Open Questions
+
+> [!NOTE]
+> Do you want the "Creation" effect to apply to every new object by default, or should it be explicitly requested in the `animate` block of a beat? (Manim usually requires `self.play(Create(obj))`).
+
+## Verification Plan
+
+### Automated Tests
+- None.
+
+### Manual Verification
+- Open the Gram-Schmidt lesson.
+- Verify that $u_1$ and $v_1$ vectors "grow" into existence rather than just fading in.
+- Verify that equation transitions (like $v_2 \to u_2$) show matching terms moving smoothly while symbols like $(-)$ and $(p)$ fade in/out elegantly.
+- Check that the camera pans/zooms now have the signature Manim "smooth" curve.

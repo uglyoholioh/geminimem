@@ -1,0 +1,66 @@
+# Implementation Plan - Fluid Video-like MathViz
+
+The goal is to transform the current step-by-step MathViz into a fluid, video-like experience where viewers can see values moving and changing between components.
+
+## User Review Required
+
+> [!IMPORTANT]
+> This change introduces **Cross-Component Animations**. Elements (like numbers or variables) will now physically "fly" from one part of the screen to another (e.g., from a Matrix cell into an Equation).
+
+> [!NOTE]
+> We will be modifying the `presentation` mode to feel like a continuous timeline rather than a series of discrete slides.
+
+## Proposed Changes
+
+### Core Animation System
+
+#### [MODIFY] [animations.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/core/animations.ts)
+- Add `FlyTo` animation type for cross-component movement.
+- Improve the `animate` function to support cancellation and better coordination.
+
+#### [NEW] [global-animator.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/core/global-animator.ts)
+- Create a `GlobalAnimator` utility that can spawn "ghost" elements in a top-level overlay.
+- Provide a `flyValue(fromEl, toEl, value, duration)` method to animate a value moving between two DOM elements.
+
+### Renderers Enhancement
+
+#### [MODIFY] [matrix-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/matrix-renderer.ts)
+- Add hooks to expose cell coordinates for the `GlobalAnimator`.
+- Improve "changing" state visuals with subtle pulses.
+
+#### [MODIFY] [equation-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/equation-renderer.ts)
+- Add hooks to expose term/variable coordinates (using `data-id` or specific classes).
+- Implement smoother term-level crossfades.
+
+#### [MODIFY] [canvas-renderer.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/renderers/canvas-renderer.ts)
+- Ensure camera pans and zooms are interpolated smoothly during "video" playback.
+
+### Application Logic
+
+#### [MODIFY] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+- Refactor `updatePresentationState` to use a coordinated timeline.
+- Implement the "Value Tracking" logic: if a `Beat` indicates a substitution or use of a value from a previous state, trigger a `flyValue` animation.
+- Update the "Auto-play" logic to feel like a continuous stream.
+
+### Styling
+
+#### [MODIFY] [style.css](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/style.css)
+- Add styles for the "Animation Overlay" (fixed, pointer-events: none).
+- Improve the "Presentation" UI: larger text, cleaner buttons, and a smooth progress bar.
+- Add "Premium" touches: glassmorphism for controls, smoother shadows, and better typography.
+
+## Open Questions
+
+- **Character vs Term Morphing**: Should we attempt to morph individual characters (very complex with KaTeX) or stay with term-level morphing (cleaner and more robust)? *Proposal: Start with term-level morphing with high-quality crossfades.*
+- **Manual vs Auto Tracking**: Should we automatically detect when a value "moves" (e.g., same number appears in next step) or rely on explicit `provenance` hints in the JSON spec? *Proposal: Use explicit hints where possible, but implement basic heuristic matching for matrix-to-equation moves.*
+
+## Verification Plan
+
+### Automated Tests
+- N/A (Mostly visual)
+
+### Manual Verification
+- Use the **"QR & Gram-Schmidt"** example to verify that vectors from the matrix "fly" into the equation.
+- Use the **"Row Reduction"** example to ensure continuous flow between operations.
+- Test in **Presentation Mode** and ensure clicking "Play" feels like watching a video.
+- Verify LaTeX rendering quality remains high throughout transitions.

@@ -1,0 +1,84 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (192,121)<a class='sidebar-brand' href='index.html' />
+	[1] (192,80)<div  />
+		[2] (192,80)<img  />
+	[3] (192,191)<span >Manim Community v0.20.1 />
+[4] (192,271)<input aria-label='Search' class='sidebar-search' placeholder='Search' />
+[5] (164,337)<a class='current reference internal' href='#'>Example Gallery />
+[6] (157,374)<a class='reference internal' href='installation.html'>Installation />
+[7] (252,374)<label  />
+	[8] (252,374)<span  />
+[9] (171,411)<a class='reference internal' href='tutorials_guides.html'>Tutorials & Guides />
+[10] (252,411)<label  />
+	[11] (252,411)<span  />
+[12] (170,447)<a class='reference internal' href='reference.html'>Reference Manual />
+[13] (252,447)<label  />
+	[14] (252,447)<span  />
+[15] (146,484)<a class='reference internal' href='plugins.html'>Plugins />
+[16] (157,520)<a class='reference internal' href='changelog.html'>Changelog />
+[17] (252,520)<label  />
+	[18] (252,520)<span  />
+[19] (160,557)<a class='reference internal' href='contributing.html'>Contributing />
+[20] (252,557)<label  />
+	[21] (252,557)<span  />
+[22] (164,593)<a class='reference internal' href='conduct.html'>Code of Conduct />
+[23] (185,728)<a href='https://server.ethicalads.io/proxy/click/10123/019d3918-f0c3-7a83-aee0-50a4017cf6da/' />
+	[24] (185,687)<img  />
+[25] (185,790)<a href='https://server.ethicalads.io/proxy/click/10123/019d3918-f0c3-7a83-aee0-50a4017cf6da/' />
+	[26] (185,790)<span >Develop and launch modern apps with MongoDB Atlas, a resilient data platform. />
+www.mongodb.com
+[27] (207,888)<a href='https://www.ethicalads.io/advertisers/?ref=ea-image'>Ads by EthicalAds />
+[28] (673,44)<a class='muted-link' href='https://github.com/ManimCommunity/manim/blob/main/docs/source/examples.rst?plain=true' title='View this page'>View this page />
+	View this page
+[29] (689,44)<a class='muted-link' href='https://github.com/ManimCommunity/manim/edit/main/docs/source/examples.rst' title='Edit this page'>Edit this page />
+	Edit this page
+[30] (705,41)<button aria-label='Toggle Light / Dark / Auto color theme' class='theme-toggle' />
+Example Gallery
+This gallery contains a collection of best practice code snippets
+together with their corresponding video/image output, illustrating
+different functionalities all across the library.
+These are all under the MIT license, so feel free to copy & paste them to your projects.
+Enjoy this taste of Manim!
+Tip
+This gallery is not the only place in our documentation where you can see explicit
+code and video examples: there are many more in our
+[31] (386,284)<a class='reference internal' href='reference.html' />
+	[32] (386,284)<span >reference manual />
+– see, for example, our documentation for
+the modules
+[33] (629,284)<a class='reference internal' href='reference/manim.mobject.text.tex_mobject.html#module-manim.mobject.text.tex_mobject' title='manim.mobject.text.tex_mobject' />
+	[34] (629,286)<code  />
+		[35] (629,286)<span >tex_mobject />
+,
+[36] (671,284)<a class='reference internal' href='reference/manim.mobject.geometry.html#module-manim.mobject.geometry' title='manim.mobject.geometry' />
+	[37] (671,286)<code  />
+		[38] (671,286)<span >geometry />
+,
+[39] (332,306)<a class='reference internal' href='reference/manim.scene.moving_camera_scene.html#module-manim.scene.moving_camera_scene' title='manim.scene.moving_camera_scene' />
+	[40] (332,308)<code  />
+		[41] (332,308)<span >moving_camera_scene />
+,
+and many more.
+Check out our
+[42] (400,342)<a class='reference external' href='https://mybinder.org/v2/gh/ManimCommunity/jupyter_examples/HEAD?filepath=basic_example_scenes.ipynb'>interactive Jupyter environment />
+which allows running the examples online, without requiring a local
+installation.
+Also, visit our
+[43] (355,400)<a class='reference external' href='https://twitter.com/manim_community/'>Twitter />
+for more
+manimations
+!
+Basic Concepts
+Example: ManimCELogo
+[44] (410,535)<a class='headerlink' href='#manimcelogo'>¶ />
+On this page
+[45] (779,69)<a class='reference internal' href='#basic-concepts'>Basic Concepts />
+[46] (770,94)<a class='reference internal' href='#animations'>Animations />
+[47] (784,119)<a class='reference internal' href='#plotting-with-manim'>Plotting with Manim />
+[48] (792,144)<a class='reference internal' href='#special-camera-settings'>Special Camera Settings />
+[49] (782,169)<a class='reference internal' href='#advanced-projects'>Advanced Projects />
+
+</current_dom>

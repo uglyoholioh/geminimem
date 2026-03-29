@@ -1,6 +1,9 @@
-# Task: Fix Visualization and Canvas Rendering Issues
+# Task: Fluid "Video-Like" Transitions and Auto-Play
 
-- [x] Refactor `createInteractiveCanvas` in `canvas-renderer.ts` to support updating existing canvases
-- [x] Update `app.ts` to handle dynamic `csId` in `updatePresentationState`
-- [x] Clean up `renderBaseState` in `app.ts` to prevent duplicate canvases
-- [x] Verify fix by running the application and testing with example scenes
+- [ ] Add `isPlaying` state and Play/Pause UI to `app.ts` [/]
+- [ ] Implement `autoPlayLoop` in `app.ts` [/]
+- [ ] Refactor `updatePresentationState` to eliminate "blackout" and synchronize narration / math morphing [/]
+- [ ] Implement `quickCrossfade` in `equation-morph-renderer.ts` for implicit transitions [/]
+- [ ] Update `renderBaseState` in `app.ts` to support smooth cross-fades and implicit math morphing [/]
+- [ ] Refine `canvas-renderer.ts` to ensure smooth camera panning/zooming [/]
+- [ ] Final visual verification and polish [/]
