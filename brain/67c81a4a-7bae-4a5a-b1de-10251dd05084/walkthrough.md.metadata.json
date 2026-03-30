@@ -1,5 +1,6 @@
 {
   "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary": "The Math Animation Engine project has been completely rebuilt from scratch. It features a custom tweening engine using requestAnimationFrame and a Manim-style visual aesthetic.\nA sample 2D shear transformation lesson demonstrates the capabilities of the engine, including smoothly morphing coordinate grids, color-coded KaTeX equations, and a timeline controller.\nThe frontend has been ported to Tailwind CSS v4 to match the sleek dark theme requirements.",
-  "updatedAt": "2026-03-30T11:44:03.792756Z"
+  "summary": "Updated to reflect the new QR Factorisation Lesson and the JSONEditor UI redesign.",
+  "updatedAt": "2026-03-30T12:02:35.079069Z",
+  "version": "2"
 }
