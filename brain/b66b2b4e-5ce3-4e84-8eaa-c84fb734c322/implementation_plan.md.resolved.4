@@ -1,0 +1,63 @@
+# Obsidian Editorial Transformation
+
+This plan outlines the "Obsidian" redesign of MathViz, shifting from a utility-based UI to a high-end, cinematic mathematical storytelling engine. 
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Obsidian Theme**: The entire interface will be transformed into a deep, rich dark mode (`#0B0B0B` background) with high-contrast white serif typography.
+> **Cinematic Layout**: We are removing traditional "app" elements like navigation bars and sidebars in favor of a full-screen, immersive viewport where the narration "floats" over the WebGL canvas.
+> **Math Accents**: Vectors, matrices, and expressions will use a curated palette of vibrant "Manim" colors (Teal, Gold, Rose) to create a striking visual contrast against the dark background.
+
+## Proposed Changes
+
+### [Styling] [style.css](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/style.css)
+
+- **Foundation**: Replace existing variables with an Obsidian-exclusive palette.
+  ```css
+  :root {
+    --bg-obsidian: #050505;
+    --bg-card: #121212;
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0A0A0;
+    --accent-manim-teal: #29ABCA;
+    --accent-manim-gold: #ECE133;
+    --accent-manim-rose: #FF3B3F;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+  }
+  ```
+- **Typography**: Apply serif styles to narration and mathematical beat titles.
+- **Visual Effects**: Implement glassmorphism for the narration overlay and a "vignette" effect on the WebGL canvas.
+
+### [Core] [manim-controller.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/core/manim-controller.ts)
+
+- Update the `Scene` initialization to use a transparent or Obsidian-colored clear color.
+- Default all `MObject` colors to match the new editorial palette if none are specified.
+- Ensure the coordinate system (NumberPlane) uses subtle, elegant grid lines suitable for a dark theme.
+
+### [App] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+
+- **Presentation Redesign**: Refactor `renderPresentation` to position the narration and math as an elegant overlay over a single, large WebGL canvas (the "Immersive View").
+- **Gram-Schmidt Upgrade**: Update the lesson specification to use the high-fidelity `VectorOperation` animations on the new dark background.
+
+### [Markup] [index.html](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/index.html)
+
+- Remove the complex container structure.
+- Add Google Fonts links for *Playfair Display* and *Inter*.
+- Simplify to a single `<main id="app">` layout.
+
+## Open Questions
+
+- Should I include a "Grain" or "Noise" texture overlay to enhance the cinematic film-like quality? I think it would add to the "premium editorial" feel.
+- For the "Gram-Schmidt" lesson, do you want a persistent "formula bar" at the top, or should the math follow the focus of the narration?
+
+## Verification Plan
+
+### Automated Tests
+- `npm run build` to verify asset paths and TS compilation.
+
+### Manual Verification
+- Launch the dev server and verify that the "Obsidian" background correctly fills the viewport.
+- Run the "QR & Gram-Schmidt" lesson and check the visibility of the vectors and their dashed projection lines against the deep black.
+- Ensure the "Scrubber" and "Next" buttons are minimal and unobtrusive.

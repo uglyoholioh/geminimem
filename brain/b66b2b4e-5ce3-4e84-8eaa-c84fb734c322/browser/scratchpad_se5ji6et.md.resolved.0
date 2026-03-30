@@ -1,0 +1,12 @@
+# MathViz UI Redesign Verification
+
+## Task Checklist
+- [ ] Navigate to http://localhost:5175/
+- [ ] Click on "QR & Gram-Schmidt"
+- [ ] Verify Sidebar (Left) and Canvas (Right)
+- [ ] Verify Matrix in Sidebar (No overlap with vectors)
+
+## Notes
+- Theme: Obsidian (Deep Dark)
+- Layout: Editorial Split-Panel
+- Navigation: Scrubber dots in bottom right

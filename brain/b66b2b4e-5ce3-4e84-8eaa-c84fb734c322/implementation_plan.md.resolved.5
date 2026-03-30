@@ -1,0 +1,42 @@
+# Editorial Layout Redesign
+
+The current full-screen "immersive" UI causes visual overlap between the 3D graph/vectors and the mathematical matrices/text. This plan moves to a structured **Split-Panel Editorial Layout**, separating the conceptual narrative from the geometric visualization.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Layout Shift**: I am moving the "Narration" and "Formulas" from floating overlays to a dedicated **Sidebar (40% width)** on the left. The **Manim Canvas** will occupy the remaining **60% width** on the right.
+> 
+> **Matrix Location**: Matrices will now be rendered in the **Sidebar** using clean HTML/KaTeX instead of inside the WebGL canvas. This ensures they are always legible and don't block the view of the vectors.
+
+## Proposed Changes
+
+### [Component Name] Styling & Layout
+
+#### [MODIFY] [style.css](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/style.css)
+- Rename `.pres-container` and `.pres-main` to support a flexbox split.
+- Create `.pres-sidebar` for text, math, and matrices.
+- Style the Sidebar to feel like a premium editorial page (e.g., Stripe/Quanta style).
+- Ensure the `.pres-viz` (Manim) container stays responsive in the right panel.
+
+#### [MODIFY] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+- Update `renderPresentation` to create the new DOM structure:
+  - `<aside class="pres-sidebar">` for Narration, Math, and Matrices.
+  - `<section class="pres-viz-container">` for the Manim Canvas.
+- Update `updatePresentationState` to:
+  - Extract Matrix data from the `beat.add` or `state` and render it into the Sidebar.
+  - Fix the `manimController` logic to skip rendering "matrix" type MObjects in the WebGL scene (as they are now in the DOM).
+
+#### [MODIFY] [manim-controller.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/core/manim-controller.ts)
+- Update `addMObject` and `playAnimation` to handle (or ignore) the matrix type if the user prefers DOM rendering for them.
+
+## Verification Plan
+
+### Automated Tests
+- `npm run build` to ensure no regression in types.
+
+### Manual Verification
+- Open `http://localhost:5174/` and check the "QR & Gram-Schmidt" lesson.
+- Confirm the Left Panel contains the text and matrices.
+- Confirm the Right Panel contains the vectors and grid.
+- Verify the scrubber still navigates correctly.

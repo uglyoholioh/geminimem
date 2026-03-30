@@ -1,16 +1,7 @@
-# Task: Migrate MathViz to manim-web
+- `[ ]` Update `style.css` with Cinematic Overlay and Video Player Bar
+- `[ ]` Refactor `App.renderPresentation` for immersive video structure
+- `[ ]` Implement `App.updatePresentationState` with Title-to-Corner transition
+- `[ ]` Add `Video Scrubber` (Progress Slider) and transport controls
+- `[ ]` Align Gram-Schmidt lesson with the user's provided timeline
+- `[ ]` Final polish on timing and ease-of-use
 
-- `[ ]` Setup and Dependencies
-    - `[ ]` Install `manim-web` and `three`
-- `[ ]` Core Engine Refactor
-    - `[ ]` Create `manim-controller.ts`
-    - `[ ]` Update `app.ts` to use `ManimController`
-- `[ ]` Visual Components
-    - `[ ]` Implement `manim-renderers.ts` for Matrix and Equation
-    - `[ ]` Connect `CanvasRenderer` logic to `manim-web`
-- `[ ]` UI/UX Polish
-    - `[ ]` Implement "Studio" design language
-    - `[ ]` Ensure responsive layout for the new canvas
-- `[ ]` Verification
-    - `[ ]` Verify basic animations (Create, Transform)
-    - `[ ]` Test "QR & Gram-Schmidt" scene

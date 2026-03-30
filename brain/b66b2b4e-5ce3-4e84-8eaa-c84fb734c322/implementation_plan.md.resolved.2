@@ -1,0 +1,45 @@
+# Gram-Schmidt Lesson & Visual Enhancements
+
+This plan covers the creation of a high-fidelity Gram-Schmidt Orthogonalization lesson, leveraging the newly integrated `manim-web` engine. It also includes the necessary architectural improvements to support advanced vector operations like projections and subtractions.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Vector Animations**: The Gram-Schmidt process relies on visualizing projections. I will implement a new `project` animation in `ManimController` that draws a "projection line" (dashed) from the source vector to the target vector.
+> **State Persistence**: The lesson will use incremental `add` and `animate` steps. If the user skips ahead, `resolveStateAtBeat` will ensure the final vectors are correctly placed.
+
+## Proposed Changes
+
+### [Core] [manim-controller.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/core/manim-controller.ts)
+
+Extend `playAnimation` to handle specialized vector operations:
+- Implement `VectorOperation` case for:
+    - `normalize`: Animate scaling the vector to unit length.
+    - `project`: Draw a temporary dashed line from the tip of $v$ to its projection on $w$, then `Create` the projection vector.
+    - `subtract`: Animate the transition of a vector from one position to another (tip-to-tail visualization) before fading into the result.
+
+### [App] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+
+Update the `QR & Gram-Schmidt` example scene:
+- Refine `narration` and `math` strings for better clarity.
+- Ensure `highlights` are correctly mapped to CSS variables (`--teal`, `--gold`, etc.) to match the `manim-web` object colors.
+- Define specific `animate` steps that trigger the new `VectorOperation` logic.
+
+### [Styling] [style.css](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/style.css)
+
+Ensure specialized animation classes (if any are needed for label tracking) are present. (Likely minimal change as `manim-web` handles its own canvas styles).
+
+## Open Questions
+
+- Should we include a 3D version of Gram-Schmidt, or stick to 2D for the primary example? I recommend 2D as it's clearer for a first-time user of the new engine.
+
+## Verification Plan
+
+### Automated Tests
+- Run `npm run build` to ensure no regression in `manim-web` typing.
+
+### Manual Verification
+- Navigate to the "QR & Gram-Schmidt" lesson in the `presentation` view.
+- Verify that the `normalize` animation correctly updates vector length.
+- Verify that the `project` animation draws the dashed projection line before the new vector appears.
+- Verify "skip-to-beat" logic by clicking dots on the scrubber to ensure `resolveStateAtBeat` works with `manim-web`.

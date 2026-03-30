@@ -1,0 +1,37 @@
+# Implementation Plan - Migrating Canvas MObjects to manim-web
+
+This plan outlines the migration of `CoordinateSystem`, `Vector`, and `Graph` types from the legacy `CanvasRenderer` to the new `ManimController` (manim-web).
+
+## Proposed Changes
+
+### [ManimController](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/core/manim-controller.ts)
+
+#### [MODIFY] [manim-controller.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/core/manim-controller.ts)
+- Import `NumberPlane`, `Arrow`, `FunctionGraph` from `manim-web`.
+- Update `addMObject` to handle:
+    - `coordinateSystem`: Map to `NumberPlane`.
+    - `vector`: Map to `Arrow`.
+    - `graph`: Map to `FunctionGraph`.
+    - `line`: Map to `Line`.
+    - `point`: Map to `Dot`.
+    - `circle`: Map to `Circle`.
+
+### [App](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+
+#### [MODIFY] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+- Transition more logic from `CanvasRenderer` to `ManimController`.
+- Ensure `coordinateSystem` objects are initialized first to provide a reference frame if needed (though manim-web objects can exist independently).
+
+## Open Questions
+
+- **Interaction**: The legacy renderer had robust dragging/panning. `manim-web` supports `OrbitControls` and `Draggable`, but we need to decide if we want to implement custom drag logic for vectors (tips) similar to the old renderer.
+- **Performance**: Multiple canvases vs one global canvas. Currently, `manim-web` creates a canvas per `Scene`. I will stick to one `Scene` per "Presentation" and individual scenes for the "Document" view.
+
+## Verification Plan
+
+### Automated Tests
+- `npm run build` to ensure type safety with the new imports.
+
+### Manual Verification
+- Test "Coordinate Systems" and "Vectors" lessons to see if they render correctly on the WebGL canvas.
+- Verify that graphs are correctly plotted using the provided expressions.

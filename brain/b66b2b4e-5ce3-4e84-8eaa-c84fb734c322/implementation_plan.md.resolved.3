@@ -1,0 +1,62 @@
+# Gram-Schmidt Lesson & Visual Enhancements
+
+This plan covers the creation of a high-fidelity Gram-Schmidt Orthogonalization lesson, leveraging the newly integrated `manim-web` engine. It also includes the necessary architectural improvements to support advanced vector operations like projections and subtractions.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Vector Animations**: The Gram-Schmidt process relies on visualizing projections. I will implement a new `project` animation in `ManimController` that draws a "projection line" (dashed) from the source vector to the target vector.
+> **State Persistence**: The lesson will use incremental `add` and `animate` steps. If the user skips ahead, `resolveStateAtBeat` will ensure the final vectors are correctly placed.
+
+## Proposed Changes
+
+### [Core] [mobject.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/core/mobject.ts)
+
+Add `zIndex` to `MObjectBase` to support strict layering.
+```typescript
+export interface MObjectBase {
+  // ... existing fields
+  zIndex?: number;
+}
+```
+
+### [Core] [manim-controller.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/core/manim-controller.ts)
+
+1. **Opacity & Layering Support**: 
+   - Update `addMObject` to apply `obj.opacity` and `obj.zIndex` (if available) to the `manim-web` objects.
+   - Map `obj.label` to `LabeledGeometry` where appropriate or implement a simple `Text` child for vectors.
+
+2. **Advanced Vector Projections**:
+   - Refine the `VectorOperation.project` animation:
+     - Use `DashedLine` to represent the "drop line".
+     - Implement a "Growth" transition where the projection vector $p$ scales from the origin to its length in sync with the dashed line appearing.
+
+3. **Label Tracking**:
+   - Ensure that `Tex` labels associated with `Vector` objects are children of the vector group so they move/scale automatically.
+   - Implement a "facing" update if needed to keep labels readable during rotations.
+
+### [App] [app.ts](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/app.ts)
+
+Update the `QR & Gram-Schmidt` example to use these new features:
+- $v_2$: Set `opacity: 0.4` and `zIndex: 1` once orthogonalization starts, turning it into a "ghost" reference.
+- $u_2$: Use `VectorOperation.subtract` with high-quality transitions.
+- Each basis vector $e_1, e_2$ will have persistent `label` tracking.
+
+### [Styling] [style.css](file:///Users/oli/Desktop/lectvideoanalyser/MathViz/src/style.css)
+
+Ensure specialized animation classes (if any are needed for label tracking) are present. (Likely minimal change as `manim-web` handles its own canvas styles).
+
+## Open Questions
+
+- Should we include a 3D version of Gram-Schmidt, or stick to 2D for the primary example? I recommend 2D as it's clearer for a first-time user of the new engine.
+
+## Verification Plan
+
+### Automated Tests
+- Run `npm run build` to ensure no regression in `manim-web` typing.
+
+### Manual Verification
+- Navigate to the "QR & Gram-Schmidt" lesson in the `presentation` view.
+- Verify that the `normalize` animation correctly updates vector length.
+- Verify that the `project` animation draws the dashed projection line before the new vector appears.
+- Verify "skip-to-beat" logic by clicking dots on the scrubber to ensure `resolveStateAtBeat` works with `manim-web`.
