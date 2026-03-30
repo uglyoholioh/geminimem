@@ -1,0 +1,83 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+import React, { useMemo, useEffect, useRef } from 'react';
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
+import { segmentEquation, ParsedTerm } from '../engine/EquationParser';
+import { motion, AnimatePresence } from 'framer-motion';
+
+interface EquationRendererProps {
+  equation: string; // The tagged string format {{id|latex}}
+  colorMap?: Record<string, string>; // termId -> colorPalette key
+  className?: string;
+  onLayoutReady?: (layoutData: any) => void;
+}
+
+const EquationRenderer: React.FC<EquationRendererProps> = ({ 
+  equation, 
+  colorMap = {}, 
+  className = "",
+  onLayoutReady
+}) => {
+  // Segment the equation into (text | ParsedTerm) array
+  const segments = useMemo(() => segmentEquation(equation), [equation]);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Render LaTeX to string for each segment
+  const renderedSegments = useMemo(() => {
+    return segments.map((seg, index) => {
+      if (typeof seg === 'string') {
+        const html = katex.renderToString(seg, { throwOnError: false, displayMode: false });
+        // Wrap in a div to preserve raw math spacing if it's purely symbols
+        return { type: 'text', html, id: `seg-${index}` };
+      } else {
+        const html = katex.renderToString(seg.latex, { throwOnError: false, displayMode: false });
+        const color = colorMap[seg.id] ? `var(--color-${colorMap[seg.id]})` : 'inherit';
+        return { type: 'term', html, id: seg.id, color };
+      }
+    });
+  }, [segments, colorMap]);
+
+  // Report layout details for GSAP morphs if needed
+  useEffect(() => {
+    if (onLayoutReady && containerRef.current) {
+      onLayoutReady({ 
+        element: containerRef.current,
+        timestamp: Date.now() 
+      });
+    }
+  }, [renderedSegments, onLayoutReady]);
+
+  return (
+    <div 
+      ref={containerRef}
+      className={`equation-container ${className}`}
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.2rem', minHeight: '3rem' }}
+    >
+      <AnimatePresence mode="popLayout">
+        {renderedSegments.map((seg) => (
+          <motion.span
+            key={seg.id}
+            layoutId={seg.id} // This handles the "physical move" across steps
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            style={{ 
+               display: 'inline-block', 
+               color: (seg as any).color || 'inherit',
+               transition: 'color 0.5s ease'
+            }}
+            dangerouslySetInnerHTML={{ __html: seg.html }}
+          />
+        ))}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default EquationRenderer;
+
+</current_dom>

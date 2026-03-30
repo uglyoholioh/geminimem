@@ -1,0 +1,7 @@
+# Verification Plan - Math Lesson Visualizer
+
+- [ ] Navigate to http://localhost:3001/view/01-equation-rearrangement
+- [ ] Wait 3 seconds and verify 2D coordinate plane (Mafs) and parabola
+- [ ] Advance to step 2 and verify green shifted parabola
+- [ ] Advance to Scene 2 and verify 3D grid (Scene 2)
+- [ ] Complete summary report

@@ -1,0 +1,26 @@
+[0] (13,12)<button class='nav-btn'>← Back />
+[1] (17,34)<button class='nav-btn active'>Document />
+[2] (54,34)<button class='nav-btn '>Presentation />
+Structural Equation Morphing
+Starting equation.
+a
++
+b
+=
+c
+a
++
+b
+=
+c
+Morphing components (rearranging).
+c
+−
+a
+=
+b
+c
+−
+a
+=
+b

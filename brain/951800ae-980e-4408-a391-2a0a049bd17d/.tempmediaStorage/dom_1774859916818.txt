@@ -1,0 +1,31 @@
+[0] (13,12)<button class='nav-btn'>← Back />
+[1] (17,34)<button class='nav-btn active'>Document />
+[2] (54,34)<button class='nav-btn '>Presentation />
+Solving 2x² + 5x − 3 = 0
+Step 0
+Begin with the quadratic equation.
+Identify the coefficients.
+a
+=
+2
+,
+b
+=
+5
+,
+c
+=
+−
+3
+a
+=
+2
+,
+b
+=
+5
+,
+c
+=
+−
+3

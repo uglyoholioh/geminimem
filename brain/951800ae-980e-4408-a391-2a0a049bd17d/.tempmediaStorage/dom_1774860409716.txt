@@ -1,0 +1,34 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+MathViz
+Interactive mathematical visualization, inspired by manim.
+Choose an example below, or paste a JSON spec.
+Diagnostics
+[0] (29,115)<button class='home-example'>Matrix Stress Test />
+[1] (91,115)<button class='home-example'>Vector & Canvas Test />
+[2] (155,115)<button class='home-example'>3D Projection Test />
+[3] (217,115)<button class='home-example'>Equation Morph Test />
+Orthogonalization
+[4] (37,157)<button class='home-example'>Gram-Schmidt Process />
+Features
+[5] (38,200)<button class='home-example'>Synchronized Highlights />
+3D Geometry
+[6] (47,242)<button class='home-example'>3D Surface & Text Animations />
+Linear Algebra
+[7] (37,285)<button class='home-example'>Row Reduction (RREF) />
+[8] (102,285)<button class='home-example'>3×3 Matrix RREF />
+[9] (165,285)<button class='home-example'>Linear Transformation />
+[10] (233,285)<button class='home-example'>System of Equations />
+Vectors
+[11] (24,328)<button class='home-example'>Vector Addition />
+Algebra
+[12] (30,370)<button class='home-example'>Quadratic Formula />
+[13] (96,370)<button class='home-example'>Polynomial Exploration />
+Calculus
+[14] (25,413)<button class='home-example'>Interactive Limit />
+[15] (88,413)<button class='home-example'>Derivative Visualization />
+[16] (152,413)<button class='home-example'>Integration (Area) />
+
+</current_dom>

@@ -1,0 +1,9 @@
+# Task Plan: Verify Equation Rearrangement Animation
+
+- [ ] Navigate to http://localhost:3000/view/01-equation-rearrangement
+- [ ] Wait for rendering (1s)
+- [ ] Observe initial state (equation with constant '5')
+- [ ] Click 'Next Step' button (ChevronRight)
+- [ ] Observe animation: verify '5' slides and becomes '-5'
+- [ ] Verify Obsidian dark theme (minimal vibe, dark background, clean icons)
+- [ ] Record findings and return summary

@@ -1,0 +1,16 @@
+# Task Plan
+- [x] Find active port (Port 5173 is active with the UI!)
+- [x] Fetch lesson JSON (Successfully fetched from Port 3000!)
+- [x] Found target animation (x^2 + 6x + 5 = 0 -> x^2 + 6x = -5)
+- [/] Adapt JSON to 5173 app schema (Ongoing - need to find the correct schema)
+- [ ] Wait for 1 second for render
+- [ ] Click 'Next' (ChevronRight) button
+- [ ] Verify animation: '5' moves and becomes '-5'
+- [ ] Confirm Obsidian dark theme
+- [ ] Final summary
+
+## Findings
+- Port 5173 app uses a different schema than the JSON on port 3000.
+- `steps` renamed to `scene` produced 0 steps in the viewer.
+- Need to find a working JSON schema on port 5173.
+- Action: Fetch `/src/tests.ts` or similar on 5173 to see how lessons are defined in code.

@@ -1,0 +1,15 @@
+# Task Plan
+- [/] Navigate to http://localhost:3001/view/01-equation-rearrangement (Port 3001 is blank, but 3000 shows server active)
+- [ ] Wait for 1 second for render (Need more time)
+- [ ] Click 'Next' (ChevronRight) button
+- [ ] Verify animation: '5' moves and becomes '-5'
+- [ ] Confirm Obsidian dark theme
+- [ ] Final summary
+
+## Findings
+- Port 3000 server is UP (Network logs show Success 200 for main.tsx).
+- Port 3001 is also serving but might be stale.
+- Connection lost messages in console suggest Vite HMR issues, but Initial load should work.
+- #root has 0 children - app is not mounting.
+- Hypothesizing: Root mount element might be wrong or React error.
+- RETRYING: http://0.0.0.0:3000/view/01-equation-rearrangement with LONG wait.

@@ -1,0 +1,29 @@
+- [ ] **Phase 1: Foundation**
+    - [ ] [NEW] Initialize Vite project with React+TS
+    - [ ] [NEW] Install dependencies (katex, gsap, mafs, mathjs, framer-motion, lucide-react)
+    - [ ] [NEW] Set up design system (CSS tokens, Obsidian dark theme)
+    - [ ] [NEW] Define Lesson JSON schema and TypeScript types
+    - [ ] [NEW] Create basic app shell (Layout, routing)
+- [ ] **Phase 2: Equation Engine**
+    - [ ] [NEW] Implement KaTeX rendering with term-level markup
+    - [ ] [NEW] Build Equation Morpher (term matching + GSAP SVG)
+    - [ ] [NEW] Add "move-across-equals" specific animation
+    - [ ] [NEW] Implement write/highlight/annotate effects
+- [ ] **Phase 3: Canvas Engine**
+    - [ ] [NEW] Integrate Mafs coordinate plane
+    - [ ] [NEW] Implement function, vector, and point objects
+    - [ ] [NEW] Add draw (ShowCreation) and fade/translate animations
+    - [ ] [NEW] Implement label collision avoidance
+- [ ] **Phase 4: Timeline & Controls**
+    - [ ] [NEW] Build Master Timeline (GSAP coordination)
+    - [ ] [NEW] Implement Transport Bar (play/pause/step)
+    - [ ] [NEW] Add Progress Scrubber and Speed Control
+- [ ] **Phase 5: Interactivity**
+    - [ ] [NEW] Enable interactive mode (sliders, draggable points)
+    - [ ] [NEW] Implement hover cross-referencing (Equation <-> Graph)
+    - [ ] [NEW] Build Matrix renderer with row operations
+- [ ] **Phase 6: Test Cases & Polish**
+    - [ ] [NEW] Author all 7 baseline test case lessons
+    - [ ] [NEW] Build Lesson Importer and Library views
+    - [ ] [NEW] Set up AI prompt template and schema reference
+    - [ ] [NEW] Final visual polish and responsive audit

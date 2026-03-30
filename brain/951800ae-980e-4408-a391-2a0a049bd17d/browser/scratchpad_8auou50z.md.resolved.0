@@ -1,0 +1,7 @@
+# Task Plan
+- [ ] Navigate to http://localhost:3001/view/01-equation-rearrangement
+- [ ] Wait for 1 second for render
+- [ ] Click 'Next' (ChevronRight) button
+- [ ] Verify animation: '5' moves and becomes '-5'
+- [ ] Confirm Obsidian dark theme
+- [ ] Final summary

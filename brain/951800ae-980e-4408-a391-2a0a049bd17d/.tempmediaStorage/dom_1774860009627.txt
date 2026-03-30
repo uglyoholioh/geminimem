@@ -1,0 +1,12 @@
+← Back
+Document
+Presentation
+Synchronized Storytelling with Highlights
+Synchronized Storytelling with Highlights
+[0] (262,959)<button class='transport-btn' />
+	[1] (262,959)<span >⏪ />
+[2] (285,959)<button class='transport-btn play-pause' id='pres-play-btn' />
+	[3] (285,959)<span >▶ />
+[4] (309,959)<button class='transport-btn' />
+	[5] (309,959)<span >⏩ />
+0 / 2
