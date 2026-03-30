@@ -1,0 +1,11 @@
+# Gram-Schmidt Verification Plan
+
+## Tasks:
+- [ ] Navigate to http://localhost:3001/view/02-gram-schmidt
+- [ ] Wait 5 seconds
+- [ ] Verify Equation in Verse 1 Step 4 (Correct matrix rendering, no red LaTeX)
+- [ ] Transition to Scene 2 (3D)
+- [ ] Wait 5 seconds
+- [ ] Verify 3D grid and vectors are visible
+- [ ] Verify console is free of WebGL errors
+- [ ] Provide summary and screenshots

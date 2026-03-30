@@ -1,0 +1,8 @@
+# Task: Verify Math Lesson Visualiser
+
+- [x] Navigate to the page (Port 3000 used)
+- [x] Wait 3 seconds
+- [x] Check for console errors (No error found)
+- [ ] Verify Mafs coordinate plane rendering (Grid is visible)
+- [ ] Verify equation rendering (Equation box currently empty)
+- [ ] Try navigating to Gram-Schmidt if possible or requested

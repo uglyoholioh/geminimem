@@ -1,0 +1,67 @@
+[0] (500,500)<div  />
+	[1] (41,33)<a href='/library' />
+		[2] (48,33)<span >LIBRARY />
+	[3] (104,33)<a href='/import' />
+		[4] (111,33)<span >IMPORT />
+	MATH LESSON VISUALISER
+	[5] (21,101)<button  />
+	SCENE
+	2
+	/
+	2
+	[6] (500,533)<div  />
+		[7] (500,533)<canvas  />
+	v
+	3
+	=
+	u
+	3
+	−
+	proj
+	v
+	1
+	(
+	u
+	3
+	)
+	−
+	proj
+	v
+	2
+	(
+	u
+	3
+	)
+	v
+	3
+	=
+	u
+	3
+	−
+	proj
+	v
+	1
+	(
+	u
+	3
+	)
+	−
+	proj
+	v
+	2
+	(
+	u
+	3
+	)
+	In 3D, we add a third vector u3. We simply subtract the projections onto both v1 and v2 to find v3.
+	[8] (500,822)<div  />
+		[9] (500,822)<div  />
+	STEP
+	1
+	OF
+	1
+	[10] (461,896)<button title='Previous Step' />
+	[11] (510,896)<button  />
+	[12] (559,896)<button title='Next Step' />
+	1.0x
+	SPEED

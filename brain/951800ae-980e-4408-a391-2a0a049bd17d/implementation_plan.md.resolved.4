@@ -1,0 +1,38 @@
+# Implementation Plan (Revised): Visual Engine Stability
+
+Previous attempts to fix the matrix rendering and 3D canvas failed because:
+1.  **Scanner Logic Error**: The brace-matching scanner was prematurely matching `}}` tags within `\end{pmatrix}}}` environments.
+2.  **3D Initialization Race**: MathBox was attempting texture creation (leading to 'LOD' errors) before the DOM container had a non-zero size.
+
+## User Review Required
+
+> [!IMPORTANT]
+> - I am rewriting the `EquationParser.ts` scanner to prioritize `{{ }}` tag identification over single `{ }` math braces.
+> - I will delay the 3D MathBox context creation until the DOM element has stabilized its dimensions.
+
+## Proposed Changes
+
+### [Component Name] Engine Overhaul
+
+#### [MODIFY] [EquationParser.ts](file:///Users/oli/Desktop/MathLessonVisualiser/src/engine/EquationParser.ts) [REVISION]
+- Rewrite `segmentEquation` to handle nested braces by scanning for `{{`, then `|`, then finding the correct `}}`.
+- Fix the `braceLevel` logic to skip over single `{` and `}` that are part of the LaTeX string without confusing them with the `{{` and `}}` markers.
+
+#### [MODIFY] [EquationRenderer.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/renderers/EquationRenderer.tsx)
+- Ensure segmented LaTeX terms are rendered as math-mode strings (wrapped in `$ ... $` if needed or using `\\displaystyle`).
+- Add a safety check to ensure terms aren't empty before rendering.
+
+#### [MODIFY] [Canvas3DRenderer.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/renderers/Canvas3DRenderer.tsx) [REVISION]
+- Change `initMathBox` to check `clientWidth > 0` before proceeding.
+- Move the `view.axis()` call to be protected by a check that avoids texture allocation until specifically requested.
+- Ensure only essential 3D objects are rendered to minimize WebGL context stress.
+
+## Verification Plan
+
+### Automated Tests
+- Full browser subagent run (`v7`) on `http://localhost:3001/view/02-gram-schmidt`.
+- Inspect console for "KaTeX parse error" and "LOD" WebGL errors.
+
+### Manual Verification
+- Verify that matrix Step 4 shows a correctly aligned pmatrix block ($v_2 = \binom{-0.5}{1.5}$).
+- Verify Scene 2 shows the 3D basis vectors.

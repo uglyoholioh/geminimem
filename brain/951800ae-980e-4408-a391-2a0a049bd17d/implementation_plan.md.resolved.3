@@ -1,0 +1,40 @@
+# Implementation Plan: Visual Engine Stability Fix
+
+This plan addresses the two primary persistent visual bugs in the Math Lesson Visualiser:
+1.  **Red LaTeX Matrices**: Caused by the regex parser splitting the string prematurely at the first `}}` encountered in `\end{pmatrix}}}`.
+2.  **Blank 3D Canvas**: Caused by WebGL `glTexSubImage2DRobustANGLE` errors linked to MathBox texture allocation/Sizing.
+
+## User Review Required
+
+> [!IMPORTANT]
+> - This plan significantly changes the internal splitting logic for equations to use a balanced-brace parser instead of a simple regex. 
+> - I will temporarily disable 3D labels (axis names) if they are found to be the source of the WebGL 'LOD' errors, prioritizing geometric visibility first.
+
+## Proposed Changes
+
+### [Component Name] Engine Architecture
+
+#### [MODIFY] [EquationParser.ts](file:///Users/oli/Desktop/MathLessonVisualiser/src/engine/EquationParser.ts)
+- Replace `const regex = /{{(.*?)\|(.*?)}}/gs;` with a robust character-by-character scanner.
+- The new scanner will find the first `{{`, then the first `|`, and then find the *matching* `}}` by counting open/close braces `{` and `}` correctly. This ensures `\end{pmatrix}}}` is parsed as a single unit.
+
+#### [MODIFY] [EquationRenderer.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/renderers/EquationRenderer.tsx)
+- Ensure all term segments are wrapped in a protected environment `\displaystyle { ... }` or equivalent to prevent KaTeX from reverting to text-mode and throwing "Unexpected end of input" errors.
+- Add additional error logging to help debug future edge cases.
+
+#### [MODIFY] [Canvas3DRenderer.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/renderers/Canvas3DRenderer.tsx)
+- Implement a `ResizeObserver` to catch late container resizing which often breaks MathBox camera/texture initialization.
+- Re-configure `mathBox` to use a specific pixel ratio and explicitly check if `view.axis()` is the source of the LOD errors by trying basic geometry first.
+- Flatten data to a simpler structure (`[[x1,y1,z1], [x2,y2,z2]]` vs `[x1,y1,z1,x2,y2,z2]`) if needed for the specific MathBox plugin version.
+
+## Verification Plan
+
+### Automated Tests
+- Run the browser subagent (`v6`) to:
+  1.  Advance to Step 4 of Verse 1.
+  2.  Verify the matrix renders as a formatted block (no red text).
+  3.  Navigate to Scene 2.
+  4.  Verify the 3D grid is visible and the console is clear of `GL_INVALID_OPERATION` errors.
+
+### Manual Verification
+- Visual check of the "Scaling to 3D" scene to ensure vectors are correctly positioned and color-coded.

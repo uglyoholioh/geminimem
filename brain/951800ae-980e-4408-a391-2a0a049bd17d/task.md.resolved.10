@@ -1,0 +1,3 @@
+- [x] Refactor `EquationParser.ts` with robust scanner
+- [x] Refactor `Canvas3DRenderer.tsx` with size-deferred initialization
+- [/] Final visual verification of Gram-Schmidt (matrix results and 3D)

@@ -1,0 +1,58 @@
+# Implementation Plan: Gram-Schmidt Lesson & Engine Refinement
+
+This plan covers the creation of a high-fidelity Gram-Schmidt Orthogonalization lesson and fixes for two critical bugs discovered during the Phase 1/2 verification.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Lesson Scope**: We will implement Gram-Schmidt in both 2D (for structural clarity) and 3D (to showcase the 3D engine capabilities). 
+> **Interactive Verification**: I need to fix the `LessonViewer` and `EquationRenderer` first to ensure we can actually see the lesson.
+
+## Proposed Changes
+
+### 1. Engine & UI Fixes (Blocker Phase)
+
+#### [MODIFY] [LessonViewer.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/app/LessonViewer.tsx)
+- Restore dynamic lesson loading using `useParams` and `useEffect`.
+- Allow the engine to reset when a new lesson is loaded via the Library/Importer.
+
+#### [MODIFY] [EquationRenderer.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/renderers/EquationRenderer.tsx)
+- Debug and fix the blank rendering. (Potential fix: Ensure text segments are wrapped in a generic math environment or rendered as spans if they aren't math).
+- Add better fallbacks for KaTeX rendering errors.
+
+#### [MODIFY] [LessonImporter.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/app/LessonImporter.tsx)
+- Ensure the "Import" action correctly updates the application state (e.g., using a mock library or a temporary lesson state).
+
+### 2. Gram-Schmidt Lesson Content
+
+#### [NEW] [02-gram-schmidt.json](file:///Users/oli/Desktop/MathLessonVisualiser/src/lessons/02-gram-schmidt.json)
+- **Scene 1: 2D Projection (Orthogonalization)**
+    - Step 1: Define basis vectors $u1, u2$. Render as blue/green vectors on Mafs plane.
+    - Step 2: Set $v1 = u1$. Highlight $u1$ transformation.
+    - Step 3: Show projection formula. Render projection vector $p = proj_{v1}(u2)$ as a dashed vector.
+    - Step 4: Orthogonalize $v2 = u2 - p$. Morph $u2$ and $p$ into the new vector $v2$.
+- **Scene 2: 3D Complexity**
+    - Step 1: Show three non-orthogonal vectors in 3D (MathBox).
+    - Step 2: Iterate process for the third vector.
+
+### 3. Implementation Workflow
+
+1.  **Fix Blockers**: Patch `LessonViewer` and `EquationRenderer`.
+2.  **Verify Fix**: Run browser verification on the original lesson on Port 3001.
+3.  **Create GS Lesson**: Write the Gram-Schmidt JSON.
+4.  **Integration**: Add the lesson to the `LessonLibrary` list.
+5.  **Final Verification**: Visual walkthrough of Gram-Schmidt steps.
+
+## Open Questions
+
+1.  Should we include the **Normalization** step (Orthonormal basis) or just stick to **Orthogonalization** for visual simplicity?
+2.  For 3D visualization, do you prefer a static view or an auto-rotating camera during the steps?
+
+## Verification Plan
+
+### Automated/Tool Verification
+- Use `browser_subagent` to click through every step of the Gram-Schmidt lesson.
+- Verify that vectors align correctly (orthogonal) using visual inspection in screenshots.
+
+### Manual Verification
+- USER to check the math morphing fluidness between Step 3 (Projection) and Step 4 (Subtraction).

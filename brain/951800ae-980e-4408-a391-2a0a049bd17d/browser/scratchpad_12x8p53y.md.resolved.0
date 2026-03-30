@@ -1,0 +1,14 @@
+# Verification of Gram-Schmidt Lesson
+
+## Progress Checklist:
+- [ ] Navigate to `http://localhost:3001/view/02-gram-schmidt` (or `3000`)
+- [ ] Verify equation box shows u1, u2 (not blank)
+- [ ] Verify Mafs canvas shows blue and orange vectors
+- [ ] Advance to step 3 and verify dashed yellow vector
+- [ ] Advance to step 4 and verify v2 is orthogonal to v1
+- [ ] Advance to Scene 2 (3D) and verify 3D grid and vectors
+
+## Findings:
+- Attempted `http://localhost:3000/view/02-gram-schmidt`: Page blank, 500 error in `LessonViewer.tsx`.
+- Attempted `http://localhost:3001/view/02-gram-schmidt`: Page blank, same error.
+- Library page works, but viewer is broken.

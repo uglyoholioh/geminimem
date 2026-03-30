@@ -1,0 +1,9 @@
+[0] (500,500)<div  />
+	[1] (41,33)<a class='active' href='/library' />
+		[2] (48,33)<span >LIBRARY />
+	[3] (104,33)<a href='/import' />
+		[4] (111,33)<span >IMPORT />
+	MATH LESSON VISUALISER
+	YOUR LIBRARY
+	Step into your mathematical universe. Browse your lessons below or import a new one from your AI tutor.
+	NO LESSONS YET

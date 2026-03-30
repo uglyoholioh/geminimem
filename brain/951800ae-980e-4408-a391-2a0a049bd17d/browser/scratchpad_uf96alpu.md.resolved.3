@@ -1,0 +1,27 @@
+# Task: Verify Math Lesson Visualiser
+
+- [x] Navigate to the page (Port 3000 used, also checked Port 3001)
+- [x] Wait 3 seconds
+- [x] Check for console errors (No error found, no 504s, no WebGL1Renderer errors)
+- [x] Verify Mafs coordinate plane rendering (Grid is visible on both ports)
+- [ ] Verify equation rendering (Equation box currently empty on Port 3000/3001 - investigating)
+- [x] Retrieve lesson schema from network requests
+- [x] Generate Gram-Schmidt lesson JSON
+- [ ] Import and verify the new lesson (First attempt failed, likely JSON escaping issues)
+- [ ] Report "blank" equation box issue if unresolved
+
+## Lesson Schema Findings
+The lesson data is a JSON structure with `id`, `title`, and `scenes`.
+Each scene has `steps` with:
+- `id`
+- `equation` (LaTeX - must use double backslashes `\\`)
+- `narration`
+- `canvas` (with `viewport` and `objects`)
+- `colorMap`
+
+## Findings
+1. Ports 3000 and 3001 are active.
+2. Mafs grid/2D plane renders correctly.
+3. Equation box in `01-equation-rearrangement` is blank (no LaTeX rendered).
+4. No console errors detected (No 504s, No WebGL1Renderer errors).
+5. Import tool exists but requires valid JSON structure.

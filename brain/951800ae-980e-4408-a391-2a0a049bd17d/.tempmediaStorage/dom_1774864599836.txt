@@ -1,0 +1,21 @@
+[0] (500,500)<div  />
+	[1] (41,33)<a href='/library' />
+		[2] (48,33)<span >LIBRARY />
+	[3] (104,33)<a href='/import' />
+		[4] (111,33)<span >IMPORT />
+	MATH LESSON VISUALISER
+	[5] (21,101)<button  />
+	SCENE
+	1
+	/
+	2
+	[6] (500,822)<div  />
+	STEP
+	1
+	OF
+	2
+	[7] (461,896)<button title='Previous Step' />
+	[8] (510,896)<button  />
+	[9] (559,896)<button title='Next Step' />
+	1.0x
+	SPEED

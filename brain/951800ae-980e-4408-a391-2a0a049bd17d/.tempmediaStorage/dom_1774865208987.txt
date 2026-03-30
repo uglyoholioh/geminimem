@@ -1,0 +1,34 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (500,500)<div  />
+	[1] (41,33)<a class='active' href='/library' />
+		[2] (48,33)<span >LIBRARY />
+	[3] (104,33)<a href='/import' />
+		[4] (111,33)<span >IMPORT />
+	MATH LESSON VISUALISER
+	Lesson Library
+	Select a mathematical concept to explore through cinematic, interactive visualisations.
+	[5] (156,482)<div  />
+		[6] (156,392)<div  />
+			[7] (84,392)<div  />
+			[8] (226,377)<span >Basic />
+		[9] (156,472)<div  />
+			[10] (156,459)<h2 >Equation Rearrangement />
+			[11] (156,490)<p >Algebra />
+		[12] (156,576)<div  />
+			[13] (108,589)<div >5
+Interactive Steps />
+	[14] (385,482)<div  />
+		[15] (385,392)<div  />
+			[16] (313,392)<div  />
+			[17] (444,377)<span >Intermediate />
+		[18] (385,486)<div  />
+			[19] (385,473)<h2 >Gram-Schmidt Orthogonalization />
+			[20] (385,519)<p >Linear Algebra />
+		[21] (385,576)<div  />
+			[22] (338,589)<div >5
+Interactive Steps />
+
+</current_dom>

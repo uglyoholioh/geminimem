@@ -1,0 +1,23 @@
+# Task: Verify Math Lesson Visualiser
+
+- [x] Navigate to the page (Port 3000 used, also checked Port 3001)
+- [x] Wait 3 seconds
+- [x] Check for console errors (No error found, no 504s, no WebGL1Renderer errors)
+- [x] Verify Mafs coordinate plane rendering (Grid is visible on both ports)
+- [ ] Verify equation rendering (Equation box currently empty on Port 3000/3001 - investigating)
+- [x] Retrieve lesson schema from network requests
+- [ ] Generate Gram-Schmidt lesson JSON
+- [ ] Import and verify the new lesson
+- [ ] Report "blank" equation box issue if unresolved
+
+## Lesson Schema Findings
+The lesson data is a JSON structure with `id`, `title`, and `scenes`.
+Each scene has `steps` with:
+- `id`
+- `equation` (LaTeX)
+- `narration`
+- `canvas` (with `viewport` and `objects`)
+- `colorMap`
+
+Objects in canvas can have `type: "function"`, `expression`, `color`, etc.
+I will test if `type: "vector"` works.

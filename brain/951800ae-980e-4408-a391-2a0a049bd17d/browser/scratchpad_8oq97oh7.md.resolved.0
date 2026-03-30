@@ -1,0 +1,9 @@
+# Math Lesson Visualizer Verification - Gram-Schmidt
+
+## Checklist
+- [ ] Navigate to `http://localhost:3001/view/02-gram-schmidt` and wait 5s
+- [ ] Verify Verse 1, Step 1: Equation (u1, u2) visible
+- [ ] Verify Verse 1, Step 1: Mafs canvas (u1, u2) visible
+- [ ] Advance to Verse 1, Final Step: Verify v1, v2 orthogonality
+- [ ] Advance to Verse 2 (3D Scene): Verify 3D grid and vectors
+- [ ] Capture screenshots of each phase
