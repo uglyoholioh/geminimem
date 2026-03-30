@@ -1,55 +1,42 @@
-# Implementation Plan - Editorial Overhaul & Layout Refinement
+# Implementation Plan - Stitch UI Design Integration
 
-We will transform the "Universal Math Engine" into a sleek, **Dark Mode Editorial** experience. This involves moving the UI into "safe zones" to prevent blocking the graph, implementing reactive sizing for the canvas, and adopting a premium black-and-white aesthetic with bold math accents.
+We will use **Stitch** to elevate the UI/UX of the Math Visualizer. By defining a first-class Design System and generating high-fidelity screen mockups, we'll establish a more professional and visually consistent "Editorial Dark Mode" experience.
 
 ## User Review Required
 
 > [!IMPORTANT]
-> To prevent blocking, we will move the "Step Description" into a structured sidebar or a non-overlapping floating panel. This changes the layout from "Overlay-on-Canvas" to "Structured Canvas Layout".
+> I will create a new "Design Project" and "Design System" in Stitch. This will define our official color palette (Pitch Black, Manim Yellow/Red/Blue) and typography (Outfit, EB Garamond).
 
-> [!CAUTION]
-> The "Editorial" look uses pure black (`#000`) and high-contrast whites. We will ensure that the existing math colors (Yellow, Blue, Green, Red) remain legible against this stark background.
+> [!TIP]
+> Once the Design System is established, I'll generate a "High-Fidelity Explainer Dashboard" screen in Stitch. This mockup will guide our final CSS and layout refinements in the React codebase.
 
 ## Proposed Changes
 
-### [Aesthetics]
-#### [MODIFY] [index.css](file:///Users/oli/Desktop/MathLessonVisualiser/src/index.css)
-- Update color tokens to "Editorial" palette:
-  - `bg`: `#000000` (Pure Black)
-  - `surface`: `#0a0a0c` (Very Dark Gray)
-  - `text`: `#ffffff` (Pure White)
-  - `text-muted`: `#888888`
-  - `accent`: `#fff`
-- Add high-end typography settings (Inter/Outfit).
-- Refine animations with `cubic-bezier(.16,1,.3,1)` (Quintic Out) for that "premium" feel.
+### [Stitch Design]
+#### [NEW] [Stitch Project](mcp://StitchMCP/create_project)
+- Create a project titled "Math Lesson Visualer - Editorial".
+- Define a **Design System** matching the "Editorial Dark Mode":
+  - **Colors**: Background `#000000`, Primary text `#ffffff`, Accent `#ffff00` (Manim Yellow).
+  - **Typography**: `Outfit` for headings, `EB Garamond` for math.
+  - **Shape**: 32px rounded corners for floating islands.
 
-### [Layout & Reactivity]
-#### [MODIFY] [App.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
-- **Safe Area Implementation**: 
-  - Add logic to calculate a "Safe Center" for the SVG based on the header and sidebar dimensions.
-  - Instead of `absolute top-8 left-8` for the description, use a layout that pushes the SVG to the remaining space.
-- **Reactive Zooming**:
-  - Add a `useWindowResize` hook (or simple state) to adjust the `zoom` level based on the viewport width (e.g. `zoom = Math.min(width/15, 60)`).
-- **Icon Refresh**:
-  - Update Lucide icons to use thinner strokes (`stroke-width="1.5"`) and consistent white colors.
-- **Overlap Prevention**:
-  - Update `AnimatedMath` to use a more stable coordinate mapping that accounts for the canvas scale.
+#### [NEW] [Screen Mockup](mcp://StitchMCP/generate_screen_from_text)
+- Prompt: "A high-fidelity mathematical explainer dashboard with a large central vector-graph area, a floating glassmorphism 'Description Card' on the left, and a sleek 'Transport Bar' at the bottom. The aesthetic is pitch-black editorial with sharp white accents. Use yellow-400 for key labels."
 
-### [Engine Refinements]
-#### [MODIFY] [App.tsx (AnimatedVector/AnimatedMath)]
-- Refine `AnimatedVector` arrowheads to be even sleeker (thinner lines).
-- Update the "MathCard" HTML template to follow the "Editorial" B&W look (black background, white borders, crisp text).
+### [Code Integration]
+#### [MODIFY] [App.tsx & index.css](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
+- Synchronize the `index.css` variables with the official Stitch Design System tokens.
+- Refine the floating island layouts (padding, margins, shadows) based on the Stitch generation.
 
 ## Open Questions
-- Would you prefer the **Description** to be a fixed sidebar on the left (taking up ~25% width) or a floating panel that can be toggled/collapsed?
-- Should the **Timeline/Player Controls** be a floating island at the bottom (Manim-style) or a full-width bar?
+- Would you like the generated Stitch mockup to include a **"Student Workspace"** (collapsible notepad/calculator area) or should we keep it strictly as an interaction player?
+- Should the **Design System** include a "Light Mode" variant for printed/high-contrast environments, or are we strictly focusing on the "Editorial Dark Mode"?
 
 ## Verification Plan
 
 ### Automated Tests
-- `npm run build` to ensure no regression in types or build.
+- `npm run build` to ensure token synchronization hasn't broken the production bundle.
 
 ### Manual Verification
-- Resize the browser window to verify the graph scales reactively.
-- Verify that the description box no longer overlaps the center of the graph (where vectors are usually located).
-- Confirm the new color palette feels "Sleek" and "Editorial".
+- Review the Stitch-generated screen to ensure it meets your aesthetic expectations.
+- Verify the layout transitions in the React app match the Stitch mockups.

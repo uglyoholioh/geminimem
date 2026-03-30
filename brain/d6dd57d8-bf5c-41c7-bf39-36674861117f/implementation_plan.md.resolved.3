@@ -1,0 +1,52 @@
+# Implementation Plan - UI Refinement & Animation Polish
+
+We will refine the visual and interactive experience by graduating from a conventional sidebar layout to a high-end "Editorial" interface. This includes adopting floating control islands, staggering mathematical object entrances, and overhauling typography for a more professional "Manim" look.
+
+## User Review Required
+
+> [!IMPORTANT]
+> To achieve a "Manim" feel, we will transition the player controls and sidebar into **Floating Islands**. This maximizes the visible canvas area and creates a more cinematic focus on the math.
+
+> [!TIP]
+> We will introduce **Animation Staggering**. Instead of all vectors appearing at once, they will sequence in (e.g., Vector `u`, then Vector `v`, then the Angle).
+
+## Proposed Changes
+
+### [Animations]
+#### [MODIFY] [App.tsx (useTween)](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
+- Update `useTween` hook to support a `delay` parameter.
+- Use `setTimeout` or a start-time offset in the `requestAnimationFrame` loop.
+
+#### [MODIFY] [App.tsx (Geometric Components)]
+- Add staggered delays to `AnimatedVector`, `AnimatedLine`, and `AnimatedMath` based on their index or type.
+
+### [Aesthetics]
+#### [MODIFY] [index.css](file:///Users/oli/Desktop/MathLessonVisualiser/src/index.css)
+- Implement a more sophisticated "Editorial" font stack:
+  - **Outfit**: For headings and UI buttons.
+  - **Inter**: For dense text.
+  - **EB Garamond** (or serif fallback): For mathematical labels.
+- Add "Glow" and "Blur" utility classes for a premium finish.
+
+### [Layout & UI]
+#### [MODIFY] [App.tsx (Layout Structure)](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
+- **Floating Controls**: Move the timeline and transport bar into a rounded, floating "Island" at the bottom center.
+- **Collapsible Sidebar**: Redesign the description as a minimalist floating card with a toggle, keeping the screen as "open" as possible.
+- **Glassmorphism 2.0**: Use a more sophisticated blur strategy (`backdrop-blur-3xl`) with ultra-thin white borders (`border-white/5`).
+
+#### [MODIFY] [App.tsx (Icons)](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
+- Standardize all icons with `strokeWidth={1.5}` and consistent 24px/20px sizing.
+
+## Open Questions
+- Would you like the "Editorial Sidebar" to be **permanently visible** or **automatically collapse** during animation playback?
+- Should we add a **"Grid Dot"** option (Manim-style) instead of full grid lines?
+
+## Verification Plan
+
+### Automated Tests
+- `npm run build` to ensure no regression in types or build.
+
+### Manual Verification
+- Verify that elements sequence in one by one during transitions.
+- Confirm the new floating island layout feels "Cinematic" and "Uncluttered".
+- Verify that the new typography is legible and premium.

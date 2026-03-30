@@ -1,16 +1,16 @@
-# Editorial Overhaul Tasks
+# UI Refinement Tasks
 
+- [x] **Animation Sequencing**
+  - [x] Add `delay` support to `useTween` hook `[x]`
+  - [x] Stagger `AnimatedVector`, `AnimatedLine`, and `AnimatedMath` entrances `[x]`
+- [x] **Layout Rework**
+  - [x] Convert sidebar to a floating "Description Island" `[x]`
+  - [x] Convert player bar to a floating "Control Island" `[x]`
+  - [x] Implement `backdrop-blur-3xl` and ultra-thin borders `[x]`
 - [x] **Aesthetics & Branding**
-  - [x] Update `index.css` with Pure Black (#000) and Stark White tokens `[x]`
-  - [x] Implement premium quintic easing for all animations `[x]`
-  - [x] Update Lucide icons to 1.5px stroke and consistent styling `[x]`
-- [x] **Layout & Blocking Prevention**
-  - [x] Implement an "Editorial Sidebar" for step descriptions `[x]`
-  - [x] Add "Safe Area" logic to SVG center calculations `[x]`
-  - [x] Update `AnimatedMath` to be responsive and non-blocking `[x]`
-- [x] **Reactivity**
-  - [x] Add `useWindowResize` hook for dynamic zoom `[x]`
-  - [x] Refactor coordinate mapping to be pixel-aware `[x]`
+  - [x] Update `index.css` with premium font stack (Outfit / EB Garamond) `[x]`
+  - [x] Standardize all icons to `strokeWidth: 1.5` `[x]`
+  - [x] Add subtle glow/blur utility classes `[x]`
 - [x] **Verification**
-  - [x] Verify build and visual fidelity `[x]`
-  - [x] Verify responsiveness in browser `[x]`
+  - [x] Verify build and visual polish `[x]`
+  - [x] Verify animation staggering in browser `[x]`
