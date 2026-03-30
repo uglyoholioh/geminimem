@@ -1,0 +1,23 @@
+# Walkthrough - Project Reset: Universal Math Engine
+
+As requested, I've performed a "completely fresh" reset of the project. I've replaced the previous modular attempt with the full monolithic code from your **Universal Math Engine**. This ensures that the coordinate systems, animation curves, and layout are exactly as intended in your reference.
+
+## Changes Made
+
+### 1. **Monolithic Core**
+I've consolidated the entire math animation engine into [App.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx). This includes:
+- **`useTween`**: The custom cubic-easing animation hook for all visual transitions.
+- **Scene Logic**: The refined grid, basis transformation, and geometry rendering (vectors, lines, angles).
+- **Lesson Library**: All Chapter 5 lessons (Orthogonality, Projections, Least Squares).
+- **Player UI**: The full-screen layout with overlays, descriptions, and playback controls.
+
+### 2. **Technical Refinements**
+While keeping the engine "fresh" and faithful to your source, I've made minor adjustments to ensure a perfect build:
+- **TypeScript Support**: Added explicit types for map parameters and object properties to satisfy the project's strict linting.
+- **Aesthetic Polish**: Ensured that the Lucide icons, glassmorphism overlays, and cinematic vignettes remain high-quality and consistent.
+
+## Verification
+I've successfully run `npm run build` to verify that there are no TypeScript or compilation errors. The engine is now in a clean, stable state.
+
+## How to Proceed
+You can now run `npm run dev` to see the original, un-messed-up visualization in your browser. All your "Chapter 5" lessons are pre-loaded in the top-right menu!

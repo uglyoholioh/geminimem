@@ -1,0 +1,11 @@
+# Integration Tasks - Universal Math Engine
+
+- [ ] Extend `src/types/lesson.ts` with new geometry types `[/]`
+- [ ] Implement `src/components/AnimatedAngle.tsx` `[ ]`
+- [ ] Implement `src/components/AnimatedLine.tsx` `[ ]`
+- [ ] Implement `src/components/AnimatedMath.tsx` `[ ]`
+- [ ] Refine `src/components/AnimatedVector.tsx` aesthetics `[ ]`
+- [ ] Update `src/components/SVGCanvas.tsx` to support new types and camera `[ ]`
+- [ ] Create `src/data/orthoLesson.ts` with Chapter 5 content `[ ]`
+- [ ] Update `src/components/Player.tsx` with lesson selector and refinements `[ ]`
+- [ ] Verify animations and transitions in the browser `[ ]`

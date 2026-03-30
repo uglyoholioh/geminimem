@@ -1,0 +1,7 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "A plan to overhaul the Math Visualizer with an 'Editorial Dark Mode' aesthetic, responsive layout (Safe Areas), and overlap prevention. This ensures the 2D math scene is always clearly visible and not blocked by UI overlays, while providing a premium, high-contrast visual experience.",
+  "updatedAt": "2026-03-30T16:56:10.160337Z",
+  "version": "2",
+  "requestFeedback": true
+}

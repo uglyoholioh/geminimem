@@ -1,0 +1,57 @@
+# Implementation Plan - Universal Math Engine Integration
+
+We will integrate the features and lessons from `Universal Math Engine.ts` (UME) into the main project structure. This involves extending the declarative lesson schema, adding new geometry components (Angles, Lines, MathBlocks), and porting the "Chapter 5" linear algebra lessons.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The "Universal Math Engine" uses HTML-based "MathCards" for on-canvas mathematical notation. We will implement these using `dangerouslySetInnerHTML` to support the rich styling (colors, borders, gradients) shown in the reference file.
+
+> [!NOTE]
+> We will update the coordinate system and camera logic to fully support the "pan" and "zoom" features from the reference engine, which are currently only partially implemented in the project.
+
+## Proposed Changes
+
+### [Engine Types]
+#### [MODIFY] [lesson.ts](file:///Users/oli/Desktop/MathLessonVisualiser/src/types/lesson.ts)
+- Add `LessonAngle`, `LessonLine`, and `LessonMathBlock` interfaces.
+- Update `SceneState` to include `angles`, `lines`, and `mathBlocks`.
+
+### [Geometry Components]
+#### [NEW] [AnimatedAngle.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/AnimatedAngle.tsx)
+- Port the arc/polyline angle rendering from UME.
+#### [NEW] [AnimatedLine.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/AnimatedLine.tsx)
+- Port the infinite or dashed line rendering from UME.
+#### [NEW] [AnimatedMath.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/AnimatedMath.tsx)
+- Create a component to render absolute-positioned HTML math blocks on top of the SVG canvas, using coordinates from the math world.
+
+### [Core Refinements]
+#### [MODIFY] [AnimatedVector.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/AnimatedVector.tsx)
+- Refine arrowhead and label placement logic to match the Manim-style refinement in UME.
+- Ensure it respects the global `SCALE` and `camera` zoom.
+#### [MODIFY] [SVGCanvas.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/SVGCanvas.tsx)
+- Implement `camera` (pan/zoom) support in the SVG `g` group.
+- Render the new `AnimatedAngle`, `AnimatedLine`, and `AnimatedMath` components.
+- Fix coordinate system consistency.
+
+### [Data & UI]
+#### [NEW] [orthoLesson.ts](file:///Users/oli/Desktop/MathLessonVisualiser/src/data/orthoLesson.ts)
+- Convert Chapter 5 (Orthogonality, Projections, Least Squares) content from UME into the app's data format.
+#### [MODIFY] [Player.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/Player.tsx)
+- Add a lesson selector or update the default lesson to the new "Universal Math Engine" content.
+- Ensure the aesthetic "vignette" and "overlay" effects play nicely with the new on-canvas math blocks.
+
+## Open Questions
+- Do you want to keep the existing `QR Factorization` lesson available in the player, or should we switch primarily to the Chapter 5 content for now?
+- Would you like a "Stage" selector (Chapter 5.1, 5.3, etc.) in the player UI, similar to what the UME file had?
+
+## Verification Plan
+
+### Automated Tests
+- N/A (Mostly visual)
+
+### Manual Verification
+- Open the browser at `http://localhost:3001` (or the current dev port).
+- Verify that the "Airplane & Shadow" projection animation plays correctly.
+- Verify that math blocks move and fade smoothly during basis transitions.
+- Verify that the camera zoom/pan works when steps have different zoom levels.

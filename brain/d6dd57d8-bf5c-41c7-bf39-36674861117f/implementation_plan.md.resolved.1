@@ -1,0 +1,39 @@
+# Implementation Plan - Reset to Universal Math Engine
+
+We will reset the application to a "completely fresh" state by adopting the monolithic **Universal Math Engine** code as the primary entry point. This will resolve the "messed up" rendering issues by reverting to the stable coordinate and tweening logic from your reference file.
+
+## User Review Required
+
+> [!IMPORTANT]
+> This change will effectively bypass the existing `src/components/` and `src/data/` modular system in favor of the monolithic approach. This ensures the visual fidelity and animation timing are exactly as specified in your "Universal Math Engine" code.
+
+> [!NOTE]
+> We will consolidate the engine into `src/App.tsx` (or a dedicated `UniversalEngine.tsx`) to serve as the new core of the project.
+
+## Proposed Changes
+
+### [Core Engine]
+#### [MODIFY] [App.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
+- Overwrite `App.tsx` with the full code provided for the **Universal Math Engine**.
+- Ensure all `lucide-react` imports and `React` hooks are correctly referenced.
+
+### [Data & Styling]
+#### [MODIFY] [index.css](file:///Users/oli/Desktop/MathLessonVisualiser/src/index.css)
+- Ensure base Tailwind/CSS support for the MathCard classes (e.g., `bg-zinc-800/95`, `backdrop-blur-xl`, `drop-shadow-2xl`).
+
+### [Cleanup]
+#### [DELETE] [SVGCanvas.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/SVGCanvas.tsx) (and other components if redundant)
+- We will keep the components directory for future modularization but they will no longer be used by the main `App.tsx`.
+
+## Open Questions
+- Would you like me to move the `lessonLibrary` into its own `src/data/lessons.ts` file immediately to keep `App.tsx` lean, or should I keep it strictly as one file for now to ensure it's "fresh"?
+
+## Verification Plan
+
+### Automated Tests
+- `npm run build` to ensure no TypeScript or Vite errors.
+
+### Manual Verification
+- Open the visualizer in the browser.
+- Verify that the **Orthogonality**, **Projections**, and **Least Squares** lessons load with correct coordinates and smooth animations.
+- Confirm that the **MathCards** (shadow detail, algebraic definitions) are correctly styled and positioned.

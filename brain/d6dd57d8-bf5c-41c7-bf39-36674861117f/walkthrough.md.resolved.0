@@ -1,0 +1,45 @@
+# Walkthrough - Universal Math Engine Integration
+
+We've successfully integrated the "Universal Math Engine" refinements into the main project. This update introduces a more expressive declarative schema and several new Manim-style geometry components.
+
+## Core Advancements
+
+### 1. **New Geometry Engine**
+We've added three new primary components to the SVG rendering pipeline:
+- **`AnimatedAngle`**: Specifically designed for right-angle indicators and arc-based angle representations.
+- **`AnimatedLine`**: Supports both solid and dashed infinite lines for visualizing spaces and subspaces.
+- **`AnimatedMath`**: A dedicated HTML overlay layer that allows rich, styled math blocks (MathCards) to float and move with the canvas camera.
+
+### 2. **Cinematic Camera (Pan & Zoom)**
+The `SVGCanvas` now fully respects a `camera` state inside each lesson step. This allows for:
+- **Dynamic Zooming**: Focusing in on a specific projection or out to see a full column space.
+- **Panning**: Smoothly transitioning the viewpoint to follow vectors as they transform.
+
+### 3. **Refined Vector Physics**
+`AnimatedVector` has been completely overhauled to use world-unit logic instead of hardcoded pixel scales.
+- **Improved Arrowheads**: Consistent, professional-looking head geometry that stays sharp at any zoom level.
+- **Smart Labels**: Labels now use `Math.atan2` logic for better positioning relative to the vector tip.
+- **Transformed Points**: Better support for `attachedToBasis`, ensuring vectors shift fluidly during linear transformations.
+
+### 4. **Chapter 5 Lesson Suite**
+We've migrated the "Chapter 5" content into a new data file: `src/data/orthoLesson.ts`. This includes:
+- **5.1 Orthogonality**: Visualizing perpendicular vectors and the zero-overlap rule.
+- **5.3 Projections**: The "Airplane & Shadow" metaphor with real-time math block updates.
+- **5.5 Least Squares**: Visualizing the normal equation and the minimized error vector.
+
+## Key Changes in Code
+
+### Engine Types
+- Added `LessonAngle`, `LessonLine`, and `LessonMathBlock` to [lesson.ts](file:///Users/oli/Desktop/MathLessonVisualiser/src/types/lesson.ts).
+
+### Components
+- Created [AnimatedLine.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/AnimatedLine.tsx), [AnimatedAngle.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/AnimatedAngle.tsx), and [AnimatedMath.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/AnimatedMath.tsx).
+- Updated [SVGCanvas.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/SVGCanvas.tsx) and [AnimatedVector.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/AnimatedVector.tsx).
+
+### UI
+- Integrated a lesson selector in [Player.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/Player.tsx) and added cinematic glassmorphism and vignette effects.
+
+## How to Verify
+1. Run `npm run dev`.
+2. Open the browser and select **"Chapter 5: Orthogonality"** from the top-right menu.
+3. Play through the steps and observe the smooth transition of the camera and the appearance of the "MathCards".
