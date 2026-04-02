@@ -1,16 +1,19 @@
-# UI Refinement Tasks
+# UI/UX Pro Max Migration Tasks
 
-- [x] **Animation Sequencing**
-  - [x] Add `delay` support to `useTween` hook `[x]`
-  - [x] Stagger `AnimatedVector`, `AnimatedLine`, and `AnimatedMath` entrances `[x]`
-- [x] **Layout Rework**
-  - [x] Convert sidebar to a floating "Description Island" `[x]`
-  - [x] Convert player bar to a floating "Control Island" `[x]`
-  - [x] Implement `backdrop-blur-3xl` and ultra-thin borders `[x]`
-- [x] **Aesthetics & Branding**
-  - [x] Update `index.css` with premium font stack (Outfit / EB Garamond) `[x]`
-  - [x] Standardize all icons to `strokeWidth: 1.5` `[x]`
-  - [x] Add subtle glow/blur utility classes `[x]`
+- [x] **Revert Phase**
+  - [x] Strip out 'Floating Island' and 'Manual UX' shadows/refinements `[x]`
+  - [x] Reset `index.css` to basic 'Editorial' tokens `[x]`
+- [x] **Foundation (Design Tokens)**
+  - [x] Implement Fira Code and Fira Sans font stack `[x]`
+  - [x] Update palette to Deep Navy (#0F172A), Tech Blue (#2563EB), and Orange accents `[x]`
+- [x] **Technical Dashboard Layout**
+  - [x] Implement Twin-Panel layout (Sidebar on right, Graph on left) `[x]`
+  - [x] Add Docked Status Nav at the top `[x]`
+  - [x] Dock the transport bar as a fixed bottom footer `[x]`
+- [x] **Component Refinement**
+  - [x] Redesign 'MathCard' as a technical Code Block `[x]`
+  - [x] Standardize all icons to a precise 1.2px stroke weight `[x]`
+  - [x] Use 'Grid Dot' as the default background for the canvas `[x]`
 - [x] **Verification**
-  - [x] Verify build and visual polish `[x]`
-  - [x] Verify animation staggering in browser `[x]`
+  - [x] Verify build and technical precision `[x]`
+  - [x] Verify responsiveness in the Twin-Panel layout `[x]`

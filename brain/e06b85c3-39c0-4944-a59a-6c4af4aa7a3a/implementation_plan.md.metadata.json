@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Full audit of the Math Visualiser codebase identifying 14 bugs across logic, layout, and visual layers — with a structured fix plan covering all components, hooks, and lesson data. Covers NaN interpolation, polygon/line misuse, camera jitter, axis visibility, overlap safeguards, and animation polish.",
+  "updatedAt":  "2026-04-02T06:33:13.519353Z"
+}

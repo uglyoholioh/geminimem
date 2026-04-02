@@ -1,0 +1,7 @@
+# Task: Verify MathLessonVisualiser Startup
+
+- [ ] Visit http://localhost:5173/
+- [ ] If fails, visit http://127.0.0.1:5173/
+- [ ] If fails, visit http://172.31.10.253:5173/
+- [ ] Take screenshot of the loaded page
+- [ ] Describe the page contents

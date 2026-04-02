@@ -1,0 +1,36 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (30,36)<a class='MV3Tnb' href='https://about.google/?fg=1&utm_source=google-SG&utm_medium=referral&utm_campaign=hp-header'>About />
+[1] (68,36)<a class='MV3Tnb' href='https://store.google.com/SG?utm_source=hp_header&utm_medium=google_ooo&utm_campaign=GS100042&hl=en-SG'>Store />
+[2] (842,34)<a aria-label='Gmail ' class='gb_Z' href='https://mail.google.com/mail/&ogbl'>Gmail />
+[3] (878,34)<a aria-label='Search for Images ' class='gb_Z' href='https://www.google.com/imghp?hl=en&ogbl'>Images />
+[4] (916,34)<a aria-label='Google apps' class='gb_B' href='https://www.google.com.sg/intl/en/about/products' role='button' />
+[5] (964,34)<a aria-label='Sign in' class='gb_A' href='https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com/&ec=futura_exp_og_so_72776762_e'>Sign in />
+	Sign in
+[6] (284,464)<button aria-label='Upload files or images' class='UbbAWe' />
+	[7] (284,464)<span  />
+[8] (451,464)<textarea aria-label='Search' class='gLFyf' id='APjFqb' role='combobox' title='Search' />
+[9] (615,464)<div aria-label='Search by voice' class='XDyW0e' role='button' />
+[10] (642,464)<div aria-label='Search by image' class='nDcEnd' role='button' />
+[11] (695,464)<button class='plR5qb Y5MKCd' role='link' />
+	[12] (695,464)<div  />
+		[13] (673,464)<span  />
+		[14] (701,464)<span >AI Mode />
+[15] (447,551)<input aria-label='Google Search' class='gNO89b' role='button' />
+[16] (548,551)<input aria-label='I'm Feeling Lucky' class='RNmpXc' />
+Google offered in:
+[17] (494,641)<a href='https://www.google.com/setprefs?sig=0_S4vS93UYVEuQN4ubSmU8yQIFfNw%3D&hl=zh-CN&source=homepage&sa=X&ved=0ahUKEwiQ7oOgt82TAxUdTWwGHTxqJawQ2ZgBCCA'>简体中文 />
+[18] (544,641)<a href='https://www.google.com/setprefs?sig=0_S4vS93UYVEuQN4ubSmU8yQIFfNw%3D&hl=ms&source=homepage&sa=X&ved=0ahUKEwiQ7oOgt82TAxUdTWwGHTxqJawQ2ZgBCCE'>Bahasa Melayu />
+[19] (587,641)<a href='https://www.google.com/setprefs?sig=0_S4vS93UYVEuQN4ubSmU8yQIFfNw%3D&hl=ta&source=homepage&sa=X&ved=0ahUKEwiQ7oOgt82TAxUdTWwGHTxqJawQ2ZgBCCI'>தமிழ் />
+Singapore
+[20] (47,972)<a class='pHiOh' href='https://www.google.com/intl/en_sg/ads/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpafooter&fg=1'>Advertising />
+[21] (111,972)<a class='pHiOh' href='https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpbfooter&fg=1'>Business />
+[22] (190,972)<a class='pHiOh' href='https://google.com/search/howsearchworks/?fg=1'>How Search works />
+[23] (859,972)<a class='pHiOh' href='https://policies.google.com/privacy?hl=en-SG&fg=1'>Privacy />
+[24] (908,972)<a class='pHiOh' href='https://policies.google.com/terms?hl=en-SG&fg=1'>Terms />
+[25] (959,972)<div class='CcNe6e' role='button' />
+	[26] (959,972)<div >Settings />
+
+</current_dom>

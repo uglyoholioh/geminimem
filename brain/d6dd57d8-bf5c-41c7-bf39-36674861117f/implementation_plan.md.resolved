@@ -1,42 +1,54 @@
-# Implementation Plan - Stitch UI Design Integration
+# Implementation Plan - UI/UX Pro Max Migration
 
-We will use **Stitch** to elevate the UI/UX of the Math Visualizer. By defining a first-class Design System and generating high-fidelity screen mockups, we'll establish a more professional and visually consistent "Editorial Dark Mode" experience.
+We will revert the manual UX refinements (shadows, floating islands, and animated entrances) and implement a state-of-the-art **Technical Dashboard** design based on the **UI/UX Pro Max** skill. This shift prioritizes data visibility, technical precision (Fira Code), and a more structured, operations-focused layout.
 
 ## User Review Required
 
 > [!IMPORTANT]
-> I will create a new "Design Project" and "Design System" in Stitch. This will define our official color palette (Pitch Black, Manim Yellow/Red/Blue) and typography (Outfit, EB Garamond).
+> I will REVERT the current "Floating Island" layout to a more structured, **Tabular Dashboard** layout. This matches the "Data-Dense Dashboard" recommendation from the UI/UX Pro Max skill.
 
 > [!TIP]
-> Once the Design System is established, I'll generate a "High-Fidelity Explainer Dashboard" screen in Stitch. This mockup will guide our final CSS and layout refinements in the React codebase.
+> We will adopt **Fira Code** for all mathematical and heading text. This creates a highly technical "Engineering" aesthetic, which is more appropriate for a complex math visualizer.
 
 ## Proposed Changes
 
-### [Stitch Design]
-#### [NEW] [Stitch Project](mcp://StitchMCP/create_project)
-- Create a project titled "Math Lesson Visualer - Editorial".
-- Define a **Design System** matching the "Editorial Dark Mode":
-  - **Colors**: Background `#000000`, Primary text `#ffffff`, Accent `#ffff00` (Manim Yellow).
-  - **Typography**: `Outfit` for headings, `EB Garamond` for math.
-  - **Shape**: 32px rounded corners for floating islands.
+### [Revert Phase]
+#### [RESET] [App.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
+- Revert to the "Editorial Sidebar" baseline.
+- Remove manual `px/py` re-centering logic and floating island blurs.
 
-#### [NEW] [Screen Mockup](mcp://StitchMCP/generate_screen_from_text)
-- Prompt: "A high-fidelity mathematical explainer dashboard with a large central vector-graph area, a floating glassmorphism 'Description Card' on the left, and a sleek 'Transport Bar' at the bottom. The aesthetic is pitch-black editorial with sharp white accents. Use yellow-400 for key labels."
+#### [RESET] [index.css](file:///Users/oli/Desktop/MathLessonVisualiser/src/index.css)
+- Revert to standard "Editorial Dark Mode" tokens.
+- Remove experimental `shadow-cinematic` and `animate-entrance` utilities.
 
-### [Code Integration]
-#### [MODIFY] [App.tsx & index.css](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
-- Synchronize the `index.css` variables with the official Stitch Design System tokens.
-- Refine the floating island layouts (padding, margins, shadows) based on the Stitch generation.
+### [Skill-Based Design (UI/UX Pro Max)]
+#### [MODIFY] [index.css](file:///Users/oli/Desktop/MathLessonVisualiser/src/index.css)
+- Implement the "Technical/Data-Dense" theme tokens:
+  - **Typography**: `Fira Code` (headings/math), `Fira Sans` (body).
+  - **Colors**: Deep Navy (`#0F172A`) for Background, `blue-600` (`#2563EB`) for Primary, `orange-500` for CTA.
+  - **Spacing**: Tighter, grid-aligned padding for that "Internal Tool/Dashboard" feel.
+
+#### [MODIFY] [App.tsx (Layout Structure)](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
+- **Status Nav**: Add a top navigation bar with lesson breadcrumbs and status indicators.
+- **Twin-Panel Layout**: 
+  - **Left**: Large interactive math canvas.
+  - **Right**: Data-dense lesson description and step-by-step math list.
+- **Professional Controls**: Replace the floating player with a docked transport bar at the bottom.
+
+#### [MODIFY] [App.tsx (Components)](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
+- Update `MathCard` to use a "Code Block" style (Fira Code, minimalist borders, high contrast).
+- Standardize all icons to a "Technical" stroke weight (1px to 1.5px).
 
 ## Open Questions
-- Would you like the generated Stitch mockup to include a **"Student Workspace"** (collapsible notepad/calculator area) or should we keep it strictly as an interaction player?
-- Should the **Design System** include a "Light Mode" variant for printed/high-contrast environments, or are we strictly focusing on the "Editorial Dark Mode"?
+- The skill recommends a **Light Mode** background by default, but suggests "Dark bg + green indicators" in the notes. Should I stick with **Premium Navy/Dark** for the Dashboard, or move to **Light Neutral**?
+- Would you like a **"Live Terminal"** log at the bottom to show the mathematical operations in real-time?
 
 ## Verification Plan
 
 ### Automated Tests
-- `npm run build` to ensure token synchronization hasn't broken the production bundle.
+- `npm run build` to ensure the new "Fira" font stack and dashboard layout bundle correctly.
 
 ### Manual Verification
-- Review the Stitch-generated screen to ensure it meets your aesthetic expectations.
-- Verify the layout transitions in the React app match the Stitch mockups.
+- Verify that the layout feels "Technical" and "Structured" rather than "Immersive/Cinematic".
+- Confirm that Fira Code is applied correctly to formulas.
+- Verify the new transport bar provides clear feedback for step changes.

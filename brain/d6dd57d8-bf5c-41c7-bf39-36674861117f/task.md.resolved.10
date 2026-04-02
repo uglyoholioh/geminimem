@@ -1,0 +1,19 @@
+# UI/UX Pro Max Migration Tasks
+
+- [ ] **Revert Phase**
+  - [ ] Strip out 'Floating Island' and 'Manual UX' shadows/refinements `[ ]`
+  - [ ] Reset `index.css` to basic 'Editorial' tokens `[ ]`
+- [ ] **Foundation (Design Tokens)**
+  - [ ] Implement Fira Code and Fira Sans font stack `[ ]`
+  - [ ] Update palette to Deep Navy (#0F172A), Tech Blue (#2563EB), and Orange accents `[ ]`
+- [ ] **Technical Dashboard Layout**
+  - [ ] Implement Twin-Panel layout (Sidebar on right, Graph on left) `[ ]`
+  - [ ] Add Docked Status Nav at the top `[ ]`
+  - [ ] Dock the transport bar as a fixed bottom footer `[ ]`
+- [ ] **Component Refinement**
+  - [ ] Redesign 'MathCard' as a technical Code Block `[ ]`
+  - [ ] Standardize all icons to a precise 1.2px stroke weight `[ ]`
+  - [ ] Use 'Grid Dot' as the default background for the canvas `[ ]`
+- [ ] **Verification**
+  - [ ] Verify build and technical precision `[ ]`
+  - [ ] Verify responsiveness in the Twin-Panel layout `[ ]`

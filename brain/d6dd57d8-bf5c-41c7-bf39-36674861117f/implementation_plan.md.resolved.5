@@ -1,0 +1,45 @@
+# Implementation Plan - UX Design Refinement
+
+We will refine the visual and interactive experience using advanced UX principles. The goal is to move beyond a basic layout into a high-end "Editorial" experience with layered glassmorphism, choreographed transitions, and professional mathematical typography.
+
+## User Review Required
+
+> [!IMPORTANT]
+> To create an "Editorial" feel, I will implement **Layered Shadows**. Instead of one flat shadow, UI elements will use multiple shadow steps to create perceived depth on the pure black canvas.
+
+> [!TIP]
+> I will add **Layout Transition Logic**. When you toggle the sidebar, the mathematical graph will smoothly "slide" to stay perfectly centered in the remaining whitespace, preventing sudden jumps.
+
+## Proposed Changes
+
+### [Aesthetics & Layout]
+#### [MODIFY] [index.css](file:///Users/oli/Desktop/MathLessonVisualiser/src/index.css)
+- Add classes for "High-End Glassmorphism" (`backdrop-blur-3xl`, `bg-white/5`, `border-white/10`).
+- Implement a "Cinematic Shadow" utility using a multi-layered box-shadow approach.
+- Add "Entrance Animations" for the floating islands (fade + slide-up).
+
+#### [MODIFY] [App.tsx (MathCard)](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
+- Overhaul the `MathCard` HTML template:
+  - Add a subtle top-border accent.
+  - Improve whitespace and line-height for EB Garamond text.
+  - Use `text-zinc-500` for subtitles and `text-yellow-400` for results.
+
+### [Interactivity]
+#### [MODIFY] [App.tsx (UI Components)](file:///Users/oli/Desktop/MathLessonVisualiser/src/App.tsx)
+- **Buttons**: Add `active:scale-90`, `hover:bg-white/10`, and `hover:scale-105` transitions to all interactive controls.
+- **Timeline**: Redesign the scrubber to be a thin, glowing line with a minimalist circular handle.
+- **Sidebar Toggle**: Implement a smooth width-transition for the `sideNavWidth` that is reflected in the graph center `px` tween.
+
+## Open Questions
+- Would you like a **"Cinematic Grain"** or "Noise Overlay" added to the background to break up the pure black?
+- Should we add a **"Mute/Unmute"** icon placeholder for future audio-lecture integration?
+
+## Verification Plan
+
+### Automated Tests
+- `npm run build` to ensure all new CSS classes and layout logic are correctly bundled.
+
+### Manual Verification
+- Toggle the sidebar and verify the graph "re-centers" smoothly.
+- Hover over all controls to ensure responsive and fluid feedback.
+- Confirm the new `MathCard` design feels more "Apple-like/Premium" on the screen.

@@ -1,0 +1,29 @@
+# Walkthrough - Manual UX Design Refinement
+
+I've integrated a high-end **UX Design Refinement** into the Math Visualizer, manually crafting an experience that feels both cinematic and professional. This version focuses on "Editorial Excellence" and "Interaction Weight."
+
+## Key UX Refinements
+
+### 1. **Cinematic Layout Transitions**
+- **Smooth Re-Centering**: When you toggle the **Description Island**, the graph now smoothly adjusts its origin (`px`) via the tweening engine. This ensures the math remains perfectly balanced in the visible area without any sudden jumps.
+- **Entrance Choreography**: All UI overlays nowglide into place using a custom `animate-entrance` CSS animation—fading and sliding up with a premium quintic curve.
+
+### 2. **Deep 'Apple-Style' Glassmorphism**
+- **Layered Shadows**: I've implemented multi-step box shadows in `index.css` to create a sense of true depth on the pitch-black canvas.
+- **High-Blur Surfaces**: UI islands now use a heavy `blur(60px)` backdrop-filter, making them feel like physical glass layers floating over the graph.
+
+### 3. **Premium Mathematical Presentation**
+- **Redesigned MathCards**: Algebraic blocks are now more "published" in appearance—featuring larger **EB Garamond** italics, more whitespace, and minimalist accent borders.
+- **Standardized Typography**: Strictly enforced the **Outfit** (UI) and **EB Garmond** (Math) pairing across all cards and descriptions.
+
+### 4. **Interaction Feedback (Micro-interactions)**
+- **Weighted Buttons**: Transport controls and sidebar toggles now have responsive `hover:scale` and `active:rotate` states.
+- **Glowing Timeline**: The progress bar now glows as it advances, with a subtle track animation that feels like a professional editing tool.
+
+## Technical Details
+- **`index.css` Update**: Added the `--shadow-premium` token and `shadow-cinematic` utility.
+- **`App.tsx` Logic**: Refactored `sideNavWidth` to be a tweened value, allowing the `centerXOffset` to transition smoothly.
+- **Build Status**: `npm run build` completed successfully, ensuring all new CSS utilities are correctly bundled.
+
+## How to test:
+Run `npm run dev` and click the **Sidebar Toggle** in the top right. Watch the graph center shift smoothly to stay framed perfectly! Also, hover over the **Play/Pause** button to see the new glow and interaction states.
