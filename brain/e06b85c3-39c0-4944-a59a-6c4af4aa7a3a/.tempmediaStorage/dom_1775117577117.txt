@@ -1,0 +1,19 @@
+[0] (500,500)<div  />
+	Menu
+	Math Visualiser
+	Chapter 5: Orthogonality & Least Squares
+	JSON Schema
+	5.1: The Intuition of Orthogonality
+	In Linear Algebra, vectors are
+	Orthogonal
+	when they are at exactly 90° — they have zero directional overlap. The dot product captures this relationship.
+	u
+	⋅
+	v
+	=
+	0
+	u
+	⋅
+	v
+	=
+	0

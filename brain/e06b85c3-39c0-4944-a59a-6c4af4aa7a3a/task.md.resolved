@@ -1,4 +1,4 @@
-- [ ] SVGCanvas.tsx — Fix horizontal stretching by removing `none` aspect ratio
-- [ ] SVGCanvas.tsx — Use more robust ResizeObserver measurement
-- [ ] AnimatedVector.tsx — Fix label font scaling and positioning
-- [ ] Verify fix with browser subagent
+- [ ] Update `index.css` for ultra-minimal sidebar styling (no boxes)
+- [ ] Refactor `Sidebar.tsx` for cleaner list items and narrower width (230px-240px)
+- [ ] Update `Player.tsx` to handle auto-close on step/lesson selection
+- [ ] Verify that the sidebar is less intrusive and doesn't block the main view

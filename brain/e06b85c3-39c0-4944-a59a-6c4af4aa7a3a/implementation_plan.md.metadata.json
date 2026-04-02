@@ -1,7 +1,7 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Fix for the horizontal stretching (aspect ratio distortion) in the Math Visualiser. The plan involves removing the forced aspect ratio stretching attribute, making the coordinate system resilient to layout changes, and ensuring the ResizeObserver correctly updates the visualization dimensions.",
-  "updatedAt":  "2026-04-02T08:00:16.504411Z",
-  "version":  "1",
+  "summary":  "Simplifying and cleaning up the Sidebar UI to reduce clutter and prevent blocking the main visualization. Swapping the boxy design for a minimal 'Obsidian' list style and improving transparency.",
+  "updatedAt":  "2026-04-02T08:38:41.588818Z",
+  "version":  "3",
   "requestFeedback":  true
 }

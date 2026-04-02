@@ -1,29 +1,31 @@
-# Implementation Plan - Fix Aspect Ratio Stretching
+# Implementation Plan - Minimalist Sidebar Refresh
 
-## Problem
-The Math Visualiser graphics (vectors, grid, labels) appear horizontally stretched. This was diagnosed as a mismatch between the SVG's `viewBox` (fixed at 800x600 in some cases) and the actual browser window aspect ratio (e.g., 2:1), combined with `preserveAspectRatio="none"` which forces a non-proportional stretch.
+## Goal
+Redesign the Sidebar to be "invisible" until needed, ultra-minimal, and non-blocking. The current version is too heavy and cluttered.
+
+## User Review Required
+
+> [!IMPORTANT]
+> I am proposing to switch from **Boxy Buttons** to a **Clean List** design. No borders, no heavy highlights—just text and subtle hover effects. I will also make the sidebar slightly narrower and more translucent.
 
 ## Proposed Changes
 
-### [Component] [SVGCanvas.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/SVGCanvas.tsx)
+### [Component] [Sidebar.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/Sidebar.tsx)
+- **Narrower Width**: Reduce from `280px` to `230px`.
+- **Minimalist List**: Remove boxes/borders from lesson and step items. Use a single vertical line for the active step.
+- **Improved Header**: Fix alignment of the "Curriculum" title and X button.
+- **Glassmorphism**: Increase transparency and blur for a lighter "floating" feel.
 
-#### [MODIFY] [SVGCanvas.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/SVGCanvas.tsx)
--   **Remove `preserveAspectRatio="none"`**: Change to `xMidYMid meet` (default) to ensure 1 unit in X always equals 1 unit in Y.
--   **Improve Resize Tracking**: Ensure the `ResizeObserver` correctly captures the container's dimensions. I will use `offsetWidth`/`offsetHeight` or `getBoundingClientRect` which are more reliable than `contentRect` for absolute-positioned containers in some browsers.
--   **Add Layout Safeguard**: If `size.width` or `size.height` are the default (800x600) but the parent is clearly different, force an update.
+### [Style] [index.css](file:///Users/oli/Desktop/MathLessonVisualiser/src/index.css)
+- **Update `.nav-item`**: Remove base borders and heavy backgrounds.
+- **Refine `.sidebar-shelf`**: Adjust shadow and backdrop filter.
 
-### [Component] [AnimatedVector.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/AnimatedVector.tsx)
-
-#### [MODIFY] [AnimatedVector.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/AnimatedVector.tsx)
--   **Refine Label Font Size**: Ensure labels stay a consistent pixel size regardless of the aspect ratio. Adding a small offset logic to prevent labels from being distorted by the global SVG scaling.
+### [Component] [Player.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/Player.tsx)
+- **Auto-Close**: Ensure the sidebar closes immediately upon selecting a step to clear the view.
 
 ## Verification Plan
 
-### Automated Verification
--   Use the browser subagent to:
-    1.  Verify that `document.querySelector('svg').getAttribute('preserveAspectRatio')` is not `none`.
-    2.  Verify that `getBoundingClientRect().width / viewBox.width` is approximately equal to `getBoundingClientRect().height / viewBox.height`.
-    3.  Take screenshots of vectors at different screen sizes to confirm they stay equilateral.
-
 ### Manual Verification
--   The user should resize their browser window and observe that the grid squares stay as squares, not rectangles.
+- Verify the sidebar feels "lighter" and less intrusive.
+- Verify clicking a step closes the sidebar and reveals the visualization.
+- Verify text is legible against the blurred background.

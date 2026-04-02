@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_TASK",
-  "summary":  "Tracking progress of the aspect ratio and stretching fix. I'll be updating the SVG canvas component and the vector label logic.",
-  "updatedAt":  "2026-04-02T08:00:42.440075Z",
-  "version":  "1"
+  "summary":  "Cleaning up the Sidebar UI: removing boxes, narrowing the drawer, and improving transparency to prevent blocking the visualization. Unified z-index management and added auto-close logic for a cleaner experience.",
+  "updatedAt":  "2026-04-02T08:38:58.444983Z",
+  "version":  "3"
 }

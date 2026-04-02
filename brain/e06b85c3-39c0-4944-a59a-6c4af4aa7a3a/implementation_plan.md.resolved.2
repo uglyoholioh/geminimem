@@ -1,0 +1,39 @@
+# Implementation Plan - Minimal UI & Navigation System
+
+## Goal
+Update the user interface (buttons, controls, headers) to be "minimal" and professional, and implement a robust navigation system between lessons and steps.
+
+## User Review Required
+
+> [!IMPORTANT]
+> I am proposing a **Side Navigation Drawer** (collapsible) that lists all available lessons and the steps within them. This replaces the header dropdown and provides a central hub for navigation.
+
+## Proposed Changes
+
+### [Component] [Sidebar.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/Sidebar.tsx) [NEW]
+- **Lesson List**: Display "Orthogonality", "QR Factorization", etc.
+- **Step List**: Under the active lesson, show the titles of all steps.
+- **Minimal Style**: `backdrop-blur`, thin borders, consistent spacing, and micro-animations.
+
+### [Component] [Player.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/Player.tsx)
+- **Refactored Layout**: Integrate the `Sidebar` component.
+- **Minimal Header**: Remove the native `<select>`. Move lesson switching to the Sidebar.
+- **Navigation Shortcuts**: Ensure easier jumping between non-adjacent steps.
+
+### [Component] [Timeline.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/Timeline.tsx)
+- **Minimal Button Style**: Update playback buttons (Play, Next, Prev) with a new CSS-based design system (e.g., `minimal-btn` class).
+- **Refined Scrubber**: A cleaner, more elegant progress bar.
+
+### [Style] [index.css](file:///Users/oli/Desktop/MathLessonVisualiser/src/index.css)
+- **New CSS Classes**:
+    - `.minimal-btn`: Subtle hover states, focus rings, and proper feedback.
+    - `.sidebar-container`: Layout and transitions for the shelf.
+- **Design Tokens**: Add `---accent` and `--bg-glass` for consistent UI layering.
+
+## Verification Plan
+
+### Manual Verification
+- Verify the sidebar can be toggled opened/closed.
+- Verify clicking a lesson in the sidebar switches the entire scene correctly.
+- Verify clicking a step title in the sidebar jumps the player to that specific step.
+- Verify the buttons have a consistent, premium feel with hover/active states.
