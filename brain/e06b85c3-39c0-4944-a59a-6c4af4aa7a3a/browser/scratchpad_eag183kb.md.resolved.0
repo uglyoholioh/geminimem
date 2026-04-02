@@ -1,0 +1,9 @@
+# Math Visualiser UI Verification Checklist
+
+- [ ] Open http://localhost:3001
+- [ ] Inspect the Overlay (top left). Check if the title and description have good spacing and feel like a premium 'card'.
+- [ ] Inspect the Timeline (bottom). Check if the play button has the new glass design (with gold glow when not playing).
+- [ ] Check the scrubber. Verify it is a clean line and the 'playhead' dot follows the progress.
+- [ ] Verify the active step marker in the sidebar (open menu if needed).
+- [ ] Capture a final screenshot of the integrated UI.
+- [ ] Return a summary of why the design now feels 'Editorial' and 'Premium'.

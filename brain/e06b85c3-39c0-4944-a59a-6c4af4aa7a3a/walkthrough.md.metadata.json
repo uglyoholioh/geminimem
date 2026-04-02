@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "Final walkthrough of the Math Visualiser UI and Navigation overhaul. Showcases the new Sidebar, minimal design system, and unified aesthetic. Includes verification of the navigation flow and layout stability.",
-  "updatedAt":  "2026-04-02T08:18:25.736179Z",
-  "version":  "3"
+  "summary":  "UI Refinement Phase 2: Refined the Math Visualiser interface for an 'Obsidian Editorial' aesthetic. Upgraded the Overlay and Timeline components with glassmorphism, improved typography spacing, and streamlined controls, achieving a professional, studio-grade dark mode experience.",
+  "updatedAt":  "2026-04-02T10:32:45.676186Z",
+  "version":  "4"
 }

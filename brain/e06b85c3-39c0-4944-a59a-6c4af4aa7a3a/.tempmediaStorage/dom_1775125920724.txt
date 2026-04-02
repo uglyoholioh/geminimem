@@ -1,0 +1,61 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (500,500)<div  />
+	Curriculum
+	[1] (109,29)<button  />
+	[2] (62,93)<button  />
+		[3] (67,93)<span >Chapter 5: Orthogonality & Least Squares />
+	[4] (67,126)<button  />
+		[5] (68,126)<div  />
+			[6] (27,127)<span >01 />
+			[7] (74,126)<span >5.1: The Intuition of Orthogonality />
+	[8] (67,154)<button  />
+		[9] (68,154)<div  />
+			[10] (27,155)<span >02 />
+			[11] (64,154)<span >The Zero-Overlap Rule />
+	[12] (67,182)<button  />
+		[13] (68,182)<div  />
+			[14] (27,183)<span >03 />
+			[15] (74,182)<span >5.3: Casting a Shadow (Projection) />
+	[16] (67,210)<button  />
+		[17] (68,210)<div  />
+			[18] (27,211)<span >04 />
+			[19] (74,210)<span >5.5: The Magic of Least Squares />
+	[20] (62,264)<button  />
+		[21] (67,264)<span >QR Factorization & Least Squares />
+	Math Visualiser
+	Chapter 5: Orthogonality & Least Squares
+	b
+	Find the closest solution when Ax = b has none.
+	5.5: The Magic of Least Squares
+	When
+	Ax = b
+	has no exact solution because
+	b
+	is outside the column space, we find the
+	closest possible point
+	by projecting
+	b
+	onto that space.
+	A
+	T
+	A
+	x
+	^
+	=
+	A
+	T
+	b
+	A
+	T
+	A
+	x
+	^
+	=
+	A
+	T
+	b
+
+</current_dom>

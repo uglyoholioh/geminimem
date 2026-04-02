@@ -1,0 +1,13 @@
+# UI Layout Investigation
+
+## Plan
+- [x] Check console logs for errors.
+- [x] Capture initial screenshot and DOM.
+- [ ] Inspect `.overlay-panel` and `.timeline-bar` styles via JS.
+- [ ] Inspect parent `.relative.flex-1` size and styles.
+- [ ] Document findings and return summary.
+
+## Findings
+- **Console Logs**: No errors found. Vite connection successful.
+- **Initial Observation**: Text and controls (scrubber) are clumped in the top-left area. The "Math Visualiser" header and chapter info are overlapping. The scrubber is visible but potentially misplaced.
+- **DOM**: The DOM tree returned by the tool is very sparse, suggesting layout issues or filtering.

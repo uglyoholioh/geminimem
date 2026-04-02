@@ -1,0 +1,15 @@
+# Math Lesson Visualiser UI Verification
+
+## Checklist
+- [ ] Open http://localhost:3001
+- [ ] Click the menu/hamburger icon
+- [ ] Wait 500ms for sidebar animation
+- [ ] Take a screenshot
+- [ ] Verify step numbers and titles separation
+- [ ] Verify active lesson title truncation
+- [ ] Verify header cleanliness
+- [ ] Check for overlap or visual clutter
+
+## Findings
+- Page opened at http://localhost:3001.
+- Found potential menu button at (36, 16).

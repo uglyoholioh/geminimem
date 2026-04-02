@@ -1,31 +1,37 @@
-# Implementation Plan - Minimalist Sidebar Refresh
+# Implementation Plan - UI Refinement (Phase 2)
 
 ## Goal
-Redesign the Sidebar to be "invisible" until needed, ultra-minimal, and non-blocking. The current version is too heavy and cluttered.
+Elevate the **Overlay** (text panel) and **Timeline** (playback controls) to match the new minimal Sidebar and Header. The goal is a cohesive, "studio-grade" dark editorial aesthetic.
 
 ## User Review Required
 
 > [!IMPORTANT]
-> I am proposing to switch from **Boxy Buttons** to a **Clean List** design. No borders, no heavy highlights—just text and subtle hover effects. I will also make the sidebar slightly narrower and more translucent.
+> I am proposing to move away from the "flat white" play button in the timeline to a more sophisticated glassmorphism design that aligns with the rest of the UI. I also plan to simplify the scrubber by removing the step dots for a cleaner, unified line.
 
 ## Proposed Changes
 
-### [Component] [Sidebar.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/Sidebar.tsx)
-- **Narrower Width**: Reduce from `280px` to `230px`.
-- **Minimalist List**: Remove boxes/borders from lesson and step items. Use a single vertical line for the active step.
-- **Improved Header**: Fix alignment of the "Curriculum" title and X button.
-- **Glassmorphism**: Increase transparency and blur for a lighter "floating" feel.
+### [Component] [Overlay.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/Overlay.tsx)
+- **Softer Borders**: Reduce border opacity for a more integrated feel.
+- **Improved Spacing**: Increase padding and line-height for better readability of mathematical explanations.
+- **Equation Section**: Refine the separation between the description and equations for a cleaner "card" look.
+- **Animations**: Tighten the crossfade duration for a snappier feel.
+
+### [Component] [Timeline.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/Timeline.tsx)
+- **Redesigned Play Button**: Replace the stark white background with a high-transparency glass button + glow effect.
+- **Simplified Scrubber**: Remove individual step markers (the "dots") in favor of a clean, unified progress line with a subtle playhead indicator.
+- **Improved Alignment**: Ensure all transport controls and the scrubber are perfectly vertically centered.
+- **Cleanup**: Remove unused `RotateCcw` import.
 
 ### [Style] [index.css](file:///Users/oli/Desktop/MathLessonVisualiser/src/index.css)
-- **Update `.nav-item`**: Remove base borders and heavy backgrounds.
-- **Refine `.sidebar-shelf`**: Adjust shadow and backdrop filter.
-
-### [Component] [Player.tsx](file:///Users/oli/Desktop/MathLessonVisualiser/src/components/Player.tsx)
-- **Auto-Close**: Ensure the sidebar closes immediately upon selecting a step to clear the view.
+- **Update `.overlay-panel`**: Adjust the slide-in animation for a more subtle entrance.
+- **Update `.timeline-bar`**: Refine the rise-in animation and hover states.
 
 ## Verification Plan
 
+### Automated Verification
+- No automated tests available for UI polish, will rely on visual inspection.
+
 ### Manual Verification
-- Verify the sidebar feels "lighter" and less intrusive.
-- Verify clicking a step closes the sidebar and reveals the visualization.
-- Verify text is legible against the blurred background.
+- Verify the Overlay feels "lighter" and equations are easier to read.
+- Verify the Timeline controls feel more premium and less "boxy".
+- Check responsiveness on narrower viewports.

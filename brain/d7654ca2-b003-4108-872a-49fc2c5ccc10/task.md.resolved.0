@@ -1,0 +1,5 @@
+- [ ] Add `@import "tailwindcss";` to `src/index.css`
+- [ ] Fix any layout issues in `Player.tsx`
+- [ ] Verify positioning of Overlay and Timeline in browser
+- [ ] Ensure backdrop-filter and glass effects are applied
+- [ ] Finalize walkthrough and verification

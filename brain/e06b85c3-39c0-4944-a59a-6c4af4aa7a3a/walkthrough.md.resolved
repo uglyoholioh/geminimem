@@ -1,41 +1,34 @@
-# Walkthrough - Math Visualiser Navigation & UI Overhaul
+# Walkthrough - UI Refinement (Phase 2)
 
-We have transformed the Math Visualiser into a professional, "Obsidian Editorial" grade experience with a brand new navigation system and a unified minimal design.
+We have completed the second phase of the UI cleanup, transforming the Math Visualiser into a professional, "Obsidian Editorial" mathematical storytelling engine. The focus was on moving away from prototype-style elements toward a cohesive, premium design system.
 
-## Key Enhancements
+## Changes
 
-### 1. 🧭 Universal Navigation Sidebar
-The primary navigation is now handled by a collapsible **Curriculum Sidebar**.
-- **Lesson Switcher**: Easily jump between different chapters (e.g., Orthogonality vs. QR Factorization).
-- **Step Navigator**: Every step in a lesson is listed with its title, allowing you to jump to specific animations without scrubbing through the whole timeline.
-- **Minimal Design**: Features a `280px` drawer with deep glassmorphism (`backdrop-blur-3xl`) and smooth spring animations.
+### 💎 Overlay & Typography Refinement
+- **Editorial Cards**: Redesigned the text overlays with softer borders (`border-white/[0.04]`) and improved padding (`px-6 py-5`).
+- **Enhanced Readability**: Increased the line-height and letter-spacing for mathematical explanations to make them feel like high-end editorial content.
+- **Fluid Transitions**: Snappier, 200ms cubic-bezier transitions for content crossfades, making step navigation feel reactive and liquid.
 
-### 2. 🎨 "Minimal-Pro" Design System
-The entire UI has been restyled for a premium, distraction-free aesthetic:
-- **Header**: Simplified to a clean "Menu" button and JSON schema access.
-- **Glassmorphic Panels**: Both the sidebar and the equation overlays now use a high-refraction glass effect.
-- **Custom Scrubber**: The timeline now features a refined accent-gold scrubber that provides tactile feedback as you navigate.
-- **Button Tokens**: Implemented a `.minimal-btn` CSS system for consistent, subtle interactions across the app.
+### 🎛️ Premium Timeline Controls
+- **Glassmorphism Design**: Replaced the previous flat white play button with a sophisticated glass button that features a subtle gold glow when active.
+- **Simplified Scrubber**: Removed individual step markers in favor of a clean, unified progress line. This reduces visual noise at the bottom of the screen.
+- **Improved Interaction**: Added a subtle playhead dot (`w-1.5 h-1.5 bg-accent`) that smoothly tracks progress without cluttering the interface.
 
-### 3. 📱 Layout Stability
-- Removed height constraints to ensure the application always fills the viewport correctly using `100dvh`.
-- Unified z-index management to keep the UI panels correctly layered above the cinematic vignettes.
-
-## Visual Verification
-
-````carousel
-![The new Curriculum Sidebar provides a central hub for navigating all lessons and their internal steps.](/Users/oli/.gemini/antigravity/brain/e06b85c3-39c0-4944-a59a-6c4af4aa7a3a/initial_load_menu_click_1775117594793.png)
-<!-- slide -->
-![The redesigned Player features a cinematic vignette, a minimal header, and a high-focus timeline for smooth exploration.](/Users/oli/.gemini/antigravity/brain/e06b85c3-39c0-4944-a59a-6c4af4aa7a3a/full_page_view_1775117667889.png)
-````
+### 📂 Unified Minimal UI
+- **Header & Sidebar Cohesion**: Standardized all panel borders and background blurs across the Header, Sidebar, and Overlays.
+- **Non-blocking Layout**: Ensured that all UI elements use `backdrop-blur-3xl` and high transparency, keeping the focus on the mathematical visualization even when panels are open.
 
 ## Verification Results
-- **Navigation Flow**: Verified lesson switching and step jumping via the browser subagent.
-- **Visual Integrity**: Confirmed that KaTeX equations and vector labels remain perfectly scaled and aligned.
-- **Performance**: Transitions remain at a smooth `60fps` even with the new UI overlays.
 
-> [!TIP]
-> You can now use the **Sidebar** to quickly compare identical steps across different lessons!
+### Manual Verification
+- Verified that the Overlay feels "integrated" and doesn't block the view harshly.
+- Confirmed that the Timeline controls are perfectly aligned and respond smoothly to interaction.
+- Checked that the auto-dismiss sidebar behavior correctly reveals the visualization content.
 
----
-**The engine is now stable, professional, and ready for advanced mathematical storytelling.**
+### Visual Comparison
+
+````carousel
+![The new 'Editorial' Overlay card with improved spacing and softer borders.](/Users/oli/.gemini/antigravity/brain/e06b85c3-39c0-4944-a59a-6c4af4aa7a3a/sidebar_and_overlay_final_1775125882463.png)
+<!-- slide -->
+![The premium 'Timeline' controls with unified glassmorphism and simplified scrubber.](/Users/oli/.gemini/antigravity/brain/e06b85c3-39c0-4944-a59a-6c4af4aa7a3a/initial_view_1775125752391.png)
+````

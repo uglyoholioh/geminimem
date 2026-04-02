@@ -1,4 +1,4 @@
-- [ ] Update `index.css` for ultra-minimal sidebar styling (no boxes)
-- [ ] Refactor `Sidebar.tsx` for cleaner list items and narrower width (230px-240px)
-- [ ] Update `Player.tsx` to handle auto-close on step/lesson selection
-- [ ] Verify that the sidebar is less intrusive and doesn't block the main view
+- [x] Update `index.css` for softer animations and refined panel states
+- [x] Refactor `Overlay.tsx` for better spacing and editorial card look
+- [x] Refactor `Timeline.tsx` for premium glassmorphism controls and a cleaner scrubber
+- [x] Final verification of the entire UI system for 'dark editorial' cohesion

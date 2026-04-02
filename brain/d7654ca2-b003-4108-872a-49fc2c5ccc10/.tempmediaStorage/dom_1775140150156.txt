@@ -1,0 +1,36 @@
+[0] (500,500)<div  />
+	Math Visualiser
+	Chapter 5: Orthogonality & Least Squares
+	b
+	Find the closest solution when Ax = b has none.
+	5.5: The Magic of Least Squares
+	When
+	Ax = b
+	has no exact solution because
+	b
+	is outside the column space, we find the
+	closest possible point
+	by projecting
+	b
+	onto that space.
+	A
+	T
+	A
+	x
+	^
+	=
+	A
+	T
+	b
+	A
+	T
+	A
+	x
+	^
+	=
+	A
+	T
+	b
+	[1] (41,197)<div  />
+		[2] (41,197)<input class='scrubber-input' />
+	04
