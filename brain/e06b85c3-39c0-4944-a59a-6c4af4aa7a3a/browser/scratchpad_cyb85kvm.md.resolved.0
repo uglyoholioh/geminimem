@@ -1,0 +1,26 @@
+# Math Lesson Visualiser Verification Plan
+
+## Tasks
+- [ ] Open http://localhost:3001 and wait 3s
+- [ ] Take screenshot: "Step 1 Ortho"
+- [ ] Click 'Next Step', wait 2s
+- [ ] Take screenshot: "Step 2 Ortho"
+- [ ] Click 'Next Step', wait 2s
+- [ ] Take screenshot: "Step 3 Ortho"
+- [ ] Click 'Next Step', wait 2s
+- [ ] Take screenshot: "Step 4 Ortho"
+- [ ] Switch lesson to "QR Factorization", wait 2s
+- [ ] Take screenshot: "QR Step 1"
+- [ ] Click 'Next Step', wait 2s
+- [ ] Take screenshot: "QR Step 2"
+- [ ] Click 'Next Step', wait 2s
+- [ ] Take screenshot: "QR Step 3"
+- [ ] Click 'Play', wait 5s
+- [ ] Take screenshot: "QR Auto-playing"
+
+## Visual Assessment Criteria
+1. Grid and vectors visible?
+2. Overlay panel visible?
+3. Timeline bar visible?
+4. Any blank/black canvases?
+5. Vector labels correct?

@@ -1,0 +1,14 @@
+# Task: Verify Grid and Label Stability in MathLessonVisualiser
+
+## Checklist:
+- [x] Open http://localhost:3001
+- [x] Capture a screenshot of the whole page
+- [ ] Verify grid lines form perfect squares (measure vertical vs horizontal distance)
+- [ ] Verify vector labels (e.g., "r1") are not horizontally stretched
+- [x] Check `preserveAspectRatio` attribute of the SVG element
+- [ ] Report resolution of the stretching issue
+
+## Findings:
+- `preserveAspectRatio` is set to `xMidYMid meet`, ensuring uniform scaling.
+- SVG `viewBox` is `800x600`, viewport is `1920x963`.
+- Content is centered with `meet` scaling, avoiding horizontal stretching.

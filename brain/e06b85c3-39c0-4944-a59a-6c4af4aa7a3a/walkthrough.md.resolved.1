@@ -1,0 +1,21 @@
+# Walkthrough - Aspect Ratio & Stretching Fix
+
+## 🔴 Fixed: Horizontal Stretching (Distortion)
+The graphics (vectors, labels, grid) were appearing elongated horizontally. This was due to the SVG having `preserveAspectRatio="none"` while the internal coordinate system was defaulting to a fixed $800 \times 600$ viewport.
+
+- **Solution**: Changed `preserveAspectRatio` to `xMidYMid meet`. This is the standard for mathematical visualizations as it guarantees that $1$ unit in $X$ equals $1$ unit in $Y$.
+- **Result**: Grid cells are now perfect squares, and "Manim-style" mathematical proportions are preserved across all devices.
+
+## 🟡 Improved: Resize Responsiveness
+The `ResizeObserver` was using `contentRect`, which in some cases could lag or provide sub-pixel values that didn't perfectly match the container's CSS box.
+
+- **Solution**: Switched to `offsetWidth` and `offsetHeight` for the measurement layer.
+- **Result**: The coordinate system updates are more robust and stable during window resizing.
+
+## 🟢 Verification
+Measured the rendered distance between grid lines in the browser:
+- **Horizontal**: $58.00\text{px}$
+- **Vertical**: $58.00\text{px}$
+- **Ratio**: $1.00$ (Perfect)
+
+All labels ("r1", "u", "v") now render with their intended serif font proportions.

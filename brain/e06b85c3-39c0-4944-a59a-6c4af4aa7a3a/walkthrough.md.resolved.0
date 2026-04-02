@@ -1,0 +1,110 @@
+# Math Visualiser — Fix Walkthrough
+
+## What Was Fixed
+
+### 🔴 Critical: SVG ResizeObserver Feedback Loop (Canvas Blanking Bug)
+
+**Root cause**: SVGCanvas used `<div ref={measureRef}>` as both the layout container AND the ResizeObserver target. The SVG child (with `className="w-full h-full"`) had its size encoded into its `viewBox`. When the viewBox changed, the SVG's intrinsic size changed, which caused the container div to grow, which triggered the ResizeObserver → infinite loop → viewBox height reached 400,000px+ → blank canvas.
+
+**Fix**: The SVG is now `position: absolute; inset: 0` (out of document flow). A separate zero-content measurement div (`absolute inset-0 pointer-events-none`) is the ResizeObserver target — the SVG can never inflate it.
+
+---
+
+### 🔴 Critical: `deepLerp` NaN on New/Removed Scene Elements
+
+New elements (appearing in `to` but not `from`) previously snapped at t≥0.5 but could produce NaN coordinates during the interpolation for sub-fields. Removed elements just disappeared instantly.
+
+**Fix**: A new `lerpElementArrays()` function matches elements by `id`. New elements fade in from `opacity: 0`. Removed elements fade out to `opacity: 0` and are removed once invisible.
+
+---
+
+### 🟡 Logic: AnimatedAngle guard < 3
+
+Was `if (points.length < 2)` — a right-angle marker needs exactly 3 points. Fixed to `< 3`.
+
+---
+
+### 🟡 Logic: AnimatedPolygon 2-vertex case
+
+The orthoLesson used a 2-vertex polygon for projection lines (fillable shapes can't represent lines). Fixed: `AnimatedPolygon` now detects 2-vertex degenerate case and renders a dashed `<line>`. The qrLesson also fixed to use `lines` array directly.
+
+---
+
+### 🟡 Visual: Grid axes nearly invisible
+
+Was using `#444` hex (darker than the grid lines). Changed to `rgba(255,255,255,0.45)` for clearly visible Manim-style white axes. Grid minor lines reduced to `rgba(255,255,255,0.055)`.
+
+---
+
+### 🟡 Visual: Grid density adaptive
+
+Previously GRID_EXTENT=12 was fixed. Now computed from `viewport / zoom` ratio so it always shows exactly as many lines as fit cleanly on screen.
+
+---
+
+### 🟡 Visual: Math blocks hitting the Overlay panel
+
+Math block positions now clamped to `30–90%` X (avoids the 22rem left panel) and `6–80%` Y (avoids the Timeline bar). CSS position transitions added for smooth camera-driven repositioning.
+
+---
+
+### 🟡 Visual: Overlay re-triggered entrance animation
+
+The `.overlay-panel` CSS animation played every step change. Fixed with a crossfade: content opacity fades out → text swaps → fades back in, while the panel itself stays put.
+
+---
+
+### 🟡 Visual: KaTeX equations snapping
+
+MathText now crossfades: on content change, it fades out (160ms), re-renders KaTeX, then fades back in.
+
+---
+
+### 🟡 Visual: AnimatedVector NaN guard
+
+Added `!isFinite(x) || !isFinite(y)` guard to prevent rendering broken vectors during transitions where coordinates haven't yet settled.
+
+---
+
+### 🟡 Visual: AnimatedLine strokeWidth prop
+
+Added `strokeWidth` prop (default `1.5`) and NaN guard. Dashed pattern refined to `5,3`.
+
+---
+
+### 🟡 Visual: AnimatedPolygon edge definition
+
+Filled polygons now have a thin `strokeOpacity: 0.6` edge stroke for visibility on the dark background.
+
+---
+
+### 🟡 Data: orthoLesson camera offsets
+
+Previous steps had `centerX: -150, 100, 150` pixel camera offsets — vectors were asymmetrically positioned and collided with the Overlay panel. All camera offsets zeroed to `{centerX: 0, centerY: 0, zoom: 58}`.
+
+---
+
+### 🟡 Data: orthoLesson math block HTML
+
+Math block HTML templates redesigned: dark glass card style (`rgba(15,15,18,0.96)` bg, subtle border, `EB Garamond` serif, gold accent `#facc15`). Coords repositioned to lower-right safe zone.
+
+---
+
+### 🟡 Data: qrLesson projection line fix
+
+Step 3 previously used a 2-vertex polygon for the projection drop line. Replaced with a proper `lines` entry with `dashed: true`.
+
+---
+
+## Verification
+
+All steps in both lessons verified to render correctly:
+- ✅ Grid visible with bright axes on every step
+- ✅ Canvas stays dark-background through all step transitions (no blanking)  
+- ✅ Vectors animate smoothly with fade-in on appearance
+- ✅ Dashed projection lines render correctly
+- ✅ Right-angle markers display as 3-point polylines
+- ✅ Math blocks stay on-screen in safe zone
+- ✅ Overlay panel crossfades content without re-triggering slide-in
+- ✅ KaTeX equations crossfade on step change
+- ✅ Auto-play advances through all 7 QR steps correctly

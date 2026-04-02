@@ -1,0 +1,16 @@
+# Task: Investigate Math Animation Engine Camera Explosion
+
+## Plan
+- [/] Open http://localhost:3001
+- [x] Wait 2s for load
+- [x] Capture initial state (screenshot + logs)
+- [ ] Click "Next Step" button
+- [ ] Wait 3s for animation/transition
+- [ ] Execute diagnostic JS
+- [ ] Capture final state (screenshot + logs)
+- [ ] Report findings to Planner
+
+## Observations
+- Timeline is off-screen (y: ~1278 vs 836 viewport).
+- Grid and vectors are visible in Step 1.
+- "Next Step" button found by title.

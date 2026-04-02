@@ -1,0 +1,35 @@
+# Math Lesson Visualizer Verification Checklist
+
+- [ ] 1. Initial State (Step 1 of Ortho lesson)
+    - [ ] Screenshot captured
+    - [ ] Dark background, visible grid axes, vectors visible
+    - [ ] Overlay panel on left has title and description
+    - [ ] No elements overlap the panel
+- [ ] 2. Step 2 (Ortho lesson)
+    - [ ] Click "Next"
+    - [ ] Screenshot captured
+    - [ ] Smooth transition
+    - [ ] Math block on canvas, no overlap with left panel
+- [ ] 3. Step 3 (Casting a Shadow)
+    - [ ] Click "Next"
+    - [ ] Screenshot captured
+    - [ ] Projection vectors, dashed sunlight line, right-angle marker visible
+    - [ ] Math block card visible, no overlap with left panel
+- [ ] 4. Step 4 (Least Squares)
+    - [ ] Click "Next"
+    - [ ] Screenshot captured
+    - [ ] Least squares visualization, normal equations card visible
+- [ ] 5. Switch to QR Factorization
+    - [ ] Lesson dropdown changed
+    - [ ] Screenshot captured
+    - [ ] Loaded properly
+- [ ] 6. QR Lesson Progression
+    - [ ] Advanced several times
+    - [ ] Checked for visual issues (clipping, overlapping, missing)
+- [ ] 7. Auto-advance (Play button)
+    - [ ] Pressed Play
+    - [ ] Screenshot captured mid-playback
+- [ ] General Checks
+    - [ ] Grid axes (white/bright)
+    - [ ] Readable vector labels
+    - [ ] Smooth overlay panel crossfade
