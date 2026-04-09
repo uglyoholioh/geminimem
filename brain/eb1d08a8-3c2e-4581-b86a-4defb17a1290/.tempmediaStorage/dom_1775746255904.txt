@@ -1,0 +1,85 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (9,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/80 w-5' title='Step 1' />
+[1] (19,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 2' />
+[2] (25,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 3' />
+[3] (31,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 4' />
+[4] (38,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 5' />
+[5] (44,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 6' />
+[6] (50,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 7' />
+[7] (56,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 8' />
+[8] (63,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 9' />
+[9] (69,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 10' />
+[10] (75,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 11' />
+[11] (81,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 12' />
+[12] (88,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 13' />
+[13] (94,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 14' />
+[14] (100,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 15' />
+[15] (106,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 16' />
+[16] (113,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 17' />
+[17] (119,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 18' />
+[18] (125,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 19' />
+[19] (131,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 20' />
+[20] (138,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 21' />
+[21] (144,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 22' />
+[22] (34,80)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap bg-white/[0.1] text-white/90 border border-white/[0.15]'>1
+.
+The Parabola />
+[23] (114,80)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap text-white/50 hover:text-white/70 hover:bg-white/[0.06]'>2
+.
+Finding Roots Graphically />
+[24] (209,80)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap text-white/50 hover:text-white/70 hover:bg-white/[0.06]'>3
+.
+Completing the Square />
+[25] (291,80)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap text-white/50 hover:text-white/70 hover:bg-white/[0.06]'>4
+.
+The Discriminant />
+[26] (371,80)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap text-white/50 hover:text-white/70 hover:bg-white/[0.06]'>5
+.
+Applying the Formula />
+[27] (417,506)<canvas  />
+[28] (16,889)<button class='text-white/60 hover:text-white/90 text-xs p-0.5 transition-colors' title='Zoom In' />
+[29] (28,889)<button class='text-white/60 hover:text-white/90 text-xs p-0.5 transition-colors' title='Zoom Out' />
+[30] (41,889)<button class='text-white/60 hover:text-white/90 text-xs p-0.5 transition-colors' title='Reset View' />
+1.00
+×
+x:
+0.00
+|
+y:
+0.00
+The Parabola
+1
+/
+5
+1
+A quadratic function creates a parabola. Here we plot f(x) = x² − 2x − 3.
+f
+(
+x
+)
+=
+x
+2
+−
+2
+x
+−
+3
+f
+(
+x
+)
+=
+x
+2
+−
+2
+x
+−
+3
+[31] (978,285)<button class='text-white/30 hover:text-white/60 transition-colors mt-1 flex-shrink-0' title='Copy LaTeX' />
+
+</current_dom>

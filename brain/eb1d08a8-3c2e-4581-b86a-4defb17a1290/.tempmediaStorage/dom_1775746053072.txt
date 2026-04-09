@@ -1,0 +1,191 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (56,25)<button class='flex items-center gap-2 hover:opacity-80 transition-opacity'>MathViz
+/
+Quadratic Formula />
+	MathViz
+	/
+	Quadratic Formula
+[1] (828,25)<button class='flex items-center gap-1.5 px-2 py-1.5 rounded-md text-xs transition-colors text-white/60 hover:text-white/80 hover:bg-white/[0.06] ' title='Lessons'>Lessons />
+	Lessons
+[2] (867,25)<button class='flex items-center gap-1.5 px-2 py-1.5 rounded-md text-xs transition-colors bg-white/[0.12] text-white/90 ' title='Grid'>Grid />
+	Grid
+[3] (904,25)<button class='flex items-center gap-1.5 px-2 py-1.5 rounded-md text-xs transition-colors text-white/60 hover:text-white/80 hover:bg-white/[0.06] ' title='Export'>Export />
+	Export
+[4] (941,25)<button class='flex items-center gap-1.5 px-2 py-1.5 rounded-md text-xs transition-colors text-white/60 hover:text-white/80 hover:bg-white/[0.06] ' title='Keys'>Keys />
+	Keys
+[5] (976,25)<button class='flex items-center gap-1.5 px-2 py-1.5 rounded-md text-xs transition-colors bg-white/[0.12] text-white/90 ' title='TOC'>TOC />
+	TOC
+[6] (9,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/80 w-5' title='Step 1' />
+[7] (19,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 2' />
+[8] (25,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 3' />
+[9] (31,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 4' />
+[10] (38,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 5' />
+[11] (44,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 6' />
+[12] (50,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 7' />
+[13] (56,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 8' />
+[14] (63,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 9' />
+[15] (69,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 10' />
+[16] (75,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 11' />
+[17] (81,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 12' />
+[18] (88,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 13' />
+[19] (94,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 14' />
+[20] (100,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 15' />
+[21] (106,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 16' />
+[22] (113,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 17' />
+[23] (119,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 18' />
+[24] (125,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 19' />
+[25] (131,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 20' />
+[26] (138,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 21' />
+[27] (144,57)<button class='flex-shrink-0 w-2 h-2 rounded-full transition-all duration-200 bg-white/[0.15] hover:bg-white/25' title='Step 22' />
+[28] (34,80)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap bg-white/[0.1] text-white/90 border border-white/[0.15]'>1
+.
+The Parabola />
+[29] (114,80)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap text-white/50 hover:text-white/70 hover:bg-white/[0.06]'>2
+.
+Finding Roots Graphically />
+[30] (209,80)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap text-white/50 hover:text-white/70 hover:bg-white/[0.06]'>3
+.
+Completing the Square />
+[31] (291,80)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap text-white/50 hover:text-white/70 hover:bg-white/[0.06]'>4
+.
+The Discriminant />
+[32] (371,80)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap text-white/50 hover:text-white/70 hover:bg-white/[0.06]'>5
+.
+Applying the Formula />
+[33] (417,506)<canvas  />
+[34] (16,889)<button class='text-white/60 hover:text-white/90 text-xs p-0.5 transition-colors' title='Zoom In' />
+[35] (28,889)<button class='text-white/60 hover:text-white/90 text-xs p-0.5 transition-colors' title='Zoom Out' />
+[36] (41,889)<button class='text-white/60 hover:text-white/90 text-xs p-0.5 transition-colors' title='Reset View' />
+1.00
+×
+x:
+0.00
+|
+y:
+0.00
+The Parabola
+1
+/
+5
+1
+A quadratic function creates a parabola. Here we plot f(x) = x² − 2x − 3.
+f
+(
+x
+)
+=
+x
+2
+−
+2
+x
+−
+3
+f
+(
+x
+)
+=
+x
+2
+−
+2
+x
+−
+3
+[37] (978,285)<button class='text-white/30 hover:text-white/60 transition-colors mt-1 flex-shrink-0' title='Copy LaTeX' />
+[38] (445,946)<button class='p-1.5 rounded-md text-white/50 hover:text-white/80 hover:bg-white/[0.06] transition-colors' title='Home' />
+[39] (463,946)<button class='p-1.5 rounded-md text-white/50 hover:text-white/80 hover:bg-white/[0.06] transition-colors' title='Previous (←)' />
+[40] (484,946)<button class='p-2 rounded-full transition-colors bg-white/[0.08] text-white/70 hover:bg-white/[0.12]' title='Play/Pause (Space)' />
+[41] (505,946)<button class='p-1.5 rounded-md text-white/50 hover:text-white/80 hover:bg-white/[0.06] transition-colors' title='Next (→)' />
+[42] (524,946)<button class='p-1.5 rounded-md text-white/50 hover:text-white/80 hover:bg-white/[0.06] transition-colors' title='End' />
+[43] (555,946)<button class='p-1.5 rounded-md text-white/50 hover:text-white/80 hover:bg-white/[0.06] transition-colors' title='Restart scene (R)' />
+1
+/
+22
+?
+shortcuts
+[44] (81,417)<div class='absolute top-28 left-3 z-30 glass-modal rounded-xl p-4 w-72 max-h-[60vh] overflow-y-auto fade-slide-in' scrollable='true' />
+	Table of Contents
+	[45] (141,145)<button class='text-white/40 hover:text-white/70' />
+	Scene
+	1
+	:
+	The Parabola
+	[46] (82,205)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 bg-white/[0.08] text-white/85'>A quadratic function creates a parabola. Here we plot f(x) =
+... />
+		A quadratic function creates a parabola. Here we plot f(x) =
+		...
+	[47] (82,236)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>The parabola opens upward (a > 0) with its vertex at (1, −4)
+... />
+		The parabola opens upward (a > 0) with its vertex at (1, −4)
+		...
+	[48] (82,267)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>The parabola crosses the x-axis at two points — these are th
+... />
+		The parabola crosses the x-axis at two points — these are th
+		...
+	[49] (82,298)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>The y-intercept is at (0, −3), obtained by evaluating f(0) =
+... />
+		The y-intercept is at (0, −3), obtained by evaluating f(0) =
+		...
+	[50] (82,329)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>The axis of symmetry passes through the vertex at x = −b/(2a
+... />
+		The axis of symmetry passes through the vertex at x = −b/(2a
+		...
+	Scene
+	2
+	:
+	Finding Roots Graphically
+	[51] (82,410)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>Roots occur where f(x) = 0. We can read them from the graph. />
+		Roots occur where f(x) = 0. We can read them from the graph.
+	[52] (82,442)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>But reading from a graph is imprecise. We need an algebraic
+... />
+		But reading from a graph is imprecise. We need an algebraic
+		...
+	[53] (82,473)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>Factoring works here: x² − 2x − 3 = (x + 1)(x − 3) = 0. />
+		Factoring works here: x² − 2x − 3 = (x + 1)(x − 3) = 0.
+	[54] (82,504)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>But what if the roots are irrational? We need a general form
+... />
+		But what if the roots are irrational? We need a general form
+		...
+	Scene
+	3
+	:
+	Completing the Square
+	[55] (82,568)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>Start with the general quadratic: ax² + bx + c = 0. />
+		Start with the general quadratic: ax² + bx + c = 0.
+	[56] (82,599)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>Divide by a: x² + (b/a)x + c/a = 0, then move constant: x² +
+... />
+		Divide by a: x² + (b/a)x + c/a = 0, then move constant: x² +
+		...
+	[57] (82,631)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>Add (b/2a)² to both sides to complete the square. />
+		Add (b/2a)² to both sides to complete the square.
+	[58] (82,662)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>Take the square root of both sides and solve for x. />
+		Take the square root of both sides and solve for x.
+	[59] (82,693)<button class='w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center gap-2 text-white/35 hover:bg-white/[0.04]'>We arrive at the famous quadratic formula! />
+		We arrive at the famous quadratic formula!
+	Scene
+	4
+	:
+	The Discriminant
+	The discriminant Δ = b² − 4ac determines the nature of the r
+	...
+	When Δ > 0, the parabola crosses the x-axis at two distinct
+	...
+	When Δ = 0, the parabola just touches the x-axis at one root
+	...
+	When Δ < 0, the parabola never crosses the x-axis — no real
+	...
+	Scene
+	5
+	:
+	Applying the Formula
+	Let's verify with f(x) = x² − 2x − 3. Here a=1, b=−2, c=−3.
+	Simplifying: x = (2 ± 4)/2, giving x = 3 and x = −1. ✓
+	The vertex x-coordinate is always at x = −b/(2a), the midpoi
+	...
+
+</current_dom>

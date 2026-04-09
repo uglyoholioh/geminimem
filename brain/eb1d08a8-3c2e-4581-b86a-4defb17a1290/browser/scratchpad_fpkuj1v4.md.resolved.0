@@ -1,0 +1,20 @@
+# MathViz UI/UX Verification Task
+
+## Task Checklist
+- [ ] Take initial screenshot of the visualizer state.
+- [ ] Advance to step 4 (right arrow 3 times), taking screenshots at each step.
+- [ ] Open and screenshot Lesson picker.
+- [ ] Open and screenshot TOC panel.
+- [ ] Open and screenshot Shortcuts (Keys).
+- [ ] Resize window to 800x600 and screenshot responsive layout.
+- [ ] Analyze screenshots and report findings.
+
+## Findings
+- Initial state:
+- Step 2:
+- Step 3:
+- Step 4:
+- Lesson Picker:
+- TOC Panel:
+- Shortcuts:
+- Responsive (800x600):

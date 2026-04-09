@@ -1,0 +1,145 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+1
+.
+The Parabola
+2
+.
+Finding Roots Graphically
+3
+.
+Completing the Square
+4
+.
+The Discriminant
+5
+.
+Applying the Formula
+0.67
+×
+x:
+0.00
+|
+y:
+0.00
+The Parabola
+4
+/
+5
+4
+The y-intercept is at (0, −3), obtained by evaluating f(0) = c.
+[0] (500,500)<div  />
+	[1] (500,500)<div  />
+		Lessons
+		19
+		total ·
+		19
+		shown
+		[2] (635,161)<button class='text-white/40 hover:text-white/70' />
+		[3] (500,212)<input class='w-full bg-white/[0.05] border border-white/[0.08] rounded-lg pl-9 pr-3 py-2 text-sm text-white/80 placeholder:text-white/30 outline-none focus:border-white/20 transition-colors' placeholder='Search lessons...' />
+		[4] (371,257)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white/[0.1] text-white/80'>All />
+		[5] (409,257)<button class='px-3 py-1 rounded-md text-xs font-medium transition-colors flex items-center gap-1 text-white/40 hover:text-white/60'>Favorites />
+		[6] (500,567)<div class='flex-1 overflow-y-auto space-y-1.5 pr-1' scrollable='true' />
+			[7] (498,322)<div  />
+				[8] (498,322)<div  />
+					[9] (492,322)<div  />
+						[10] (492,303)<div  />
+							[11] (399,303)<span >Quadratic Formula />
+							[12] (448,303)<span >Algebra />
+						[13] (492,323)<p >Visualize how the quadratic formula solves ax² + bx + c = 0 />
+						[14] (492,344)<div  />
+							[15] (378,344)<span >5
+scenes />
+							[16] (407,344)<span >22
+steps />
+					[17] (624,302)<button class='text-white/20 hover:text-yellow-400 transition-colors mt-0.5' />
+			[18] (498,408)<div  />
+				[19] (498,408)<div  />
+					[20] (492,408)<div  />
+						[21] (492,389)<div  />
+							[22] (413,389)<span >Introduction to Derivatives />
+							[23] (476,389)<span >Calculus />
+						[24] (492,410)<p >Understand derivatives as the slope of tangent lines and instantaneous rate of change />
+						[25] (492,430)<div  />
+							[26] (378,430)<span >4
+scenes />
+							[27] (406,430)<span >16
+steps />
+					[28] (624,388)<button class='text-white/20 hover:text-yellow-400 transition-colors mt-0.5' />
+			[29] (498,494)<div  />
+				[30] (498,494)<div  />
+					[31] (492,494)<div  />
+						[32] (492,475)<div  />
+							[33] (413,475)<span >Unit Circle & Trigonometry />
+							[34] (482,475)<span >Trigonometry />
+						[35] (492,496)<p >Explore the unit circle, sine, cosine, and special angle values />
+						[36] (492,516)<div  />
+							[37] (378,516)<span >4
+scenes />
+							[38] (406,516)<span >16
+steps />
+					[39] (624,474)<button class='text-white/20 hover:text-yellow-400 transition-colors mt-0.5' />
+			[40] (498,580)<div  />
+				[41] (498,580)<div  />
+					[42] (492,580)<div  />
+						[43] (492,561)<div  />
+							[44] (405,561)<span >Pythagorean Theorem />
+							[45] (463,561)<span >Geometry />
+						[46] (492,582)<p >See the classic a² + b² = c² relationship with visual proofs />
+						[47] (492,602)<div  />
+							[48] (378,602)<span >3
+scenes />
+							[49] (406,602)<span >12
+steps />
+					[50] (624,560)<button class='text-white/20 hover:text-yellow-400 transition-colors mt-0.5' />
+			[51] (498,667)<div  />
+				[52] (498,667)<div  />
+					[53] (492,667)<div  />
+						[54] (492,647)<div  />
+							[55] (407,647)<span >Sine and Cosine Waves />
+							[56] (471,647)<span >Trigonometry />
+						[57] (492,668)<p >Explore periodic functions: amplitude, frequency, and phase shift />
+						[58] (492,688)<div  />
+							[59] (378,688)<span >4
+scenes />
+							[60] (406,688)<span >14
+steps />
+					[61] (624,646)<button class='text-white/20 hover:text-yellow-400 transition-colors mt-0.5' />
+			[62] (498,753)<div  />
+				[63] (498,753)<div  />
+					[64] (492,753)<div  />
+						[65] (492,734)<div  />
+							[66] (408,734)<span >The Area Under a Curve />
+							[67] (467,734)<span >Calculus />
+						[68] (492,754)<p >From Riemann sums to the definite integral />
+						[69] (492,775)<div  />
+							[70] (378,775)<span >4
+scenes />
+							[71] (406,775)<span >13
+steps />
+					[72] (624,732)<button class='text-white/20 hover:text-yellow-400 transition-colors mt-0.5' />
+			[73] (498,839)<div  />
+				[74] (498,839)<div  />
+					[75] (492,839)<div  />
+						[76] (492,820)<div  />
+							[77] (407,820)<span >Linear Transformations />
+							[78] (472,820)<span >Linear Algebra />
+						[79] (492,840)<p >Visualize how 2D matrices rotate, scale, and shear the plane />
+						3
+						scenes
+						11
+						steps
+					[80] (624,819)<button class='text-white/20 hover:text-yellow-400 transition-colors mt-0.5' />
+			Taylor Series Approximation
+			Calculus
+			Watch polynomials converge to sin(x) one term at a time
+			4
+			scenes
+			12
+			steps
+			Polar Coordinates & Rose Curves
+			Geometry
+
+</current_dom>

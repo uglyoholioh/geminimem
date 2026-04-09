@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "A comprehensive plan to address font legibility and dynamic visualisation safeguards. We will increase default text weights, canvas stroke weights/fonts globally, and implement an auto-framing projection algorithm that computes bounding volumes of all active mathematical elements to guarantee they never clip or overlap with UI overlays.",
+  "updatedAt":  "2026-04-09T14:53:33.149003Z",
+  "requestFeedback":  true
+}

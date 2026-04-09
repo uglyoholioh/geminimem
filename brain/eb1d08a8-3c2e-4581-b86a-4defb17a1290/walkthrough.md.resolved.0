@@ -1,0 +1,58 @@
+# MathViz Visual Audit
+
+## Issues Found
+
+### 1. 🔴 Duplicate Math Formula in Sidebar
+The right sidebar shows the same math formula **twice** when a step has a `math` property:
+- Once inside the `StepNarrative` component (with copy button)
+- Again in a separate `KaTeXBlock` card below it
+
+````carousel
+![Step 1 showing duplicate f(x) = x² - 2x - 3](/Users/oli/.gemini/antigravity/brain/eb1d08a8-3c2e-4581-b86a-4defb17a1290/initial_visualizer_state_1775745765321.png)
+<!-- slide -->
+```diff
+- {currentStepData?.math && (
+-   <div className="rounded-lg bg-white/[0.03] border border-white/[0.06] px-4 py-3">
+-     <KaTeXBlock latex={currentStepData.math} color="rgba(255,255,255,0.85)" />
+-   </div>
+- )}
+```
+The StepNarrative already renders the math — the separate KaTeXBlock is redundant.
+````
+
+### 2. 🟡 TOC Panel Overlaps Scene Tabs
+The Table of Contents panel (`top-12 left-3`) visually overlaps the scene tabs row behind it, creating confusion.
+
+![TOC overlapping scene tabs](/Users/oli/.gemini/antigravity/brain/eb1d08a8-3c2e-4581-b86a-4defb17a1290/toc_panel_visible_1775745817860.png)
+
+### 3. 🟡 Header/Controls Hidden Initially  
+On lesson load, the header toolbar and playback controls auto-hide due to a 4-second idle timer, but since the user just loaded, they may still be orienting. The step dots and scene tabs also lack a visible progress/playback bar.
+
+### 4. ✅ Elements Verified Working
+- Welcome screen: centered, clean, no overlaps
+- Canvas rendering: parabola, points, labels all render correctly
+- Lesson picker: clean modal with search, tabs, favorites
+- Keyboard shortcuts overlay: well-organized 2-column grid
+- Responsive layout (800x600): sidebar moves to bottom correctly
+- Label collision avoidance on canvas is working (vertex, y-int, root labels don't fully overlap)
+
+## Fixes Applied
+
+| Issue | Fix |
+|-------|-----|
+| Duplicate math formula | Removed redundant KaTeXBlock below StepNarrative |
+| TOC panel overlap | Adjusted top offset from `top-12` to `top-28` to clear all header bars |
+
+## Screenshots
+
+````carousel
+![Welcome screen - clean](/Users/oli/.gemini/antigravity/brain/eb1d08a8-3c2e-4581-b86a-4defb17a1290/welcome_screen_correct_1775745690520.png)
+<!-- slide -->
+![Step 4 with parabola and labels](/Users/oli/.gemini/antigravity/brain/eb1d08a8-3c2e-4581-b86a-4defb17a1290/step_4_state_1775745772552.png)
+<!-- slide -->
+![Lesson picker](/Users/oli/.gemini/antigravity/brain/eb1d08a8-3c2e-4581-b86a-4defb17a1290/lesson_picker_visible_1775745808268.png)
+<!-- slide -->
+![Shortcuts overlay](/Users/oli/.gemini/antigravity/brain/eb1d08a8-3c2e-4581-b86a-4defb17a1290/shortcuts_panel_visible_1775745827401.png)
+<!-- slide -->
+![Responsive 800x600](/Users/oli/.gemini/antigravity/brain/eb1d08a8-3c2e-4581-b86a-4defb17a1290/responsive_layout_800x600_1775745848823.png)
+````

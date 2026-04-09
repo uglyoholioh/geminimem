@@ -1,0 +1,13 @@
+# MathViz Verification Task
+
+## Checklist
+- [ ] Navigate to http://localhost:3000
+- [ ] Click "Try It Now"
+- [ ] Verify math formula duplication in right sidebar (should be once)
+- [ ] Verify TOC panel position (no overlap with tabs)
+- [ ] Verify Info panel position (no overlap with header)
+
+## Findings
+- Duplicate formula issue:
+- TOC overlap issue:
+- Info panel overlap issue:

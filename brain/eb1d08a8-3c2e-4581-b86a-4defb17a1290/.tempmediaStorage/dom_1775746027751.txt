@@ -1,0 +1,10 @@
+MathViz
+Step through interactive math lessons. Explore functions, see relationships, build intuition.
+[0] (425,582)<button class='flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/[0.06] border border-white/[0.08] text-white/70 text-sm hover:bg-white/[0.1] transition-colors'>Browse Lessons />
+[1] (614,582)<button class='flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/[0.1] border border-white/[0.12] text-white/90 text-sm hover:bg-white/[0.15] transition-colors'>Try It Now />
+?
+Shortcuts
+Space
+Play
+←→
+Navigate
