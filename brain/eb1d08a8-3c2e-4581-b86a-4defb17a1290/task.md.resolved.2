@@ -1,0 +1,18 @@
+# MathViz Refactor Tasks
+
+- `[ ]` Extract shared utilities to `src/lib/utils.ts`
+- `[ ]` Create `src/components/common/KaTeX.tsx`
+- `[ ]` Extract UI components from `MathVisualizer.tsx`
+    - `[ ]` `WelcomeScreen.tsx`
+    - `[ ]` `ShortcutsOverlay.tsx`
+    - `[ ]` `ToolbarButton.tsx` (Internal helper if needed, or shareable)
+    - `[ ]` `LessonProgressBar.tsx`
+    - `[ ]` `StepDots.tsx`
+    - `[ ]` `SceneTabs.tsx`
+    - `[ ]` `StepNarrative.tsx`
+    - `[ ]` `LessonInfoPanel.tsx` and `StepTOCPanel.tsx`
+    - `[ ]` `QuickLessonPicker.tsx`
+- `[ ]` Unify `MathCanvas.tsx` with advanced internal logic
+- `[ ]` Update `useMathVizStore` to handle more UI state (if necessary)
+- `[ ]` Refactor `MathVisualizer.tsx` to be a lean orchestrator
+- `[ ]` Verify functionality and fix any broken imports/types

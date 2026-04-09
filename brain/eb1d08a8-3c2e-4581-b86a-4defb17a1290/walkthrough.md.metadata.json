@@ -1,6 +1,6 @@
 {
-  "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
-  "summary":  "A walkthrough explaining the implementation of thicker fonts and the dynamic auto-framing algorithm.",
-  "updatedAt":  "2026-04-09T14:57:33.376321Z",
-  "version":  "1"
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "A comprehensive architectural cleanup of the MathViz project. Monolithic components have been modularized, state management centralized in Zustand, and the canvas engine unified with advanced rendering features.",
+  "updatedAt": "2026-04-09T18:06:11.598846Z",
+  "version": "2"
 }

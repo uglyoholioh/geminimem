@@ -1,6 +1,6 @@
 {
-  "artifactType":  "ARTIFACT_TYPE_TASK",
-  "summary":  "Tasks for implementing thicker typography and dynamic auto-framing safeguards for the MathViz canvas.",
-  "updatedAt":  "2026-04-09T14:55:35.340038Z",
-  "version":  "1"
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Task list for the MathViz codebase refactor. Tracks the extraction of components, unification of canvas logic, and store integration.",
+  "updatedAt": "2026-04-09T18:00:14.457585Z",
+  "version": "2"
 }

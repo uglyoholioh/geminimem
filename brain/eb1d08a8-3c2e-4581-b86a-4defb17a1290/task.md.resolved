@@ -1,7 +1,18 @@
-# MathViz Tasks
+# MathViz Refactor Tasks
 
-- `[x]` Increase base font weight, letter spacing, and size in globals.css.
-- `[x]` Increase stroke width and font thickness in math canvas renderer `renderer.ts`.
-- `[x]` Implement `computeSceneBounds(elements)` in `MathCanvas.tsx`.
-- `[x]` Remove hardcoded DEFAULT_X/Y and inject computed padded boundaries avoiding UI overlap in `MathCanvas.tsx`.
-- `[ ]` Verify clear visibility and robust non-clipping behavior across a heavy lesson layout.
+- `[x]` Extract shared utilities to `src/lib/utils.ts`
+- `[x]` Create `src/components/common/KaTeX.tsx`
+- `[x]` Extract UI components from `MathVisualizer.tsx`
+    - `[x]` `WelcomeScreen.tsx`
+    - `[x]` `ShortcutsOverlay.tsx`
+    - `[x]` `ToolbarButton.tsx` (Internal helper if needed, or shareable)
+    - `[x]` `LessonProgressBar.tsx`
+    - `[x]` `StepDots.tsx`
+    - `[x]` `SceneTabs.tsx`
+    - `[x]` `StepNarrative.tsx`
+    - `[x]` `LessonInfoPanel.tsx` and `StepTOCPanel.tsx`
+    - `[x]` `QuickLessonPicker.tsx`
+- `[x]` Unify `MathCanvas.tsx` with advanced internal logic
+- `[x]` Update `useMathVizStore` to handle more UI state (Managed in component for now as it's UI transit)
+- `[x]` Refactor `MathVisualizer.tsx` to be a lean orchestrator
+- `[x]` Verify functionality and fix any broken imports/types

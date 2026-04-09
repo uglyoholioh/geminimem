@@ -1,0 +1,15 @@
+# Verification Plan - Math Visualization Tutor
+
+## Checklist
+- [ ] Open http://localhost:3000
+- [ ] Verify Welcome Screen
+- [ ] Click 'Try It Now' and load a lesson
+- [ ] Verify math visualization (visible & centered)
+- [ ] Verify 'Lessons' picker (extracted component check)
+- [ ] Verify 'Keys' overlay (extracted component check)
+- [ ] Verify navigation (ArrowRight through steps)
+- [ ] Summarize stability
+
+## Notes
+- Auto-framing algorithm check: Ensure no clipping.
+- Font thickness check: Ensure increased legibility.
